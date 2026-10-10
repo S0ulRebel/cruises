@@ -1,0 +1,308 @@
+{
+  "asset_id": "character_piece:captain_live:boots",
+  "name": "Captain Livé — boots",
+  "character_id": "character:captain_live",
+  "slot": "boots",
+  "asset_type": "character_piece_turnaround",
+  "files": {
+    "sheet": "sheet.png"
+  },
+  "source": {
+    "producer": "OpenAI image generation via ChatGPT",
+    "tool": "image_gen.imagegen",
+    "mode": "built-in",
+    "model_identifier": null,
+    "model_identifier_note": "The built-in tool does not expose a model identifier.",
+    "generated_date": "2026-10-10",
+    "original_filename": "exec-79fd0327-7f78-45bf-b3f8-b2bba65be052.png",
+    "sha256": "3400b0bb4c71ae6b0902d0969f03c56cf38f48b74640d4cbe29c88ed84257c1d",
+    "image_size_px": [
+      2172,
+      724
+    ],
+    "prompt": "Use case: precise-object-edit.\nCorrect ONLY the two profile views in cells 2 and 4 of this four-view boot-pair sheet. Preserve the exact boot design, brown colour, large folded flared cuffs, hollow openings, seams, ankle folds, straps, toes, soles, wear and style. Preserve the FRONT pair in cell 1 and BACK pair in cell 3 as they are.\n\nThe left and right profile cells currently show the far boot diagonally ABOVE and to one side of the near boot, like a perspective three-quarter photograph. That is wrong for reconstruction. Replace cell 2 with a TRUE LEVEL 90-DEGREE ORTHOGRAPHIC LEFT PROFILE of the same pair, toes pointing left. Replace cell 4 with a TRUE LEVEL 90-DEGREE ORTHOGRAPHIC RIGHT PROFILE, toes pointing right. Both boots remain at the same ground height. Their soles must align on the SAME horizontal baseline as the front and back views; the far boot must NOT be elevated or smaller. Their upper rims must also share the same height. The far boot is naturally hidden directly behind the near boot, so a mostly single overlapping profile silhouette is correct. At most a narrow small sliver of the far boot may show from the toe-out stance; no floating second cuff and no raised second sole. Camera level at the middle of the boots, no looking down, no perspective, no three-quarter rotation. Identical boot height and scale across all four views.\n\nKeep the overall wide image and four equal invisible cells. The centres stay at 12.5%, 37.5%, 62.5%, 87.5% of the width. Every pair stays fully inside its own quarter with clear empty vertical background bands. Flat solid pure white background, no shadows, text, labels, markings or dividing lines. Boots only; no legs, filler, trousers or other items.",
+    "generation_history": [
+      {
+        "stage": "initial generation",
+        "original_filename": "exec-701b3c37-0594-4c27-a4b7-f855a685b52a.png",
+        "sha256": "eaa107385d9c645ffed3081f6b7ac80a264aed5b0825715d79f3309cb4c2d953",
+        "prompt": "Use case: stylized-concept.\nAsset type: Captain Livé modular BOOTS piece, one PAIR of boots shown in a four-view reconstruction sheet.\nInput images: Image 1 is the approved fully dressed Captain Livé. Reproduce HIS brown leather boots exactly as the costume reference: tall wrinkled slender shafts, broad flared folded-over cuffs, narrow ankle straps, rounded chunky toes, worn thick soles and low block heels. Image 2 is the new bare body; match its paired foot spacing, slight outward toe angles and separated leg stance. The wearer, bare feet and trousers are not included.\n\nThis is ONE PAIR, rotated as a single assembly for four views. The two boots retain their original relative positions in every view, so the completed model fits both of Livé's feet together. FRONT shows the separated left AND right boot. LEFT profile has toes pointing left and the farther boot naturally occluded behind the nearer boot. BACK shows the back of BOTH separated boots. RIGHT profile has toes pointing right and the farther boot naturally occluded. Do not line eight independently turned boots across the image, do not make the profiles larger, and do not treat these as four views of one single boot. All boots have precisely the same sole-to-cuff height throughout.\n\nGenerate a NEW extra-wide layout, approximately 4:1 aspect ratio, consisting of FOUR EQUAL SQUARE CELLS in one horizontal row, no visible cell borders. Cell centres exactly at one-eighth, three-eighths, five-eighths and seven-eighths of total image width. Each cell contains the complete pair as viewed from its angle. Use generous margins inside every cell. The pair in the front/back cells must fit wholly inside the quarter; no boot may approach another view. There must be broad perfectly empty vertical white bands at every quarter division, distinct from the smaller space between the two boots inside a cell. Give every view one common scale and one common baseline. The boots fill roughly two-thirds of cell height at most so the wider front/back pair fits comfortably. Wider views MUST NOT shrink or overlap; increase the canvas width if needed.\n\nOrder FRONT, LEFT, BACK, RIGHT. Straight level orthographic cameras, no perspective or three-quarter views. Keep the relative pair stance identical in all views, even when the farther boot is hidden. Boots only, no human legs or solid filler in the shafts. Show each open top as a genuine hollow opening wherever the rim makes it visible; show empty white space through the pair and any unobstructed opening, with dark leather lining only where the inner wall is actually seen. Copy the original brown leather colour, cuff flare, folds, straps, seams, broad worn edges and modest scuffs; no added buckles, logos, spurs or new decoration.\n\nFlat solid pure white (#FFFFFF) background, including every corner and gap. No gradients, floor shadows, ground line, texture, labels, dimensions, arrows, callouts, borders, insets or other items. Same cartoon dimensional style and broad soft rendering as the approved Captain reference; never realistic product photography.",
+        "references": [
+          {
+            "role": "approved boot design and rendering style",
+            "path": "art/characters/captain_live/turnaround.png",
+            "sha256": "bcb66fe6213ab55672cb91328f22665a125511d211e3fded0397dd45ac1897fa"
+          },
+          {
+            "role": "new modular body, paired foot spacing and stance",
+            "path": "art/characters/captain_live/pieces/body/sheet.png",
+            "generation_filename": "exec-717881fe-ba84-460b-8e30-24ed8e05f981.png",
+            "sha256": "035b0cc294334cba8db8c19ed26cc245c8436e07de2117379cbc0d7902dc8510",
+            "reference_note": "Hash identifies the exact body generation used; the body slot may subsequently receive a separate revision."
+          }
+        ],
+        "reason_for_revision": "The initial profiles placed the far boot above and behind the near boot as a perspective view. This conflicts with the shared pair stance."
+      },
+      {
+        "stage": "selected profile correction",
+        "edit_target_filename": "exec-701b3c37-0594-4c27-a4b7-f855a685b52a.png",
+        "edit_target_sha256": "eaa107385d9c645ffed3081f6b7ac80a264aed5b0825715d79f3309cb4c2d953",
+        "prompt": "Use case: precise-object-edit.\nCorrect ONLY the two profile views in cells 2 and 4 of this four-view boot-pair sheet. Preserve the exact boot design, brown colour, large folded flared cuffs, hollow openings, seams, ankle folds, straps, toes, soles, wear and style. Preserve the FRONT pair in cell 1 and BACK pair in cell 3 as they are.\n\nThe left and right profile cells currently show the far boot diagonally ABOVE and to one side of the near boot, like a perspective three-quarter photograph. That is wrong for reconstruction. Replace cell 2 with a TRUE LEVEL 90-DEGREE ORTHOGRAPHIC LEFT PROFILE of the same pair, toes pointing left. Replace cell 4 with a TRUE LEVEL 90-DEGREE ORTHOGRAPHIC RIGHT PROFILE, toes pointing right. Both boots remain at the same ground height. Their soles must align on the SAME horizontal baseline as the front and back views; the far boot must NOT be elevated or smaller. Their upper rims must also share the same height. The far boot is naturally hidden directly behind the near boot, so a mostly single overlapping profile silhouette is correct. At most a narrow small sliver of the far boot may show from the toe-out stance; no floating second cuff and no raised second sole. Camera level at the middle of the boots, no looking down, no perspective, no three-quarter rotation. Identical boot height and scale across all four views.\n\nKeep the overall wide image and four equal invisible cells. The centres stay at 12.5%, 37.5%, 62.5%, 87.5% of the width. Every pair stays fully inside its own quarter with clear empty vertical background bands. Flat solid pure white background, no shadows, text, labels, markings or dividing lines. Boots only; no legs, filler, trousers or other items.",
+        "result": "Left and right profiles show the same pair with the far boot occluded behind the near boot, without a raised second cuff or sole."
+      }
+    ],
+    "postprocessing": "None. Selected generated PNG copied byte-for-byte."
+  },
+  "piece": {
+    "contains": "One pair of Captain Livé's tall brown leather boots, two separate hollow boot shells.",
+    "component_count_expected": 2,
+    "pair_is_one_asset": true,
+    "excludes": [
+      "human legs",
+      "feet",
+      "trousers",
+      "body",
+      "other costume pieces",
+      "accessories"
+    ],
+    "design": "Flared folded-over cuffs, narrow wrinkled shafts, ankle straps, chunky rounded toes, thick worn soles and low block heels.",
+    "pose": "T-pose-compatible lower-body stance",
+    "leg_stance": "Pair keeps the separated stance of the supplied body; front and back show both boots, side views naturally occlude the far boot.",
+    "arm_pose": "Not applicable to this piece.",
+    "openings": "Empty boot-top openings are visible in front/back views; no filler legs."
+  },
+  "fit": {
+    "body": "captain_live",
+    "basis": "Approximate fit anchors from the approved legacy character at 1.90 m; dimensions require calibration against the actual rigged body.",
+    "nominal_legacy_character_height_m": 1.9,
+    "nominal_piece_height_m": 0.41,
+    "nominal_top_above_body_ground_m": 0.41,
+    "nominal_bottom_above_body_ground_m": 0,
+    "camera_scale_between_sheets": "Native source pixels differ between piece sheets; do not infer identical physical scale from equal image heights.",
+    "pixel_scale_is_calibrated": false,
+    "reconstructed_dimensions_verified": false,
+    "pair_stance_fit_verified": false,
+    "engine_fit_verified": false
+  },
+  "turnaround": {
+    "order": [
+      "front",
+      "left",
+      "back",
+      "right"
+    ],
+    "camera_requested": "Level orthographic views of one fixed pair assembly.",
+    "camera_parameters_exposed": false,
+    "same_camera_scale_requested": true,
+    "background_requested": "#FFFFFF flat",
+    "actual_background_modal_rgb": [
+      253,
+      253,
+      253
+    ],
+    "actual_background_note": "Near-white variation is present; it is below the repository cutter's tolerance.",
+    "ground_line_note": "Raw bottoms differ by 10 px. The repository cutter places every view on one common output baseline without independently changing view scale.",
+    "measurements": {
+      "views": [
+        {
+          "name": "front",
+          "bbox_xyxy": [
+            23,
+            199,
+            524,
+            596
+          ],
+          "width_px": 501,
+          "height_px": 397,
+          "bottom_inclusive_px": 595
+        },
+        {
+          "name": "left",
+          "bbox_xyxy": [
+            620,
+            195,
+            988,
+            586
+          ],
+          "width_px": 368,
+          "height_px": 391,
+          "bottom_inclusive_px": 585
+        },
+        {
+          "name": "back",
+          "bbox_xyxy": [
+            1114,
+            201,
+            1594,
+            593
+          ],
+          "width_px": 480,
+          "height_px": 392,
+          "bottom_inclusive_px": 592
+        },
+        {
+          "name": "right",
+          "bbox_xyxy": [
+            1724,
+            195,
+            2094,
+            589
+          ],
+          "width_px": 370,
+          "height_px": 394,
+          "bottom_inclusive_px": 588
+        }
+      ],
+      "height_spread_px": 6,
+      "height_spread_fraction": 0.015247776365946633,
+      "bottom_spread_px": 10,
+      "separator_band_widths_px": [
+        96,
+        126,
+        130
+      ]
+    },
+    "extraction": {
+      "tool": "tools/crop_views.py",
+      "arguments": [
+        "--row",
+        "0",
+        "1",
+        "--count",
+        "4",
+        "--names",
+        "front",
+        "left",
+        "back",
+        "right"
+      ],
+      "cell_edges_x": [
+        0,
+        543,
+        1086,
+        1629,
+        2172
+      ],
+      "rationale": "Equal-quarter cells preserve both boots as one asset view. Automatic gap detection finds six spans by splitting the front/back pairs and MUST NOT be used for this sheet.",
+      "dry_run_verified": true,
+      "native_square_px": 673,
+      "default_output_square_px": 1024,
+      "default_upscale_note": "The cutter's default output upsamples 673 px to 1024 px; this does not add source detail."
+    }
+  },
+  "validation": {
+    "visual_review": "Matching front/back boot pairs and left/right profile silhouettes. No legs, filler, trousers or unrelated objects. Equal cells contain the complete pair and have clear white separators.",
+    "no_foreground_clipping_in_recommended_cells": true,
+    "profile_pair_perspective_error_corrected": true,
+    "source_image_edited_only_with": "image_gen.imagegen",
+    "raw_height_spread_note": "1.52% measured spread; the character-piece brief does not impose the prop-specific 1 px threshold.",
+    "reconstructed_geometry_verified": false,
+    "disconnected_pair_reconstruction_verified": false,
+    "final_extraction": {
+      "sheet_size_px": [
+        2172,
+        724
+      ],
+      "background_rgb": [
+        253,
+        253,
+        253
+      ],
+      "source_view_bounds": [
+        {
+          "name": "front",
+          "bbox_xyxy": [
+            23,
+            199,
+            524,
+            596
+          ],
+          "height_px": 397,
+          "width_px": 501,
+          "bottom_inclusive_px": 595
+        },
+        {
+          "name": "left",
+          "bbox_xyxy": [
+            620,
+            195,
+            988,
+            586
+          ],
+          "height_px": 391,
+          "width_px": 368,
+          "bottom_inclusive_px": 585
+        },
+        {
+          "name": "back",
+          "bbox_xyxy": [
+            1114,
+            201,
+            1594,
+            593
+          ],
+          "height_px": 392,
+          "width_px": 480,
+          "bottom_inclusive_px": 592
+        },
+        {
+          "name": "right",
+          "bbox_xyxy": [
+            1724,
+            195,
+            2094,
+            589
+          ],
+          "height_px": 394,
+          "width_px": 370,
+          "bottom_inclusive_px": 588
+        }
+      ],
+      "source_height_spread_px": 6,
+      "source_baseline_spread_px": 10,
+      "gap_widths_px": [
+        96,
+        126,
+        130
+      ],
+      "foreground_pixels_lost": 0,
+      "native_square_px": 673,
+      "extracted_ground_line_px": 592,
+      "all_four_extracted_baselines_equal": true,
+      "source_image_modified": false,
+      "source_resampling_applied": false,
+      "crop_cli_args": [
+        "--row",
+        "0",
+        "1",
+        "--names",
+        "front",
+        "left",
+        "back",
+        "right",
+        "--count",
+        "4"
+      ],
+      "recommended_command": "python tools/crop_views.py art/characters/captain_live/pieces/boots/sheet.png --row 0 1 --names front left back right --count 4 --size 673 --out art/characters/captain_live/pieces/boots/views",
+      "after_two_x_upscale_px": 1346
+    },
+    "source_framing_precision": "Native height and baseline differences are recorded in final_extraction; do not describe all source sheets as pixel-exact. Extracted inputs share one per-piece scale and baseline."
+  },
+  "pipeline": {
+    "status": "source_sheets_ready_for_tripo_experiment",
+    "view_extraction": "tools/crop_views.py using validation.final_extraction.recommended_command",
+    "three_d_generator_allowed": "Tripo only",
+    "forbidden_generators": [
+      "Hunyuan3D",
+      "HY-Motion"
+    ],
+    "nc_models_used": false,
+    "pieces_unrigged": true,
+    "deformation": "Copy weights from the fitted rigged body in T-pose.",
+    "reconstruction_tested": false,
+    "engine_import_tested": false,
+    "ready_for_reconstruction_experiment": true,
+    "reconstruction_complete": false,
+    "engine_fit_verified": false
+  }
+}

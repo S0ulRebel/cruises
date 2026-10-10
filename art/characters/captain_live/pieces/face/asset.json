@@ -1,0 +1,197 @@
+{
+  "asset_id": "character_piece:captain_live:face",
+  "name": "Captain Livé — moustache and small chin tuft",
+  "asset_type": "character_piece_turnaround",
+  "character_id": "captain_live",
+  "slot": "face",
+  "files": {
+    "sheet": "sheet.png"
+  },
+  "source": {
+    "producer": "OpenAI image generation via ChatGPT",
+    "tool": "image_gen.imagegen",
+    "model_identifier": "not exposed by the built-in tool",
+    "created_utc": "2026-10-10",
+    "original_filename": "exec-428bb6e9-97e1-445d-b75a-8025b8c21b38.png",
+    "sha256": "4e7ed2070ff4802950e0f734a332aa8576b57ac421e158f7d7f9112e2f365837",
+    "reference_files": [
+      {
+        "path": "art/characters/captain_live/turnaround.png",
+        "role": "approved design and style",
+        "sha256": "bcb66fe6213ab55672cb91328f22665a125511d211e3fded0397dd45ac1897fa"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/head/sheet.png",
+        "role": "clean open-mouth head for anatomical attachment positions",
+        "sha256": "4d2e6ecee83fc81c6af8fe9df18ea9e7eb81b84630eff272a09b8c9b71227f81"
+      }
+    ],
+    "generation_history": [
+      {
+        "operation": "generate isolated facial-hair assembly",
+        "prompt": "Use case: identity-preserve. Captain Livé modular FACE facial-hair piece, four-view modelling sheet for 3D reconstruction.\nInput1 is the approved complete Captain, the design authority for his facial hair. Input2 is his new open-mouth clean-shaven head, used ONLY to fit facial hair positions and scale. Do NOT render any head or skin.\nCreate ONLY the facial-hair assembly: ONE small continuous dark espresso-brown moustache with two slim outward-swept pointed wings JOINED AT THE CENTRE under the nose, and ONE tiny pointed dark chin tuft/goatee located below it at the tip of his long chin. These two disconnected islands are the single requested face slot. Preserve their relative anatomical positions from the Captain reference. His moustache is restrained and slim, not an enormous handlebar, bushy beard, ringlet curls or broad smile. Each wing sweeps outward and slightly back toward the cheek from the attached central philtrum; it is ONE layer, no extra forward-floating set of whiskers. The moustache attaches snugly above the open upper lip. The tiny chin tuft does NOT connect to the moustache: clean white background between them. No skin bridge, mouth, teeth, tongue, nose, ears, cheeks, head, neck, sideburns, scalp hair, eyebrows, hat or stand.\nOne coherent turnaround of the EXACT SAME assembled facial-hair component: FRONT, LEFT profile (the component's front points left), BACK showing the attachment-facing reverse surfaces of those SAME moustache and chin tuft, RIGHT profile (front points right). Orthographic and level, same scale and orientation around a vertical axis. Both profile projections remain narrow; do not enlarge their depth to fill a frame. Rear view has the reverse of the moustache and little goatee, not an extra front view.\nLayout: wide landscape high-resolution sheet, FOUR EQUAL-WIDTH INVISIBLE CELLS. Each cell contains precisely one moustache plus its small lower chin tuft together at the same spacing; keep all disconnected islands within their own cell. Whole object visible, same top height and bottom baseline across four. Large clear vertical white bands between cells. Pure flat white RGB255 background, no texture, shadows on background, labels, callouts, text, borders or diagrams.\nStyle: same clean dimensional stylized cartoon rendering and warm dark brown hair as approved Captain, simple visible clumps and restrained shading, no realistic individual hair filaments. Fitted to the approved Captain's narrow face (assembled character1.90m); moustache roughly0.13m wide, face assembly roughly0.10m from top of moustache to bottom of little chin tuft. Those are proportions, do not print measurements. Mouth must remain completely unobstructed when this assembly is fitted.",
+        "output_filename": "exec-a9f71a06-5300-467f-8539-9cb56cae1895.png",
+        "output_sha256": "022e8ae6e525ab959b5979844444f0c1174d9bb144f415e6c4f5cd51773c2bec"
+      },
+      {
+        "operation": "slim moustache, reduce chin tuft, correct backward sweep of profile wings",
+        "prompt": "Use case: precise-object-edit.\nInput1 is the FACE facial-hair sheet to edit. Input2 is the approved Captain reference for the exact SMALL restrained moustache and TINY chin dot. This is one modular facial-hair piece, no head.\nCorrect the facial-hair proportions in all four views while keeping the same layout, dark-brown colour and clean cartoon rendering:\n1. Make the moustache noticeably SLIMMER: retain its existing overall front/back WIDTH and centre attachment, but reduce the vertical thickness of both broad bushy lobes by about HALF. It should be the Captain's thin outward-swept pointed moustache, not a large bushy handlebar. Two lobes meet as ONE continuous attached moustache at the philtrum, no second layer.\n2. The little lower goatee in each view is far too big. Replace each with a TINY pointed chin tuft, about ONE THIRD its present height and HALF its present width, retaining its bottom attachment reference position. It is a tiny dark chin accent, not a long beard. Leave a large empty white gap between moustache and chin tuft.\n3. Correct PROFILE direction. In the SECOND view (LEFT side, the Captain's nose would point LEFT), the moustache's rounded central attachment is at the LEFT and its thin outer wing sweeps BACK toward the RIGHT. In the FOURTH view (RIGHT side, nose would point RIGHT), rounded central attachment at RIGHT and pointed outer wing sweeps BACK toward the LEFT. The tips sweep backward along the cheeks, never forward in front of the nose. Front remains first, reverse attachment-surface/back remains third. Do not swap the front/back views.\nNo skin, cheek patches, sideburns, mouth, teeth, nose or head may be added. Still exactly four views of the same two-island facial-hair component. Same camera scale within the four views, aligned moustache centre heights and tiny chin-tuft bottom baseline, every object fully visible. Preserve generous clear white separator bands and plain white background. No labels, text, shadows or other objects.",
+        "output_filename": "exec-47351b3b-2b33-4d6d-b3ed-169cc29a500c.png",
+        "output_sha256": "caad8ef0b1e4255d1be48eb7053466eda3d50b23aef557ad6a10df14dae884eb"
+      },
+      {
+        "operation": "refine vertical registration across four views",
+        "prompt": "Use case: precise-object-edit. Edit ONLY the small vertical registration differences in this existing four-view facial-hair sheet. Preserve the exact same dark brown slim connected moustache and tiny chin tuft, profile direction, width, colour, rendering, white background, four-view order and horizontal positions.\nThe selected source is1881x836. Target a single physical scale and shared levels:\n- In all FOUR views, moustache highest edge should sit at the same horizontal level, approximately image y304, and its lowest contour at approximately y398. The current profile lobes begin about10pixels too high and are slightly too thick vertically; reduce only that excess profile height. Front and back moustache WIDTHS stay the same. Do not enlarge narrow profiles.\n- All FOUR tiny chin tufts have matching vertical placement, top abouty474, bottom abouty548. The back tuft is currently3pixels too low: align its lower tip with the other three. Keep all tufts TINY and separate from the moustache.\nThese pixel coordinates are placement instructions ONLY; never write them or any text on the image. All four groups stay complete and separated by the same white bands. Retain true front, left, reverse/back, right order; profile wings sweep backwards along cheeks, never forwards. No skin, face, sideburns, extra moustache set or new objects. No further design changes.",
+        "output_filename": "exec-03afd685-60bc-4445-90f7-e104f5e821e1.png",
+        "output_sha256": "90b500b8d7560d138d769602ba567e24b74c35b97ffe4230fb29733d9d2192a6"
+      },
+      {
+        "operation": "lower tiny chin tufts toward the open-mouth chin tip",
+        "prompt": "Use case: precise-object-edit.\nInput1 is the four-view facial-hair sheet to edit. Input2 is the clean open-mouth head this facial-hair piece must fit, included ONLY as anatomical reference. Do not render the head in the output.\nKEEP THE MOUSTACHES ABSOLUTELY UNCHANGED: exact same size, outline, thickness, hair texture, positions, front/left/back/right directions, single continuous centre attachment. Keep the tiny chin tufts exactly their existing small sizes and shape. No redrawing of facial hair.\nChange ONLY the POSITION of the four lower TINY CHIN TUFTS to fit the tip of this long open-mouth chin. They currently sit much too close to the moustache, where the open mouth and lower lip would be. Move EVERY chin tuft DOWN by approximately200pixels, placing all four lowest tips around y746 on this1881x836 sheet. This should leave a much larger clear white vertical gap under the moustache — about275pixels between its lower edge and the tuft's top — because a large open mouth and long pointed chin must fit between them.\nFor the FRONT and BACK views, keep the tuft centred directly below the moustache. For the SECOND LEFT profile, also shift the tiny tuft approximately50pixels LEFT, a little forward of the moustache's rounded front attachment, since Livé's pointed chin juts forward. For the FOURTH RIGHT profile, shift it approximately50pixels RIGHT by the matching amount. Do not move the moustache itself. Retain generous white room between all four view groups.\nResult is still ONLY two disconnected hair islands in each of four views, with correct relative placement on the invisible head: moustache at upper lip, tiny tuft at pointed chin tip. No skin bridges, heads, facial outlines, guide marks, mouth, labels, text or additional hair. Preserve flat white background and all other pixels/design as closely as possible.",
+        "output_filename": "exec-366d11d0-1ddb-4c9a-95c1-436baea0034a.png",
+        "output_sha256": "bab366bdfa39d4ca11b340a40bf0dd83092aed661b2a4a72198e29eada212e29"
+      },
+      {
+        "operation": "move the tiny chin tuft down and slightly forward to the actual long open-mouth chin tip",
+        "prompt": "Use case: precise-object-edit. This is ONLY a placement correction on the existing1881x836 four-view facial-hair image.\nKeep every MOUSTACHE pixel and its position unchanged in the upper band around y305..400. Keep all four tiny chin tufts their exact existing SIZE and shape — do not grow them.\nMove the four TINY LOWER CHIN TUFTS farther DOWN by100pixels from their present positions. The lowest tips of all four tufts must end near y760, just about76pixels above the BOTTOM of this836pixel-high canvas. Put the tufts near the bottom of the sheet, not near the middle. Their upper edges should be around y690, leaving roughly290pixels of entirely empty white background between the moustache's bottom and the tiny tuft's top.\nFront and back tufts keep their existing horizontal centres. Second/LEFT profile tuft moves30pixels toward image-left; fourth/RIGHT profile tuft moves30pixels toward image-right. This aligns the tufts with the long pointed chin of Captain Livé. The moustache and tuft are separate islands attached to an invisible head; do not connect them.\nThe result still has exactly four FRONT LEFT BACK RIGHT groups, each containing a single connected moustache plus a tiny distant lower chin tuft. All groups fully visible, same final lower baseline. Do not change moustache shapes, profile sweep directions, colours, background, camera or image size. No skin, head, mouth, text, labels, guides, new hair, extra objects, shadows or decorations.",
+        "output_filename": "exec-428bb6e9-97e1-445d-b75a-8025b8c21b38.png",
+        "output_sha256": "4e7ed2070ff4802950e0f734a332aa8576b57ac421e158f7d7f9112e2f365837"
+      }
+    ],
+    "postprocessing": "none; selected imagegen output copied unchanged; no source upscale applied"
+  },
+  "presentation": {
+    "view_order": [
+      "front",
+      "left",
+      "back",
+      "right"
+    ],
+    "camera": "level front/left/back/right elevations of the same posed component",
+    "pose": "Facial-hair assembly fitted on the upright open-mouth head; two intentional disconnected islands per view",
+    "components": [
+      "one connected slim moustache, outward and backward swept",
+      "one tiny pointed chin tuft"
+    ],
+    "background": "plain near-white with low RGB variation below the repository cutter tolerance",
+    "lighting": "baked soft dimensional cartoon shading matching the approved Captain; Tripo removes source lighting in texturing"
+  },
+  "fit": {
+    "character_id": "captain_live",
+    "legacy_assembled_height_m": 1.9,
+    "nominal_dimensions_are_estimates": true,
+    "height_scope": "Width is an approximate facial fitting guide only. Use the actual open-mouth head to align both islands without independently stretching the whole assembly.",
+    "note": "Moustache has one continuous centre attachment under the nose, not a second forward-floating layer. The chin tuft is separated below the mouth at the long chin tip. In profiles it sits slightly forward of the upper-lip attachment. No sideburns or skin patches are included.",
+    "independent_axis_stretching_allowed": false,
+    "uniform_metric_fit_required": true,
+    "shared_raster_scale_with_body_verified": false,
+    "engine_fit_verified": false,
+    "nominal_width_m": 0.13
+  },
+  "pipeline": {
+    "status": "source_sheets_ready_for_tripo_experiment",
+    "rigging": "Unrigged facial-hair component; fit onto the separate head, with head/face attachment handled by the dresser.",
+    "three_d_generator_allowed": "Tripo only",
+    "forbidden_generators": [
+      "Hunyuan3D",
+      "HY-Motion"
+    ],
+    "nc_models_used": false,
+    "reconstruction_complete": false,
+    "engine_import_complete": false,
+    "ready_for_reconstruction_experiment": true,
+    "view_extraction": "tools/crop_views.py using validation.final_extraction.recommended_command",
+    "engine_fit_verified": false
+  },
+  "validation": {
+    "visual_review_complete": true,
+    "reconstructed_geometry_verified": false,
+    "final_extraction": {
+      "sheet_size_px": [
+        1882,
+        836
+      ],
+      "background_rgb": [
+        253,
+        253,
+        253
+      ],
+      "source_view_bounds": [
+        {
+          "name": "front",
+          "bbox_xyxy": [
+            37,
+            303,
+            545,
+            740
+          ],
+          "height_px": 437,
+          "width_px": 508,
+          "bottom_inclusive_px": 739
+        },
+        {
+          "name": "left",
+          "bbox_xyxy": [
+            611,
+            295,
+            866,
+            739
+          ],
+          "height_px": 444,
+          "width_px": 255,
+          "bottom_inclusive_px": 738
+        },
+        {
+          "name": "back",
+          "bbox_xyxy": [
+            938,
+            304,
+            1444,
+            740
+          ],
+          "height_px": 436,
+          "width_px": 506,
+          "bottom_inclusive_px": 739
+        },
+        {
+          "name": "right",
+          "bbox_xyxy": [
+            1519,
+            293,
+            1779,
+            739
+          ],
+          "height_px": 446,
+          "width_px": 260,
+          "bottom_inclusive_px": 738
+        }
+      ],
+      "source_height_spread_px": 10,
+      "source_baseline_spread_px": 1,
+      "gap_widths_px": [
+        66,
+        72,
+        75
+      ],
+      "foreground_pixels_lost": 0,
+      "native_square_px": 629,
+      "extracted_ground_line_px": 553,
+      "all_four_extracted_baselines_equal": true,
+      "source_image_modified": false,
+      "source_resampling_applied": false,
+      "crop_cli_args": [
+        "--row",
+        "0",
+        "1",
+        "--names",
+        "front",
+        "left",
+        "back",
+        "right"
+      ],
+      "recommended_command": "python tools/crop_views.py art/characters/captain_live/pieces/face/sheet.png --row 0 1 --names front left back right --size 629 --out art/characters/captain_live/pieces/face/views",
+      "after_two_x_upscale_px": 1258
+    },
+    "source_framing_precision": "Native height and baseline differences are recorded in final_extraction; do not describe all source sheets as pixel-exact. Extracted inputs share one per-piece scale and baseline."
+  }
+}

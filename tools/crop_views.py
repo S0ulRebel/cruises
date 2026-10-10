@@ -109,7 +109,28 @@ def find_figures(mask: np.ndarray, min_gap: int,
     if spans:
         widest = max(b - a for a, b in spans)
         spans = [s for s in spans if (s[1] - s[0]) > widest * min_width_ratio]
-    return spans
+    if not spans:
+        return []
+
+    # The occupancy threshold finds the views, but is not a safe crop boundary:
+    # a fingertip can occupy too few rows to pass it. Recover those quiet foreground
+    # columns, stopping at real background. Bound each expansion between its
+    # neighbours so a low-level shadow/noise bridge cannot merge separate views.
+    boundaries = [0]
+    for (_, end), (start, _) in zip(spans, spans[1:]):
+        empty = np.flatnonzero(per_column[end:start] == 0)
+        boundary = end + int(empty[len(empty) // 2]) if empty.size else (end + start) // 2
+        boundaries.append(boundary)
+    boundaries.append(len(per_column))
+
+    expanded = []
+    for index, (start, end) in enumerate(spans):
+        while start > boundaries[index] and per_column[start - 1] > 0:
+            start -= 1
+        while end < boundaries[index + 1] and per_column[end] > 0:
+            end += 1
+        expanded.append((start, end))
+    return expanded
 
 
 def main() -> int:

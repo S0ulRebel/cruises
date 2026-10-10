@@ -1,0 +1,174 @@
+{
+  "asset_id": "character_piece:captain_live:waist",
+  "name": "Captain Livé — red waist sash",
+  "asset_type": "character_piece_turnaround",
+  "character_id": "captain_live",
+  "slot": "waist",
+  "files": {
+    "sheet": "sheet.png"
+  },
+  "source": {
+    "producer": "OpenAI image generation via ChatGPT",
+    "tool": "image_gen.imagegen",
+    "model_identifier": "not exposed by the built-in tool",
+    "created_utc": "2026-10-10",
+    "original_filename": "exec-7ddd82a3-f4de-4663-ae20-fae7676cc7b3.png",
+    "sha256": "9de8d261459537d62f4cabb1b61a9cfca72c100426bcd8f82c3d0c7b8f0986ef",
+    "reference_files": [
+      {
+        "path": "art/characters/captain_live/turnaround.png",
+        "role": "approved design and style",
+        "sha256": "bcb66fe6213ab55672cb91328f22665a125511d211e3fded0397dd45ac1897fa"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/body/sheet.png",
+        "role": "provisional bare body proportions; the hands were refined after this sash generation",
+        "generation_time_hash_captured": false
+      }
+    ],
+    "generation_history": [
+      {
+        "operation": "generate isolated coherent wrapped sash",
+        "prompt": "Use case: identity-preserve. Captain Livé modular WAIST SASH only, a four-view sheet for reconstructing one 3D cloth piece.\nInput1 approved complete Captain is the exact costume/style reference. Input2 bare base body is only a fitting reference; never render a body or mannequin.\nExtract the vivid deep scarlet RED FABRIC WAIST SASH from the Captain. Wide layered wrapped band fitted around his very slender waist, with a tied knot at the front centre and the same long narrow uneven dangling red tails with ragged torn tips reaching nearly to shin height. The reference also shows a shorter red tucked fold/tail behind the band; preserve it as part of the same wrapped sash, not a second independent belt. One physically coherent wrap with front long tails; in the rear view those SAME long front tails are still visible from behind because no body is present to hide them. All views have the identical full tail length and lowest point.\nThis is ONLY the red fabric sash: NO coat, trousers, shirt, leather belt, brass buckle, buttons, skin, torso, legs, supporting body, stand, props or other costume. Do not include the coat's hip fasteners. Satin-like worn matte cloth with broad readable creases, simple dimensional cartoon shading, frayed chunky cut edges, matching saturated red and wear in approved art.\nFour coherent views of the exact same sash rotated around the same vertical axis, LEFT TO RIGHT: FRONT showing centre knot and front tails, LEFT SIDE (front points left), BACK showing back of wrapped band and back of the same hanging tails, RIGHT SIDE (front points right). Straight orthographic elevations, no perspective or three-quarter rotations, same pose/shape in every view, no wind or acting.\nHigh-resolution wide sheet, four equal-width invisible cells, one entire sash assembly centred in each. Identical camera scale; top band height and bottom tail tip baseline exactly common. Side profiles remain naturally narrower than front and back; never magnify them. Generous vertical bands of empty white background between all views. Whole piece fully visible.\nBackground plain flat pure white RGB255,255,255 with no gradient, shadows, noise, text, labels, callouts, borders or graphic ground line. Where the wrapped band has an open waist cavity or a gap between tails it is EMPTY background, not a filled human-shaped solid. Preserve body-sized physical proportions for the approved 1.90m assembled Captain: waist approx1.07m above his original floor; front tails end near0.38m, so the sash component is about0.69m high. These are fitting guides only, do not print measurements.",
+        "output_filename": "exec-7ddd82a3-f4de-4663-ae20-fae7676cc7b3.png",
+        "output_sha256": "9de8d261459537d62f4cabb1b61a9cfca72c100426bcd8f82c3d0c7b8f0986ef"
+      }
+    ],
+    "postprocessing": "none; selected imagegen output copied unchanged; no source upscale applied"
+  },
+  "presentation": {
+    "view_order": [
+      "front",
+      "left",
+      "back",
+      "right"
+    ],
+    "camera": "level front/left/back/right elevations of the same posed component",
+    "pose": "Wrapped around the same body waist in its neutral rigging stance; no sleeves or independent arm pose",
+    "components": [
+      "one red wrapped sash band",
+      "front knot and long ragged tails",
+      "shorter rear tucked tail"
+    ],
+    "background": "plain near-white with low RGB variation below the repository cutter tolerance",
+    "lighting": "baked soft dimensional cartoon shading matching the approved Captain; Tripo removes source lighting in texturing"
+  },
+  "fit": {
+    "character_id": "captain_live",
+    "legacy_assembled_height_m": 1.9,
+    "nominal_dimensions_are_estimates": true,
+    "height_scope": "Approximate original waist y = 1.07 m to long tail tip y = 0.38 m above the legacy ground; not a measured mesh dimension.",
+    "note": "Front long tails remain visible from the rear because the isolated sash has no body hiding them. Fit to the actual rigged waist in T-pose. The waist aperture still needs checking in the reconstructed mesh.",
+    "independent_axis_stretching_allowed": false,
+    "uniform_metric_fit_required": true,
+    "shared_raster_scale_with_body_verified": false,
+    "engine_fit_verified": false,
+    "nominal_height_m": 0.69
+  },
+  "pipeline": {
+    "status": "source_sheets_ready_for_tripo_experiment",
+    "rigging": "Unrigged source piece; copy body weights after fitting to the body T-pose.",
+    "three_d_generator_allowed": "Tripo only",
+    "forbidden_generators": [
+      "Hunyuan3D",
+      "HY-Motion"
+    ],
+    "nc_models_used": false,
+    "reconstruction_complete": false,
+    "engine_import_complete": false,
+    "ready_for_reconstruction_experiment": true,
+    "view_extraction": "tools/crop_views.py using validation.final_extraction.recommended_command",
+    "engine_fit_verified": false
+  },
+  "validation": {
+    "visual_review_complete": true,
+    "reconstructed_geometry_verified": false,
+    "final_extraction": {
+      "sheet_size_px": [
+        1882,
+        836
+      ],
+      "background_rgb": [
+        254,
+        254,
+        254
+      ],
+      "source_view_bounds": [
+        {
+          "name": "front",
+          "bbox_xyxy": [
+            158,
+            33,
+            421,
+            793
+          ],
+          "height_px": 760,
+          "width_px": 263,
+          "bottom_inclusive_px": 792
+        },
+        {
+          "name": "left",
+          "bbox_xyxy": [
+            612,
+            22,
+            866,
+            787
+          ],
+          "height_px": 765,
+          "width_px": 254,
+          "bottom_inclusive_px": 786
+        },
+        {
+          "name": "back",
+          "bbox_xyxy": [
+            1060,
+            23,
+            1324,
+            793
+          ],
+          "height_px": 770,
+          "width_px": 264,
+          "bottom_inclusive_px": 792
+        },
+        {
+          "name": "right",
+          "bbox_xyxy": [
+            1523,
+            22,
+            1775,
+            787
+          ],
+          "height_px": 765,
+          "width_px": 252,
+          "bottom_inclusive_px": 786
+        }
+      ],
+      "source_height_spread_px": 10,
+      "source_baseline_spread_px": 6,
+      "gap_widths_px": [
+        191,
+        194,
+        199
+      ],
+      "foreground_pixels_lost": 0,
+      "native_square_px": 954,
+      "extracted_ground_line_px": 839,
+      "all_four_extracted_baselines_equal": true,
+      "source_image_modified": false,
+      "source_resampling_applied": false,
+      "crop_cli_args": [
+        "--row",
+        "0",
+        "1",
+        "--names",
+        "front",
+        "left",
+        "back",
+        "right"
+      ],
+      "recommended_command": "python tools/crop_views.py art/characters/captain_live/pieces/waist/sheet.png --row 0 1 --names front left back right --size 954 --out art/characters/captain_live/pieces/waist/views",
+      "after_two_x_upscale_px": 1908
+    },
+    "source_framing_precision": "Native height and baseline differences are recorded in final_extraction; do not describe all source sheets as pixel-exact. Extracted inputs share one per-piece scale and baseline."
+  }
+}

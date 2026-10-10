@@ -1,0 +1,319 @@
+{
+  "asset_id": "character_piece:captain_live:coat",
+  "name": "Captain Livé — long dark coat",
+  "role": "Captain Livé modular coat",
+  "asset_type": "character_piece_turnaround",
+  "character_id": "captain_live",
+  "slot": "coat",
+  "files": {
+    "sheet": "sheet.png"
+  },
+  "source": {
+    "producer": "OpenAI built-in image generation via ChatGPT",
+    "tool": "image_gen.imagegen",
+    "model": "Model identifier not exposed by the built-in tool",
+    "created_date": "2026-10-10",
+    "original_filename": "exec-16f84709-cdf2-46e7-853a-3f7c3de92689.png",
+    "sha256": "6cdbfe7f956d8ea85feea4a0e4c81e6c56e018f79bf20940aae1a66d041b3bd2",
+    "references": [
+      {
+        "path": "art/characters/captain_live/turnaround.png",
+        "sha256": "bcb66fe6213ab55672cb91328f22665a125511d211e3fded0397dd45ac1897fa",
+        "role": "Approved costume design, rendering style and proportions"
+      },
+      {
+        "generation_filename": "exec-717881fe-ba84-460b-8e30-24ed8e05f981.png",
+        "sha256": "035b0cc294334cba8db8c19ed26cc245c8436e07de2117379cbc0d7902dc8510",
+        "role": "Bald body v1 fitting reference; final body may receive finger-only edits"
+      }
+    ],
+    "generation_prompt": "Use case: stylized-concept.\nAsset type: Captain Livé modular COAT reconstruction turnaround for the cartoony 3D adventure game.\nImage 1 is the approved dressed Captain; copy ONLY his dark long coat design, gold edge piping, broad red outer cuffs, red lining and worn ragged tails, and the same soft dimensional stylized rendering. Image 2 is the bald bare Captain body; use ONLY its narrow shoulders, thin torso and long slender arms as a fitting reference. Neither person appears in the result.\n\nCreate ONE isolated EMPTY COAT viewed exactly FOUR times in one horizontal row. Order left to right FRONT, LEFT PROFILE, BACK, RIGHT PROFILE. No written labels. In view 2, the coat FRONT/lapel opening faces IMAGE-LEFT. In view 4, the coat FRONT/lapel opening faces IMAGE-RIGHT. It is the same garment turned around, at one orthographic scale. The back view is the actual back, including the long centre split between the tails, without front lapels.\n\nDesign: the Captain's narrow fitted warm black/dark brown long pirate coat, broad stylized cloth folds and subtle worn edges, thin aged gold piping along collar/lapels and outer tail edges, small muted brass hip fasteners, deep red interior lining, long ragged split tails to around the upper calves, and oversized folded-back DARK RED CUFFS. Keep the coat’s black/brown outer back fabric. Preserve the red lining only on real inner surfaces and turned edges, not as added ribbons or a belt. Fitted total collar-to-longest-hem height approximately0.97m, shoulder-to-hem about0.95m, wrist-to-wrist span about1.25m, on the slender body in reference2; full assembled Captain including hat/feather uses the legacy1.90m envelope. These are proportional guides, not in-image text.\n\nPOSE: COAT IN A PERFECT T-POSE, arms straight out SIDWAYS HORIZONTAL at shoulder level. Both long sleeves have level horizontal centre lines all the way to the red cuffs. Front and back show the complete broad T shape, with clear white background immediately below both armpits and under the arms. No drooping, angled-down, bent-elbow or A-pose sleeves. In the two true 90-degree side elevations, horizontal sleeves are naturally FORESHORTENED END-ON at shoulder height. Show the open red cuff aperture facing the camera, not a sleeve hanging down beside the torso. The two side garments have the natural narrow width of the coat’s depth; never enlarge them to match front/back width.\n\nEMPTY GARMENT ONLY. No visible body, neck, head, face, hair, hands, skin, feet, mannequin, supports or ghost figure. No shirt, no white collar, no white cuffs or ruffles, no sash, no belt, no trousers, no boots, no hat, no feather, no weapons or jewellery. The coat's front is open and empty; the back panel/lining can be visible where physically behind the opening. Sleeve openings are hollow: the central cuff aperture shows the PURE WHITE BACKGROUND in BOTH profile views, surrounded by thin shaded red cuff lining; no solid black plug, no skin or filled sleeve.\n\nCAMERA AND LAYOUT: four whole garments, same scale, same collar-top level and same lowest-hem baseline in every view, strict level orthographic front/left/back/right with no perspective, no tilted camera and no 3/4 angle. Front and back have equal overall width and height. One coherent construction and wear pattern across all angles. Wide clear vertical bands of empty white background between all four objects; nothing touches or overlaps. Leave all sleeve ends, cuffs and tail tips safely inside frame.\n\nBACKGROUND: flat plain pure white RGB255,255,255, corners and all gaps identical white. No cast shadows, gradient, paper texture, ground plane or vignette. Shared ground line is an invisible alignment, NEVER a drawn line. Soft neutral even form shading on garment only, broad readable cartoon folds, saturated but worn red and dirty warm dark cloth; same stylized animated adventure-game medium as the references, not realism or photographic microtexture.\nNo captions, labels, text, callouts, measurements, borders, arrows or watermark. Output one high-resolution wide sheet, ideally3840×1280pixels.",
+    "edit_history": [
+      {
+        "source_filename": "exec-c4bca6b9-1d64-41be-a725-138793949102.png",
+        "prompt": "Precise turnaround layout correction. EDIT THE PROVIDED FOUR-COAT SHEET. Preserve the coat design and its perfect horizontal T-pose, empty torso, dark cloth, gold edging, red outer cuffs, red interior, ragged split tails, and white holes through the end-on cuffs.\n\nONLY correct the two side directions and spacing:\n1. HORIZONTALLY MIRROR THE ENTIRE SECOND COAT around its own centre, so its lapel/front opening, front-facing brass waist fastening and red inner front edge point toward IMAGE-LEFT.\n2. HORIZONTALLY MIRROR THE ENTIRE FOURTH COAT around its own centre, so its lapel/front opening, front-facing brass waist fastening and red inner front edge point toward IMAGE-RIGHT.\nThese are opposite profiles. They must never both face the same way. Final order is FRONT, LEFT PROFILE, BACK, RIGHT PROFILE.\n3. Move the second coat slightly RIGHT within the empty background so there is at least a50-pixel full-height clear white vertical band between the first coat's fingertips-equivalent cuff edge and any part of the second coat. Keep a similarly broad empty band between the second and third coats. Never change the coat shapes to create spacing.\n4. The four coat collars and lowest ragged tail tips share the same top and bottom levels, and the same total height to within one pixel. Preserve uniform orthographic scale and natural narrow side profiles. Do not magnify profiles.\n\nKeep the first/front and third/back garment designs unchanged. All front and back sleeves stay completely straight and horizontal; in both profiles sleeves remain foreshortened end-on at shoulder level with white through-holes. Same pure white flat background, no shadows, floor or baseline. No text, labels, body, mannequin, human parts, shirt, white frills, sash, belt or other pieces.\nThis is a fixed same-object orthographic sheet, not four new coat variations."
+      },
+      {
+        "source_filename": "exec-8e50f9c7-4d8e-4ee4-94e4-27c6eaab2f66.png",
+        "prompt": "Edit only the SECOND coat from the left in this image.\nHORIZONTALLY MIRROR THE WHOLE SECOND COAT about its own vertical centre. Its front lapel, brass waist fastening and exposed red lining must move from the RIGHT side of that coat to its LEFT side. The front of the second coat must point LEFT in the image.\nThe long gold-trimmed diagonal outer tail currently slopes down toward image-right: after reflection it must slope down toward image-left. The second coat's circular red cuff and hollow white centre mirror with it.\nKeep the FIRST, THIRD and FOURTH coats unchanged. Keep the second coat's size, top and bottom position and centre position unchanged; this is a horizontal reflection only. Do not redraw any garment design.\nMaintain empty garments, same horizontal T-pose and foreshortened profile cuff, exact white background, clear gaps, no human parts and no text."
+      },
+      {
+        "source_filename": "exec-86d78cbb-a405-48ef-aeb3-cb04d81a6874.png",
+        "prompt": "Edit only the FOURTH, FAR-RIGHT coat in this image.\nHORIZONTALLY MIRROR THE WHOLE FOURTH COAT about its own vertical centre. Its lapel, brass waist fastening and exposed red lining currently on its LEFT edge must appear on its RIGHT edge after the flip. Its long gold-edged outer tail must slope down toward image-RIGHT instead of image-left.\nThis makes the fourth coat the OPPOSITE PROFILE to the second coat.\nKeep the FIRST, SECOND and THIRD coats unchanged. Preserve the fourth coat's size, centre, top and lowest hem positions, colour, wear, hollow white cuff hole and empty garment design. This is only a horizontal reflection of the far-right garment.\nFinal order: front, left profile facing image-left, actual back, right profile facing image-right. No text, labels, body, hands, mannequin, shirt, sash or other pieces. Same level horizontal T-pose and end-on sleeves, white background, full garment framing and clear gaps."
+      },
+      {
+        "source_filename": "exec-07d4395e-6c6b-4c23-af40-8977b7df8686.png",
+        "prompt": "Precise scale/alignment calibration of this four-view empty-coat sheet. Keep the designs, orientations and positions in the row: FRONT, LEFT profile with opening on image-left, BACK, RIGHT profile with opening on image-right. Preserve the horizontal T-pose and hollow white profile cuff apertures. Do not mirror anything.\n\nThe FIRST/FRONT COAT is the size reference and stays unchanged.\nThe source is2172×724. Its reference front coat extends from y48 to y630 exclusive,582pixels tall.\nMatch the other complete garments to that EXACT SAME projected height and ground alignment:\nSECOND/LEFT: currently592pixels tall; uniformly reduce the whole garment by1.69%, and place its top at y48 and lowest point at y630.\nTHIRD/BACK: currently584pixels tall; uniformly reduce by0.34%, and align top y48, bottom y630.\nFOURTH/RIGHT: currently591pixels tall; uniformly reduce by1.52%, and align top y48, bottom y630.\nThese tiny reductions must apply uniformly to width as well as height, preserving garment proportions. Keep each garment's horizontal centre unchanged. Never widen the profiles. All four must have a common top and lowest tail-tip line to within one pixel.\n\nLeave all four complete, with the existing broad white vertical gap bands. No added lines or measurements. Same dark warm coat, gold piping, red lining, red cuffs, ragged hems. The coats stay EMPTY, no body, hands, mannequin, shirt, white frills, sash or other piece. Make background flat plain WHITE; no cast shadow, texture or gradients outside the garments. No text, labels, borders or watermark."
+      },
+      {
+        "source_filename": "exec-9798629d-33ba-438e-b651-9ba46e246242.png",
+        "prompt": "Fix the visible height mismatch in this garment turnaround.\nThe SECOND and FOURTH coats are slightly taller than the FIRST and THIRD coats. Their collar points stick up above the others, and their lowest tail tips hang below the others.\nMake BOTH profile coats smaller until they fit exactly between the same horizontal TOP and BOTTOM levels as the first/front coat. Shrink each whole profile uniformly; preserve its proportions. The side collars must not protrude above the front collar; the side tail tips must not protrude below the front tail tips. The back's lowest tail tip should also align to the front. The shared top and bottom are invisible alignment guides: do not draw lines.\nEverything else stays fixed: order front, left-facing profile, back, right-facing profile; horizontal T-pose; narrow shoulders and long sleeves; dark brown-black coat with gold piping and red lining and cuffs; empty garment; white holes through both profile cuffs; broad white gap bands; plain flat white background. No labels, captions, mannequin or added objects.\nReturn the same four-view sheet with genuinely matched garment heights and ground line. Do not merely recreate the current mismatch."
+      }
+    ],
+    "postprocessing": "None; selected imagegen PNG copied byte-for-byte."
+  },
+  "design": {
+    "includes": [
+      "Warm dark brown-black long coat",
+      "Thin aged gold edge piping",
+      "Small brass hip fasteners",
+      "Broad dark red outer cuffs",
+      "Deep red lining",
+      "Ragged split tails"
+    ],
+    "excludes": [
+      "Body or mannequin",
+      "Hands",
+      "Head or neck",
+      "Shirt",
+      "White shirt cuffs or frills",
+      "Sash",
+      "Belt",
+      "Trousers"
+    ],
+    "hidden_surfaces": "Empty interior and covered seam construction inferred from the approved dressed Captain; red inner fabric belongs to the coat."
+  },
+  "views": {
+    "order": [
+      "front",
+      "left",
+      "back",
+      "right"
+    ],
+    "projection": "Level orthographic elevations",
+    "orientation_notes": "Left profile has lapel/front opening on image-left. Right profile has lapel/front opening on image-right. Profile sleeves are end-on at shoulder height.",
+    "layout": "One horizontal row separated by empty background columns; cells are not equal-width.",
+    "pose": "T-pose garment; both sleeves horizontal at shoulder height, shaped for a palms-down body.",
+    "native_sheet_px": [
+      2172,
+      724
+    ],
+    "measured_bounds_px": [
+      {
+        "view": "front",
+        "bbox_xyxy_exclusive": [
+          33,
+          51,
+          719,
+          628
+        ],
+        "width": 686,
+        "height": 577
+      },
+      {
+        "view": "left",
+        "bbox_xyxy_exclusive": [
+          776,
+          51,
+          967,
+          627
+        ],
+        "width": 191,
+        "height": 576
+      },
+      {
+        "view": "back",
+        "bbox_xyxy_exclusive": [
+          1095,
+          51,
+          1781,
+          628
+        ],
+        "width": 686,
+        "height": 577
+      },
+      {
+        "view": "right",
+        "bbox_xyxy_exclusive": [
+          1847,
+          51,
+          2038,
+          627
+        ],
+        "width": 191,
+        "height": 576
+      }
+    ],
+    "empty_gap_widths_px": [
+      57,
+      128,
+      66
+    ],
+    "max_height_spread_px": 1,
+    "max_baseline_spread_px": 1,
+    "measurement_method": "RGB absolute difference from white summed across channels >54; connected non-background column runs.",
+    "extraction": {
+      "tool": "tools/crop_views.py",
+      "names": [
+        "front",
+        "left",
+        "back",
+        "right"
+      ],
+      "min_width_ratio": 0.1,
+      "use_count_4": false,
+      "note": "Use automatic empty-column separation. Cropping does not change model geometry."
+    }
+  },
+  "fitting": {
+    "target_character": "captain_live",
+    "legacy_assembled_height_m": 1.9,
+    "height_scope": "Legacy dressed silhouette including hat and feather; not a measured bare body height.",
+    "estimated_garment_dimensions_m": {
+      "collar_to_longest_hem": 0.97,
+      "shoulder_to_hem": 0.95,
+      "wrist_to_wrist": 1.25
+    },
+    "estimates_only": true,
+    "fit_reference": "Approved Captain proportions and bald body v1; nominal bare body crown-to-floor approximately1.67m, with anatomical crown inferred under original hat.",
+    "exact_metric_fit_verified": false,
+    "raster_scale_note": "This isolated garment has its own native raster resolution. Pixel scale across different piece sheets is not guaranteed. Fit the reconstructed mesh uniformly in metres to the selected rigged body's T-pose.",
+    "engine_work_required": "Measure reconstructed piece bounds, uniformly scale and align shoulders/wrists/waist to the body, then inspect garment intersections. Copy body weights after T-pose fitting.",
+    "attachment": "Skinned clothing; bends with the body.",
+    "coat_tail_simulation": "SpringBoneSimulator3D remains untested. The engine-side handoff owns bone chains, collisions and measured simulation validation."
+  },
+  "rendering": {
+    "style": "Softly shaded stylized animated adventure-game cloth, based on approved Captain.",
+    "background": "Plain near-white; generated corner pixels range253–255. No cast shadow, ground line, scenery or text.",
+    "corner_rgb": [
+      [
+        253,
+        253,
+        254
+      ],
+      [
+        254,
+        255,
+        255
+      ],
+      [
+        254,
+        254,
+        254
+      ],
+      [
+        253,
+        253,
+        253
+      ]
+    ],
+    "baked_lighting": "Soft neutral form shading present; not a room-specific key light."
+  },
+  "validation": {
+    "four_views_present": true,
+    "view_order_checked": true,
+    "horizontal_t_pose_sleeves_checked": true,
+    "profile_sleeves_end_on_checked": true,
+    "no_human_parts_or_other_slots": true,
+    "cuff_through_holes_show_background_in_two_profiles": true,
+    "sheet_height_and_baseline_within_one_pixel": true,
+    "reconstruction_tested": false,
+    "rigging_tested": false,
+    "engine_import_tested": false,
+    "cloth_simulation_tested": false,
+    "final_extraction": {
+      "sheet_size_px": [
+        2172,
+        724
+      ],
+      "background_rgb": [
+        254,
+        254,
+        254
+      ],
+      "source_view_bounds": [
+        {
+          "name": "front",
+          "bbox_xyxy": [
+            33,
+            51,
+            719,
+            628
+          ],
+          "height_px": 577,
+          "width_px": 686,
+          "bottom_inclusive_px": 627
+        },
+        {
+          "name": "left",
+          "bbox_xyxy": [
+            776,
+            51,
+            967,
+            627
+          ],
+          "height_px": 576,
+          "width_px": 191,
+          "bottom_inclusive_px": 626
+        },
+        {
+          "name": "back",
+          "bbox_xyxy": [
+            1095,
+            51,
+            1781,
+            628
+          ],
+          "height_px": 577,
+          "width_px": 686,
+          "bottom_inclusive_px": 627
+        },
+        {
+          "name": "right",
+          "bbox_xyxy": [
+            1847,
+            51,
+            2038,
+            627
+          ],
+          "height_px": 576,
+          "width_px": 191,
+          "bottom_inclusive_px": 626
+        }
+      ],
+      "source_height_spread_px": 1,
+      "source_baseline_spread_px": 1,
+      "gap_widths_px": [
+        57,
+        128,
+        66
+      ],
+      "foreground_pixels_lost": 0,
+      "native_square_px": 850,
+      "extracted_ground_line_px": 747,
+      "all_four_extracted_baselines_equal": true,
+      "source_image_modified": false,
+      "source_resampling_applied": false,
+      "crop_cli_args": [
+        "--row",
+        "0",
+        "1",
+        "--names",
+        "front",
+        "left",
+        "back",
+        "right",
+        "--min-width-ratio",
+        "0.1"
+      ],
+      "recommended_command": "python tools/crop_views.py art/characters/captain_live/pieces/coat/sheet.png --row 0 1 --names front left back right --min-width-ratio 0.1 --size 850 --out art/characters/captain_live/pieces/coat/views",
+      "after_two_x_upscale_px": 1700
+    },
+    "source_framing_precision": "Native height and baseline differences are recorded in final_extraction; do not describe all source sheets as pixel-exact. Extracted inputs share one per-piece scale and baseline."
+  },
+  "pipeline": {
+    "status": "source_sheets_ready_for_tripo_experiment",
+    "three_d_generator_allowed": "Tripo only",
+    "unrigged_piece": true,
+    "body_weights_copy_after_fitting": true,
+    "view_extraction": "tools/crop_views.py using validation.final_extraction.recommended_command",
+    "forbidden_generators": [
+      "Hunyuan3D",
+      "HY-Motion"
+    ],
+    "nc_models_used": false,
+    "ready_for_reconstruction_experiment": true,
+    "reconstruction_complete": false,
+    "engine_fit_verified": false
+  }
+}

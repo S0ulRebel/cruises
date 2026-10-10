@@ -1,0 +1,151 @@
+{
+  "asset_id": "character_piece_set:captain_live",
+  "name": "Captain Livé modular source set",
+  "asset_type": "character_piece_set",
+  "created_utc": "2026-10-10",
+  "character_id": "captain_live",
+  "reference_sheet": "art/characters/captain_live/turnaround.png",
+  "brief": "docs/ARTIST_BRIEF_PIECES.md",
+  "view_order": [
+    "front",
+    "left",
+    "back",
+    "right"
+  ],
+  "slots": [
+    {
+      "slot": "body",
+      "sheet": "body/sheet.png",
+      "asset": "body/asset.json",
+      "sha256": "c3df25279534e21f15db4505908695f427e404533a89673456672998e33c65cd",
+      "crop_command": "python tools/crop_views.py art/characters/captain_live/pieces/body/sheet.png --row 0 1 --names front left back right --size 959 --out art/characters/captain_live/pieces/body/views",
+      "native_crop_square_px": 959,
+      "input_after_2x_upscale_px": 1918
+    },
+    {
+      "slot": "head",
+      "sheet": "head/sheet.png",
+      "asset": "head/asset.json",
+      "sha256": "4d2e6ecee83fc81c6af8fe9df18ea9e7eb81b84630eff272a09b8c9b71227f81",
+      "crop_command": "python tools/crop_views.py art/characters/captain_live/pieces/head/sheet.png --row 0 1 --names front left back right --size 801 --out art/characters/captain_live/pieces/head/views",
+      "native_crop_square_px": 801,
+      "input_after_2x_upscale_px": 1602
+    },
+    {
+      "slot": "hat",
+      "sheet": "hat/sheet.png",
+      "asset": "hat/asset.json",
+      "sha256": "753a68de3f6fdf15ebc33fef1c72aed4eb3358aca322fa5f1d74ab03e0662217",
+      "crop_command": "python tools/crop_views.py art/characters/captain_live/pieces/hat/sheet.png --row 0 1 --names front left back right --size 644 --out art/characters/captain_live/pieces/hat/views",
+      "native_crop_square_px": 644,
+      "input_after_2x_upscale_px": 1288
+    },
+    {
+      "slot": "hair",
+      "sheet": "hair/sheet.png",
+      "asset": "hair/asset.json",
+      "sha256": "4724b0d681448d07cd43515220bc1f0beb609dcf44c8cc2d2044766c88d6f501",
+      "crop_command": "python tools/crop_views.py art/characters/captain_live/pieces/hair/sheet.png --row 0 1 --names front left back right --size 601 --out art/characters/captain_live/pieces/hair/views",
+      "native_crop_square_px": 601,
+      "input_after_2x_upscale_px": 1202
+    },
+    {
+      "slot": "face",
+      "sheet": "face/sheet.png",
+      "asset": "face/asset.json",
+      "sha256": "4e7ed2070ff4802950e0f734a332aa8576b57ac421e158f7d7f9112e2f365837",
+      "crop_command": "python tools/crop_views.py art/characters/captain_live/pieces/face/sheet.png --row 0 1 --names front left back right --size 629 --out art/characters/captain_live/pieces/face/views",
+      "native_crop_square_px": 629,
+      "input_after_2x_upscale_px": 1258
+    },
+    {
+      "slot": "shirt",
+      "sheet": "shirt/sheet.png",
+      "asset": "shirt/asset.json",
+      "sha256": "f7e8e669bfb488acd074a01cd044b266a0a467100570aeeada9b50bcf8dde107",
+      "crop_command": "python tools/crop_views.py art/characters/captain_live/pieces/shirt/sheet.png --row 0 1 --names front left back right --min-width-ratio 0.1 --size 972 --out art/characters/captain_live/pieces/shirt/views",
+      "native_crop_square_px": 972,
+      "input_after_2x_upscale_px": 1944
+    },
+    {
+      "slot": "coat",
+      "sheet": "coat/sheet.png",
+      "asset": "coat/asset.json",
+      "sha256": "6cdbfe7f956d8ea85feea4a0e4c81e6c56e018f79bf20940aae1a66d041b3bd2",
+      "crop_command": "python tools/crop_views.py art/characters/captain_live/pieces/coat/sheet.png --row 0 1 --names front left back right --min-width-ratio 0.1 --size 850 --out art/characters/captain_live/pieces/coat/views",
+      "native_crop_square_px": 850,
+      "input_after_2x_upscale_px": 1700
+    },
+    {
+      "slot": "trousers",
+      "sheet": "trousers/sheet.png",
+      "asset": "trousers/asset.json",
+      "sha256": "673215a6bc9330664d53247a0dd047de3c1758f2b57b7f095a6beacefe11ec52",
+      "crop_command": "python tools/crop_views.py art/characters/captain_live/pieces/trousers/sheet.png --row 0 1 --names front left back right --cols 0.02 1 --count 4 --size 905 --out art/characters/captain_live/pieces/trousers/views",
+      "native_crop_square_px": 905,
+      "input_after_2x_upscale_px": 1810
+    },
+    {
+      "slot": "waist",
+      "sheet": "waist/sheet.png",
+      "asset": "waist/asset.json",
+      "sha256": "9de8d261459537d62f4cabb1b61a9cfca72c100426bcd8f82c3d0c7b8f0986ef",
+      "crop_command": "python tools/crop_views.py art/characters/captain_live/pieces/waist/sheet.png --row 0 1 --names front left back right --size 954 --out art/characters/captain_live/pieces/waist/views",
+      "native_crop_square_px": 954,
+      "input_after_2x_upscale_px": 1908
+    },
+    {
+      "slot": "boots",
+      "sheet": "boots/sheet.png",
+      "asset": "boots/asset.json",
+      "sha256": "3400b0bb4c71ae6b0902d0969f03c56cf38f48b74640d4cbe29c88ed84257c1d",
+      "crop_command": "python tools/crop_views.py art/characters/captain_live/pieces/boots/sheet.png --row 0 1 --names front left back right --count 4 --size 673 --out art/characters/captain_live/pieces/boots/views",
+      "native_crop_square_px": 673,
+      "input_after_2x_upscale_px": 1346
+    }
+  ],
+  "pose_contract": {
+    "body": "A-pose, palms down, five separated digits; profile views provide finger separation",
+    "shirt": "T-pose with horizontal sleeves",
+    "coat": "T-pose with horizontal sleeves",
+    "other_pieces": "Fit the same body/head; no independent arm pose applies"
+  },
+  "fit_contract": {
+    "legacy_assembled_height_m": 1.9,
+    "reference_includes_hat_and_feather": true,
+    "bare_body_height_estimate_m": 1.67,
+    "all_piece_measurements_are_provisional_art_fitting_guides": true,
+    "source_rasters_share_a_calibrated_pixels_per_metre_scale": false,
+    "instruction": "Use the approved 1.90 m assembled silhouette as scale reference. Rig the body, then measure and uniformly fit pieces to that body in T-pose. Never normalize every component independently to 1.90 m, and never infer metre dimensions by equating separate source image heights. Reconstructed metric fit remains untested.",
+    "base_head_occlusion": "The body contains a bald head for the auto-rigger. Hide/remove it beneath the replaceable head so it cannot occlude the mouth cavity."
+  },
+  "slot_ownership": {
+    "hat": "tricorn plus one red plume, attached consistently on wearer-left",
+    "hair": "scalp curls and sideburns",
+    "face": "one moustache and a tiny separate chin tuft; no sideburns or skin",
+    "shirt": "ivory collar and white wrist frills",
+    "coat": "dark coat, gold trim, brass fastenings, red cuffs and red lining",
+    "waist": "red sash only; no invented leather belt"
+  },
+  "extraction": {
+    "tool": "tools/crop_views.py",
+    "thin_extremities_preserved": true,
+    "all_ten_extract_to_four_nonempty_inputs": true,
+    "foreground_pixels_lost_across_set": 0,
+    "all_four_outputs_per_piece_share_one_baseline": true,
+    "source_images_modified_for_verification": false,
+    "boots_require_count_four": true,
+    "cropped_inputs_are_reproducible_not_committed": true,
+    "upscale_step": "Native crops are not resampled in verification; apply the documented 2x upscale before Tripo. Minimum resulting side across this set is 1202 px."
+  },
+  "pipeline_gates": {
+    "tripo_only": true,
+    "mouth_cavity_reconstructed": false,
+    "teeth_and_tongue_geometry_verified": false,
+    "hat_and_sash_cavities_verified": false,
+    "body_rig_and_piece_fit_verified": false,
+    "spring_bone_coat_measured": false,
+    "second_character_authorized_by_this_handoff": false
+  },
+  "status": "All ten source slots delivered for the first Livé reconstruction experiment; engine results belong in HANDOFF.md."
+}

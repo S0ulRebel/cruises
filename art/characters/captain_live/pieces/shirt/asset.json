@@ -1,0 +1,307 @@
+{
+  "asset_id": "character_piece:captain_live:shirt",
+  "name": "Captain Livé — ivory shirt",
+  "role": "Captain Livé modular shirt",
+  "asset_type": "character_piece_turnaround",
+  "character_id": "captain_live",
+  "slot": "shirt",
+  "files": {
+    "sheet": "sheet.png"
+  },
+  "source": {
+    "producer": "OpenAI built-in image generation via ChatGPT",
+    "tool": "image_gen.imagegen",
+    "model": "Model identifier not exposed by the built-in tool",
+    "created_date": "2026-10-10",
+    "original_filename": "exec-f61d3178-b3cf-4d44-a6c2-234500f034ca.png",
+    "sha256": "f7e8e669bfb488acd074a01cd044b266a0a467100570aeeada9b50bcf8dde107",
+    "references": [
+      {
+        "path": "art/characters/captain_live/turnaround.png",
+        "sha256": "bcb66fe6213ab55672cb91328f22665a125511d211e3fded0397dd45ac1897fa",
+        "role": "Approved costume design, rendering style and proportions"
+      },
+      {
+        "generation_filename": "exec-717881fe-ba84-460b-8e30-24ed8e05f981.png",
+        "sha256": "035b0cc294334cba8db8c19ed26cc245c8436e07de2117379cbc0d7902dc8510",
+        "role": "Bald body v1 fitting reference; final body may receive finger-only edits"
+      }
+    ],
+    "generation_prompt": "Use case: stylized-concept.\nAsset type: Captain Livé modular SHIRT reconstruction turnaround for a cartoony 3D adventure game.\nReference image 1 is the approved complete Captain: copy ONLY the ivory shirt's design, collar, white ruffled wrist cuffs, stylised proportions, material treatment and soft dimensional cartoon rendering. The clothed Captain is a reference only and must not appear in the output.\n\nDraw one isolated, empty, wearable shirt, shown exactly four times in a single horizontal row. Output a wide sheet with FOUR EQUAL-WIDTH CELLS, left to right FRONT, anatomical LEFT SIDE, BACK, anatomical RIGHT SIDE. Do not print those words or any other text. A single coherent garment rotated through those four cameras; never four separately redesigned shirts.\n\nFit: a narrow-shouldered lanky male pirate, the reference Captain's build. Long full sleeves, off-white/ivory slightly rumpled cloth, open pointed collar and open upper chest, small simple pale buttons down the lower front, tucked-shirt hem just below waist, white softly ruffled cuffs. Approximate shoulder-to-hem fitted height 0.42 m, with matching proportionate sleeve span. Keep the clothes at the Captain's original bodily proportions.\n\nPOSE IS CRITICAL: this garment is shaped for the body's T-POSE. BOTH sleeves extend absolutely straight sideways, perfectly HORIZONTAL AT SHOULDER HEIGHT, all the way from shoulder to wrist; neither arm slopes down. The front and back are full broad T silhouettes with a narrow vertical torso and long level sleeves. The side views are true orthographic profiles: both horizontal sleeves are viewed END-ON, naturally foreshortened and overlapping in depth at shoulder height. Their open cuff ends are visible. A side-view sleeve must NEVER hang vertically down the side of the torso. No perspective, no 3/4 camera, no camera elevation or tilt.\n\nThe shirt is EMPTY: no skin, no person, no head, no hands, no body, no dummy, no mannequin, no hangers, no rods or support. Show hollow cuff openings with the plain white background visible through them in both side views; no plugs sealing them. Keep real fabric thickness subtle and coherent. The shirt is the only object. No red outer cuffs, coat, jacket, sash, belt, trousers, boots, hat, lace jabot or accessories. The white wrist frills belong to THIS shirt.\n\nFraming: identical orthographic scale in all four views. All four shirts have identical top and hem levels and identical total pixel height. Same shared lowest hem baseline, as alignment only, with NO drawn ground line. Whole sleeves and all cuff frills fully in frame. Front and back are equally wide. Leave generous perfectly empty white vertical bands between every cell, with no touching or overlap. Do not magnify the naturally narrow profile views to fill their cells.\n\nBackground: completely flat solid pure white RGB 255,255,255, including all corners and all gaps. No scenery, gradient, vignette, ground plane or cast shadows. Soft neutral even form shading on the ivory cloth only, broad readable cartoon folds, matching the reference's animated adventure-game look; never photoreal fabric microtexture. Distinguish ivory fabric from white background with restrained warm-gray form edges. No text, labels, outlines around cells, callouts, scale marks, dimension arrows or watermark.\nOutput one high-resolution wide sheet, ideally 3840 by 1280 pixels.",
+    "edit_history": [
+      {
+        "source_filename": "exec-6bbb2a2f-7425-4e3c-b848-e1d9901ada17.png",
+        "prompt": "Use case: precise-object-edit.\nEdit target is image 1, the four-view ivory shirt. Supporting image 2 is the Captain's bald bare body, used ONLY for the slender shoulder/torso/arm proportions; no human part may appear in the result.\n\nKeep the existing isolated ivory shirt's design, collar, pale buttons, white ruffled cuffs, broad soft cartoon shading, pure white background, four-view row and horizontal T-shaped sleeves. Keep it one empty wearable garment.\n\nCorrect the two profile assignments: output order must be FRONT, LEFT PROFILE, BACK, RIGHT PROFILE. For LEFT PROFILE (second view), the button placket, chest opening and garment's front hem edge must face IMAGE-LEFT. For RIGHT PROFILE (fourth view), those same front features must face IMAGE-RIGHT. They are true opposite sides of the same shirt, not two different designs. This effectively swaps the current two side-view objects. Do not change the front or back garment designs.\n\nCorrect the end-on cuff openings in both profiles: the shirt is entirely hollow and the central opening of each ruffled cuff is a real open hole, showing the PURE WHITE BACKGROUND through the opposite sleeve. The white central aperture is surrounded by a thin inner fabric rim and a short shaded fabric tunnel. Do not fill either cuff with a black/brown disk, skin, hand, cap, ball or plug. These empty cuff holes are essential for 3D reconstruction.\n\nFit the shirt's arm length to the supporting bald body's arms when raised to a perfect T-pose: narrow shoulders, long slender upper arms and forearms. Extend sleeves as needed without widening the torso. Shoulder-to-tucked-hem guide 0.42 m; total collar-to-hem guide about 0.50 m; total wrist-to-wrist garment span about 1.25 m. These are proportional fit guides. Horizontal arm centerlines remain exactly level with shoulder joints. No lower-hanging sleeve in any view. Both profile sleeves remain end-on at shoulder height, not dangling beside the torso.\n\nIdentical camera scale, collar-top level, garment height and lowest hem baseline across all four views. Full cuffs visible; wide clear white gaps between garments; naturally narrow profiles must not be enlarged. Flat RGB255 white background everywhere except garment fabric, no shadows, ground line, labels, captions, frames or text. No head, body, hands, mannequin, coat, red cuffs, sash, belt or other pieces. Preserve the original art style."
+      },
+      {
+        "source_filename": "exec-f9cc2a00-fe0d-4458-85dc-37a7f38d3ed7.png",
+        "prompt": "Precise garment turnaround correction. EDIT THIS IMAGE ONLY.\nChange only the FOURTH, FAR-RIGHT shirt: horizontally mirror that entire fourth shirt about its own vertical centre. Its three small front buttons and lower front opening, now on its LEFT edge, must end up on its RIGHT edge. Its collar must also mirror with the shirt. It must become the OPPOSITE PROFILE to the second shirt, with its front pointing IMAGE-RIGHT.\nLeave the first three shirts unchanged: FRONT, LEFT SIDE with its buttons on IMAGE-LEFT, BACK.\nFinal order is FRONT, LEFT SIDE, BACK, RIGHT SIDE with buttons on IMAGE-RIGHT.\nRetain the open white hole in each profile cuff, the ivory fabric and white ruffles, same T-pose with sleeves horizontal and side-view cuffs end-on, same camera scale, same shirt top and hem level, same spacing and flat pure white background.\nDo not add a person, head, skin, hands, mannequin, any additional clothing, ground shadows or text. Do not change garment proportions or rendering. This is only a horizontal reflection of the far-right garment."
+      },
+      {
+        "source_filename": "exec-b01cfc40-df7b-4ff2-ab5d-118192688d06.png",
+        "prompt": "Precise reconstruction-sheet edit of the provided ivory shirt image.\nKeep exactly the same four garments and views in the same order: front, left profile with front buttons on image-left, back, right profile with front buttons on image-right. Keep the horizontal T-pose, ivory design, white ruffled cuffs and white holes through side-view cuffs, no person or mannequin.\n\nCorrect ONLY the tiny view scale/alignment differences:\n- The first/front and second/left are the size reference; preserve their geometry.\n- Enlarge the entire third/back garment UNIFORMLY by approximately 2.7%, and lower it 3 pixels at this source size. Its highest collar edge and lowest hem must align exactly with the first two views.\n- Reduce the entire fourth/right garment UNIFORMLY by approximately 0.9%, anchored at its lowest hem. Its highest collar edge must align exactly with the first two views.\nDo not change each garment's proportions, design, construction, view direction or horizontal position. All FOUR must have exactly matching top and hem baseline and therefore matching overall height. Their differing widths remain correct for orthographic front/back versus end-on sleeve profiles.\n\nMake all blank background areas perfectly FLAT PURE WHITE RGB255,255,255, with no grain, mottling, cast shadows, gradient or floor. Preserve subtle fabric surface shading only inside each garment. Keep the wide empty vertical bands and show the complete shirts. No text, labels, marks or drawn baseline."
+      }
+    ],
+    "postprocessing": "None; selected imagegen PNG copied byte-for-byte."
+  },
+  "design": {
+    "includes": [
+      "Ivory shirt",
+      "Open pointed collar",
+      "Pale buttons",
+      "Full sleeves",
+      "White ruffled wrist cuffs"
+    ],
+    "excludes": [
+      "Body or mannequin",
+      "Hands",
+      "Coat",
+      "Red coat cuffs",
+      "Sash",
+      "Belt",
+      "Trousers"
+    ],
+    "hidden_surfaces": "Lower shirt hem and covered sleeve construction inferred from the approved clothed design."
+  },
+  "views": {
+    "order": [
+      "front",
+      "left",
+      "back",
+      "right"
+    ],
+    "projection": "Level orthographic elevations",
+    "orientation_notes": "Left profile has front buttons on image-left. Right profile has front buttons on image-right. Profile sleeves are end-on at shoulder height.",
+    "layout": "One horizontal row separated by empty background columns; cells are not equal-width.",
+    "pose": "T-pose garment; both sleeves horizontal at shoulder height, shaped for a palms-down body.",
+    "native_sheet_px": [
+      2172,
+      724
+    ],
+    "measured_bounds_px": [
+      {
+        "view": "front",
+        "bbox_xyxy_exclusive": [
+          29,
+          179,
+          807,
+          525
+        ],
+        "width": 778,
+        "height": 346
+      },
+      {
+        "view": "left",
+        "bbox_xyxy_exclusive": [
+          885,
+          179,
+          1024,
+          524
+        ],
+        "width": 139,
+        "height": 345
+      },
+      {
+        "view": "back",
+        "bbox_xyxy_exclusive": [
+          1105,
+          180,
+          1889,
+          525
+        ],
+        "width": 784,
+        "height": 345
+      },
+      {
+        "view": "right",
+        "bbox_xyxy_exclusive": [
+          1956,
+          178,
+          2094,
+          524
+        ],
+        "width": 138,
+        "height": 346
+      }
+    ],
+    "empty_gap_widths_px": [
+      78,
+      81,
+      67
+    ],
+    "max_height_spread_px": 1,
+    "max_baseline_spread_px": 1,
+    "measurement_method": "RGB absolute difference from white summed across channels >54; connected non-background column runs.",
+    "extraction": {
+      "tool": "tools/crop_views.py",
+      "names": [
+        "front",
+        "left",
+        "back",
+        "right"
+      ],
+      "min_width_ratio": 0.1,
+      "use_count_4": false,
+      "note": "Use automatic empty-column separation; narrow T-pose profiles are valid. Cropping does not change model geometry."
+    }
+  },
+  "fitting": {
+    "target_character": "captain_live",
+    "legacy_assembled_height_m": 1.9,
+    "height_scope": "Legacy dressed silhouette including hat and feather; not a measured bare body height.",
+    "estimated_garment_dimensions_m": {
+      "collar_to_hem": 0.5,
+      "shoulder_to_hem": 0.42,
+      "wrist_to_wrist": 1.25
+    },
+    "estimates_only": true,
+    "fit_reference": "Approved Captain proportions and bald body v1; nominal bare body crown-to-floor approximately1.67m, with anatomical crown inferred under original hat.",
+    "exact_metric_fit_verified": false,
+    "raster_scale_note": "This isolated garment has its own native raster resolution. Pixel scale across different piece sheets is not guaranteed. Fit the reconstructed mesh uniformly in metres to the selected rigged body's T-pose.",
+    "engine_work_required": "Measure reconstructed piece bounds, uniformly scale and align shoulders/wrists/waist to the body, then inspect intersections. Copy body weights after T-pose fitting.",
+    "attachment": "Skinned clothing; bends with the body."
+  },
+  "rendering": {
+    "style": "Softly shaded stylized animated adventure-game cloth, based on approved Captain.",
+    "background": "Plain near-white; generated corner pixels range254–255. No cast shadow, ground line, scenery or text.",
+    "corner_rgb": [
+      [
+        254,
+        255,
+        254
+      ],
+      [
+        254,
+        255,
+        254
+      ],
+      [
+        254,
+        254,
+        254
+      ],
+      [
+        254,
+        254,
+        254
+      ]
+    ],
+    "baked_lighting": "Soft neutral form shading present; not a room-specific key light."
+  },
+  "validation": {
+    "four_views_present": true,
+    "view_order_checked": true,
+    "horizontal_t_pose_sleeves_checked": true,
+    "profile_sleeves_end_on_checked": true,
+    "no_human_parts_or_other_slots": true,
+    "cuff_through_holes_show_background_in_two_profiles": true,
+    "sheet_height_and_baseline_within_one_pixel": true,
+    "reconstruction_tested": false,
+    "rigging_tested": false,
+    "engine_import_tested": false,
+    "final_extraction": {
+      "sheet_size_px": [
+        2172,
+        724
+      ],
+      "background_rgb": [
+        254,
+        254,
+        254
+      ],
+      "source_view_bounds": [
+        {
+          "name": "front",
+          "bbox_xyxy": [
+            29,
+            179,
+            807,
+            525
+          ],
+          "height_px": 346,
+          "width_px": 778,
+          "bottom_inclusive_px": 524
+        },
+        {
+          "name": "left",
+          "bbox_xyxy": [
+            885,
+            179,
+            1024,
+            524
+          ],
+          "height_px": 345,
+          "width_px": 139,
+          "bottom_inclusive_px": 523
+        },
+        {
+          "name": "back",
+          "bbox_xyxy": [
+            1105,
+            180,
+            1889,
+            525
+          ],
+          "height_px": 345,
+          "width_px": 784,
+          "bottom_inclusive_px": 524
+        },
+        {
+          "name": "right",
+          "bbox_xyxy": [
+            1956,
+            178,
+            2094,
+            524
+          ],
+          "height_px": 346,
+          "width_px": 138,
+          "bottom_inclusive_px": 523
+        }
+      ],
+      "source_height_spread_px": 1,
+      "source_baseline_spread_px": 1,
+      "gap_widths_px": [
+        78,
+        81,
+        67
+      ],
+      "foreground_pixels_lost": 0,
+      "native_square_px": 972,
+      "extracted_ground_line_px": 855,
+      "all_four_extracted_baselines_equal": true,
+      "source_image_modified": false,
+      "source_resampling_applied": false,
+      "crop_cli_args": [
+        "--row",
+        "0",
+        "1",
+        "--names",
+        "front",
+        "left",
+        "back",
+        "right",
+        "--min-width-ratio",
+        "0.1"
+      ],
+      "recommended_command": "python tools/crop_views.py art/characters/captain_live/pieces/shirt/sheet.png --row 0 1 --names front left back right --min-width-ratio 0.1 --size 972 --out art/characters/captain_live/pieces/shirt/views",
+      "after_two_x_upscale_px": 1944
+    },
+    "source_framing_precision": "Native height and baseline differences are recorded in final_extraction; do not describe all source sheets as pixel-exact. Extracted inputs share one per-piece scale and baseline."
+  },
+  "pipeline": {
+    "status": "source_sheets_ready_for_tripo_experiment",
+    "three_d_generator_allowed": "Tripo only",
+    "unrigged_piece": true,
+    "body_weights_copy_after_fitting": true,
+    "view_extraction": "tools/crop_views.py using validation.final_extraction.recommended_command",
+    "forbidden_generators": [
+      "Hunyuan3D",
+      "HY-Motion"
+    ],
+    "nc_models_used": false,
+    "ready_for_reconstruction_experiment": true,
+    "reconstruction_complete": false,
+    "engine_fit_verified": false
+  }
+}

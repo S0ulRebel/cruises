@@ -71,8 +71,8 @@
     "note": "Keep native head detail. Source rasters are not a proof of common metres per pixel. Fit the generated head uniformly to the rigged body, check neck alignment, and hide/remove the body head surface beneath it so it cannot fill the new mouth cavity."
   },
   "pipeline": {
-    "status": "source_sheet_only",
-    "view_extraction": "tools/crop_views.py",
+    "status": "source_sheets_ready_for_tripo_experiment",
+    "view_extraction": "tools/crop_views.py using validation.final_extraction.recommended_command",
     "suggested_crop_command": "python tools/crop_views.py art/characters/captain_live/pieces/head/sheet.png --row 0 1 --names front left back right --size 801 --out art/characters/captain_live/pieces/head/views",
     "native_crop_canvas_px": 801,
     "two_x_upscale_target_px": 1602,
@@ -85,7 +85,9 @@
     "rigging": "head is supplied as unrigged geometry; dresser bends it at the neck",
     "reconstruction_run": false,
     "mouth_cavity_mesh_verified": false,
-    "engine_fit_verified": false
+    "engine_fit_verified": false,
+    "ready_for_reconstruction_experiment": true,
+    "reconstruction_complete": false
   },
   "validation": {
     "sheet_size_px": [
@@ -157,6 +159,93 @@
       "no hat, scalp hair, sideburns, moustache or chin tuft on head",
       "no view overlap, labels, cut-off silhouettes or decorative background"
     ],
-    "source_framing_note": "Native imagegen source has 6 px height spread and 3 px neck-baseline spread. The repository cutter grounds extracted views without scaling individual views. This is recorded, not claimed pixel-perfect."
+    "source_framing_note": "Native imagegen source has 6 px height spread and 3 px neck-baseline spread. The repository cutter grounds extracted views without scaling individual views. This is recorded, not claimed pixel-perfect.",
+    "final_extraction": {
+      "sheet_size_px": [
+        1882,
+        836
+      ],
+      "background_rgb": [
+        253,
+        253,
+        253
+      ],
+      "source_view_bounds": [
+        {
+          "name": "front",
+          "bbox_xyxy": [
+            63,
+            71,
+            416,
+            715
+          ],
+          "height_px": 644,
+          "width_px": 353,
+          "bottom_inclusive_px": 714
+        },
+        {
+          "name": "left",
+          "bbox_xyxy": [
+            494,
+            70,
+            907,
+            714
+          ],
+          "height_px": 644,
+          "width_px": 413,
+          "bottom_inclusive_px": 713
+        },
+        {
+          "name": "back",
+          "bbox_xyxy": [
+            989,
+            72,
+            1343,
+            712
+          ],
+          "height_px": 640,
+          "width_px": 354,
+          "bottom_inclusive_px": 711
+        },
+        {
+          "name": "right",
+          "bbox_xyxy": [
+            1429,
+            68,
+            1836,
+            714
+          ],
+          "height_px": 646,
+          "width_px": 407,
+          "bottom_inclusive_px": 713
+        }
+      ],
+      "source_height_spread_px": 6,
+      "source_baseline_spread_px": 3,
+      "gap_widths_px": [
+        78,
+        82,
+        86
+      ],
+      "foreground_pixels_lost": 0,
+      "native_square_px": 801,
+      "extracted_ground_line_px": 704,
+      "all_four_extracted_baselines_equal": true,
+      "source_image_modified": false,
+      "source_resampling_applied": false,
+      "crop_cli_args": [
+        "--row",
+        "0",
+        "1",
+        "--names",
+        "front",
+        "left",
+        "back",
+        "right"
+      ],
+      "recommended_command": "python tools/crop_views.py art/characters/captain_live/pieces/head/sheet.png --row 0 1 --names front left back right --size 801 --out art/characters/captain_live/pieces/head/views",
+      "after_two_x_upscale_px": 1602
+    },
+    "source_framing_precision": "Native height and baseline differences are recorded in final_extraction; do not describe all source sheets as pixel-exact. Extracted inputs share one per-piece scale and baseline."
   }
 }

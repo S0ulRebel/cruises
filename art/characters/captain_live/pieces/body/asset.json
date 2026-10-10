@@ -1,0 +1,187 @@
+{
+  "asset_id": "character_piece:captain_live:body",
+  "name": "Captain Livé — bare rigging body",
+  "asset_type": "character_piece_turnaround",
+  "character_id": "captain_live",
+  "slot": "body",
+  "files": {
+    "sheet": "sheet.png"
+  },
+  "source": {
+    "producer": "OpenAI image generation via ChatGPT",
+    "tool": "image_gen.imagegen",
+    "model_identifier": "not exposed by the built-in tool",
+    "created_utc": "2026-10-10",
+    "original_filename": "exec-6975b33b-b37a-4c17-ad41-fe63b5811ec9.png",
+    "sha256": "c3df25279534e21f15db4505908695f427e404533a89673456672998e33c65cd",
+    "reference_files": [
+      {
+        "path": "art/characters/captain_live/turnaround.png",
+        "role": "approved design and style",
+        "sha256": "bcb66fe6213ab55672cb91328f22665a125511d211e3fded0397dd45ac1897fa"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/head/sheet.png",
+        "role": "initial bald head v1 facial identity, before cheek cleanup",
+        "sha256": "ffee0ee829644b7c100e6e333036a996082e383066ba4edbc1f821f25d833592"
+      }
+    ],
+    "generation_history": [
+      {
+        "operation": "generate bare base from approved design and initial head",
+        "prompt": "Use case: identity-preserve. Modular 3D game character BASE BODY turnaround for Captain Livé.\nInput 1 is the approved complete character and is the authority for his slender physique and proportions. Input 2 is his new separated bald head, reference for facial identity. Create the bare rigging figure UNDER the costume, not a redesigned character. He is an adult man, extremely slender angular cartoon pirate, narrow waist and hips, long thin limbs, bony narrow chest, thin long neck, large angular head and long hooked nose, warm peach skin. Keep the exact clothed silhouette's underlying proportions: shoulders not broadened, no muscular superhero build, no realistic anatomy or bodybuilder muscles. The existing dressed silhouette is 1.90m including boots/hat/feather; this bare bald body is approximately1.67m, preserve those relative dimensions.\nRender one complete bald clean-shaven barefoot figure, retaining the whole head and neck for the auto-rigger. Mouth gently open matching input2 but less exaggerated, visible teeth and tongue. No scalp hair, sideburns, moustache, goatee, hat, shirt, coat, sash, trousers, boots or props. Plain small fitted skin-neutral warm grey underwear for the base rig's modesty, no belt, no dangling cloth, no external genital detail. Feet bare with simple clean toes, hands normal human five digits each.\nPOSE REQUIRED: A-POSE, both arms straight diagonally out from shoulders at45degrees DOWN from horizontal, symmetric; arms separated from ribs at armpits in front/back. Palms face DOWN toward the floor, not toward the camera: forearms pronated, backs of hands visible in front, relaxed fingers individually separated with clear background slits, thumb spread well away from index. Legs slightly apart, knees straight, feet forward, background visible between thighs. No acting, hip shift, bent elbow, clenched fingers, waving or different pose between views.\nOne coherent four-view sheet of the identical body in that identical frozen A-pose, ordered FRONT, LEFT PROFILE nose points left, BACK, RIGHT PROFILE nose points right. Strict orthographic level cameras. Body rotates only around vertical axis; in exact profiles the limbs on the far side naturally occlude, do not splay them toward camera to reveal both. No three-quarter views.\nWide high-resolution landscape, four equal-width invisible cells, entire body centered within each cell; front/back arms fit entirely within their cells, generous pure-white bands between adjacent cells, no fingertips nearing neighbours. Same camera scale, same crown height, same baseline at soles, no cropped limbs. Flat pure white RGB255 background, no gradients, shadows on background, text, labels, borders, callouts or ground line graphic. Soft neutral dimensional cartoon shading matched to approved reference, no realistic pores, heavy ink outline or alternate palette.\nThis BODY sheet alone uses A-pose; do not use T-pose here.",
+        "output_filename": "exec-717881fe-ba84-460b-8e30-24ed8e05f981.png",
+        "output_sha256": "035b0cc294334cba8db8c19ed26cc245c8436e07de2117379cbc0d7902dc8510"
+      },
+      {
+        "operation": "separate fingers and thumbs",
+        "prompt": "Use case: precise-object-edit.\nEdit target: this four-view bald Captain Livé BASE BODY A-pose sheet.\nChange ONLY the HANDS in the FRONT and BACK views (first and third figures). Spread each finger into a relaxed clear fan, with visibly WHITE BACKGROUND BETWEEN EVERY ADJACENT FINGER along their free lengths, and move the thumb well away from the index. Exactly FIVE DIGITS per hand: four fingers and one thumb. Keep the fingers relaxed with a slight natural curve; no claws or clenched hands. PALMS STAY FACING DOWN TOWARD THE FLOOR, not forward toward camera; keep forearm pronation and the backs of the hands exposed. The current first/third views have too many nearly touching fingers and tiny fingertip-only notches; replace those with clear separated fingers.\nKeep the two PROFILE hand poses, which already show separated fingers, in the same orientation and make anatomical finger counts consistent.\nKeep EVERYTHING ELSE EXACTLY: whole four figures, facial identity, bald head, bare slim torso and legs, plain grey fitted underwear, legs apart, feet and scale. Preserve the A-pose diagonal arm angles, elbow and shoulder positions, arm length, leg stance, orthographic front/left/back/right cameras, baseline, framing, gap bands, white background, colours and lighting. No movement of the arm itself, no T-pose. Hands must stay within the empty space around the existing hands without touching a neighbour. No text, lines, labels or additional objects.",
+        "output_filename": "exec-0167f115-2798-411b-87b9-d9abd419f975.png",
+        "output_sha256": "220df0ddc3d9b314bcda973e6a99d466ebe90292ec1ac44b643871c37edc871d"
+      },
+      {
+        "operation": "correct forearm pronation and consistent hand projection across all four views",
+        "prompt": "Use case: precise-object-edit. Edit ONLY WRIST AND HAND ROTATION on this Captain Livé base-body modelling sheet. Preserve all body/head/leg/arm dimensions, pose, colours, white background, four views, spacing and ground positions.\nThe present hands incorrectly look like five-finger fans facing the camera in EVERY view. This is physically inconsistent. Correct all four images to be the SAME pronated palms-DOWN A-pose rotated around the vertical axis:\n- Arms stay diagonally45degrees down from horizontal at the shoulders, elbows straight. Do not move shoulders/elbows or change arm length.\n- Pronate both forearms as in a standard rigging A-pose: the palmar sides face mainly toward the FLOOR; thumbs point forward in the character's forward direction. Wrists neutral with forearms, no backward bend. This is NOT palms-forward and NOT a waving pose.\n- FRONT and BACK hand projections should therefore be more EDGE-ON and naturally foreshortened, not broad palms or broad backs turned to camera. A thin slanted hand silhouette with a spread thumb is correct. Do not artificially rotate each hand toward the viewer just to show five fingers.\n- LEFT and RIGHT PROFILES can show the broad dorsal/top hand surfaces and reveal the relaxed spread fingers. Those side-view hands still each have exactly FOUR FINGERS plus ONE THUMB. Fingers are separated in3D with clear gaps where that projection permits them. Natural occlusion is correct in edge-on views.\nKeep all hands the same size and at the existing wrist locations, five digits anatomically consistent across cameras. Preserve the relaxed fan, do not fuse fingers or make fists. Keep front/left/back/right order. No added labels, guides or diagrams. This is a precise hand orientation fix, not a redesign or new body generation.",
+        "output_filename": "exec-6975b33b-b37a-4c17-ad41-fe63b5811ec9.png",
+        "output_sha256": "c3df25279534e21f15db4505908695f427e404533a89673456672998e33c65cd"
+      }
+    ],
+    "postprocessing": "none; selected imagegen output copied unchanged; no source upscale applied"
+  },
+  "presentation": {
+    "view_order": [
+      "front",
+      "left",
+      "back",
+      "right"
+    ],
+    "camera": "level front/left/back/right elevations of the same posed component",
+    "pose": "A-pose, arms approximately 45 degrees below horizontal, forearms pronated and palms down; front/back hands foreshorten, profiles show five separated digits; legs slightly apart",
+    "components": [
+      "complete bald clean-shaven adult body with head and neck",
+      "bare hands with five digits",
+      "bare feet",
+      "plain neutral fitted underwear as the base underlayer"
+    ],
+    "background": "plain near-white with low RGB variation below the repository cutter tolerance",
+    "lighting": "baked soft dimensional cartoon shading matching the approved Captain; Tripo removes source lighting in texturing"
+  },
+  "fit": {
+    "character_id": "captain_live",
+    "legacy_assembled_height_m": 1.9,
+    "nominal_dimensions_are_estimates": true,
+    "height_scope": "Approximate bald base inferred from the legacy 1.90 m dressed silhouette. The source hat hides the anatomical crown; final assembled height must be measured after fitting.",
+    "note": "A complete humanoid is retained for the auto-rigger. Hide/remove the underlying body head surface when fitting the separate head, so it does not fill the mouth cavity. Covered body surfaces will also need occlusion management under fitted clothing.",
+    "independent_axis_stretching_allowed": false,
+    "uniform_metric_fit_required": true,
+    "shared_raster_scale_with_body_verified": false,
+    "engine_fit_verified": false,
+    "nominal_height_m": 1.67
+  },
+  "pipeline": {
+    "status": "source_sheets_ready_for_tripo_experiment",
+    "rigging": "Auto-rig this body by the documented pipeline; its resulting T-pose is the fitting and weight-copy reference for the other pieces.",
+    "three_d_generator_allowed": "Tripo only",
+    "forbidden_generators": [
+      "Hunyuan3D",
+      "HY-Motion"
+    ],
+    "nc_models_used": false,
+    "reconstruction_complete": false,
+    "engine_import_complete": false,
+    "ready_for_reconstruction_experiment": true,
+    "view_extraction": "tools/crop_views.py using validation.final_extraction.recommended_command",
+    "engine_fit_verified": false
+  },
+  "validation": {
+    "visual_review_complete": true,
+    "reconstructed_geometry_verified": false,
+    "final_extraction": {
+      "sheet_size_px": [
+        1882,
+        836
+      ],
+      "background_rgb": [
+        252,
+        253,
+        254
+      ],
+      "source_view_bounds": [
+        {
+          "name": "front",
+          "bbox_xyxy": [
+            37,
+            25,
+            597,
+            799
+          ],
+          "height_px": 774,
+          "width_px": 560,
+          "bottom_inclusive_px": 798
+        },
+        {
+          "name": "left",
+          "bbox_xyxy": [
+            661,
+            25,
+            835,
+            799
+          ],
+          "height_px": 774,
+          "width_px": 174,
+          "bottom_inclusive_px": 798
+        },
+        {
+          "name": "back",
+          "bbox_xyxy": [
+            924,
+            25,
+            1485,
+            799
+          ],
+          "height_px": 774,
+          "width_px": 561,
+          "bottom_inclusive_px": 798
+        },
+        {
+          "name": "right",
+          "bbox_xyxy": [
+            1566,
+            25,
+            1754,
+            799
+          ],
+          "height_px": 774,
+          "width_px": 188,
+          "bottom_inclusive_px": 798
+        }
+      ],
+      "source_height_spread_px": 0,
+      "source_baseline_spread_px": 0,
+      "gap_widths_px": [
+        64,
+        89,
+        81
+      ],
+      "foreground_pixels_lost": 0,
+      "native_square_px": 959,
+      "extracted_ground_line_px": 843,
+      "all_four_extracted_baselines_equal": true,
+      "source_image_modified": false,
+      "source_resampling_applied": false,
+      "crop_cli_args": [
+        "--row",
+        "0",
+        "1",
+        "--names",
+        "front",
+        "left",
+        "back",
+        "right"
+      ],
+      "recommended_command": "python tools/crop_views.py art/characters/captain_live/pieces/body/sheet.png --row 0 1 --names front left back right --size 959 --out art/characters/captain_live/pieces/body/views",
+      "after_two_x_upscale_px": 1918
+    },
+    "source_framing_precision": "Native height and baseline differences are recorded in final_extraction; do not describe all source sheets as pixel-exact. Extracted inputs share one per-piece scale and baseline."
+  }
+}

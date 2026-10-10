@@ -1,0 +1,262 @@
+{
+  "asset_id": "character_piece:captain_live:hat",
+  "name": "Captain Livé — tricorn hat and attached red feather",
+  "asset_type": "character_piece_turnaround_sheet",
+  "character_id": "captain_live",
+  "slot": "hat",
+  "files": {
+    "sheet": "sheet.png"
+  },
+  "dimensions_m": {
+    "width": 0.64,
+    "height": 0.39,
+    "depth": 0.55
+  },
+  "dimensions_accuracy": "Reference-derived estimates, not verified model dimensions. Scale and fit must be checked against the body during assembly.",
+  "fit": {
+    "parent_character_height_m": 1.9,
+    "height_reference": "Approved complete character silhouette including hat feather, approximately y=16..793 (777 px extent) in the 1881×836 reference.",
+    "attachment": "head",
+    "pose": "Rigid head-worn component; no arm pose applies.",
+    "source_reference": "art/characters/captain_live/turnaround.png",
+    "source_front_hat_bbox_px_approx": [
+      188,
+      16,
+      449,
+      176
+    ],
+    "fit_validation_complete": false
+  },
+  "source": {
+    "producer": "OpenAI image generation via ChatGPT",
+    "tool": "image_gen.imagegen",
+    "model": null,
+    "model_identifier_status": "The built-in tool does not expose its underlying model identifier.",
+    "created_on": "2026-10-10",
+    "original_filename": "exec-dceddf8b-254a-4974-9d16-22c166838031.png",
+    "sha256": "753a68de3f6fdf15ebc33fef1c72aed4eb3358aca322fa5f1d74ab03e0662217",
+    "reference_images": [
+      {
+        "path": "art/characters/captain_live/turnaround.png",
+        "sha256": "bcb66fe6213ab55672cb91328f22665a125511d211e3fded0397dd45ac1897fa",
+        "role": "Approved hat identity, proportions, materials, and rendering style."
+      }
+    ],
+    "workflow": "One coherent four-view generation followed by two targeted layout/alignment edits. Selected output copied unchanged; no per-view crops, compositing, geometric transformations, or pixel edits applied.",
+    "prompts": [
+      {
+        "stage": "initial_generation",
+        "prompt": "Use case: stylized-concept.\nAsset type: Captain Livé modular HAT ONLY, a production four-view model reconstruction sheet for Tripo.\nReference image 1 is the approved Captain Livé turnaround. Use it ONLY for exact hat identity, shape, material, colour and rendering style. Extract the HAT as one standalone component, including its single attached red feather. Do not show the captain, face, hair, neck, ears, body, mannequin or any support.\n\nMake ONE coherent wide image, preferably 3072 × 1024, showing exactly FOUR views of the SAME hat, in ONE horizontal row of four equal-width cells. Left-to-right order is FRONT, LEFT SIDE, BACK, RIGHT SIDE. Orthographic projection, true straight-on front/rear elevations and exact 90-degree side elevations, camera level with the middle of the hat; no perspective or three-quarter views. Rotate only the viewing direction. Identical orthographic scale, height, and lowest-point baseline in all four. No enlargement of narrow side views. Leave at least a broad 10% of cell-width empty margin around each hat so full-height clean white separator bands remain. Entire hat and feather completely inside every cell.\n\nIdentity: retain this exact worn oversized three-point tricorn. Warm charcoal / very dark brown leather-felt, broad deeply folded upswept brim, visibly irregular chunky silhouette, three characteristic raised corners, narrow aged ochre-gold / orange piping around the brim edge. Keep the same softly worn rubbed brown edges, gently creased matte surfaces, and simple readable forms as the reference. No skull, no logo, no buckle, no extra jewellery. The hat's shape must clearly be a three-corner tricorn from every side, with a crown that can fit this captain's angular narrow head.\n\nThe vivid scarlet feather is ONE attached piece with one curved quill and broad overlapping pointed barbs, sweeping high and arcing down at its free end, as in the reference. Fix it physically to the wearer's LEFT side of the crown; in the front it extends toward screen-right, in the back toward screen-left, and in the profiles its silhouette changes naturally with the rotation. Never mirror the plume attachment or create a second feather. Keep the feather's overall highest point at exactly the same height in every view.\n\nThe underside is genuinely hollow to accept the head; no head-shaped plug or skin-coloured fill. Where rolled brim folds produce open passages, let plain white background be visible in front and back. Do not add artificial perforations or rotate the hat out of its worn orientation to expose the underside.\n\nStyle: match the reference's cartoony stylised adventure-game character rendering, broad chunky shapes and softly dimensional material shading, saturated scarlet, warm dark browns. Even diffuse neutral studio illumination, consistent across all four, mild form shading only. No photorealistic fine texture, ink-outline redesign or dramatic highlights.\n\nBackground: absolutely flat pure white #FFFFFF, including corners and all empty gaps. No ground plane, no cast shadows or contact shadows, no lines, no labels, no numbers, no text, no panel borders, no inset, no annotations.\nFit: this is the existing hat for the existing Captain, whose full approved silhouette including feather is 1.90 m high; do not redesign it as a different size or change its proportions relative to his head. The isolated sheet may frame the hat closely, but use one shared camera scale across its four views."
+      },
+      {
+        "stage": "targeted_sheet_layout_edit",
+        "prompt": "Use case: precise-object-edit. Edit target: image 1, the four-view Captain Livé HAT sheet. Keep this exact hat design, charcoal-brown leather, narrow warm gold edge piping, red feather, and view order FRONT, LEFT, BACK, RIGHT.\n\nCorrect only the model-sheet geometry and framing. Show four truly orthographic views of ONE physically identical hat at one fixed scale. Straight-on front, exact left profile, straight-on back, exact right profile. No three-quarter angles and no tilted camera. Preserve the coherent feather attachment on the wearer's left, so front/back show opposite sweeps.\n\nThe four hats must have EXACTLY the same overall projected height, the same top elevation at the feather's highest point, and the same bottom elevation at the lowest part of the hat or plume. Their baselines must coincide. The first image currently sits too high: correct that. Do not fit or scale views independently. Retain real narrower widths of profiles.\n\nLay them out in four equal-width cells in a wide 3:1 image. Center each silhouette in its own cell. Each silhouette must occupy NO MORE THAN 76% of its cell width, and stay entirely within the cell. This leaves broad empty WHITE vertical bands between all four. Keep all whole hats and feather tips inside the frame. More margin is preferable to clipping. No separators or drawn baseline.\n\nReplace the entire background, including the spaces and corners, with FLAT PURE WHITE #FFFFFF. Eliminate all off-white paper grain, vignetting, coloured pixels, gradients, ambient haze, shadows and contact shadows. Keep only soft even form shading on the hats themselves. No labels, no text, no dimensions, no head or hair, no mannequin, no props.\n\nThe hat remains naturally hollow underneath; do not add a head-shaped plug or underside cap. Do not tip the hat upward or introduce unnatural holes to expose the cavity."
+      },
+      {
+        "stage": "final_targeted_alignment_edit",
+        "prompt": "Edit target: this exact four-view Captain Livé hat sheet. ONE final alignment correction only; preserve the hat, plume, materials, colours, detailed wear, lighting, view directions and coherent wearer-left feather attachment exactly.\n\nKeep the canvas 2172 × 724 with the same four horizontal cells and the same order: front, left, back, right. These are four elevations of the SAME physical hat under a fixed orthographic camera. The native front view is slightly too short and too high. Correct the tiny scale/vertical-position drift so ALL FOUR silhouettes have:\n- the highest feather tip at y = 204;\n- the lowest visible point of the complete hat-and-feather at y = 518;\n- the SAME 315-pixel overall height.\nThe front currently ends at 511 and must come down to the common lowest line. The other tops at 205–206 need matching to 204. Keep the feather orientation and its one attachment unchanged. Adjust the complete view coherently; do not stretch a feather or hat part separately.\n\nKeep all four hats separated by broad continuous white gap bands. Entire hat, brim and feather must be complete in every view. No head, hair, skin or support. Strict front/left/back/right orthographic elevations, never three-quarter view.\n\nBackground must be flat white #FFFFFF with no grain or off-white tint. No drawn baseline, text, label, callout, border or shadow. Do not redesign any part of the hat."
+      }
+    ]
+  },
+  "design": {
+    "included": [
+      "Warm charcoal-brown worn tricorn",
+      "Narrow ochre-gold brim piping",
+      "Single attached scarlet arcing feather"
+    ],
+    "excluded": [
+      "Head",
+      "Hair",
+      "Skin",
+      "Facial hair",
+      "Mannequin",
+      "Other outfit pieces"
+    ],
+    "inference": "The approved full turnaround sweeps the plume screen-right in both front and back. This sheet resolves that inconsistency as one wearer-left attachment, with opposite screen sweeps in front and back.",
+    "cavity": "The natural underside is intended to remain hollow. A head opening is occluded at strict level elevations; the sheet does not prove a through-hole or mouth-like white aperture, and no artificial perforation was added."
+  },
+  "turnaround": {
+    "view_order": [
+      "front",
+      "left",
+      "back",
+      "right"
+    ],
+    "requested_projection": "orthographic elevations at one fixed camera scale",
+    "sheet_size_px": [
+      2172,
+      724
+    ],
+    "background": "Visually white, generated RGB noise near 253–255; not pixel-flat pure #FFFFFF.",
+    "lighting": "Soft even form shading remains on the material; no cast shadow or ground plane.",
+    "common_native_scale_exact": false,
+    "common_native_baseline_exact": false,
+    "clear_separation": true,
+    "labels": false
+  },
+  "validation": {
+    "cutter": "tools/crop_views.py",
+    "command": "python tools/crop_views.py art/characters/captain_live/pieces/hat/sheet.png --names front left back right --row 0 1 --out <scratch> --dry-run --preview <scratch-preview>",
+    "automatic_views_found": 4,
+    "common_crop_canvas_px": 644,
+    "native_bbox_measurement": "RGB absolute difference from white summed over channels >54; inclusive bounds.",
+    "views": [
+      {
+        "view": "front",
+        "bbox_px": [
+          24,
+          195,
+          535,
+          522
+        ],
+        "height_px": 328,
+        "width_px": 512
+      },
+      {
+        "view": "left",
+        "bbox_px": [
+          581,
+          199,
+          1055,
+          528
+        ],
+        "height_px": 330,
+        "width_px": 475
+      },
+      {
+        "view": "back",
+        "bbox_px": [
+          1113,
+          198,
+          1632,
+          526
+        ],
+        "height_px": 329,
+        "width_px": 520
+      },
+      {
+        "view": "right",
+        "bbox_px": [
+          1661,
+          199,
+          2133,
+          527
+        ],
+        "height_px": 329,
+        "width_px": 473
+      }
+    ],
+    "native_height_spread_px": 2,
+    "native_baseline_spread_px": 6,
+    "notes": [
+      "Identity, physically coherent feather attachment and four-view separation reviewed.",
+      "Final generation reduced native height spread from 6 px to 2 px, but still leaves 6 px baseline spread; do not claim a pixel-exact match.",
+      "Automatic view cutter aligns bottoms on extraction but does not normalize the 2 px height difference.",
+      "The hat underside, actual metre fit, and reconstructed feather count need checking in Tripo/assembly.",
+      "Final extraction was run successfully after the fingertip-preservation fix; four nonempty PNGs open at native square size with matching baselines and no omitted foreground."
+    ],
+    "final_extraction": {
+      "sheet_size_px": [
+        2172,
+        724
+      ],
+      "background_rgb": [
+        254,
+        254,
+        254
+      ],
+      "source_view_bounds": [
+        {
+          "name": "front",
+          "bbox_xyxy": [
+            24,
+            195,
+            536,
+            523
+          ],
+          "height_px": 328,
+          "width_px": 512,
+          "bottom_inclusive_px": 522
+        },
+        {
+          "name": "left",
+          "bbox_xyxy": [
+            581,
+            199,
+            1056,
+            529
+          ],
+          "height_px": 330,
+          "width_px": 475,
+          "bottom_inclusive_px": 528
+        },
+        {
+          "name": "back",
+          "bbox_xyxy": [
+            1113,
+            198,
+            1633,
+            527
+          ],
+          "height_px": 329,
+          "width_px": 520,
+          "bottom_inclusive_px": 526
+        },
+        {
+          "name": "right",
+          "bbox_xyxy": [
+            1661,
+            199,
+            2134,
+            528
+          ],
+          "height_px": 329,
+          "width_px": 473,
+          "bottom_inclusive_px": 527
+        }
+      ],
+      "source_height_spread_px": 2,
+      "source_baseline_spread_px": 6,
+      "gap_widths_px": [
+        45,
+        57,
+        28
+      ],
+      "foreground_pixels_lost": 0,
+      "native_square_px": 644,
+      "extracted_ground_line_px": 566,
+      "all_four_extracted_baselines_equal": true,
+      "source_image_modified": false,
+      "source_resampling_applied": false,
+      "crop_cli_args": [
+        "--row",
+        "0",
+        "1",
+        "--names",
+        "front",
+        "left",
+        "back",
+        "right"
+      ],
+      "recommended_command": "python tools/crop_views.py art/characters/captain_live/pieces/hat/sheet.png --row 0 1 --names front left back right --size 644 --out art/characters/captain_live/pieces/hat/views",
+      "after_two_x_upscale_px": 1288
+    },
+    "source_framing_precision": "Native height and baseline differences are recorded in final_extraction; do not describe all source sheets as pixel-exact. Extracted inputs share one per-piece scale and baseline."
+  },
+  "pipeline": {
+    "status": "source_sheets_ready_for_tripo_experiment",
+    "ready_for_reconstruction": true,
+    "view_extraction": "tools/crop_views.py using validation.final_extraction.recommended_command",
+    "three_d_generator_allowed": "Tripo only",
+    "forbidden_generators": [
+      "Hunyuan3D",
+      "HY-Motion"
+    ],
+    "nc_models_used": false,
+    "reconstruction_complete": false,
+    "fit_validation_complete": false,
+    "engine_import_complete": false,
+    "ready_for_reconstruction_experiment": true,
+    "engine_fit_verified": false
+  }
+}

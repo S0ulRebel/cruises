@@ -1,0 +1,305 @@
+{
+  "asset_id": "character_piece:captain_live:trousers",
+  "name": "Captain Livé — trousers",
+  "character_id": "character:captain_live",
+  "slot": "trousers",
+  "asset_type": "character_piece_turnaround",
+  "files": {
+    "sheet": "sheet.png"
+  },
+  "source": {
+    "producer": "OpenAI image generation via ChatGPT",
+    "tool": "image_gen.imagegen",
+    "mode": "built-in",
+    "model_identifier": null,
+    "model_identifier_note": "The built-in tool does not expose a model identifier.",
+    "generated_date": "2026-10-10",
+    "original_filename": "exec-cb072df2-64ab-4c21-ba2d-04139f02e322.png",
+    "sha256": "673215a6bc9330664d53247a0dd047de3c1758f2b57b7f095a6beacefe11ec52",
+    "image_size_px": [
+      1882,
+      836
+    ],
+    "prompt": "Use case: stylized-concept.\nAsset type: Captain Livé modular character piece, TROUSERS ONLY, four-view model-reconstruction sheet.\nInput images: Image 1 is the approved fully dressed Captain Livé design reference. Copy the dark warm-brown trousers, worn cloth, slim silhouette and rendering style from it. Image 2 is the new bare body and the fit/leg-stance reference. Fit this one garment to his narrow hips, thin long legs, and gently separated stance. Do not include either character in the output.\n\nCreate ONE coherent four-view turnaround of the SAME full-length pair of trousers. Left-to-right order is FRONT, LEFT SIDE (front points to image left), BACK, RIGHT SIDE (front points to image right). Strict straight-on orthographic cameras, level at the middle of the garment, no perspective or three-quarter angles. The two profile views have the same separated legs in 3D, naturally occluding behind the nearer leg. Camera scale, object height and trouser-cuff ground line identical in all four.\n\nThe trousers are dark warm walnut-brown cloth matching Image 1, with broad angular wrinkles at hips, knees and ankles, soft worn lighter edges, slim rather than baggy tailoring. Continue the trouser legs all the way down to the ankles underneath where the separate boots will be; these are full-length trousers, not shorts or knee breeches. The original waist was covered by a separate red sash, so infer a simple unobtrusive plain waistband with no added belt, no decorative buckles and no new accessories. Preserve the body's separated leg stance with visible white background between the thighs and calves. Show the actual empty waistband and empty ankle openings where visible, with cloth thickness; no filler flesh, mannequin legs, feet, boots, sash, coat, shirt or wearer.\n\nComposition: one wide landscape sheet consisting of exactly FOUR EQUAL-WIDTH invisible cells, each garment centered at 12.5%, 37.5%, 62.5% and 87.5% of the total width. All four complete garments fit inside their own cells. Clear broad vertical bands of empty background between each view; nothing touches, overlaps or approaches the next cell. Entire waistband and ankle cuffs visible with breathing room. Each garment fills its own frame at one consistent camera scale. No text, labels, arrows, grid lines, ground lines, swatches, dimensions, insets or other objects.\n\nBackground is perfectly flat solid pure white (#FFFFFF), including corners and spaces between legs. No gradient, paper texture or cast floor shadow. Render the garment with the approved reference's cartoony dimensional forms and restrained broad soft shading: stylised Monkey Island / Discworld pirate costume, chunky readable folds, saturated but dirty warm brown, never photorealistic leather trousers. Keep lighting even and consistent across all four views.",
+    "references": [
+      {
+        "role": "approved costume design and rendering style",
+        "path": "art/characters/captain_live/turnaround.png",
+        "sha256": "bcb66fe6213ab55672cb91328f22665a125511d211e3fded0397dd45ac1897fa"
+      },
+      {
+        "role": "new modular body, proportions and separated leg stance",
+        "path": "art/characters/captain_live/pieces/body/sheet.png",
+        "generation_filename": "exec-717881fe-ba84-460b-8e30-24ed8e05f981.png",
+        "sha256": "035b0cc294334cba8db8c19ed26cc245c8436e07de2117379cbc0d7902dc8510",
+        "reference_note": "Hash identifies the exact body generation used; the body slot may subsequently receive a separate revision."
+      }
+    ],
+    "unused_revision": {
+      "original_filename": "exec-7ae1f568-910f-4a08-867e-3e3a12fef301.png",
+      "sha256": "71f5a2cb6827d1b3284e14319c29c668caa8baf30123e62d7356c8863e0cf98e",
+      "prompt": "Use case: precise-object-edit.\nEdit this four-view TROUSERS ONLY sheet. Preserve the garment exactly: same dark warm-brown material, same slim full-length legs, same wrinkles and seams, same white empty space between legs, same openings, same four view directions FRONT / LEFT / BACK / RIGHT. Preserve the size of every garment and its camera; do not redesign anything.\n\nCorrect the sheet layout only. It has four equal invisible cells. The front pair in the FIRST cell is too far to the right and its right cuff crosses the first cell boundary. Shift the entire first front-view trousers approximately 65 pixels left on this approximately 1882-pixel-wide sheet, placing its centre at 12.5% of the sheet width. Keep its full outline within the first quarter with broad empty white margins on both sides. The other view centres remain around 37.5%, 62.5% and 87.5%. Each complete garment must fit wholly inside its quarter. All four ankle-cuff bottoms share one horizontal baseline and all four waistband-to-cuff heights match. Leave clear vertical white background bands at 25%, 50% and 75% sheet width from top to bottom.\n\nKeep a flat pure white background (#FFFFFF) with no gradient or texture, no floor shadows, no text, no labels, no borders or division lines, and no extra objects. Four garments only.",
+      "reason_not_selected": "Requested first-view relocation did not occur; the source already has four separated views and a measured repository-cutter recipe."
+    },
+    "postprocessing": "None. Selected generated PNG copied byte-for-byte."
+  },
+  "piece": {
+    "contains": "One full-length pair of dark warm-brown trousers, including plain waistband and ankle cuffs.",
+    "excludes": [
+      "body",
+      "human legs",
+      "feet",
+      "boots",
+      "shirt",
+      "coat",
+      "sash",
+      "belt",
+      "accessories"
+    ],
+    "design_decisions": [
+      "Continue trousers to the ankles underneath the separate boot shafts.",
+      "Infer a plain waistband where the approved sash hid the construction."
+    ],
+    "pose": "T-pose-compatible lower-body stance",
+    "leg_stance": "Separated to match the body reference, with open background between thighs and calves.",
+    "arm_pose": "Not applicable to this piece."
+  },
+  "fit": {
+    "body": "captain_live",
+    "basis": "Approximate fit anchors from the approved legacy character at 1.90 m; dimensions require calibration against the actual rigged body.",
+    "nominal_legacy_character_height_m": 1.9,
+    "nominal_piece_height_m": 1.01,
+    "nominal_top_above_body_ground_m": 1.07,
+    "nominal_bottom_above_body_ground_m": 0.06,
+    "camera_scale_between_sheets": "Native source pixels differ between piece sheets; do not infer identical physical scale from equal image heights.",
+    "pixel_scale_is_calibrated": false,
+    "reconstructed_dimensions_verified": false,
+    "engine_fit_verified": false
+  },
+  "turnaround": {
+    "order": [
+      "front",
+      "left",
+      "back",
+      "right"
+    ],
+    "camera_requested": "Straight-on orthographic, level at the garment centre.",
+    "camera_parameters_exposed": false,
+    "same_camera_scale_requested": true,
+    "background_requested": "#FFFFFF flat",
+    "actual_background_modal_rgb": [
+      254,
+      254,
+      254
+    ],
+    "actual_background_note": "Near-white variation is present; it is below the repository cutter's tolerance.",
+    "ground_line_note": "Raw bottoms differ by 6 px. The repository cutter places every view on one common output baseline without independently changing view scale.",
+    "measurements": {
+      "views": [
+        {
+          "name": "front",
+          "bbox_xyxy": [
+            108,
+            54,
+            492,
+            775
+          ],
+          "width_px": 384,
+          "height_px": 721,
+          "bottom_inclusive_px": 774
+        },
+        {
+          "name": "left",
+          "bbox_xyxy": [
+            645,
+            53,
+            829,
+            781
+          ],
+          "width_px": 184,
+          "height_px": 728,
+          "bottom_inclusive_px": 780
+        },
+        {
+          "name": "back",
+          "bbox_xyxy": [
+            991,
+            50,
+            1376,
+            778
+          ],
+          "width_px": 385,
+          "height_px": 728,
+          "bottom_inclusive_px": 777
+        },
+        {
+          "name": "right",
+          "bbox_xyxy": [
+            1519,
+            50,
+            1704,
+            780
+          ],
+          "width_px": 185,
+          "height_px": 730,
+          "bottom_inclusive_px": 779
+        }
+      ],
+      "height_spread_px": 9,
+      "height_spread_fraction": 0.01238390092879257,
+      "bottom_spread_px": 6,
+      "separator_band_widths_px": [
+        153,
+        162,
+        143
+      ]
+    },
+    "extraction": {
+      "tool": "tools/crop_views.py",
+      "arguments": [
+        "--row",
+        "0",
+        "1",
+        "--cols",
+        "0.02",
+        "1",
+        "--count",
+        "4",
+        "--names",
+        "front",
+        "left",
+        "back",
+        "right"
+      ],
+      "cell_edges_x": [
+        37,
+        498,
+        959,
+        1420,
+        1882
+      ],
+      "rationale": "The source is not aligned to full-sheet quarter cells. Restricting the cutter to x=37..1882 excludes only empty left margin and gives four equal slices containing every complete silhouette.",
+      "dry_run_verified": true,
+      "native_square_px": 905,
+      "default_output_square_px": 1024,
+      "default_upscale_note": "The cutter's default output upsamples 905 px to 1024 px; this does not add source detail."
+    }
+  },
+  "validation": {
+    "visual_review": "Four matching trouser views, full-length legs, open waistband/cuffs, no wearer or unrelated piece. Readable white gaps separate all four views.",
+    "no_foreground_clipping_in_recommended_cells": true,
+    "source_image_edited": false,
+    "raw_height_spread_requires_review": false,
+    "raw_height_spread_note": "1.24% measured spread; the character-piece brief does not impose the prop-specific 1 px threshold.",
+    "geometry_not_yet_generated": true,
+    "final_extraction": {
+      "sheet_size_px": [
+        1882,
+        836
+      ],
+      "background_rgb": [
+        254,
+        254,
+        254
+      ],
+      "source_view_bounds": [
+        {
+          "name": "front",
+          "bbox_xyxy": [
+            108,
+            54,
+            492,
+            775
+          ],
+          "height_px": 721,
+          "width_px": 384,
+          "bottom_inclusive_px": 774
+        },
+        {
+          "name": "left",
+          "bbox_xyxy": [
+            645,
+            53,
+            829,
+            781
+          ],
+          "height_px": 728,
+          "width_px": 184,
+          "bottom_inclusive_px": 780
+        },
+        {
+          "name": "back",
+          "bbox_xyxy": [
+            991,
+            50,
+            1376,
+            778
+          ],
+          "height_px": 728,
+          "width_px": 385,
+          "bottom_inclusive_px": 777
+        },
+        {
+          "name": "right",
+          "bbox_xyxy": [
+            1519,
+            50,
+            1704,
+            780
+          ],
+          "height_px": 730,
+          "width_px": 185,
+          "bottom_inclusive_px": 779
+        }
+      ],
+      "source_height_spread_px": 9,
+      "source_baseline_spread_px": 6,
+      "gap_widths_px": [
+        153,
+        162,
+        143
+      ],
+      "foreground_pixels_lost": 0,
+      "native_square_px": 905,
+      "extracted_ground_line_px": 796,
+      "all_four_extracted_baselines_equal": true,
+      "source_image_modified": false,
+      "source_resampling_applied": false,
+      "crop_cli_args": [
+        "--row",
+        "0",
+        "1",
+        "--names",
+        "front",
+        "left",
+        "back",
+        "right",
+        "--cols",
+        "0.02",
+        "1",
+        "--count",
+        "4"
+      ],
+      "recommended_command": "python tools/crop_views.py art/characters/captain_live/pieces/trousers/sheet.png --row 0 1 --names front left back right --cols 0.02 1 --count 4 --size 905 --out art/characters/captain_live/pieces/trousers/views",
+      "after_two_x_upscale_px": 1810
+    },
+    "source_framing_precision": "Native height and baseline differences are recorded in final_extraction; do not describe all source sheets as pixel-exact. Extracted inputs share one per-piece scale and baseline."
+  },
+  "pipeline": {
+    "status": "source_sheets_ready_for_tripo_experiment",
+    "view_extraction": "tools/crop_views.py using validation.final_extraction.recommended_command",
+    "three_d_generator_allowed": "Tripo only",
+    "forbidden_generators": [
+      "Hunyuan3D",
+      "HY-Motion"
+    ],
+    "nc_models_used": false,
+    "pieces_unrigged": true,
+    "deformation": "Copy weights from the fitted rigged body in T-pose.",
+    "reconstruction_tested": false,
+    "engine_import_tested": false,
+    "ready_for_reconstruction_experiment": true,
+    "reconstruction_complete": false,
+    "engine_fit_verified": false
+  }
+}

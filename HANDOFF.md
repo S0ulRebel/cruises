@@ -146,8 +146,18 @@ separates the fused mask by connected components — and that union has exactly 
 
     D:\code\gan\ComfyUI_windows_portable\ComfyUI\custom_nodes\ComfyUI-AutoSplit\autosplit_core\sides.py
 
-**NOT yet verified** — needs a ComfyUI restart to reload the module, then a rerun of
-Livé's face slice. Do not call it fixed until the brows come back as two separate parts.
+**VERIFIED 11 Oct** after a ComfyUI restart and a rerun of Livé's face slice. The
+brows now come back as two separate parts, `lr=components` instead of the bad
+`lr=geometry` pair:
+
+| part | left | right | overlap |
+| --- | --- | --- | --- |
+| eyebrow | 1,503 px, x385-479 | 1,562 px, x281-383 | **0** |
+| ear | 3,404 px, x467-541 | 3,857 px, x216-293 | **0** |
+| eye | 1,291 px, x400-464 | 1,478 px, x295-362 | **0** |
+
+Containment 0.000 on all three; the x ranges no longer share an edge. Rerun output at
+`D:\code\gan\outputsutosplit_cruise_fix\`.
 The patch is in a third-party node pack and will be lost when it updates; worth
 reporting upstream.
 
@@ -311,6 +321,49 @@ session only, which is not a real check. It should run against the RE-IMPORTED G
 **Not done:** not re-measured the -3.25 to +30 usable range (engine side's numbers stand),
 not rendered at other angles, not tested in Godot, not committed. Chin reads long at +25;
 believed to be the caricature rather than a fault - say if not and the hinge moves forward.
+
+---
+
+### 2026-10-11 - from the face session - DECIDED: portrait panel is a SubViewport, not sprites
+
+Owner's decision after costing. The 2D sprite route is kept as a learning exercise only, not
+built for this game.
+
+**Costing, measured on Live's actual head.**
+
+3D SubViewport per character: 51,426 tris, 26,258 verts, one 4096x4096 basecolor =
+~17 MB as BC7 (67 MB raw, ~8 MB as BC1). glb on disk 5.4 MB. Only ONE character speaks at a
+time, so that is 17 MB resident, not 153 MB for a cast of nine. 51k tris into a 300x300
+viewport is nothing on a 4060 Ti.
+
+2D sprites per character: the letter map quantises to **7 distinct mouth states** at 2 steps
+per axis, 14 at 3 steps, 17 at 4. For a cast of nine that is **63 to 126 images to generate
+and keep consistent** with each other and with the 3D head. At 300x300 RGBA a 14-sprite
+atlas is ~1.1 MB BC7, so the whole cast is ~10 MB resident - cheaper in memory, far more
+expensive in art.
+Killer detail: teeth and tongue do not exist in the source drawings and cannot be inpainted,
+so every open-mouth sprite needs them generated.
+
+**Art cost per character decides it.** 3D: the head turnaround is already required by the
+body pipeline, Tripo generation is already done, and the jaw rig plus three blendshapes is a
+script that reruns on any head in about two minutes. Per dialogue line: zero, the text drives
+it. 2D: 7-17 drawings per character before a single line is spoken.
+
+**Also delivered, all untracked:**
+
+    art/characters/captain_live/pieces/head/head_face.glb   jaw rig + WIDE/ROUND/PRESSED
+    art/characters/captain_live/pieces/head/shape_*.png     the three shapes vs Basis
+    data/speech/letter_shapes.json                          letter -> jaw + 3 shape weights
+    data/speech/voices.json                                 per-character speaking style
+
+Letter-driven speech verified by eye on Live's head: ROUND (oo) and WIDE (ee) are visibly
+different mouths. Same head rendered twice, Live profile (8.9 s, jaw max 10.2, shapes 0.75)
+versus Santi profile (7.1 s, jaw max 18.6, shapes 1.00) - the same line reads as a different
+speaker, and since the geometry is identical it is provably the profile doing it.
+Shape weights are clamped to sum <= 1 so an overlapping ROUND-to-PRESSED cannot exceed what
+either shape does alone. Nothing hit the clamp on the test line.
+
+**Not done:** not tested in Godot, nothing committed, no SubViewport node built yet.
 
 ---
 ---

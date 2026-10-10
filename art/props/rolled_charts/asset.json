@@ -1,0 +1,274 @@
+{
+  "asset_id": "prop:rolled_charts",
+  "name": "Rolled charts — loose bundle",
+  "role": "Separate chart inventory object for Captain Livé’s quarters",
+  "asset_type": "prop_turnaround_sheet",
+  "files": {
+    "sheet": "sheet.png"
+  },
+  "source": {
+    "producer": "OpenAI image generation via ChatGPT",
+    "model_identifier": "Not exposed by the built-in image generation tool",
+    "original_filename": "exec-6eb34ef5-2d0c-430e-99d1-6b38c28aeba7.png",
+    "generated_source_sha256": "0bcb8a8ec46d6161631632d418df3e2d22a821291f5ffa97f066134c1ce05550",
+    "sha256": "4a24016c3b8ce9646598830ea8aa5f8925082fa433d7000394755edc3e6e1af6",
+    "repository_base_commit": "4b33d756b9febf00b7ae291813ae2ee3e2666d37",
+    "references": [
+      {
+        "role": "Approved cartoon rendering style",
+        "path": "art/characters/captain_live/turnaround.png",
+        "sha256": "bcb66fe6213ab55672cb91328f22665a125511d211e3fded0397dd45ac1897fa"
+      }
+    ],
+    "generation_history": [
+      {
+        "pass": 6,
+        "prompt": "Use case: stylized-concept. Production modeling sheet of ONE inventory prop: a loose bundle of FOUR long rolled parchment navigation charts. The attached captain is a RENDERING STYLE reference only: use soft sculpted cartoon adventure-game art, thick readable forms, warm worn parchment. No character in the output.\n\nMake a single horizontal row of exactly four true orthographic elevations: FRONT, LEFT END, RIGHT END, BACK, in that order, without writing any labels. Camera perfectly LEVEL at the middle height of the bundle, horizontal optical axis, no perspective, no three-quarter angles. The rolls lie HORIZONTALLY, with their long axes left-to-right in the front/back views. In the end views look precisely along these long axes.\n\nFIXED GEOMETRY: four parallel rolls of equal length, arranged in a neat 2-by-2 SQUARE cross-section: two above, two below. They form ONE loose bundle, with no string or extra object. Each roll is 600 mm long and 40 mm across. The whole bundle is therefore 600 mm long, 80 mm high and 80 mm deep. At front and back, one row of rolls is occluded behind the nearer row: two extremely LONG, THIN horizontal parchment tubes, one above the other, together making a slender silhouette exactly 7.5 times as wide as it is high. At each end, four SMALL paper spirals in an exact two-by-two square cluster, with visible white hollow centres. Both end clusters' overall width is equal to their height. Four holes visible in each end elevation, white background through the hollows.\n\nCRITICAL SCALE RULE: EVERY VIEW HAS EXACTLY THE SAME OVERALL HEIGHT. The two end clusters are TINY compared to the length of the long views: exactly 13.33% of their width. Do NOT enlarge the end views for readability or to fill their frames. Keep one orthographic scale for the entire sheet. All four silhouettes are bounded by the SAME top level and SAME bottom level: a SINGLE THIN HORIZONTAL BAND contains the entire bundle in every view. The top edges of every view line up exactly, and the bottom edges of every view line up exactly. No slanted bundles, staggered heights, flaring sheets, raised paper flaps or protrusions outside this simple common height envelope.\n\nSuggested pixel layout on a wide 2172x724 canvas: front silhouette about780px wide by104px high; left end104px wide by104px high; right end104px wide by104px high; back780px wide by104px high. Place their centres near x420,970,1200,1750, all centred at the SAME y360. These measurements are geometry guidance only: never print numbers, guides, boxes or words in the image. Wide clean gaps separate all four views.\n\nOpaque flat white RGB255 background. No texture or gradient in the background, no ground shadow, floor, cast shadow, labels, captions, border, arrows, props, hands, map laid flat or dressing. Parchment is warm cream with honey-brown rolled edges, broad soft worn creases INSIDE the silhouette, smooth chunky simplified shading. Natural paper, no brass or wooden rods inside it. No legible writing or tiny symbols. Keep the exact same four-roll bundle geometry across front/left/right/back, including identical height and tightly aligned ends. Length is 7.5 times overall bundle height: make the front and back genuinely long and slender.",
+        "output_filename": "exec-ea5c2b50-327d-4e55-8f92-58d2b4356d7c.png",
+        "output_sha256": "632ba951dd1e77d582da7728dc84c626e3e9528dd792c8649d7c46671d3e30b4"
+      },
+      {
+        "pass": 7,
+        "prompt": "Use case: precise-object-edit. Correct ONLY a small height mismatch in this four-view chart-bundle modeling sheet.\n\nThe FIRST and FOURTH long horizontal bundle elevations are about 5% too thick/tall relative to the two small end views. Make those two long elevations SLIGHTLY THINNER VERTICALLY, by 5%, keeping their lengths and their horizontal positions unchanged. The two MIDDLE end views are already the correct size: preserve both small four-circle end clusters unchanged, including their white holes. Do NOT enlarge either middle view.\n\nAfter correction all FOUR whole-bundle silhouettes must have EXACTLY THE SAME HEIGHT. In the 2172x724 reference the long views are812–813px wide and119px tall; the two end views are111px wide and114–115px tall. Target long views812–813px wide and114–115px tall, matching the ends. Use a single common top level and bottom baseline; no paper tip or worn flap extends above or below this shared height. Keep all ends of all rolls aligned. It should look almost identical to the reference except that the two long bundles lose five pixels of overall thickness, correcting the scale mismatch.\n\nPreserve every other property: one loose bundle of four rolled parchment charts in a two-by-two square cross-section; front, left end, right end, back order; strict level orthographic elevations, horizontal optical axis; identical geometry; long-axis horizontal in front/back; four holes with white background in each end view; exactly the same warm cream and honey-brown parchment, broad soft cartoon sculpted shading and worn surface texture; no rods, bindings or extra props. Preserve the pure flat opaque white background, no cast shadow, no labels, no dimensions or guides drawn into the image. Do not introduce perspective or reveal the roll ends in the long side elevations. Four complete, isolated views separated by large white bands. Only correct the small long-view height mismatch.",
+        "output_filename": "exec-aafc0112-505c-4fae-86e8-3df8bb117743.png",
+        "output_sha256": "be1d9c3098f5a52e187ec55e6926714a4660cb99a66c8131db4053726fbf9b79"
+      },
+      {
+        "pass": 8,
+        "prompt": "Use case: precise-object-edit. Keep the first and fourth long parchment bundle elevations EXACTLY AS THEY ARE. Their dimensions and proportions are now correct. Correct only the sizes of the SECOND and THIRD small end views.\n\nBoth small 2x2 four-roll end clusters are currently a little too large. Reduce each whole small end cluster uniformly by approximately4%, so its overall height matches the long bundle's overall height exactly. In this 2172x724 source, each long elevation is110px high, but each small end cluster is115px high. Make both small end clusters110px high (about107–108px wide). Keep the hollow white centres, four rolled-paper spirals, and the 2x2 arrangement intact. Move both clusters to the same top and bottom level as the long bundles: common top aroundy290, common bottom aroundy400. Do not resize either long bundle, change any colour, or add anything.\n\nAcceptance condition: all four complete silhouettes have the SAME pixel height, with the tops and bottoms on one shared pair of horizontal levels. The source already has the correct long-to-end width relationship and strictly level orthographic cameras. Preserve that. This is a tiny scale alignment correction to the two MIDDLE images only.\n\nPreserve one horizontal row front/leftend/rightend/back, large empty white gaps, warm cream aged parchment, brown rolled paper edges, soft cartoon sculpted shading, four rolls in a square 2-by-2 cross-section, no bindings/rods/other objects, no perspective or three-quarter angles. Keep the flat opaque white background without labels, drawn guides, text or cast shadows.",
+        "output_filename": "exec-6eb34ef5-2d0c-430e-99d1-6b38c28aeba7.png",
+        "output_sha256": "0bcb8a8ec46d6161631632d418df3e2d22a821291f5ffa97f066134c1ce05550"
+      }
+    ],
+    "selection_note": "The accepted lineage starts from the fresh four-roll design in pass 6. Earlier two- and three-roll candidates were rejected and are not part of this source image."
+  },
+  "dimensions_m": {
+    "width": 0.6,
+    "height": 0.08,
+    "depth": 0.08
+  },
+  "dimension_authority": "These are the authoritative engine bounding dimensions for the complete bundle. The long axis is width/X. The illustrations approximate these physical proportions; do not infer metre scale from pixel size.",
+  "design": {
+    "object_only": true,
+    "roll_count": 4,
+    "arrangement": "Four equally long parallel rolled parchment charts in a loose 2-by-2 bundle, long axes horizontal. No ties, rods or other props.",
+    "front_and_back": "Two horizontal rows are visible; the farther pair of rolls is occluded.",
+    "left_and_right": "Each end shows four rolled-paper faces with four visible white hollow centres.",
+    "materials": "Warm cream parchment with honey-brown rolled edges, broad worn creases and soft cartoon sculpted form shading.",
+    "separate_dressing_included": false
+  },
+  "framing": {
+    "view_order": [
+      "front",
+      "left",
+      "right",
+      "back"
+    ],
+    "projection": "orthographic elevations",
+    "camera": "Horizontal optical axis at object mid-height, zero pitch/roll. Front and back look squarely across the long axis; left and right look directly down it.",
+    "image_size_px": [
+      4036,
+      1009
+    ],
+    "cell_size_px": [
+      1009,
+      1009
+    ],
+    "background_rgb": [
+      253,
+      253,
+      253
+    ],
+    "background": "Plain opaque near-white, no labels, border, scenery, cast shadows or drawn ground line.",
+    "scale": "All source and final object heights agree within 1 px. End views retain their small physical width and are not enlarged to fill their frames.",
+    "ground_line_last_ink_y_px": 887,
+    "clear_vertical_bands_px": [
+      549,
+      902,
+      549
+    ]
+  },
+  "assembly": {
+    "tool": "tools/crop_views.py",
+    "tool_sha256": "be9b2c2663218c46be5249a5951845072a7ab807ad4f4a4967f36cd20b4296bf",
+    "arguments": [
+      "--row",
+      "0",
+      "1",
+      "--names",
+      "front",
+      "left",
+      "right",
+      "back",
+      "--min-width-ratio",
+      "0.08",
+      "--pad",
+      "0.12",
+      "--size",
+      "1009",
+      "--dry-run",
+      "--preview",
+      "art/props/rolled_charts/sheet.png"
+    ],
+    "method": "Gap detection with the explicit narrow-view filter retains all four source views. Existing crop and translation logic places each view on an equal native 1009 px square canvas at a shared baseline. No independent rescaling or repainting.",
+    "resampled": false,
+    "source_measurements": {
+      "image_size_px": [
+        2172,
+        724
+      ],
+      "background_rgb": [
+        253,
+        253,
+        253
+      ],
+      "views": [
+        {
+          "view": "front",
+          "bounds_px": [
+            37,
+            290,
+            850,
+            401
+          ],
+          "width_px": 813,
+          "height_px": 111,
+          "last_ink_y_px": 400,
+          "width_to_height_ratio": 7.324324
+        },
+        {
+          "view": "left",
+          "bounds_px": [
+            929,
+            290,
+            1036,
+            400
+          ],
+          "width_px": 107,
+          "height_px": 110,
+          "last_ink_y_px": 399,
+          "width_to_height_ratio": 0.972727
+        },
+        {
+          "view": "right",
+          "bounds_px": [
+            1136,
+            290,
+            1242,
+            400
+          ],
+          "width_px": 106,
+          "height_px": 110,
+          "last_ink_y_px": 399,
+          "width_to_height_ratio": 0.963636
+        },
+        {
+          "view": "back",
+          "bounds_px": [
+            1318,
+            290,
+            2132,
+            401
+          ],
+          "width_px": 814,
+          "height_px": 111,
+          "last_ink_y_px": 400,
+          "width_to_height_ratio": 7.333333
+        }
+      ]
+    }
+  },
+  "validation": {
+    "method": "Visual review by two agents plus source and final foreground bounds using modal-background RGB distance greater than 54 (cutter tolerance 18).",
+    "detected_views": 4,
+    "views": [
+      {
+        "view": "front",
+        "bounds_px": [
+          98,
+          777,
+          911,
+          888
+        ],
+        "width_px": 813,
+        "height_px": 111,
+        "last_ink_y_px": 887,
+        "width_to_height_ratio": 7.324324
+      },
+      {
+        "view": "left",
+        "bounds_px": [
+          1460,
+          778,
+          1567,
+          888
+        ],
+        "width_px": 107,
+        "height_px": 110,
+        "last_ink_y_px": 887,
+        "width_to_height_ratio": 0.972727
+      },
+      {
+        "view": "right",
+        "bounds_px": [
+          2469,
+          778,
+          2575,
+          888
+        ],
+        "width_px": 106,
+        "height_px": 110,
+        "last_ink_y_px": 887,
+        "width_to_height_ratio": 0.963636
+      },
+      {
+        "view": "back",
+        "bounds_px": [
+          3124,
+          777,
+          3938,
+          888
+        ],
+        "width_px": 814,
+        "height_px": 111,
+        "last_ink_y_px": 887,
+        "width_to_height_ratio": 7.333333
+      }
+    ],
+    "source_height_spread_px": 1,
+    "source_baseline_spread_px": 1,
+    "height_spread_px": 1,
+    "ground_line_spread_px": 0,
+    "minimum_empty_band_px": 549,
+    "target_long_width_to_height_ratio": 7.5,
+    "target_end_width_to_height_ratio": 1.0,
+    "remaining_proportion_deviation": "Long-view ratios are about 7.324 and 7.333 versus 7.5; end ratios are about 0.973 and 0.964 versus 1.0. These small 2–4% silhouette differences are recorded; engine dimensions remain authoritative.",
+    "holes": "Four clear white hollow centres visible in both end views.",
+    "native_view_canvas_px": 1009,
+    "view_canvas_after_2x_upscale_px": 2018,
+    "upscaling_applied": false,
+    "reconstruction_run": false,
+    "engine_import_run": false
+  },
+  "pipeline": {
+    "status": "source_sheet_only",
+    "view_extraction": "delegated_to_claude_code",
+    "view_extraction_names": [
+      "front",
+      "left",
+      "right",
+      "back"
+    ],
+    "recommended_crop_command": "python tools/crop_views.py art/props/rolled_charts/sheet.png --row 0 1 --names front left right back --min-width-ratio 0.08 --size 2018 --out art/props/rolled_charts/views",
+    "narrow_view_note": "Use --min-width-ratio 0.08. The default 0.25 filter would discard the genuine end profiles, which are about 13% as wide as the long views. This option changes detection only.",
+    "three_d_generator_allowed": "Tripo only",
+    "forbidden_generators": [
+      "Hunyuan3D",
+      "HY-Motion"
+    ],
+    "nc_models_used": false,
+    "rigging_required": false,
+    "lighting_note": "Soft form shading is baked into the source. Use reconstruction lighting removal before applying engine lighting.",
+    "validation_scope": "2D sheet and cutter checked. Tripo reconstruction, through-hole preservation in the mesh and engine import remain to be checked."
+  }
+}

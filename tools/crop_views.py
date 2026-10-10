@@ -76,8 +76,11 @@ def column_profile(mask: np.ndarray) -> np.ndarray:
     return mask.sum(axis=0)
 
 
-def find_figures(mask: np.ndarray, min_gap: int) -> list[tuple[int, int]]:
+def find_figures(mask: np.ndarray, min_gap: int,
+                 min_width_ratio: float = 0.25) -> list[tuple[int, int]]:
     """Columns occupied by each figure, split on vertical gaps of empty background."""
+    if not 0.0 <= min_width_ratio <= 1.0:
+        raise ValueError("min_width_ratio must be between 0 and 1")
     per_column = mask.sum(axis=0)
     # A threshold, not a zero test: one stray pixel of jpeg noise or a soft drop shadow
     # in the gap is enough to weld two figures into one.
@@ -101,10 +104,11 @@ def find_figures(mask: np.ndarray, min_gap: int) -> list[tuple[int, int]]:
     if start is not None:
         spans.append((start, len(occupied)))
 
-    # Drop slivers - stray marks, labels, a dropped shadow.
+    # Drop slivers - stray marks, labels, a dropped shadow. Long thin props can have
+    # genuine end views below the character default, so allow an explicit override.
     if spans:
         widest = max(b - a for a, b in spans)
-        spans = [s for s in spans if (s[1] - s[0]) > widest * 0.25]
+        spans = [s for s in spans if (s[1] - s[0]) > widest * min_width_ratio]
     return spans
 
 
@@ -129,9 +133,15 @@ def main() -> int:
                          "figures. Turnaround rows are evenly spaced, so this is usually "
                          "right and always predictable")
     ap.add_argument("--min-gap", type=int, default=0, help="blank columns that separate two figures")
+    ap.add_argument("--min-width-ratio", type=float, default=0.25,
+                    help="reject detected spans at or below this fraction of the widest "
+                         "view (0..1, default 0.25). Lower for genuine narrow prop end "
+                         "views; ignored with --count")
     ap.add_argument("--preview", type=Path, help="write a contact sheet of the crops for checking")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
+    if not 0.0 <= args.min_width_ratio <= 1.0:
+        ap.error("--min-width-ratio must be between 0 and 1")
 
     image = Image.open(args.sheet).convert("RGB")
     rgb = np.asarray(image)
@@ -164,7 +174,7 @@ def main() -> int:
         spans = [(int(i * slice_width), int((i + 1) * slice_width)) for i in range(args.count)]
     else:
         min_gap = args.min_gap or max(4, width // 120)
-        spans = find_figures(band, min_gap)
+        spans = find_figures(band, min_gap, args.min_width_ratio)
     print(f"figures {len(spans)} found: " + ", ".join(f"{a}-{b}" for a, b in spans))
 
     if len(spans) < len(args.names):

@@ -271,11 +271,15 @@ sheet's heights and projection before accepting it; a shared baseline alone does
 prove that the four views have the same scale.
 
 For a sheet deliberately laid out in four equal-width cells, add `--count 4` to use
-those cells. This is necessary when narrow end views, such as rolled-chart ends, are
-less than a quarter of the width of the longest view: automatic detection treats
-those spans as stray marks. Check the preview for complete silhouettes and clear
-separation before writing the views. Keep one common square output size, with the
-same minimum 1024 × 1024 after the 2× upscale as the character inputs.
+those cells. For a sheet with unequal spacing and genuine narrow end views, use
+automatic gap detection with a lower `--min-width-ratio`, for example `0.08` for
+rolled charts. The default is `0.25`: it rejects spans at or below a quarter of the
+longest view's width as stray marks. A chart end 0.08 m wide beside a 0.6 m long
+elevation is only about 13.3% as wide and would be discarded by that default. This
+option only changes which spans are retained; it does not resize them or correct
+their scale. Confirm four complete views, their measured scale and clear separation
+in the source and preview before writing the views. Keep one common square output
+size, with the same minimum 1024 × 1024 after the 2× upscale as the character inputs.
 
 ---
 

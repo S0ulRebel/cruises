@@ -20,7 +20,7 @@ Each piece is its own four-view turnaround and becomes its own model. The slots:
 
 | slot | what it is |
 | --- | --- |
-| `body` | the bare figure everything goes on |
+| `body` | the figure everything goes on, **with no head** - it ends at the top of the neck, in all four views. Not a bald head, not a faceless blank: no skull at all. The head is its own piece |
 | `head` | head and neck. **Mouth open** - see below |
 | `hair` | hair alone |
 | `hat` | hat alone |

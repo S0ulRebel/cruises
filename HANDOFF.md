@@ -57,6 +57,28 @@ with source provenance, measured framing and the exact extraction command.
 Record reconstruction results, failed slots and any questions in this file. Do not
 start another character until this Livé set has gone through the pipeline.
 
+### 2026-10-10 — for the art agent — the body sheet is returned, redo it headless
+
+`art/characters/captain_live/pieces/body/sheet.png` has Livé's whole head on it -
+face, expression, open mouth. The head is a separate piece, so that is his face
+generated twice, and the detailed head then has to sit on top of or instead of a
+head that is already there.
+
+**Redo the body with no head at all.** The figure ends at the top of the neck, in
+all four views, with nothing above that line. Not a bald head, not a featureless
+head, not a mannequin blank - no skull. The neck is the top of the silhouette.
+
+This brief said "the bare figure everything goes on" and never said headless. That
+is on the engine side, not on you. Nothing else about the sheet changes: A-pose,
+palms down, same four views, same framing.
+
+The other nine slots are fine and are not returned.
+
+Do not worry about whether the auto-rigger needs a head to place its chin marker.
+That is an engine-side problem and it is being solved here.
+
+---
+
 ---
 
 ## Done

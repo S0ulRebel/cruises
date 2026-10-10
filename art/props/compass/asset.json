@@ -84,7 +84,7 @@
       "result": "Dial outward normal -Z becomes +Y; the top of the compass rose +Y becomes +Z.",
       "placement_after_rotation": "Recenter the X/Z bounds, put the lowest point at Y=0, then check the flat mesh against dimensions_m. The original edge-resting pivot will otherwise be offset."
     },
-    "orientation_warning": "Do not flatten the upright compass by scaling its Y dimension; rotate it first. Do not independently resize the four source views."
+    "orientation_warning": "Do not flatten the upright compass by scaling its Y dimension; rotate it first. Preserve the relative scale of the four published views during extraction. The explicitly authorized back-view scale correction is already applied and recorded in source.postprocessing_history."
   },
   "source": {
     "producer": "OpenAI image generation via ChatGPT",
@@ -133,8 +133,58 @@
     "selected_generation": "upright_v3",
     "generation_history_scope": "Selected generation lineage; unused alternatives are omitted.",
     "generated_source_sha256": "da28f7d2a138dd99be42a896f7532248fdf3c9aace1b07a0586bc8e617d364cf",
-    "sha256": "0c8644217353cf6263213183288875cc1c1f93b524524503fe1cacde42111a29",
-    "sheet_sha256": "0c8644217353cf6263213183288875cc1c1f93b524524503fe1cacde42111a29"
+    "sha256": "cd3236aa2fd0860a61ffdb6c5713242989418e82a8513c92642a7ede71fbcb0c",
+    "sheet_sha256": "cd3236aa2fd0860a61ffdb6c5713242989418e82a8513c92642a7ede71fbcb0c",
+    "postprocessing_history": [
+      {
+        "id": "back_scale_correction_2026_10_10",
+        "type": "precise_uniform_scale_correction",
+        "user_authorized": true,
+        "authorization": "The user explicitly approved a precise image editor for the final sub-1% size correction on 2026-10-10.",
+        "tool": "Version: ImageMagick 6.9.12-98 Q16 x86_64 18038 https://legacy.imagemagick.org",
+        "resampler": "Lanczos",
+        "input_repository_path": "art/props/compass/sheet.png",
+        "input_git_commit": "21671f46b4962ddccb4b3e0cb47f080b7010a6eb",
+        "input_sha256": "0c8644217353cf6263213183288875cc1c1f93b524524503fe1cacde42111a29",
+        "output_sha256": "cd3236aa2fd0860a61ffdb6c5713242989418e82a8513c92642a7ede71fbcb0c",
+        "changed_view": "back",
+        "source_cell_xywh": [
+          2049,
+          0,
+          683,
+          683
+        ],
+        "source_foreground_size_px": [
+          551,
+          545
+        ],
+        "output_foreground_size_px": [
+          547,
+          541
+        ],
+        "target_scale": 0.9926605504587156,
+        "size_reduction_percent": 0.7339449541284404,
+        "anchor_in_cell_px": {
+          "horizontal_center": 341,
+          "ground_line": 601
+        },
+        "operation": "Apply one uniform affine transform to the whole fourth cell, including antialiased edges, against the existing RGB254 background. Composite the transformed cell back at the same sheet position. No perspective correction or artwork regeneration.",
+        "commands": [
+          "convert before.png -crop 683x683+2049+0 +repage -filter Lanczos -virtual-pixel Background -background 'rgb(254,254,254)' -define distort:viewport=683x683+0+0 -distort AffineProjection '0.99266055045872,0,0,0.99266055045872,2.50275229357798,4.41100917431193' +repage -depth 8 PNG24:back_cell_affine.png",
+          "convert before.png back_cell_affine.png -geometry +2049+0 -compose Copy -composite -strip -depth 8 PNG24:sheet.png"
+        ],
+        "first_three_cells_pixel_identical": true,
+        "changed_pixels_in_first_three_cells": 0,
+        "imagemagick_affine_projection": [
+          0.99266055045872,
+          0,
+          0,
+          0.99266055045872,
+          2.50275229357798,
+          4.41100917431193
+        ]
+      }
+    ]
   },
   "framing": {
     "view_order": [
@@ -215,17 +265,23 @@
         602
       ],
       [
-        2115,
-        57,
-        2666,
+        2117,
+        61,
+        2664,
         602
       ]
     ],
     "assembly": {
-      "tool": "tools/crop_views.py",
-      "command": "python -B tools/crop_views.py <selected_raw_sheet> --out <temporary_crop_directory> --row 0 1 --names front left right back --pad 0.12 --size 683 --dry-run --preview art/props/compass/sheet.png",
-      "method": "The repository cutter places the generated views on equal native square canvases and aligns their bottoms. The illustration is not redrawn and no view is independently resized. The remaining height mismatch is preserved and reported, not hidden by assembly.",
-      "resampled": false
+      "tool": "tools/crop_views.py followed by ImageMagick",
+      "method": "The repository cutter first places the generated views on equal native 683 px square canvases and aligns their bottoms. A subsequent user-authorized uniform affine transform reduces only the back view by 0.7339%, anchored at its horizontal centre and the shared ground line. The full fourth cell is resampled with Lanczos; the first three cells remain pixel-identical. See source.postprocessing_history for the exact transform and commands.",
+      "resampled": true,
+      "resampled_views": [
+        "back"
+      ],
+      "initial_stage_tool": "tools/crop_views.py",
+      "final_stage_tool": "ImageMagick",
+      "initial_command": "python -B tools/crop_views.py <selected_raw_sheet> --out <temporary_crop_directory> --row 0 1 --names front left right back --pad 0.12 --size 683 --dry-run --preview art/props/compass/sheet.png",
+      "postprocess_commands_reference": "source.postprocessing_history[0].commands"
     }
   },
   "validation": {
@@ -236,7 +292,7 @@
       "projection": "Level face-on circles and opposite edge profiles; no three-quarter panels.",
       "profile_consistency": "The shallow glass/bezel lip is on image-left in the left view and image-right in the right view.",
       "isolation": "Only the compass appears, with clear vertical background bands and no separate objects, labels or overlapping views.",
-      "remaining_scale_check": "Front/left/right/back heights are 541/540/540/545 px, a 5 px spread (0.93%). Front and sides match within 1 px, but the back remains 4–5 px taller. This misses the ART_SPEC.md limit of at most 1 px. Useful surface coverage is corrected; strict scale validation is still pending."
+      "completed_scale_check": "After the user-authorized aspect-preserving back-view correction, front/left/right/back heights are 541/540/540/541 px. The maximum spread is 1 px, meeting the ART_SPEC raster tolerance. All four baselines are exactly y601. Front and back widths differ by only 1 px."
     },
     "reconstruction_run": false,
     "engine_import_run": false,
@@ -251,16 +307,16 @@
       541,
       540,
       540,
-      545
+      541
     ],
-    "height_spread_px": 5,
-    "height_spread_percent_of_min": 0.9259,
-    "strict_one_pixel_height_check_passed": false,
+    "height_spread_px": 1,
+    "height_spread_percent_of_min": 0.1852,
+    "strict_one_pixel_height_check_passed": true,
     "widths_px": [
       546,
       175,
       174,
-      551
+      547
     ],
     "ground_line_y_px": [
       601,
@@ -272,7 +328,7 @@
     "clear_vertical_gaps_px": [
       323,
       508,
-      321
+      323
     ],
     "source_width_to_height_ratios": [
       1.011091,
@@ -284,7 +340,7 @@
       1.009242,
       0.324074,
       0.322222,
-      1.011009
+      1.011091
     ],
     "target_width_to_height_ratios": [
       1,
@@ -292,7 +348,9 @@
       0.3333333333333333,
       1
     ],
-    "art_spec_section_1a_fully_passed": false
+    "art_spec_section_1a_fully_passed": true,
+    "first_three_cells_pixel_identical_after_correction": true,
+    "compliance_scope": "Final published sheet, including the expressly authorized precise scale correction. Raw generated-source measurements are preserved separately. This does not validate a reconstructed mesh or an engine import."
   },
   "pipeline": {
     "status": "source_sheet_only",
@@ -320,13 +378,11 @@
     "animation_required": false,
     "baked_form_shading_present": true,
     "lighting_note": "The illustrated brass includes strong baked form and specular highlights. Use texture lighting removal where available and inspect the reconstructed material under engine lighting. Preserve the clear lens and readable dial.",
-    "ready_for_reconstruction": false,
-    "pending_validation": [
-      "Bring the back's diameter into agreement with the other views within 1 px, then repeat the measured scale check before Tripo reconstruction."
-    ],
+    "ready_for_reconstruction": true,
+    "pending_validation": [],
     "recommended_crop_command": "python tools/crop_views.py art/props/compass/sheet.png --names front left right back --row 0 1 --size 1366 --out art/props/compass/views",
     "native_view_size_px": 683,
     "optional_2x_view_size_px": 1366,
-    "upscale_note": "The published sheet uses native 683 px square cells. Export all crops at one common size; a uniform 2x output meets the documented minimum but adds no new detail. Do not treat upscaling as a fix for the pending relative-size check."
+    "upscale_note": "The published sheet uses native 683 px square cells. Export all crops at one common size; the recommended 1366 px output meets the documented minimum but adds no new detail. Preserve the corrected relative scale during extraction."
   }
 }

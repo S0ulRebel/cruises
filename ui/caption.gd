@@ -135,6 +135,15 @@ func clear_action() -> void:
 	_action_label.visible = false
 
 
+## Whether a line is on screen AND its speaker has a rendered head rather than the
+## placeholder. For the screenshot runs, so they photograph the thing they are for.
+func speaking_with_portrait() -> bool:
+	if _box == null or not _box.visible or _portrait == null:
+		return false
+	var head: Node = _portrait.get("_head")
+	return head != null and head.visible
+
+
 func hide_box() -> void:
 	_box.visible = false
 	if _portrait:

@@ -71,6 +71,14 @@ func _ready() -> void:
 	var screenplay: Dictionary = JSON.parse_string(
 		FileAccess.get_file_as_string("res://screenplay/cold_open.json"))
 	_cast = screenplay.get("cast", {})
+	# The screenplay names the characters; CAST knows where their art lives. Merge the
+	# asset ids in rather than making the writer put folder names in a script file -
+	# without this the portrait looks for art/characters/live/ and silently finds
+	# nothing, so a character with a perfectly good head shows the placeholder.
+	for entry in CAST:
+		var id := String(entry["id"])
+		if _cast.has(id):
+			_cast[id]["assets"] = entry.get("assets", id)
 
 	_caption = Caption.new()
 	_caption.name = "Caption"
@@ -158,15 +166,22 @@ func _enter_room() -> void:
 		await _record()
 	if "--shot" in args2:
 		if "--talking" in OS.get_cmdline_user_args() + OS.get_cmdline_args():
-			# One spoken line, held mid-reveal. Walking into the conversation lands on
-			# its choice menu, which has no speaker and so no portrait - which is the
-			# one thing this shot exists to photograph.
-			var person: Dictionary = _cast.get("live", {})
-			_caption.say(String(person.get("name", "Captain Livé")),
-				"You took the compass, and I want it back now.",
-				String(person.get("assets", "captain_live")),
-				Color(String(person.get("colour", "#1c1a1f"))))
-			await get_tree().create_timer(1.6).timeout
+			# Through the REAL conversation, not a say() of our own. Calling say()
+			# directly bypasses the cast lookup, which is exactly where the portrait
+			# was broken - it photographed fine while the game showed nothing.
+			_caption.auto_advance_secs = 1.4
+			_choices.auto_pick_secs = 0.4
+			var santi: Mover = _movers["santi"]
+			_approach_and_talk(santi, "res://screenplay/santi_galley.json")
+			# Wait for a line whose speaker actually has a head piece, rather than
+			# shooting at a fixed time and catching Santi or a choice menu.
+			var waited := 0.0
+			while waited < 30.0:
+				await get_tree().create_timer(0.2).timeout
+				waited += 0.2
+				if _caption.speaking_with_portrait():
+					break
+			await get_tree().create_timer(0.5).timeout
 		await _save_shot()
 
 

@@ -273,6 +273,46 @@ generated body before anyone writes the binding script.
 Blocked on that: we have no per-piece body yet. The body sheet has not been through
 Tripo.
 
+
+### 2026-10-10 - from the face session - jaw rig rebuilt, renders clean, NOT committed
+
+`pieces/head/head_jaw.glb` (4.7 MB, untracked) plus `head_jaw_open25.png` beside it -
+three-quarter, untextured, jaw +25, so the neck can be judged by eye. `head.glb` untouched;
+no mesh edits, so nothing for Blocked.
+
+**The tearing had two causes, both in my weighting.**
+1. A hard clamp `if z > 0.495 and y < -0.02: w = min(w, 0.10)` cut a cliff across the lip
+   line - adjacent verts at 0.95 and 0.10. Replaced with a smooth gate. Max edge stretch
+   14.9x -> 3.5x on that change alone.
+2. The tongue sat in the rigid set at weight 1.00, rotated fully with the jaw and swung out
+   of the mouth as the long curved spike. Now separated by depth (deep centre island,
+   y-extent > 0.18) and weighted 0.65; lower teeth stay rigid at 1.00.
+Plus 12 iterations of Laplacian smoothing over the weight field, pinning teeth at 1 and
+upper teeth at 0.
+
+**Rig:** `Head` root + `Jaw`, hinge (0, 0.100, 0.600) just forward of the measured ear line
+(widest skin z 0.55-0.70 sits at y 0.160, z 0.651), tail at the chin (0, -0.174, 0.237).
+2,494 lower-teeth verts rigid, 803 tongue at 0.65, 2,120 upper teeth pinned still,
+6,363 carrying any jaw weight.
+
+**The edge-stretch test is in but should not gate exports yet.** It found what displacement
+and radial-reach checks could not, so it stays. But the ratio is dominated by tiny edges -
+the offending ones average 0.0041 rest length against a mesh mean of 0.0086, so a 0.0118
+absolute shift reads as 3.9x while being invisible. The current clean build still reports
+12.90x worst. Assert on ABSOLUTE stretch, or drop edges below half the mesh mean before
+taking the ratio. Left printing rather than raising, because as written it refuses a file
+that is visually correct.
+
+**Known gap, flagged by the engine side and not yet fixed:** glTF does not store bone tails,
+so any check expressed against bone length does not survive the round trip. The current build
+uses no reach cap, so nothing depends on it - but verification still runs in the authoring
+session only, which is not a real check. It should run against the RE-IMPORTED GLB.
+
+**Not done:** not re-measured the -3.25 to +30 usable range (engine side's numbers stand),
+not rendered at other angles, not tested in Godot, not committed. Chin reads long at +25;
+believed to be the caricature rather than a fault - say if not and the hinge moves forward.
+
+---
 ---
 
 ---

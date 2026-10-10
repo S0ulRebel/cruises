@@ -125,6 +125,93 @@ that is going away.
 Still undecided by the owner, do not assume either way: whether cinematics are
 pre-rendered video, and whether there will ever be VO.
 
+### 2026-10-10 — from the Spine/slicing session — L/R splitter bug found and patched
+
+The `eyebrow_right 178x62 vs eyebrow_left 73x57 [lr_overlap]` result was a real bug in
+ComfyUI-AutoSplit's left/right splitter, not bad art. Measured on Livé's sliced face:
+
+| | |
+| --- | --- |
+| eyebrow_right | 3,065 px — **both brows fused**, 2 connected components (1,562 + 1,503) |
+| eyebrow_left | 1,504 px — one brow, **99.1% contained inside** eyebrow_right |
+| IoU of the two | 0.484 — dedupe only drops above 0.5, so both were kept |
+| area ratio | 0.491 — pair test only rejects below 0.2, so it passed |
+
+SAM 3 returned both sides fused AND one side alone. `pick_pair` in
+`autosplit_core/sides.py` had no containment test, so it paired the union with one of
+its own halves: the "right" part is both brows, the "left" part is one of them. Both
+thresholds were cleared narrowly — this will recur on any bilateral part (ears, eyes,
+hands, boots) whenever SAM 3 returns a fused mask alongside a single side.
+
+**Patched** `pick_pair` with a containment guard (reject when >80% of the smaller mask
+lies inside the larger). Rejected pairs then fall through to `split_union`, which
+separates the fused mask by connected components — and that union has exactly 2.
+
+    D:\code\gan\ComfyUI_windows_portable\ComfyUI\custom_nodes\ComfyUI-AutoSplit\autosplit_core\sides.py
+
+**NOT yet verified** — needs a ComfyUI restart to reload the module, then a rerun of
+Livé's face slice. Do not call it fixed until the brows come back as two separate parts.
+The patch is in a third-party node pack and will be lost when it updates; worth
+reporting upstream.
+
+Also, for whoever sizes the portrait: Livé's face sliced to 25 parts, mouth scored
+0.626 and lips and chin were both detected (our own captain's mouth scored 0.189 — his
+is buried in a beard). The crop was 290x240 of the sheet upscaled to 1024, so at a
+300x300 panel the mouth is about **26x8 real pixels**. That number holds whichever
+route the portrait takes.
+
+Parts on disk at `D:\code\gan\outputs\autosplit_cruise_captain\`. Santi not touched.
+
+
+---
+
+### 2026-10-10 — settled by the face session — jaw is a BONE, blendshapes for lips only
+
+Read `head.glb` independently and reproduced the numbers (69 shells by their split
+method rather than 35 — different method, not a discrepancy). Their shell breakdown:
+one 18,640-vert head skin, a symmetric pair of watertight eyeballs, a second symmetric
+pair around the eyes, three centre-line shells that are the tongue and the two teeth
+rows, and 6+ individual teeth of 112–198 verts each.
+
+**The teeth decide it.** Teeth are rigid bodies on a hinge. Skinning rotates them
+correctly — weight the lower teeth 1.0 to a jaw bone and they arc about the hinge like
+real teeth, for one bone and no sculpting. A blendshape interpolates each vertex along
+a STRAIGHT LINE, and a rotating jaw is not linear, so blendshaped teeth shear and drift
+inward through the arc. Teeth are the one part of a face a viewer can tell is wrong.
+
+So: **jaw bone for rotation, blendshapes for lip shapes that do not rotate** — pucker,
+wide, smile, brow. The mesh has loops round the lips and both eyes to support those.
+
+**The jaw goes on the HEAD piece's own skeleton, not the body's.** The head is a
+separate mesh attached at the body's `mixamorig_Head`; putting the jaw on the body
+skeleton means skinning one mesh from two armatures. Head skeleton = Head root + jaw
+(+ later brow/lid/eye bones), parented to the body's Head bone. The existing empty
+`head` Add2 layer in `actors/parts/animator.gd` still drives neck and head on the body;
+the jaw is a separate track on the head's own AnimationPlayer.
+
+**Verification must be direction-aware.** A check that measures displacement cannot
+tell a jaw opening from a jaw clipping up into the skull — both move the chin vertex.
+Check the sign along the open axis, and check that the teeth rows SEPARATE rather than
+interpenetrate. (Carried over from the finger session's hand-pose experience.)
+
+### 2026-10-10 — for the engine side — the bend ceiling is now ours to measure
+
+The finger session's grip-library route was dropped by the owner; they are building an
+editor plus a node that writes a chosen pose onto our rigged character. So the hand
+bend ceiling is no longer a property of their data — it is a property of our mesh and
+rig, and only we can state it.
+
+`BEND_SCALE = 0.45` in `tools/add_hand_poses.py` was measured on the OLD fused Livé,
+whose hands had no interior volume at the knuckles. **Do not inherit that number.** A
+hand generated as part of a per-piece body at full polycount is a different mesh. Measure
+it in Godot on the actual character — `handcheck.tscn` already renders each pose and
+measures fingertip distance from the hand centre — and record the number per character.
+
+Also from them, both MIT and worth knowing: `comfyui-vrm-pose-editor` poses a real GLB
+in the browser but exports `.vrma` rather than a posed model; VNCCS Pose Studio ships a
+54-bone `MIXAMO_TO_MH_BONE_MAP` with retarget parents, matching names with and without
+the `mixamorig:` prefix, if we ever need a MakeHuman/Mixamo mapping.
+
 ---
 
 ---

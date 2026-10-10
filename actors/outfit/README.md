@@ -42,8 +42,20 @@ So a fish or a parrot only needs a file beside its body:
 
 A humanoid needs no file at all.
 
-## What has not been ported
+## The workshop
 
-`workshop.gd` - the scene for trying pieces on and nudging them into place. It is 806
-lines and it is only useful once there are pieces to fit. Bring it over when Livé's
-sheets land, not before.
+    godot --path . res://actors/outfit/workshop.tscn
+
+Where a piece is tried on and nudged into place. It lists everything in the model
+folders by file name - nothing has to be registered - guesses a first fit from the
+body's bones, and saves what you tune to `actors/outfit/pieces/`. A piece fitted once
+is fitted for every outfit that wears it.
+
+`retarget.gd` comes with it: a new body arrives from Tripo with a skeleton and no
+clips, so the workshop lends it the captain's. It copies how far each bone has turned
+from its own rest rather than the rotations as written, which is what lets rigs with
+different rest poses and units share a clip.
+
+Paths repointed for this game: bodies and pieces are looked for in
+`art/models/characters` and `actors/outfit/placeholders`, and clips are borrowed from
+`captain_live_animated.glb`.

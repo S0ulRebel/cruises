@@ -49,19 +49,36 @@ Why any of this: `docs/FACES.md` and `docs/MODULAR.md`. Short version - our char
 cannot talk, because rendered untextured their mouths turn out to be painted on rather
 than modelled, and nothing in the engine can open a painted mouth.
 
-### 2026-10-10 — for the engine side — prove the pieces pipeline on Livé
+### 2026-10-10 — for the engine side — spring-bone coat
 
-When Livé's piece sheets land: port Pillage People's dresser
-(`actors/outfit/dresser.gd`, `skin_copy.gd`, `rig_space.gd`, `outfit_piece.gd`), with
-the pinned-bone name moved from per-slot to per-body so non-human skeletons work.
-Then test `SpringBoneSimulator3D` on the coat and record the measurement - it is
-written down as untested and must not be called working until it is measured.
+Once a coat exists as its own mesh: test `SpringBoneSimulator3D` with capsule
+colliders on the forearms and hands, and record what is measured.
+`docs/MODULAR.md` records it as UNTESTED and it must not be called working until
+there is a number.
 
 ---
 
 ## Done
 
-_(nothing yet)_
+### 2026-10-10 — engine side — dresser ported
+
+`actors/outfit/` — dresser, outfit_piece, outfit, skin_copy, rig_space, plus a
+README for what changed in the port. A character is now a rigged body plus pieces.
+
+Added for this game: `corset`, `skirt`, `dress` slots; conflicting slots come off
+automatically; and a pinned piece names a **role** rather than a bone, resolved
+against the body, so a hat can sit on a skeleton that is not Mixamo's. A non-humanoid
+body declares its own bones in `<body>.roles.json` — `{"head": "skull"}` — and a
+humanoid needs no file.
+
+Proved by `dressercheck.tscn`, which runs headless and passes: head at 1.590 m in fit
+space on the test body, role resolving to `mixamorig_Head` on a humanoid, to nothing
+when undeclared on a non-Mixamo skeleton, and to `skull` once declared.
+
+Not ported: `workshop.gd`, the fitting UI. 806 lines, and it only earns its keep once
+there are pieces to fit — bring it over when Livé's sheets land.
+
+**This is ready and waiting on art.** Nothing else blocks it.
 
 ---
 

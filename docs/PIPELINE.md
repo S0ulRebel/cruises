@@ -31,6 +31,14 @@ loops around the eyes — that is what makes facial animation possible later. Te
 Tripo will offer to rig the model. It does not matter whether you let it: the skeleton is
 discarded in the next step.
 
+**Delighting happens in Tripo's texturing step.** Lighting in the turnaround is stripped
+there, so the basecolor Tripo hands back is already flat. That is why the art side is not
+asked to paint flat - the turnaround keeps whatever shading it needs for the geometry to
+read, and Tripo removes it from the texture.
+
+The characters are then lit by the scene, not by their textures. See
+`actors/outfit/dresser.gd`, `flatten()`.
+
 
 ## 3. Tripo — export
 

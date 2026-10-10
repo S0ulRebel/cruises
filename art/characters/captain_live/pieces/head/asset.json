@@ -1,0 +1,162 @@
+{
+  "asset_id": "character_piece:captain_live:head",
+  "name": "Captain Livé — head and neck",
+  "asset_type": "character_piece_turnaround",
+  "character_id": "captain_live",
+  "slot": "head",
+  "files": {
+    "sheet": "sheet.png"
+  },
+  "source": {
+    "producer": "OpenAI image generation via ChatGPT",
+    "tool": "image_gen.imagegen",
+    "model_identifier": "not exposed by the built-in tool",
+    "created_utc": "2026-10-10",
+    "original_filename": "exec-1efd77e0-21f7-44c6-a2a2-4f2d0fcb4ae4.png",
+    "sha256": "4d2e6ecee83fc81c6af8fe9df18ea9e7eb81b84630eff272a09b8c9b71227f81",
+    "reference_files": [
+      {
+        "path": "art/characters/captain_live/turnaround.png",
+        "sha256": "bcb66fe6213ab55672cb91328f22665a125511d211e3fded0397dd45ac1897fa"
+      }
+    ],
+    "generation_history": [
+      {
+        "operation": "generate from approved character",
+        "prompt": "Use case: identity-preserve. Production modular 3D game character HEAD sheet, not concept redesign.\nInput image 1 is the approved Captain Livé character; preserve precisely his face identity and its stylized dimensional cartoon rendering: exaggerated long pointed hooked nose, high arched dark eyebrows, large expressive brown eyes, narrow long angular chin, hollow cheek planes, large ears, thin long neck, warm peach skin. This is the same adult male pirate captain. Not realistic skin, not a different man.\nCreate ONLY his isolated bald clean-shaven HEAD AND FULL NECK, with a clean flat neck cut at the base. Remove hat, feather, all scalp hair, sideburns, moustache and tiny chin beard: those are separate modular assets. Keep his dark eyebrows. No shoulders, chest, collar, clothing, stand or bust pedestal.\nCritical change: his mouth is OPEN as if speaking mid-word, a moderate natural opening, not a yawn or grin. The lips form a real three-dimensional opening, visible upper teeth, small lower teeth, visible tongue and dark maroon recessed oral cavity, shading deeper toward back of throat. Do not paint a smile on a solid face. In BOTH profile views show clear separation of upper and lower lips and visible depth extending inward behind the lips; readable teeth and tongue through the gap. Keep the chin attached, no holes through the cheek, no detached lip or facial-hair artifacts.\nOne single coherent four-view turnaround of this identical head, ordered strictly left to right FRONT, LEFT PROFILE (nose pointing toward the left edge of the sheet), BACK, RIGHT PROFILE (nose pointing right). Orthographic, eye-level, no perspective, same upright head pose and neck position in all four. The front and both profiles have the identical mouth opening; back is the actual bald back of the skull and neck, no face.\nLayout: wide landscape high-resolution sheet, four equal-width invisible cells, one head centered in each cell. Whole heads and necks fully visible. Equal camera scale, identical crown height and neck-cut baseline. Large clear vertical pure-white bands between all four silhouettes. Background entirely flat pure white RGB255,255,255, no ground shadows, gradients, texture, lines, text, view labels, borders or callouts. Consistent neutral soft light with simple painted shading matching the reference.\nFit: preserve head-to-neck proportions of the approved 1.90m assembled Captain; this is an isolated component of that body, no widening, shortening, beautification or new details. A modelling sheet to reconstruct an actual 3D mouth from exactly four images, no extra inset or fifth view.",
+        "output_sha256": "ffee0ee829644b7c100e6e333036a996082e383066ba4edbc1f821f25d833592"
+      },
+      {
+        "operation": "remove sideburn-shaped cheek patches; preserve mouth and identity",
+        "prompt": "Use case: precise-object-edit.\nInput image is the edit target: Captain Livé isolated four-view bald head and neck modelling sheet.\nMake ONE surgical cleanup: in BOTH side/profile heads, REMOVE the small angular dark brown sideburn-like patch immediately in front of each ear. Replace that patch with smooth clean warm skin matching the adjacent cheek/temple, softly continuous normal anatomical shading. No dark brown hair patch, no triangular cheek stain, no sideburn or stubble. Head is completely hairless except the eyebrows. The cheek surface must be clean and continuous.\nPreserve EVERYTHING ELSE: same exact four heads, their scale, layout, white background, proportions, silhouette, facial identity, ears, eyebrows, eyes, nose, pointed chin, neck, lighting and colour. Especially preserve the existing wide mid-word mouth opening, recessed cavity, teeth and tongue in front and both profiles; do not reduce mouth or close it. Same view order FRONT LEFT BACK RIGHT and same visible neck-cut baseline. No new details. Do not redraw the sheet or change any pose.",
+        "output_sha256": "4d2e6ecee83fc81c6af8fe9df18ea9e7eb81b84630eff272a09b8c9b71227f81"
+      }
+    ],
+    "postprocessing": "none; selected imagegen output copied unchanged; no upscale applied"
+  },
+  "presentation": {
+    "view_order": [
+      "front",
+      "left",
+      "back",
+      "right"
+    ],
+    "camera": "orthographic elevations; profiles slightly turned toward camera to expose oral depth as permitted by the pieces brief",
+    "pose": "upright head and neck; open mouth as if mid-word",
+    "background": "visually plain near-white; measured RGB variation is below the repository cutter tolerance",
+    "lighting": "soft dimensional cartoon shading matching the approved reference; lighting is baked into the source art",
+    "components": [
+      "bald head and neck",
+      "eyebrows",
+      "eyes",
+      "upper and lower teeth",
+      "tongue",
+      "recessed oral interior"
+    ],
+    "excluded_slots": [
+      "hair",
+      "hat",
+      "face"
+    ],
+    "mouth": "opening and interior visible in front and both profiles"
+  },
+  "fit": {
+    "reference_character": "character:captain_live",
+    "reference_sheet": "art/characters/captain_live/turnaround.png",
+    "assembled_height_m": 1.9,
+    "approximate_piece_height_m": 0.34,
+    "measurement_basis": "provisional estimate from approved artwork; anatomical crown is covered in the original; not a measured mesh dimension",
+    "uniform_metric_fitting_required": true,
+    "shared_raster_scale_with_body_verified": false,
+    "note": "Keep native head detail. Source rasters are not a proof of common metres per pixel. Fit the generated head uniformly to the rigged body, check neck alignment, and hide/remove the body head surface beneath it so it cannot fill the new mouth cavity."
+  },
+  "pipeline": {
+    "status": "source_sheet_only",
+    "view_extraction": "tools/crop_views.py",
+    "suggested_crop_command": "python tools/crop_views.py art/characters/captain_live/pieces/head/sheet.png --row 0 1 --names front left back right --size 801 --out art/characters/captain_live/pieces/head/views",
+    "native_crop_canvas_px": 801,
+    "two_x_upscale_target_px": 1602,
+    "three_d_generator_allowed": "Tripo only",
+    "forbidden_generators": [
+      "Hunyuan3D",
+      "HY-Motion"
+    ],
+    "nc_models_used": false,
+    "rigging": "head is supplied as unrigged geometry; dresser bends it at the neck",
+    "reconstruction_run": false,
+    "mouth_cavity_mesh_verified": false,
+    "engine_fit_verified": false
+  },
+  "validation": {
+    "sheet_size_px": [
+      1882,
+      836
+    ],
+    "view_bounds_px": [
+      {
+        "name": "front",
+        "bbox_xyxy": [
+          63,
+          71,
+          416,
+          715
+        ],
+        "height_px": 644,
+        "width_px": 353,
+        "bottom_inclusive_px": 714
+      },
+      {
+        "name": "left",
+        "bbox_xyxy": [
+          494,
+          70,
+          907,
+          714
+        ],
+        "height_px": 644,
+        "width_px": 413,
+        "bottom_inclusive_px": 713
+      },
+      {
+        "name": "back",
+        "bbox_xyxy": [
+          989,
+          72,
+          1343,
+          712
+        ],
+        "height_px": 640,
+        "width_px": 354,
+        "bottom_inclusive_px": 711
+      },
+      {
+        "name": "right",
+        "bbox_xyxy": [
+          1429,
+          68,
+          1836,
+          714
+        ],
+        "height_px": 646,
+        "width_px": 407,
+        "bottom_inclusive_px": 713
+      }
+    ],
+    "source_height_spread_px": 6,
+    "source_bottom_spread_px": 3,
+    "gap_widths_px": [
+      78,
+      82,
+      86
+    ],
+    "cutter_detects_four_views": true,
+    "visual_review": [
+      "correct front/left/back/right sequence",
+      "teeth, tongue, separated lips and oral depth visible in front and both profiles",
+      "brown sideburn-like cheek artifacts removed in final edit",
+      "no hat, scalp hair, sideburns, moustache or chin tuft on head",
+      "no view overlap, labels, cut-off silhouettes or decorative background"
+    ],
+    "source_framing_note": "Native imagegen source has 6 px height spread and 3 px neck-baseline spread. The repository cutter grounds extracted views without scaling individual views. This is recorded, not claimed pixel-perfect."
+  }
+}

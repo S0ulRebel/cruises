@@ -49,6 +49,15 @@ Why any of this: `docs/FACES.md` and `docs/MODULAR.md`. Short version - our char
 cannot talk, because rendered untextured their mouths turn out to be painted on rather
 than modelled, and nothing in the engine can open a painted mouth.
 
+**Art progress — 2026-10-10:** The open-mouth `head` source is available at
+`art/characters/captain_live/pieces/head/{sheet.png,asset.json}`. Both profiles show
+teeth, tongue and a recessed opening; cheek/sideburn artifacts were removed. This
+is ready for the Tripo cavity experiment, not a claim that mouth geometry works.
+The other nine slots are in progress; this item stays Open until the set is complete.
+The base body will include a bald head for the auto-rigger: hide/remove that base
+head surface when fitting this head, or it can occlude the mouth. Native sheet
+measurements and the unverified metric fitting requirement are recorded in the sidecar.
+
 ### 2026-10-10 — for the engine side — spring-bone coat
 
 Once a coat exists as its own mesh: test `SpringBoneSimulator3D` with capsule

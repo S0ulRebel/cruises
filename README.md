@@ -8,6 +8,13 @@ The folder name is deliberately neutral. The working title on the art board uses
 phrase Disney owns, and that cannot go on a store page — so nothing here depends on
 what the game ends up being called.
 
+## Working on this
+
+Read **[HANDOFF.md](HANDOFF.md)** first, every time, and `git pull` before you start.
+That file is how the art side and the engine side pass work to each other - what is
+open, what is done, and the decisions that are settled. It is not chat and it is not
+relayed by the owner.
+
 ## What runs today
 
 The cold open, played from a data file, with placeholder art.

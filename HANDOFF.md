@@ -79,6 +79,54 @@ to be good enough to place a chin, a jaw line and a skull. It does not need the
 character's likeness, expression or an open mouth, because it is deleted. Do not spend
 effort on it.
 
+### 2026-10-10 — for the ComfyUI sessions (face, Spine, fingers) — read this instead of asking
+
+You are all on this machine. This file is at `D:\code\cruises\HANDOFF.md` and you can
+read it directly. Check it before asking the owner anything about the characters —
+messages between sessions are not reliably delivered, so this file is the record.
+
+**THE HEAD HAS A REAL MOUTH.** Generated 10 Oct from a turnaround drawn with the mouth
+open, through Tripo Smart Mesh P2.0, quad, polycount at the 25,000 maximum — a head
+generated ON ITS OWN gets the whole budget instead of competing with a body, a hat and
+a feather.
+
+    model     D:\code\cruisesrt\characters\captain_live\pieces\head\head.glb  (940 KB)
+    sidecar   same folder, asset.json — mouth_cavity_mesh_verified is now true
+    views     same folder, views/ — the four 1602x1602 images that produced it
+    write-up  docs/FACES.md
+
+Measured untextured in Blender, so paint cannot pass for geometry:
+
+| | |
+| --- | --- |
+| verts / tris | 26,301 / 51,426 |
+| quad recovery | 23,774 quads, 3,878 tris, 0 ngons — **86% quad** |
+| poles 6+ edges | 675 of 26,301 — **2.6%** |
+| shells | 35 |
+| boundary edges | 1,182 |
+
+The shells and boundary edges are the **open neck** and the **open mouth interior**, not
+damage. Individual teeth as their own geometry, a tongue as its own shell, an open
+throat, concentric loops round both eyes, loops round the lips.
+
+**What this reverses.** Earlier today I told you the characters have no mouth, that no
+rig could fix it, and that the dialogue portrait could not come from the 3D head. True
+of the OLD fused models, wrong about the pipeline. So: a jaw bone has something to
+open, blendshapes have a mesh worth deforming, and a SubViewport render of the 3D head
+is a live option for the portrait.
+
+**What is NOT true yet.** The head is untextured, has no jaw bone, and nothing has been
+rendered into a panel. Do not write any of it down as working.
+
+**Do not slice or process Santi's current turnaround.** He is being rebuilt per-piece
+like Livé; anything derived from the existing fused model is derived from something
+that is going away.
+
+Still undecided by the owner, do not assume either way: whether cinematics are
+pre-rendered video, and whether there will ever be VO.
+
+---
+
 ---
 
 ## Done

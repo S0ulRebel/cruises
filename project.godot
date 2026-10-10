@@ -25,3 +25,13 @@ window/stretch/mode="canvas_items"
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+
+[navigation]
+
+; The navigation MAP and the baked navigation MESH must agree on cell size, or the
+; rasterised mesh edges do not line up with the map and paths come back empty. The
+; default map is 0.25 m, which is far too coarse for a room where a character has to
+; walk between a desk and a wall. Set here rather than per mesh so every room matches
+; the map by default. Room3D._build_navigation uses the same numbers.
+3d/default_cell_size=0.1
+3d/default_cell_height=0.1

@@ -14,9 +14,18 @@ extends Area3D
 
 enum Verb { LOOK, USE, TALK }
 
-## Where the character stands to interact. A hotspot high on a wall cannot be walked
-## to, so the approach point is authored separately from the thing itself.
-@export var approach: Vector3 = Vector3.ZERO
+## Where the character stands to interact, per action.
+##
+## Keyed by verb NAME rather than by enum value, so adding a fourth verb later is one
+## entry here and nothing else. An action with no entry falls back to `approach`, and
+## `approach` with nothing authored falls back to the nearest walkable point. Nothing
+## has to be filled in for a hotspot that behaves normally.
+##
+##     spot.approaches["TALK"] = front_of_him
+##     spot.approaches["USE"]  = behind_him     # picking his pocket
+@export var approaches: Dictionary = {}
+## The fallback approach, used by any action without its own entry.
+@export var approach: Approach
 ## Shown when the cursor is over it.
 @export var display_name := "thing"
 ## The response to LOOK. The bulk of an adventure game's writing lives in these.
@@ -38,10 +47,41 @@ signal talked(conversation_path: String)
 
 func _ready() -> void:
 	input_ray_pickable = true
-	if approach == Vector3.ZERO:
-		# A sensible default beats a hotspot that cannot be reached: stand just in
-		# front of it, on the floor.
-		approach = global_position + Vector3(0, -global_position.y, 0.9)
+
+
+## The approach for one action, or the fallback, or null for "work it out".
+func approach_for(verb: Verb) -> Approach:
+	var key: String = Verb.keys()[verb]
+	if approaches.has(key) and approaches[key] is Approach:
+		return approaches[key]
+	return approach
+
+
+## Where to stand and which way to face, resolved against the walkable area. `from` is
+## where the character is now, so an unauthored hotspot is approached from the side he
+## is already on rather than from an arbitrary one.
+##
+## Returns {"at": Vector3, "facing": float}. facing is NAN for "keep whatever you had".
+func resolve_approach(verb: Verb, from: Vector3) -> Dictionary:
+	var spec := approach_for(verb)
+	var standoff: float = spec.standoff if spec else 0.9
+	var at: Vector3 = spec.at if spec and spec.at != Vector3.ZERO 		else Approach.default_for(global_position, from, standoff)
+
+	# Snap onto the walkable area. An authored point that drifted off the mesh, or a
+	# computed one inside a wall, would otherwise leave the character walking forever.
+	var map := get_world_3d().navigation_map
+	if map.is_valid():
+		at = NavigationServer3D.map_get_closest_point(map, at)
+
+	var facing := NAN
+	if spec == null or spec.face == Approach.Face.FACE_OBJECT:
+		var toward := global_position - at
+		toward.y = 0.0
+		if toward.length() > 0.001:
+			facing = rad_to_deg(atan2(toward.x, toward.z))
+	elif spec.face == Approach.Face.EXPLICIT:
+		facing = spec.facing_degrees
+	return {"at": at, "facing": facing}
 
 
 ## What clicking this does, given what the player is carrying. Returns the verb used,

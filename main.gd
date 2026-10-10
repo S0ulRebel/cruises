@@ -126,7 +126,7 @@ func _enter_room() -> void:
 	_room = Room3D.new()
 	_room.name = "CaptainQuarters"
 	add_child(_room)
-	_add_furniture()
+	await _add_furniture()
 
 	for entry in CAST:
 		var mover := _build_mover(entry)
@@ -191,11 +191,17 @@ func _add_talk_trigger(mover: Mover, entry: Dictionary) -> void:
 
 func _approach_and_talk(target: Mover, conversation: String) -> void:
 	_busy = true
-	# Stop short of them rather than walking into their chest.
-	var toward := (_player.global_position - target.global_position).normalized()
-	var spot := target.global_position + toward * 1.1
-	spot.y = 0.0
-	_player.walk_to(spot)
+	# Stop short of them rather than walking into their chest, and face them when we
+	# get there. A character carries an obstacle, so the path already goes around them
+	# rather than through - this is only about where to stop.
+	var spot := Approach.default_for(target.global_position, _player.global_position, 1.1)
+	var map := get_world_3d().navigation_map
+	if map.is_valid():
+		spot = NavigationServer3D.map_get_closest_point(map, spot)
+	var toward := target.global_position - spot
+	toward.y = 0.0
+	var facing := rad_to_deg(atan2(toward.x, toward.z)) if toward.length() > 0.001 else NAN
+	_player.walk_to(spot, facing)
 	await _player.arrived
 
 	if _dialogue.load_conversation(conversation):
@@ -237,12 +243,37 @@ func _start_sound() -> void:
 		player.play()
 
 
+## What is in Livé's quarters, as data rather than as a list of calls.
+##
+## A const so the navigation check can build the same room the game does - a check
+## against a hand-copied layout stops testing the game the moment either drifts.
+## `solid` false is scenery: it is drawn, but nothing is cut out of the floor for it.
+const FURNITURE := [
+	{ "name": "desk", "at": Vector3(-3.6, 0.38, -1.4), "size": Vector3(1.8, 0.76, 0.9),
+	  "colour": "#4a2f16" },
+	{ "name": "chair", "at": Vector3(-3.6, 0.95, -2.1), "size": Vector3(0.5, 1.9, 0.5),
+	  "colour": "#3a2416" },
+	{ "name": "crate", "at": Vector3(3.9, 0.45, 1.9), "size": Vector3(0.9, 0.9, 0.9),
+	  "colour": "#4a2f16" },
+	# Set into the back wall, so it blocks nothing on the floor.
+	{ "name": "porthole", "at": Vector3(0.0, 1.55, -3.4), "size": Vector3(0.9, 0.9, 0.08),
+	  "colour": "#86a9c9", "solid": false },
+]
+
+
+## Awaits the navigation sync at the end, so callers must await it too.
 func _add_furniture() -> void:
-	_add_box(Vector3(-3.6, 0.38, -1.4), Vector3(1.8, 0.76, 0.9), Color("#4a2f16"))   # desk
-	_add_box(Vector3(-3.6, 0.95, -2.1), Vector3(0.5, 1.9, 0.5), Color("#3a2416"))    # chair
-	_add_box(Vector3(3.9, 0.45, 1.9), Vector3(0.9, 0.9, 0.9), Color("#4a2f16"))      # crate
-	_add_box(Vector3(0.0, 1.55, -3.4), Vector3(0.9, 0.9, 0.08), Color("#86a9c9"))    # porthole
+	for piece in FURNITURE:
+		_add_box(piece["at"], piece["size"], Color(String(piece["colour"])),
+			bool(piece.get("solid", true)))
 	_add_fishbowl(Vector3(-3.3, 0.76, -1.2))                                         # on the desk
+
+	# Everything solid is in, so the walkable area can be worked out. Bake once here
+	# rather than per prop: baking is not cheap and nothing walks before this point.
+	_room.rebake_navigation()
+	# And wait for the server to actually answer before anyone is allowed to click.
+	# See Room3D.await_navigation - the first sync does not carry the mesh.
+	await _room.await_navigation()
 
 
 ## Count Fingers' bowl. Built from primitives rather than modelled, because a glass
@@ -342,7 +373,12 @@ func _add_count_fingers(bowl: Node3D, radius: float) -> void:
 	bowl.add_child(swimmer)
 
 
-func _add_box(at: Vector3, size: Vector3, colour: Color) -> void:
+## A piece of furniture: a visual box and a solid body the same size.
+##
+## The body is what makes it a thing rather than a picture. It stops the character
+## walking through it, it is what the walkable area is cut around (see Room3D.NAV_SOURCE),
+## and it is what a click has to land on. A mesh with no body is scenery.
+func _add_box(at: Vector3, size: Vector3, colour: Color, solid := true) -> void:
 	var mesh := MeshInstance3D.new()
 	var box := BoxMesh.new()
 	box.size = size
@@ -353,6 +389,19 @@ func _add_box(at: Vector3, size: Vector3, colour: Color) -> void:
 	mat.roughness = 0.9
 	mesh.material_override = mat
 	_room.add_child(mesh)
+	if not solid:
+		return
+
+	var body := StaticBody3D.new()
+	body.name = "Solid"
+	body.position = at
+	var shape := CollisionShape3D.new()
+	var collider := BoxShape3D.new()
+	collider.size = size
+	shape.shape = collider
+	body.add_child(shape)
+	body.add_to_group(Room3D.NAV_SOURCE)
+	_room.add_child(body)
 
 
 func _build_mover(entry: Dictionary) -> Mover:
@@ -628,23 +677,27 @@ func _save_shot() -> void:
 
 ## The things in Livé's quarters worth clicking. Authored here while there is no room
 ## editor; each becomes a node in the room scene once there is one.
+## The things worth clicking, as data for the same reason as FURNITURE. `stand` is the
+## fallback approach; ZERO means work it out from wherever the character happens to be.
+const HOTSPOTS := [
+	{ "label": "Porthole", "at": Vector3(0.0, 1.55, -3.3), "stand": Vector3(0.0, 0, -2.4),
+	  "props": { "description": "Fog. The same fog as yesterday, and no closer to telling us where we are." } },
+	{ "label": "Desk", "at": Vector3(-3.6, 0.8, -1.4), "stand": Vector3(-3.6, 0, -0.3),
+	  "props": { "description": "Charts, a compass, and a dried-out inkwell. He navigates by instinct and blames the charts." } },
+	{ "label": "Fishbowl", "at": Vector3(-3.3, 0.95, -1.2), "stand": Vector3(-3.0, 0, -0.3),
+	  "props": { "description": "Count Fingers regards you the way a customs officer regards a crate.",
+	             "gives_item": "fishbowl" } },
+	{ "label": "Crate", "at": Vector3(3.9, 0.9, 1.9), "stand": Vector3(3.9, 0, 2.9),
+	  "props": { "description": "Stencilled LE CHAOS NAVIGUE TOUJOURS PLUS LOIN. Nailed shut.",
+	             "needs_item": "rapier",
+	             "refusal": "It is nailed shut, and the captain is not going to use his fingers.",
+	             "gives_item": "key" } },
+]
+
+
 func _add_hotspots() -> void:
-	_hotspot("Porthole", Vector3(0.0, 1.55, -3.3), Vector3(0.0, 0, -2.4), {
-		"description": "Fog. The same fog as yesterday, and no closer to telling us where we are.",
-	})
-	_hotspot("Desk", Vector3(-3.6, 0.8, -1.4), Vector3(-3.6, 0, -0.3), {
-		"description": "Charts, a compass, and a dried-out inkwell. He navigates by instinct and blames the charts.",
-	})
-	_hotspot("Fishbowl", Vector3(-3.3, 0.95, -1.2), Vector3(-3.0, 0, -0.3), {
-		"description": "Count Fingers regards you the way a customs officer regards a crate.",
-		"gives_item": "fishbowl",
-	})
-	_hotspot("Crate", Vector3(3.9, 0.9, 1.9), Vector3(3.9, 0, 2.9), {
-		"description": "Stencilled LE CHAOS NAVIGUE TOUJOURS PLUS LOIN. Nailed shut.",
-		"needs_item": "rapier",
-		"refusal": "It is nailed shut, and the captain is not going to use his fingers.",
-		"gives_item": "key",
-	})
+	for entry in HOTSPOTS:
+		_hotspot(String(entry["label"]), entry["at"], entry["stand"], entry["props"])
 
 
 func _hotspot(label: String, at: Vector3, stand: Vector3, props: Dictionary) -> void:
@@ -653,7 +706,10 @@ func _hotspot(label: String, at: Vector3, stand: Vector3, props: Dictionary) -> 
 	spot.name = label
 	spot.position = at
 	spot.display_name = label
-	spot.approach = stand
+	if stand != Vector3.ZERO:
+		var where := Approach.new()
+		where.at = stand
+		spot.approach = where
 	for key in props:
 		spot.set(key, props[key])
 
@@ -682,11 +738,17 @@ func _hotspot(label: String, at: Vector3, stand: Vector3, props: Dictionary) -> 
 
 
 ## Walk over, then act. Acting from across the room reads as telekinesis.
+##
+## Which verb it is decides WHERE he stands, not just what happens when he gets there -
+## see room3d/approach.gd. Resolved before the walk, because the verb is already known
+## from what he is carrying.
 func _approach_hotspot(spot: Hotspot) -> void:
 	_busy = true
-	_player.walk_to(spot.approach)
+	var verb := spot.resolve(_inventory.selection)
+	var where := spot.resolve_approach(verb, _player.global_position)
+	_player.walk_to(where["at"], where["facing"])
 	await _player.arrived
-	spot.interact(spot.resolve(_inventory.selection), _inventory.selection)
+	spot.interact(verb, _inventory.selection)
 	_busy = false
 
 

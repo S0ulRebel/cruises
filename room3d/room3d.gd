@@ -35,8 +35,15 @@ signal hotspot_clicked(name: String)
 @export var camera_pitch_degrees := -14.0
 @export var camera_fov := 42.0
 
+## Anything in this group is parsed when the walkable area is baked: the floor adds to
+## it, a solid prop cuts a hole in it. Characters are NOT in it - they move, and a
+## re-bake every step is far too expensive. They carry a NavigationObstacle3D instead,
+## which carves the mesh at runtime. See actors/mover/mover.gd.
+const NAV_SOURCE := "nav_source"
+
 var camera: Camera3D
 var floor_body: StaticBody3D
+var nav_region: NavigationRegion3D
 var backdrop: MeshInstance3D
 var key_light: DirectionalLight3D
 
@@ -46,6 +53,7 @@ func _ready() -> void:
 	_build_floor()
 	_build_backdrop()
 	_build_light()
+	_build_navigation()
 
 
 func _build_camera() -> void:
@@ -71,6 +79,7 @@ func _build_floor() -> void:
 	shape.shape = box
 	shape.position = Vector3(0.0, -0.1, 0.0)
 	floor_body.add_child(shape)
+	floor_body.add_to_group(NAV_SOURCE)
 
 	var visual := MeshInstance3D.new()
 	visual.name = "FloorVisual"
@@ -99,6 +108,97 @@ func _build_backdrop() -> void:
 	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	backdrop.material_override = mat
 	add_child(backdrop)
+
+
+## The walkable area, baked from the floor minus whatever solid stands on it.
+##
+## A point-and-click needs pathfinding rather than collision. With collision alone the
+## player clicks past a crate and the character grinds along its edge, which reads as
+## the game fighting them. With a navigation mesh he walks AROUND it to the spot that
+## was clicked, which reads as him knowing the room. Props keep their collision bodies
+## anyway - that is what makes them clickable, and the backstop if anyone ends up off
+## the mesh.
+func _build_navigation() -> void:
+	nav_region = NavigationRegion3D.new()
+	nav_region.name = "Navigation"
+	add_child(nav_region)
+
+	var mesh := NavigationMesh.new()
+	# Parse collision shapes, not visuals: a prop is solid because it has a body, and
+	# a purely decorative mesh should not block anyone.
+	mesh.geometry_parsed_geometry_type = NavigationMesh.PARSED_GEOMETRY_STATIC_COLLIDERS
+	mesh.geometry_source_geometry_mode = NavigationMesh.SOURCE_GEOMETRY_GROUPS_WITH_CHILDREN
+	mesh.geometry_source_group_name = NAV_SOURCE
+	# Half the shoulder width of a character, so he does not clip a crate he squeezes
+	# past. Characters are 0.26 radius; 0.30 leaves a little daylight.
+	mesh.agent_radius = 0.30
+	mesh.agent_height = 2.0
+	mesh.agent_max_climb = 0.2
+	# The default 0.25 m cell is coarse for a room this size - gaps between furniture
+	# vanish and the character refuses to walk between the desk and the wall.
+	mesh.cell_size = 0.10
+	mesh.cell_height = 0.10
+	nav_region.navigation_mesh = mesh
+
+
+## Re-bake the walkable area. Called once everything solid is in the room, and again
+## whenever something solid is added or removed. Not called per frame and not called
+## when a character moves - see NAV_SOURCE.
+func rebake_navigation() -> void:
+	if nav_region == null:
+		return
+	nav_region.bake_navigation_mesh(false)
+	# Push the filled mesh to the server by hand. Baking writes into the NavigationMesh
+	# RESOURCE, and the region only uploads on assignment - but assigning the same
+	# resource back is a no-op, because the setter returns early when the value has not
+	# changed. Without this the server keeps the empty copy it was handed at build time
+	# and every path comes back with zero points, which looks like a broken click
+	# rather than a stale upload.
+	NavigationServer3D.region_set_navigation_mesh(
+		nav_region.get_rid(), nav_region.navigation_mesh)
+	# Baking fills the MESH; the navigation SERVER only picks it up on its own sync,
+	# which happens at the end of a physics step. Without forcing it, a path requested
+	# in the same frame as the bake comes back empty and the character stands still -
+	# which looks like a broken click, not a timing problem.
+	var map := get_world_3d().navigation_map
+	if map.is_valid():
+		# What the server had reached BEFORE this bake. await_navigation waits for it
+		# to move on from here, rather than for some absolute count - otherwise a
+		# second bake returns instantly while the server is still serving the old mesh.
+		_baked_at_iteration = NavigationServer3D.map_get_iteration_id(map)
+		NavigationServer3D.map_force_update(map)
+	navigation_ready = false
+
+
+## True once the navigation server can actually answer. See await_navigation().
+var navigation_ready := false
+## The server's iteration at the moment of the last bake. See rebake_navigation().
+var _baked_at_iteration := 0
+
+
+## Wait until the walkable area is queryable.
+##
+## The server answers NOTHING until its SECOND synchronisation iteration: the first
+## registers the region, the mesh arrives on the next one. Query before that and
+## map_get_path returns zero points and map_get_closest_point returns the origin -
+## silently, with no error unless you happen to be printing them. A character told to
+## walk in that window simply never moves, which reads as a broken click.
+##
+## Counting physics frames is a guess; the iteration id is the signal.
+func await_navigation() -> void:
+	var map := get_world_3d().navigation_map
+	if not map.is_valid():
+		return
+	# Two iterations past the bake: the first registers the region, the mesh arrives on
+	# the next. Measured - see navcheck.tscn, which fails on one.
+	var target := _baked_at_iteration + 2
+	var waited := 0
+	while NavigationServer3D.map_get_iteration_id(map) < target and waited < 120:
+		await get_tree().physics_frame
+		waited += 1
+	navigation_ready = NavigationServer3D.map_get_iteration_id(map) >= target
+	if not navigation_ready:
+		push_warning("Room3D: navigation never synchronised; nobody will be able to walk.")
 
 
 func _build_light() -> void:

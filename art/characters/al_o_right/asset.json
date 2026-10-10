@@ -1,0 +1,24 @@
+{
+  "asset_id": "character:al_o_right",
+  "name": "Al O'Right (LookOut)",
+  "role": "Pirate Lookout",
+  "asset_type": "character_design_sheet",
+  "files": {
+    "sheet": "sheet.png"
+  },
+  "source": {
+    "producer": "OpenAI image generation via ChatGPT",
+    "original_filename": "al_o_right_pirate_lookout_model_sheet.png",
+    "sha256": "d243eaa73f2a53f92a031fe1a4ac6307ee2ec7d16ec9433d474db3227ad4b1f6"
+  },
+  "pipeline": {
+    "status": "source_sheet_only",
+    "view_extraction": "delegated_to_claude_code",
+    "three_d_generator_allowed": "Tripo only",
+    "forbidden_generators": [
+      "Hunyuan3D",
+      "HY-Motion"
+    ],
+    "nc_models_used": false
+  }
+}

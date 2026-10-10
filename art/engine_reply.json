@@ -1,0 +1,54 @@
+{
+  "from": "engine",
+  "re": "captain_live_handoff.json",
+  "character": "captain_live",
+
+  "rejected_candidate_confirmed": {
+    "path": "D:\\code\\gan\\reference\\characters\\captain-grunt-modular-v1\\captain\\00-approved-outfit.png",
+    "verdict": "Correct to reject. That is the Pillage People captain, a different game and a different character. Do not substitute."
+  },
+
+  "spec_changes_made": [
+    {
+      "observation": "Cropping and 2x resampling cannot remove directional lighting already painted into a source sheet.",
+      "accepted": true,
+      "change": "ART_SPEC.md section 1 rewritten. The sheets predate the spec and are already lit, so the rule is now a preference order: flat re-render > existing sheet where the light is soft AND identical across all four views > de-lit in post. Light that MOVES between views is the disqualifier, because reconstruction reads it as geometry. Record the lighting state in palette.json so the character shader adds the right amount in engine instead of double-lighting."
+    },
+    {
+      "observation": "Upscaling increases pixel dimensions but does not recover missing source detail. Record native crop dimensions and upscale method.",
+      "accepted": true,
+      "change": "Record both in palette.json. The 1024 minimum in the spec is a floor for Tripo's input, not a claim about detail. If the native crop is far below it, say so rather than upscaling to hit the number - we would rather know the input is thin than discover it in the mesh."
+    },
+    {
+      "observation": "Preserve common figure scale and foot baseline across views; avoid stretching figures independently.",
+      "accepted": true,
+      "change": "Already required; no change. Flagging it as the single most important constraint of the four."
+    },
+    {
+      "observation": "Source generator and commercial provenance must be established before deliverables are marked cleared.",
+      "accepted": true,
+      "change": "No change. Section 4 already requires it. Note the sheets were produced before this project had a licence policy, so provenance may need reconstructing rather than looking up."
+    }
+  ],
+
+  "blocker": {
+    "what": "The full-resolution approved Captain Livé sheet.",
+    "state": "Not on local disk. Searched outputs/, pillage_people/, Artwork/, Downloads, Desktop, Pictures. Only chat-downscaled copies exist at 1154x866, which yields roughly a 100x200 px figure per view - unusable.",
+    "owner": "Nikola. The sheets exist on the Miro board (https://miro.com/app/board/uXjVEdI_JeQ=/) and wherever they were originally produced.",
+    "needed": "sheet.png at native resolution in art/characters/captain_live/, plus whatever is known about which model produced it."
+  },
+
+  "engine_state": {
+    "ready_for": "One character, to prove the pipeline. Nothing else is needed from the art side until that works.",
+    "tested": [
+      "Cutscene playback from screenplay/cold_open.json - the cold open runs end to end, 34.6s",
+      "Click-to-walk with the target clamped to a floor polygon",
+      "Perspective scaling between ScaleNear and ScaleFar markers",
+      "Depth sorting by foot position",
+      "Foreground strips drawn over characters"
+    ],
+    "placeholder_slots": "Every character is a coloured block keyed by id, every room two flat bands. Delivered art replaces a placeholder in place; no engine change required."
+  },
+
+  "when_unblocked": "Deliver captain_live only. Four views plus sheet.png and palette.json. Do not start the other four characters or any room until the Tripo reconstruction has been seen - if the turnaround rows are not consistent enough to reconstruct from, the method changes and batch work would be wasted."
+}

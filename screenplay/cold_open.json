@@ -1,0 +1,50 @@
+{
+  "title": "Cold Open",
+  "note": "Two cooks, the same grievance, two vocabularies. Then the bubble.",
+
+  "cast": {
+	"live":       { "name": "Captain Livé",  "colour": "#1c1a1f", "accent": "#b4252a" },
+	"santi":      { "name": "Santi Wong",    "colour": "#efe6d8", "accent": "#b4252a" },
+	"count":      { "name": "Count Fingers", "colour": "#e8702a", "accent": "#2b2b2b" },
+	"choi":       { "name": "Captain Choi",  "colour": "#f2f4f7", "accent": "#1b3a63" },
+	"cruise_cook":{ "name": "Ship's Cook",   "colour": "#ffffff", "accent": "#1b3a63" }
+  },
+
+  "locations": {
+	"pirate_quarters": { "name": "Captain Livé's Quarters", "sky": "#3a2416", "floor": "#1d1109" },
+	"cruise_office":   { "name": "Captain Choi's Office",   "sky": "#1b3a63", "floor": "#0d1c2f" }
+  },
+
+  "beats": [
+	{ "t": "location", "id": "pirate_quarters" },
+	{ "t": "enter", "who": ["live", "count"] },
+	{ "t": "action", "text": "Captain Livé's fingers are in the fishbowl, petting the back of Count Fingers, who seems to enjoy it." },
+	{ "t": "wait", "secs": 1.2 },
+
+	{ "t": "enter", "who": ["santi"] },
+	{ "t": "action", "text": "Santi Wong, the pirate ship's cook, is in the Captain's quarters. He complains about the captive." },
+	{ "t": "say", "who": "santi", "text": "You know the one, that chubby we took at Port Royal? He says my rat's tail is the worst he has ever tasted, of all the galleys he has had the privilege to slave on?!" },
+	{ "t": "say", "who": "santi", "text": "I used my nonna Sporca's recipe! It is like throwing pearls before swine! And pork and pearls do not mix well!" },
+
+	{ "t": "action", "text": "The Captain, laid back in his chair, cuddles Count Fingers, who is trying to bite him. The Captain gives him a small knock with his index finger." },
+	{ "t": "wait", "secs": 0.9 },
+
+	{ "t": "location", "id": "cruise_office" },
+	{ "t": "enter", "who": ["choi", "cruise_cook"] },
+	{ "t": "action", "text": "The cook of the cruise ship stands in front of Captain Choi." },
+	{ "t": "say", "who": "cruise_cook", "text": "The guest. That gracious lady. And - yes. She is complaining about the food again." },
+	{ "t": "say", "who": "cruise_cook", "text": "Which galley? She stated, to be precise, the galley. And I trust she tasted all of it. Repeatedly." },
+
+	{ "t": "action", "text": "Captain Choi sits in his chair with champagne, slightly intoxicated." },
+	{ "t": "say", "who": "choi", "text": "Satisfaction of our guests is our utmost destination.", "voice": "squeaky" },
+
+	{ "t": "wait", "secs": 1.6 },
+	{ "t": "sfx", "id": "bubble_pop", "caption": "(a small pop)" },
+	{ "t": "action", "text": "A moment of silence. Everyone notices it." },
+	{ "t": "wait", "secs": 1.4 },
+	{ "t": "shake", "secs": 2.5, "power": 14.0 },
+	{ "t": "flicker", "secs": 2.5 },
+	{ "t": "wait", "secs": 2.5 },
+	{ "t": "end" }
+  ]
+}

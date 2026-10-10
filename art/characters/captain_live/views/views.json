@@ -1,0 +1,82 @@
+{
+  "source_sheet": "art\\characters\\captain_live\\turnaround.png",
+  "source_size": [
+    1881,
+    836
+  ],
+  "box_px": 963,
+  "output_px": 1024,
+  "upscale_method": "LANCZOS",
+  "card_colour": [
+    205,
+    213,
+    223
+  ],
+  "note": "Each figure is cut to its own bounds and composited onto a shared square canvas at a shared foot line. Nothing from the surrounding sheet is included, and framing is identical by construction.",
+  "views": [
+    {
+      "name": "front",
+      "figure_box": [
+        77,
+        18,
+        524,
+        793
+      ],
+      "figure_px": [
+        447,
+        775
+      ],
+      "canvas_px": 963,
+      "output_px": 1024,
+      "upscaled": true
+    },
+    {
+      "name": "three_quarter",
+      "figure_box": [
+        645,
+        18,
+        876,
+        795
+      ],
+      "figure_px": [
+        231,
+        777
+      ],
+      "canvas_px": 963,
+      "output_px": 1024,
+      "upscaled": true
+    },
+    {
+      "name": "side",
+      "figure_box": [
+        1020,
+        20,
+        1281,
+        795
+      ],
+      "figure_px": [
+        261,
+        775
+      ],
+      "canvas_px": 963,
+      "output_px": 1024,
+      "upscaled": true
+    },
+    {
+      "name": "back",
+      "figure_box": [
+        1355,
+        18,
+        1782,
+        794
+      ],
+      "figure_px": [
+        427,
+        776
+      ],
+      "canvas_px": 963,
+      "output_px": 1024,
+      "upscaled": true
+    }
+  ]
+}

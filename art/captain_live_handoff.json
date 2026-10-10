@@ -1,0 +1,17 @@
+{
+  "rejected_candidate": {
+    "path": "D:\\code\\gan\\reference\\characters\\captain-grunt-modular-v1\\captain\\00-approved-outfit.png",
+    "reason": "Different character design: red coat, full beard, T pose; not the approved Livé sheet"
+  },
+  "next_step": "Obtain original sheet, inspect all four views and provenance, then crop and align without regeneration",
+  "character": "captain_live",
+  "status": "awaiting_source_sheet",
+  "required_input": "Original full-resolution approved Captain Livé design sheet; source path or attachment needed",
+  "produced_assets": [],
+  "spec_observations": [
+    "Cropping and 2x resampling cannot remove directional lighting already painted into a source sheet. Inspect source before claiming neutral lighting.",
+    "Upscaling increases pixel dimensions but does not recover missing source detail. Record native crop dimensions and upscale method.",
+    "Preserve common figure scale and foot baseline across views; avoid stretching figures independently.",
+    "Source generator and commercial provenance must be established before deliverables are marked cleared."
+  ]
+}

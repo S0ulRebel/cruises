@@ -1,0 +1,24 @@
+{
+  "asset_id": "character:santi_wong",
+  "name": "Santi Wong",
+  "role": "Ship's Cook",
+  "asset_type": "character_design_sheet",
+  "files": {
+    "sheet": "sheet.png"
+  },
+  "source": {
+    "producer": "OpenAI image generation via ChatGPT",
+    "original_filename": "santi_wong_ship_s_cook_character_sheet.png",
+    "sha256": "ecf43a6c2ec88deb5142a7504414f4d67de2b592ef459bcf2245da51baf6bf6c"
+  },
+  "pipeline": {
+    "status": "source_sheet_only",
+    "view_extraction": "delegated_to_claude_code",
+    "three_d_generator_allowed": "Tripo only",
+    "forbidden_generators": [
+      "Hunyuan3D",
+      "HY-Motion"
+    ],
+    "nc_models_used": false
+  }
+}

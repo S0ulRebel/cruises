@@ -1,0 +1,24 @@
+{
+  "asset_id": "character:captain_live",
+  "name": "Captain Livé",
+  "role": "French Pirate Captain",
+  "asset_type": "character_design_sheet",
+  "files": {
+    "sheet": "sheet.png"
+  },
+  "source": {
+    "producer": "OpenAI image generation via ChatGPT",
+    "original_filename": "captain_livé_character_turnaround_sheet.png",
+    "sha256": "f17759c2dca9d0638451ccc6bcd2823ef958ddcffde3dd3a2538197bf651c7ec"
+  },
+  "pipeline": {
+    "status": "source_sheet_only",
+    "view_extraction": "delegated_to_claude_code",
+    "three_d_generator_allowed": "Tripo only",
+    "forbidden_generators": [
+      "Hunyuan3D",
+      "HY-Motion"
+    ],
+    "nc_models_used": false
+  }
+}

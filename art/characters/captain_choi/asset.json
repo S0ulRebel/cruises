@@ -1,0 +1,24 @@
+{
+  "asset_id": "character:captain_choi",
+  "name": "Captain Choi",
+  "role": "Celestial Cruises Captain",
+  "asset_type": "character_design_sheet",
+  "files": {
+    "sheet": "sheet.png"
+  },
+  "source": {
+    "producer": "OpenAI image generation via ChatGPT",
+    "original_filename": "captain_choi_character_design_sheet.png",
+    "sha256": "10be543896f1c3122e77363d3993fc47538a1ef59a2e2c5636609831f4804d17"
+  },
+  "pipeline": {
+    "status": "source_sheet_only",
+    "view_extraction": "delegated_to_claude_code",
+    "three_d_generator_allowed": "Tripo only",
+    "forbidden_generators": [
+      "Hunyuan3D",
+      "HY-Motion"
+    ],
+    "nc_models_used": false
+  }
+}

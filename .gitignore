@@ -1,0 +1,17 @@
+# Godot's import cache. Regenerated on first open, 1.7 GB of it, and nothing outside
+# this machine can use it.
+.godot/
+
+# Screenshot the --shot run overwrites every time.
+shot.png
+
+# Frame dump from the --record run, 2500+ PNGs regenerated on demand.
+recording/
+cruises_scene1.mp4
+
+# Scratch screenshots from one-off checks.
+glbtest.png
+shot_live.png
+shot_ui.png
+walk_strip.png
+views_check.png

@@ -1,0 +1,24 @@
+{
+  "asset_id": "character:captain_troy",
+  "name": "Captain Troy",
+  "role": "Celestial Cruises Captain",
+  "asset_type": "character_design_sheet",
+  "files": {
+    "sheet": "sheet.png"
+  },
+  "source": {
+    "producer": "OpenAI image generation via ChatGPT",
+    "original_filename": "captain_troy_non_cape_character_sheet.png",
+    "sha256": "096b2182b4389ee90217e048218c62f34131b5b039aa2c5305f050ecb100a479"
+  },
+  "pipeline": {
+    "status": "source_sheet_only",
+    "view_extraction": "delegated_to_claude_code",
+    "three_d_generator_allowed": "Tripo only",
+    "forbidden_generators": [
+      "Hunyuan3D",
+      "HY-Motion"
+    ],
+    "nc_models_used": false
+  }
+}

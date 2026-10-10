@@ -1,0 +1,24 @@
+{
+  "asset_id": "character:count_fingers",
+  "name": "Count Fingers",
+  "role": "The Hunter / Captain Livé's Companion",
+  "asset_type": "character_design_sheet",
+  "files": {
+    "sheet": "sheet.png"
+  },
+  "source": {
+    "producer": "OpenAI image generation via ChatGPT",
+    "original_filename": "count_fingers_pirate_goldfish_model_sheet.png",
+    "sha256": "fd20f5fb3cbfc23135d00e16157fae06a7726833cfdcc97df8ed0907fedb9fde"
+  },
+  "pipeline": {
+    "status": "source_sheet_only",
+    "view_extraction": "delegated_to_claude_code",
+    "three_d_generator_allowed": "Tripo only",
+    "forbidden_generators": [
+      "Hunyuan3D",
+      "HY-Motion"
+    ],
+    "nc_models_used": false
+  }
+}

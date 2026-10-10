@@ -90,7 +90,7 @@ open, through Tripo Smart Mesh P2.0, quad, polycount at the 25,000 maximum — a
 generated ON ITS OWN gets the whole budget instead of competing with a body, a hat and
 a feather.
 
-    model     D:\code\cruisesrt\characters\captain_live\pieces\head\head.glb  (940 KB)
+    model     D:\code\cruises\art\characters\captain_live\pieces\head\head.glb  (940 KB)
     sidecar   same folder, asset.json — mouth_cavity_mesh_verified is now true
     views     same folder, views/ — the four 1602x1602 images that produced it
     write-up  docs/FACES.md

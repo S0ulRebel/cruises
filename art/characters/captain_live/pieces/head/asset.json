@@ -84,10 +84,13 @@
     "nc_models_used": false,
     "rigging": "head is supplied as unrigged geometry; dresser bends it at the neck",
     "reconstruction_run": false,
-    "mouth_cavity_mesh_verified": false,
+    "mouth_cavity_mesh_verified": true,
     "engine_fit_verified": false,
     "ready_for_reconstruction_experiment": true,
-    "reconstruction_complete": false
+    "reconstruction_complete": false,
+    "mouth_cavity_evidence": "Generated 10 Oct 2026 via Tripo Smart Mesh P2.0, quad, polycount 25000, from the four 1602x1602 views in pieces/head/views. Inspected untextured in Blender: 26,301 verts, 51,426 tris, 86% quad after tris-to-quads, 2.6% poles. 35 shells and 1,182 boundary edges are the open neck, the open mouth interior, and the teeth and tongue as their own geometry. Mouth is a real cavity with individual teeth and a tongue.",
+    "generated_model": "art/characters/captain_live/pieces/head/head.glb",
+    "textured": false
   },
   "validation": {
     "sheet_size_px": [

@@ -38,9 +38,12 @@ with source provenance, measured framing and the exact extraction command.
    two boots remain one view group; trousers have a specified column range, and
    shirt/coat use `--min-width-ratio 0.1`. Do not substitute equal quarters for
    the other sheets.
-2. Test the **head first**, viewing the Tripo result untextured. Record whether
-   the mouth is a real cavity and the teeth/tongue are geometry. The painted
-   references cannot prove this; return any failed slot to the art agent here.
+2. ~~Test the head first.~~ **DONE 10 Oct — it passed.** The mouth is a real
+   cavity: individual teeth and a tongue as their own geometry, open throat, loops
+   round the lips. 26,301 verts, 86% quad after tris-to-quads, 2.6% poles. The 35
+   shells and 1,182 boundary edges are the open neck and the open mouth, not damage.
+   Model at `pieces/head/head.glb`, evidence in its `asset.json`, written up in
+   `docs/FACES.md`. **It is not textured** - that is a separate Tripo step.
 3. Rig the A-pose, palms-down body, then use its T-pose for fitting and copying
    garment weights. **Hide/remove the base body's head surface** under the
    separate head, otherwise it can fill the new mouth opening.

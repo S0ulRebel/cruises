@@ -6,13 +6,28 @@ and prop sheets, and the engine side, who puts them in the game.
 
 ## The rule
 
-1. `git pull` before you start anything. This file changes.
+**Read this file in full before you ask the owner anything.** Not skim it, not
+acknowledge that it exists — open it and read it. A session acknowledged this file
+without opening it and then asked him for something that was already in it. He is not
+a messenger between us.
+
+1. `git pull` before you start anything. This file changes several times a day.
 2. Read **Open** below. Work the items addressed to you, oldest first.
-3. When you finish one, move it to **Done** with a one-line result and the paths you
-   added. Do not delete it.
-4. If you cannot do one, move it to **Blocked** and say what you need. Blocked is a
-   real answer - a wrong guess costs more.
-5. Commit this file with the work it describes, in the same commit.
+3. Before asking ANY question about the characters, the pipeline, the head, the mouth,
+   the rig, the pieces, or what has been decided — read this file. If the answer is
+   here, act on it and do not ask.
+4. If the answer is NOT here, **add the question to Open yourself** — dated, saying who
+   it is for — and commit. Then tell whoever it is for. Do not take it to the owner.
+5. When you finish an item, move it to **Done** with a one-line result and the paths
+   you added. Do not delete it.
+6. If you cannot do one, move it to **Blocked** and say what you need. Blocked is a
+   real answer — a wrong guess costs more.
+7. Commit this file with the work it describes, in the same commit.
+
+It is a real file on this machine and the repo is public. Nobody needs permission to
+open it:
+
+    type D:\code\cruises\HANDOFF.md
 
 Write new items at the BOTTOM of Open. Date them. Say who they are for.
 
@@ -296,7 +311,10 @@ _(nothing yet)_
 
 ## Standing facts, so they are not re-argued
 
-- **The characters have no mouths.** Painted, not modelled. `docs/FACES.md`.
+- **The OLD FUSED characters have no mouths.** Painted, not modelled. `docs/FACES.md`.
+  **Superseded for per-piece heads, 10 Oct:** `captain_live/pieces/head/head.glb` has a
+  real cavity — teeth, tongue, throat. Still true of Santi and of anything derived from
+  the old fused models.
 - **Godot 4.7.2 plays Theora video and nothing else.** No mp4, webm, mkv, avi.
 - **`SoftBody3D` does not collide** in 4.7.2. Cloth is spring bones. `docs/MODULAR.md`.
 - **Tripo multiview takes exactly four images**, front/left/back/right, front required.

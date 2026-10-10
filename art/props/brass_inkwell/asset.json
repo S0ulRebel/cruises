@@ -1,0 +1,220 @@
+{
+  "asset_id": "prop:brass_inkwell",
+  "name": "Brass inkwell",
+  "role": "Captain Livé’s quarters — separate pickup prop",
+  "asset_type": "prop_turnaround_sheet",
+  "files": {
+    "sheet": "sheet.png"
+  },
+  "dimensions_m": {
+    "width": 0.08,
+    "height": 0.07,
+    "depth": 0.08
+  },
+  "dimension_authority": "The requested engine dimensions are authoritative. The painted silhouette ratios are measured below and are not exact dimensional blueprints.",
+  "object_scope": {
+    "rule": "Model the object only, never a dressed arrangement.",
+    "contents": "One squat brass inkwell with its cap closed and attached.",
+    "excluded": [
+      "quill",
+      "pen",
+      "ink spill",
+      "loose lid",
+      "writing surface",
+      "other props"
+    ],
+    "hollow_surface_note": "Closed cap: the open ink cavity is not visible or specified by this sheet."
+  },
+  "design": {
+    "silhouette": "Soft-square rounded brass vessel, short centered neck, broad attached screw cap.",
+    "materials": "Warm golden brass with a darker warm brass body, broad worn highlights and shallow dents.",
+    "rendering_style": "Chunky, softly sculpted cartoony game prop; broad form shading and selective wear.",
+    "view_consistency": "One object shown in front, left, right and back elevations. Small differences in surface wear distinguish its faces."
+  },
+  "framing": {
+    "view_order": [
+      "front",
+      "left",
+      "right",
+      "back"
+    ],
+    "projection_requested": "orthographic",
+    "camera_requested": "Level horizontal optical axis at the object's middle; cardinal rotations 0°, 90°, -90°, 180°.",
+    "visual_review": "Straight-on cardinal elevations with parallel main edges; no three-quarter views or broad top plane.",
+    "native_sheet_size_px": [
+      2548,
+      637
+    ],
+    "frame_size_px": [
+      637,
+      637
+    ],
+    "shared_baseline_pixel_y": 560,
+    "background_rgb": [
+      254,
+      254,
+      254
+    ],
+    "background_note": "Nominal white. The generated background mode is RGB254,254,254, which the unchanged cutter reuses for the framing canvas.",
+    "labels_or_callouts": false,
+    "contact_shadow": false,
+    "same_asset_scale_within_sheet": true,
+    "cross_asset_scale": "This inkwell fills its own frames. Apply dimensions_m in the engine; do not inherit the desk's pixel scale."
+  },
+  "source": {
+    "producer": "OpenAI image generation via ChatGPT",
+    "mode": "built-in image_gen",
+    "model_identifier": "Not exposed by the built-in tool.",
+    "original_filename": "exec-d5472278-03e4-404d-8c3e-dd7bb24484bc.png",
+    "sha256": "722586071dab587560e96eb42e4ac403c71ac9155c83bbeee5487a7068e9d4c3",
+    "generated_source_sha256": "b523c582b0a123c3d7220776680b6f5947b8bbd4662e0e9e3e2ad7a49bbb1bbc",
+    "generated_source_size_px": [
+      2172,
+      724
+    ],
+    "selected_generation_version": 4,
+    "style_references": [
+      {
+        "role": "Warm brass and chunky cartoon material reference only",
+        "filename": "exec-9ec1cfcc-7c24-48e8-9e62-2d36059b49b2.png"
+      },
+      {
+        "role": "Approved character rendering style reference only",
+        "repository_path": "art/characters/captain_live/turnaround.png",
+        "sha256": "bcb66fe6213ab55672cb91328f22665a125511d211e3fded0397dd45ac1897fa"
+      }
+    ],
+    "prompt_set": [
+      {
+        "version": 1,
+        "prompt": "Use case: stylized-concept.\nAsset type: game prop modeling turnaround sheet, reconstruction reference for one brass inkwell.\nInput images: Image 1 is a STYLE AND MATERIAL reference only: match the desk's chunky warm worn brass and softly sculpted cartoon game rendering. Do not draw the desk or copy its framing. Image 2 is the approved Captain Livé character STYLE reference only: match its stylized dimensional rendering, never include the character.\nPrimary request: ONE CLOSED BRASS INKWELL ALONE shown in four rigorous orthographic elevations. A small squat soft-square brass ink vessel with rounded corners, a short centered neck, and a broad simple brass screw cap firmly closed and attached. Warm golden brass over a slightly darker warm brass body; a few broad worn highlights and small shallow dents, no realistic micro scratches. No quill, pen, writing tools, spilled ink, label, ornament, pedestal, or separate lid. Overall physical size is width 8 cm, total height 7 cm, depth 8 cm; height includes its attached cap. Square footprint, same silhouette width from each cardinal direction.\nComposition: very wide horizontal sheet with exactly FOUR equally sized square virtual frames in one row. Views in strict left-to-right order FRONT, LEFT SIDE, RIGHT SIDE, BACK, but DO NOT print any names or text. The entire object is fully visible in each frame, identical physical scale and identical camera scale in every frame. Large object in each frame with generous unbroken vertical bands of empty white between the objects. Center the four object silhouettes at evenly spaced x coordinates. Each object must have exactly the same top pixel row and same bottom pixel row; equal total height in all four to within ONE pixel. All four widths equal; ratio silhouette width to total height exactly 8:7. Aim for maximal useful native resolution, very wide 4:1 page.\nCAMERA IS THE CRITICAL REQUIREMENT: true ORTHOGRAPHIC engineering elevations, camera centered at the middle of the object's height, looking exactly horizontally. Front yaw 0 degrees, left yaw 90 degrees, right yaw -90 degrees, back yaw 180 degrees. Pitch exactly ZERO. No perspective, no convergence, no 3/4 view, no yaw between cardinal directions, no camera looking down. Straight horizontal cap seams and vertical body edges. Do not show the broad upper surface of the cap or the top shoulder plane as an ellipse or trapezoid; these horizontal planes are edge-on. The softly rounded corners can have form shading, but that must not change the viewing angle. All four show the SAME finished inkwell from its four cardinal directions, no alternative designs.\nLighting/material style: soft cartoon sculptural form shading, warm satin brass with broad clean controlled highlights and slightly darker recessed seams, matching references. Avoid glossy photoreal reflections, fine grunge or complex engraving. White background remains exactly flat opaque RGB 255,255,255 throughout, including around and underneath each silhouette. No cast shadows, no ground line drawn, no gradients, no backdrop texture, no border, no caption, no scale ruler, no dimensions, no watermark. A clean asset-only technical turnaround, not an illustrated presentation."
+      },
+      {
+        "version": 2,
+        "prompt": "Use case: precise-object-edit.\nEdit the attached brass inkwell turnaround sheet. Preserve its object-only design, warm chunky cartoon brass rendering, attached closed brass cap, short neck, four separate straight-on orthographic views and the current total object height. The only geometric correction is HORIZONTAL PROPORTIONS: widen all FOUR views so they have the SAME total width, and make every view's width exactly EIGHT SEVENTHS of its total height. The first attempt had 382px wide front/back, 358px wide sides, and 389px total heights; that is incorrect for this square footprint inkpot. On this same 2172x724 canvas, target silhouette width approximately 445 pixels and total height exactly 389 pixels in EACH of all four frames. Scale the body, neck, cap and all details horizontally together, so their relative proportions are unchanged; do NOT stretch vertically. The left and right views must be just as wide as the front and back. Exact physical bounding box W 8cm H 7cm D 8cm.\nAlign all four cap tops at the exact same image row and all four flat bases at the exact same row, with no more than one pixel difference in total heights. Keep each view horizontally centered in its own equal-sized quarter of the canvas; even blank gutters, no overlaps or cutoffs. Four equal square virtual frames, FRONT, LEFT SIDE, RIGHT SIDE, BACK left-to-right, without printed labels.\nKeep the camera exactly LEVEL ORTHOGRAPHIC: horizontal optical axis at the object's midpoint, no perspective, no 3/4 view, no camera pitch. Broad horizontal top planes stay edge-on. Match the first image's frontal composition, do not tilt the vessel or camera. Same vessel geometry, cap, neck and base in every view. Small naturally different wear on the different faces is fine.\nAlso flatten the background to absolutely uniform opaque PURE WHITE RGB255,255,255 with no texture, gradient, shadow, grey ground or line, right up to the anti-aliased outline. Do not change the vessel colors or lighting. No additional objects, writing tools, opened cap, labels, letters, borders, rulers, dimensions, or decorative marks."
+      },
+      {
+        "version": 3,
+        "prompt": "Use case: precise-object-edit.\nFix the proportions of this FOUR-VIEW INKWELL modeling sheet. The inkwell has a SQUARE horizontal cross-section, width and depth are IDENTICAL, so every cardinal elevation has the SAME SILHOUETTE. The existing second and third vessels are too narrow. All FOUR outlines must now be identical in width and height. Rebuild the four silhouettes from one shared front outline, with only the wear marks on the four faces differing. Do not retain the old narrower side-view outlines. Label-free one-row order is front, left, right, back.\n\nMake the vessel visibly BROADER AND SQUATTER. The maximum body width should be 8 units and the complete height from bottom to cap top 7 units; this 8:7 rectangle includes cap and neck. Keep TOTAL height constant across all four images. Desired consistent bounding rectangle is 464 pixels wide by 406 pixels tall for each of all FOUR silhouettes. Left view 464x406; right view 464x406; front 464x406; back 464x406. A side view is not thinner: this is a truly square jar. There should be one common exact horizontal top row and one common exact horizontal bottom row for all four. Center each within its equal width frame, with uninterrupted white vertical gutters and no overlap.\n\nKeep the same softly rounded square body, attached screw cap with the same broad vertical grip segments, same neck, chunky warm worn brass, few big dents, and broad soft sculpted cartoon shading. No added design features. Show the same object at four cardinal rotations, with matching body/neck/cap heights and widths throughout. Keep the rigid ORTHOGRAPHIC camera absolutely level at the midpoint of the inkwell. No broad top plane, no 3/4 angle, no perspective, no tilted camera or tilted vessel. Horizontals parallel and level; verticals straight.\nIsolated asset ONLY: no quill, no pen, no ink drops, no base platform, no other object, no opened/disconnected cap. Flat plain solid white background, no shadows, texture or grain, no labels/text/callouts/lines. Keep the wide sheet format and make only the requested geometry consistency correction."
+      },
+      {
+        "version": 4,
+        "prompt": "Use case: precise-object-edit.\nOne final strict measurement correction to this inkpot modeling sheet. Keep the warm golden chunky cartoon brass material and the attached cap, neck, and rounded soft-square body design exactly. Keep the four views and the blank white background.\n\nMake the geometry genuinely FOURFOLD ROTATIONALLY SYMMETRIC. The same outline repeats every 90 degrees. Therefore all four cardinal elevations have an IDENTICAL silhouette and identical feature sizes. Use the FIRST view's silhouette as the shared template for all four; the second and third views must become the EXACT same width as the first and fourth. Do not treat 'side view' as a thinner jar: the width and depth are both exactly 8cm. These four cardinal projections are geometrically indistinguishable because of fourfold symmetry. Cap width is the same four times, neck width the same four times, body width the same four times, total height the same four times.\n\nMake the final identical silhouette rectangle 8 units wide by 7 units tall. Keep body width as-is in the first view and decrease the complete height about 3%, uniformly from the cap to the bottom. Apply that ONE resulting width and height to all four views. The total height includes the cap and neck. Four identical bounding rectangles at identical scales, no narrower or taller side jars. All cap tops exactly aligned, all bases exactly aligned, four separated objects with clean white vertical bands between.\n\nTrue level orthographic elevations, horizontal camera at the object's middle, no perspective, no top-down, no three-quarter. Keep the existing straight-on camera. Use very slightly softened edge shading, no new design details or accessories. The only object is a brass inkwell with its cap closed. No pen, no quill, no spills, no unattached items, no labels or any text, no borders, no shadows or floor line. Wide four-view sheet on perfectly flat uniform white."
+      }
+    ]
+  },
+  "assembly": {
+    "tool": "tools/crop_views.py",
+    "tool_modified": false,
+    "operation": "Unchanged cutter's preview assembly: crop each object's own bounds, center on equal native square canvases and share one ground line.",
+    "arguments": [
+      "--names",
+      "front",
+      "left",
+      "right",
+      "back",
+      "--row",
+      "0",
+      "1",
+      "--size",
+      "637",
+      "--dry-run",
+      "--preview",
+      "art/props/brass_inkwell/sheet.png"
+    ],
+    "tolerance": 18,
+    "padding_fraction": 0.12,
+    "native_common_canvas_px": 637,
+    "resampling": "None: output size equals the cutter's native common canvas.",
+    "per_view_geometric_resizing": false,
+    "image_editing": "The artwork and all geometry corrections were generated with the built-in image tool. The unchanged repository cutter performed framing only."
+  },
+  "validation": {
+    "method": "RGB distance from modal background, sum of channel differences > 54 (the repository cutter's tolerance18 threshold); final measurements use the complete mask within each 637px cell.",
+    "generated_source_crop_heights_px": [
+      460,
+      460,
+      461,
+      460
+    ],
+    "generated_source_height_spread_px": 1,
+    "generated_source_baseline_spread_px": 0,
+    "views": [
+      {
+        "name": "front",
+        "width_px": 512,
+        "height_px": 460,
+        "top_pixel_y": 101,
+        "bottom_pixel_y": 560,
+        "width_height_ratio": 1.113043
+      },
+      {
+        "name": "left",
+        "width_px": 498,
+        "height_px": 460,
+        "top_pixel_y": 101,
+        "bottom_pixel_y": 560,
+        "width_height_ratio": 1.082609
+      },
+      {
+        "name": "right",
+        "width_px": 498,
+        "height_px": 461,
+        "top_pixel_y": 100,
+        "bottom_pixel_y": 560,
+        "width_height_ratio": 1.08026
+      },
+      {
+        "name": "back",
+        "width_px": 514,
+        "height_px": 460,
+        "top_pixel_y": 101,
+        "bottom_pixel_y": 560,
+        "width_height_ratio": 1.117391
+      }
+    ],
+    "final_height_spread_px": 1,
+    "final_baseline_spread_px": 0,
+    "empty_separator_columns_at_tolerance18": [
+      132,
+      139,
+      131
+    ],
+    "separate_views_detected": 4,
+    "target_width_height_ratio": 1.1428571428571428,
+    "target_width_depth_ratio": 1,
+    "measured_mean_side_to_mean_front_back_width_ratio": 0.9707602339181286,
+    "side_width_shortfall_percent": 2.924,
+    "limitations": [
+      "Small residual painted silhouette differences remain: left and right are approximately 2.924% narrower than the average front/back, despite the intended square footprint.",
+      "Measured width-to-height ratios are approximately 1.080–1.117, versus the authoritative engine target 1.143. Do not infer final dimensions from the image alone.",
+      "Orthographic appearance was visually reviewed; the built-in image generator does not expose a physical camera matrix.",
+      "The closed ink cavity is not described by the exterior sheet.",
+      "Tripo reconstruction and in-engine validation have not been run."
+    ],
+    "native_frame_after_two_times_upscale_px": 1274,
+    "minimum_1024_after_two_times_upscale_met": true
+  },
+  "pipeline": {
+    "status": "source_sheet_only",
+    "view_extraction": "delegated_to_claude_code",
+    "three_d_generator_allowed": "Tripo only",
+    "forbidden_generators": [
+      "Hunyuan3D",
+      "HY-Motion"
+    ],
+    "nc_models_used": false,
+    "rigging_required": false,
+    "generated_3d_model": false,
+    "validated_in_engine": false,
+    "mesh_dimension_rule": "Scale the reconstructed object to 0.08m wide × 0.07m total height × 0.08m deep.",
+    "lighting_note": "Broad form shading is baked into the source sheet. Apply the existing pipeline's reconstruction lighting removal so engine lighting is not doubled.",
+    "next_step": "Extract four views, reconstruct in Tripo, inspect the closed cap/body connection and apply the authoritative engine dimensions.",
+    "view_extraction_names": [
+      "front",
+      "left",
+      "right",
+      "back"
+    ]
+  }
+}

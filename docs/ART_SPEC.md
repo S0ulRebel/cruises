@@ -204,6 +204,81 @@ A rigged **GLB**, Mixamo-compatible skeleton, under ~50k triangles.
 
 ---
 
+## 1A. Props — static object turnarounds
+
+This contract applies to props. It overrides the character section's view selection
+and background options; character pose and rigging rules do not apply. A prop goes
+from its sheet through cropped views to Tripo as one static object, without a rig.
+
+### What the art side delivers
+
+```
+art/props/<id>/
+├── sheet.png              one object in four views, in a single horizontal row
+└── asset.json             dimensions, provenance and pipeline status
+```
+
+Use the character `asset.json` files as the sidecar pattern. Record the prop's actual
+width, height and depth in metres in `dimensions_m`, together with the view order and
+the tool that produced the sheet. The engine uses these measurements to scale the
+model; the apparent size of the object on the sheet is not its game-world size.
+
+### Sheet rules
+
+- **Model the object only, never a dressed arrangement.** A desk is bare. Charts,
+  an inkwell and a compass each get their own sheet and asset, because the player can
+  pick them up and use them separately. Apply this to every future prop.
+- **Four views, left to right: front, left side, right side, back.** These are strict
+  orthographic elevations, with the camera level at the middle of the object, looking
+  straight at each face. No perspective, camera tilt or three-quarter angles. The back
+  must show the actual back, not another angle on the front.
+- **One camera scale for all four views of a prop.** Keep camera distance and
+  orthographic scale unchanged. Measure the object's height in every view: the pixel
+  heights must match, allowing at most 1 px of raster rounding. A different rendered
+  height becomes a different shape in reconstruction. Do not enlarge narrow side
+  views to fill their frames; their widths must follow the object's depth, while the
+  front and back widths follow its width.
+- **Use the frame for the individual asset.** A small inventory object can fill its
+  own sheet as much as a large piece of furniture does. There is no shared pixel scale
+  between different assets; there is a shared pixel scale between the four views of
+  the same asset. Scale in the engine from the sidecar's measurements.
+- **Whole object, same ground line and clear space.** Every view must be complete,
+  at the same vertical position, with its lowest point on a common baseline (within
+  1 px). Leave a clear vertical band of empty background between each view so the
+  cutter can separate them. The baseline is an alignment, not a drawn line.
+- **Plain flat white background.** No scenery, floor plane, cast shadows, borders,
+  labels, dimensions or callouts in the turnaround band. The background must stay
+  uniform, including the corners and the gaps between views.
+- **Same design and finish in all four views.** Keep construction, fittings, colour,
+  wear and lighting consistent. Generate one coherent sheet, not four unrelated
+  images. Use broad, readable forms and soft, even form shading; record any baked
+  lighting in the sidecar so it is not doubled in the engine.
+- **Show genuine openings.** Where an object has a through-hole, make the background
+  visible through it in at least two views. Do not change the required camera angles
+  to suggest a hole that the geometry does not have.
+
+### Extract and check the views
+
+Use `tools/crop_views.py`, with the prop names explicitly supplied:
+
+```
+python tools/crop_views.py art/props/<id>/sheet.png --names front left right back --out art/props/<id>/views --dry-run --preview check.png
+```
+
+The cutter aligns the bottoms and centres each view on one common square canvas.
+**It does not normalize object heights or correct perspective.** Check the source
+sheet's heights and projection before accepting it; a shared baseline alone does not
+prove that the four views have the same scale.
+
+For a sheet deliberately laid out in four equal-width cells, add `--count 4` to use
+those cells. This is necessary when narrow end views, such as rolled-chart ends, are
+less than a quarter of the width of the longest view: automatic detection treats
+those spans as stray marks. Check the preview for complete silhouettes and clear
+separation before writing the views. Keep one common square output size, with the
+same minimum 1024 × 1024 after the 2× upscale as the character inputs.
+
+---
+
 ## 2. Rooms
 
 ### What the art side delivers

@@ -9,65 +9,127 @@
   "source": {
     "producer": "OpenAI image generation via ChatGPT",
     "model_identifier": "Not exposed by the built-in image generation tool",
-    "original_filename": "exec-b1c8148c-3f5a-4b7f-a9fb-46de9a4e8e81.png",
-    "generated_source_sha256": "7b0cca87ac742d14816d943fad7feb46f061f2750beed651f978bf3e2123983a",
-    "sha256": "0ce6df25c2871fced0a316d3908dd8a176aaf8a68ab7652d68d963c670dc0088",
-    "specification_commit": "c007ebf0451c6732a349c7e62b512e65051db457",
+    "original_filename": "exec-6ba7a5e5-fb21-468f-ba8f-125b286039ac.png",
+    "generated_source_sha256": "6d63de439b5a966c95d48534aa3febe22098e71f5a0e9346c3652ef7bf60529a",
+    "sha256": "02300d11cad484407755dfea20b66770abc9e92e895095b834bb505477b4f69c",
+    "repository_base_commit": "354ca3f0745ded1ed3634e0c030e56f556c60e9f",
     "references": [
       {
-        "path": "art/characters/captain_live/turnaround.png",
-        "git_blob_sha": "a9c6ab70db38e8dd72452c3d219dd727c9c439ff",
-        "purpose": "Approved style and turnaround framing"
+        "role": "Previous desk design; dressing, teal finish and perspective cameras replaced",
+        "path": "art/props/captain_desk/sheet.png",
+        "commit": "354ca3f0745ded1ed3634e0c030e56f556c60e9f",
+        "sha256": "0ce6df25c2871fced0a316d3908dd8a176aaf8a68ab7652d68d963c670dc0088"
       },
       {
-        "path": "art/characters/santi_wong/turnaround.png",
-        "git_blob_sha": "8ba521bc39342472fa0e5fe75bc29bd1ff94f83e",
-        "purpose": "Approved style and turnaround framing"
+        "role": "Approved character rendering style",
+        "path": "art/characters/captain_live/turnaround.png",
+        "sha256": "bcb66fe6213ab55672cb91328f22665a125511d211e3fded0397dd45ac1897fa"
       }
     ],
     "generation_history": [
       {
-        "version": 1,
-        "prompt": "Use case: stylized-concept.\nCreate ONE production four-view turnaround sheet of CAPTAIN LIVÉ'S DESK for a stylized 3D adventure game. This is object concept art for Tripo multiview reconstruction.\n\nINPUT IMAGES: Both supplied character turnaround sheets are STYLE AND CLEAN ROW-FRAMING REFERENCES ONLY. Match their chunky sculpted shapes, exaggerated readable proportions, rounded edges, restrained broad wear and soft dimensional shading. Do not include any characters or copy their background gradients/shadows.\n\nOUTPUT / LAYOUT: Maximum native resolution, wide landscape 3840 x 1280, aspect 3:1. Exactly four complete views of the SAME physical desk, in one horizontal row: (1) FRONT, the seated/working side with drawers; (2) THREE-QUARTER FRONT, showing the front and the desk's left end; (3) RIGHT SIDE, a true narrow side view; (4) BACK, the opposite long face. Do not print those view names. One common physical scale, parallel/orthographic projection without perspective size reduction. Use the same very modest downward viewing angle for all four so the tabletop can be read. Side width must be half the front width, not enlarged to fill its area. All four stand on a shared implicit ground baseline. Generous margins around every complete object. Between every pair of views, leave a broad uninterrupted vertical column of empty background from top to bottom; nothing touches or overlaps. Let the front and back take wider slots and the side take a narrower slot.\n\nBACKGROUND: Exact solid pure white (#FFFFFF) everywhere outside the desk silhouettes, including inside the open knee spaces. Absolutely flat single colour, no floor, no ground line drawn, no cast shadows, no gray contact shadows, no gradient, no vignette, no texture. No text, lettering, labels, dimensions, borders, callouts, extra panels or decorative layout.\n\nDESK DESIGN: A modern cruise-cabin writing desk which pirates have crudely adapted: a broad low rectangular worktop with rounded/beveled corners, practical straight supports and simple rectangular inset drawers with modern straight recessed pulls. The modern cabin origin should remain recognizable. Add a few chunky reclaimed-wood repairs and oversized dull-brass protective corner fittings, placed consistently through the four rotations. Four sturdy squared legs, a shallow drawer apron, and a large fully open knee space, with no solid back/modesty panel: the background must be plainly visible through the desk in front and back views. No ornate antique furniture carving or curving baroque legs. Worn dark teal painted cabin base, warm worn brown wood top and a few tarnished brass fittings. Saturated but dirty colours. Cartoon wear is a few broad chips and dents, not dense realistic wood grain or fine scratches. Same soft sculpted 3D game-art finish as the supplied captain and cook, never photography or realism, no black ink contour lines. Prefer flat neutral diffuse illumination, no strong directional key or dramatic rim lighting.\n\nDIMENSIONS / PROPORTIONS, NOT TEXT IN IMAGE: Desk top is 1.8 metres wide and 0.9 metres deep; tabletop surface is 0.76 metres above the floor. Broad low furniture proportions: width about 2.37 times the tabletop height, depth half the width. Desk height refers to tabletop, not the top of dressing objects.\n\nTABLETOP: The LEFT HALF as viewed from the seated/working front stays completely bare, level and usable, leaving room for an existing separate fishbowl more than 0.5m across. Do not draw the fishbowl, fish, a placeholder circle or an empty-space label. Put ALL surface dressing on the RIGHT HALF: a small flat chart with just a few bold coastline shapes (no words or lettering), one squat brass compass, and one small dried inkwell. Keep the same count, shapes, sizes and FIXED PHYSICAL POSITIONS through all rotations. Rear view naturally reverses their screen-side; do not duplicate or move the objects to face the camera. Keep dressing broad, sparse and readable at game distance, and low above the tabletop. No pens/quills, rolled chart bundle, bottles, cups, lanterns, chairs or unrelated accessories.\n\nCONSISTENCY: This is one immutable object rotated four ways. Preserve exact support/leg count, drawer count, tabletop thickness, repair locations, hardware and dressing across all views. Show all feet, all corners and all dressing, no cropping. Keep all gaps between separate desk silhouettes completely empty."
+        "pass": "bare_warm_wood_orthographic_elevations",
+        "prompt": "Redo the attached captain's desk as ONE clean production modeling turnaround sheet. The first reference supplies the desk DESIGN ONLY; its teal color, tabletop objects, perspective cameras, visible top planes, and inconsistent scale are all mistakes to replace. The second reference supplies the cartoony sculpted game-art rendering style, not a character to draw.\n\nOUTPUT: one wide horizontal strip containing exactly FOUR distinct whole-desk views, in left-to-right order FRONT, LEFT SIDE, RIGHT SIDE, BACK. No written labels. Pure flat opaque white RGB 255,255,255 background, no gradient, cast shadow, ground plane, border, dimensions or annotations. Four separate equal-size framing cells, each centered. Wide clear empty vertical bands separate every desk. Entire desk and all feet visible.\n\nCRITICAL CAMERA CONSTRUCTION: these are true ORTHOGRAPHIC TECHNICAL ELEVATIONS, perfectly straight-on, with the optical axis HORIZONTAL, zero camera pitch and zero roll. Camera is level with the desk's mid-height. Rotate the SAME unchanged object about its vertical axis by exactly 0, 90, 270, 180 degrees. No perspective, no three-quarter views, no view from above. In front and back there is NO visible tabletop upper plane and NO visible outside side panel. In the two side elevations there is NO visible drawer front and NO visible rear panel: only the outside side panel. Every horizontal structural edge is horizontal and parallel. Every vertical structural edge is vertical and parallel. The tabletop reads as a horizontal thick edge, not a trapezoid or diamond. Do NOT tilt the camera to show the top.\n\nEXACT COMMON SCALE: outer desk dimensions width 1.8 m, height 0.76 m, depth 0.9 m. Front and back silhouettes have equal widths and equal heights, width divided by height 2.3684. Both side silhouettes have equal widths and equal heights, width divided by height 1.1842. Each side view is exactly HALF the width of the front view. ALL FOUR silhouettes are EXACTLY THE SAME HEIGHT, measured from the topmost tabletop edge to the bottoms of the brass feet. Place all four tabletop edges on the SAME horizontal level, and all feet on the SAME invisible ground baseline. Do not fit a narrow side view larger in its cell. All four cameras use one fixed orthographic scale.\n\nDESK DESIGN TO RETAIN: the reference's low, broad light honey-brown wooden plank tabletop, two boxy drawer pedestals with exactly THREE drawers in each on the working FRONT, six chunky rectangular brass drawer pulls total, broad white-background knee opening between the pedestals. Four stout square corner legs, brass top corner guards, brass foot caps, chunky rectangular side panel with a broad slightly crooked wooden repair board secured by two large brass nails. Both outside side panels have this repair treatment, with appropriate opposite-facing orientation. At the BACK show the plain wood backs of the two pedestals and the same central white knee opening, absolutely NO drawers or handles at the back. The front and rear are clearly different faces of the same desk. Preserve these construction proportions and the brass fittings' shapes.\n\nCHANGES: make ALL of the former teal/green carcass DARK STAINED MAHOGANY / WALNUT, a deep warm reddish brown with lighter warm brown exposed wood at worn edges and chunky chips in the stained finish. NO teal, green, blue or cool paint. Keep the tabletop lighter honey-brown; keep the yellow-gold brass corners, square feet and rectangular pulls exactly that style. Make the tabletop COMPLETELY BARE. No charts, maps, rolled paper, inkwell, compass, bowl, pen, leather pad or other accessory anywhere in any view. This sheet is the desk object alone.\n\nRENDERING: stylized cartoony pirate adventure game prop to sit beside Captain Livé in the second reference. Chunky softened bevels and exaggerated robust hardware, saturated but dirty warm browns, broad hand-shaped wear. Soft restrained sculpted shading and readable simple color masses, no photorealism, no fine noisy grain, no etched linework or tiny decoration. Consistent neutral studio form lighting across all four elevations. Prioritize true orthographic projection, identical measured height and a correct rear elevation over showing any extra surfaces. Maximum native resolution, very wide four-panel single row.",
+        "output_sha256": "3badb116aaad020c95961a835f75b7a26198d218049a9fc9f7d553388e4a6ff2"
       },
       {
-        "version": 2,
-        "prompt": "Use case: precise-object-edit.\nEdit the supplied full four-view captain's desk sheet. Preserve its established cartoon design, dark teal painted wood, warm brown plank top, brass corner guards, two THREE-DRAWER cabinets, repair boards, sparse chart/compass/inkwell, and soft sculpted style. This is a geometry-consistency and layout correction for Tripo, NOT a redesign.\n\nCORRECT THESE SPECIFIC ISSUES:\n1. The THIRD image is the right SIDE of this 1.8m wide, 0.9m deep desk. Its visible width is currently only about 37% of the front view. Make this third side image WIDER to exactly HALF the front-view width, keeping the same tabletop height, cabinet height, tabletop thickness, hardware size, and physical scale. Widen the side panel and tabletop depth; do not enlarge the whole view. It stays a true side view with no front drawers visible, not three-quarter.\n2. The FOURTH image is the REAR of the very same desk. It currently loses the drawer cabinets. Add the backs of BOTH full-depth drawer cabinets beneath the left and right ends of the desktop, matching the cabinet size and position in the FIRST and SECOND views. Their back panels are plain worn dark teal, without drawer pulls. Preserve a broad OPEN CENTRAL KNEE SPACE showing the white background between these two cabinets. There is no panel spanning the central opening. Four legs and the cabinet construction must describe one consistent 3D object.\n3. Align the lowest feet of ALL FOUR views on EXACTLY THE SAME horizontal image baseline. The three-quarter view currently stands lower; correct that. Identical physical scale across views.\n4. Reflow the four desk views with larger empty gutters. Uniformly reduce the whole set's scale slightly if needed to accommodate the wider side view. One row: FRONT, THREE-QUARTER FRONT, RIGHT SIDE, BACK; do not print words. Aim for generous vertical bands of completely empty white space between all four silhouettes, approximately 5% of canvas width each. No touching or cropping. Front/back widths equal; third side width exactly half front.\n\nINVARIANTS:\nThe same two three-drawer cabinets, four square legs, corner hardware and tabletop thickness in every view. The left-end and right-end side panels have their chunky matching repair boards as already shown. Preserve the clear bare LEFT HALF of the desktop as seen from the working FRONT; all chart, compass and inkwell remain on the RIGHT HALF in fixed physical positions, naturally appearing on screen-left in the rear view. No fishbowl, fish, chair, extra objects, extra views or labels. Desktop proportions remain 1.8m W x 0.9m D with tabletop height .76m; the dressing is above that height. Same camera projection and modest downward angle as existing sheet.\nKeep the wide 3:1 sheet at highest native resolution. Completely flat white background (#FFFFFF); no ground plane, no floor line, no cast/contact shadows, no gradient or paper grain. Background also fills the central open knee space. Preserve broad readable cartoon materials and wear, avoid fine realistic scratches. No text, callouts or borders."
-      },
-      {
-        "version": 3,
-        "prompt": "Use case: precise-object-edit.\nMake ONLY ONE change to this existing four-view desk sheet: MOVE the entire SECOND desk image (the three-quarter view) UP by 26 pixels on this 2172x724 image. Its lowest front foot currently ends at about y=536; it must end at about y=510, exactly level with the bottom of the feet in the FIRST and FOURTH views. Move the desk together with all its tabletop objects as one unchanged unit, without resizing, reshaping, tilting or redrawing it. Clear the old footprint to the same white background. Preserve the first, third and fourth desk views, their positions, the image dimensions, all object design details, colours and layout. This is exclusively a vertical placement correction; all four objects must share the same bottom baseline. Do not add anything or print text."
-      },
-      {
-        "version": 4,
-        "prompt": "Use case: precise-object-edit.\nMake ONLY ONE geometry correction to this four-view desk sheet: widen the THIRD desk (the true SIDE view) by about 20%, without changing its height. The front desk is about 568 pixels wide. The third desk must be about 284 pixels wide, exactly HALF that front width, because the same furniture is 1.8m wide and 0.9m deep.\n\nAt this sheet's native 2172 x 724 size, keep the third desk centred at approximately x=1399 and extend its silhouette from approximately x=1257 to x=1541. Its feet stay on the same baseline as the first and fourth desk (about y=508). Widen the third view's side panel and tabletop by moving its two legs further apart. Keep the legs themselves, brass guards, drawer-cabinet height, top thickness and compass/inkwell sizes unchanged. The repair plank length grows with the side panel. It remains the same RIGHT SIDE view, showing a plain cabinet end and no drawer fronts. Keep the other THREE desk images exactly as they are, with their positions and scale unchanged. Keep the entire white canvas and all gaps free of marks. No labels, no extra objects, no new text. Do not modify the first, second or fourth view. Do not redesign the desk or its materials."
-      },
-      {
-        "version": 5,
-        "prompt": "Use case: precise-object-edit.\nThe desk design in this reference is FINAL. Preserve all its geometry, materials, charts, compass, inkwell, and four view angles. Only improve the four-view sheet COMPOSITION: shrink the views uniformly and move them farther apart onto a shared ground baseline. Do not add or remove any parts.\n\nThe current native canvas is 2172 x 724. Keep the same canvas/aspect ratio, plain flat white. Use these precise approximate silhouette positions:\n- FIRST front desk: x=60 to 543, lowest feet y=510.\n- SECOND three-quarter desk: x=643 to 1143, lowest foot y=510.\n- THIRD right-side desk: x=1243 to 1485, lowest feet y=510.\n- FOURTH back desk: x=1585 to 2068, lowest feet y=510.\nThis creates about 100 pixels of UNINTERRUPTED WHITE SPACE between each complete silhouette, not merely at the feet. Give all views the same pixels-per-metre scale; the side view is HALF the front view's width. Scale the front, three-quarter and rear desk images down to about 85% of their existing size. The side should match their height scale with width set to the true half-width.\nMost important: all four lowest foot contacts must land exactly on the same horizontal baseline, and the full-height white columns between views must be plainly visible. No contact shadows.\n\nKeep the entire object in every view. Same two three-drawer cabinets with plain backs, same four squared legs, side repair boards and brass fittings, same large open middle knee space showing white in front and back. All tabletop dressing stays together on the working-right half, naturally screen-left in the rear view, leaving the working-left half empty for the separately made fishbowl. Preserve the clean warm brown/dark-teal cartoon style and the original softly shaded surfaces. No labels, text, callouts, borders, layout markers, dimension lines, floor, scenery, chair, fish or bowl."
+        "pass": "common_height_proportion_refinement",
+        "prompt": "Use case: precise-object-edit. Edit this desk modeling sheet with one proportional correction, retaining its excellent level front/left/right/back elevations, all colors, exact same design, six front brass pulls, brass corners/feet, wear, repaired side panels and bare top.\n\nThe desk's physical dimensions are 1.8 m wide, 0.76 m high and 0.9 m deep. In the current source the four silhouettes are all 285 pixels tall, and their widths are about 629 / 314 / 317 / 628 pixels. This is slightly too tall. Keep the front and rear widths approximately 629 px, and make ALL FOUR desks 266 px tall. The side widths must both be approximately 314–315 px. Thus front/back width divided by height is 2.368 and side width divided by height is 1.184. Apply the SAME small vertical proportion change to ALL FOUR views. This is a 7% reduction in object height, with width unchanged. Keep all four bottoms at the same existing ground baseline; all four top edges also on one common horizontal line. Do not independently enlarge any view. Identical object height in all four views is mandatory.\n\nPreserve strict orthographic projection: horizontal optical axis, camera at desk middle, zero pitch, roll or perspective. No broad tabletop upper plane visible; only its thick narrow edge and rounded bevel. Front drawer elevations only in view1, left outside panel only in view2, right outside panel only in view3, plain rear pedestals without handles in view4. Keep exactly the same white central knee openings. The desktop is completely bare in all views. Deep warm walnut/mahogany carcass, light honey plank top, warm brass fittings; no teal.\n\nKeep one row of four separated full objects, no text, labels, arrows, drawn lines or extra objects. Pure flat white opaque background with no paper grain, noise, gradients or cast shadow. Keep the existing soft cartoony sculpted game-art treatment. Do not redesign anything; correct only the specified common height/proportion and clean flat white background.",
+        "output_sha256": "6d63de439b5a966c95d48534aa3febe22098e71f5a0e9346c3652ef7bf60529a"
       }
     ],
     "assembly": {
       "tool": "tools/crop_views.py",
-      "tool_commit": "c007ebf0451c6732a349c7e62b512e65051db457",
-      "parameters": {
-        "row": [
-          0,
-          1
+      "arguments": [
+        "--row",
+        "0",
+        "1",
+        "--names",
+        "front",
+        "left",
+        "right",
+        "back",
+        "--pad",
+        "0.12",
+        "--size",
+        "779",
+        "--dry-run",
+        "--preview",
+        "art/props/captain_desk/sheet.png"
+      ],
+      "method": "Unchanged repository cutter; crops and translates all views onto equal 779 px square canvases with one baseline. Native crop size equals output size; no resampling or independent view scaling.",
+      "source_measurements": {
+        "image_size_px": [
+          2172,
+          724
         ],
-        "size": 653,
-        "pad": 0.12,
-        "dry_run": true,
-        "preview": "sheet.png"
-      },
-      "method": "The repository script extracts all four views from the selected single generated sheet, centers them on equal native-size square canvases, aligns their bottoms, and assembles its preview as this single sheet.",
-      "resampling": "None; --size 653 equals the script's native 653 px canvas.",
-      "discarded_iteration": "A subsequent candidate was rejected for changing the drawer count; it is not included in this sheet's generation history."
+        "background_rgb": [
+          254,
+          254,
+          254
+        ],
+        "views": [
+          {
+            "view": "front",
+            "bounds_px": [
+              36,
+              214,
+              665,
+              486
+            ],
+            "width_px": 629,
+            "height_px": 272,
+            "last_ink_y_px": 485
+          },
+          {
+            "view": "left",
+            "bounds_px": [
+              733,
+              213,
+              1048,
+              486
+            ],
+            "width_px": 315,
+            "height_px": 273,
+            "last_ink_y_px": 485
+          },
+          {
+            "view": "right",
+            "bounds_px": [
+              1122,
+              213,
+              1440,
+              486
+            ],
+            "width_px": 318,
+            "height_px": 273,
+            "last_ink_y_px": 485
+          },
+          {
+            "view": "back",
+            "bounds_px": [
+              1505,
+              214,
+              2133,
+              486
+            ],
+            "width_px": 628,
+            "height_px": 272,
+            "last_ink_y_px": 485
+          }
+        ]
+      }
     }
   },
   "pipeline": {
     "status": "source_sheet_only",
     "view_extraction": "delegated_to_claude_code",
+    "view_extraction_names": [
+      "front",
+      "left",
+      "right",
+      "back"
+    ],
     "three_d_generator_allowed": "Tripo only",
     "forbidden_generators": [
       "Hunyuan3D",
@@ -75,17 +137,17 @@
     ],
     "nc_models_used": false,
     "rigging_required": false,
-    "lighting_note": "Soft, consistent form shading is baked into the source. Use the lighting-removal option described in ART_SPEC.md during reconstruction to avoid adding the room lighting twice.",
-    "validation_scope": "2D sheet and cutter compatibility checked; Tripo reconstruction and engine import have not been run."
+    "lighting_note": "Soft consistent form shading is baked into the source. Use the lighting-removal option described in ART_SPEC.md during reconstruction to avoid adding room lighting twice.",
+    "validation_scope": "2D elevations, source scale consistency, pixel bounds and cutter compatibility checked. Tripo reconstruction and engine import have not been run."
   },
   "dimensions_m": {
     "width": 1.8,
-    "tabletop_height": 0.76,
+    "height": 0.76,
     "depth": 0.9,
-    "note": "Reconstruction targets from the live desk blockout. The 0.76 m height is the tabletop height, excluding the chart, compass and inkwell; do not scale the entire dressed mesh bounding box to this height."
+    "note": "Engine target dimensions for the complete bare desk. Height is ground to tabletop top; there are no accessory meshes in this asset."
   },
   "placement": {
-    "convention_status": "Proposed convention for this new prop; no existing prop mesh origin convention was present.",
+    "convention_status": "Proposed mesh convention; no engine placement code changed.",
     "origin": "Ground-level center of desk footprint",
     "working_front_direction": "-Z",
     "proposed_world_origin_m": [
@@ -106,99 +168,116 @@
         0.2
       ],
       "maximum_diameter_m": 0.52,
-      "clearance": "Leave the working-left half of the tabletop free. Working-left is +X for a seated character facing +Z, and appears on screen-left in the front view. The chart, compass and dried inkwell occupy the working-right half.",
+      "clearance": "The entire tabletop is bare. The fishbowl remains a separate engine object.",
       "source": "main.gd::_add_furniture and main.gd::_add_fishbowl"
     }
   },
   "design": {
-    "structure": "Wide plank top over two teal drawer pedestals, three drawers per pedestal, four square corner legs, open central knee space, brass corner guards and feet.",
-    "repairs": "Both outer pedestal side panels have a chunky wooden repair board.",
-    "dressing": "One chart, one compass, one dried inkwell; their placement is fixed across all four views.",
-    "finish": "Cartoony sculpted forms, warm brown wood, worn teal paint, chunky brass fittings, broad readable wear."
+    "structure": "Light plank top over two dark warm wood drawer pedestals, three drawers per pedestal at the front, four square corner legs, an open central knee space, brass corner guards and feet.",
+    "back": "Plain pedestal backs with no drawer pulls; central knee opening remains visible.",
+    "sides": "Both outside pedestal panels have a broad wooden repair board fixed with two chunky brass nails.",
+    "finish": "Deep warm walnut/mahogany stained carcass, honey-brown plank top, broad lighter exposed wood chips and worn edges, retained yellow-gold brass fittings.",
+    "object_only": true,
+    "top_surface": "Completely bare",
+    "separate_inventory_assets": [
+      "prop:rolled_charts",
+      "prop:brass_inkwell",
+      "prop:compass"
+    ],
+    "optional_red_leather_inlay_used": false
   },
   "framing": {
     "view_order": [
       "front",
-      "three_quarter",
-      "side",
+      "left",
+      "right",
       "back"
     ],
-    "three_quarter_view": "Front-left",
-    "side_view": "Right",
+    "projection": "orthographic elevations",
+    "camera": "Level at object mid-height, horizontal optical axis, zero pitch and roll; front and back are face-on, sides are end-on. Rounded bevels remain visible.",
     "image_size_px": [
-      2612,
-      653
+      3116,
+      779
     ],
     "cell_size_px": [
-      653,
-      653
+      779,
+      779
     ],
     "background_rgb": [
-      253,
-      253,
-      253
+      254,
+      254,
+      254
     ],
-    "background": "Plain flat near-white; no scene, labels, borders, ground plane or cast shadows.",
-    "scale": "All views retain the original generated scale; the assembly translates and crops without independently resizing views.",
-    "ground_line_last_ink_y_px": 574,
+    "background": "Plain visually white, opaque; slight generated 1–2 level background variation is below the cutter threshold. No scenery, labels, borders, floor plane or cast shadows.",
+    "scale": "Same generated scale across the four elevations; source and final heights agree within 1 px. Engine dimensions in dimensions_m are authoritative.",
+    "ground_line_last_ink_y_px": 685,
     "separation_px": [
-      147,
-      262,
-      279
+      307,
+      462,
+      306
     ],
-    "holes": "The open central knee space shows the background in front and back views."
+    "holes": "White background visible through the central knee opening in front and back."
   },
   "validation": {
-    "method": "Repository cutter plus pixel bounds and visual review",
-    "foreground_threshold": "Sum of RGB channel distances from (253,253,253) greater than 54, matching the default cutter tolerance",
+    "method": "Visual review plus unchanged repository cutter and foreground pixel bounds",
+    "foreground_threshold": "Sum of RGB channel distances from the modal background greater than 54 (cutter tolerance 18)",
     "detected_views": 4,
-    "bounds_px": [
+    "views": [
       {
         "view": "front",
-        "bounds": [
-          84,
-          304,
-          569,
-          575
+        "bounds_px": [
+          75,
+          414,
+          704,
+          686
         ],
-        "last_ink_y": 574
+        "width_px": 629,
+        "height_px": 272,
+        "last_ink_y_px": 685
       },
       {
-        "view": "three_quarter",
-        "bounds": [
-          716,
-          268,
-          1243,
-          575
+        "view": "left",
+        "bounds_px": [
+          1011,
+          413,
+          1326,
+          686
         ],
-        "last_ink_y": 574
+        "width_px": 315,
+        "height_px": 273,
+        "last_ink_y_px": 685
       },
       {
-        "view": "side",
-        "bounds": [
-          1505,
-          309,
-          1760,
-          575
+        "view": "right",
+        "bounds_px": [
+          1788,
+          413,
+          2106,
+          686
         ],
-        "last_ink_y": 574
+        "width_px": 318,
+        "height_px": 273,
+        "last_ink_y_px": 685
       },
       {
         "view": "back",
-        "bounds": [
-          2039,
-          301,
-          2532,
-          575
+        "bounds_px": [
+          2412,
+          414,
+          3040,
+          686
         ],
-        "last_ink_y": 574
+        "width_px": 628,
+        "height_px": 272,
+        "last_ink_y_px": 685
       }
     ],
+    "height_spread_px": 1,
     "ground_line_spread_px": 0,
-    "minimum_empty_band_px": 147,
-    "native_view_canvas_px": 653,
-    "view_canvas_after_2x_upscale_px": 1306,
+    "minimum_empty_band_px": 306,
+    "native_view_canvas_px": 779,
+    "view_canvas_after_2x_upscale_px": 1558,
     "upscaling_applied": false,
-    "visual_review": "Three drawers on each pedestal are visible in front and three-quarter views; rear pedestal backs are present; the knee opening, side depth, dressing placement, and fishbowl clearance are consistent enough for the first Tripo trial."
+    "visual_review": "Bare object, warm dark wood, brass fittings, three front drawers per pedestal, distinct plain rear, repaired side elevations, level orthographic construction and open knee space checked. The sheet is ready for a first Tripo reconstruction trial; mesh quality has not been assessed."
   }
 }

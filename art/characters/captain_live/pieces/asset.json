@@ -140,12 +140,38 @@
   },
   "pipeline_gates": {
     "tripo_only": true,
-    "mouth_cavity_reconstructed": false,
-    "teeth_and_tongue_geometry_verified": false,
+    "mouth_cavity_reconstructed": true,
+    "teeth_and_tongue_geometry_verified": true,
     "hat_and_sash_cavities_verified": false,
     "body_rig_and_piece_fit_verified": false,
     "spring_bone_coat_measured": false,
     "second_character_authorized_by_this_handoff": false
   },
-  "status": "All ten source slots delivered for the first Livé reconstruction experiment; engine results belong in HANDOFF.md."
+  "status": "All ten source slots delivered. The engine side has verified the reconstructed head mouth, teeth and tongue; head texture/rig and the remaining reconstruction, fitting and simulation work are still open. Source acceptance limits are recorded in completion_audit.",
+  "head_geometry_evidence": {
+    "reported_by": "engine side",
+    "commit": "798d766a4f68024b10e38273ed831a3e124356ad",
+    "model": "art/characters/captain_live/pieces/head/head.glb",
+    "sidecar": "art/characters/captain_live/pieces/head/asset.json",
+    "write_up": "docs/FACES.md",
+    "textured": false,
+    "jaw_rig_verified": false,
+    "engine_fit_verified": false
+  },
+  "completion_audit": {
+    "date": "2026-10-10",
+    "reviewed_commit": "bc61183b3159ab0c707a184c33832b47f602b051",
+    "source_sheets_present": 10,
+    "piece_sidecars_present": 10,
+    "all_source_hashes_match": true,
+    "source_images_changed_by_audit": false,
+    "all_brief_requirements_accepted": false,
+    "remaining_source_requirements": [
+      "A common pixels-per-metre scale and measured physical fit have not been demonstrated. The recorded dimensions remain provisional fitting guides.",
+      "The hat head opening and sash waist opening do not expose background in two source views. The strict source-hole requirement remains unmet; their reconstructed cavities must be checked.",
+      "Native sheets other than the body retain the small height/baseline differences recorded per slot. Extraction aligns baselines but does not remove source height differences."
+    ],
+    "body_headless_redo": "withdrawn by engine side; retain the delivered scaffold head",
+    "next_step": "Continue the existing engine reconstruction/fit tasks and report any required source corrections through HANDOFF.md."
+  }
 }

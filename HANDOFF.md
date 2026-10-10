@@ -62,7 +62,8 @@ with source provenance, measured framing and the exact extraction command.
 3. Rig the A-pose, palms-down body, then use its T-pose for fitting and copying
    garment weights. **Hide/remove the base body's head surface** under the
    separate head, otherwise it can fill the new mouth opening.
-4. Bring over `workshop.gd` when needed for the fit. The legacy 1.90 m silhouette
+4. Use the fitting workshop, already ported in commit `f3ec427` at
+   `actors/outfit/workshop.gd` and `workshop.tscn`. The legacy 1.90 m silhouette
    includes hat and feather; the bare-body estimate and all piece measurements
    in the sidecars are provisional. The source rasters do not share a calibrated
    pixels-per-metre scale. Measure the reconstructed body and uniformly fit each
@@ -74,25 +75,6 @@ with source provenance, measured framing and the exact extraction command.
 
 Record reconstruction results, failed slots and any questions in this file. Do not
 start another character until this Livé set has gone through the pipeline.
-
-### 2026-10-10 — for the art agent — IGNORE THE PREVIOUS ITEM, the body sheet is fine
-
-An item was added an hour ago returning `pieces/body/sheet.png` and asking for it to be
-redone with no head. **Withdrawn. Do not redo it. The sheet as delivered is correct.**
-
-The reasoning was wrong. The head on the body sheet is not waste - it is what lets the
-auto-rigger work, because the rigger asks for a chin marker and a headless figure has
-no chin. It is a scaffold. The body is rigged with it, the head geometry is then deleted
-in Blender while the skeleton and weights stay, and the separate detailed `head` piece
-attaches to the head bone. Nothing is generated twice, because the scaffold head is
-never shipped.
-
-If you already started a headless version, stop and keep the original.
-
-One thing that IS worth knowing for the next character: the body sheet's head only has
-to be good enough to place a chin, a jaw line and a skull. It does not need the
-character's likeness, expression or an open mouth, because it is deleted. Do not spend
-effort on it.
 
 ### 2026-10-10 — for the ComfyUI sessions (face, Spine, fingers) — read this instead of asking
 
@@ -229,8 +211,6 @@ the `mixamorig:` prefix, if we ever need a MakeHuman/Mixamo mapping.
 
 ---
 
----
-
 ## Done
 
 ### 2026-10-10 — engine side — dresser ported
@@ -248,10 +228,9 @@ Proved by `dressercheck.tscn`, which runs headless and passes: head at 1.590 m i
 space on the test body, role resolving to `mixamorig_Head` on a humanoid, to nothing
 when undeclared on a non-Mixamo skeleton, and to `skull` once declared.
 
-Not ported: `workshop.gd`, the fitting UI. 806 lines, and it only earns its keep once
-there are pieces to fit — bring it over when Livé's sheets land.
-
-**This is ready and waiting on art.** Nothing else blocks it.
+**Update — 2026-10-10:** The fitting workshop was subsequently ported in
+`f3ec427`: `actors/outfit/workshop.gd` and `workshop.tscn`. The source set is now
+available; reconstruction and fitting remain in Open.
 
 ### 2026-10-10 — art agent — characters come as pieces now
 
@@ -290,8 +269,9 @@ The set index is `art/characters/captain_live/pieces/asset.json`.
 The body is A-posed with palms down; shirt and coat have horizontal T-pose sleeves.
 The separate clean-shaven head shows an open mouth, teeth and tongue in the front
 and both profiles. Sideburns belong to `hair`; `face` contains one moustache and a
-small chin tuft. These are source drawings for the first reconstruction experiment;
-no reconstructed mouth or fitted outfit is claimed yet.
+small chin tuft. The engine subsequently reconstructed the separate head and
+verified its real mouth cavity, teeth and tongue in `798d766`; evidence is in
+`pieces/head/asset.json` and `docs/FACES.md`. The complete outfit is not fitted yet.
 
 Fixed `tools/crop_views.py` so its occupancy threshold no longer clips thin
 fingertips. All ten sheets were extracted with the real cutter: four nonempty
@@ -300,6 +280,48 @@ each extracted set. The body source has identical pixel height and ground positi
 in all four views; the other native sheets have small measured differences, recorded
 in their sidecars. Crops are reproducible using the commands in the index and are
 not committed. Source pixels were not resampled for validation.
+
+### 2026-10-10 — art agent — headless-body redo withdrawn and acknowledged
+
+An item was added an hour ago returning `pieces/body/sheet.png` and asking for it to be
+redone with no head. **Withdrawn. Do not redo it. The sheet as delivered is correct.**
+
+The reasoning was wrong. The head on the body sheet is not waste - it is what lets the
+auto-rigger work, because the rigger asks for a chin marker and a headless figure has
+no chin. It is a scaffold. The body is rigged with it, the head geometry is then deleted
+in Blender while the skeleton and weights stay, and the separate detailed `head` piece
+attaches to the head bone. Nothing is generated twice, because the scaffold head is
+never shipped.
+
+If you already started a headless version, stop and keep the original.
+
+One thing that IS worth knowing for the next character: the body sheet's head only has
+to be good enough to place a chin, a jaw line and a skull. It does not need the
+character's likeness, expression or an open mouth, because it is deleted. Do not spend
+effort on it.
+
+**Result — 2026-10-10:** Acknowledged. The delivered body sheet is unchanged; its scaffold head is retained for the auto-rigger. No replacement body sheet is needed.
+
+### 2026-10-10 — art agent — completion audit
+
+**Result:** All ten requested source sheets and their ten sidecars are present,
+openable and committed. Every source SHA-256 matches the set index and its sidecar.
+The sources are unchanged from the four-view extraction checks recorded earlier.
+The generated head and the engine's mouth evidence are now present too.
+
+Reconciled the stale head/index flags with the engine's verified reconstruction:
+the mouth, teeth and tongue passed; texturing, a jaw rig and assembled fitting did
+not. Confirmed the corrected mouth statement and updated the stale workshop status. No art was regenerated.
+
+**Source delivery is complete; acceptance of every brief requirement is not.**
+The common physical scale still needs measured fitting; the source rasters use
+different magnifications. The hat head opening and sash waist opening do not expose
+background in two source views, so the strict hole requirement remains unmet.
+Small native height/baseline differences are recorded per slot; extraction aligns
+bottoms but does not remove those height differences. These limitations are also
+recorded in `pieces/asset.json` under `completion_audit` and belong with the already
+Open reconstruction/fit checks. Record any required source corrections here after
+those checks. Do not treat file presence as a fully accepted fitted character.
 
 ---
 

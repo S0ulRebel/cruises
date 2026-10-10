@@ -71,7 +71,7 @@
     "note": "Keep native head detail. Source rasters are not a proof of common metres per pixel. Fit the generated head uniformly to the rigged body, check neck alignment, and hide/remove the body head surface beneath it so it cannot fill the new mouth cavity."
   },
   "pipeline": {
-    "status": "source_sheets_ready_for_tripo_experiment",
+    "status": "geometry_reconstructed_mouth_verified_untextured",
     "view_extraction": "tools/crop_views.py using validation.final_extraction.recommended_command",
     "suggested_crop_command": "python tools/crop_views.py art/characters/captain_live/pieces/head/sheet.png --row 0 1 --names front left back right --size 801 --out art/characters/captain_live/pieces/head/views",
     "native_crop_canvas_px": 801,
@@ -83,14 +83,19 @@
     ],
     "nc_models_used": false,
     "rigging": "head is supplied as unrigged geometry; dresser bends it at the neck",
-    "reconstruction_run": false,
+    "reconstruction_run": true,
     "mouth_cavity_mesh_verified": true,
     "engine_fit_verified": false,
     "ready_for_reconstruction_experiment": true,
-    "reconstruction_complete": false,
+    "reconstruction_complete": true,
     "mouth_cavity_evidence": "Generated 10 Oct 2026 via Tripo Smart Mesh P2.0, quad, polycount 25000, from the four 1602x1602 views in pieces/head/views. Inspected untextured in Blender: 26,301 verts, 51,426 tris, 86% quad after tris-to-quads, 2.6% poles. 35 shells and 1,182 boundary edges are the open neck, the open mouth interior, and the teeth and tongue as their own geometry. Mouth is a real cavity with individual teeth and a tongue.",
     "generated_model": "art/characters/captain_live/pieces/head/head.glb",
-    "textured": false
+    "textured": false,
+    "teeth_and_tongue_geometry_verified": true,
+    "jaw_rig_verified": false,
+    "verification_reported_by": "engine side",
+    "verification_source_commit": "798d766a4f68024b10e38273ed831a3e124356ad",
+    "generated_model_sha256": "08095bbe9fba3efbb6727d1b9dd9a015fa3ed3c5f0eca961648492f4b0e04f06"
   },
   "validation": {
     "sheet_size_px": [

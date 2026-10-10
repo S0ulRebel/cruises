@@ -157,7 +157,7 @@ brows now come back as two separate parts, `lr=components` instead of the bad
 | eye | 1,291 px, x400-464 | 1,478 px, x295-362 | **0** |
 
 Containment 0.000 on all three; the x ranges no longer share an edge. Rerun output at
-`D:\code\gan\outputsutosplit_cruise_fix\`.
+`D:\code\gan\outputs\autosplit_cruise_fix\`.
 The patch is in a third-party node pack and will be lost when it updates; worth
 reporting upstream.
 

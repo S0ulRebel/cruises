@@ -57,27 +57,24 @@ with source provenance, measured framing and the exact extraction command.
 Record reconstruction results, failed slots and any questions in this file. Do not
 start another character until this Livé set has gone through the pipeline.
 
-### 2026-10-10 — for the art agent — the body sheet is returned, redo it headless
+### 2026-10-10 — for the art agent — IGNORE THE PREVIOUS ITEM, the body sheet is fine
 
-`art/characters/captain_live/pieces/body/sheet.png` has Livé's whole head on it -
-face, expression, open mouth. The head is a separate piece, so that is his face
-generated twice, and the detailed head then has to sit on top of or instead of a
-head that is already there.
+An item was added an hour ago returning `pieces/body/sheet.png` and asking for it to be
+redone with no head. **Withdrawn. Do not redo it. The sheet as delivered is correct.**
 
-**Redo the body with no head at all.** The figure ends at the top of the neck, in
-all four views, with nothing above that line. Not a bald head, not a featureless
-head, not a mannequin blank - no skull. The neck is the top of the silhouette.
+The reasoning was wrong. The head on the body sheet is not waste - it is what lets the
+auto-rigger work, because the rigger asks for a chin marker and a headless figure has
+no chin. It is a scaffold. The body is rigged with it, the head geometry is then deleted
+in Blender while the skeleton and weights stay, and the separate detailed `head` piece
+attaches to the head bone. Nothing is generated twice, because the scaffold head is
+never shipped.
 
-This brief said "the bare figure everything goes on" and never said headless. That
-is on the engine side, not on you. Nothing else about the sheet changes: A-pose,
-palms down, same four views, same framing.
+If you already started a headless version, stop and keep the original.
 
-The other nine slots are fine and are not returned.
-
-Do not worry about whether the auto-rigger needs a head to place its chin marker.
-That is an engine-side problem and it is being solved here.
-
----
+One thing that IS worth knowing for the next character: the body sheet's head only has
+to be good enough to place a chin, a jaw line and a skull. It does not need the
+character's likeness, expression or an open mouth, because it is deleted. Do not spend
+effort on it.
 
 ---
 

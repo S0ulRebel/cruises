@@ -20,7 +20,7 @@ Each piece is its own four-view turnaround and becomes its own model. The slots:
 
 | slot | what it is |
 | --- | --- |
-| `body` | the figure everything goes on, **with no head** - it ends at the top of the neck, in all four views. Not a bald head, not a faceless blank: no skull at all. The head is its own piece |
+| `body` | the figure everything goes on. It KEEPS a head, as a rigging scaffold - the auto-rigger needs a chin to place its marker. That head is deleted in Blender after rigging and never ships, so it needs a skull, a jaw and a chin and nothing else: no likeness, no expression, no open mouth. The real head is its own piece |
 | `head` | head and neck. **Mouth open** - see below |
 | `hair` | hair alone |
 | `hat` | hat alone |

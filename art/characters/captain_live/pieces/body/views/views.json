@@ -1,0 +1,82 @@
+{
+  "source_sheet": "art\\characters\\captain_live\\pieces\\body\\sheet.png",
+  "source_size": [
+    1882,
+    836
+  ],
+  "box_px": 959,
+  "output_px": 959,
+  "upscale_method": "none",
+  "card_colour": [
+    252,
+    253,
+    254
+  ],
+  "note": "Each figure is cut to its own bounds and composited onto a shared square canvas at a shared foot line. Nothing from the surrounding sheet is included, and framing is identical by construction.",
+  "views": [
+    {
+      "name": "front",
+      "figure_box": [
+        37,
+        25,
+        597,
+        799
+      ],
+      "figure_px": [
+        560,
+        774
+      ],
+      "canvas_px": 959,
+      "output_px": 959,
+      "upscaled": false
+    },
+    {
+      "name": "left",
+      "figure_box": [
+        661,
+        25,
+        835,
+        799
+      ],
+      "figure_px": [
+        174,
+        774
+      ],
+      "canvas_px": 959,
+      "output_px": 959,
+      "upscaled": false
+    },
+    {
+      "name": "back",
+      "figure_box": [
+        924,
+        25,
+        1485,
+        799
+      ],
+      "figure_px": [
+        561,
+        774
+      ],
+      "canvas_px": 959,
+      "output_px": 959,
+      "upscaled": false
+    },
+    {
+      "name": "right",
+      "figure_box": [
+        1566,
+        25,
+        1754,
+        799
+      ],
+      "figure_px": [
+        188,
+        774
+      ],
+      "canvas_px": 959,
+      "output_px": 959,
+      "upscaled": false
+    }
+  ]
+}

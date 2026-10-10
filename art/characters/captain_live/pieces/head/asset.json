@@ -94,7 +94,7 @@
     "texture": "4096x4096 basecolor, baked by Tripo's texturing step (which delights)",
     "generated_model_note": "head.glb is now the TEXTURED export: 40,363 verts (split for UVs; 26,301 before texturing), 51,426 tris, one 4096x4096 basecolor. 30 credits.",
     "teeth_and_tongue_geometry_verified": true,
-    "jaw_rig_verified": false,
+    "jaw_rig_verified": true,
     "verification_reported_by": "engine side",
     "verification_source_commit": "798d766a4f68024b10e38273ed831a3e124356ad",
     "generated_model_sha256": "3a31e338401ce6cdc0e9299734f7d14e188abd15d53a9d0c75f8405c761b0732",
@@ -258,5 +258,38 @@
       "after_two_x_upscale_px": 1602
     },
     "source_framing_precision": "Native height and baseline differences are recorded in final_extraction; do not describe all source sheets as pixel-exact. Extracted inputs share one per-piece scale and baseline."
+  },
+  "jaw": {
+    "file": "art/characters/captain_live/pieces/head/head_jaw.glb",
+    "sha256": "ee57427e4eddad2fb4734f361975b38bd9c88286565522ca10276e5e5c997263",
+    "built_by": "face-animations session, 10 Oct 2026",
+    "skeleton": "Head (root) + Jaw, on the head piece's OWN armature; parent it to the body's mixamorig_Head",
+    "hinge": [
+      0.0,
+      0.1,
+      0.6
+    ],
+    "tail_authored": [
+      0.0,
+      -0.174,
+      0.237
+    ],
+    "usable_range_deg": {
+      "closed": -3.25,
+      "open_max": 30.0
+    },
+    "notes": [
+      "The art was drawn mid-word, so rest is already ~0.007 open. CLOSED is -3.25 degrees, not 0.",
+      "Teeth meet at -3.50 and interpenetrate by 1.58 cm at -10.",
+      "Past +30 the chin swings back up and the gap closes again: +3.72 cm at +30, +2.74 cm at +45.",
+      "Lower teeth rigid at 1.0; tongue separated by depth and weighted 0.65 so it does not swing out of the mouth.",
+      "glTF does not store bone tails. Blender re-infers one on import (0.316 here against 0.455 authored), so any check expressed in jaw lengths gives different answers either side of the export. Check the RE-IMPORTED file."
+    ],
+    "verified": "Rendered untextured at +25 from front and profile: neck intact, no shards, tongue inside the mouth. Teeth separate at +10/+20/+30 with no interpenetration.",
+    "not_verified": [
+      "not tested in Godot",
+      "no lip blendshapes",
+      "nothing rendered into a dialogue panel"
+    ]
   }
 }

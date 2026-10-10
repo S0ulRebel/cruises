@@ -20,6 +20,7 @@ const Dialogue := preload("res://dialogue/dialogue.gd")
 const Room3D := preload("res://room3d/room3d.gd")
 const Mover := preload("res://actors/mover/mover.gd")
 const BorrowClips := preload("res://actors/parts/borrow_clips.gd")
+const Animator := preload("res://actors/parts/animator.gd")
 const Hotspot := preload("res://room3d/hotspot.gd")
 const Inventory := preload("res://ui/inventory.gd")
 
@@ -35,7 +36,7 @@ const Inventory := preload("res://ui/inventory.gd")
 ## in to complain. Nobody else is in the room.
 const CAST := [
 	{ "id": "live", "name": "Captain Livé", "height": 1.9, "colour": "#1c1a1f", "at": Vector3(-1.4, 0, 1.2),
-	  "model": "res://art/characters/captain_live/captain_live_animated.glb" },
+	  "model": "res://art/characters/captain_live/captain_live_hands.glb" },
 	{ "id": "santi", "name": "Santi Wong", "height": 1.7, "colour": "#efe6d8", "at": Vector3(2.2, 0, 0.2),
 	  "model": "res://art/characters/santi_wong/santi_wong_animated.glb",
 	  "talk": "res://screenplay/santi_galley.json" },
@@ -473,6 +474,15 @@ func _use_baked_clips(model: Node3D, who: String) -> void:
 		if player.has_animation(name):
 			player.get_animation(name).loop_mode = Animation.LOOP_LINEAR
 	print("%s: %d baked clips - %s" % [who, clips.size(), ", ".join(clips)])
+
+	# A character whose file carries hand poses gets the layered tree, so a pose can
+	# play over whatever the arms are doing. One without them keeps the plain player:
+	# an Add2 layer with no clip to feed it is a node that does nothing, and building
+	# the graph anyway would hide which characters actually have hands.
+	if _has_hand_poses(player):
+		_build_tree(model, player, who)
+		return
+
 	# Start on the idle. The walk is started by the mover when he actually sets off -
 	# see actors/mover/mover.gd. Playing "walk" here left him jogging on the spot in
 	# every shot where nobody had clicked the floor yet.
@@ -480,6 +490,51 @@ func _use_baked_clips(model: Node3D, who: String) -> void:
 		player.play("idle")
 	elif clips.size() > 0:
 		player.play(clips[0])
+
+
+## The hand library, in the order a pose is most likely wanted. HAND_REST is what the
+## layer holds when nothing has asked for anything: an empty hand at the side is
+## slightly curled, never flat, and a flat one reads as a mannequin.
+const HAND_POSES := ["hand_relaxed", "hand_open_palm", "hand_point", "hand_grip", "hand_fist"]
+const HAND_REST := "hand_relaxed"
+
+
+func _has_hand_poses(player: AnimationPlayer) -> bool:
+	for name in HAND_POSES:
+		if player.has_animation(name):
+			return true
+	return false
+
+
+## Swap the plain player for the layered graph in actors/parts/animator.gd. The mover
+## drives it from here on - see Mover._play - so nothing calls player.play() after this.
+func _build_tree(model: Node3D, player: AnimationPlayer, who: String) -> void:
+	var skeletons := model.find_children("*", "Skeleton3D", true, false)
+	if skeletons.is_empty():
+		push_warning("%s: hand poses but no skeleton" % who)
+		return
+	var skeleton := skeletons[0] as Skeleton3D
+
+	# A pose clip is two identical keys a second apart. Looping it keeps the layer
+	# holding the pose instead of running off the end of a one-shot and freezing on
+	# whatever the blend happened to be mid-transition.
+	for name in HAND_POSES:
+		if player.has_animation(name):
+			player.get_animation(name).loop_mode = Animation.LOOP_LINEAR
+
+	var tree := AnimationTree.new()
+	tree.name = "Layers"
+	model.add_child(tree)
+	var path := String(model.get_path_to(skeleton))
+	var graph := Animator.build(tree, player, path, ["idle", "walk"] as Array[String])
+
+	var hand := graph.get_node("hands_clip") as AnimationNodeAnimation
+	if hand != null and player.has_animation(HAND_REST):
+		hand.animation = HAND_REST
+		tree.set("parameters/hands/add_amount", 1.0)
+
+	print("%s: layered tree at '%s'" % [who, path])
+	Animator.describe(graph, skeleton, path)
 
 
 func _lend_clips(model: Node3D, who: String) -> void:

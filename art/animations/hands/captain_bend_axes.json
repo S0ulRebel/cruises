@@ -1,0 +1,302 @@
+{
+ "mixamorig:LeftHandIndex1": {
+  "axis": "X",
+  "mean_abs": [
+   0.41012502280019986,
+   0.016897430628489016,
+   0.10101953607115928
+  ],
+  "max_bend_deg": 104.1,
+  "sign": 1.0
+ },
+ "mixamorig:LeftHandIndex2": {
+  "axis": "X",
+  "mean_abs": [
+   0.3027502386149172,
+   1.0757473348276967e-05,
+   0.033105383077570875
+  ],
+  "max_bend_deg": 73.2,
+  "sign": 1.0
+ },
+ "mixamorig:LeftHandIndex3": {
+  "axis": "X",
+  "mean_abs": [
+   0.23173002037322465,
+   2.1710804061921597e-07,
+   0.025119822704832328
+  ],
+  "max_bend_deg": 87.2,
+  "sign": 1.0
+ },
+ "mixamorig:LeftHandMiddle1": {
+  "axis": "X",
+  "mean_abs": [
+   0.38817414241373543,
+   0.011356649481430786,
+   0.08454724520385906
+  ],
+  "max_bend_deg": 85.4,
+  "sign": 1.0
+ },
+ "mixamorig:LeftHandMiddle2": {
+  "axis": "X",
+  "mean_abs": [
+   0.3671546663356699,
+   0.00018504223918935597,
+   0.03947899928985962
+  ],
+  "max_bend_deg": 78.8,
+  "sign": 1.0
+ },
+ "mixamorig:LeftHandMiddle3": {
+  "axis": "X",
+  "mean_abs": [
+   0.22824359699210714,
+   1.860250442044944e-07,
+   0.02509061416433789
+  ],
+  "max_bend_deg": 62.3,
+  "sign": 1.0
+ },
+ "mixamorig:LeftHandPinky1": {
+  "axis": "X",
+  "mean_abs": [
+   0.444490899156035,
+   0.025420862197346218,
+   0.16422295338042242
+  ],
+  "max_bend_deg": 79.0,
+  "sign": 1.0
+ },
+ "mixamorig:LeftHandPinky2": {
+  "axis": "X",
+  "mean_abs": [
+   0.34585785437677896,
+   0.006280539316061628,
+   0.06047885014427108
+  ],
+  "max_bend_deg": 76.6,
+  "sign": 1.0
+ },
+ "mixamorig:LeftHandPinky3": {
+  "axis": "X",
+  "mean_abs": [
+   0.1925167245879883,
+   1.8759884670864058e-07,
+   0.02050160903761869
+  ],
+  "max_bend_deg": 74.1,
+  "sign": 1.0
+ },
+ "mixamorig:LeftHandRing1": {
+  "axis": "X",
+  "mean_abs": [
+   0.43799255480425003,
+   0.012152063998717877,
+   0.09529677380737847
+  ],
+  "max_bend_deg": 82.8,
+  "sign": 1.0
+ },
+ "mixamorig:LeftHandRing2": {
+  "axis": "X",
+  "mean_abs": [
+   0.37276186974477166,
+   0.00019524117530875744,
+   0.04046966438488115
+  ],
+  "max_bend_deg": 91.7,
+  "sign": 1.0
+ },
+ "mixamorig:LeftHandRing3": {
+  "axis": "X",
+  "mean_abs": [
+   0.3494581784197618,
+   2.6721702240017254e-07,
+   0.037128800868235216
+  ],
+  "max_bend_deg": 71.0,
+  "sign": 1.0
+ },
+ "mixamorig:LeftHandThumb1": {
+  "axis": "X",
+  "mean_abs": [
+   0.14646099082134142,
+   0.06990425648866866,
+   0.10983704646672401
+  ],
+  "max_bend_deg": 28.2,
+  "sign": -1.0
+ },
+ "mixamorig:LeftHandThumb2": {
+  "axis": "Z",
+  "mean_abs": [
+   0.048310111132973704,
+   0.08887459075114607,
+   0.3782323697134783
+  ],
+  "max_bend_deg": 39.7,
+  "sign": -1.0
+ },
+ "mixamorig:LeftHandThumb3": {
+  "axis": "Z",
+  "mean_abs": [
+   0.10594251144708255,
+   0.09006658588711926,
+   0.2614639817303734
+  ],
+  "max_bend_deg": 52.7,
+  "sign": 1.0
+ },
+ "mixamorig:RightHandIndex1": {
+  "axis": "X",
+  "mean_abs": [
+   0.4874582765401334,
+   0.02276137139633222,
+   0.06444358014011878
+  ],
+  "max_bend_deg": 77.9,
+  "sign": 1.0
+ },
+ "mixamorig:RightHandIndex2": {
+  "axis": "X",
+  "mean_abs": [
+   0.3913787554939607,
+   4.0794680900352905e-06,
+   0.03946651560852814
+  ],
+  "max_bend_deg": 75.2,
+  "sign": 1.0
+ },
+ "mixamorig:RightHandIndex3": {
+  "axis": "X",
+  "mean_abs": [
+   0.17769054018676061,
+   1.8105603006480777e-07,
+   0.01628397819206931
+  ],
+  "max_bend_deg": 56.2,
+  "sign": 1.0
+ },
+ "mixamorig:RightHandMiddle1": {
+  "axis": "X",
+  "mean_abs": [
+   0.46410341739179023,
+   0.015936779545152137,
+   0.05697533507409526
+  ],
+  "max_bend_deg": 77.0,
+  "sign": 1.0
+ },
+ "mixamorig:RightHandMiddle2": {
+  "axis": "X",
+  "mean_abs": [
+   0.42003897323970163,
+   0.00023720011111460904,
+   0.040838410242962656
+  ],
+  "max_bend_deg": 79.4,
+  "sign": 1.0
+ },
+ "mixamorig:RightHandMiddle3": {
+  "axis": "X",
+  "mean_abs": [
+   0.21516184170223426,
+   0.000359795241808463,
+   0.02060064015130451
+  ],
+  "max_bend_deg": 72.8,
+  "sign": 1.0
+ },
+ "mixamorig:RightHandPinky1": {
+  "axis": "X",
+  "mean_abs": [
+   0.6137118654610929,
+   0.03765173077111836,
+   0.08929232134482247
+  ],
+  "max_bend_deg": 85.0,
+  "sign": 1.0
+ },
+ "mixamorig:RightHandPinky2": {
+  "axis": "X",
+  "mean_abs": [
+   0.37233523138929503,
+   0.0013822859171224808,
+   0.045439785335422464
+  ],
+  "max_bend_deg": 77.4,
+  "sign": 1.0
+ },
+ "mixamorig:RightHandPinky3": {
+  "axis": "X",
+  "mean_abs": [
+   0.1587842501913032,
+   1.7061771210630307e-07,
+   0.014143202375776216
+  ],
+  "max_bend_deg": 44.4,
+  "sign": 1.0
+ },
+ "mixamorig:RightHandRing1": {
+  "axis": "X",
+  "mean_abs": [
+   0.44912878314772037,
+   0.02139830747268269,
+   0.06050231818800611
+  ],
+  "max_bend_deg": 79.3,
+  "sign": 1.0
+ },
+ "mixamorig:RightHandRing2": {
+  "axis": "X",
+  "mean_abs": [
+   0.40086035203491654,
+   0.000411301005925114,
+   0.04177587863477752
+  ],
+  "max_bend_deg": 71.0,
+  "sign": 1.0
+ },
+ "mixamorig:RightHandRing3": {
+  "axis": "X",
+  "mean_abs": [
+   0.15809443086597333,
+   0.0009189673050424478,
+   0.013763085300651153
+  ],
+  "max_bend_deg": 66.7,
+  "sign": 1.0
+ },
+ "mixamorig:RightHandThumb1": {
+  "axis": "X",
+  "mean_abs": [
+   0.21483567739466664,
+   0.13109840667616365,
+   0.18217134827468892
+  ],
+  "max_bend_deg": 40.9,
+  "sign": -1.0
+ },
+ "mixamorig:RightHandThumb2": {
+  "axis": "Z",
+  "mean_abs": [
+   0.057340608919997295,
+   0.036571400573138034,
+   0.40686564497562433
+  ],
+  "max_bend_deg": 42.4,
+  "sign": 1.0
+ },
+ "mixamorig:RightHandThumb3": {
+  "axis": "Z",
+  "mean_abs": [
+   0.0821290593300036,
+   0.03903433527242244,
+   0.17633236419599496
+  ],
+  "max_bend_deg": 28.8,
+  "sign": -1.0
+ }
+}

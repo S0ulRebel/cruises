@@ -228,6 +228,11 @@ model; the apparent size of the object on the sheet is not its game-world size.
 - **Model the object only, never a dressed arrangement.** A desk is bare. Charts,
   an inkwell and a compass each get their own sheet and asset, because the player can
   pick them up and use them separately. Apply this to every future prop.
+- **Choose one fixed reconstruction orientation that exposes the working parts.**
+  It may differ from the object's resting orientation in the game. Keep that same
+  orientation in all four views and rotate only the viewing direction. The images
+  must reveal the features needed to reconstruct and recognise the object; four
+  repeated views of a casing that hide its functional face are insufficient.
 - **Four views, left to right: front, left side, right side, back.** These are strict
   orthographic elevations, with the camera level at the middle of the object, looking
   straight at each face. No perspective, camera tilt or three-quarter angles. The back
@@ -257,6 +262,22 @@ model; the apparent size of the object on the sheet is not its game-world size.
   visible through it in at least two views. Do not change the required camera angles
   to suggest a hole that the geometry does not have.
 
+### Reconstruction orientation and engine placement
+
+A compass that lies flat in the room can stand upright on its edge for reconstruction.
+The front then shows its dial, glass and needle; the left and right show the casing's
+true edge profiles; the back shows the underside. For the 0.09 m diameter, 0.03 m thick
+compass, the front and back project to 9 × 9 cm and the edge views to 3 × 9 cm. All
+four have a 9 cm height at one orthographic scale. Keep the edge views narrow.
+
+Record both the reconstruction orientation and its dimensions in `asset.json`, along
+with the corrective rotation and axis convention needed for engine placement. For
+this compass the reconstruction dimensions are 0.09 × 0.09 × 0.03 m (W × H × D).
+Rotate the reconstructed mesh 90° into its flat, dial-up resting orientation before
+checking and applying the engine dimensions, 0.09 × 0.03 × 0.09 m. `dimensions_m`
+continues to describe that engine resting orientation. Do not compensate for a pose
+difference by stretching the model or independently resizing its reference views.
+
 ### Extract and check the views
 
 Use `tools/crop_views.py`, with the prop names explicitly supplied:
@@ -264,6 +285,9 @@ Use `tools/crop_views.py`, with the prop names explicitly supplied:
 ```
 python tools/crop_views.py art/props/<id>/sheet.png --names front left right back --out art/props/<id>/views --dry-run --preview check.png
 ```
+
+During upload, assign each crop to its matching named view; do not assume the sheet's
+display order is the upload slot order.
 
 The cutter aligns the bottoms and centres each view on one common square canvas.
 **It does not normalize object heights or correct perspective.** Check the source

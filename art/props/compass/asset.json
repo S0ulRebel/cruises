@@ -11,59 +11,117 @@
     "height": 0.03,
     "depth": 0.09
   },
-  "dimension_contract": "Engine dimensions are authoritative. Set the reconstructed asset bounding dimensions to 0.09 m wide, 0.03 m tall and 0.09 m deep; source illustrations approximate those proportions and are not a metrically exact CAD model.",
+  "dimension_contract": "dimensions_m describes the flat, dial-up engine resting pose. The reference images deliberately show the same object upright to expose its dial. Correct the reconstruction orientation before measuring the final mesh. The illustration is a reconstruction reference, not a metrically exact CAD model.",
   "design": {
     "object_only": true,
-    "description": "One shallow circular brass compass case sitting flat, with a broad bevelled upper rim, a horizontal seam, a lower cylindrical body and softly worn golden brass with brown patina. Its glass-covered dial faces vertically upward and sits flush inside the rim.",
     "separate_items_included": false,
     "attached_accessories": [],
-    "camera_visibility_note": "The user requires level orthographic elevations with the optical axis at object mid-height. The upward-facing dial is edge-on and occluded by its rim in all four images. This sheet does not specify dial artwork or validate its reconstruction; do not invent an additional top or perspective panel."
+    "description": "One shallow round brass compass with a broad worn bezel, clear slightly domed glass, an ivory dial, a dark eight-point compass rose, one red/ivory magnetic needle and a central brass pivot. The back is a solid brass underside. Golden brass with broad warm brown patina and sculpted cartoon highlights.",
+    "functional_surface_coverage": "Front reveals the complete dial, glass and needle; the two opposite profiles reveal case thickness and the shallow glass protrusion; back reveals the full underside.",
+    "geometry_note": "The lens is attached to the case. There is no lid, chain, mounting stand or extra prop. The compass rose is printed dial artwork; it is not a second movable needle."
+  },
+  "reconstruction_pose": {
+    "description": "Upright on the circular edge, in exactly the same pose in all four views.",
+    "dimensions_m": {
+      "width": 0.09,
+      "height": 0.09,
+      "depth": 0.03
+    },
+    "coordinate_convention": {
+      "handedness": "right-handed",
+      "up": "+Y",
+      "dial_outward_normal": "-Z",
+      "compass_rose_top": "+Y",
+      "ground": "lowest point at Y=0"
+    },
+    "views": [
+      {
+        "name": "front",
+        "camera_position_axis": "-Z",
+        "content": "Complete round dial, needle, glass and brass bezel",
+        "projected_dimensions_m": {
+          "width": 0.09,
+          "height": 0.09
+        }
+      },
+      {
+        "name": "left",
+        "camera_position_axis": "-X",
+        "content": "True left edge profile, with the glass/bezel lip on image-left",
+        "projected_dimensions_m": {
+          "width": 0.03,
+          "height": 0.09
+        }
+      },
+      {
+        "name": "right",
+        "camera_position_axis": "+X",
+        "content": "True right edge profile, with the glass/bezel lip on image-right",
+        "projected_dimensions_m": {
+          "width": 0.03,
+          "height": 0.09
+        }
+      },
+      {
+        "name": "back",
+        "camera_position_axis": "+Z",
+        "content": "Complete round brass underside, without a second dial",
+        "projected_dimensions_m": {
+          "width": 0.09,
+          "height": 0.09
+        }
+      }
+    ]
+  },
+  "engine_resting_pose": {
+    "description": "Lying flat, with the dial facing upward.",
+    "target_up": "+Y",
+    "reconstruction_to_engine": {
+      "precondition": "Verify the exported Tripo axes against the reconstruction coordinate convention. The following rotation applies only after those axes agree; do not blindly apply it to an unknown export orientation.",
+      "rotation_axis": "X",
+      "rotation_degrees": 90,
+      "right_handed_vertex_mapping": "(x, y, z) -> (x, -z, y)",
+      "result": "Dial outward normal -Z becomes +Y; the top of the compass rose +Y becomes +Z.",
+      "placement_after_rotation": "Recenter the X/Z bounds, put the lowest point at Y=0, then check the flat mesh against dimensions_m. The original edge-resting pivot will otherwise be offset."
+    },
+    "orientation_warning": "Do not flatten the upright compass by scaling its Y dimension; rotate it first. Do not independently resize the four source views."
   },
   "source": {
     "producer": "OpenAI image generation via ChatGPT",
     "generation_mode": "built-in image_gen tool",
     "model_identifier": "not exposed by the built-in image generation tool",
-    "original_filename": "exec-37bb4630-05bd-46a0-bb9c-b5a35061a79b.png",
-    "sha256": "75698f5a48d5636286faa2e56f44ec367930becdf936680125456bc5774430dc",
-    "sheet_sha256": "75698f5a48d5636286faa2e56f44ec367930becdf936680125456bc5774430dc",
-    "selected_generation": "v3",
     "generation_history": [
       {
-        "id": "v1",
-        "original_filename": "exec-3e3fc374-ed29-4567-80ca-da3884b0c1a1.png",
-        "sha256": "88efdde57143af15fc837fb226b8249551c3d30821712b2f75f1e0f28d6c815c",
-        "prompt": "Use case: stylized-concept.\nAsset: one inventory prop turnaround sheet, brass navigation compass for Captain Livé’s quarters, a cartoony 3D adventure game.\n\nInputs and their roles:\nImage 1 (dark brown desk): MATERIAL / RENDERING STYLE REFERENCE ONLY. Match the chunky warm gold brass, broad sculpted highlights, slightly softened bevels, restrained broad scuffs, and cartoony dimensional rendering. Do not include the desk.\nImage 2 (teal desk): EXISTING COMPASS DESIGN REFERENCE. Isolate the small shallow round brass compass sitting on its top. Preserve that simple circular brass casing, horizontal glass-covered dial, and squat proportions. Remove everything else. Disregard this reference camera completely.\nImage 3 (Captain Livé): STYLE REFERENCE ONLY. Match the soft sculpted cartoony 3D material treatment; no character appears.\n\nCreate ONE coherent four-view sheet of that SAME compass, arranged left-to-right: FRONT, LEFT SIDE, RIGHT SIDE, BACK. These view names are instructions, DO NOT print labels. Model only the compass itself; no accompanying objects, no arrangement, no room.\n\nCRITICAL CAMERA: Each is a true level ORTHOGRAPHIC ELEVATION. Camera optical axis perfectly horizontal through the middle of the compass height; camera pitch 0 degrees, roll 0 degrees. Rotate the object about its vertical axis by 0, 90, 270, and 180 degrees for the four elevations. No perspective, no three-quarter angle, no camera looking down. The horizontal upper glass dial is edge-on and hidden at this angle. DO NOT expose the dial face or draw a top ellipse to make it recognizable. Strict projection is more important than showing the dial. No extra top view.\n\nSHAPE: exactly 0.09 m wide by 0.03 m tall by 0.09 m deep. A squat circular brass cylindrical compass case sitting flat, with a slightly thick upper brass rim and a smaller lower bevel. From all FOUR level directions its silhouette is a horizontal rounded rectangle measuring precisely THREE times wider than tall (3:1). Top and bottom edges horizontal and parallel, side edges vertical, very small rounded bevels only. A subtle horizontal seam near the top is part of the brass rim. The glass top sits flush inside the rim, so it cannot be seen at level. No lid, no ring, no chain, no handle, no stand, no feet, no crown knob, no hinge, no extra wooden case. Do not add studs or elaborate engraved ornament. Warm golden brass sidewalls with broad dark warm brown recesses and a few simple worn edge patches. Consistent geometry across all elevations.\n\nLAYOUT: extremely wide landscape sheet around 3:1 aspect ratio, maximum native resolution. Four equally spaced columns, centered in each column. Each compass large enough to fill about 80% of its column width. All four objects EXACTLY identical pixel width and EXACTLY identical pixel height. Same orthographic zoom and no view-dependent scaling. Align all top edges to one common horizontal line and all bases to one common ground line. Leave wide complete vertical bands of pure white background between objects; nothing touches. Entire object visible with ample white outer margins. No drawn ground line. No contact shadows or cast shadows.\n\nRENDERING: simple cartoony sculpted brass, softly rounded edges, broad warm gold highlight bands and rich brown sidewall shading. Saturated but worn colour. Consistent soft neutral studio lighting across views; no photographic microtexture, no photoreal reflections, no black ink outlines. Background perfectly flat opaque white RGB255,255,255, including every gap; no paper texture, gradient, floor, vignette or drop shadow. No text, letters, numbers, directional markings, captions, callouts, rulers, dimensions, watermarks, grid or borders anywhere.",
-        "input_role": "Reference-guided extraction of the existing desk compass",
-        "parent_generation": null
+        "id": "upright_v1",
+        "original_filename": "exec-0faaf9dd-e323-474f-8de1-37017d2adc06.png",
+        "sha256": "0160b1a5bfd3fdf655d20c2d584dfd4da85277081455f06d348a29c0aac1dcb8",
+        "prompt": "Replace the compass turnaround in reference 1 with a genuinely useful 3D reconstruction sheet of ONE recognizable brass navigation compass. Reference 1 supplies only the brass case design, warm material and wear: its edge-on four views are the problem and MUST NOT be repeated. Reference 2 is the approved Captain Livé character turnaround: match its chunky sculpted cartoon game-art material language, soft simplified shaded forms, broad highlights and restrained worn edges. Do not include the character.\n\nCRITICAL CHANGE — STAND THE COMPASS UPRIGHT ON ITS CIRCULAR EDGE in one fixed reconstruction pose in ALL FOUR VIEWS. The round dial is vertical, like a wall clock, but this is a small loose compass, NOT a clock, with no mounting, stand or supports. Its engine resting pose will be flat later. Keep the object upright; move only the orthographic camera around it. This exposes the entire upward-facing-in-game dial as the FRONT image.\n\nMake exactly FOUR complete views in ONE horizontal row, LEFT TO RIGHT:\n1 FRONT: a perfect face-on CIRCLE showing the full clear glass lens, cream/ivory dial, simple dark broad eight-point compass rose, clearly recognizable red north needle and pale white opposite south needle with a brass center pivot, surrounded by a substantial worn golden-brass bezel. North of the printed compass rose is at 12 o'clock; the red half of the needle points about 1 o'clock, the white half about 7 o'clock. Very subtle broad glass reflection that leaves the dial and needle readable. No giant glare. No clock numerals or clock hands.\n2 LEFT SIDE: strict edge-on profile of the SAME upright disk. Projected width is exactly one THIRD of the circular diameter; projected height is exactly the full circular diameter. A narrow vertical brass casing silhouette. The raised glass/bezel lip is at the LEFT edge of this profile. No face-on dial visible.\n3 RIGHT SIDE: opposite strict edge-on profile of the SAME upright disk, same height and thickness as view 2. The raised glass/bezel lip is at the RIGHT edge of this profile. No face-on dial visible.\n4 BACK: full face-on circular underside, exactly same diameter as front, a solid brass backplate with simple broad bevel and a few chunky worn marks. No dial and no needle on the back.\n\nPHYSICAL SHAPE: shallow, round compass, overall diameter 9 cm and full case thickness 3 cm. Upright reconstruction dimensions W9 × H9 × D3 cm. No lid, no chain, no hanging ring, no supports, no feet, no scenery, no other object. A broad brass bezel with simple case seam. Warm golden brass, brown tarnish restricted to seams and small broad edge chips; avoid photographic microdetail. Large clear functional shapes for a cartoony pirate adventure game.\n\nCAMERA AND LAYOUT ARE NON-NEGOTIABLE: front, left, right, back are all straight-on LEVEL ORTHOGRAPHIC projections. Camera at the object's vertical midpoint, zero pitch and roll. No perspective, no three-quarter view, no tilted ellipses. Front and back are exact circles, not ellipses. All FOUR have the IDENTICAL pixel height, with outer top edges aligned to one common invisible top line and bottom edges aligned to one common invisible ground line. Orthographic scale must be identical: front/back full diameter, side profiles one-third as wide. Absolutely do not enlarge narrow side views to fill their cells. Use a wide panoramic white canvas with four evenly spaced view centers. Allow large completely blank white vertical bands separating every object; ample outer margins; no touching or overlapping. Use pure uniform opaque WHITE background everywhere outside the object, including all four corners. No floor, no cast shadow, no gradient, no vignette. No text, captions, view labels, dimensions, guides, arrows or callouts anywhere on the sheet. The printed rose and needle live only inside the actual compass face. One object per view, four images of the identical compass.",
+        "parent_generation": null,
+        "purpose": "Expose the full dial using a fixed upright reconstruction pose"
       },
       {
-        "id": "v2",
-        "original_filename": "exec-9657d293-3bd2-4d96-b3ba-9acdb1ef13c1.png",
-        "sha256": "49473f74e2defa3bbc96271140b72a84fdf39be1282a466e2b019a68b446ff97",
-        "prompt": "Use case: precise-object-edit. Edit this existing four-view brass compass sheet ONLY to correct geometric proportions and equal scale. Keep its exact warm cartoony brass design, wear pattern language, simple flush glass dial hidden at level, no added parts, its four separate views and plain white background.\n\nCritical correction: this is a CIRCULAR cylinder, diameter 0.09 m and total height 0.03 m. It must therefore have EXACTLY the SAME WIDTH in every level elevation, and every visible silhouette must be 3.0 TIMES AS WIDE AS TALL. The current side elevations are narrower than front/back and all four cylinders are too tall. Correct this now: make ALL FOUR silhouettes 450 pixels wide and 150 pixels tall in a 2172 by 724 pixel canvas. Approximately retain their current horizontal centers 300, 826, 1347, 1873 pixels. The entire compass including bevels and rim fits each 450-by-150 rectangle. All uppermost points on y=310; all bases on y=460. Exact common top, common base, same width and same height. Preserve broad empty vertical white bands between all four objects. Use one physical cylinder model and one orthographic camera scale, rotating it for front, left, right, back.\n\nFlatten the upper rim's vertical thickness in proportion; lower casing should still be about two thirds of total height, upper rim about one third. No part protrudes from the circular case.\nKeep the existing camera perfectly horizontal at object mid-height, zero pitch, orthographic elevation. NO top plane, NO top ellipse, NO visible dial face, no looking down, no perspective, no three-quarter angles. The upward-facing dial is correctly hidden behind its brass rim at this required level camera.\n\nExactly four whole objects in one row, no extra panel. Broad rounded sculpted bevels and warm golden brass reflections, controlled brown patina scuffs, soft cartoony 3D finish matching this reference. Opaque flat pure white RGB 255,255,255 everywhere outside the object silhouettes, with no texture, gradient, shadows or gray halo. No text, labels, numbers, annotations, borders, ground line or guides.",
-        "input_role": "Targeted geometric correction of the preceding compass sheet",
-        "parent_generation": "v1"
+        "id": "upright_v2",
+        "original_filename": "exec-77f007b0-f02b-4e47-9732-a2bf412ad589.png",
+        "sha256": "38db454542cc3f47b5fe2173b57cff2fe52ee3790639dc8b5db74f1be4364ea7",
+        "prompt": "Precise geometric edit to this newly corrected brass compass turnaround. KEEP the recognizable compass design, cream dial, compass rose, red and white magnetic needle, gold pivot, glass, worn brass case and the four useful upright views exactly as they are. KEEP the views FRONT full dial, LEFT narrow edge with glass on the image-left, RIGHT opposite narrow edge with glass on the image-right, BACK round brass underside. Do not return to four edge-on images. Do not change the needle, case design, materials or lighting.\n\nCORRECT ONE REMAINING PROBLEM: THE PHYSICAL CAMERA SCALE STILL DIFFERS. In the current source the front height is 540px, the left and right edges are each525px, the back is542px. The two edge views are shorter even though they are the SAME UPRIGHT CIRCULAR OBJECT. Correct the outline geometry precisely:\nUse the same wide 2172×724px white canvas.\nAll FOUR objects, including every bevel and the glass, have EXACTLY540px full vertical height. Their topmost pixel is at y=77 and their bottom edge at y=617. Thus every view has the SAME top and SAME bottom, with no view-to-view scale differences.\nThe front and back are true circles: EXACTLY540px wide by540px tall. Front center x=378; back center x=1785.\nThe left and right are narrow vertical edge profiles, EXACTLY180px wide by540px tall INCLUDING the slightly raised glass lip. Left profile center x=876; right profile center x=1294.\nStretch the height of each existing narrow side profile to match the full circular diameter and slim their overall widths slightly, preserving their construction. The edge views must NOT be independently enlarged to fill the cell; their width is exactly one third of their height because the case is9cm diameter and3cm thick. Front and back are the SAME diameter.\nPreserve the geometric sense: the circular compass stands upright in ALL views, orthographic cameras are level with its midpoint, zero pitch/roll/perspective. Front and back remain flat circles, both side views true profiles. The dial and lens visible in front must remain clear and readable. No supports or stands.\n\nKeep generous white gaps and full outer margins. Make background uniformly pure opaque WHITE RGB255255255 with no texture, shadows, floor, vignette, labels, lines or annotations. Only the exact same ONE compass in four views. Do not print these coordinates or any text.",
+        "parent_generation": "upright_v1",
+        "purpose": "Correct measured scale and proportions while preserving the visible compass design"
       },
       {
-        "id": "v3",
-        "original_filename": "exec-37bb4630-05bd-46a0-bb9c-b5a35061a79b.png",
-        "sha256": "b2dcca34f85589b10d73c5b42c853f46fd699584149835aeebfe4e7d95e6cdf1",
-        "prompt": "Use case: precise-object-edit. Make one careful geometric correction to this brass compass turnaround sheet. Keep the design, colour, brass surface, wear, orthographic camera, four views, and background.\n\nThe four elevations must have ONE IDENTICAL SILHOUETTE. This compass is a perfectly circular flat cylinder, so turning it about the vertical axis never changes its projected outline. Their outer rims and bottom cases all need the same outer width; do not narrow the two middle objects as if they were oblong side views. Make the two middle cylinders EXACTLY AS WIDE as the first cylinder. All four: same left-to-right silhouette size, same vertical size. Keep variations in the scuff locations to indicate rotating the same circular case.\n\nFlatten all four equally by reducing their total height by eight percent, keeping their width the same. Every whole object silhouette is now exactly 3:1 width to height (nine centimetres diameter to three centimetres height). Precisely align every top edge and every bottom edge; ALL FOUR must have identical height. Preserve a thick upper bevelled brass rim, seam and lower cylindrical case, just reduce their heights proportionately.\n\nFour level orthographic elevations, front then left then right then back, no labels. Horizontal camera through the middle of the case. The glass-covered dial points directly upwards, so it is edge-on and invisible at this level. No top ellipse, no view down onto the compass, no visible dial, no perspective. No extra object, lid, hinge, loop, knob, chain, stand or ring attachment.\n\nMaintain the soft sculpted cartoony game-art brass, golden edge highlights and brown patina, broad wear rather than fine scratches. Four objects centered separately in a single horizontal row with generous white bands between them and no overlap. Pure opaque flat white background, no shadows, gradients, texture, labels, text, grid, border, ruler or drawn baseline.",
-        "input_role": "Targeted geometric correction of the preceding compass sheet",
-        "parent_generation": "v2"
+        "id": "upright_v3",
+        "original_filename": "exec-3985ff6d-11e7-4051-ba30-38a343d6214f.png",
+        "sha256": "da28f7d2a138dd99be42a896f7532248fdf3c9aace1b07a0586bc8e617d364cf",
+        "prompt": "Make only the last small dimensional corrections to this four-view upright brass compass turnaround. Preserve its clear compass dial, red/ivory needle, glass, brass design, colour, wear, strict orthographic cameras and white layout.\n\nThe first FRONT, second LEFT and third RIGHT views now each measure exactly542 pixels in height; preserve those heights. The fourth BACK still measures545 pixels tall, so reduce the fourth view's vertical diameter by just3 pixels to EXACTLY542 pixels. Align the lowest point of ALL FOUR at y=619 and their highest point at y=77 on the same2172×724px canvas. The fourth BACK must have exactly the SAME diameter as the first FRONT, not be subtly larger. Match the first front circle's outline size exactly:542px tall and approximately548px wide.\n\nAlso make both narrow side profiles 7 percent thinner horizontally while preserving their corrected542px vertical height. Overall edge-view width including the glass must be181px, because the actual compass is9cm in diameter and3cm deep. Keep the same glass lip and bezel on the LEFT of view2 and RIGHT of view3. Preserve side-view horizontal centers and the existing construction, only decrease their total thickness equally.\n\nOnly these tiny final dimensional corrections; do not invent new parts or redesign anything. Four views in order FRONT with complete dial, LEFT edge, RIGHT edge, BACK underside. The compass stays upright on its edge in all four. Same physical orthographic scale and precisely aligned tops and bottoms. Generous gaps. Flat plain opaque white background, no cast shadows, labels, added lines, dimensions or extra images.",
+        "parent_generation": "upright_v2",
+        "purpose": "Correct measured scale and proportions while preserving the visible compass design"
       }
     ],
     "references": [
       {
-        "role": "Warm brass and cartoony dimensional material treatment",
-        "original_filename": "exec-9ec1cfcc-7c24-48e8-9e62-2d36059b49b2.png",
-        "sha256": "3badb116aaad020c95961a835f75b7a26198d218049a9fc9f7d553388e4a6ff2"
-      },
-      {
-        "role": "Existing compass design on the old dressed desk, not its camera",
-        "repository_path": "art/props/captain_desk/sheet.png",
-        "git_commit": "354ca3f0745ded1ed3634e0c030e56f556c60e9f",
-        "sha256": "0ce6df25c2871fced0a316d3908dd8a176aaf8a68ab7652d68d963c670dc0088"
+        "role": "Existing brass case design and material only; its hidden-dial camera layout is rejected",
+        "repository_path": "art/props/compass/sheet.png",
+        "git_commit": "4b33d756b9febf00b7ae291813ae2ee3e2666d37",
+        "sha256": "75698f5a48d5636286faa2e56f44ec367930becdf936680125456bc5774430dc"
       },
       {
         "role": "Approved character rendering style",
@@ -71,7 +129,12 @@
         "sha256": "bcb66fe6213ab55672cb91328f22665a125511d211e3fded0397dd45ac1897fa"
       }
     ],
-    "generated_source_sha256": "b2dcca34f85589b10d73c5b42c853f46fd699584149835aeebfe4e7d95e6cdf1"
+    "original_filename": "exec-3985ff6d-11e7-4051-ba30-38a343d6214f.png",
+    "selected_generation": "upright_v3",
+    "generation_history_scope": "Selected generation lineage; unused alternatives are omitted.",
+    "generated_source_sha256": "da28f7d2a138dd99be42a896f7532248fdf3c9aace1b07a0586bc8e617d364cf",
+    "sha256": "0c8644217353cf6263213183288875cc1c1f93b524524503fe1cacde42111a29",
+    "sheet_sha256": "0c8644217353cf6263213183288875cc1c1f93b524524503fe1cacde42111a29"
   },
   "framing": {
     "view_order": [
@@ -83,141 +146,153 @@
     "projection": "orthographic",
     "camera_pitch_degrees": 0,
     "camera_roll_degrees": 0,
-    "camera_height": "half the object height",
-    "rotation_about_vertical_degrees": [
-      0,
-      90,
-      270,
-      180
-    ],
+    "camera_height_m": 0.045,
+    "fixed_object_pose": "upright",
     "one_coherent_source_sheet": true,
     "identical_camera_scale_requested": true,
+    "background": "plain opaque near-white",
+    "labels_in_turnaround_band": false,
     "sheet_px": [
-      2256,
-      564
+      2732,
+      683
     ],
     "native_view_canvas_px": [
-      564,
-      564
+      683,
+      683
     ],
     "background_rgb": [
       254,
       254,
       254
     ],
-    "background": "plain opaque near-white",
-    "labels_in_turnaround_band": false,
+    "source_sheet_px": [
+      2172,
+      724
+    ],
     "source_view_bounds_xyxy": [
       [
-        65,
-        284,
-        520,
-        443
+        104,
+        78,
+        651,
+        619
       ],
       [
-        599,
-        284,
-        1044,
-        443
+        791,
+        77,
+        967,
+        617
       ],
       [
-        1125,
-        284,
-        1574,
-        443
+        1203,
+        77,
+        1379,
+        617
       ],
       [
-        1652,
-        284,
-        2107,
-        443
+        1514,
+        75,
+        2067,
+        620
       ]
     ],
     "final_view_bounds_xyxy": [
       [
-        54,
-        338,
-        509,
-        497
+        68,
+        61,
+        614,
+        602
       ],
       [
-        623,
-        338,
-        1068,
-        497
+        937,
+        62,
+        1112,
+        602
       ],
       [
-        1185,
-        338,
-        1634,
-        497
+        1620,
+        62,
+        1794,
+        602
       ],
       [
-        1746,
-        338,
-        2201,
-        497
+        2115,
+        57,
+        2666,
+        602
       ]
     ],
     "assembly": {
       "tool": "tools/crop_views.py",
-      "tool_sha256": "be9b2c2663218c46be5249a5951845072a7ab807ad4f4a4967f36cd20b4296bf",
-      "command": "python tools/crop_views.py <selected_raw_sheet> --names front left right back --row 0 1 --size 564 --out <temporary_crop_directory> --dry-run --preview art/props/compass/sheet.png",
-      "method": "Repository cutter with default span filtering detects the four white-separated source views, places the original crops on equal native square canvases, aligns their bottoms, and writes the preview strip. No per-view resizing or repainting.",
+      "command": "python -B tools/crop_views.py <selected_raw_sheet> --out <temporary_crop_directory> --row 0 1 --names front left right back --pad 0.12 --size 683 --dry-run --preview art/props/compass/sheet.png",
+      "method": "The repository cutter places the generated views on equal native square canvases and aligns their bottoms. The illustration is not redrawn and no view is independently resized. The remaining height mismatch is preserved and reported, not hidden by assembly.",
       "resampled": false
     }
   },
   "validation": {
-    "method": "Pixel foreground bounds measured against the modal background using the repository cutter tolerance 18 (sum of RGB distance > 54), followed by visual inspection. These checks cover the sheet, not a reconstructed mesh.",
+    "method": "Pixel foreground bounds measured against the modal background using tools/crop_views.py tolerance 18 (sum of RGB distance > 54), plus visual inspection of the functional surfaces and opposite profiles. These checks cover the sheet, not a reconstructed mesh.",
+    "review": {
+      "recognizable_compass": "Complete compass rose, one red/ivory needle, brass pivot, glass and bezel visible in the front.",
+      "surface_coverage": "Dial in front, true narrow opposite edge profiles, complete underside at back.",
+      "projection": "Level face-on circles and opposite edge profiles; no three-quarter panels.",
+      "profile_consistency": "The shallow glass/bezel lip is on image-left in the left view and image-right in the right view.",
+      "isolation": "Only the compass appears, with clear vertical background bands and no separate objects, labels or overlapping views.",
+      "remaining_scale_check": "Front/left/right/back heights are 541/540/540/545 px, a 5 px spread (0.93%). Front and sides match within 1 px, but the back remains 4–5 px taller. This misses the ART_SPEC.md limit of at most 1 px. Useful surface coverage is corrected; strict scale validation is still pending."
+    },
+    "reconstruction_run": false,
+    "engine_import_run": false,
     "view_count": 4,
+    "source_heights_px": [
+      541,
+      540,
+      540,
+      545
+    ],
     "heights_px": [
-      159,
-      159,
-      159,
-      159
+      541,
+      540,
+      540,
+      545
     ],
-    "height_spread_px": 0,
+    "height_spread_px": 5,
+    "height_spread_percent_of_min": 0.9259,
+    "strict_one_pixel_height_check_passed": false,
     "widths_px": [
-      455,
-      445,
-      449,
-      455
+      546,
+      175,
+      174,
+      551
     ],
-    "width_spread_percent_of_max": 2.1978,
     "ground_line_y_px": [
-      496,
-      496,
-      496,
-      496
+      601,
+      601,
+      601,
+      601
     ],
     "ground_line_spread_px": 0,
     "clear_vertical_gaps_px": [
-      114,
-      117,
-      112
+      323,
+      508,
+      321
     ],
-    "width_to_height_ratios": [
-      2.861635,
-      2.798742,
-      2.823899,
-      2.861635
+    "source_width_to_height_ratios": [
+      1.011091,
+      0.325926,
+      0.325926,
+      1.014679
     ],
-    "target_width_to_height_ratio": 3,
-    "ratio_difference_from_target_percent": [
-      -4.6122,
-      -6.7086,
-      -5.87,
-      -4.6122
+    "final_width_to_height_ratios": [
+      1.009242,
+      0.324074,
+      0.322222,
+      1.011009
     ],
-    "review": {
-      "level_orthographic_elevations": "Visually checked: no downward camera tilt, no exposed top dial and no three-quarter panels.",
-      "common_height": "All four source and final foreground bounds have exactly the same measured pixel height.",
-      "isolation": "Only the compass case is pictured; no separate props, labels or overlapping views.",
-      "remaining_proportion_deviation": "The two middle silhouettes are slightly narrower than front/back: 2.2% total width spread. Width-to-height ratios are 2.799–2.862 rather than the target 3.0 (4.6–6.7% below target). Keep the explicit engine dimensions authoritative.",
-      "dial_reconstruction": "Not validated: the required four level elevations do not expose the upward-facing dial."
-    },
-    "reconstruction_run": false,
-    "engine_import_run": false
+    "target_width_to_height_ratios": [
+      1,
+      0.3333333333333333,
+      0.3333333333333333,
+      1
+    ],
+    "art_spec_section_1a_fully_passed": false
   },
   "pipeline": {
     "status": "source_sheet_only",
@@ -228,10 +303,13 @@
       "right",
       "back"
     ],
-    "recommended_crop_command": "python tools/crop_views.py art/props/compass/sheet.png --names front left right back --row 0 1 --size 1128 --out art/props/compass/views",
-    "native_view_size_px": 564,
-    "optional_2x_view_size_px": 1128,
-    "upscale_note": "Native 564 px square cells can be enlarged uniformly to 1128 px for the documented minimum. Upscaling is not additional source detail. No upscaling was applied to sheet.png.",
+    "upload_view_mapping": {
+      "front": "front.png",
+      "left": "left.png",
+      "right": "right.png",
+      "back": "back.png"
+    },
+    "upload_note": "Match each crop to the corresponding named view in the reconstruction tool. Do not assume the sheet display order is the tool's positional upload order.",
     "three_d_generator_allowed": "Tripo only",
     "forbidden_generators": [
       "Hunyuan3D",
@@ -241,6 +319,14 @@
     "rigging_required": false,
     "animation_required": false,
     "baked_form_shading_present": true,
-    "lighting_note": "Use reconstruction lighting removal and engine lighting to avoid doubling the soft form shading in the source."
+    "lighting_note": "The illustrated brass includes strong baked form and specular highlights. Use texture lighting removal where available and inspect the reconstructed material under engine lighting. Preserve the clear lens and readable dial.",
+    "ready_for_reconstruction": false,
+    "pending_validation": [
+      "Bring the back's diameter into agreement with the other views within 1 px, then repeat the measured scale check before Tripo reconstruction."
+    ],
+    "recommended_crop_command": "python tools/crop_views.py art/props/compass/sheet.png --names front left right back --row 0 1 --size 1366 --out art/props/compass/views",
+    "native_view_size_px": 683,
+    "optional_2x_view_size_px": 1366,
+    "upscale_note": "The published sheet uses native 683 px square cells. Export all crops at one common size; a uniform 2x output meets the documented minimum but adds no new detail. Do not treat upscaling as a fix for the pending relative-size check."
   }
 }

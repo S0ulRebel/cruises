@@ -90,12 +90,15 @@
     "reconstruction_complete": true,
     "mouth_cavity_evidence": "Generated 10 Oct 2026 via Tripo Smart Mesh P2.0, quad, polycount 25000, from the four 1602x1602 views in pieces/head/views. Inspected untextured in Blender: 26,301 verts, 51,426 tris, 86% quad after tris-to-quads, 2.6% poles. 35 shells and 1,182 boundary edges are the open neck, the open mouth interior, and the teeth and tongue as their own geometry. Mouth is a real cavity with individual teeth and a tongue.",
     "generated_model": "art/characters/captain_live/pieces/head/head.glb",
-    "textured": false,
+    "textured": true,
+    "texture": "4096x4096 basecolor, baked by Tripo's texturing step (which delights)",
+    "generated_model_note": "head.glb is now the TEXTURED export: 40,363 verts (split for UVs; 26,301 before texturing), 51,426 tris, one 4096x4096 basecolor. 30 credits.",
     "teeth_and_tongue_geometry_verified": true,
     "jaw_rig_verified": false,
     "verification_reported_by": "engine side",
     "verification_source_commit": "798d766a4f68024b10e38273ed831a3e124356ad",
-    "generated_model_sha256": "08095bbe9fba3efbb6727d1b9dd9a015fa3ed3c5f0eca961648492f4b0e04f06"
+    "generated_model_sha256": "3a31e338401ce6cdc0e9299734f7d14e188abd15d53a9d0c75f8405c761b0732",
+    "generated_model_sha256_note": "sha of the TEXTURED head.glb. The untextured export it replaced was 08095bbe9fba3efbb6727d1b9dd9a015fa3ed3c5f0eca961648492f4b0e04f06."
   },
   "validation": {
     "sheet_size_px": [

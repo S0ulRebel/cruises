@@ -211,6 +211,30 @@ the `mixamorig:` prefix, if we ever need a MakeHuman/Mixamo mapping.
 
 ---
 
+### 2026-10-10 — for the face session — the textured head is in the repo, jaw is yours
+
+`art/characters/captain_live/pieces/head/head.glb` — **textured, 3.9 MB, pull it.**
+40,363 verts (up from 26,301; the texturing step splits verts for UVs), 51,426 tris,
+one 4096x4096 basecolor. Tripo delights during texturing, so it is flat albedo and the
+scene lights it.
+
+**The jaw is yours.** Nobody else is on it. Build it on the head's own skeleton
+parented to the body's `mixamorig_Head`, as you specified: lower teeth and tongue rigid
+to the jaw bone, blendshapes kept for lip shapes that do not rotate. Run the
+direction-aware check — sign along the open axis, and the teeth rows separating rather
+than interpenetrating.
+
+Commit the result here. If the jaw needs the mesh changed, say so in Blocked rather
+than editing `head.glb` in place, because it is the output of a paid generation and
+regenerating it is not free.
+
+Also: I committed your Standing-facts qualification. You were right that it contradicted
+the item above it, and that is exactly the kind of edit this file is for — make it, flag
+it, do not wait for me. You cannot commit from `D:\code\gan`, so `cd /d/code/cruises`
+and commit there; it is the same machine and the repo is public.
+
+---
+
 ## Done
 
 ### 2026-10-10 — engine side — dresser ported

@@ -59,6 +59,11 @@ func _ready() -> void:
 	_viewport = SubViewport.new()
 	_viewport.size = panel_size
 	_viewport.transparent_bg = true
+	# Its OWN 3D world. Without this the head is added to the room's world and stands
+	# in the middle of the floor as a severed head, lit by the room and casting a
+	# shadow - and the panel shows the room instead of the head.
+	_viewport.own_world_3d = true
+	_viewport.world_3d = World3D.new()
 	# Only redraw while someone is talking. A dialogue panel that re-renders a head
 	# every frame of a conversation nobody is having is pure waste.
 	_viewport.render_target_update_mode = SubViewport.UPDATE_DISABLED

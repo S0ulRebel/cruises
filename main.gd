@@ -35,9 +35,15 @@ const Inventory := preload("res://ui/inventory.gd")
 ## Scene 1 of the cold open: Livé in his quarters with Count Fingers, and Santi comes
 ## in to complain. Nobody else is in the room.
 const CAST := [
-	{ "id": "live", "name": "Captain Livé", "height": 1.9, "colour": "#1c1a1f", "at": Vector3(-1.4, 0, 1.2),
+	# `assets` is the folder under art/characters and the key in the speech data. It is
+	# not the same as `id`: the id is what the screenplay calls them, which is short
+	# because a writer types it a thousand times. Keeping both means a character can be
+	# renamed in the script without moving any files.
+	{ "id": "live", "name": "Captain Livé", "assets": "captain_live",
+	  "height": 1.9, "colour": "#1c1a1f", "at": Vector3(-1.4, 0, 1.2),
 	  "model": "res://art/characters/captain_live/captain_live_hands.glb" },
-	{ "id": "santi", "name": "Santi Wong", "height": 1.7, "colour": "#efe6d8", "at": Vector3(2.2, 0, 0.2),
+	{ "id": "santi", "name": "Santi Wong", "assets": "santi_wong",
+	  "height": 1.7, "colour": "#efe6d8", "at": Vector3(2.2, 0, 0.2),
 	  "model": "res://art/characters/santi_wong/santi_wong_animated.glb",
 	  "talk": "res://screenplay/santi_galley.json" },
 ]
@@ -152,9 +158,15 @@ func _enter_room() -> void:
 		await _record()
 	if "--shot" in args2:
 		if "--talking" in OS.get_cmdline_user_args() + OS.get_cmdline_args():
-			var santi: Mover = _movers["santi"]
-			_approach_and_talk(santi, "res://screenplay/santi_galley.json")
-			await get_tree().create_timer(5.5).timeout
+			# One spoken line, held mid-reveal. Walking into the conversation lands on
+			# its choice menu, which has no speaker and so no portrait - which is the
+			# one thing this shot exists to photograph.
+			var person: Dictionary = _cast.get("live", {})
+			_caption.say(String(person.get("name", "Captain Livé")),
+				"You took the compass, and I want it back now.",
+				String(person.get("assets", "captain_live")),
+				Color(String(person.get("colour", "#1c1a1f"))))
+			await get_tree().create_timer(1.6).timeout
 		await _save_shot()
 
 
@@ -754,7 +766,9 @@ func _approach_hotspot(spot: Hotspot) -> void:
 
 func _say_as_player(text: String) -> void:
 	var person: Dictionary = _cast.get("live", {})
-	_caption.say(String(person.get("name", "Captain Livé")), text)
+	_caption.say(String(person.get("name", "Captain Livé")), text,
+		String(person.get("assets", "captain_live")),
+		Color(String(person.get("colour", "#1c1a1f"))))
 	await _caption.advanced
 	_caption.hide_box()
 

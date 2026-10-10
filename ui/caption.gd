@@ -116,7 +116,7 @@ func _build() -> void:
 func say(speaker: String, text: String, character_id := "", colour := Color()) -> void:
 	_box.visible = true
 	if _portrait and not character_id.is_empty():
-		_portrait.speak(character_id, speaker, colour)
+		_portrait.speak(character_id, speaker, colour, text)
 	_speaker_label.text = speaker
 	_full_line = text
 	_revealed = 0.0
@@ -150,6 +150,9 @@ func _process(delta: float) -> void:
 	if _revealed < float(_full_line.length()):
 		_revealed = min(_revealed + REVEAL_CPS * delta, float(_full_line.length()))
 		_line_label.text = _full_line.substr(0, int(_revealed))
+		# The mouth follows the letters appearing, not a clock of its own.
+		if _portrait:
+			_portrait.set_progress(_revealed / maxf(1.0, float(_full_line.length())))
 		_settled = 0.0
 		return
 

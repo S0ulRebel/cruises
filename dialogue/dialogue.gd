@@ -88,7 +88,10 @@ func play() -> void:
 			var person: Dictionary = _cast.get(who, {})
 			if verbose:
 				print("%s: %s" % [person.get("name", who), line.get("text", "")])
-			_caption.say(String(person.get("name", who)), String(line.get("text", "")), who,
+			# The ASSET id, not the screenplay id: it is what names the head piece and
+			# the entry in the speech data. See main.gd CAST.
+			_caption.say(String(person.get("name", who)), String(line.get("text", "")),
+				String(person.get("assets", who)),
 				Color(String(person.get("colour", "#4a4f5a"))))
 			await _caption.advanced
 
@@ -125,7 +128,9 @@ func play() -> void:
 		if choice.has("say"):
 			var speaker := String(choice.get("who", _conversation.get("player", "live")))
 			var person: Dictionary = _cast.get(speaker, {})
-			_caption.say(String(person.get("name", speaker)), String(choice.get("say", "")))
+			_caption.say(String(person.get("name", speaker)), String(choice.get("say", "")),
+				String(person.get("assets", speaker)),
+				Color(String(person.get("colour", "#4a4f5a"))))
 			await _caption.advanced
 
 		if bool(choice.get("exit", false)):

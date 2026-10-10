@@ -19,6 +19,7 @@ extends Control
 ## now: whether a 300 px face beside the box leaves enough room for the words.
 
 const DIR := "res://art/portraits"
+const TalkingHeadScript := preload("res://ui/talking_head.gd")
 
 @export var panel_size := Vector2(300, 300)
 
@@ -27,6 +28,8 @@ var _still: TextureRect
 var _loop: VideoStreamPlayer
 var _blank: Control
 var _blank_name: Label
+var _head: TalkingHead
+var _plan: Array = []
 var _who := ""
 var _colour := Color("#4a4f5a")
 var _talking := false
@@ -86,9 +89,22 @@ func _build() -> void:
 	_blank_name.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_blank.add_child(_blank_name)
 
+	# The real thing: the character's own head, rendered live and driven by the text.
+	# It sits on top of the placeholder and is only shown for characters who have a
+	# head piece, so a character still in the pipeline falls back rather than leaving
+	# an empty box.
+	_head = TalkingHeadScript.new()
+	_head.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_head.panel_size = Vector2i(int(panel_size.x) - 12, int(panel_size.y) - 12)
+	_head.visible = false
+	stack.add_child(_head)
+
 
 ## Show this character, talking. Called when a line appears.
-func speak(character_id: String, display := "", colour := Color()) -> void:
+##
+## `line` is the dialogue itself, because the LETTERS drive the mouth - see
+## ui/speech.gd. Without it the head still appears, it just does not talk.
+func speak(character_id: String, display := "", colour := Color(), line := "") -> void:
 	if character_id != _who:
 		_load(character_id)
 	if not display.is_empty():
@@ -96,6 +112,9 @@ func speak(character_id: String, display := "", colour := Color()) -> void:
 	if colour.a > 0.0:
 		_colour = colour
 	_talking = true
+	_plan = Speech.plan(line, character_id) if _head.visible else []
+	if _head.visible:
+		_head.apply(Speech.sample(_plan, 0.0), _who)
 	if _loop.stream != null:
 		_loop.visible = true
 		if not _loop.is_playing():
@@ -104,9 +123,25 @@ func speak(character_id: String, display := "", colour := Color()) -> void:
 	# than as something broken.
 
 
+## How far through the line the reader is, 0..1.
+##
+## Driven by the TYPEWRITER rather than by the mouth's own clock, so the two cannot
+## drift apart: the mouth stops exactly when the last letter appears, and it stops
+## early if the reader skips ahead. Two independent clocks would mean a character
+## still chewing after the sentence finished.
+func set_progress(fraction: float) -> void:
+	if not _talking or _plan.is_empty() or not _head.visible:
+		return
+	var t: float = clampf(fraction, 0.0, 1.0) * Speech.duration(_plan)
+	_head.apply(Speech.sample(_plan, t), _who)
+
+
 ## Stop talking but keep the face up, between lines in the same conversation.
 func settle() -> void:
 	_talking = false
+	_plan = []
+	if _head.visible:
+		_head.settle(_who)
 	if _loop.is_playing():
 		_loop.stop()
 	_loop.visible = false
@@ -129,9 +164,11 @@ func _load(character_id: String) -> void:
 	_loop.stream = load(loop_path) if ResourceLoader.exists(loop_path) else null
 	_loop.visible = false
 
-	# The placeholder stands in whenever there is no art, so the panel is always there
-	# and its size can be judged against the dialogue box from the first run.
-	var has_art: bool = _still.texture != null or _loop.stream != null
+	# A head piece beats everything else. Flat art is the fallback for characters who
+	# have not been through the per-piece pipeline yet.
+	_head.visible = _head.show_character(character_id)
+	var has_art: bool = _head.visible or _still.texture != null or _loop.stream != null
+	_still.visible = not _head.visible
 	_blank.visible = not has_art
 	_blank_name.text = character_id.capitalize()
 	_frame.visible = true

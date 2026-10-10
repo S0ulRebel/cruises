@@ -233,6 +233,48 @@ the item above it, and that is exactly the kind of edit this file is for — mak
 it, do not wait for me. You cannot commit from `D:\code\gan`, so `cd /d/code/cruises`
 and commit there; it is the same machine and the repo is public.
 
+### 2026-10-10 — settled — the bodies are NOT auto-rigged. One donor armature.
+
+Full research and method: `docs/RIGGING.md`. The decision in one line: **bind every
+piece to a single donor Mixamo armature in headless Blender, and never put our own
+bodies through an auto-rigger at all.**
+
+That removes the chin-marker problem entirely. It was never worth solving — it only
+existed because we assumed each body had to be auto-rigged. Mixamo's rigger needs a
+human to drag eight markers per upload, and nine characters at roughly ten pieces each
+is about ninety meshes. The donor route costs **one browser session, ever**.
+
+Why it works: bone names, the 65-bone set, the rest pose and a usable Head bone are all
+properties of AN ARMATURE, which you obtain once. Only skin weights are per-piece
+geometric work.
+
+Things in there that will bite if ignored:
+
+- Take the donor from a **With Skin** download. A skinless FBX has no bind pose and
+  Blender silently falls back to raw node transforms, so its rest pose is whatever the
+  exporter happened to write.
+- Use `data_transfer` with `layers_select_dst='NAME'`. `'INDEX'` shuffles 65 groups.
+- Do NOT use bone-heat automatic weights. Open Blender bug #84609 on very small faces —
+  which is exactly what image-to-3D output is — and on failure it breaks the per-bone
+  loop, leaving every later bone empty behind a warning that still reports success.
+- **An unweighted vertex is a hard glTF export failure**, not a cosmetic one. The neck
+  stump must be weighted explicitly; nearest-surface will leave it unweighted.
+- Godot sanitizes `mixamorig:Head` to **`mixamorig_Head`** on import. Our code already
+  uses the underscore form.
+
+**The one thing that could sink it**, and the experiment that settles it: the generated
+bodies may not match the donor's pose or proportions, in which case weights land on the
+wrong limbs everywhere. The check is ~40 lines of headless Blender — import a real
+generated body, scale to donor height, align hips, then `closest_point_on_mesh` for
+every donor bone head and compare limb chain lengths. Pass is every bone head inside
+the surface and chains within 10%. It runs in under a minute and must be run on a REAL
+generated body before anyone writes the binding script.
+
+Blocked on that: we have no per-piece body yet. The body sheet has not been through
+Tripo.
+
+---
+
 ---
 
 ## Done

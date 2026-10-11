@@ -35,6 +35,7 @@ func _enter_tree() -> void:
 
 
 func _exit_tree() -> void:
+	var retained: Array[Material] = []
 	# Detach temporary material RIDs while meshes still exist; Godot otherwise
 	# queries released instance-material parameters when a whole prefab is freed.
 	var what := get_node_or_null(target)
@@ -43,12 +44,17 @@ func _exit_tree() -> void:
 			var mesh := node as MeshInstance3D
 			if not mesh.has_meta("unlit_original_materials"):
 				continue
+			if mesh.material_override: retained.append(mesh.material_override)
+			for surface in mesh.get_surface_override_material_count():
+				var current := mesh.get_surface_override_material(surface)
+				if current: retained.append(current)
 			var original: Dictionary = mesh.get_meta("unlit_original_materials")
 			mesh.material_override = original["override"]
 			var surfaces: Array = original["surfaces"]
 			for surface in mini(surfaces.size(), mesh.get_surface_override_material_count()):
 				mesh.set_surface_override_material(surface, surfaces[surface])
 			mesh.remove_meta("unlit_original_materials")
+	retain_through_teardown(retained, get_tree())
 
 
 func apply() -> void:
@@ -90,3 +96,11 @@ static func flatten(root: Node) -> void:
 			var flat: BaseMaterial3D = base.duplicate()
 			flat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 			mesh.set_surface_override_material(surface, flat)
+
+
+## Mesh RID deletion is queued after node teardown. Keep per-instance hover/material
+## copies alive until that frame has finished, even when their owning node is gone.
+static func retain_through_teardown(materials: Array[Material], tree: SceneTree) -> void:
+	if materials.is_empty() or tree == null: return
+	await tree.process_frame
+	materials.clear()

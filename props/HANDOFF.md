@@ -22,3 +22,9 @@ actual mouse inputs select their own Hotspot in a temporary prefab test scene.
 Default camera/placement remains exact: the inkwell is behind the player's collision
 body initially, the crate is outside the view, and the fishbowl is partly outside.
 These are remaining scene-framing decisions, not runtime placement changes.
+
+Hovered-prefab teardown also retains temporary per-instance material references for
+one SceneTree process frame while Godot deletes their mesh RIDs. Original material
+settings still restore on exit; no resources or nodes are created for this lifetime
+hold. Two-instance highlight isolation/restoration and freeing highlighted bowls
+pass in both headless and NVIDIA OpenGL compatibility runs with no engine errors.

@@ -1,5 +1,6 @@
 @tool
 extends Node3D
+const UnlitScript := preload("res://props/parts/unlit.gd")
 ## Count Fingers' bowl: the generated mesh, wearing glass.
 ##
 ## Tint and roughness are editable on the prefab or an individual instance. This
@@ -45,6 +46,14 @@ func _enter_tree() -> void:
 
 
 func _exit_tree() -> void:
+	var retained: Array[Material] = []
+	for node in find_children("*", "MeshInstance3D", true, false):
+		var mesh := node as MeshInstance3D
+		if mesh.material_override: retained.append(mesh.material_override)
+		for surface in mesh.get_surface_override_material_count():
+			var current := mesh.get_surface_override_material(surface)
+			if current: retained.append(current)
+	UnlitScript.retain_through_teardown(retained, get_tree())
 	var bowl := get_node_or_null(glass) as Node3D
 	if bowl != null:
 		for node in bowl.find_children("*", "MeshInstance3D", true, false):

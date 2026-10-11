@@ -2,9 +2,10 @@
 
 `baseline.png` and `baseline_layout.json` were captured before deleting the old
 runtime construction. The JSON records the saved and runtime tree, transforms and
-component types. The migrated cabin preserves all 18 saved object/environment/camera
-transforms and its original framing. Default actors retain their original model and
-animation sources.
+component types. The initial migrated cabin preserved all 18 saved object/environment/camera
+transforms and its original framing. A subsequent explicit camera-only improvement
+preserves all 17 noncamera transforms, as recorded below. Default actors retain their
+original model and animation sources.
 
 ## Implementation and checks
 

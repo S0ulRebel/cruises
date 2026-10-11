@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://materials/stylized_lighting/fake_light.gd" id="1"]
+[node name="FakeLight" type="Marker3D"]
+position = Vector3(-3, 4, 3)
+gizmo_extents = 0.6
+script = ExtResource("1")

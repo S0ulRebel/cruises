@@ -1,0 +1,52 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://materials/stylized_lighting/material_binding.gd" id="1"]
+[ext_resource type="Texture2D" path="res://materials/stylized_lighting/gallery/sample_texture.svg" id="2"]
+[ext_resource type="PackedScene" path="res://art/props/captain_chair/captain_chair.glb" id="3"]
+[ext_resource type="ShaderMaterial" path="res://materials/stylized_lighting/variants/01_soft_lambert/soft_lambert_shader.tres" id="4"]
+
+[sub_resource type="StandardMaterial3D" id="Paint"]
+shading_mode = 0
+albedo_texture = ExtResource("2")
+
+[sub_resource type="SphereMesh" id="Sphere"]
+material = SubResource("Paint")
+radius = 0.6
+height = 1.2
+
+[sub_resource type="BoxMesh" id="Box"]
+material = SubResource("Paint")
+size = Vector3(0.9, 0.9, 0.9)
+
+[sub_resource type="StandardMaterial3D" id="FloorPaint"]
+shading_mode = 0
+albedo_color = Color(0.20, 0.23, 0.29, 1)
+
+[sub_resource type="BoxMesh" id="Floor"]
+material = SubResource("FloorPaint")
+size = Vector3(3.3, 0.08, 2.8)
+
+[node name="LightingSample" type="Node3D"]
+
+[node name="Primitives" type="Node3D" parent="."]
+
+[node name="Sphere" type="MeshInstance3D" parent="Primitives"]
+position = Vector3(-0.7, 0.67, 0)
+mesh = SubResource("Sphere")
+
+[node name="Cube" type="MeshInstance3D" parent="Primitives"]
+position = Vector3(0.7, 0.5, 0)
+rotation = Vector3(0.1, -0.35, 0)
+mesh = SubResource("Box")
+
+[node name="Chair" parent="." instance=ExtResource("3")]
+position = Vector3(0, 0.04, -0.3)
+scale = Vector3(1.25, 1.25, 1.25)
+visible = false
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+mesh = SubResource("Floor")
+
+[node name="Material" type="Node3D" parent="."]
+script = ExtResource("1")
+material = ExtResource("4")

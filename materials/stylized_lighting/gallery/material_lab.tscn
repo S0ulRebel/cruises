@@ -1,0 +1,274 @@
+[gd_scene load_steps=8 format=3]
+[ext_resource type="Script" path="res://materials/stylized_lighting/gallery/material_lab.gd" id="1"]
+[ext_resource type="PackedScene" path="res://materials/stylized_lighting/gallery/lighting_sample.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://materials/stylized_lighting/fake_light.tscn" id="3"]
+[ext_resource type="Resource" path="res://materials/stylized_lighting/material_catalog.tres" id="4"]
+[ext_resource type="PackedScene" path="res://materials/stylized_lighting/gallery/lighting_sample_graph.tscn" id="5"]
+
+[sub_resource type="Environment" id="Environment"]
+background_mode = 1
+background_color = Color(0.065, 0.078, 0.11, 1)
+tonemap_mode = 0
+
+[sub_resource type="Theme" id="Theme"]
+default_font_size = 20
+
+[node name="MaterialLab" type="Node3D"]
+script = ExtResource("1")
+catalog = ExtResource("4")
+
+[node name="Environment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment")
+
+[node name="Camera" type="Camera3D" parent="."]
+position = Vector3(0, 4.5, 7)
+rotation = Vector3(-0.52, 0, 0)
+projection = 1
+size = 8.6
+current = true
+
+[node name="ShaderPanel" type="Node3D" parent="."]
+position = Vector3(-2, 0, 0)
+
+[node name="Sample" parent="ShaderPanel" instance=ExtResource("2")]
+
+[node name="FakeLight" parent="ShaderPanel" instance=ExtResource("3")]
+targets = Array[NodePath]([NodePath("../Sample/Material")])
+occluder = NodePath("../Occluder")
+
+[node name="Occluder" type="Marker3D" parent="ShaderPanel"]
+position = Vector3(-0.53, 1.76, 0.92)
+gizmo_extents = 0.3
+
+[node name="Label" type="Label3D" parent="ShaderPanel"]
+position = Vector3(0, 1.85, 0)
+text = "CODE SHADER"
+font_size = 64
+pixel_size = 0.004
+billboard = 1
+no_depth_test = true
+
+[node name="GraphPanel" type="Node3D" parent="."]
+position = Vector3(2, 0, 0)
+
+[node name="Sample" parent="GraphPanel" instance=ExtResource("5")]
+
+[node name="FakeLight" parent="GraphPanel" instance=ExtResource("3")]
+targets = Array[NodePath]([NodePath("../Sample/Material")])
+occluder = NodePath("../Occluder")
+
+[node name="Occluder" type="Marker3D" parent="GraphPanel"]
+position = Vector3(-0.53, 1.76, 0.92)
+gizmo_extents = 0.3
+
+[node name="Label" type="Label3D" parent="GraphPanel"]
+position = Vector3(0, 1.85, 0)
+text = "VISUALSHADER GRAPH"
+font_size = 64
+pixel_size = 0.004
+billboard = 1
+no_depth_test = true
+
+[node name="Controls" type="CanvasLayer" parent="."]
+
+[node name="Top" type="PanelContainer" parent="Controls"]
+anchor_right = 1.0
+offset_left = 24.0
+offset_top = 20.0
+offset_right = -24.0
+offset_bottom = 172.0
+theme = SubResource("Theme")
+
+[node name="Rows" type="VBoxContainer" parent="Controls/Top"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="Controls/Top/Rows"]
+layout_mode = 2
+text = "Stylized Lighting Lab — 16 techniques / 32 editable materials"
+theme_override_font_sizes/font_size = 28
+
+[node name="Selection" type="HBoxContainer" parent="Controls/Top/Rows"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Variant" type="OptionButton" parent="Controls/Top/Rows/Selection"]
+custom_minimum_size = Vector2(380, 44)
+layout_mode = 2
+item_count = 16
+popup/item_0/text = "01 Soft Lambert"
+popup/item_0/id = 0
+popup/item_1/text = "02 Half Lambert"
+popup/item_1/id = 1
+popup/item_2/text = "03 Two Tone"
+popup/item_2/id = 2
+popup/item_3/text = "04 Three Tone"
+popup/item_3/id = 3
+popup/item_4/text = "05 Soft Toon"
+popup/item_4/id = 4
+popup/item_5/text = "06 Texture Ramp"
+popup/item_5/id = 5
+popup/item_6/text = "07 Hemisphere"
+popup/item_6/id = 6
+popup/item_7/text = "08 Wrap Diffuse"
+popup/item_7/id = 7
+popup/item_8/text = "09 Rim Light"
+popup/item_8/id = 8
+popup/item_9/text = "10 Toon Specular"
+popup/item_9/id = 9
+popup/item_10/text = "11 Point Falloff"
+popup/item_10/id = 10
+popup/item_11/text = "12 Spotlight"
+popup/item_11/id = 11
+popup/item_12/text = "13 Crosshatch"
+popup/item_12/id = 12
+popup/item_13/text = "14 Halftone"
+popup/item_13/id = 13
+popup/item_14/text = "15 Height Gradient"
+popup/item_14/id = 14
+popup/item_15/text = "16 Fake Occlusion"
+popup/item_15/id = 15
+selected = 0
+
+[node name="Sample" type="OptionButton" parent="Controls/Top/Rows/Selection"]
+custom_minimum_size = Vector2(280, 44)
+layout_mode = 2
+item_count = 3
+popup/item_0/text = "Painted primitives"
+popup/item_0/id = 0
+popup/item_1/text = "Captain's chair"
+popup/item_1/id = 1
+popup/item_2/text = "Both"
+popup/item_2/id = 2
+selected = 0
+
+[node name="Hint" type="Label" parent="Controls/Top/Rows/Selection"]
+layout_mode = 2
+text = "F6 to run this scene • Edit each material's parameters in the Inspector"
+
+[node name="Description" type="Label" parent="Controls/Top/Rows"]
+layout_mode = 2
+text = "Texture-preserving fake lighting. Set Effect to 0 to see the original albedo."
+
+[node name="Bottom" type="PanelContainer" parent="Controls"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -146.0
+offset_right = -24.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = SubResource("Theme")
+
+[node name="Rows" type="VBoxContainer" parent="Controls/Bottom"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="First" type="HBoxContainer" parent="Controls/Bottom/Rows"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Mode" type="OptionButton" parent="Controls/Bottom/Rows/First"]
+custom_minimum_size = Vector2(220, 40)
+layout_mode = 2
+item_count = 2
+popup/item_0/text = "Directional"
+popup/item_0/id = 0
+popup/item_1/text = "Point position"
+popup/item_1/id = 1
+
+[node name="AzimuthLabel" type="Label" parent="Controls/Bottom/Rows/First"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "Light angle 330°"
+
+[node name="Azimuth" type="HSlider" parent="Controls/Bottom/Rows/First"]
+custom_minimum_size = Vector2(260, 40)
+layout_mode = 2
+max_value = 360.0
+value = 330.0
+
+[node name="ElevationLabel" type="Label" parent="Controls/Bottom/Rows/First"]
+custom_minimum_size = Vector2(170, 0)
+layout_mode = 2
+text = "Elevation 45°"
+
+[node name="Elevation" type="HSlider" parent="Controls/Bottom/Rows/First"]
+custom_minimum_size = Vector2(220, 40)
+layout_mode = 2
+min_value = -80.0
+max_value = 80.0
+value = 45.0
+
+[node name="RotationLabel" type="Label" parent="Controls/Bottom/Rows/First"]
+layout_mode = 2
+text = "Object rotation"
+
+[node name="Rotation" type="HSlider" parent="Controls/Bottom/Rows/First"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+max_value = 360.0
+
+[node name="Second" type="HBoxContainer" parent="Controls/Bottom/Rows"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="StrengthLabel" type="Label" parent="Controls/Bottom/Rows/Second"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "Strength 1.00"
+
+[node name="Strength" type="HSlider" parent="Controls/Bottom/Rows/Second"]
+custom_minimum_size = Vector2(260, 40)
+layout_mode = 2
+max_value = 3.0
+step = 0.01
+value = 1.0
+
+[node name="EffectLabel" type="Label" parent="Controls/Bottom/Rows/Second"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+text = "Effect 1.00"
+
+[node name="Effect" type="HSlider" parent="Controls/Bottom/Rows/Second"]
+custom_minimum_size = Vector2(220, 40)
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="LightLabel" type="Label" parent="Controls/Bottom/Rows/Second"]
+layout_mode = 2
+text = "Light"
+
+[node name="LightColor" type="ColorPickerButton" parent="Controls/Bottom/Rows/Second"]
+custom_minimum_size = Vector2(70, 40)
+layout_mode = 2
+color = Color(1, 0.91, 0.74, 1)
+
+[node name="ShadowLabel" type="Label" parent="Controls/Bottom/Rows/Second"]
+layout_mode = 2
+text = "Shadow"
+
+[node name="ShadowColor" type="ColorPickerButton" parent="Controls/Bottom/Rows/Second"]
+custom_minimum_size = Vector2(70, 40)
+layout_mode = 2
+color = Color(0.30, 0.36, 0.52, 1)
+
+[node name="Sweep" type="CheckButton" parent="Controls/Bottom/Rows/Second"]
+layout_mode = 2
+text = "Sweep light"
+
+[connection signal="item_selected" from="Controls/Top/Rows/Selection/Variant" to="." method="_on_variant_selected"]
+[connection signal="item_selected" from="Controls/Top/Rows/Selection/Sample" to="." method="_on_sample_selected"]
+[connection signal="item_selected" from="Controls/Bottom/Rows/First/Mode" to="." method="_on_mode_selected"]
+[connection signal="value_changed" from="Controls/Bottom/Rows/First/Azimuth" to="." method="_on_angle_changed"]
+[connection signal="value_changed" from="Controls/Bottom/Rows/First/Elevation" to="." method="_on_angle_changed"]
+[connection signal="value_changed" from="Controls/Bottom/Rows/First/Rotation" to="." method="_on_rotation_changed"]
+[connection signal="value_changed" from="Controls/Bottom/Rows/Second/Strength" to="." method="_on_light_changed"]
+[connection signal="value_changed" from="Controls/Bottom/Rows/Second/Effect" to="." method="_on_light_changed"]
+[connection signal="color_changed" from="Controls/Bottom/Rows/Second/LightColor" to="." method="_on_color_changed"]
+[connection signal="color_changed" from="Controls/Bottom/Rows/Second/ShadowColor" to="." method="_on_color_changed"]

@@ -15,3 +15,5 @@ Conversations and screenplays live in screenplay/*.json. Conversation nodes cont
 Run checks with tests/run_checks.ps1 and the Godot executable argument documented there. Engine/script errors, failed assertions, timeouts and missing completion markers fail the run. Tests and offline tools are excluded from game exports.
 
 Source/import settings are versioned; .godot/ regenerates on opening a clone. The migration baseline is in docs/migration/. Art acceptance and fitting backlogs remain documented separately from scene structure.
+
+Try the 16 fake-lighting techniques in [materials/stylized_lighting/gallery/material_lab.tscn](materials/stylized_lighting/gallery/material_lab.tscn) with F6. Each has `_shader` and editable `_graph` materials, plus reusable scene parameter controls. [The material guide](materials/stylized_lighting/README.md) explains usage and limits. The lab is separate from the current game look.

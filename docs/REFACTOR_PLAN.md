@@ -1,7 +1,8 @@
 # Scene Authoring and Agent Collaboration Plan
 
-Created 2026-10-11. Status: structural migration complete on `codex/modular-scenes`.
-All 24 tasks passed their checks. Remaining art/composition decisions are recorded below.
+Created 2026-10-11. Status: structural migration complete and integrated into `main`.
+All 24 tasks passed their checks. Camera framing is also complete. Remaining art
+acceptance work is recorded below.
 
 The game must open with its default environment already visible in the editor.
 Every fixed object must be an editable, reusable Godot scene instance, with placement
@@ -228,9 +229,11 @@ rollback coverage also passed with expanded asset/settings hashes. Commits and v
 - Priority 4: checks moved under tests, false-pass runner repaired, baseline and
   reuse/teardown coverage added; documentation and export exclusions updated.
 
-Remaining art/composition work is separate and documented rather than silently
-changing the baseline: choose a camera/placement that exposes every prop, and bind
-and fit delivered unrigged modular clothing before replacing the default actor.
+The subsequent authored camera-only improvement exposes every prop and preserves
+all 17 noncamera baseline transforms; its measurements are in the migration record.
+Bind and fit delivered unrigged modular clothing before replacing the default actor.
+The owner's separately requested fake-lighting experiments live in the modular
+`materials/stylized_lighting/` library and authored comparison scene.
 
 ## Audit evidence to preserve
 

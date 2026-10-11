@@ -1,0 +1,6 @@
+[gd_scene load_steps=3 format=3]
+[ext_resource type="Script" path="res://materials/stylized_lighting/material_binding.gd" id="1"]
+[ext_resource type="ShaderMaterial" path="res://materials/stylized_lighting/variants/01_soft_lambert/soft_lambert_shader.tres" id="2"]
+[node name="StylizedMaterial" type="Node3D"]
+script = ExtResource("1")
+material = ExtResource("2")

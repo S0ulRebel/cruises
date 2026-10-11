@@ -6,7 +6,7 @@ and prop sheets, and the engine side, who puts them in the game.
 
 ## Current architecture — 2026-10-11
 
-Scene migration is complete on `codex/modular-scenes`, including clean-checkout
+Scene migration is complete and merged into `main`, including clean-checkout
 and graphical verification. Read `AGENTS.md` and
 `docs/REFACTOR_PLAN.md`. Game owns startup wiring; named `locations/` own placement.
 Fixed objects and UI/audio use authored prefabs. Packing flags and batch builders
@@ -18,8 +18,10 @@ shared paths and location composition; parallel editing uses assigned worktrees.
 
 Module records: `actors/HANDOFF.md`, `props/HANDOFF.md`, `ui/HANDOFF.md` and
 `tests/HANDOFF.md`. `docs/migration/README.md` indexes commits, checks and preserved
-baseline evidence. The original camera composition and unrigged clothing delivery
-still have the authoring decisions listed there.
+baseline evidence. Camera framing is completed; unrigged clothing still has the
+authoring decisions listed there. The fake-lighting library is indexed in
+`materials/stylized_lighting/README.md`; it owns its comparison lab and does not
+replace current game materials. Texture exports and rig fitting have separate owners.
 
 ## The rule
 

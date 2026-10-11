@@ -34,7 +34,7 @@ in textual `.import` settings are normalized for comparison; all other files use
 exact-byte hashes. Import caches and generated untracked preview textures are not
 authored test outputs.
 
-The default suite covers interaction wording and combinations, speech timing,
+The 13-check default suite covers interaction wording and combinations, speech timing,
 role-based outfit attachment/refit, animation filters, shared inventory/dialogue
 flags including choice `clear`, serialized interaction success/failure/cancellation,
 bounded movement completion, actual authored puzzle data, navigation through saved
@@ -46,6 +46,20 @@ navigation without destroying the current location or state, while allowing plac
 that deliberately have no navigation regions. Hover checks compare per-instance
 fishbowl emission, restore material values through a failed transition, then free
 highlighted and formerly highlighted instances and allow renderer teardown to finish.
+
+`stylized_lighting_check` covers the 16 code/graph material pairs, graph connectivity,
+matching controls, texture/tint preservation, local material independence, explicit
+scene-light targeting, live template edits, cleanup and authored lab placement.
+For actual GPU compilation, image equivalence and original-albedo comparisons run:
+
+```powershell
+& 'D:/Godot/Godot_v4.7.2-stable_win64_console.exe' --path . --rendering-method gl_compatibility --script res://tests/stylized_lighting_render_check.gd
+```
+
+The GPU harness writes a unique report/image directory outside the project and
+checks 64 rendered comparisons. It requires a graphical renderer; headless dummy
+rendering cannot validate shader compilation or pixels. Compatibility is validated;
+Forward+ and Mobile remain untested.
 
 `fixtures/outdoor_location.tscn` reuses the real crate and humanoid actor prefabs
 without walls or a ceiling. Its saved `outdoor_navigation.tres` was explicitly baked

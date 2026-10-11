@@ -1,0 +1,44 @@
+[gd_resource type="Resource" script_class="" load_steps=34 format=3]
+
+[ext_resource type="Script" path="res://materials/stylized_lighting/material_catalog.gd" id="1"]
+[ext_resource type="ShaderMaterial" path="res://materials/stylized_lighting/variants/01_soft_lambert/soft_lambert_shader.tres" id="2"]
+[ext_resource type="ShaderMaterial" path="res://materials/stylized_lighting/variants/01_soft_lambert/soft_lambert_graph.tres" id="3"]
+[ext_resource type="ShaderMaterial" path="res://materials/stylized_lighting/variants/02_half_lambert/half_lambert_shader.tres" id="4"]
+[ext_resource type="ShaderMaterial" path="res://materials/stylized_lighting/variants/02_half_lambert/half_lambert_graph.tres" id="5"]
+[ext_resource type="ShaderMaterial" path="res://materials/stylized_lighting/variants/03_two_tone/two_tone_shader.tres" id="6"]
+[ext_resource type="ShaderMaterial" path="res://materials/stylized_lighting/variants/03_two_tone/two_tone_graph.tres" id="7"]
+[ext_resource type="ShaderMaterial" path="res://materials/stylized_lighting/variants/04_three_tone/three_tone_shader.tres" id="8"]
+[ext_resource type="ShaderMaterial" path="res://materials/stylized_lighting/variants/04_three_tone/three_tone_graph.tres" id="9"]
+[ext_resource type="ShaderMaterial" path="res://materials/stylized_lighting/variants/05_soft_toon/soft_toon_shader.tres" id="10"]
+[ext_resource type="ShaderMaterial" path="res://materials/stylized_lighting/variants/05_soft_toon/soft_toon_graph.tres" id="11"]
+[ext_resource type="ShaderMaterial" path="res://materials/stylized_lighting/variants/06_texture_ramp/texture_ramp_shader.tres" id="12"]
+[ext_resource type="ShaderMaterial" path="res://materials/stylized_lighting/variants/06_texture_ramp/texture_ramp_graph.tres" id="13"]
+[ext_resource type="ShaderMaterial" path="res://materials/stylized_lighting/variants/07_hemisphere/hemisphere_shader.tres" id="14"]
+[ext_resource type="ShaderMaterial" path="res://materials/stylized_lighting/variants/07_hemisphere/hemisphere_graph.tres" id="15"]
+[ext_resource type="ShaderMaterial" path="res://materials/stylized_lighting/variants/08_wrap_diffuse/wrap_diffuse_shader.tres" id="16"]
+[ext_resource type="ShaderMaterial" path="res://materials/stylized_lighting/variants/08_wrap_diffuse/wrap_diffuse_graph.tres" id="17"]
+[ext_resource type="ShaderMaterial" path="res://materials/stylized_lighting/variants/09_rim_light/rim_light_shader.tres" id="18"]
+[ext_resource type="ShaderMaterial" path="res://materials/stylized_lighting/variants/09_rim_light/rim_light_graph.tres" id="19"]
+[ext_resource type="ShaderMaterial" path="res://materials/stylized_lighting/variants/10_toon_specular/toon_specular_shader.tres" id="20"]
+[ext_resource type="ShaderMaterial" path="res://materials/stylized_lighting/variants/10_toon_specular/toon_specular_graph.tres" id="21"]
+[ext_resource type="ShaderMaterial" path="res://materials/stylized_lighting/variants/11_point_falloff/point_falloff_shader.tres" id="22"]
+[ext_resource type="ShaderMaterial" path="res://materials/stylized_lighting/variants/11_point_falloff/point_falloff_graph.tres" id="23"]
+[ext_resource type="ShaderMaterial" path="res://materials/stylized_lighting/variants/12_spotlight/spotlight_shader.tres" id="24"]
+[ext_resource type="ShaderMaterial" path="res://materials/stylized_lighting/variants/12_spotlight/spotlight_graph.tres" id="25"]
+[ext_resource type="ShaderMaterial" path="res://materials/stylized_lighting/variants/13_crosshatch/crosshatch_shader.tres" id="26"]
+[ext_resource type="ShaderMaterial" path="res://materials/stylized_lighting/variants/13_crosshatch/crosshatch_graph.tres" id="27"]
+[ext_resource type="ShaderMaterial" path="res://materials/stylized_lighting/variants/14_halftone/halftone_shader.tres" id="28"]
+[ext_resource type="ShaderMaterial" path="res://materials/stylized_lighting/variants/14_halftone/halftone_graph.tres" id="29"]
+[ext_resource type="ShaderMaterial" path="res://materials/stylized_lighting/variants/15_height_gradient/height_gradient_shader.tres" id="30"]
+[ext_resource type="ShaderMaterial" path="res://materials/stylized_lighting/variants/15_height_gradient/height_gradient_graph.tres" id="31"]
+[ext_resource type="ShaderMaterial" path="res://materials/stylized_lighting/variants/16_fake_occlusion/fake_occlusion_shader.tres" id="32"]
+[ext_resource type="ShaderMaterial" path="res://materials/stylized_lighting/variants/16_fake_occlusion/fake_occlusion_graph.tres" id="33"]
+
+[resource]
+resource_name = "Stylized lighting library"
+script = ExtResource("1")
+ids = PackedStringArray("01_soft_lambert", "02_half_lambert", "03_two_tone", "04_three_tone", "05_soft_toon", "06_texture_ramp", "07_hemisphere", "08_wrap_diffuse", "09_rim_light", "10_toon_specular", "11_point_falloff", "12_spotlight", "13_crosshatch", "14_halftone", "15_height_gradient", "16_fake_occlusion")
+labels = PackedStringArray("Soft Lambert", "Half Lambert", "Two Tone", "Three Tone", "Soft Toon", "Texture Ramp", "Hemisphere", "Wrap Diffuse", "Rim Light", "Toon Specular", "Point Falloff", "Spotlight", "Crosshatch", "Halftone", "Height Gradient", "Fake Occlusion")
+descriptions = PackedStringArray("Smooth directional shading. Contrast reshapes the light-to-shadow response.", "A broad illustrated fill that keeps the far side readable. Tune the response curve.", "A single crisp shadow boundary. Threshold controls its placement.", "Three painted values with editable middle color and two band boundaries.", "A toon terminator with adjustable softness, useful on painted characters.", "An editable grayscale GradientTexture1D controls the light response and band positions.", "World-up sky and ground fill colors blend with the directional key.", "Light wraps around curved forms; wrap amount controls how far it reaches.", "A view-dependent painted edge highlight, optionally restricted to the light-facing side.", "A stylized highlight from the fake light and camera half-vector, with threshold and gloss.", "Fake point shading with artist-controlled distance range and falloff power.", "A fake light cone with inner/outer angles and distance falloff; no engine spotlight required.", "UV-attached diagonal hatch strokes build up on shadowed surfaces. Tune density and width.", "UV-attached ink dots grow toward shadow. Tune density, radius, softness and ink strength.", "World-height shading adds a painted lower-to-upper gradient to the directional response.", "An explicit sphere blocker paints a soft analytic shadow. Move the Occluder marker to shape it.")
+shader_materials = Array[ShaderMaterial]([ExtResource("2"), ExtResource("4"), ExtResource("6"), ExtResource("8"), ExtResource("10"), ExtResource("12"), ExtResource("14"), ExtResource("16"), ExtResource("18"), ExtResource("20"), ExtResource("22"), ExtResource("24"), ExtResource("26"), ExtResource("28"), ExtResource("30"), ExtResource("32")])
+graph_materials = Array[ShaderMaterial]([ExtResource("3"), ExtResource("5"), ExtResource("7"), ExtResource("9"), ExtResource("11"), ExtResource("13"), ExtResource("15"), ExtResource("17"), ExtResource("19"), ExtResource("21"), ExtResource("23"), ExtResource("25"), ExtResource("27"), ExtResource("29"), ExtResource("31"), ExtResource("33")])

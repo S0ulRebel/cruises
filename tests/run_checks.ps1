@@ -2,7 +2,7 @@
 [CmdletBinding()]
 param(
     [string]$Godot = 'D:\Godot\Godot_v4.7.2-stable_win64_console.exe',
-    [string[]]$Checks = @('combocheck', 'hovercheck', 'speechcheck', 'dressercheck', 'layercheck', 'state_dialogue_check', 'interaction_check', 'movement_check', 'flagcheck', 'playcombo', 'navcheck', 'authored_scene_check'),
+    [string[]]$Checks = @('combocheck', 'hovercheck', 'speechcheck', 'dressercheck', 'layercheck', 'state_dialogue_check', 'interaction_check', 'movement_check', 'flagcheck', 'playcombo', 'navcheck', 'authored_scene_check', 'stylized_lighting_check'),
     [int]$TimeoutSeconds = 45,
     [int]$ImportTimeoutSeconds = 300,
     [switch]$SkipImport,
@@ -54,7 +54,7 @@ function Invoke-GodotCheck([string]$Name, [string[]]$LaunchArguments, [bool]$Req
 function Get-AuthoredHashes {
     $hashes = @{}
     foreach ($path in (& git -C $projectPath ls-files)) {
-        if ($path -match '\.(?:tscn|tres|glb|gd|json|godot|import|uid|png|jpg|jpeg|ogg|wav|ttf|otf)$') {
+        if ($path -match '\.(?:tscn|tres|glb|gd|gdshader|json|godot|import|uid|png|jpg|jpeg|svg|ogg|wav|ttf|otf)$') {
             $absolutePath = Join-Path $projectPath $path
             if (Test-Path -LiteralPath $absolutePath -PathType Leaf) {
                 if ($path.EndsWith('.import', [StringComparison]::OrdinalIgnoreCase)) {

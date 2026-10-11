@@ -26,14 +26,31 @@ signal hotspot_clicked(name: String)
 ## rescaled without re-placing its contents.
 @export var room_width := 12.0
 @export var room_depth := 7.0
-@export var wall_height := 3.2
+## The placeholder backdrop. 3.2 m is a real cabin's headroom and was right for the
+## old elevated camera; the new low wide one sees straight over it and the grey void
+## shows above. Raised until it fills the frame - it is a stand-in for the artist's
+## room pieces, not a measurement of anything.
+@export var wall_height := 4.6
 
-## The fixed camera. Slightly above eye level and angled down is the adventure-game
-## default: it shows the floor, which is what the player is navigating.
-@export var camera_height := 2.6
-@export var camera_distance := 9.0
-@export var camera_pitch_degrees := -14.0
-@export var camera_fov := 42.0
+## The fixed camera, matched to the art session's target render
+## (docs/reference/room_target.png). Low, close and wide: the bowl looms in the
+## foreground, you look slightly UP at the characters, and the ceiling beams are in
+## frame. The old values - 2.6 m up, 9 m back, 42 degrees - were an elevated
+## architectural view with no depth in it.
+##
+## Solved from the render rather than guessed, by measuring two things of known size
+## against the frame height: the 3.2 m back wall fills 0.425 of it and the captain's
+## 1.90 m fills 0.557, which puts him 2.1 m from the camera, the wall 4.6 m, and the
+## vertical FOV at 79 degrees.
+##
+## 79 is not used. The same render puts his eyes 1.0 m above the camera and his feet
+## 0.4 m below it, and both cannot be true - it is painted, not rendered, so its
+## perspective does not close. These are the measurement's shape (low, close, wide)
+## pulled back to a lens that does not bow the walls.
+@export var camera_height := 1.15
+@export var camera_distance := 4.1
+@export var camera_pitch_degrees := -3.0
+@export var camera_fov := 62.0
 
 ## Anything in this group is parsed when the walkable area is baked: the floor adds to
 ## it, a solid prop cuts a hole in it. Characters are NOT in it - they move, and a

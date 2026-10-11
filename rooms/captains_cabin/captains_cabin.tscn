@@ -33,7 +33,7 @@ shading_mode = 0
 albedo_color = Color(0.22745098, 0.14117648, 0.08627451, 1)
 
 [sub_resource type="QuadMesh" id="QuadMesh_q1srp"]
-size = Vector2(12, 3.2)
+size = Vector2(12, 4.6)
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_7pwen"]
 vertices = PackedVector3Array(-5.7, 0.20000002, -3.2, -5.7, 0.20000002, 3.2000003, 5.7, 0.20000002, 3.2000003, 5.7, 0.20000002, -3.2)
@@ -96,41 +96,41 @@ at = Vector3(3.9, 0, 2.9)
 [sub_resource type="BoxShape3D" id="BoxShape3D_qc71v"]
 size = Vector3(0.9, 0.9, 0.9)
 
-[node name="CaptainQuarters" type="Node3D" unique_id=662742307]
+[node name="CaptainQuarters" type="Node3D" unique_id=1225363145]
 script = ExtResource("1_jo7n4")
 
-[node name="Camera" type="Camera3D" parent="." unique_id=1156493658]
-transform = Transform3D(1, 0, 0, 0, 0.9702957, 0.2419219, 0, -0.2419219, 0.9702957, 0, 2.6, 9)
+[node name="Camera" type="Camera3D" parent="." unique_id=1957150494]
+transform = Transform3D(1, 0, 0, 0, 0.9986295, 0.05233596, 0, -0.05233596, 0.9986295, 0, 1.15, 4.1)
 current = true
-fov = 42.0
+fov = 62.0
 
-[node name="Floor" type="StaticBody3D" parent="." unique_id=109013251]
+[node name="Floor" type="StaticBody3D" parent="." unique_id=608005015]
 
-[node name="@CollisionShape3D@46" type="CollisionShape3D" parent="Floor" unique_id=846777496]
+[node name="@CollisionShape3D@46" type="CollisionShape3D" parent="Floor" unique_id=878752583]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 shape = SubResource("BoxShape3D_twxhl")
 
-[node name="FloorVisual" type="MeshInstance3D" parent="Floor" unique_id=1727598372]
+[node name="FloorVisual" type="MeshInstance3D" parent="Floor" unique_id=1916754058]
 material_override = SubResource("StandardMaterial3D_y4ssf")
 mesh = SubResource("PlaneMesh_ujyaw")
 
-[node name="Backdrop" type="MeshInstance3D" parent="." unique_id=1710040685]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, -3.5)
+[node name="Backdrop" type="MeshInstance3D" parent="." unique_id=16412341]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3, -3.5)
 material_override = SubResource("StandardMaterial3D_thq1o")
 mesh = SubResource("QuadMesh_q1srp")
 
-[node name="KeyLight" type="DirectionalLight3D" parent="." unique_id=130216101]
+[node name="KeyLight" type="DirectionalLight3D" parent="." unique_id=737825999]
 transform = Transform3D(0.7880108, -0.41195798, 0.45752564, 0, 0.7431448, 0.6691306, -0.6156615, -0.5272821, 0.5856061, 0, 0, 0)
 light_color = Color(1, 0.8509804, 0.65882355, 1)
 light_energy = 1.1
 shadow_enabled = true
 
-[node name="Fill" type="DirectionalLight3D" parent="." unique_id=1939043257]
+[node name="Fill" type="DirectionalLight3D" parent="." unique_id=208465231]
 transform = Transform3D(-0.64278764, 0.23672076, -0.72855157, 0, 0.95105654, 0.309017, 0.76604444, 0.19863231, -0.6113274, 0, 0, 0)
 light_color = Color(0.56078434, 0.7019608, 0.8509804, 1)
 light_energy = 0.35
 
-[node name="Navigation" type="NavigationRegion3D" parent="." unique_id=1677219317]
+[node name="Navigation" type="NavigationRegion3D" parent="." unique_id=1515527161]
 navigation_mesh = SubResource("NavigationMesh_7pwen")
 
 [node name="Desk" type="StaticBody3D" parent="." unique_id=1048235815 instance=ExtResource("2_yd40d")]
@@ -165,7 +165,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9, 0.65, 1.5)
 script = ExtResource("12_tgcne")
 glass = NodePath("Model")
 
-[node name="@Area3D@53" type="Area3D" parent="." unique_id=1962884260]
+[node name="@Area3D@53" type="Area3D" parent="." unique_id=13572018]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55, -3.3)
 script = ExtResource("13_prnol")
 approach = SubResource("Resource_eboqt")
@@ -173,10 +173,10 @@ display_name = "Porthole"
 description = "Fog. The same fog as yesterday, and no closer to telling us where we are."
 metadata/visual = "Porthole"
 
-[node name="@CollisionShape3D@52" type="CollisionShape3D" parent="@Area3D@53" unique_id=2067638335]
+[node name="@CollisionShape3D@52" type="CollisionShape3D" parent="@Area3D@53" unique_id=843560479]
 shape = SubResource("BoxShape3D_r6qal")
 
-[node name="@Area3D@55" type="Area3D" parent="." unique_id=1666031047]
+[node name="@Area3D@55" type="Area3D" parent="." unique_id=159330496]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6, 0.8, -1.4)
 script = ExtResource("13_prnol")
 approach = SubResource("Resource_fssfj")
@@ -184,10 +184,10 @@ display_name = "Desk"
 description = "Charts, a compass, and a dried-out inkwell. He navigates by instinct and blames the charts."
 metadata/visual = "Desk"
 
-[node name="@CollisionShape3D@54" type="CollisionShape3D" parent="@Area3D@55" unique_id=1308155618]
+[node name="@CollisionShape3D@54" type="CollisionShape3D" parent="@Area3D@55" unique_id=149998509]
 shape = SubResource("BoxShape3D_t84db")
 
-[node name="@Area3D@57" type="Area3D" parent="." unique_id=495624135]
+[node name="@Area3D@57" type="Area3D" parent="." unique_id=1535461787]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.3, 0.95, -1.2)
 script = ExtResource("13_prnol")
 approach = SubResource("Resource_78l53")
@@ -204,10 +204,10 @@ combinations = {
 }
 metadata/visual = "Fishbowl"
 
-[node name="@CollisionShape3D@56" type="CollisionShape3D" parent="@Area3D@57" unique_id=1012156436]
+[node name="@CollisionShape3D@56" type="CollisionShape3D" parent="@Area3D@57" unique_id=1581292073]
 shape = SubResource("BoxShape3D_ksy6v")
 
-[node name="@Area3D@59" type="Area3D" parent="." unique_id=332392643]
+[node name="@Area3D@59" type="Area3D" parent="." unique_id=1573476016]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.3, 0.86, -1.15)
 script = ExtResource("13_prnol")
 approach = SubResource("Resource_8nydx")
@@ -215,10 +215,10 @@ display_name = "Rapier"
 description = "Thin, French, and considerably better travelled than most men. It is holding down a chart."
 gives_item = "rapier"
 
-[node name="@CollisionShape3D@58" type="CollisionShape3D" parent="@Area3D@59" unique_id=210752160]
+[node name="@CollisionShape3D@58" type="CollisionShape3D" parent="@Area3D@59" unique_id=105705751]
 shape = SubResource("BoxShape3D_l2wfm")
 
-[node name="@Area3D@61" type="Area3D" parent="." unique_id=699830889]
+[node name="@Area3D@61" type="Area3D" parent="." unique_id=1635894697]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.9, 0.82, -1.25)
 script = ExtResource("13_prnol")
 approach = SubResource("Resource_jersa")
@@ -227,10 +227,10 @@ description = "The needle swings, settles, and points at nothing in particular. 
 gives_item = "compass"
 metadata/visual = "Compass"
 
-[node name="@CollisionShape3D@60" type="CollisionShape3D" parent="@Area3D@61" unique_id=260930210]
+[node name="@CollisionShape3D@60" type="CollisionShape3D" parent="@Area3D@61" unique_id=1955693721]
 shape = SubResource("BoxShape3D_h6wp6")
 
-[node name="Inkwell" type="Area3D" parent="." unique_id=1359710182]
+[node name="Inkwell" type="Area3D" parent="." unique_id=87703999]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.1, 0.84, -1.55)
 script = ExtResource("13_prnol")
 approach = SubResource("Resource_xfm3a")
@@ -239,10 +239,10 @@ description = "Dry since the second week. He writes the log from memory, which i
 gives_item = "brass_inkwell"
 metadata/visual = "Brass_inkwell"
 
-[node name="@CollisionShape3D@62" type="CollisionShape3D" parent="Inkwell" unique_id=2059965400]
+[node name="@CollisionShape3D@62" type="CollisionShape3D" parent="Inkwell" unique_id=730037844]
 shape = SubResource("BoxShape3D_ggyt7")
 
-[node name="@Area3D@64" type="Area3D" parent="." unique_id=1415344833]
+[node name="@Area3D@64" type="Area3D" parent="." unique_id=206015429]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9, 0.9, 1.9)
 script = ExtResource("13_prnol")
 approach = SubResource("Resource_s0n6w")
@@ -268,14 +268,14 @@ combinations = {
 }
 metadata/visual = "Crate"
 
-[node name="@CollisionShape3D@63" type="CollisionShape3D" parent="@Area3D@64" unique_id=1714534322]
+[node name="@CollisionShape3D@63" type="CollisionShape3D" parent="@Area3D@64" unique_id=1019037479]
 shape = SubResource("BoxShape3D_qc71v")
 
-[node name="live" type="CharacterBody3D" parent="." unique_id=594599741 instance=ExtResource("15_va43j")]
+[node name="live" type="CharacterBody3D" parent="." unique_id=1001837244 instance=ExtResource("15_va43j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4, 0, 1.2)
 script = ExtResource("16_ufmvm")
 
-[node name="santi" type="CharacterBody3D" parent="." unique_id=302580896 instance=ExtResource("17_83auf")]
+[node name="santi" type="CharacterBody3D" parent="." unique_id=702769179 instance=ExtResource("17_83auf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2, 0, 0.2)
 script = ExtResource("16_ufmvm")
 character_height = 1.7

@@ -1,0 +1,14 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://locations/location.gd" id="location"]
+[ext_resource type="PackedScene" path="res://actors/captain_live/captain_live.tscn" id="actor"]
+
+[node name="NonwalkableLocation" type="Node3D" node_paths=PackedStringArray("camera", "player")]
+script = ExtResource("location")
+camera = NodePath("Camera")
+player = NodePath("Captain")
+
+[node name="Camera" type="Camera3D" parent="."]
+current = true
+
+[node name="Captain" parent="." instance=ExtResource("actor")]

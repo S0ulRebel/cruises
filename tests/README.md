@@ -38,7 +38,10 @@ flags including choice `clear`, serialized interaction success/failure/cancellat
 bounded movement completion, actual authored puzzle data, navigation through saved
 geometry and explicit rebaking, baseline cabin composition, startup component
 counts, local prefab references, independent instance materials and persistent
-session state through an indoor-to-outdoor location transition.
+session state through an indoor-to-outdoor location transition. Transition checks
+also reject wrong scene types, missing camera/player references and unusable authored
+navigation without destroying the current location or state, while allowing places
+that deliberately have no navigation regions.
 
 `fixtures/outdoor_location.tscn` reuses the real crate and humanoid actor prefabs
 without walls or a ceiling. Its saved `outdoor_navigation.tres` was explicitly baked

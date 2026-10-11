@@ -57,6 +57,12 @@ func check_location_transition(game: Node) -> void:
 	state.flags["fixture_session_flag"] = true
 	check("defined key is available for transition coverage", state.add("key"))
 	state.select("key")
+	for path in ["res://props/supply_crate/supply_crate.tscn",
+			"res://tests/fixtures/missing_camera_location.tscn",
+			"res://tests/fixtures/missing_player_location.tscn",
+			"res://tests/fixtures/broken_navigation_location.tscn",
+			"res://tests/fixtures/broken_navigation_location.tscn"]:
+		await check_rejected_transition(game, path)
 	var scene := load("res://tests/fixtures/outdoor_location.tscn") as PackedScene
 	game.get("interactions").busy = true
 	check("busy interaction prevents a location transition", not await game.change_location(scene))
@@ -68,6 +74,44 @@ func check_location_transition(game: Node) -> void:
 	check("transition wires the new camera, player and navigation", next != null and next.camera != null and next.player != null and next.navigation_ready)
 	check("transition frees the previous location and actors", game.get_node_or_null("CaptainsCabin") == null and counts(next).get("Camera3D", 0) == 1 and counts(game).get("CharacterBody3D", 0) == 2)
 	check("transition releases busy state", not game.get("interactions").busy)
+	var nonwalkable := load("res://tests/fixtures/nonwalkable_location.tscn") as PackedScene
+	check("an intentionally nonwalkable location is allowed", await game.change_location(nonwalkable))
+	var still := game.get("location") as Location
+	check("nonwalkable location needs no navigation region", still != null and still.navigation_regions.is_empty() and not still.navigation_ready)
+	check("nonwalkable transition preserves session state", game.get("state").get_instance_id() == state_id and state.flags.has("fixture_session_flag") and state.held == ["key"] and state.selection == "key")
+	check("nonwalkable transition releases busy state", not game.get("interactions").busy)
+
+func check_rejected_transition(game: Node, path: String) -> void:
+	var previous := game.get("location") as Location
+	var state := game.get("state") as GameState
+	var state_id := state.get_instance_id()
+	var index := previous.get_index()
+	var placement := positions(previous)
+	var before := counts(previous)
+	var connections := previous.floor_clicked.get_connections().size()
+	var hotspot_connections := hotspot_bindings(previous)
+	var started := Time.get_ticks_msec()
+	var accepted: bool = await game.change_location(load(path) as PackedScene)
+	var label := path.get_file()
+	check("invalid transition rejects " + label, not accepted)
+	check("invalid transition returns within its deadline", Time.get_ticks_msec() - started < 5000)
+	if not check("failed transition keeps the same live location", is_instance_valid(previous) and game.get("location") == previous and game.is_ancestor_of(previous)):
+		return
+	check("failed transition preserves placement and components", previous.get_index() == index and positions(previous) == placement and counts(previous) == before)
+	check("failed transition restores the original gameplay camera", game.get_viewport().get_camera_3d() == previous.camera)
+	check("failed transition preserves flags, held items and selection", game.get("state").get_instance_id() == state_id and state.flags.has("fixture_session_flag") and state.held == ["key"] and state.selection == "key")
+	check("failed transition restores synchronized navigation", previous.navigation_ready)
+	check("failed transition reconnects interactions exactly once", previous.floor_clicked.get_connections().size() == connections)
+	check("failed transition preserves each hotspot's bindings", hotspot_bindings(previous) == hotspot_connections)
+	check("failed transition leaves the session usable", game.get("initialized") == true and not game.get("interactions").busy)
+
+func hotspot_bindings(location: Location) -> Dictionary:
+	var bindings := {}
+	for area in location.find_children("*", "Area3D", true, false):
+		if area is Hotspot:
+			bindings[String(location.get_path_to(area))] = [area.input_event.get_connections().size(),
+				area.mouse_entered.get_connections().size(), area.mouse_exited.get_connections().size()]
+	return bindings
 
 func counts(node: Node) -> Dictionary:
 	var out := {}

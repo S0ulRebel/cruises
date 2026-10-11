@@ -11,3 +11,6 @@
   to unique OS cache directories. They are excluded from the headless default suite.
 - Shared API dependency changes belong to integration; keep tests on actual exported
   Game, Location, GameState, Hotspot and movement completion contracts.
+- Failed transition coverage requires Game's rollback contract: preserve the old
+  location, camera, navigation and session state on invalid references/type or an
+  empty authored navigation mesh. A deliberately nonwalkable location is allowed.

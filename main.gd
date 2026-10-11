@@ -293,6 +293,7 @@ func _build_room() -> void:
 ##
 ##     godot --path . -- --pack
 func _pack_room() -> void:
+	_pack_cast()
 	_claim(_room, _room)
 	var packed := PackedScene.new()
 	var err := packed.pack(_room)
@@ -311,6 +312,45 @@ func _pack_room() -> void:
 ## child with its full state, which writes the whole mesh into the .tscn - the first
 ## attempt came out 8.7 MB with 24 ArrayMeshes inlined, duplicating the GLBs and
 ## guaranteeing the scene goes stale the moment one is re-exported.
+## Each character as a prefab at actors/<assets>/<assets>.tscn, then swapped in the
+## room for an instance of itself.
+##
+## Packed from the LIVE node rather than rebuilt by the prefab tool, because building a
+## character is forty lines of capsule, model, feet-on-the-floor and animation tree, and
+## the one thing worse than that living in main.gd is it living in main.gd AND in a
+## generator, where the two drift and nobody notices which one the game used.
+func _pack_cast() -> void:
+	for entry in CAST:
+		var id := String(entry["id"])
+		var mover := _movers.get(id) as Node3D
+		if mover == null:
+			continue
+		var folder := "res://actors/%s" % entry["assets"]
+		var out := "%s/%s.tscn" % [folder, entry["assets"]]
+
+		_claim(mover, mover)
+		var packed := PackedScene.new()
+		if packed.pack(mover) != OK:
+			push_error("%s: pack failed" % id)
+			continue
+		DirAccess.make_dir_recursive_absolute(folder)
+		if ResourceSaver.save(packed, out) != OK:
+			push_error("%s: could not save %s" % [id, out])
+			continue
+
+		# Swap the built node for an instance of what we just saved, so the room holds
+		# a reference to the prefab rather than another copy of its guts.
+		var where := mover.transform
+		_room.remove_child(mover)
+		mover.queue_free()
+		var instance := (load(out) as PackedScene).instantiate() as Node3D
+		instance.name = id
+		instance.transform = where
+		_room.add_child(instance)
+		_movers[id] = instance
+		print("%-16s %s" % [entry["assets"], out])
+
+
 static func _claim(node: Node, root: Node) -> void:
 	for child in node.get_children():
 		child.owner = root
@@ -892,10 +932,15 @@ func _build_tree(model: Node3D, player: AnimationPlayer, who: String) -> void:
 		if player.has_animation(name):
 			player.get_animation(name).loop_mode = Animation.LOOP_LINEAR
 
+	# Parented to the character, NOT to the model. The model is an instanced .glb, and
+	# a node added inside an instance is not saved when the character is packed as a
+	# prefab - the first attempt produced a captain with no animation at all. Its
+	# paths reach down into the model from here, which works across that boundary.
 	var tree := AnimationTree.new()
 	tree.name = "Layers"
-	model.add_child(tree)
-	var path := String(model.get_path_to(skeleton))
+	var actor := model.get_parent().get_parent()
+	actor.add_child(tree)
+	var path := String(tree.get_path_to(skeleton))
 	var graph := Animator.build(tree, player, path, ["idle", "walk"] as Array[String])
 
 	var hand := graph.get_node("hands_clip") as AnimationNodeAnimation

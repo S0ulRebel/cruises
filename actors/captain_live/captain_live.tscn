@@ -1,0 +1,104 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://actors/mover/mover.gd" id="1_flqwp"]
+[ext_resource type="PackedScene" path="res://art/characters/captain_live/captain_live_hands.glb" id="2_0aaxx"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ulgsr"]
+radius = 0.26
+height = 1.9
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_eirsj"]
+filter_enabled = true
+filters = ["../Body/Model/Armature/Skeleton3D:mixamorig_LeftArm", "../Body/Model/Armature/Skeleton3D:mixamorig_LeftForeArm", "../Body/Model/Armature/Skeleton3D:mixamorig_LeftHand", "../Body/Model/Armature/Skeleton3D:mixamorig_LeftShoulder"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1dsn2"]
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_6v8hf"]
+filter_enabled = true
+filters = ["../Body/Model/Armature/Skeleton3D:mixamorig_RightArm", "../Body/Model/Armature/Skeleton3D:mixamorig_RightForeArm", "../Body/Model/Armature/Skeleton3D:mixamorig_RightHand", "../Body/Model/Armature/Skeleton3D:mixamorig_RightShoulder"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_apqor"]
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_idsat"]
+filter_enabled = true
+filters = ["../Body/Model/Armature/Skeleton3D:mixamorig_LeftHandIndex1", "../Body/Model/Armature/Skeleton3D:mixamorig_LeftHandIndex2", "../Body/Model/Armature/Skeleton3D:mixamorig_LeftHandIndex3", "../Body/Model/Armature/Skeleton3D:mixamorig_LeftHandMiddle1", "../Body/Model/Armature/Skeleton3D:mixamorig_LeftHandMiddle2", "../Body/Model/Armature/Skeleton3D:mixamorig_LeftHandMiddle3", "../Body/Model/Armature/Skeleton3D:mixamorig_LeftHandPinky1", "../Body/Model/Armature/Skeleton3D:mixamorig_LeftHandPinky2", "../Body/Model/Armature/Skeleton3D:mixamorig_LeftHandPinky3", "../Body/Model/Armature/Skeleton3D:mixamorig_LeftHandRing1", "../Body/Model/Armature/Skeleton3D:mixamorig_LeftHandRing2", "../Body/Model/Armature/Skeleton3D:mixamorig_LeftHandRing3", "../Body/Model/Armature/Skeleton3D:mixamorig_LeftHandThumb1", "../Body/Model/Armature/Skeleton3D:mixamorig_LeftHandThumb2", "../Body/Model/Armature/Skeleton3D:mixamorig_LeftHandThumb3", "../Body/Model/Armature/Skeleton3D:mixamorig_RightHandIndex1", "../Body/Model/Armature/Skeleton3D:mixamorig_RightHandIndex2", "../Body/Model/Armature/Skeleton3D:mixamorig_RightHandIndex3", "../Body/Model/Armature/Skeleton3D:mixamorig_RightHandMiddle1", "../Body/Model/Armature/Skeleton3D:mixamorig_RightHandMiddle2", "../Body/Model/Armature/Skeleton3D:mixamorig_RightHandMiddle3", "../Body/Model/Armature/Skeleton3D:mixamorig_RightHandPinky1", "../Body/Model/Armature/Skeleton3D:mixamorig_RightHandPinky2", "../Body/Model/Armature/Skeleton3D:mixamorig_RightHandPinky3", "../Body/Model/Armature/Skeleton3D:mixamorig_RightHandRing1", "../Body/Model/Armature/Skeleton3D:mixamorig_RightHandRing2", "../Body/Model/Armature/Skeleton3D:mixamorig_RightHandRing3", "../Body/Model/Armature/Skeleton3D:mixamorig_RightHandThumb1", "../Body/Model/Armature/Skeleton3D:mixamorig_RightHandThumb2", "../Body/Model/Armature/Skeleton3D:mixamorig_RightHandThumb3"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qh020"]
+animation = &"hand_relaxed"
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_0ytuk"]
+filter_enabled = true
+filters = ["../Body/Model/Armature/Skeleton3D:mixamorig_Head", "../Body/Model/Armature/Skeleton3D:mixamorig_Neck"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4qypi"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dwcc4"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_uoy06"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_qfqw6"]
+min_space = 0.0
+blend_point_0/node = SubResource("AnimationNodeAnimation_dwcc4")
+blend_point_0/pos = 0.0
+blend_point_0/name = &"idle"
+blend_point_1/node = SubResource("AnimationNodeAnimation_uoy06")
+blend_point_1/pos = 1.0
+blend_point_1/name = &"walk"
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_4utaq"]
+nodes/locomotion/node = SubResource("AnimationNodeBlendSpace1D_qfqw6")
+nodes/locomotion/position = Vector2(0, 0)
+nodes/gesture_right_clip/node = SubResource("AnimationNodeAnimation_apqor")
+nodes/gesture_right_clip/position = Vector2(0, 180)
+nodes/gesture_right/node = SubResource("AnimationNodeAdd2_6v8hf")
+nodes/gesture_right/position = Vector2(300, 0)
+nodes/gesture_left_clip/node = SubResource("AnimationNodeAnimation_1dsn2")
+nodes/gesture_left_clip/position = Vector2(0, 400)
+nodes/gesture_left/node = SubResource("AnimationNodeAdd2_eirsj")
+nodes/gesture_left/position = Vector2(300, 220)
+nodes/hands_clip/node = SubResource("AnimationNodeAnimation_qh020")
+nodes/hands_clip/position = Vector2(0, 620)
+nodes/hands/node = SubResource("AnimationNodeAdd2_idsat")
+nodes/hands/position = Vector2(300, 440)
+nodes/head_clip/node = SubResource("AnimationNodeAnimation_4qypi")
+nodes/head_clip/position = Vector2(0, 840)
+nodes/head/node = SubResource("AnimationNodeAdd2_0ytuk")
+nodes/head/position = Vector2(300, 660)
+node_connections = [&"output", 0, &"head", &"gesture_right", 0, &"locomotion", &"gesture_right", 1, &"gesture_right_clip", &"gesture_left", 0, &"gesture_right", &"gesture_left", 1, &"gesture_left_clip", &"hands", 0, &"gesture_left", &"hands", 1, &"hands_clip", &"head", 0, &"hands", &"head", 1, &"head_clip"]
+
+[node name="live" type="CharacterBody3D" unique_id=638672764]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4, 0, 1.2)
+script = ExtResource("1_flqwp")
+
+[node name="@CollisionShape3D@46" type="CollisionShape3D" parent="." unique_id=358411822]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, 0)
+shape = SubResource("CapsuleShape3D_ulgsr")
+
+[node name="Body" type="Node3D" parent="." unique_id=1605416938]
+
+[node name="Model" type="Node3D" parent="Body" unique_id=1613311965 instance=ExtResource("2_0aaxx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.7253116e-08, 0)
+
+[node name="Layers" type="AnimationTree" parent="." unique_id=1718987192]
+root_node = NodePath("../Body/Model")
+tree_root = SubResource("AnimationNodeBlendTree_4utaq")
+anim_player = NodePath("../Body/Model/AnimationPlayer")
+parameters/locomotion/blend_position = 0.0
+parameters/gesture_right/add_amount = 0.0
+parameters/gesture_left/add_amount = 0.0
+parameters/hands/add_amount = 1.0
+parameters/head/add_amount = 0.0
+
+[node name="Agent" type="NavigationAgent3D" parent="." unique_id=1327309577]
+path_desired_distance = 0.35
+target_desired_distance = 0.35
+height = 1.9
+radius = 0.26
+
+[node name="Obstacle" type="NavigationObstacle3D" parent="." unique_id=961406003]
+radius = 0.45
+height = 1.9
+affect_navigation_mesh = true
+carve_navigation_mesh = true

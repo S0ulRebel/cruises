@@ -1,0 +1,1143 @@
+{
+  "asset_id": "prop:desk_globe",
+  "name": "Captain’s brass-mounted globe",
+  "role": "Scene 1 — small decorative globe placed separately in the bookcase",
+  "asset_type": "prop_turnaround_sheet",
+  "files": {
+    "sheet": "sheet.png"
+  },
+  "dimensions_m": {
+    "width": 0.3,
+    "height": 0.38,
+    "depth": 0.3
+  },
+  "dimension_contract": "dimensions_m describes the complete upright globe assembly, including the sphere, brass meridian, horizontal horizon ring, pole axle and turned walnut pedestal: 0.30W × 0.38H × 0.30D m. These are chosen provisional new art dimensions; no earlier numeric desk_globe dimensions or scene transform were present in the inspected repository. The proposed sphere is 0.24 m in diameter, centered 0.23 m above the pedestal base. Its vertical meridian lies in XY with a 0.15 m outer radius; the horizontal XZ horizon ring provides the same 0.30 m width and depth. The pedestal occupies the lowest 0.08 m. Keep the same upright assembly pose in all four images and rotate only the viewing direction. Uniformly fit the reconstruction to the 0.38 m overall height and verify circular sphere/rings, width, depth and shelf clearance. Do not stretch model axes or independently resize views to hide proportion errors. The bookcase and every other shelf item are separate assets. Final shelf coordinates, contact and any interaction remain engine work.",
+  "dimension_decision": "Provisional 0.30 × 0.38 × 0.30 m complete assembly with a proposed 0.24 m sphere. This is a small display globe sized for an upper bookcase bay; the exact placement and fit have not been measured in engine.",
+  "source": {
+    "producer": "OpenAI imagegen via ChatGPT",
+    "mode": "built-in",
+    "model_identifier": "Not exposed by the built-in tool",
+    "date": "2026-10-11",
+    "repository_base_commit": "c0729bf9ef5efaf076bac945365887758dce74a2",
+    "original_filename": "exec-532a04a1-4e51-4fbf-8e06-1c4bf50f24ef.png",
+    "generated_source_sha256": "857d5adebc8bff8b23796cd351c0b34bfa7f21edaeee7ad0cbf42f012bc3c504",
+    "sha256": "dc690e299d0b0c6f62040834d5417d5e21d818024f36b18fab5813b60d8a1b0b",
+    "references": [
+      {
+        "original_path": "/workspace/scratch/9d89bc03e38f/desk_globe_geometry_guide.png",
+        "sha256": "e2e05c1bdd24a1ce9dd98f217093c51a64862f496a7a0f7f871774785ccedee7",
+        "original_filename": "desk_globe_geometry_guide.png"
+      }
+    ],
+    "generation_history": [
+      {
+        "pass": 1,
+        "stage": "measured_guide_cel_shaded",
+        "prompt": "Use case: stylized-concept.\nAsset: Captain Livé's small NAUTICAL GLOBE, a four-view model reconstruction sheet.\n\nImage1 is the measured geometry and map guide. Paint this exact assembly and preserve its complete outer silhouettes, equal heights, shared baseline, sphere sizes, ring gaps and the same fixed map viewed from four sides. Image2 supplies the approved game's warm wood/brass cartoon finish only.\n\nOne small practical tabletop/shelf globe: a true spherical map surface, a simple attached brass meridian ring in the vertical plane, a horizontal brass horizon ring, polar axle and a short stout turned walnut pedestal. All are integral parts of this single globe. Keep the guide's construction, without additional feet, arms or ornate framework. The sphere is0.24m diameter, complete assembly0.30m wide×0.38m high×0.30m deep. The meridian, horizon ring and base share one fixed orientation across all views.\n\nFRONT and BACK show the circular meridian ring and real WHITE air gaps between the sphere and the surrounding ring, except where the polar axle attaches. LEFT and RIGHT show that SAME meridian ring precisely EDGE-ON, as a narrow vertical brass strip passing in front of the sphere. The horizontal horizon ring remains exactly level and supplies the complete0.30m width in every view. Do not invent a second circular front meridian in the profiles. Retain all attachment points and gaps.\nThe globe itself must read as a ROUND SPHERE with broad soft cel-shaded form lighting, not a flat map disk, plate or sign. Smooth spherical silhouette in all views.\n\nMap: use the guide's broad coarse landmasses and their exact placement. Warm parchment oceans and faded muted olive-brown / ochre land; a few simple clean coast contours. This is one continuous stylized map rotating through front0°, left−90°, right+90°, back180°, not four unrelated maps. No readable place names, labels, numbers, borders or tiny decorative text. No blue oceans or bright green that competes with the cabin palette.\nFrame: aged warm gold brass, restrained brown patina, broad cream-gold bevel highlights and sparse wear. Pedestal: dark warm walnut with a few amber chipped edges, matching the desk. Practical navigation instrument, no jewels, elaborate scrollwork, skulls or luxury ornaments.\n\nOne row FRONT / LEFT / RIGHT / BACK, strict midheight level ORTHOGRAPHIC cameras, no perspective, tilt, three-quarter angle or visible ellipse from above. Do not tilt or spin the sphere independently between camera views. Paint outlines and highlights inside the guide silhouettes, preserving all four identical heights within1px.\nPlain white background and clear white vertical bands, whole objects with margins. No floor, cast shadow, labels, dimensions, guide marks, sheet border, bookcase, books, desk or other props.",
+        "referenced_image_paths": [
+          "/workspace/scratch/9d89bc03e38f/desk_globe_geometry_guide.png",
+          "/workspace/scratch/9d89bc03e38f/cruises_git/art/props/captain_desk/sheet.png"
+        ],
+        "transparent_background": false,
+        "source_path": "/workspace/scratch/9d89bc03e38f/generated_images/exec-a37170f3-a779-4928-bb81-c06eb0c2588f.png",
+        "selected": false,
+        "rejection_reason": "Source heights563/566/566/566px exceeded1px limit; sphere appeared enlarged in profiles relative to broad views.",
+        "original_filename": "exec-a37170f3-a779-4928-bb81-c06eb0c2588f.png",
+        "output_sha256": "7700025de2c10014b1d4f0c3b403d115b227f4f9dc73dcf050573aab35f1bed1",
+        "referenced_images": [
+          {
+            "original_path": "/workspace/scratch/9d89bc03e38f/desk_globe_geometry_guide.png",
+            "sha256": "e2e05c1bdd24a1ce9dd98f217093c51a64862f496a7a0f7f871774785ccedee7",
+            "original_filename": "desk_globe_geometry_guide.png"
+          },
+          {
+            "original_path": "/workspace/scratch/9d89bc03e38f/cruises_git/art/props/captain_desk/sheet.png",
+            "sha256": "02300d11cad484407755dfea20b66770abc9e92e895095b834bb505477b4f69c",
+            "repository_path": "art/props/captain_desk/sheet.png"
+          }
+        ]
+      },
+      {
+        "pass": 2,
+        "stage": "guide_only_geometry_correction",
+        "prompt": "Finish this measured globe diagram with clean cel-shaded game rendering. Preserve its exact outer geometry, positions and map shapes. This is a surface-finish edit, not a new composition.\n\nKeep all four complete objects EXACTLY the same height and ground line as the diagram, within1px. The map SPHERE has the same diameter in every view. Do not make it larger in the two side views. Keep the pole tips and the top of the meridian at the guide's existing top row. Put outlines, bevels, rivets and highlights inside the original shapes so their height never changes.\nThe complete assembly is0.30m wide×0.38m high×0.30m deep, with a0.24m sphere. All views retain one scale. Same fixed upright assembly, orthographic FRONT / LEFT / RIGHT / BACK.\n\nThe globe is a smooth ROUND SPHERE with broad soft toon form shading, warm antique parchment oceans and muted olive-brown landmasses. Keep the supplied coast shapes and their four consistent camera projections. No text or invented extra landmasses. No shiny mirror reflection or noisy realistic surface.\nBrass meridian ring and horizontal horizon ring: warm aged golden brass with broad readable bevel highlights, a few worn edge marks and brown patina in creases. Simple polar axle connections. Preserve the meridian's WHITE AIR GAPS around the globe in front and back; the same meridian is edge-on and crosses the sphere as the narrow vertical strip in side views. Do not thicken the rings, add axes or fill any gaps.\nStout simple turned walnut pedestal, dark reddish wood with a few broad amber chipped edges. Practical old pirate's navigation prop, no ornate luxury carving or extra supports.\n\nPreserve every ring, sphere, axle, base and map silhouette from the input. One white background, with all existing gaps and margins unchanged. No shadow, ground plane, background texture, label, dimension, border, bookcase, desk, books or other objects. Strict level orthographic views with no tilt, perspective or visible top ellipse. Only add the warm cartoon surface finish inside the existing diagram's shapes.",
+        "referenced_image_paths": [
+          "/workspace/scratch/9d89bc03e38f/desk_globe_geometry_guide.png"
+        ],
+        "transparent_background": false,
+        "source_path": "/workspace/scratch/9d89bc03e38f/generated_images/exec-532a04a1-4e51-4fbf-8e06-1c4bf50f24ef.png",
+        "selected": true,
+        "rejection_reason": null,
+        "original_filename": "exec-532a04a1-4e51-4fbf-8e06-1c4bf50f24ef.png",
+        "output_sha256": "857d5adebc8bff8b23796cd351c0b34bfa7f21edaeee7ad0cbf42f012bc3c504",
+        "referenced_images": [
+          {
+            "original_path": "/workspace/scratch/9d89bc03e38f/desk_globe_geometry_guide.png",
+            "sha256": "e2e05c1bdd24a1ce9dd98f217093c51a64862f496a7a0f7f871774785ccedee7",
+            "original_filename": "desk_globe_geometry_guide.png"
+          }
+        ]
+      }
+    ],
+    "selected_pass": 2,
+    "selected_prompt": "Finish this measured globe diagram with clean cel-shaded game rendering. Preserve its exact outer geometry, positions and map shapes. This is a surface-finish edit, not a new composition.\n\nKeep all four complete objects EXACTLY the same height and ground line as the diagram, within1px. The map SPHERE has the same diameter in every view. Do not make it larger in the two side views. Keep the pole tips and the top of the meridian at the guide's existing top row. Put outlines, bevels, rivets and highlights inside the original shapes so their height never changes.\nThe complete assembly is0.30m wide×0.38m high×0.30m deep, with a0.24m sphere. All views retain one scale. Same fixed upright assembly, orthographic FRONT / LEFT / RIGHT / BACK.\n\nThe globe is a smooth ROUND SPHERE with broad soft toon form shading, warm antique parchment oceans and muted olive-brown landmasses. Keep the supplied coast shapes and their four consistent camera projections. No text or invented extra landmasses. No shiny mirror reflection or noisy realistic surface.\nBrass meridian ring and horizontal horizon ring: warm aged golden brass with broad readable bevel highlights, a few worn edge marks and brown patina in creases. Simple polar axle connections. Preserve the meridian's WHITE AIR GAPS around the globe in front and back; the same meridian is edge-on and crosses the sphere as the narrow vertical strip in side views. Do not thicken the rings, add axes or fill any gaps.\nStout simple turned walnut pedestal, dark reddish wood with a few broad amber chipped edges. Practical old pirate's navigation prop, no ornate luxury carving or extra supports.\n\nPreserve every ring, sphere, axle, base and map silhouette from the input. One white background, with all existing gaps and margins unchanged. No shadow, ground plane, background texture, label, dimension, border, bookcase, desk, books or other objects. Strict level orthographic views with no tilt, perspective or visible top ellipse. Only add the warm cartoon surface finish inside the existing diagram's shapes.",
+    "alignment_guide": {
+      "path": "/workspace/scratch/9d89bc03e38f/desk_globe_geometry_guide.png",
+      "creation_code": "/workspace/scratch/9d89bc03e38f/create_desk_globe_guide.py",
+      "parameters_record": "/workspace/scratch/9d89bc03e38f/desk_globe_geometry_guide.json",
+      "method": "Matplotlib Agg draws new analytic sphere, annular-plate projections and an axially symmetric turned pedestal. One fixed longitude/latitude map is clipped to each visible hemisphere and orthographically projected. Existing rasters are neither used nor edited.",
+      "sha256": "e2e05c1bdd24a1ce9dd98f217093c51a64862f496a7a0f7f871774785ccedee7",
+      "creation_code_sha256": "1a33f730537b2a9a5214d2e003ae77b855fdeaa0a21e12cceb169dd4561b72bd",
+      "parameters_record_sha256": "a6fe6653f0adc122fe29e0bba5f9e47ac810fe58b1f5677433d7c56b84d635e9",
+      "purpose": "Measured geometry plus one analytically projected fictional spherical map used as imagegen input, not final artwork.",
+      "dimensions_m": {
+        "width": 0.3,
+        "height": 0.38,
+        "depth": 0.3
+      },
+      "canvas_px": [
+        2172,
+        724
+      ],
+      "centers_x_px": [
+        272,
+        814,
+        1358,
+        1900
+      ],
+      "height_before_outline_px": 500.0,
+      "width_before_outline_px": 394.7368421052631,
+      "sphere_diameter_m": 0.24,
+      "sphere_center_y_m": 0.23,
+      "vertical_meridian": {
+        "plane": "XY",
+        "outer_radius_m": 0.15,
+        "inner_radius_m": 0.136,
+        "plate_depth_m": 0.012
+      },
+      "horizon_ring": {
+        "plane": "XZ",
+        "center_y_m": 0.23,
+        "outer_radius_m": 0.15,
+        "radial_width_m": 0.014,
+        "vertical_height_m": 0.01
+      },
+      "pedestal": {
+        "height_m": 0.08,
+        "foot_diameter_m": 0.17,
+        "construction": "Simple stout turned walnut solid, rotationally symmetric."
+      },
+      "pole_axle": {
+        "diameter_m": 0.012,
+        "y_range_m": [
+          0.074,
+          0.38
+        ],
+        "connectivity": "Axle joins the sphere at both poles to the meridian; bottom extends 6 mm into the pedestal top."
+      },
+      "map": {
+        "type": "Coarse fictional geography, shared by every view",
+        "version": 1,
+        "sphere_coordinate_convention": "North is +Y. Longitude 0 points +Z, +90 points +X, 180 points -Z and -90 points -X. Longitude increases to image-right at the center of every view.",
+        "camera_center_longitudes_degrees": {
+          "front": 0.0,
+          "left": -90.0,
+          "right": 90.0,
+          "back": 180.0
+        },
+        "visible_longitude_ranges_degrees": {
+          "front": [
+            -90.0,
+            90.0
+          ],
+          "left": [
+            -180.0,
+            0.0
+          ],
+          "right": [
+            0.0,
+            180.0
+          ],
+          "back": [
+            90.0,
+            270.0
+          ]
+        },
+        "landmasses": [
+          {
+            "id": "western_mainland",
+            "colour": "#909365",
+            "coast_lon_lat_degrees": [
+              [
+                -64,
+                35
+              ],
+              [
+                -42,
+                55
+              ],
+              [
+                -10,
+                51
+              ],
+              [
+                10,
+                35
+              ],
+              [
+                28,
+                42
+              ],
+              [
+                54,
+                24
+              ],
+              [
+                36,
+                8
+              ],
+              [
+                44,
+                -14
+              ],
+              [
+                16,
+                -28
+              ],
+              [
+                -7,
+                -16
+              ],
+              [
+                -21,
+                -34
+              ],
+              [
+                -42,
+                -16
+              ],
+              [
+                -36,
+                4
+              ],
+              [
+                -57,
+                12
+              ]
+            ]
+          },
+          {
+            "id": "eastern_mainland",
+            "colour": "#909365",
+            "coast_lon_lat_degrees": [
+              [
+                112,
+                12
+              ],
+              [
+                125,
+                35
+              ],
+              [
+                153,
+                48
+              ],
+              [
+                181,
+                35
+              ],
+              [
+                201,
+                43
+              ],
+              [
+                216,
+                21
+              ],
+              [
+                205,
+                -4
+              ],
+              [
+                195,
+                -16
+              ],
+              [
+                187,
+                -44
+              ],
+              [
+                163,
+                -59
+              ],
+              [
+                146,
+                -39
+              ],
+              [
+                156,
+                -20
+              ],
+              [
+                127,
+                -14
+              ]
+            ]
+          },
+          {
+            "id": "western_island",
+            "colour": "#ab9069",
+            "coast_lon_lat_degrees": [
+              [
+                -137,
+                0
+              ],
+              [
+                -136,
+                25
+              ],
+              [
+                -123,
+                43
+              ],
+              [
+                -101,
+                38
+              ],
+              [
+                -93,
+                15
+              ],
+              [
+                -105,
+                -2
+              ],
+              [
+                -116,
+                -22
+              ],
+              [
+                -133,
+                -15
+              ]
+            ]
+          },
+          {
+            "id": "southern_island",
+            "colour": "#ab9069",
+            "coast_lon_lat_degrees": [
+              [
+                48,
+                -53
+              ],
+              [
+                63,
+                -41
+              ],
+              [
+                79,
+                -45
+              ],
+              [
+                83,
+                -62
+              ],
+              [
+                65,
+                -68
+              ],
+              [
+                52,
+                -62
+              ]
+            ]
+          }
+        ],
+        "sea_colour": "#ddcaa0",
+        "method": "Longitude-domain hemisphere clipping and <=2 degree boundary interpolation, followed by sphere projection x=r*cos(latitude)*sin(longitude-camera_longitude), y=CY+r*sin(latitude). Sphere clip path prevents spill outside the body.",
+        "labels": false,
+        "political_borders": false,
+        "graticule_drawn": false,
+        "continuity_note": "All camera views project the same coast vertices. The left view centers -90/270 degrees and the right view centers +90 degrees; they are not interchangeable. Rear centers 180 degrees."
+      },
+      "measurement": {
+        "method": "Read-only RGB distance from pure white > 54, equivalent to cutter tolerance 18; no image modification.",
+        "views": [
+          {
+            "view": "front",
+            "bounds_xyxy_px": [
+              73,
+              111,
+              471,
+              613
+            ],
+            "width_px": 398,
+            "height_px": 502,
+            "last_foreground_y_px": 612
+          },
+          {
+            "view": "left",
+            "bounds_xyxy_px": [
+              616,
+              111,
+              1012,
+              613
+            ],
+            "width_px": 396,
+            "height_px": 502,
+            "last_foreground_y_px": 612
+          },
+          {
+            "view": "right",
+            "bounds_xyxy_px": [
+              1160,
+              111,
+              1556,
+              613
+            ],
+            "width_px": 396,
+            "height_px": 502,
+            "last_foreground_y_px": 612
+          },
+          {
+            "view": "back",
+            "bounds_xyxy_px": [
+              1701,
+              111,
+              2099,
+              613
+            ],
+            "width_px": 398,
+            "height_px": 502,
+            "last_foreground_y_px": 612
+          }
+        ],
+        "height_spread_px": 0,
+        "baseline_spread_px": 0,
+        "clear_gaps_px": [
+          145,
+          148,
+          145
+        ],
+        "meridian_air_gap_samples": [
+          {
+            "view": "front",
+            "angle_degrees": 45,
+            "point_px": [
+              391,
+              190
+            ],
+            "rgb": [
+              255,
+              255,
+              255
+            ],
+            "is_pure_white": true
+          },
+          {
+            "view": "front",
+            "angle_degrees": 135,
+            "point_px": [
+              153,
+              190
+            ],
+            "rgb": [
+              255,
+              255,
+              255
+            ],
+            "is_pure_white": true
+          },
+          {
+            "view": "front",
+            "angle_degrees": 225,
+            "point_px": [
+              153,
+              428
+            ],
+            "rgb": [
+              255,
+              255,
+              255
+            ],
+            "is_pure_white": true
+          },
+          {
+            "view": "front",
+            "angle_degrees": 315,
+            "point_px": [
+              391,
+              428
+            ],
+            "rgb": [
+              255,
+              255,
+              255
+            ],
+            "is_pure_white": true
+          },
+          {
+            "view": "back",
+            "angle_degrees": 45,
+            "point_px": [
+              2019,
+              190
+            ],
+            "rgb": [
+              255,
+              255,
+              255
+            ],
+            "is_pure_white": true
+          },
+          {
+            "view": "back",
+            "angle_degrees": 135,
+            "point_px": [
+              1781,
+              190
+            ],
+            "rgb": [
+              255,
+              255,
+              255
+            ],
+            "is_pure_white": true
+          },
+          {
+            "view": "back",
+            "angle_degrees": 225,
+            "point_px": [
+              1781,
+              428
+            ],
+            "rgb": [
+              255,
+              255,
+              255
+            ],
+            "is_pure_white": true
+          },
+          {
+            "view": "back",
+            "angle_degrees": 315,
+            "point_px": [
+              2019,
+              428
+            ],
+            "rgb": [
+              255,
+              255,
+              255
+            ],
+            "is_pure_white": true
+          }
+        ],
+        "corners_rgb": [
+          [
+            255,
+            255,
+            255
+          ],
+          [
+            255,
+            255,
+            255
+          ],
+          [
+            255,
+            255,
+            255
+          ],
+          [
+            255,
+            255,
+            255
+          ]
+        ]
+      },
+      "measurement_note": "These are construction-guide measurements; generated-sheet measurements are recorded separately in assembly/validation."
+    },
+    "assembly": {
+      "tool": "tools/crop_views.py",
+      "tool_modified": false,
+      "arguments": [
+        "--row",
+        "0",
+        "1",
+        "--names",
+        "front",
+        "left",
+        "right",
+        "back",
+        "--pad",
+        "0.12",
+        "--size",
+        "627",
+        "--dry-run",
+        "--preview",
+        "art/props/desk_globe/sheet.png"
+      ],
+      "native_common_canvas_px": 627,
+      "method": "Unchanged cutter crops native own-bounds rectangles and translates them into four 627 px common cells at one baseline. No resampling, per-view scaling or raster retouching.",
+      "resampled": false,
+      "per_view_scaling": false,
+      "source_measurements": {
+        "image_size_px": [
+          2172,
+          724
+        ],
+        "background_rgb": [
+          254,
+          254,
+          254
+        ],
+        "views": [
+          {
+            "view": "front",
+            "bounds_px": [
+              71,
+              109,
+              472,
+              615
+            ],
+            "width_px": 401,
+            "height_px": 506,
+            "last_ink_y_px": 614,
+            "width_height_ratio": 0.79249
+          },
+          {
+            "view": "left",
+            "bounds_px": [
+              614,
+              109,
+              1014,
+              615
+            ],
+            "width_px": 400,
+            "height_px": 506,
+            "last_ink_y_px": 614,
+            "width_height_ratio": 0.790514
+          },
+          {
+            "view": "right",
+            "bounds_px": [
+              1159,
+              109,
+              1558,
+              615
+            ],
+            "width_px": 399,
+            "height_px": 506,
+            "last_ink_y_px": 614,
+            "width_height_ratio": 0.788538
+          },
+          {
+            "view": "back",
+            "bounds_px": [
+              1700,
+              109,
+              2101,
+              615
+            ],
+            "width_px": 401,
+            "height_px": 506,
+            "last_ink_y_px": 614,
+            "width_height_ratio": 0.79249
+          }
+        ],
+        "clear_vertical_gaps_px": [
+          142,
+          145,
+          142
+        ]
+      },
+      "source_object_rectangles_pixel_identical_after_translation": [
+        true,
+        true,
+        true,
+        true
+      ]
+    }
+  },
+  "object_scope": {
+    "rule": "Model the object only, never a dressed arrangement.",
+    "contents": "One integral globe assembly: mapped sphere, vertical brass meridian, horizontal brass horizon ring, pole axle and stout turned wooden base.",
+    "integral_components": [
+      "mapped sphere",
+      "vertical meridian ring",
+      "horizontal horizon ring",
+      "pole axle",
+      "turned walnut pedestal"
+    ],
+    "excluded": [
+      "bookcase",
+      "shelf",
+      "desk",
+      "books",
+      "charts",
+      "compass",
+      "other display items",
+      "labels",
+      "scenery"
+    ],
+    "rigging_required": false
+  },
+  "design": {
+    "structure": "Simple spherical globe held at both poles within a circular vertical meridian, crossed by a level horizontal horizon ring and supported on a short turned walnut pedestal.",
+    "front": "Full XY meridian annulus surrounds the sphere. White air gaps remain between the globe and ring except at pole supports and equatorial horizon contacts. Map reference faces longitude 0 degrees.",
+    "left": "The same meridian is naturally edge-on, with its near half visible as a thin vertical brass strip over the sphere. The horizontal ring retains the full 0.30 m projected width. Map reference faces longitude -90 / 270 degrees.",
+    "right": "Opposite edge-on meridian view, with the same horizon-ring width and different map hemisphere. Map reference faces longitude +90 degrees.",
+    "back": "Reverse broad meridian annulus with white air gaps and the actual opposite map hemisphere, centered at longitude 180 degrees in the guide.",
+    "connectivity": "Pole axle connects the sphere to the meridian and pedestal; the lower support overlaps the pedestal top. Keep connected support geometry and open air gaps, not detached rings or a solid disk around the globe.",
+    "finish": "Warm brass rings and hardware, worn dark walnut base, muted olive/brown landmasses on a pale parchment sphere. Use broad readable forms rather than fine labels or filigree.",
+    "map_purpose": "Decorative stylized fictional geography, not an accurate navigation chart.",
+    "map_construction_reference": "The guide uses one fixed spherical map projected consistently into all four views. Preserve broad coastline continuity across adjoining hemispheres; final image and reconstructed UV continuity still require inspection.",
+    "map_detail": "A few coarse fictional landmasses with simple coastlines; no text, political borders or grid marks.",
+    "map_orientation": {
+      "north": "+Y",
+      "longitude_zero": "+Z",
+      "longitude_plus_90": "+X",
+      "longitude_180": "-Z",
+      "longitude_minus_90": "-X",
+      "camera_center_longitudes_degrees": {
+        "front": 0,
+        "left": -90,
+        "right": 90,
+        "back": 180
+      },
+      "visible_longitude_ranges_degrees": {
+        "front": [
+          -90,
+          90
+        ],
+        "left": [
+          -180,
+          0
+        ],
+        "right": [
+          0,
+          180
+        ],
+        "back": [
+          90,
+          270
+        ]
+      },
+      "handedness": "Increasing longitude moves toward image-right at the center of each camera view. Left and right are opposite hemispheres and must not be swapped."
+    },
+    "openings": "Real air gaps between the sphere and inner meridian should expose the flat background in front and back. A flat white image region is only a reference cue, not proof of reconstructed mesh topology.",
+    "fixed_pose": "Upright globe and pedestal; rings and map retain one fixed world orientation across the sheet."
+  },
+  "reconstruction_orientation": {
+    "fixed_object_pose": "Upright on the pedestal base",
+    "axis_convention": "Right-handed: +Y up, +X right in the front image; primary meridian in XY, horizon ring in XZ, longitude 0 toward front +Z.",
+    "dimensions_m": {
+      "width": 0.3,
+      "height": 0.38,
+      "depth": 0.3
+    },
+    "camera_positions": {
+      "front": "+Z looking -Z",
+      "left": "-X looking +X",
+      "right": "+X looking -X",
+      "back": "-Z looking +Z"
+    },
+    "engine_placement_rotation_degrees_xyz": [
+      0,
+      0,
+      0
+    ],
+    "rotation_note": "No artistic pose correction is required after exporter axes match this convention. The engine may choose a display yaw; no scene rotation has been applied by the art delivery.",
+    "origin_recommendation": "Center of the flat pedestal foot at y=0, with all 0.38 m of the assembly above it.",
+    "secondary_guide_dimensions_m": {
+      "sphere_diameter": 0.24,
+      "sphere_center_y": 0.23,
+      "meridian_outer_radius": 0.15,
+      "meridian_inner_radius": 0.136,
+      "meridian_plate_depth": 0.012,
+      "horizon_outer_radius": 0.15,
+      "horizon_vertical_height": 0.01,
+      "sphere_to_inner_meridian_radial_gap": 0.016,
+      "pedestal_height": 0.08,
+      "pedestal_foot_diameter": 0.17,
+      "pole_axle_diameter": 0.012
+    },
+    "secondary_dimensions_authority": "Proposed analytic construction-guide values, not previous engine measurements or certified final mesh dimensions."
+  },
+  "placement": {
+    "convention_status": "Intended room location only; no authoritative transform, assembled shelf fit or new interaction exists from this delivery.",
+    "engine_model_path_target": "art/props/desk_globe/desk_globe.glb",
+    "intended_location": "Upper part of the separate bookcase to the left of the desk, matching the approved room composition.",
+    "placement_authority": "HANDOFF.md desk_globe row and docs/reference/room_target.png give the placement direction, not exact coordinates.",
+    "contact": "Place the flat pedestal foot on an actual shelf surface after measuring the imported bounds.",
+    "shelf_clearance_note": "The separate bookcase guide specifies 0.46125 m clear bay height, giving 0.08125 m nominal vertical allowance above the 0.38 m globe. This is guide arithmetic only; verify actual shelf depth, retaining lip/setback, pedestal contact and both reconstructed meshes before placement.",
+    "separate_from": [
+      "bookcase",
+      "bookshelf_books",
+      "captain_desk",
+      "other shelf dressing"
+    ],
+    "interaction_contract": "This is a decorative display prop. No pickup, spinning interaction, rig or puzzle behavior is introduced by the sheet.",
+    "bookcase_guide_clear_height_m": 0.46125,
+    "nominal_vertical_allowance_m": 0.08125
+  },
+  "framing": {
+    "view_order": [
+      "front",
+      "left",
+      "right",
+      "back"
+    ],
+    "projection": "Level orthographic views of one fixed upright assembly",
+    "camera": "Horizontal optical axis at the middle of the complete object, one orthographic scale and zero pitch/roll. Ring visibility changes naturally with the viewing direction.",
+    "fixed_object_pose": "Upright pedestal, fixed rings and sphere orientation",
+    "background": "Plain opaque near-white",
+    "labels_in_turnaround_band": false,
+    "ground_line_drawn": false,
+    "image_size_px": [
+      2508,
+      627
+    ],
+    "cell_size_px": [
+      627,
+      627
+    ],
+    "background_rgb": [
+      254,
+      254,
+      254
+    ],
+    "ground_line_last_ink_y_px": 551,
+    "separation_px": [
+      226,
+      228,
+      227
+    ],
+    "scale": "All four source and final assemblies are exactly 506 px high; the unchanged cutter only translated native object rectangles."
+  },
+  "validation": {
+    "status": "Source/final PNG, shared framing, ring gaps and broad map coherence inspected; reconstructed geometry, texture seams and shelf fit remain unverified",
+    "target_width_height_ratio_all_views": 0.7894736842105263,
+    "reconstruction_run": false,
+    "engine_import_run": false,
+    "limitations": [
+      "At 0.38 m height, the painted front/back envelopes imply 0.301146 m width; the left and right views imply 0.300395 m and 0.299644 m depth. These differ from the provisional 0.30 m target by +0.382%, +0.132% and -0.119%, respectively. Keep the stated target and inspect actual reconstructed bounds; painted outlines are not exact CAD. The 0.24 m sphere diameter remains a guide target, not an independently measured finished-mesh dimension.",
+      "The complete dimensions and secondary guide measurements are provisional art targets; no previous numeric desk_globe contract exists.",
+      "The illustrative map is fictional decoration, not a navigation-accurate chart. Final image continuity and reconstructed UV seams remain to be inspected.",
+      "Visible air gaps and pole connections do not verify mesh topology, rotation clearance or working globe mechanics.",
+      "Shelf contact, placement, scale relative to books and room-camera readability have not been tested."
+    ],
+    "method": "Read-only full-row NumPy/Pillow measurements using unchanged crop_views.py modal_colour, ink_mask and find_figures at tolerance 18 and default gap/span settings. Bounds are [x0,y0,x1,y1], upper bounds exclusive.",
+    "foreground_threshold": "Sum of absolute RGB distance from modal background exceeds 54.",
+    "detected_views": 4,
+    "views": [
+      {
+        "view": "front",
+        "bounds_px": [
+          113,
+          46,
+          514,
+          552
+        ],
+        "width_px": 401,
+        "height_px": 506,
+        "last_ink_y_px": 551,
+        "width_height_ratio": 0.79249
+      },
+      {
+        "view": "left",
+        "bounds_px": [
+          740,
+          46,
+          1140,
+          552
+        ],
+        "width_px": 400,
+        "height_px": 506,
+        "last_ink_y_px": 551,
+        "width_height_ratio": 0.790514
+      },
+      {
+        "view": "right",
+        "bounds_px": [
+          1368,
+          46,
+          1767,
+          552
+        ],
+        "width_px": 399,
+        "height_px": 506,
+        "last_ink_y_px": 551,
+        "width_height_ratio": 0.788538
+      },
+      {
+        "view": "back",
+        "bounds_px": [
+          1994,
+          46,
+          2395,
+          552
+        ],
+        "width_px": 401,
+        "height_px": 506,
+        "last_ink_y_px": 551,
+        "width_height_ratio": 0.79249
+      }
+    ],
+    "height_spread_px": 0,
+    "ground_line_spread_px": 0,
+    "minimum_empty_band_px": 226,
+    "strict_one_pixel_height_check_passed": true,
+    "strict_one_pixel_baseline_check_passed": true,
+    "source_object_rectangles_pixel_identical": true,
+    "native_view_canvas_px": [
+      627,
+      627
+    ],
+    "view_canvas_after_2x_upscale_px": [
+      1254,
+      1254
+    ],
+    "upscaling_applied": false,
+    "png_full_decode_passed": true,
+    "png_iend_passed": true,
+    "file_size_bytes": 929289,
+    "air_gap_checks": [
+      {
+        "view": "front",
+        "quadrant_angle_degrees": 45,
+        "sample_xy_px": [
+          434,
+          124
+        ],
+        "sample_rgb": [
+          254,
+          254,
+          254
+        ],
+        "enclosed_background_component_bounds_px": [
+          328,
+          71,
+          490,
+          235
+        ],
+        "background_area_px": 3775,
+        "enclosed_by_geometry_in_image": true,
+        "limit": "2D background-gap verification only; future mesh topology is unverified."
+      },
+      {
+        "view": "front",
+        "quadrant_angle_degrees": 135,
+        "sample_xy_px": [
+          193,
+          124
+        ],
+        "sample_rgb": [
+          253,
+          254,
+          254
+        ],
+        "enclosed_background_component_bounds_px": [
+          137,
+          71,
+          300,
+          235
+        ],
+        "background_area_px": 3730,
+        "enclosed_by_geometry_in_image": true,
+        "limit": "2D background-gap verification only; future mesh topology is unverified."
+      },
+      {
+        "view": "front",
+        "quadrant_angle_degrees": 225,
+        "sample_xy_px": [
+          193,
+          365
+        ],
+        "sample_rgb": [
+          254,
+          254,
+          254
+        ],
+        "enclosed_background_component_bounds_px": [
+          137,
+          258,
+          300,
+          421
+        ],
+        "background_area_px": 3751,
+        "enclosed_by_geometry_in_image": true,
+        "limit": "2D background-gap verification only; future mesh topology is unverified."
+      },
+      {
+        "view": "front",
+        "quadrant_angle_degrees": 315,
+        "sample_xy_px": [
+          434,
+          365
+        ],
+        "sample_rgb": [
+          254,
+          254,
+          255
+        ],
+        "enclosed_background_component_bounds_px": [
+          327,
+          258,
+          490,
+          421
+        ],
+        "background_area_px": 3670,
+        "enclosed_by_geometry_in_image": true,
+        "limit": "2D background-gap verification only; future mesh topology is unverified."
+      },
+      {
+        "view": "back",
+        "quadrant_angle_degrees": 45,
+        "sample_xy_px": [
+          2315,
+          124
+        ],
+        "sample_rgb": [
+          252,
+          252,
+          252
+        ],
+        "enclosed_background_component_bounds_px": [
+          2208,
+          71,
+          2371,
+          235
+        ],
+        "background_area_px": 3792,
+        "enclosed_by_geometry_in_image": true,
+        "limit": "2D background-gap verification only; future mesh topology is unverified."
+      },
+      {
+        "view": "back",
+        "quadrant_angle_degrees": 135,
+        "sample_xy_px": [
+          2074,
+          124
+        ],
+        "sample_rgb": [
+          253,
+          253,
+          253
+        ],
+        "enclosed_background_component_bounds_px": [
+          2018,
+          71,
+          2180,
+          235
+        ],
+        "background_area_px": 3719,
+        "enclosed_by_geometry_in_image": true,
+        "limit": "2D background-gap verification only; future mesh topology is unverified."
+      },
+      {
+        "view": "back",
+        "quadrant_angle_degrees": 225,
+        "sample_xy_px": [
+          2074,
+          365
+        ],
+        "sample_rgb": [
+          254,
+          254,
+          254
+        ],
+        "enclosed_background_component_bounds_px": [
+          2018,
+          258,
+          2180,
+          421
+        ],
+        "background_area_px": 3731,
+        "enclosed_by_geometry_in_image": true,
+        "limit": "2D background-gap verification only; future mesh topology is unverified."
+      },
+      {
+        "view": "back",
+        "quadrant_angle_degrees": 315,
+        "sample_xy_px": [
+          2315,
+          365
+        ],
+        "sample_rgb": [
+          253,
+          253,
+          253
+        ],
+        "enclosed_background_component_bounds_px": [
+          2207,
+          258,
+          2371,
+          421
+        ],
+        "background_area_px": 3707,
+        "enclosed_by_geometry_in_image": true,
+        "limit": "2D background-gap verification only; future mesh topology is unverified."
+      }
+    ],
+    "implied_width_or_depth_m_at_0_38_height": [
+      0.301146,
+      0.300395,
+      0.299644,
+      0.301146
+    ],
+    "envelope_deviation_percent_from_0_30_target": [
+      0.382,
+      0.132,
+      -0.119,
+      0.382
+    ],
+    "visual_review": {
+      "geometry": "Round sphere in all views; full annular meridian in front/back and naturally edge-on strip in both profiles. Horizon ring stays level and gives the full width in every view.",
+      "connectivity": "Pole connections and short walnut pedestal form a coherent complete assembly. No disconnected ring, spare arm or duplicate sphere.",
+      "air_gaps": "All four quadrant gaps around the sphere remain visible in both front and back; the opposite edge views naturally occlude these gaps.",
+      "map": "The generated broad shapes retain the guide’s recognizable western front continent, distinct reverse continent, western island in the left view and small southern island in the right view. Adjacent hemisphere silhouettes are qualitatively coherent; exact seam continuity and final UV projection are not verified.",
+      "finish": "Warm parchment sphere with muted olive/brown geography, broad soft toon shading, worn brass rings and a dark walnut base. No text or bright cool palette.",
+      "isolation": "Four complete separated globes on near-white; no labels, bookcase, shelf, books, other props or intentional ground plane/shadow."
+    }
+  },
+  "pipeline": {
+    "status": "source_sheet_only",
+    "view_extraction": "delegated_to_claude_code",
+    "view_extraction_names": [
+      "front",
+      "left",
+      "right",
+      "back"
+    ],
+    "upload_view_mapping": {
+      "front": "front.png",
+      "left": "left.png",
+      "right": "right.png",
+      "back": "back.png"
+    },
+    "upload_note": "Assign every crop to its named Tripo slot. Preserve the distinct map hemispheres; sheet display order is not positional upload order.",
+    "three_d_generator_allowed": "Tripo only",
+    "forbidden_generators": [
+      "Hunyuan3D",
+      "HY-Motion"
+    ],
+    "nc_models_used": false,
+    "rigging_required": false,
+    "generated_3d_model": false,
+    "validated_in_engine": false,
+    "target_triangles": {
+      "minimum": 2500,
+      "maximum": 3500,
+      "source": "Proposed small-prop target using the current HANDOFF hand-held range; no globe reconstruction is measured yet."
+    },
+    "lighting_note": "Use broad neutral form shading and remove baked illustration lighting during texturing so the cabin lighting can light the brass, wood and parchment finish coherently.",
+    "texture_note": "Preserve the guide’s coarse fictional geography and hemisphere continuity. Avoid lettering, noise or decorative coastlines that change independently between views.",
+    "assembly_note": "The sphere, rings, axle and pedestal belong to one complete static display prop; the bookcase is separate. Preserve empty ring clearance and coherent circular geometry.",
+    "next_step": "Reconstruct the complete static globe, preserve real sphere/ring geometry and air gaps, verify map UV continuity and provisional dimensions, then fit the pedestal on the separate bookcase after measuring actual usable shelf clearance.",
+    "recommended_crop_command": "python tools/crop_views.py art/props/desk_globe/sheet.png --row 0 1 --names front left right back --pad 0.12 --size 627 --out art/props/desk_globe/views",
+    "optional_2x_crop_command": "python tools/crop_views.py art/props/desk_globe/sheet.png --row 0 1 --names front left right back --pad 0.12 --size 1254 --out art/props/desk_globe/views",
+    "upscale_note": "Native common canvases are 627 px square. A uniform 2x export to 1254 px meets the documented minimum but adds no source detail. Use gap detection so padded source cells are not padded again."
+  }
+}

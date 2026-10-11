@@ -510,15 +510,14 @@ and weather are separate engine components.
 **2 — current owner scope: practical cabin fixtures.**
 
 The owner’s latest request narrows this pass to `wall_lantern`, empty `bookcase`,
-`desk_globe` and `painting_frame`, published one at a time. The lantern housing and
-empty bookcase are delivered; their reconstruction/integration tasks remain Open.
-The globe is promoted from the later dressing queue. `painting_frame` replaces the
+`desk_globe` and `painting_frame`, published one at a time. The lantern housing,
+empty bookcase and separate globe are delivered; their reconstruction/integration
+tasks remain Open. `painting_frame` replaces the
 former complete `ship_painting` request for this pass: frame only, no artwork,
 canvas, backing, glass or picture light. Books remain separate from the shelving.
 
 | id | what |
 | --- | --- |
-| `desk_globe` | one small brass-mounted globe, separate from the bookcase |
 | `painting_frame` | empty landscape brass/gilt-and-wood frame; open aperture front/back, no artwork, canvas, backing, glass or light |
 
 **Deferred by the owner as too fancy for this pass:**
@@ -692,6 +691,25 @@ vertical allowance for the separate 0.38 m globe. These are fitting cues only:
 verify real shelf depth and globe base support, accounting for the back and front
 setback, before dressing. Place upright, open face +Z, left of the desk; exact
 coordinates, wall contact and final materials remain engine work.
+
+---
+
+### 2026-10-11 — for the engine side — reconstruct and place the separate desk globe
+
+`art/props/desk_globe/sheet.png` and `asset.json` provide the complete globe alone:
+mapped sphere, brass meridian and horizon ring, pole axle and short walnut pedestal.
+Use provisional 0.30 × 0.38 × 0.30 m dimensions; the sphere guide is 0.24 m diameter.
+Front/back show real air gaps around the sphere; side views show the same meridian
+edge-on, with the horizon ring keeping full width. Reconstruct circular geometry
+and connected pole supports rather than a flat disk. Target 2,500–3,500 triangles.
+All source heights are 506 px. At H0.38 the painted widths/depths imply
+0.301146 / 0.300395 / 0.299644 / 0.301146 m; retain the target and check mesh bounds.
+The decorative fictional map uses one guide orientation: front 0°, left -90°/270°,
+right +90°, back 180°. Preserve broad coastline continuity; exact texture seams,
+UVs and globe mechanics remain unverified. Place the base on the separate bookcase;
+its 0.46125 m guide bay gives 0.08125 m nominal vertical clearance, not a verified
+assembled fit. Check real shelf depth, front lip/setback and pedestal support.
+No exact scene transform, interaction or navigation-accurate chart is supplied.
 
 ---
 
@@ -1065,6 +1083,21 @@ rectangles remain pixel-identical. Both full prompts, guide/reference hashes,
 provisional dimensions, measured proportions and clearance limits are in the
 sidecar. Reconstruction/dressing remain Open. Desk globe and empty painting frame
 remain the current art queue; the deferred items and separate future tasks are unchanged.
+
+---
+
+### 2026-10-11 — art side — separate desk globe sheet delivered
+
+Delivered `art/props/desk_globe/sheet.png` and `asset.json`; removed only the globe
+row from the current scope. Final sheet 2508×627; all four heights are 506 px,
+baseline y551 and gaps 226/228/227 px. Full PNG decode passed. The unchanged cutter
+translated native own-bounds crops only; all source object rectangles remain
+pixel-identical. Broad front/back meridian gaps stay open, and the four map faces
+follow the same fictional spherical-map guide. Two full prompts, guide/code/map
+provenance, hashes and measured proportional limits are in the sidecar.
+Reconstruction, texture seams/topology and bookcase fit remain Open. The empty
+painting frame remains current; deferred curtains/palm and future dressing are
+unchanged.
 
 ---
 

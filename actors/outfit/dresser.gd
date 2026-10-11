@@ -444,6 +444,16 @@ static func bound_cache_size() -> int:
 ## space, bones and weights added. False when there was nothing to bind.
 func _bind_surface(arrays: Array, source: MeshInstance3D, model: Node3D, fit: Transform3D,
 		into_skeleton: Transform3D) -> bool:
+	var own := _own_weights(source)
+	if own.is_empty() and _body_copier() == null:
+		return false
+	var to_fit := fit * RigSpace.chain(source, model) if own.is_empty() else fit * (own["frame"] as Transform3D)
+	return bind_surface_data(arrays, own, to_fit, into_skeleton, _copier)
+
+
+## Pure array work, safe for a worker after all scene/rig inputs are sampled.
+static func bind_surface_data(arrays: Array, own: Dictionary, to_fit: Transform3D,
+		into_skeleton: Transform3D, copier: SkinCopy, step := Callable()) -> bool:
 	var vertices: PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]
 	if vertices.is_empty():
 		return false
@@ -453,23 +463,18 @@ func _bind_surface(arrays: Array, source: MeshInstance3D, model: Node3D, fit: Tr
 	var tangents := PackedFloat32Array()
 	if arrays[Mesh.ARRAY_TANGENT] != null:
 		tangents = arrays[Mesh.ARRAY_TANGENT]
-	var own := _own_weights(source)
-	var to_fit: Transform3D
 	var own_rest: Array[Transform3D] = []
 	var own_bones := PackedInt32Array()
 	var own_weights := PackedFloat32Array()
 	var stride := 0
-	if own.is_empty():
-		to_fit = fit * RigSpace.chain(source, model)
-	else:
+	if not own.is_empty():
 		# Already rigged to the same bone names: keep its weights, and stand it in its own
 		# T-pose the same way the body is stood in its own.
-		to_fit = fit * (own["frame"] as Transform3D)
 		own_rest = own["rest"]
 		own_bones = arrays[Mesh.ARRAY_BONES]
 		own_weights = arrays[Mesh.ARRAY_WEIGHTS]
 		stride = own_bones.size() / vertices.size()
-	if own.is_empty() and _body_copier() == null:
+	if own.is_empty() and copier == null:
 		return false
 	var bones := PackedInt32Array()
 	var weights := PackedFloat32Array()
@@ -477,6 +482,8 @@ func _bind_surface(arrays: Array, source: MeshInstance3D, model: Node3D, fit: Tr
 	weights.resize(vertices.size() * 4)
 	var placed := (into_skeleton * to_fit).basis
 	for i in vertices.size():
+		if step.is_valid() and i % 256 == 0 and not step.call(i, vertices.size()):
+			return false
 		var at: Vector3
 		var packed: Array
 		# What happens to this vertex's directions on the way into the skeleton's space. For a
@@ -484,7 +491,7 @@ func _bind_surface(arrays: Array, source: MeshInstance3D, model: Node3D, fit: Tr
 		var turn := placed
 		if own.is_empty():
 			at = to_fit * vertices[i]
-			packed = _copier.weights_at(at)
+			packed = copier.weights_at(at)
 		else:
 			var rest_at := Vector3.ZERO
 			var rest_turn := Basis()

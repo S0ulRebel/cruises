@@ -1,76 +1,48 @@
-# The dresser
+# Character Workshop and outfit compatibility
 
-A character is a rigged **body** plus **pieces** worn on it. Ported from Pillage
-People, where it already works; the reasons for the design are in the files' own
-headers and are not repeated here. This covers what is different in this game.
+Use Godot's **Character Workshop** editor dock for new character assembly. The
+plugin is enabled in this project. Open an existing assembly or choose a template
+in the dock. [The assembly guide](../assembly/README.md) covers the full workflow.
 
-    dresser.gd       puts pieces on a body and takes them off
-    outfit_piece.gd  one piece: its slot, how it is worn, where it sits
-    outfit.gd        a whole character as a list of pieces
-    skin_copy.gd     gives an unrigged piece the body's skin weights
-    rig_space.gd     fit space: metres, T-pose, feet on the floor, Y up, facing +Z
+Characters are ordinary editable `.tscn` scenes: freely named parts, native move /
+rotate / scale handles, arbitrary parent and bone attachments, and independent
+local rigs. There are no mandatory body-part slots or automatic clothing conflicts
+in this workflow. The accepted world Captain, Santi and dialogue portrait retain
+their existing authored scenes.
 
-`tests/dressercheck.tscn` proves all of it on a real rigged body. Run it before trusting a
-change:
+## Existing fit resources
 
-    godot --headless --path . res://tests/dressercheck.tscn
+**Import legacy outfit / fit** reads an `Outfit` or an individual `OutfitPiece`
+`.tres` from any supported project destination. It prepares independent parts,
+retains authored transforms and source provenance, and reports conversion limits.
+An outfit supplies its own donor body; an individual fit needs an explicitly chosen
+target afterward. Conversion does not change the original fit resource.
 
-## What changed in the port
+Legacy skinned fits retain their placement and metadata. Choose the intended donor
+and run **Bind / Rebind** explicitly to produce deforming geometry. A face with
+blend shapes retains its complete local rig; attach it to a bone. Donor conversion
+rejects facial morph geometry rather than dropping its animation data.
 
-**Three slots for women.** `corset` goes over a shirt and under a coat; `skirt`
-replaces trousers; `dress` replaces shirt and trousers together, because it is one
-garment from shoulder to hem and cannot be split at the waist without a seam showing.
+`workshop.tscn` is the deprecated runtime slot-picker workflow. It starts empty and
+exists for old-data compatibility. New assembly uses the editor dock; fixed slot
+constants in `OutfitPiece` and `Dresser` are legacy resource/runtime interfaces.
+They do not constrain `AssemblyPart` or the new dock. The legacy authoring scene
+and the new editor plugin are excluded from game exports.
 
-**Conflicting slots come off automatically.** `OutfitPiece.CONFLICTS` lists which
-slots are the same cloth twice. Worn together the symptom is z-fighting, and
-z-fighting on a moving character reads as a shader bug rather than as a mistake in the
-outfit, so the dresser takes the loser off and says so.
+## Backend ownership and checks
 
-**A pinned piece names a ROLE, not a bone.** Pillage People wrote `mixamorig_Head`
-into every hat. That is right for anything Mixamo auto-rigs and useless for anything
-else, and this cast will not all be humanoid. A hat now says `role = "head"` and the
-dresser resolves it against the body it is going on:
+`dresser.gd`, `skin_copy.gd`, `rig_space.gd` and `retarget.gd` provide the measured
+humanoid fitting backend. Weight sampling uses reference/rest data, independent of
+the current animation pose. Nearest candidates are checked against an exhaustive
+regression fixture; generated legacy meshes use a bounded 16-entry cache.
 
-1. the bone the piece names outright, if it set one
-2. what the body's own `<body>.roles.json` says plays that role
-3. the Mixamo names in `OutfitPiece.ROLE_BONES`
-4. nothing - and that is an error, not a silent attach to bone zero
+Binding requires a supported hips/head frame and compatible bone names. Other rigs
+can assemble and attach freely; they need an explicit landmark/retarget mapping
+before body deformation or borrowed locomotion. Weight transfer is a starting fit,
+not a guarantee that loose clothing deforms well in every pose. The dense bare body
+and final garment art acceptance remain separate work.
 
-So a fish or a parrot only needs a file beside its body:
+Run `workshop_backend_check`, `dressercheck`, `workshop_integration_check` and
+`workshop_legacy_check` through [the check runner](../../tests/README.md).
 
-    {"head": "skull", "chest": "thorax"}
-
-A humanoid needs no file at all.
-
-## The workshop
-
-    godot --path . res://actors/outfit/workshop.tscn
-
-Where a piece is tried on and nudged into place. It discovers the delivered
-`art/characters/<character>/pieces/body/body.glb` bodies and
-`pieces/<slot>/<slot>.glb` parts, plus legacy rigged bodies and primitive placeholders.
-A delivered body without a Skeleton3D is listed but cannot be fitted or exported:
-bind it to the measured donor described in `docs/RIGGING.md` first.
-
-Saves are explicit authoring actions. Enter a destination such as
-`res://actors/captain_live/outfits/my_outfit/outfit.tres`. Each outfit owns independent
-fits under its own `pieces/` directory; model and body hashes avoid basename collisions.
-Loading an outfit makes working copies, so nudging it cannot mutate another outfit.
-The separate Fit file field saves one selected fit to its explicit destination.
-
-Enter `res://actors/captain_live/outfits/my_outfit/actor.tscn` and choose **Export
-assembled actor** to save the current fitted body and parts, owned and editable,
-with BodyShape, Agent and Obstacle already authored. This produces one explicit
-snapshot, including mesh/skin/material state; it can be larger than a GLB wrapper.
-It does not replace the default world actor or run a Dresser at game startup.
-Review fit, collision and animation in the editor before using an exported actor.
-
-`retarget.gd` comes with it: a new body arrives from Tripo with a skeleton and no
-clips, so the workshop lends it the captain's. It copies how far each bone has turned
-from its own rest rather than the rotations as written, which is what lets rigs with
-different rest poses and units share a clip.
-
-The default world Captain retains `captain_live_hands.glb` and Santi retains
-`santi_wong_animated.glb`, preserving their current appearance. The delivered bare
-body and clothing still need measured donor binding and fitting before replacement.
-Pinned attachments use the resolved role bone consistently for placement and refitting.
+See [rigging decisions](../../docs/RIGGING.md) and [the local handoff](HANDOFF.md).

@@ -22,3 +22,14 @@ independence, empty startup, valid/invalid donor handling, refit selection chang
 replacement rollback, one-shot clips and mapped borrowed walk/idle playback.
 Initial backend and dresser checks passed; final integration evidence will be added
 when the editor/assembly/mesh modules are integrated.
+
+Integration follow-up: pure array weight work is available as
+`Dresser.bind_surface_data` for a cancellable worker. All scene/rig inputs are sampled
+on the main thread. SkinCopy ignores unused vertices preserved by exclusion masks.
+`RigSpace.validate_frame` rejects unsupported/local facial rigs before torso fitting
+or Retarget can create a singular basis. Native attachments retain those local rigs.
+Mover now accepts an explicit animation_player_path for assemblies with multiple rigs.
+
+Root integration checks, legacy backend, dresser and movement pass without engine
+errors. Latest module logs: `%TEMP%/cruises-checks-34d7cb54351f4eac8ac03906386aaf58`
+and `%TEMP%/cruises-checks-0f8581e240b847b9bdcff17c91f21373`.

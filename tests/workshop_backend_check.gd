@@ -33,6 +33,21 @@ func _check_nearest() -> void:
 	check("grid lookup matches exhaustive nearest-four search", exact)
 	var weights: Array = copier.weights_at(Vector3.ZERO)
 	check("transferred influences normalize", is_equal_approx((weights[1] as PackedFloat32Array)[0], 1.0))
+	var arrays: Array = []
+	arrays.resize(Mesh.ARRAY_MAX)
+	arrays[Mesh.ARRAY_VERTEX] = PackedVector3Array([Vector3.ZERO, Vector3.RIGHT, Vector3.UP, Vector3(10, 10, 10)])
+	arrays[Mesh.ARRAY_INDEX] = PackedInt32Array([0, 1, 2])
+	arrays[Mesh.ARRAY_BONES] = PackedInt32Array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+	arrays[Mesh.ARRAY_WEIGHTS] = PackedFloat32Array([1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0])
+	var drawable := MeshInstance3D.new()
+	var mesh := ArrayMesh.new()
+	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
+	drawable.mesh = mesh
+	drawable.skin = Skin.new()
+	drawable.skin.add_bind(0, Transform3D.IDENTITY)
+	var remaining := SkinCopy.new(rig, [drawable], Transform3D.IDENTITY)
+	check("weight transfer ignores unused vertices retained by exclusion", remaining.size() == 3 and not remaining._points.has(Vector3(10, 10, 10)))
+	drawable.free()
 	rig.free()
 
 

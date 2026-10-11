@@ -83,12 +83,28 @@ No source rewriting, automatic Head-weight trimming or runtime reconstruction.
 
 ## Binding API (integration)
 
-actors/assembly/binding_service.gd will expose CharacterBindingService.bind_part(
-part: AssemblyPart, donor: Node3D) -> Dictionary. Explicit conversion preserves
-placement, saves source/fit provenance in binding_data, does not replace other parts,
-and rejects unsupported facial/local-rig conversion visibly. Editor wraps the result
-in undo/redo. Integration will coordinate the exact replacement/snapshot result with
-the editor and assembly agents before consuming it.
+CharacterBindingService.bind_part(part, donor) prepares `{ok,error,model,
+binding_data,skeleton}`. Model is off-tree; the editor swaps it and metadata in one
+undo action. binding_data keeps an original PackedScene and source/fit transforms;
+rebinding uses original geometry. `bind_part_async(part,donor,progress,cancel)` is
+awaitable, reports a fraction and queries cancellation on the main thread. Only
+private arrays/read-only weight samples enter the worker. Cancellation/stale input
+discards the result without modifying the scene. Facial shapes and unsupported torso
+landmarks produce a visible failure before conversion. No implicit fit or rebind.
+
+CharacterAnimationService.borrow(model,source_path) prepares `{ok,error,player,
+created,library,model}`. A new player is off-tree; an existing one stays unchanged.
+The editor installs the independent `captain` library undoably. Unsupported local
+facial rigs fail before humanoid retargeting; attachments still support these rigs.
+
+CharacterActorExportService.export_actor(root,explicit_path) optionally authors a
+separate Mover prefab with collision/navigation nodes and an explicit compatible
+animation_player_path plus idle/walk names. Static assembly saves do not add these.
+
+CharacterLegacyOutfitService.prepare(scene_root,path) returns independent off-tree
+root parts and visible warnings for Outfit or individual OutfitPiece resources.
+Nested pinned parts remain children; all instances are discovered with collect_parts.
+Skinned fits need deliberate donor binding. Conversion never overwrites source data.
 
 ## Editor and acceptance
 

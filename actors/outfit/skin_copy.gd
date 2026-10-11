@@ -71,7 +71,15 @@ func _init(skeleton: Skeleton3D, meshes: Array[MeshInstance3D], frame: Transform
 			var weights: PackedFloat32Array = arrays[Mesh.ARRAY_WEIGHTS]
 			# 4 or 8 influences a vertex, depending on how the mesh was exported.
 			var stride := bones.size() / vertices.size()
+			# Derived exclusion meshes retain unused vertices for faithful restoration.
+			# Sample only vertices still referenced by drawable triangles.
+			var referenced := {}
+			if arrays[Mesh.ARRAY_INDEX] != null:
+				for index: int in arrays[Mesh.ARRAY_INDEX]:
+					referenced[index] = true
 			for i in vertices.size():
+				if arrays[Mesh.ARRAY_INDEX] != null and not referenced.has(i):
+					continue
 				var at := Vector3.ZERO
 				var influences := {}
 				for k in stride:

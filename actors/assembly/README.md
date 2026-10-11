@@ -1,101 +1,100 @@
-# Character assembly
+# Character Workshop
 
-An assembly is an ordinary authored `CharacterAssembly` scene. Each freely named
-`AssemblyPart` contains its complete imported scene under `Model`, including root
-meshes, local skeletons, skins, blend shapes, animation players and materials.
-Neither node creates content, resets transforms, binds clothing or saves at startup.
-The editor plugin is an authoring aid; saved characters remain usable without it.
+Open the project in Godot 4.7.2. The **Character Workshop** dock sits beside the
+native scene tree and Inspector. If hidden, enable **Character Workshop** under
+Project Settings → Plugins. This is an editor workflow; F6 is not needed.
 
-There are no fixed slots, filename restrictions, skeleton requirement for static
-parts, automatic conflicts or one-per-category rules. Instance IDs are generated
-only by explicit authoring operations. Hide uses native visibility. The editor owns
-undo, dependency choices for removal/replacement, and native transform editing.
+## Start and add parts
 
-## Public operations
+1. Choose **Empty** for a static composition, **Rigged starter** for the existing
+   Zombie donor, or **Captain portrait** for the accepted speaking-head fitting.
+   Templates are ordinary scenes under `actors/assembly/templates/`.
+2. Save a working copy to your character folder. The template remains reusable.
+3. **Add part** accepts imported models and 3D prefabs anywhere in the project.
+   Each instance gets a separate stable identity. Names and directories do not
+   determine eligibility. Add multiple copies, rename and reorder them freely.
+4. You can also drag a model into the native scene and **Adopt selected** to make
+   it a managed part. External files need a chosen project import destination;
+   Godot must finish importing them before they can become parts.
+5. Select the Part node, then use native handles or Inspector transforms. The
+   nested `Model` retains its imported hierarchy, materials, skins and local rigs.
+   Transform units are metres and degrees in the editor. Zero scale is rejected
+   by validated authoring operations; negative scale is deliberate mirroring.
 
-`AssemblyOperations` exposes the methods in
-[the interface contract](../../docs/CHARACTER_WORKSHOP_INTERFACES.md). All mutating
-methods return `ok` and `error`; failures validate before mutating the live scene.
+## Attach, replace and animate
 
-- `generate_id()` returns a cryptographically random 32-character identity.
-- `create_part(path)` returns an independent, off-tree `part`. Source must be a
-  `PackedScene` with a 3D root; `.tscn`, `.scn`, `.glb` and `.gltf` sources are supported
-  by Godot's normal scene importer. The root is retained and renamed `Model`.
-- `collect_parts(root)` includes a part root itself; `nearest_part(node)` includes
-  root `MeshInstance3D` models rather than searching descendants only.
-- `ensure_owned(node, scene_root)` explicitly marks descendants owned for authored
-  scene persistence. Call it after inserting an off-tree part into the edited scene.
-- `validate_transform(value)` rejects nonfinite or singular matrices. Nonzero
-  mirrored and sheared matrices are retained; transforms are not rounded/decomposed.
-- `attach(part, target, mode, bone, scene_root)` keeps the complete world matrix.
-  FREE targets the scene root, PARENT accepts any 3D node in the scene, and BONE
-  accepts any named bone on any skeleton in the scene. Cycles, missing targets,
-  unsupported modes and singular transforms fail before mutation. SKINNED requires
-  the separate explicit binding service. The part's own rig is never converted.
-- Successful attach returns `before`, `after`, `carrier`, `detached_carrier`.
-  Bone carriers are explicit owned `BoneAttachment3D` nodes, not runtime builders.
-- `duplicate_part(part)` returns an independent off-tree `part`, the source's
-  `world_transform`, and `reference_states`. Parent/bone copies start FREE; already
-  SKINNED copies retain their binding metadata and deformation. Insert under the scene root using its inverse world transform
-  to keep visual placement, then attach explicitly if desired. Do not share a source
-  part's generated bone carrier. Independently attached dependent parts are excluded
-  from the duplicate; their removal/reconnection remains an explicit editor choice.
-  **After insertion, explicitly call `rebase_references(result.reference_states)`**
-  so external donor skin/provenance paths match the duplicate's new hierarchy depth.
-- `save_scene(root, output_path)` requires an explicit existing folder and `.tscn`
-  path (`res://`, `user://` or absolute). It validates IDs and attachment targets,
-  saves a private expanded copy, and leaves live ownership/resources unchanged.
-  It rejects saving over a part's own source scene. Mutable meshes, materials, skins,
-  animations and metadata save inline alongside the complete owned hierarchy;
-  explicit character identity/source, attachment, binding and masks remain editable.
+Choose a real target in the scene, then **Free**, **Parent** or **Bone** attachment.
+Bone choices come from the selected skeleton, including a skeleton inside another
+attachment. Switching attachment preserves world placement; edit the resulting
+offset afterward. Cycles and missing bones produce an error before changing it.
 
-Mutable resources are recursively cloned with alias preservation, including external
-resources inside arrays/dictionaries; two copies cannot alter each other's fit,
-material or animation. Script/PackedScene definitions and source textures remain
-shared references. Imported assets themselves are never rewritten by these methods.
+A complete speaking head can follow a body bone while its own Head/Jaw rig remains
+intact. Attach hair or a hat to its Head and a chin accessory to its Jaw. Importing
+or attaching a part never automatically transfers donor weights.
 
-## Attachment snapshots and editor undo
+**Hide**, **Remove**, **Replace** and **Duplicate** affect the chosen instance.
+Removal/replacement with dependents asks whether to keep them free, remove them
+together, or reconnect them. Godot undo restores the operation and its attachments.
 
-`capture_attachment(part)` retains these keys: `parent`, `index`, `transform`,
-`top_level`, `owner`, `attachment_mode`, `target_path`, `bone_name`, `carrier`,
-`carrier_parent`, `carrier_index`, `carrier_transform`, `reference_states`. It does not overwrite part
-identity, name, source, binding metadata, masks or visibility when restored.
-`target_path` is always relative to the part, not the assembly root.
+For a deforming garment, first fit it visually, choose its donor and run
+**Bind / Rebind**. This explicit conversion prepares independent geometry, retains
+the original model for later refitting and has progress/cancellation. It does not
+rebind on each transform nudge. A changed donor/part during a job invalidates its
+result. Morph-bearing faces and unsupported torso frames return an actionable
+error; keep those local rigs and use parent/bone attachment.
 
-`restore_attachment(part, state)` restores parent order, authored matrix, top-level
-flag, ownership and attachment metadata. It reuses the retained carrier and follows
-its current skeleton pose. Empty generated carriers detach instead of `queue_free`.
-The editor must retain them with undo references and clear them with the history.
-Never use an unrelated authored target or scene root as an undo lifetime reference.
-Callers must not free referenced parents/parts while their undo action is available.
+**Borrow clips** explicitly retargets a compatible source's body clips to the donor.
+Use the preview player and clip controls to review rest, idle, walk and gestures.
+Only deliberately requested preview looping changes; source clips stay untouched.
+Original materials are the default. Neutral preview shading is temporary.
 
-`reference_states` captures the edited scene's target objects and exact relative paths
-for `AssemblyPart.target_path`, `MeshInstance3D.skeleton`, and binding `donor_path`
-metadata, plus each geometry mask's `source_node_path` relative to its part. Attach resolves them before movement and rebases them afterward; restore
-undoes the path changes, including incoming references when a donor part moves.
-Local skeleton references inside a part remain local. Save rejects unresolved skins
-or donor provenance instead of silently exporting a broken character.
+## Exclude part of a fused mesh
 
-`capture_references(root)`, `rebase_references(states, skip_target_part = null)` and
-`restore_references(states)` also support explicit editor hierarchy commands. These
-helpers never run automatically at startup. Native editor rename/reparent behavior
-and undo must be checked separately by the editor owner; metadata inside a Resource
-does not receive native NodePath fixes automatically.
+Select the Part and its mesh. Enter **Face selection** to work on the immutable
+source geometry in reference pose; disable it to return to native transforms.
+Click faces or select a box region, use add/subtract, then **Exclude selected**.
+Whole surfaces can also be excluded. **Restore / Reset** and Undo recover geometry.
 
-## Checks
+The mask keeps the original mesh, source face IDs and a content fingerprint. The
+derived mesh retains remaining UVs, skin weights, facial shapes and materials.
+Stale LOD/shadow meshes are dropped, and affected collision is deliberately removed
+or rebuilt. If reimport changes the source, review/reset the stale mask instead of
+applying old triangle indices. Normal game startup only loads the saved mesh.
 
-From project root with Godot 4.7.2:
+`head_swap_demo.tscn` is a removable, editable demonstration: the Zombie head is
+excluded while its neck and skeleton remain; the Captain head retains its local
+rig and accessories. It does not replace a game actor. Inspect the neck in motion
+before using any head swap in gameplay. Triangle exclusion cannot sculpt, cap or
+retopologize a neck seam; that art requires an explicitly saved modeling asset.
 
-```powershell
-& 'D:/Godot/Godot_v4.7.2-stable_win64_console.exe' --headless --path . --script res://tests/assembly_check.gd
-& 'D:/Godot/Godot_v4.7.2-stable_win64_console.exe' --headless --path . --script res://tests/assembly_check.gd -- cold <printed-COLD_SCENE_PATH>
-```
+## Save and reuse
 
-The first process deliberately saves to a unique `user://assembly_check_*` directory;
-the second proves cold reopening. Checks cover static assembly, root meshes, arbitrary
-names, independent mutable resources/signals/animations, transformed parents,
-top-level nodes, rejected cycles/invalid scales, animated bone detach/undo/redo,
-the actual speaking head's Head/Jaw rig and three blend shapes, accessories on its
-local Jaw, authored provenance, explicit scene saves and source hash preservation.
-Engine errors are failures even when an engine/launcher exits zero. Binding, geometry
-exclusion and real native-editor undo are checked by their separately owned modules.
+Use native Save for ordinary editing and the dock's **Save As** for a validated
+explicit destination. Save As expands an independent editable scene snapshot and
+checks identities, transforms, skin targets and attachment metadata. Choose an
+existing destination folder; source model overwrite is rejected. Derived meshes
+and skin resources save with that scene, so one character does not overwrite another.
+
+Native scene-tree reparenting/renaming can invalidate metadata paths. The dock
+reports it and offers **Repair moved / renamed references**, an explicit undoable
+action using the targets retained in this editor session. Use it before Save As or
+gameplay export. If a previously saved broken reference is reopened without that
+session history, choose its target again explicitly. Native Ctrl+S remains Godot's
+own save route; use validated Save As for a checked prefab.
+
+**Export gameplay actor** is optional and writes a separate `.tscn` with editable
+Mover, collision capsule, NavigationAgent and Obstacle nodes. It selects a player
+with idle/walk clips and saves their names and player path for the real controller.
+Review collision size and add your CharacterDefinition/hotspot where gameplay needs
+them. A static prop, composition or portrait does not need movement components.
+
+Instance the saved prefab in any location or another scene. Placement belongs to
+that location. No global registry, pack flag or startup builder is involved.
+
+**Import legacy outfit / fit** converts old `.tres` data explicitly. See
+[compatibility limits](../outfit/README.md). Godot's dirty state/undo history manages
+unsaved edits; discard/reload when you want the saved version.
+
+Implementation contract: [interfaces](../../docs/CHARACTER_WORKSHOP_INTERFACES.md).
+Progress and acceptance: [plan](../../docs/CHARACTER_WORKSHOP_PLAN.md) and
+[module handoff](HANDOFF.md).

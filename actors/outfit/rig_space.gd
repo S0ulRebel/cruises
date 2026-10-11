@@ -52,6 +52,23 @@ static func frame_of(skeleton: Skeleton3D, model: Node) -> Transform3D:
 	return frame
 
 
+## Authoring preflight. A local facial rig is valid for attachments but has no
+## torso frame for this measured humanoid fitting/retargeting backend.
+static func validate_frame(skeleton: Skeleton3D, model: Node) -> String:
+	if skeleton == null or model == null:
+		return "Choose a complete donor skeleton and model."
+	var hips := find_any(skeleton, ["mixamorig_Hips", "Hips"])
+	var head := find_any(skeleton, ["mixamorig_HeadTop_End", "mixamorig_Head", "Head"])
+	if hips < 0 or head < 0 or hips == head:
+		return "This rig needs an explicit hips/head landmark mapping for garment binding or borrowed body animation. Keep its local rig for attachments."
+	if skeleton.get_bone_global_rest(head).origin.distance_to(skeleton.get_bone_global_rest(hips).origin) < 0.00001:
+		return "The hips/head reference positions coincide; correct the donor rest pose first."
+	var placement := chain(skeleton, model)
+	if not placement.is_finite() or absf(placement.basis.determinant()) < 0.000001:
+		return "The donor transform is invalid or has zero scale."
+	return ""
+
+
 ## The transform from `node`'s space to `top`'s, by walking up the parents. Works before
 ## anything is in the tree, which global_transform does not.
 static func chain(node: Node, top: Node) -> Transform3D:

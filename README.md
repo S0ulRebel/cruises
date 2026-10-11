@@ -8,7 +8,7 @@ Fixed scenery, actors, interactions and UI/audio are saved scenes. Drag an insta
 
 Read [CONVENTIONS.md](CONVENTIONS.md), [AGENTS.md](AGENTS.md) and module instructions before editing. [HANDOFF.md](HANDOFF.md) indexes current work and art decisions. The prioritized [refactor plan](docs/REFACTOR_PLAN.md) records migration checks and progress. Separate branches/worktrees and ownership support parallel work; one integrator owns shared interfaces and each location.
 
-Game wires the saved location, GameState, interactions, dialogue, HUD and audio. Character/item resources own IDs, prose and presentation. Locations own placement. Outfit authoring requires explicit outputs; see [the workshop guide](actors/outfit/README.md) and [donor rig rules](docs/RIGGING.md).
+Game wires the saved location, GameState, interactions, dialogue, HUD and audio. Character/item resources own IDs, prose and presentation. Locations own placement. Assemble characters with the **Character Workshop** editor dock: arbitrary editable parts, local rigs, bone attachments, reversible mesh exclusion and explicit prefab saves. See [the workshop guide](actors/assembly/README.md), [legacy fit compatibility](actors/outfit/README.md) and [donor rig rules](docs/RIGGING.md).
 
 Conversations and screenplays live in screenplay/*.json. Conversation nodes contain lines, choices, goto/branch and exit. Node/choice set and clear modify shared flags; if/unless gate visibility; once hides a used choice; say provides its spoken line. Cutscene beats include location, enter, say, action, wait, sfx, shake, flicker and end.
 

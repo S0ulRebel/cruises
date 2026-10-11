@@ -33,6 +33,8 @@ const STILL := "idle"
 const MOVING := "walk"
 @export var idle_animation: StringName = &"idle"
 @export var walk_animation: StringName = &"walk"
+## Optional explicit player for assemblies containing several independent local rigs.
+@export var animation_player_path: NodePath
 ## Long enough to hide the switch, short enough that a step does not start late.
 const BLEND := 0.18
 
@@ -99,7 +101,9 @@ func _find_clips() -> void:
 	if _body == null:
 		return
 	var players := _body.find_children("*", "AnimationPlayer", true, false)
-	if not players.is_empty():
+	if not animation_player_path.is_empty():
+		_clips = get_node_or_null(animation_player_path) as AnimationPlayer
+	elif not players.is_empty():
 		_clips = players[0] as AnimationPlayer
 	# A character with hand poses may carry an authored layered graph.
 	# Both are looked for: the cast is mixed while characters are still

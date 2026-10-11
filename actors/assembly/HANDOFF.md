@@ -1,5 +1,16 @@
 # Assembly foundation handoff
 
+Root integration validation: all 21 project checks plus cold reopen and runner
+self-test pass under Godot 4.7.2. Evidence:
+`%TEMP%/cruises-checks-c672df683e5e4f13966fe5ac8e6f1f52/`.
+The enabled native editor passes 109 assertions; binding preserves independent
+original provenance/materials, cancels/joins workers and rejects stale transforms,
+geometry, rig and material edits. Malformed skin indices/binds fail before work.
+Optional actor export uses drawable/skinned bounds and disables only the animation
+tree competing with its selected locomotion player. Separate facial trees stay active.
+Head-swap GPU evidence and remaining neck art limits are in head_swap_demo_notes.md.
+CW14/CW16/CW24 remain open for neck/clothing/owner visual acceptance, not tooling.
+
 2026-10-11. Owner: assembly implementation, branch `codex/workshop-assembly`.
 
 Implemented `CharacterAssembly`, `AssemblyPart`, `AssemblyOperations` and the

@@ -2,9 +2,10 @@
 
 Created 2026-10-11. Status: structural migration complete and integrated into `main`.
 All 24 migration tasks passed their checks. Camera framing is also complete.
-The subsequently approved Character Workshop redesign is pending implementation;
-see [the Character Workshop plan](CHARACTER_WORKSHOP_PLAN.md). Remaining art
-acceptance work is recorded below.
+The subsequently approved Character Workshop redesign is implemented on
+`codex/character-workshop`; see [its plan](CHARACTER_WORKSHOP_PLAN.md) for validation
+and the remaining neck/clothing/owner usability acceptance. Remaining art work is
+recorded below.
 
 The game must open with its default environment already visible in the editor.
 Every fixed object must be an editable, reusable Godot scene instance, with placement
@@ -34,8 +35,8 @@ checks pass, and record the relevant commit and validation result when completin
 The owner approved the workshop audit and free assembly design on 2026-10-11.
 [CHARACTER_WORKSHOP_PLAN.md](CHARACTER_WORKSHOP_PLAN.md) is the implementation
 checklist, dependency order, ownership proposal and acceptance criteria for this work.
-Its tasks remain open until implemented and verified; tasks 1–24 below describe the
-completed structural migration, not completion of the new workshop.
+Its checked tasks record implemented tooling; open tasks identify final art or owner
+acceptance. Tasks 1–24 below describe the completed structural migration.
 
 - Build editor authoring around Godot's scene tree, selection, transform handles
   and undo/redo. Saved, editable character scenes are the result.
@@ -50,8 +51,8 @@ completed structural migration, not completion of the new workshop.
 - Include optional fully editable templates, reliable save/reload, animation
   validation and all 20 workshop audit findings. Normal startup never rebuilds them.
 
-Work proceeds through foundations, direct assembly/attachments, mesh exclusion/head
-replacement, clothing/animation fitting, and usability/integration checks. Current
+The implementation covers foundations, direct assembly/attachments, mesh exclusion,
+clothing/animation fitting, and usability/integration checks. Current
 world actors and the accepted portrait stay in place; dense body repair remains a
 separate art task. Each editing agent receives an isolated worktree and file scope
 after the shared assembly contract is established.

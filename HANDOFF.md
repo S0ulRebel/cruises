@@ -26,13 +26,19 @@ Captain's fitted frontal dialogue portrait and its editable assembly rotation ar
 recorded in `ui/HANDOFF.md` and `ui/portraits/captain_live/fit.json`; body work remains
 deferred. Portrait checks and external GPU capture commands are in `tests/README.md`.
 
-Character Workshop redesign is approved and pending implementation. Read
-`docs/CHARACTER_WORKSHOP_PLAN.md` for priorities CW01–CW24, completion checks and
-proposed module scopes. The agreed workflow uses native editor transforms, freely
-named parts, expanded parent/bone/local-rig attachments, reversible mesh exclusion
-and explicit reusable-scene saves. Fixed slot sections and automatic conflicts are
-retired by the new design. Current world actors/portrait and deferred body art remain
-separate; complete the assembly contract before assigning parallel editing worktrees.
+Character Workshop is implemented on `codex/character-workshop` and enabled in
+Godot's editor. Read `actors/assembly/README.md` for the workflow and
+`docs/CHARACTER_WORKSHOP_PLAN.md` for priorities, evidence and remaining acceptance.
+Freely named parts use native transforms/undo, scene-derived parent/bone targets,
+preserved local rigs, reversible mesh exclusion and explicit reusable-scene saves.
+Binding and animation borrowing are deliberate and cancellable/transactional.
+No fixed slots, automatic conflicts, global asset registry or runtime builders.
+Module details: `actors/assembly/HANDOFF.md`, `actors/outfit/HANDOFF.md`,
+`addons/character_workshop/HANDOFF.md` and `tests/HANDOFF.md`.
+The editable `head_swap_demo.tscn` proves fused-head removal and local speaking-rig
+preservation; its neck seam/material fit needs art review. Production garment poses,
+the replacement body and final owner usability acceptance remain open. Current
+game actors and the accepted dialogue portrait are not replaced by tool templates.
 
 ## The rule
 

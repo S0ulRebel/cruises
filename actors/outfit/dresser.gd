@@ -444,7 +444,7 @@ static func bound_cache_size() -> int:
 ## space, bones and weights added. False when there was nothing to bind.
 func _bind_surface(arrays: Array, source: MeshInstance3D, model: Node3D, fit: Transform3D,
 		into_skeleton: Transform3D) -> bool:
-	var own := _own_weights(source)
+	var own: Dictionary = _own_weights(source, model) if arrays[Mesh.ARRAY_BONES] != null and arrays[Mesh.ARRAY_WEIGHTS] != null else {}
 	if own.is_empty() and _body_copier() == null:
 		return false
 	var to_fit := fit * RigSpace.chain(source, model) if own.is_empty() else fit * (own["frame"] as Transform3D)
@@ -543,7 +543,7 @@ static func bind_surface_data(arrays: Array, own: Dictionary, to_fit: Transform3
 ##
 ## A bone the body lacks - a jaw, say - hands its weight to the nearest ancestor the body does
 ## have, so the piece moves with the head rather than tearing loose.
-func _own_weights(source: MeshInstance3D) -> Dictionary:
+func _own_weights(source: MeshInstance3D, model_root: Node = null) -> Dictionary:
 	if source.skin == null:
 		return {}
 	var own_skeleton := source.get_node_or_null(source.skeleton) as Skeleton3D
@@ -568,7 +568,7 @@ func _own_weights(source: MeshInstance3D) -> Dictionary:
 		bone_map.append(maxi(body_bone, 0))
 	if matched == 0:
 		return {}
-	var root := source.owner if source.owner != null else own_skeleton.get_parent()
+	var root := model_root if model_root != null else source.owner if source.owner != null else own_skeleton.get_parent()
 	return {"rest": rest, "bone_map": bone_map, "frame": RigSpace.frame_of(own_skeleton, root)}
 
 

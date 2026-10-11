@@ -105,6 +105,10 @@ func _find_clips() -> void:
 		_clips = get_node_or_null(animation_player_path) as AnimationPlayer
 	elif not players.is_empty():
 		_clips = players[0] as AnimationPlayer
+	if not animation_player_path.is_empty():
+		# An unrelated local facial tree must not override this explicitly selected
+		# locomotion player. Existing authored layered actors retain the default route.
+		return
 	# A character with hand poses may carry an authored layered graph.
 	# Both are looked for: the cast is mixed while characters are still
 	# coming through the pipeline one at a time.

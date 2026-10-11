@@ -113,7 +113,7 @@ static func _copy(clip: Animation, from: _Rig, to: _Rig, skeleton_path: String) 
 			var pair: Array = position_track[bone]
 			var source_bone: int = pair[0]
 			var shown := from.model_from_skeleton * from.hips_at(clip, moved, source_bone, time)
-			var travel := (shown - from.fit_hips) * (to.fit_hips.y / from.fit_hips.y)
+			var travel := (shown - from.fit_hips) * (to.travel_height / from.travel_height)
 			var here := to.model_from_skeleton.affine_inverse() * (to.fit_hips + travel)
 			out.position_track_insert_key(pair[1], time, here)
 	return out
@@ -134,6 +134,7 @@ class _Rig:
 	## Where the hips stand when the rig is upright in its T-pose, in metres - turned into fit
 	## space's axes but not moved, so this is where they really are rather than centred.
 	var fit_hips := Vector3.ZERO
+	var travel_height := 1.0
 
 	func _init(bones: Skeleton3D, model: Node) -> void:
 		skeleton = bones
@@ -154,6 +155,13 @@ class _Rig:
 			rest_global[bone] = bones.get_bone_global_rest(bone).basis.get_rotation_quaternion()
 		var hips := RigSpace.find_any(bones, ["mixamorig_Hips", "Hips"])
 		fit_hips = frame.basis * bones.get_bone_global_rest(maxi(hips, 0)).origin
+		# A valid root may be at the skeleton origin. Use a measured torso length
+		# when a hips-to-floor height is unavailable, instead of dividing by zero.
+		travel_height = absf(fit_hips.y)
+		if travel_height < 0.00001:
+			var head := RigSpace.find_any(bones, ["mixamorig_HeadTop_End", "mixamorig_Head", "Head"])
+			var torso := frame.basis * (bones.get_bone_global_rest(head).origin - bones.get_bone_global_rest(maxi(hips, 0)).origin) if head >= 0 else Vector3.ONE
+			travel_height = maxf(torso.length(), 0.00001)
 
 	## Every bone's global rotation at `time`, from the clip where it has a track and from the
 	## rest pose where it does not.

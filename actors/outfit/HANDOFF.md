@@ -20,8 +20,8 @@ mapping fields, retaining the original defaults for existing actors.
 workshop_backend_check verifies nearest search against exhaustive sampling, resource
 independence, empty startup, valid/invalid donor handling, refit selection changes,
 replacement rollback, one-shot clips and mapped borrowed walk/idle playback.
-Initial backend and dresser checks passed; final integration evidence will be added
-when the editor/assembly/mesh modules are integrated.
+Backend and dresser checks pass in the integrated 21-check suite. Final evidence:
+`%TEMP%/cruises-checks-c672df683e5e4f13966fe5ac8e6f1f52/`.
 
 Integration follow-up: pure array weight work is available as
 `Dresser.bind_surface_data` for a cancellable worker. All scene/rig inputs are sampled
@@ -33,3 +33,11 @@ Mover now accepts an explicit animation_player_path for assemblies with multiple
 Root integration checks, legacy backend, dresser and movement pass without engine
 errors. Latest module logs: `%TEMP%/cruises-checks-34d7cb54351f4eac8ac03906386aaf58`
 and `%TEMP%/cruises-checks-0f8581e240b847b9bdcff17c91f21373`.
+
+Final binding integration covers synchronous/worker equivalence, progress/cancel,
+editor teardown joins, stale geometry/rig/material/transform rejection, independent
+undo-retained source provenance and per-instance materials, malformed weighted
+indices/named binds, unweighted surfaces in rigged models and explicit rebind offsets.
+Origin-height hips retargeting stays finite; empty borrowed clips are rejected.
+Actor save/cold playback uses mapped walk/idle through Mover while a separate facial
+tree stays active. Production coat/body pose acceptance remains an art task.

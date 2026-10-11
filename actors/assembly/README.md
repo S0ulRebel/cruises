@@ -10,7 +10,7 @@ Project Settings → Plugins. This is an editor workflow; F6 is not needed.
    Zombie donor, or **Captain portrait** for the accepted speaking-head fitting.
    Templates are ordinary scenes under `actors/assembly/templates/`.
 2. Save a working copy to your character folder. The template remains reusable.
-3. **Add part** accepts imported models and 3D prefabs anywhere in the project.
+3. **Add model / prefab** accepts imported models and 3D prefabs anywhere in the project.
    Each instance gets a separate stable identity. Names and directories do not
    determine eligibility. Add multiple copies, rename and reorder them freely.
 4. You can also drag a model into the native scene and **Adopt selected** to make
@@ -37,7 +37,7 @@ Removal/replacement with dependents asks whether to keep them free, remove them
 together, or reconnect them. Godot undo restores the operation and its attachments.
 
 For a deforming garment, first fit it visually, choose its donor and run
-**Bind / Rebind**. This explicit conversion prepares independent geometry, retains
+**Bind clothing**. This explicit conversion prepares independent geometry, retains
 the original model for later refitting and has progress/cancellation. It does not
 rebind on each transform nudge. A changed donor/part during a job invalidates its
 result. Morph-bearing faces and unsupported torso frames return an actionable
@@ -82,7 +82,7 @@ gameplay export. If a previously saved broken reference is reopened without that
 session history, choose its target again explicitly. Native Ctrl+S remains Godot's
 own save route; use validated Save As for a checked prefab.
 
-**Export gameplay actor** is optional and writes a separate `.tscn` with editable
+**Save gameplay actor** is optional and writes a separate `.tscn` with editable
 Mover, collision capsule, NavigationAgent and Obstacle nodes. It selects a player
 with idle/walk clips and saves their names and player path for the real controller.
 Review collision size and add your CharacterDefinition/hotspot where gameplay needs
@@ -91,7 +91,7 @@ them. A static prop, composition or portrait does not need movement components.
 Instance the saved prefab in any location or another scene. Placement belongs to
 that location. No global registry, pack flag or startup builder is involved.
 
-**Import legacy outfit / fit** converts old `.tres` data explicitly. See
+**Import saved legacy fit / outfit** converts old `.tres` data explicitly. See
 [compatibility limits](../outfit/README.md). Godot's dirty state/undo history manages
 unsaved edits; discard/reload when you want the saved version.
 

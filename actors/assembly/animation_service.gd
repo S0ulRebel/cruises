@@ -20,9 +20,9 @@ static func borrow(model: Node3D, source_path: String) -> Dictionary:
 	var source := (load(source_path) as PackedScene).instantiate()
 	var sources := source.find_children("*", "AnimationPlayer", true, false)
 	var source_rigs := source.find_children("*", "Skeleton3D", true, false)
-	if sources.is_empty() or source_rigs.is_empty():
+	if sources.is_empty() or source_rigs.size() != 1:
 		source.free()
-		return {"ok": false, "error": "The animation source has no player or skeleton."}
+		return {"ok": false, "error": "Choose an animation source with a player and one unambiguous skeleton."}
 	frame_error = RigSpace.validate_frame(source_rigs[0], source)
 	if not frame_error.is_empty():
 		source.free()
@@ -35,6 +35,7 @@ static func borrow(model: Node3D, source_path: String) -> Dictionary:
 	if matching == 0:
 		return {"ok": false, "error": "The rigs have no matching bone names; provide an explicit retarget mapping first."}
 	var players := model.find_children("*", "AnimationPlayer", true, false)
+	players = players.filter(func(candidate: Node) -> bool: return AssemblyOperations.nearest_part(candidate) == AssemblyOperations.nearest_part(model))
 	var player: AnimationPlayer
 	var created := players.is_empty()
 	if created:
@@ -51,6 +52,9 @@ static func borrow(model: Node3D, source_path: String) -> Dictionary:
 		return {"ok": false, "error": "The animation player's root is missing."}
 	var library := Retarget.library(source_path, model, rigs[0], player_root)
 	for name in library.get_animation_list():
+		if library.get_animation(name).get_track_count() == 0:
+			library.remove_animation(name)
+			continue
 		if String(name).get_file() in ["idle", "walk", "run"]:
 			library.get_animation(name).loop_mode = Animation.LOOP_LINEAR
 	if library.get_animation_list().is_empty():

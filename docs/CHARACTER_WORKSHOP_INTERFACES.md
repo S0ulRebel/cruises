@@ -38,6 +38,8 @@ the current scene unchanged. Operations never save unless named save_scene.
 - collect_parts(root: Node) -> Array[AssemblyPart].
 - nearest_part(node: Node) -> AssemblyPart; null when outside an assembly part.
 - ensure_owned(node: Node, scene_root: Node) -> void; explicit authoring only.
+- independent_snapshot(root: Node) -> Node; off-tree, fully owned clone retaining
+  authored IDs/hierarchy and private mutable resources. Caller frees after packing.
 - validate_transform(value: Transform3D) -> String; empty string means valid.
 - capture_attachment(part: AssemblyPart) -> Dictionary.
 - restore_attachment(part: AssemblyPart, state: Dictionary) -> void.
@@ -46,6 +48,11 @@ the current scene unchanged. Operations never save unless named save_scene.
   FREE target is scene_root; PARENT is an arbitrary node; BONE target is Skeleton3D.
   SKINNED conversion uses the separate binding service, not this method.
 - duplicate_part(part: AssemblyPart) -> Dictionary; returns independent part off-tree.
+- capture_source_composition(part: AssemblyPart) -> Array[Dictionary].
+- initialize_source_composition(part: AssemblyPart) -> void; explicit import/adopt
+  regenerates nested part IDs and marks the retained source composition boundary.
+- restore_source_composition(states: Array) -> void; exact IDs/metadata for undo/redo.
+  Duplicate preserves imported nested parts but excludes later separate attachments.
 - save_scene(root: Node, output_path: String) -> Dictionary; explicit .tscn path,
   with stable IDs, all authoring metadata, local rigs and authored ownership intact.
 
@@ -99,7 +106,10 @@ facial rigs fail before humanoid retargeting; attachments still support these ri
 
 CharacterActorExportService.export_actor(root,explicit_path) optionally authors a
 separate Mover prefab with collision/navigation nodes and an explicit compatible
-animation_player_path plus idle/walk names. Static assembly saves do not add these.
+animation_player_path plus idle/walk names. Competing trees targeting that player
+are disabled in the exported copy; separate facial trees remain active. Collision
+bounds use drawable geometry, ignoring unused vertices retained by exclusion masks.
+Static assembly saves do not add these.
 
 CharacterLegacyOutfitService.prepare(scene_root,path) returns independent off-tree
 root parts and visible warnings for Outfit or individual OutfitPiece resources.

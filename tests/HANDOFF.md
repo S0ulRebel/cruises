@@ -23,3 +23,18 @@
 - `portrait_check` adds actual speech/response portrait reuse, framing, jaw attachment,
   authored-transform and teardown checks. `portrait_capture` provides isolated GPU
   images of the actual Game panels and verifies speech changes visible pixels.
+- Character Workshop is included in the 21-check default suite. Native editor tests
+  launch an authored @tool fixture in the actual editor, not a second SceneTree loop.
+  Assembly, nested composition, animation graphs, exported actor and head swap have
+  explicit separate-process reopen routes. Mesh/legacy/editor checks spawn their own
+  cold processes. Real source meshes are always selected for the mesh regression.
+- Final Godot 4.7.2 run passes all 21 checks, 114 assembly assertions, 109 native
+  editor assertions and all cold routes, with no engine/script errors. The deliberate
+  false-pass self-test is rejected correctly. Tracked source hashes include `.res`
+  and `.scn` along with the existing script/model/import/resource coverage.
+  Evidence: `%TEMP%/cruises-checks-c672df683e5e4f13966fe5ac8e6f1f52/`.
+- Binding integration verifies source snapshots/material independence, cancel/join,
+  stale edits, malformed skins and unweighted rigged surfaces. Actual exported Mover
+  playback retains borrowed walk alongside separate active local facial animation.
+- Automated native command coverage does not constitute owner visual usability or
+  final clothing/neck art acceptance; those remain in CHARACTER_WORKSHOP_PLAN.md.

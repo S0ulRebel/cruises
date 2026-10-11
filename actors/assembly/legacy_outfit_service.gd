@@ -44,6 +44,10 @@ static func prepare(scene_root: Node3D, outfit_path: String) -> Dictionary:
 		body.free()
 		return _failure("Legacy outfit conversion requires one unambiguous donor skeleton with bones. Add static models as ordinary parts.")
 	var skeleton := skeletons[0] as Skeleton3D
+	var frame_error := RigSpace.validate_frame(skeleton, model)
+	if not frame_error.is_empty():
+		body.free()
+		return _failure(frame_error)
 	for bone in skeleton.get_bone_count():
 		if not AssemblyOperations.validate_transform(skeleton.get_bone_global_rest(bone)).is_empty():
 			body.free()

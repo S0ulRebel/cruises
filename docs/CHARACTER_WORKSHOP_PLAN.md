@@ -1,8 +1,49 @@
 # Character Workshop implementation plan
 
-Created and approved: 2026-10-11. Status: accepted design; implementation pending.
-All checkboxes below are open. The earlier scene migration remains completed in
-[REFACTOR_PLAN.md](REFACTOR_PLAN.md); this is the next authoring phase.
+Created and approved: 2026-10-11. Status: implemented on
+`codex/character-workshop`; integration checks passed; art/owner acceptance below.
+The earlier scene migration remains completed in [REFACTOR_PLAN.md](REFACTOR_PLAN.md).
+Open checkboxes identify remaining acceptance work, not missing tool foundations.
+
+## Current result and remaining acceptance
+
+The native Character Workshop plugin is enabled. Arbitrary part assembly, native
+transforms/undo, free/parent/bone/local-rig attachments, reversible fused-geometry
+exclusion, explicit binding, previews, legacy conversion and reusable scene saves
+are implemented. Use [the authoring guide](../actors/assembly/README.md).
+
+Implementation checkpoints: foundation `02cd8c7`, masks `6bf1e37`, integration
+services/templates `95e9409`, legacy conversion `941d9c8`, editor `8a8f13f`,
+head-swap example `8a2f798`, owner/collision isolation `8eb2d60`, nested source
+composition `6bee7b1`, native adoption `3990f68`, graph cloning `d5cf375` and private
+binding snapshots `8bd1a01`. Module handoffs record focused validation.
+
+Final integration validation on Godot 4.7.2: all 21 module/integration checks passed,
+including 114 assembly assertions, 109 native editor assertions and separate cold
+processes for regular/nested/graph assemblies, masks, legacy conversion, editor
+output, head swap and the actual gameplay actor. The runner self-test rejected a
+deliberate engine-error false-pass. Production checks had no engine/script errors;
+tracked authored sources, including binary `.res` meshes, retained their hashes.
+Evidence: `%TEMP%/cruises-checks-c672df683e5e4f13966fe5ac8e6f1f52/`.
+
+- **CW14:** The saved head-swap demonstration removes the Zombie skull/jaw while
+  retaining its skeleton and the Captain's Head/Jaw, three facial shapes and jaw
+  accessory motion. Front/three-quarter/open-jaw GPU renders were reviewed. Its
+  thin neck, open seam and material mismatch still need art acceptance or an
+  explicitly saved modeling asset. It is a tool example, not the final Captain body.
+- **CW16:** Nearest-weight search, normalization and real donor input are verified.
+  Real production clothing still needs representative-pose art acceptance after
+  the replacement body is ready. The placeholder integration garment proves the
+  binding/save/playback route; it cannot approve final coat deformation.
+- **CW24:** Native editor commands, undo, static/rigged reuse and cold reopen are
+  covered by automated checks. The owner should review the complete visual editing
+  workflow; desktop control was stopped with Escape during final review.
+
+External assets are imported into a chosen project folder through Godot's normal
+import workflow before adding them. The tool supports imported project models and
+prefabs; it does not include an operating-system asset copier. Generic attachments
+use actual scene bones; body fitting/retargeting requires supported measured torso
+landmarks. Unsupported rigs fail visibly and need an explicit mapping extension.
 
 ## Intended workflow
 
@@ -48,16 +89,16 @@ jaw. Names and this example are author choices, not enforced categories.
 
 ## Priority 0: establish the foundation
 
-- [ ] **CW01 — Define assembly data and module ownership.** Agree on stable part
+- [x] **CW01 — Define assembly data and module ownership.** Agree on stable part
   identities, source references, editable transforms, parent/skeleton/bone targets,
   optional local rigs, binding settings and mesh-exclusion metadata. Separate the
   editor UI from authoring operations and the saved/runtime scene. Establish narrow
   interfaces before parallel edits; keep legacy outfit resources readable.
-- [ ] **CW02 — Make opening the tool reliable.** Start with an empty assembly or an
+- [x] **CW02 — Make opening the tool reliable.** Start with an empty assembly or an
   explicitly selected valid template. Remove automatic first-body selection and
   random dressing. Allow static/unrigged models to assemble; only rig-dependent
   commands require a validated skeleton. Opening must produce no engine errors.
-- [ ] **CW03 — Repair resource and operation state.** Clone mutable per-part resources
+- [x] **CW03 — Repair resource and operation state.** Clone mutable per-part resources
   explicitly, including external fit resources. Track pending fits by stable part
   identity and resolve them before save/export or target changes. Validate changes
   before committing replacements, synchronize scene and UI state on success, and
@@ -69,35 +110,35 @@ selection during a fit cannot apply it to the wrong part or export stale geometr
 
 ## Priority 1: direct assembly and expanded attachments
 
-- [ ] **CW04 — Implement direct editing and recovery.** Use viewport selection,
+- [x] **CW04 — Implement direct editing and recovery.** Use viewport selection,
   translate/rotate/scale handles and Inspector fields with undo/redo and dirty state.
   Preserve authored transforms during preview and animation. Validate finite values
   and nonzero scale; define deliberate mirroring behavior rather than accepting a
   singular transform. Random fitting or guessing, if retained, is explicit and undoable.
-- [ ] **CW05 — Add arbitrary assets.** Support normal project drag/drop and browsing
+- [x] **CW05 — Add arbitrary assets.** Support normal project drag/drop and browsing
   for models/prefabs, refresh the available files and include root MeshInstance3D
   models as well as nested meshes. Source basename, directory and humanoid category
   must not determine eligibility. External files enter through an explicit project
   import/copy destination; show unsupported-format or missing-resource errors.
-- [ ] **CW06 — Replace fixed slots with independent instances.** Add, rename,
+- [x] **CW06 — Replace fixed slots with independent instances.** Add, rename,
   duplicate and reorder freely named parts using stable IDs. Remove automatic
   category replacement/conflict behavior from the new assembly model. Deleting or
   replacing one instance must leave another instance of the same asset intact.
-- [ ] **CW07 — Provide all attachment modes.** Select an actual scene part or bone,
+- [x] **CW07 — Provide all attachment modes.** Select an actual scene part or bone,
   including bones inside an attached head or another local rig. Support free parts,
   parent attachments, bone attachments and explicit garment binding. Reparent,
   attach and detach without jumping position; detect cycles, stale targets and
   unsupported rigs. Avoid hardcoded Mixamo names in the generic assembly interface.
-- [ ] **CW08 — Remove, hide and replace selected parts.** Support reversible removal
+- [x] **CW08 — Remove, hide and replace selected parts.** Support reversible removal
   and visibility changes, and replacement with an option to reuse the attachment
   target and transform. When dependents exist, present explicit choices for moving,
   removing or reconnecting them; never silently discard or orphan them. Validate a
   replacement before removing the current part.
-- [ ] **CW09 — Preserve local rigs and facial features.** Attach a complete speaking
+- [x] **CW09 — Preserve local rigs and facial features.** Attach a complete speaking
   head with its skeleton, skins, materials, blend shapes and animation references
   intact. Donor weight transfer must be a separate requested conversion, never an
   automatic consequence of importing or attaching a head.
-- [ ] **CW10 — Save editable, reusable character scenes.** Provide explicit Save/Save
+- [x] **CW10 — Save editable, reusable character scenes.** Provide explicit Save/Save
   As destinations and retain part identities, targets, binding settings, draft/source
   references and exclusion metadata so authors can reopen and refit a saved assembly.
   Save derived resources alongside that character without cross-character collisions.
@@ -115,16 +156,16 @@ and speaking-head blend shapes, not only counts in the exported scene.
 Current donor bodies contain their heads in a single mesh primitive. Remove-part
 handles a separate attachment; it cannot remove only the head of a fused body.
 
-- [ ] **CW11 — Add geometry selection and exclusion.** Support whole mesh/surface
+- [x] **CW11 — Add geometry selection and exclusion.** Support whole mesh/surface
   exclusion where possible and manual face/region selection on fused meshes, with
   selection preview, clear add/subtract controls, hide/exclude, restore/reset and
   undo/redo. Work against the source mesh in a stable reference pose. Start with
   practical region selection rather than implementing a complete modeling package.
-- [ ] **CW12 — Persist reversible masks safely.** Store the selected source mesh,
+- [x] **CW12 — Persist reversible masks safely.** Store the selected source mesh,
   surface/face identities and a topology fingerprint with the assembly. Keep the
   original geometry recoverable. If a reimport changes topology, mark the mask stale
   and require review/remapping; never apply old indices to unrelated faces.
-- [ ] **CW13 — Create faithful derived mesh resources.** Exclude selected triangles
+- [x] **CW13 — Create faithful derived mesh resources.** Exclude selected triangles
   from an independent output and keep remaining UVs, normals/tangents, materials,
   custom attributes, skin/bone data and synchronized blend-shape data intact.
   Update or invalidate affected LOD, shadow and collision data deliberately; excluded
@@ -145,7 +186,7 @@ is reported. Review the assembled neck and mouth visually in more than one pose.
 
 ## Priority 3: explicit clothing binding and animation reliability
 
-- [ ] **CW15 — Generalize fitting and binding.** Keep the measured outfit backend,
+- [x] **CW15 — Generalize fitting and binding.** Keep the measured outfit backend,
   adapting it to independent parts and explicitly selected donor rigs. Resolve
   landmarks through declared roles/mappings and validate unsupported rigs. Offer
   explicit fit/rebind actions and retain the saved fit instead of guessing again
@@ -154,12 +195,12 @@ is reported. Review the assembled neck and mouth visually in more than one pose.
   search so it cannot accept farther candidates while missing nearer ones. Verify
   normalization, supported influence counts and unweighted vertices. Evaluate real
   garments in representative poses; proximity alone is not art acceptance.
-- [ ] **CW17 — Make expensive fitting usable.** Bound/invalidate generated-mesh
+- [x] **CW17 — Make expensive fitting usable.** Bound/invalidate generated-mesh
   caches, expose useful mesh statistics and show progress for expensive binding.
   Avoid full rebinds on every transform nudge; use explicit/deferred work with correct
   part identities and cancellation. Use background work where engine operations
   permit it, and prevent stale results from replacing a newer fit.
-- [ ] **CW18 — Preserve correct animation behavior.** Align saved idle/walk mappings
+- [x] **CW18 — Preserve correct animation behavior.** Align saved idle/walk mappings
   with the movement component, including borrowed/retargeted clip library names.
   Duplicate preview animation resources before changing them; keep one-shot gestures
   distinct from deliberate loops. Preview T/rest pose, idle, walk and facial motion
@@ -172,25 +213,25 @@ verify cancellation, rapid edits and the nearest-neighbor regression fixture.
 
 ## Priority 4: usability, templates and final acceptance
 
-- [ ] **CW19 — Improve labels, saves and preview controls.** Show readable labels
+- [x] **CW19 — Improve labels, saves and preview controls.** Show readable labels
   plus paths for duplicate basenames, clear units and destinations, Save/Save As
   dialogs, and actionable validation errors. Offer original-material preview and
   optional preview shading without silently rewriting source materials.
-- [ ] **CW20 — Make reopening predictable.** Synchronize the part list, selection,
+- [x] **CW20 — Make reopening predictable.** Synchronize the part list, selection,
   destination fields and fit status to saved identities rather than cached object
   equality. Allow opening a saved character, outfit or individual fit from arbitrary
   supported destinations. Document legacy conversion limits and dirty-state recovery.
-- [ ] **CW21 — Add editable templates.** Provide an empty/static starter, a validated
+- [x] **CW21 — Add editable templates.** Provide an empty/static starter, a validated
   rigged starter and a reviewed character example. Templates use ordinary scenes;
   every part, target and transform is editable and deletable. No categories or
   automatic conflicts become mandatory when a template is used.
-- [ ] **CW22 — Finish migration and documentation.** Add safe, explicit conversion
+- [x] **CW22 — Finish migration and documentation.** Add safe, explicit conversion
   for useful legacy outfit data and document its limitations. Retire or clearly
   deprecate the runtime slot-picker authoring workflow when its replacement passes.
   Rewrite actors/outfit/README.md, relevant module handoffs and user instructions to
   match free assembly, local rigs, masks and explicit outputs. Keep packing flags and
   batch builders retired; exclude editor-only tools from gameplay exports.
-- [ ] **CW23 — Add focused checks alongside each phase.** Cover real editor commands,
+- [x] **CW23 — Add focused checks alongside each phase.** Cover real editor commands,
   undo/redo, failure rollback, same-session and cold reload, multiple independent
   instances, local-rig facial motion, masks and real exported gameplay animation.
   Engine errors fail checks even with exit code zero. Authoring-save tests use a
@@ -208,7 +249,7 @@ scenes remain intact unless a separately reviewed replacement is deliberately pl
 
 ## Parallel implementation boundaries
 
-Proposed paths below are planning targets; confirm them in CW01 before edits.
+These module boundaries were established before delegated editing.
 
 - Integration owns the assembly contract, compatibility/migration decisions,
   project/plugin wiring, any actors/mover animation interface and final merges.

@@ -19,7 +19,10 @@ static func export_actor(assembly: Node3D, output_path: String) -> Dictionary:
 		var mesh := node as MeshInstance3D
 		if mesh.mesh == null or mesh.mesh.get_surface_count() == 0 or not _visible_to(mesh, body):
 			continue
-		var box := RigSpace.chain(mesh, actor) * mesh.get_aabb()
+		var drawable := _drawable_bounds(mesh, actor)
+		if not drawable.found:
+			continue
+		var box: AABB = drawable.bounds
 		bounds = bounds.merge(box) if found else box
 		found = true
 	if not found:
@@ -60,10 +63,56 @@ static func export_actor(assembly: Node3D, output_path: String) -> Dictionary:
 			actor.set("idle_animation", StringName(idle))
 			actor.set("walk_animation", StringName(walk))
 			actor.set("animation_player_path", actor.get_path_to(player))
+			# This exported controller plays the chosen clips directly. A source
+			# tree driving that same player would overwrite its walk every frame.
+			for tree_node in body.find_children("*", "AnimationTree", true, false):
+				var tree := tree_node as AnimationTree
+				if tree.get_node_or_null(tree.anim_player) == player:
+					tree.active = false
 			break
 	var result := AssemblyOperations.save_scene(actor, output_path)
 	actor.free()
 	return result
+
+
+static func _drawable_bounds(instance: MeshInstance3D, top: Node3D) -> Dictionary:
+	var skeleton := instance.get_node_or_null(instance.skeleton) as Skeleton3D if instance.skin != null else null
+	var matrix := RigSpace.chain(skeleton if skeleton != null else instance, top)
+	var found := false
+	var bounds := AABB()
+	for surface in instance.mesh.get_surface_count():
+		var arrays := instance.mesh.surface_get_arrays(surface)
+		var vertices: PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]
+		var indices := PackedInt32Array()
+		if arrays[Mesh.ARRAY_INDEX] != null:
+			indices = arrays[Mesh.ARRAY_INDEX]
+		else:
+			for index in vertices.size():
+				indices.append(index)
+		var bones := PackedInt32Array()
+		var weights := PackedFloat32Array()
+		if skeleton != null and arrays[Mesh.ARRAY_BONES] != null:
+			bones = arrays[Mesh.ARRAY_BONES]
+			weights = arrays[Mesh.ARRAY_WEIGHTS]
+		var stride := bones.size() / maxi(vertices.size(), 1)
+		for index in indices:
+			var position := vertices[index]
+			if stride > 0:
+				position = Vector3.ZERO
+				for influence in stride:
+					var bind := bones[index * stride + influence]
+					var weight := weights[index * stride + influence]
+					if weight <= 0.0:
+						continue
+					var bone := instance.skin.get_bind_bone(bind)
+					if bone < 0:
+						bone = skeleton.find_bone(instance.skin.get_bind_name(bind))
+					if bone >= 0:
+						position += skeleton.get_bone_global_pose(bone) * instance.skin.get_bind_pose(bind) * vertices[index] * weight
+			position = matrix * position
+			bounds = bounds.expand(position) if found else AABB(position, Vector3.ZERO)
+			found = true
+	return {"found": found, "bounds": bounds}
 
 
 static func _visible_to(node: Node3D, ancestor: Node3D) -> bool:

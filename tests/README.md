@@ -34,7 +34,7 @@ in textual `.import` settings are normalized for comparison; all other files use
 exact-byte hashes. Import caches and generated untracked preview textures are not
 authored test outputs.
 
-The 14-check default suite covers interaction wording and combinations, speech timing,
+The 21-check default suite covers interaction wording and combinations, speech timing,
 role-based outfit attachment/refit, animation filters, shared inventory/dialogue
 flags including choice `clear`, serialized interaction success/failure/cancellation,
 bounded movement completion, actual authored puzzle data, navigation through saved
@@ -46,6 +46,21 @@ navigation without destroying the current location or state, while allowing plac
 that deliberately have no navigation regions. Hover checks compare per-instance
 fishbowl emission, restore material values through a failed transition, then free
 highlighted and formerly highlighted instances and allow renderer teardown to finish.
+
+The seven Character Workshop checks cover assembly identities and attachments,
+source-composed prefab copies, real skinned mesh exclusions, backend weight search,
+transactional/cancellable binding, legacy conversion, native editor commands/undo,
+and the reversible Captain head-swap demonstration. Assembly, nested composition,
+exported actor and head-swap saves are reopened in separate processes. The mesh and
+editor harnesses also perform their own cold checks. Outputs use unique explicit
+temporary/user paths; no test saves over a source scene or model.
+
+`workshop_editor_check` runs an actual headless Godot editor using its authored
+`fixtures/workshop_editor_check.tscn` and a process-local test environment variable.
+Do not launch it as `--editor --script`: that creates a second editor main loop.
+Binding checks compare worker/synchronous geometry, cancellation/teardown, stale
+input rejection, original-material independence and saved refit provenance. Export
+checks exercise the actual Mover with borrowed idle/walk and separate facial trees.
 
 `portrait_check` exercises the fitted Captain portrait through actual Caption and
 Choices panels. It checks frontal orientation, authored transform preservation,

@@ -20,3 +20,9 @@ assembled-scene export were verified. See outfit/README.md for the authoring wor
 
 Integration uses each Mover.definition; old cast placement/fitting tables are retired.
 Captain's portrait_scene now points to ui/portraits/captain_live.tscn.
+
+2026-10-11: Captain and Santi import settings mark idle/walk as linear loops. The
+saved prefabs had bypassed BorrowClips' loop setup, so their one-shot walk clips
+froze after 1.067 seconds while navigation continued. Gestures remain one-shot;
+source GLBs and placement are unchanged. movement_check observes leg motion and
+translation beyond two walk durations, then verifies the arrival blend to idle.

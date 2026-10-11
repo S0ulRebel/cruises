@@ -22,7 +22,8 @@ void fragment() {
     vec3 world_normal = normalize((INV_VIEW_MATRIX * vec4(NORMAL, 0.0)).xyz);
     vec3 directional = normalize(light_direction + vec3(0.0, 0.00001, 0.0));
     vec3 positional = normalize(light_position - world_position + vec3(0.0, 0.00001, 0.0));
-    vec3 fake_light = normalize(mix(directional, positional, point_weight));
+    vec3 blended_light = mix(directional, positional, point_weight);
+    vec3 fake_light = blended_light / max(length(blended_light), 0.00001);
     float ndotl = dot(world_normal, fake_light);
     vec3 base = texture(albedo_texture, UV).rgb * base_tint.rgb;
     float sky_weight = clamp(world_normal.y * 0.5 + 0.5, 0.0, 1.0);

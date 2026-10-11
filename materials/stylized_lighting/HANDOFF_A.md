@@ -28,48 +28,53 @@ Fragment position and normal are transformed from view space using
 object or camera moves. No actual Godot light, shadow map, material alpha or geometry
 change is involved. These variants color surfaces according to their orientation;
 they do not determine whether a different object blocks the fake light.
+The directional/positional blend divides by `max(length(blend), 0.00001)`;
+exactly opposite inputs at a 50/50 blend yield a finite zero vector.
 
 ## Variants and exact extra controls
 
 - **01 Soft Lambert:** `diffuse_curve = 0.65`, range `0.1`–`4`.
   Response is `pow(clamp(N·L, 0, 1), diffuse_curve)`; lower values spread the bright
-  part without illuminating the back-facing side. Graph has 35 nodes including output.
+  part without illuminating the back-facing side. Graph has 38 nodes including output.
 - **02 Half Lambert:** `half_curve = 2`, range `0.1`–`4`.
   Response is `pow(clamp(0.5 * N·L + 0.5, 0, 1), half_curve)`. The back-facing side
-  remains readable. Graph has 39 nodes including output.
+  remains readable. Graph has 42 nodes including output.
 - **03 Two Tone:** `band_threshold = 0.15`, range `-1`–`1`.
-  A step divides shadow and light into two hard bands. Graph has 34 nodes including output.
+  A step divides shadow and light into two hard bands. Graph has 37 nodes including output.
 - **04 Three Tone:** `lower_threshold = -0.15`, `upper_threshold = 0.45`, both
   range `-1`–`1`; `midtone_color = (0.64, 0.69, 0.75)`.
   Two automatically ordered steps select shadow, an independent middle tint and the
-  light tint. Graph has 40 nodes including output.
+  light tint. Graph has 43 nodes including output.
 - **05 Soft Toon:** `band_threshold = 0.10`, range `-1`–`1`;
   `band_softness = 0.14`, range `0.001`–`0.75`.
-  Smoothstep joins two broad tones around an adjustable boundary. Graph has 39 nodes
+  Smoothstep joins two broad tones around an adjustable boundary. Graph has 42 nodes
   including output.
 - **06 Texture Ramp:** `ramp_bias = 0`, range `-0.9`–`0.9`; `shading_ramp` is an
   editable 256-pixel grayscale GradientTexture1D embedded in each material.
   The red channel maps remapped `N·L` to the shadow/light blend; edit gradient stop
   positions and grayscale values to draw the response. Sampling clamps at the ends
-  with linear filtering. Graph has 45 nodes including output.
+  with linear filtering. Graph has 48 nodes including output.
 - **07 Hemisphere:** `ground_tint = (0.68, 0.52, 0.42)`;
   `sky_tint = (0.80, 0.92, 1.0)`; `ambient_mix = 0.55`, range `0`–`1`.
   World-normal height blends ground and sky fill, while `ambient_mix` combines that
-  fill with the common directional/positional key tint. Graph has 44 nodes including output.
+  fill with the common directional/positional key tint. Graph has 47 nodes including output.
 - **08 Wrap Diffuse:** `wrap_amount = 0.5`, range `0`–`1`.
   Response is `clamp((N·L + wrap_amount) / (1 + wrap_amount), 0, 1)` and spreads the
-  key light around curved silhouettes. Graph has 38 nodes including output.
+  key light around curved silhouettes. Graph has 41 nodes including output.
 
 ## Validation
 
 - Inspected Godot 4.7.2's local ClassDB and generated VisualShader code to verify
   input names, ports, source-color sampling, transform modes and parameter defaults.
 - Compiled and rendered every code and graph material using the actual NVIDIA
-  OpenGL Compatibility renderer. Eight pairs across four configurations yielded
-  **32 successful image comparisons with zero differing pixels** at 256 × 256.
+  OpenGL Compatibility renderer. Eight pairs across five configurations yielded
+  **40 successful image comparisons with zero differing pixels**.
   Configurations covered texture-only, directional, positional and blended light,
-  modified direction, strength and effect amount. Center pixels were checked to be
-  nonblack and changed across configurations, avoiding a vacuous comparison.
+  modified direction, strength and effect amount at 256 × 256. A 257 × 257 odd-sized
+  orthographic quad tested exactly opposite inputs at a 50/50 blend. A separate GPU
+  probe confirmed its middle pixel's blended vector length was zero. All rendered
+  outputs remained finite. Center pixels were checked to be nonblack and changed
+  across configurations, avoiding a vacuous comparison.
 - Removed disconnected helper nodes before final saving; every shipped math/input
   node belongs to the output's input ancestry. Graphs contain zero Expression nodes.
 - Clean Godot editor import creates and versions all eight `.gdshader.uid` files.

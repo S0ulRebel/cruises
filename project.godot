@@ -41,6 +41,10 @@ inventory_toggle={
 "deadzone": 0.5,
 "events": [Object(InputEventKey,"physical_keycode":73)]
 }
+game_quit={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"physical_keycode":4194305)]
+}
 
 [rendering]
 

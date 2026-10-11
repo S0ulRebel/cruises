@@ -85,3 +85,8 @@ func change_location(scene: PackedScene) -> bool:
 	await location.await_navigation()
 	interactions.busy = false
 	return true
+
+func _unhandled_input(event: InputEvent) -> void:
+	if not Engine.is_editor_hint() and event.is_action_pressed("game_quit"):
+		get_viewport().set_input_as_handled()
+		get_tree().quit()

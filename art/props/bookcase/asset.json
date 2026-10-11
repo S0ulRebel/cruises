@@ -1,0 +1,934 @@
+{
+  "asset_id": "prop:bookcase",
+  "name": "Captain Livé’s empty bookcase",
+  "role": "Scene 1 — practical walnut shelf unit left of the desk",
+  "asset_type": "prop_turnaround_sheet",
+  "files": {
+    "sheet": "sheet.png"
+  },
+  "dimensions_m": {
+    "width": 0.9,
+    "height": 2.2,
+    "depth": 0.35
+  },
+  "dimension_contract": "dimensions_m describes the complete upright empty bookcase, including its straight top cap and bottom plinth: 0.90W × 2.20H × 0.35D m. These are chosen provisional new art dimensions; no prior numeric bookcase size or mounted scene transform existed in the inspected repository. Width is X, height Y and depth Z, with the open shelf face toward +Z. Three internal fixed shelves form four real wood-backed recesses. The guide proposes 0.045 m shelf thickness, 0.46125 m clear bay height and 0.70 m clear width; these are construction cues, not verified generated mesh measurements. A separate 0.38 m globe has a nominal 0.08125 m vertical allowance in the guide, but usable depth and base support must be checked after reconstruction. At H2.20 m the painted outlines imply W0.90681 m and D0.36272 m rather than exact target dimensions. Keep the sidecar target and inspect/correct the mesh without independently stretching source views. No books, globe or other dressing is included.",
+  "dimension_decision": "Proposed new complete upright art target. No numeric bookcase dimensions or scene transform existed in inspected repo. Three45mm internal shelves make four guide compartments with461.25mm clear height; verify actual reconstructed clearances for the separate0.38m globe. Back and side panels are solid; front has real recessed shelf bays, not through-holes.",
+  "user_scope": "Empty shelving only; books, globe and all dressing are separate. This user-selected scope overrides the earlier bookcase-with-books wording.",
+  "source": {
+    "producer": "OpenAI imagegen via ChatGPT",
+    "mode": "built-in",
+    "model_identifier": "Not exposed by the built-in tool",
+    "date": "2026-10-11",
+    "repository_base_commit": "c15b809e5cd04db75d23582331a30be747cc761f",
+    "original_filename": "exec-712e6b88-caee-4026-9560-e0f367cdb716.png",
+    "generated_source_sha256": "b63c420599f08599f1c7e09db2a66fcfb7ba3bbadc0f929a710b8cd95f0cb53b",
+    "sha256": "818aa99761b50b71ce0ccde37adb5ca4f04433a38b78b89112bd88bf16a551c0",
+    "references": [
+      {
+        "original_path": "/workspace/scratch/9d89bc03e38f/bookcase_geometry_guide.png",
+        "sha256": "3b8c679bcb9695994c48d5ed134e549b59e5e2e6ac9d44e6abe1474a21c5a80c",
+        "original_filename": "bookcase_geometry_guide.png"
+      },
+      {
+        "original_path": "/workspace/scratch/9d89bc03e38f/cruises_git/art/props/captain_desk/sheet.png",
+        "sha256": "02300d11cad484407755dfea20b66770abc9e92e895095b834bb505477b4f69c",
+        "repository_path": "art/props/captain_desk/sheet.png"
+      }
+    ],
+    "generation_history": [
+      {
+        "pass": 1,
+        "stage": "measured_guide_cel_shaded",
+        "prompt": "Use case: stylized-concept.\nAsset: the EMPTY BOOKCASE for Captain Livé's pirate cabin, a four-view reconstruction sheet.\n\nImage1 is the measured construction guide: keep its geometry, count of shelves, object positions, all four matching heights and the genuine narrow side views. Image2 is the approved captain's desk and controls only the dark warm walnut, amber edge wear and sculpted cartoon finish.\n\nOne tall, narrow, practical wooden bookcase. Simple straight thick sides, modest straight stepped top cap and bottom plinth, THREE fixed internal shelves making exactly FOUR EMPTY COMPARTMENTS. Each opening is backed by recessed dark walnut planks. These are real shelf recesses, not white through-holes, flat black panels or doors. Make the front edges of shelves and stiles solid, chunky and readable. The upper compartment accommodates a separate globe later. Keep the unit's top entirely bare.\nPlain solid outer side panels. The actual back is uninterrupted vertical backing boards with a few broad nail heads; do not draw shelves, openings or front decoration on the back. One coherent construction in all views.\nFinish: worn dark warm reddish walnut matching the approved desk, broad honey-brown chipped edges, sparse restrained wood grain and a few dents. Small practical fasteners, very restrained brass corner accents flush inside the existing contour. No gilded scrollwork, elaborate crest, curved decorative feet, fancy carvings or skulls.\n\nFixed upright pose in all four views. Strict level ORTHOGRAPHIC elevations from FRONT / LEFT / RIGHT / BACK. No perspective, no three-quarter angles, no camera tilt and no view from above. Cap and shelves are horizontal and seen edge-on. Full complete envelope0.90m wide×2.20m high×0.35m deep. Both front/back width-to-height0.4091, both side width-to-height0.1591. Keep the guide's identical height in every view within1px; do not make the narrow sides wider to fill the empty space. Preserve all four silhouettes and common baseline, painting bevels/outline inside them.\nNeutral soft form shading. Clean cartoony cel-shaded pirate adventure art consistent with the desk, no photographic texture. Plain white background with generous vertical empty bands between the whole figures. No floor, cast shadow, labels, text, dimensions, borders or guide marks.\nThe object only: NO books, globe, lantern, maps, candles, bottles, drawers, cabinet doors, plants, curtains or other props. Exactly three internal shelves and four empty wood-backed recesses.",
+        "referenced_image_paths": [
+          "/workspace/scratch/9d89bc03e38f/bookcase_geometry_guide.png",
+          "/workspace/scratch/9d89bc03e38f/cruises_git/art/props/captain_desk/sheet.png"
+        ],
+        "transparent_background": false,
+        "source_path": "/workspace/scratch/9d89bc03e38f/generated_images/exec-d9c9713a-1691-478a-bbf0-bd676c48ca55.png",
+        "selected": false,
+        "rejection_reason": "Heights839/837/839/840px produced a3px spread, exceeding the1px limit.",
+        "original_filename": "exec-d9c9713a-1691-478a-bbf0-bd676c48ca55.png",
+        "output_sha256": "25243a934d1cf9fecf3d7628854388f13aaf53325a44cbfceeb7bd222a51be64",
+        "referenced_images": [
+          {
+            "original_path": "/workspace/scratch/9d89bc03e38f/bookcase_geometry_guide.png",
+            "sha256": "3b8c679bcb9695994c48d5ed134e549b59e5e2e6ac9d44e6abe1474a21c5a80c",
+            "original_filename": "bookcase_geometry_guide.png"
+          },
+          {
+            "original_path": "/workspace/scratch/9d89bc03e38f/cruises_git/art/props/captain_desk/sheet.png",
+            "sha256": "02300d11cad484407755dfea20b66770abc9e92e895095b834bb505477b4f69c",
+            "repository_path": "art/props/captain_desk/sheet.png"
+          }
+        ]
+      },
+      {
+        "pass": 2,
+        "stage": "guide_only_precision_correction",
+        "prompt": "Paint this exact measured bookcase diagram as finished game art. Preserve all four silhouettes and the exact layout. Do not change its equal heights, ground line, width or narrow side thickness.\n\nOne practical old pirate's bookcase in dark reddish walnut: thick simple boards, worn amber-brown edges, restrained broad grain and a few cracks. Clean chunky cel-shaded cartoon finish. Use small brass corner caps on the top and bottom rails, fully INSIDE the existing outline. Add bevel highlights inside the wood, never beyond its silhouette. Keep the topmost and bottommost contour perfectly level and at exactly the same pixel rows in all four views, within1px.\n\nFRONT: exactly THREE internal shelves making FOUR EMPTY compartments, with dark recessed wooden backs. Plain straight side posts, flat cap, bottom plinth. LEFT and RIGHT: true thin solid side panels, not views of the front. BACK: uninterrupted plain vertical backing boards with a few nail heads, no shelves or openings. Retain the measured front and rear width0.90m, height2.20m, side depth0.35m. The upper compartment remains empty for separately placed props later.\n\nCamera straight on, level at the midpoint. True orthographic elevations, no perspective or pitch, no visible top faces. Fixed upright pose. White background everywhere outside the unit. Keep the existing white gap widths and margins.\nNo books, globe, lanterns, bottles, drawers, doors, curved feet, fancy carving, extra objects, text, dimensions, labels, shadows or floor.\nOnly paint a warm worn walnut/brass finish onto the guide. Its external geometry, three shelves and four matching heights are already correct.",
+        "referenced_image_paths": [
+          "/workspace/scratch/9d89bc03e38f/bookcase_geometry_guide.png"
+        ],
+        "transparent_background": false,
+        "source_path": "/workspace/scratch/9d89bc03e38f/generated_images/exec-712e6b88-caee-4026-9560-e0f367cdb716.png",
+        "selected": true,
+        "rejection_reason": null,
+        "original_filename": "exec-712e6b88-caee-4026-9560-e0f367cdb716.png",
+        "output_sha256": "b63c420599f08599f1c7e09db2a66fcfb7ba3bbadc0f929a710b8cd95f0cb53b",
+        "referenced_images": [
+          {
+            "original_path": "/workspace/scratch/9d89bc03e38f/bookcase_geometry_guide.png",
+            "sha256": "3b8c679bcb9695994c48d5ed134e549b59e5e2e6ac9d44e6abe1474a21c5a80c",
+            "original_filename": "bookcase_geometry_guide.png"
+          }
+        ]
+      }
+    ],
+    "selected_pass": 2,
+    "selected_prompt": "Paint this exact measured bookcase diagram as finished game art. Preserve all four silhouettes and the exact layout. Do not change its equal heights, ground line, width or narrow side thickness.\n\nOne practical old pirate's bookcase in dark reddish walnut: thick simple boards, worn amber-brown edges, restrained broad grain and a few cracks. Clean chunky cel-shaded cartoon finish. Use small brass corner caps on the top and bottom rails, fully INSIDE the existing outline. Add bevel highlights inside the wood, never beyond its silhouette. Keep the topmost and bottommost contour perfectly level and at exactly the same pixel rows in all four views, within1px.\n\nFRONT: exactly THREE internal shelves making FOUR EMPTY compartments, with dark recessed wooden backs. Plain straight side posts, flat cap, bottom plinth. LEFT and RIGHT: true thin solid side panels, not views of the front. BACK: uninterrupted plain vertical backing boards with a few nail heads, no shelves or openings. Retain the measured front and rear width0.90m, height2.20m, side depth0.35m. The upper compartment remains empty for separately placed props later.\n\nCamera straight on, level at the midpoint. True orthographic elevations, no perspective or pitch, no visible top faces. Fixed upright pose. White background everywhere outside the unit. Keep the existing white gap widths and margins.\nNo books, globe, lanterns, bottles, drawers, doors, curved feet, fancy carving, extra objects, text, dimensions, labels, shadows or floor.\nOnly paint a warm worn walnut/brass finish onto the guide. Its external geometry, three shelves and four matching heights are already correct.",
+    "reference_use_note": "The first pass used the guide and approved captain_desk finish. The selected precision pass referenced only the measured geometry guide, with the warm walnut/brass finish specified in its full prompt.",
+    "alignment_guide": {
+      "purpose": "New measured geometry guide only; imagegen will create final artwork.",
+      "path": "/workspace/scratch/9d89bc03e38f/bookcase_geometry_guide.png",
+      "canvas_px": [
+        1800,
+        1200
+      ],
+      "dimensions_m": {
+        "width": 0.9,
+        "height": 2.2,
+        "depth": 0.35
+      },
+      "provisional_dimensions": true,
+      "pixels_per_metre": 445.45454545454544,
+      "view_order": [
+        "front",
+        "left",
+        "right",
+        "back"
+      ],
+      "view_centres_x_px": [
+        225.0,
+        675.0,
+        1125.0,
+        1575.0
+      ],
+      "geometric_top_y_px": 110.0,
+      "geometric_baseline_y_px": 1090.0,
+      "geometric_height_px": 980,
+      "geometric_view_widths_px": [
+        400.9090909090909,
+        155.9090909090909,
+        155.9090909090909,
+        400.9090909090909
+      ],
+      "shape_parameters_m": {
+        "full_outer_width": 0.9,
+        "full_outer_height": 2.2,
+        "full_outer_depth": 0.35,
+        "carcass_width": 0.84,
+        "carcass_depth": 0.31,
+        "cap_height": 0.1,
+        "plinth_height": 0.1,
+        "front_side_stile_width": 0.07,
+        "interior_clear_width": 0.7,
+        "interior_bottom_height": 0.12,
+        "interior_top_height": 2.1,
+        "internal_shelf_count": 3,
+        "shelf_thickness": 0.045,
+        "shelf_bottom_heights": [
+          0.58125,
+          1.0875,
+          1.5937500000000002
+        ],
+        "compartment_count": 4,
+        "all_compartment_clear_heights": 0.46125,
+        "globe_target_height": 0.38,
+        "globe_vertical_clearance": 0.08124999999999999,
+        "solid_back": true
+      },
+      "empty_object_only": true,
+      "front_orientation": "+Z toward room; Y up; ordinary standing orientation in every view",
+      "guide_rendering": "Flat vector geometry, 2 px outer strokes, no shadows, no labels.",
+      "primitives": [
+        {
+          "type": "rectangle",
+          "xy": [
+            37.909090909090935,
+            154.5454545454546
+          ],
+          "width": 374.18181818181813,
+          "height": 890.9090909090909,
+          "fill": "#65422d",
+          "edge": "#3e261d",
+          "stroke_px": 2
+        },
+        {
+          "type": "rectangle",
+          "xy": [
+            69.0909090909091,
+            154.5454545454546
+          ],
+          "width": 311.8181818181818,
+          "height": 882.0,
+          "fill": "#573724",
+          "edge": "#3e261d",
+          "stroke_px": 1.6
+        },
+        {
+          "type": "line",
+          "xs": [
+            147.04545454545456,
+            147.04545454545456
+          ],
+          "ys": [
+            154.54545454545456,
+            1036.5454545454545
+          ],
+          "colour": "#483021",
+          "stroke_px": 1
+        },
+        {
+          "type": "line",
+          "xs": [
+            225.0,
+            225.0
+          ],
+          "ys": [
+            154.54545454545456,
+            1036.5454545454545
+          ],
+          "colour": "#483021",
+          "stroke_px": 1
+        },
+        {
+          "type": "line",
+          "xs": [
+            302.95454545454544,
+            302.95454545454544
+          ],
+          "ys": [
+            154.54545454545456,
+            1036.5454545454545
+          ],
+          "colour": "#483021",
+          "stroke_px": 1
+        },
+        {
+          "type": "rectangle",
+          "xy": [
+            37.909090909090935,
+            154.5454545454546
+          ],
+          "width": 31.181818181818183,
+          "height": 890.9090909090909,
+          "fill": "#976140",
+          "edge": "#3e261d",
+          "stroke_px": 2
+        },
+        {
+          "type": "rectangle",
+          "xy": [
+            380.9090909090909,
+            154.5454545454546
+          ],
+          "width": 31.181818181818183,
+          "height": 890.9090909090909,
+          "fill": "#976140",
+          "edge": "#3e261d",
+          "stroke_px": 2
+        },
+        {
+          "type": "rectangle",
+          "xy": [
+            69.0909090909091,
+            1036.5454545454545
+          ],
+          "width": 311.8181818181818,
+          "height": 8.909090909090908,
+          "fill": "#976140",
+          "edge": "#3e261d",
+          "stroke_px": 2
+        },
+        {
+          "type": "rectangle",
+          "xy": [
+            69.0909090909091,
+            811.034090909091
+          ],
+          "width": 311.8181818181818,
+          "height": 20.045454545454543,
+          "fill": "#976140",
+          "edge": "#3e261d",
+          "stroke_px": 2
+        },
+        {
+          "type": "rectangle",
+          "xy": [
+            69.0909090909091,
+            585.5227272727275
+          ],
+          "width": 311.8181818181818,
+          "height": 20.045454545454543,
+          "fill": "#976140",
+          "edge": "#3e261d",
+          "stroke_px": 2
+        },
+        {
+          "type": "rectangle",
+          "xy": [
+            69.0909090909091,
+            360.0113636363636
+          ],
+          "width": 311.8181818181818,
+          "height": 20.045454545454543,
+          "fill": "#976140",
+          "edge": "#3e261d",
+          "stroke_px": 2
+        },
+        {
+          "type": "rectangle",
+          "xy": [
+            24.54545454545456,
+            110.00000000000004
+          ],
+          "width": 400.9090909090909,
+          "height": 44.54545454545455,
+          "fill": "#976140",
+          "edge": "#3e261d",
+          "stroke_px": 2
+        },
+        {
+          "type": "rectangle",
+          "xy": [
+            24.54545454545456,
+            1045.4545454545455
+          ],
+          "width": 400.9090909090909,
+          "height": 44.54545454545455,
+          "fill": "#976140",
+          "edge": "#3e261d",
+          "stroke_px": 2
+        },
+        {
+          "type": "rectangle",
+          "xy": [
+            605.9545454545455,
+            154.5454545454546
+          ],
+          "width": 138.0909090909091,
+          "height": 890.9090909090909,
+          "fill": "#7d4c30",
+          "edge": "#3e261d",
+          "stroke_px": 2
+        },
+        {
+          "type": "rectangle",
+          "xy": [
+            730.6818181818181,
+            154.5454545454546
+          ],
+          "width": 8.909090909090908,
+          "height": 890.9090909090909,
+          "fill": "#976140",
+          "edge": null,
+          "stroke_px": 0
+        },
+        {
+          "type": "rectangle",
+          "xy": [
+            597.0454545454545,
+            110.00000000000004
+          ],
+          "width": 155.9090909090909,
+          "height": 44.54545454545455,
+          "fill": "#976140",
+          "edge": "#3e261d",
+          "stroke_px": 2
+        },
+        {
+          "type": "rectangle",
+          "xy": [
+            597.0454545454545,
+            1045.4545454545455
+          ],
+          "width": 155.9090909090909,
+          "height": 44.54545454545455,
+          "fill": "#976140",
+          "edge": "#3e261d",
+          "stroke_px": 2
+        },
+        {
+          "type": "rectangle",
+          "xy": [
+            1055.9545454545455,
+            154.5454545454546
+          ],
+          "width": 138.0909090909091,
+          "height": 890.9090909090909,
+          "fill": "#7d4c30",
+          "edge": "#3e261d",
+          "stroke_px": 2
+        },
+        {
+          "type": "rectangle",
+          "xy": [
+            1060.409090909091,
+            154.5454545454546
+          ],
+          "width": 8.909090909090908,
+          "height": 890.9090909090909,
+          "fill": "#976140",
+          "edge": null,
+          "stroke_px": 0
+        },
+        {
+          "type": "rectangle",
+          "xy": [
+            1047.0454545454545,
+            110.00000000000004
+          ],
+          "width": 155.9090909090909,
+          "height": 44.54545454545455,
+          "fill": "#976140",
+          "edge": "#3e261d",
+          "stroke_px": 2
+        },
+        {
+          "type": "rectangle",
+          "xy": [
+            1047.0454545454545,
+            1045.4545454545455
+          ],
+          "width": 155.9090909090909,
+          "height": 44.54545454545455,
+          "fill": "#976140",
+          "edge": "#3e261d",
+          "stroke_px": 2
+        },
+        {
+          "type": "rectangle",
+          "xy": [
+            1387.909090909091,
+            154.5454545454546
+          ],
+          "width": 374.18181818181813,
+          "height": 890.9090909090909,
+          "fill": "#7d4c30",
+          "edge": "#3e261d",
+          "stroke_px": 2
+        },
+        {
+          "type": "line",
+          "xs": [
+            1462.7454545454545,
+            1462.7454545454545
+          ],
+          "ys": [
+            154.54545454545456,
+            1045.4545454545455
+          ],
+          "colour": "#3e261d",
+          "stroke_px": 1.3
+        },
+        {
+          "type": "line",
+          "xs": [
+            1537.581818181818,
+            1537.581818181818
+          ],
+          "ys": [
+            154.54545454545456,
+            1045.4545454545455
+          ],
+          "colour": "#3e261d",
+          "stroke_px": 1.3
+        },
+        {
+          "type": "line",
+          "xs": [
+            1612.418181818182,
+            1612.418181818182
+          ],
+          "ys": [
+            154.54545454545456,
+            1045.4545454545455
+          ],
+          "colour": "#3e261d",
+          "stroke_px": 1.3
+        },
+        {
+          "type": "line",
+          "xs": [
+            1687.2545454545455,
+            1687.2545454545455
+          ],
+          "ys": [
+            154.54545454545456,
+            1045.4545454545455
+          ],
+          "colour": "#3e261d",
+          "stroke_px": 1.3
+        },
+        {
+          "type": "rectangle",
+          "xy": [
+            1374.5454545454545,
+            110.00000000000004
+          ],
+          "width": 400.9090909090909,
+          "height": 44.54545454545455,
+          "fill": "#976140",
+          "edge": "#3e261d",
+          "stroke_px": 2
+        },
+        {
+          "type": "rectangle",
+          "xy": [
+            1374.5454545454545,
+            1045.4545454545455
+          ],
+          "width": 400.9090909090909,
+          "height": 44.54545454545455,
+          "fill": "#976140",
+          "edge": "#3e261d",
+          "stroke_px": 2
+        }
+      ],
+      "png_mode": "RGBA",
+      "read_only_cutter_measurement": {
+        "source": "Unmodified tools/crop_views.py imported read-only; full row, tolerance 18",
+        "background_rgb": [
+          255,
+          255,
+          255
+        ],
+        "min_width_ratio": 0.25,
+        "bounds_xyxy_exclusive": [
+          [
+            24,
+            109,
+            426,
+            1091
+          ],
+          [
+            596,
+            109,
+            754,
+            1091
+          ],
+          [
+            1046,
+            109,
+            1204,
+            1091
+          ],
+          [
+            1374,
+            109,
+            1776,
+            1091
+          ]
+        ],
+        "widths_px": [
+          402,
+          158,
+          158,
+          402
+        ],
+        "heights_px": [
+          982,
+          982,
+          982,
+          982
+        ],
+        "baseline_y_px": [
+          1090,
+          1090,
+          1090,
+          1090
+        ],
+        "height_spread_px": 0,
+        "baseline_spread_px": 0,
+        "clear_interview_gaps_px": [
+          170,
+          292,
+          170
+        ],
+        "native_shared_canvas_at_pad_0_12_px": 1217,
+        "sha256": "3b8c679bcb9695994c48d5ed134e549b59e5e2e6ac9d44e6abe1474a21c5a80c",
+        "file_bytes": 11926,
+        "complete_png_iend": true
+      },
+      "metadata_path": "/workspace/scratch/9d89bc03e38f/furnishing_geometry_guides.json",
+      "metadata_key": "props.bookcase",
+      "metadata_sha256": "8b257ba7fe982985f9c437b7fbc68e88ac1503af9c616950c5830cfe9801aadb",
+      "source_code": "/workspace/scratch/9d89bc03e38f/create_furnishing_geometry_guides.py",
+      "source_code_sha256": "18ff5321e457c4a3e866d90e99f7dd1e9c8bccc4b0c2d4130bc286b54d589748",
+      "method": "New measured primitive diagram; no existing raster art read or edited during construction.",
+      "sha256": "3b8c679bcb9695994c48d5ed134e549b59e5e2e6ac9d44e6abe1474a21c5a80c"
+    },
+    "assembly": {
+      "tool": "tools/crop_views.py",
+      "tool_modified": false,
+      "arguments": [
+        "--row",
+        "0",
+        "1",
+        "--names",
+        "front",
+        "left",
+        "right",
+        "back",
+        "--pad",
+        "0.12",
+        "--size",
+        "1037",
+        "--dry-run",
+        "--preview",
+        "art/props/bookcase/sheet.png"
+      ],
+      "native_common_canvas_px": 1037,
+      "method": "Unchanged cutter crops native own-bounds rectangles, translating them into four common1037px cells. No resampling, per-view scaling or raster retouching.",
+      "resampled": false,
+      "per_view_scaling": false,
+      "source_measurements": {
+        "image_size_px": [
+          1536,
+          1024
+        ],
+        "background_rgb": [
+          254,
+          254,
+          254
+        ],
+        "views": [
+          {
+            "view": "front",
+            "bounds_px": [
+              20,
+              92,
+              365,
+              929
+            ],
+            "width_px": 345,
+            "height_px": 837,
+            "last_ink_y_px": 928,
+            "width_height_ratio": 0.412186,
+            "implied_envelope_m_at_2_20_height": 0.90681,
+            "difference_percent_from_nominal_envelope": 0.7567
+          },
+          {
+            "view": "left",
+            "bounds_px": [
+              507,
+              92,
+              645,
+              929
+            ],
+            "width_px": 138,
+            "height_px": 837,
+            "last_ink_y_px": 928,
+            "width_height_ratio": 0.164875,
+            "implied_envelope_m_at_2_20_height": 0.362724,
+            "difference_percent_from_nominal_envelope": 3.6354
+          },
+          {
+            "view": "right",
+            "bounds_px": [
+              891,
+              92,
+              1029,
+              929
+            ],
+            "width_px": 138,
+            "height_px": 837,
+            "last_ink_y_px": 928,
+            "width_height_ratio": 0.164875,
+            "implied_envelope_m_at_2_20_height": 0.362724,
+            "difference_percent_from_nominal_envelope": 3.6354
+          },
+          {
+            "view": "back",
+            "bounds_px": [
+              1171,
+              92,
+              1516,
+              929
+            ],
+            "width_px": 345,
+            "height_px": 837,
+            "last_ink_y_px": 928,
+            "width_height_ratio": 0.412186,
+            "implied_envelope_m_at_2_20_height": 0.90681,
+            "difference_percent_from_nominal_envelope": 0.7567
+          }
+        ],
+        "clear_vertical_gaps_px": [
+          142,
+          246,
+          142
+        ]
+      },
+      "source_object_rectangles_pixel_identical_after_translation": [
+        true,
+        true,
+        true,
+        true
+      ]
+    }
+  },
+  "object_scope": {
+    "rule": "Model the object only, never a dressed arrangement.",
+    "contents": "One empty solid-backed wooden shelf unit with thick straight side panels, three fixed internal shelves, flat cap/plinth and restrained attached brass corner fittings.",
+    "excluded": [
+      "books",
+      "globe",
+      "lantern",
+      "candles",
+      "bottles",
+      "maps",
+      "drawers",
+      "cabinet doors",
+      "plants",
+      "curtains",
+      "other props",
+      "wall",
+      "scenery"
+    ]
+  },
+  "design": {
+    "structure": "Tall narrow practical walnut bookcase, with three straight internal shelves making exactly four empty compartments. Recesses have real shelf depth and a solid recessed plank back.",
+    "front": "Four dark wooden-backed open bays with broad solid shelf edges, straight side stiles and a bare top.",
+    "sides": "Genuinely narrow solid outer panels; these are depth profiles, not more views of the shelving face.",
+    "back": "Uninterrupted vertical backing boards with small nail heads. Do not repeat the shelves as rear openings.",
+    "finish": "Warm dark reddish walnut, broad honey-brown worn bevels, restrained grain/cracks and small practical brass corner caps contained within the simple rectangular outline.",
+    "openings": "The front recesses end at opaque back boards and are not through-holes. No white background should replace the wooden backs.",
+    "wear_note": "Fine painted cracks are surface wear, not an instruction to split the carcass or create structural holes."
+  },
+  "reconstruction_orientation": {
+    "fixed_object_pose": "Upright standing orientation",
+    "axis_convention": "Up +Y, width X, front/open shelving face +Z and rear -Z. Front camera +Z looks -Z; left -X looks +X; right +X looks -X; back -Z looks +Z.",
+    "dimensions_m": {
+      "width": 0.9,
+      "height": 2.2,
+      "depth": 0.35
+    },
+    "engine_rotation": "No reconstruction-pose correction. Final room position and yaw remain engine work."
+  },
+  "placement": {
+    "convention_status": "Proposed upright dimensions and fitting cues only; no engine geometry or transform changed.",
+    "engine_model_path_target": "art/props/bookcase/bookcase.glb",
+    "origin": "Floor-level center of the bottom plinth",
+    "target_location": "Left of the desk, matching docs/reference/room_target.png. Exact room coordinates and wall contact remain unassigned.",
+    "separate_dressing": [
+      "bookshelf_books",
+      "desk_globe"
+    ],
+    "fit_cues_from_guide": {
+      "status": "Analytic guide parameters only; verify reconstructed shelf thickness, depth, openings and support surfaces before dressing.",
+      "full_outer_width": 0.9,
+      "full_outer_height": 2.2,
+      "full_outer_depth": 0.35,
+      "carcass_width": 0.84,
+      "carcass_depth": 0.31,
+      "cap_height": 0.1,
+      "plinth_height": 0.1,
+      "front_side_stile_width": 0.07,
+      "interior_clear_width": 0.7,
+      "interior_bottom_height": 0.12,
+      "interior_top_height": 2.1,
+      "internal_shelf_count": 3,
+      "shelf_thickness": 0.045,
+      "shelf_bottom_heights": [
+        0.58125,
+        1.0875,
+        1.5937500000000002
+      ],
+      "compartment_count": 4,
+      "all_compartment_clear_heights": 0.46125,
+      "globe_target_height": 0.38,
+      "globe_vertical_clearance": 0.08124999999999999,
+      "solid_back": true,
+      "depth_limit": "The guide carcass is 0.31 m deep before accounting for backing thickness, front setback and bevels. The proposed globe has a 0.30 m overall depth; do not infer usable shelf depth or guaranteed base support from the 0.35 m outer cap/plinth envelope.",
+      "vertical_clearance_note": "0.46125 m guide bay height minus 0.38 m separate globe height gives 0.08125 m nominal clearance. This arithmetic does not verify either reconstructed mesh or final placement."
+    }
+  },
+  "framing": {
+    "view_order": [
+      "front",
+      "left",
+      "right",
+      "back"
+    ],
+    "projection": "Level orthographic front, opposite side profiles and actual back",
+    "camera": "Horizontal optical axis at the unit midpoint, one orthographic scale, no pitch/roll, perspective or top-face peek.",
+    "fixed_object_pose": "Upright",
+    "image_size_px": [
+      4148,
+      1037
+    ],
+    "cell_size_px": [
+      1037,
+      1037
+    ],
+    "background": "Plain opaque near-white",
+    "background_rgb": [
+      254,
+      254,
+      254
+    ],
+    "labels_in_turnaround_band": false,
+    "ground_line_drawn": false,
+    "ground_line_last_ink_y_px": 912,
+    "separation_px": [
+      795,
+      899,
+      796
+    ],
+    "scale": "All four source and final silhouettes are exactly 837 px high. The cutter translated native own-bounds rectangles into common canvases, with no resampling or per-view scaling."
+  },
+  "validation": {
+    "status": "Complete source/final PNG, framing and empty shelf structure checked; reconstructed recess depth, globe clearance and engine placement remain unverified.",
+    "method": "Read-only full-row NumPy/Pillow measurements using unchanged crop_views.py modal_colour, ink_mask and find_figures at default tolerance 18 and default gap detection. Bounds are [x0,y0,x1,y1], upper bounds exclusive. Both PNGs fully decoded before measurement.",
+    "foreground_threshold": "Sum of absolute RGB distance from modal background exceeds 54.",
+    "final_file_bytes": 970166,
+    "final_png_iend_present": true,
+    "source_png_iend_present": true,
+    "detected_views": 4,
+    "views": [
+      {
+        "view": "front",
+        "bounds_px": [
+          346,
+          76,
+          691,
+          913
+        ],
+        "width_px": 345,
+        "height_px": 837,
+        "last_ink_y_px": 912,
+        "width_height_ratio": 0.412186,
+        "implied_envelope_m_at_2_20_height": 0.90681,
+        "difference_percent_from_nominal_envelope": 0.7567
+      },
+      {
+        "view": "left",
+        "bounds_px": [
+          1486,
+          76,
+          1624,
+          913
+        ],
+        "width_px": 138,
+        "height_px": 837,
+        "last_ink_y_px": 912,
+        "width_height_ratio": 0.164875,
+        "implied_envelope_m_at_2_20_height": 0.362724,
+        "difference_percent_from_nominal_envelope": 3.6354
+      },
+      {
+        "view": "right",
+        "bounds_px": [
+          2523,
+          76,
+          2661,
+          913
+        ],
+        "width_px": 138,
+        "height_px": 837,
+        "last_ink_y_px": 912,
+        "width_height_ratio": 0.164875,
+        "implied_envelope_m_at_2_20_height": 0.362724,
+        "difference_percent_from_nominal_envelope": 3.6354
+      },
+      {
+        "view": "back",
+        "bounds_px": [
+          3457,
+          76,
+          3802,
+          913
+        ],
+        "width_px": 345,
+        "height_px": 837,
+        "last_ink_y_px": 912,
+        "width_height_ratio": 0.412186,
+        "implied_envelope_m_at_2_20_height": 0.90681,
+        "difference_percent_from_nominal_envelope": 0.7567
+      }
+    ],
+    "height_spread_px": 0,
+    "ground_line_spread_px": 0,
+    "minimum_empty_band_px": 795,
+    "strict_one_pixel_height_check_passed": true,
+    "strict_one_pixel_baseline_check_passed": true,
+    "source_object_rectangles_pixel_identical": true,
+    "native_view_canvas_px": [
+      1037,
+      1037
+    ],
+    "view_canvas_after_2x_upscale_px": [
+      2074,
+      2074
+    ],
+    "upscaling_applied": false,
+    "target_width_height_ratio": 0.40909090909090906,
+    "target_depth_height_ratio": 0.15909090909090906,
+    "visual_review": {
+      "projection": "Level cap/plinth and shelf edges; front/back widths match, both side profiles remain naturally narrow and equal in height.",
+      "shelf_count": "Exactly three internal shelves and four empty compartments.",
+      "structure": "Dark recessed backing is visible in the front; both outside panels are solid. Rear is a plain boarded panel with nail heads, not a duplicate shelf face.",
+      "materials": "Broad worn walnut bevels, restrained brass corners and simple readable construction consistent with the cabin props.",
+      "isolation": "No books, globe, lantern, drawer/door, wall, scenery, floor shadow or sheet text."
+    },
+    "reconstruction_run": false,
+    "engine_import_run": false,
+    "limitations": [
+      "Overall size is a chosen new art target, not measured existing engine geometry.",
+      "Measured front/back width-to-height ratio is 0.412186 versus nominal 0.409091; side ratio is 0.164875 versus nominal 0.159091. At height 2.20 m these imply width 0.90681 m (+0.76%) and depth 0.36272 m (+3.64%). Check mesh proportions against dimensions_m rather than treating painted outlines as exact CAD.",
+      "Guide bay height, shelf thickness and internal width are proposed construction measurements, not confirmed output geometry. Real recess depth cannot be verified from the front raster alone.",
+      "The 0.08125 m nominal vertical allowance for the separate 0.38 m globe is guide arithmetic only. Backing thickness, shelf front setback and the globe base footprint still govern usable depth and support.",
+      "The wood shading and brass highlights are baked into this sheet and need review under room lighting."
+    ]
+  },
+  "pipeline": {
+    "status": "source_sheet_only",
+    "view_extraction": "delegated_to_claude_code",
+    "view_extraction_names": [
+      "front",
+      "left",
+      "right",
+      "back"
+    ],
+    "upload_view_mapping": {
+      "front": "front.png",
+      "left": "left.png",
+      "right": "right.png",
+      "back": "back.png"
+    },
+    "upload_note": "Assign each Tripo upload slot by filename; sheet display order is not positional upload order.",
+    "three_d_generator_allowed": "Tripo only",
+    "forbidden_generators": [
+      "Hunyuan3D",
+      "HY-Motion"
+    ],
+    "nc_models_used": false,
+    "rigging_required": false,
+    "generated_3d_model": false,
+    "validated_in_engine": false,
+    "target_triangles": {
+      "minimum": 6000,
+      "maximum": 8000,
+      "allow_fewer_if_silhouette_preserved": true,
+      "source": "HANDOFF.md furniture budget, not a measured reconstructed mesh."
+    },
+    "reconstruction_prompt_note": "One solid-backed empty walnut bookcase, exactly three internal shelves and four deep open front recesses; solid outer side panels and real plain boarded rear. Do not flatten the shelving into a painted slab or remove the back to create through-holes.",
+    "lighting_note": "Source includes dark recess shading, broad warm wood highlights and brass bevel highlights. Use Tripo texture lighting removal and inspect the empty shelves under engine light.",
+    "recommended_crop_command": "python tools/crop_views.py art/props/bookcase/sheet.png --row 0 1 --names front left right back --pad 0.12 --size 1037 --out art/props/bookcase/views",
+    "optional_2x_crop_command": "python tools/crop_views.py art/props/bookcase/sheet.png --row 0 1 --names front left right back --pad 0.12 --size 2074 --out art/props/bookcase/views",
+    "upscale_note": "Native common canvases are already 1037 px square. Optional uniform 2x extraction adds no source detail. Preserve automatic own-bounds gap detection to avoid repadding existing cell margins.",
+    "next_step": "Reconstruct actual shelf recesses and solid back, verify the complete dimensions and usable shelf clearance, then place left of the desk. Add books/globe separately."
+  }
+}

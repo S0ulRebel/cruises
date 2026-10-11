@@ -510,15 +510,14 @@ and weather are separate engine components.
 **2 — current owner scope: practical cabin fixtures.**
 
 The owner’s latest request narrows this pass to `wall_lantern`, empty `bookcase`,
-`desk_globe` and `painting_frame`, published one at a time. The lantern housing is
-now delivered; its separate engine glass/candle/light integration remains Open.
+`desk_globe` and `painting_frame`, published one at a time. The lantern housing and
+empty bookcase are delivered; their reconstruction/integration tasks remain Open.
 The globe is promoted from the later dressing queue. `painting_frame` replaces the
 former complete `ship_painting` request for this pass: frame only, no artwork,
 canvas, backing, glass or picture light. Books remain separate from the shelving.
 
 | id | what |
 | --- | --- |
-| `bookcase` | empty walnut unit, three internal shelves making four bays, left of the desk; books and all dressing separate |
 | `desk_globe` | one small brass-mounted globe, separate from the bookcase |
 | `painting_frame` | empty landscape brass/gilt-and-wood frame; open aperture front/back, no artwork, canvas, backing, glass or light |
 
@@ -676,6 +675,23 @@ Add separate transparent panes, candle and wick, flame effect and actual warm li
 The sidecar gives guide-only cage/holder fitting cues; verify clearances on the mesh.
 Keep it upright with front +Z and rear -Z toward its selected wall. Exact left-wall /
 door-area placement, component fitting and lighting remain engine work.
+
+---
+
+### 2026-10-11 — for the engine side — reconstruct and fit the empty bookcase
+
+`art/props/bookcase/sheet.png` and `asset.json` provide the complete empty unit at
+provisional 0.90 × 2.20 × 0.35 m. Reconstruct three fixed shelves making four actual
+recessed bays, solid side panels and an opaque boarded back; do not flatten the
+front into painted panels or turn the bays into through-holes. Books and globe are
+separate. All four source heights are 837 px. At H2.20 the painted envelope implies
+W0.90681 (+0.76%) and D0.36272 (+3.64%) m; inspect/correct mesh proportions against
+the sidecar target without independently resizing the views.
+The guide uses 45 mm shelves and 0.46125 m clear bay height, giving 0.08125 m nominal
+vertical allowance for the separate 0.38 m globe. These are fitting cues only:
+verify real shelf depth and globe base support, accounting for the back and front
+setback, before dressing. Place upright, open face +Z, left of the desk; exact
+coordinates, wall contact and final materials remain engine work.
 
 ---
 
@@ -1035,6 +1051,20 @@ pixel-identical. Full prompt, guide/reference hashes, size adaptation and measur
 width/depth differences are recorded. Reconstruction and mounting remain Open.
 The latest owner scope is also recorded above: empty bookcase, desk globe and empty
 painting frame next; curtains/palm deferred, books and picture light separate future work.
+
+---
+
+### 2026-10-11 — art side — empty bookcase sheet delivered
+
+Delivered `art/props/bookcase/sheet.png` and `asset.json`; removed only the bookcase
+from the pending art table. Three shelves form four empty wood-backed bays, with
+plain narrow side panels and a real boarded rear. Final 4148×1037, native 1037 px
+cells; all source/final heights 837 px, final baseline y912, gaps 795/899/796 px.
+Full PNG decode and IEND passed. Unchanged cutter, no resampling; all four source
+rectangles remain pixel-identical. Both full prompts, guide/reference hashes,
+provisional dimensions, measured proportions and clearance limits are in the
+sidecar. Reconstruction/dressing remain Open. Desk globe and empty painting frame
+remain the current art queue; the deferred items and separate future tasks are unchanged.
 
 ---
 

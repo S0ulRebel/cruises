@@ -1,0 +1,15 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://art/props/bowl_stand/bowl_stand.glb" id="1_nji27"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6oeej"]
+size = Vector3(0.6, 0.65, 0.6)
+
+[node name="BowlStand" type="StaticBody3D" unique_id=600554175]
+
+[node name="Model" type="Node3D" parent="." unique_id=490642509 instance=ExtResource("1_nji27")]
+transform = Transform3D(0.6503175, 0, 0, 0, 0.6503175, 0, 0, 0, 0.6503175, 0, 0, 0)
+
+[node name="BowlStandShape" type="CollisionShape3D" parent="." unique_id=406205883]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.325, 0)
+shape = SubResource("BoxShape3D_6oeej")

@@ -1,0 +1,8 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://art/props/porthole/porthole.glb" id="1_5u137"]
+
+[node name="Porthole" type="Node3D" unique_id=916520355]
+
+[node name="Model" type="Node3D" parent="." unique_id=456913590 instance=ExtResource("1_5u137")]
+transform = Transform3D(0.9004396, 0, 0, 0, 0.9004396, 0, 0, 0, 0.9004396, 0, 0, 0)

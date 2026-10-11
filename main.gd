@@ -548,18 +548,18 @@ const DRESSING := [
 func _add_furniture() -> void:
 	for piece in FURNITURE:
 		if piece.has("model"):
+			var prefab := "res://props/%s/%s.tscn" % [piece["name"], piece["name"]]
 			_add_prop(piece)
-			_add_collision(piece["at"], piece["size"], String(piece["name"]).to_pascal_case())
+			if not ResourceLoader.exists(prefab):
+				_add_collision(piece["at"], piece["size"],
+					String(piece["name"]).to_pascal_case())
 		else:
 			_add_box(piece["at"], piece["size"], Color(String(piece["colour"])),
 				bool(piece.get("solid", true)), String(piece["name"]))
 	for piece in DRESSING:
 		_add_prop(piece)
 	_add_prop({ "name": "bowl_stand", "at": BOWL_AT + Vector3(0.0, BOWL_STAND_HEIGHT * 0.5, 0.0),
-		"size": Vector3(0.6, BOWL_STAND_HEIGHT, 0.6),
-		"model": "res://art/props/bowl_stand/bowl_stand.glb" })
-	_add_collision(BOWL_AT + Vector3(0.0, BOWL_STAND_HEIGHT * 0.5, 0.0),
-		Vector3(0.6, BOWL_STAND_HEIGHT, 0.6), "BowlStand")
+		"size": Vector3(0.6, BOWL_STAND_HEIGHT, 0.6) })
 	# Count Fingers comes off the desk and onto his own pedestal in the foreground,
 	# left, where the owner's target render puts him - near the camera, big enough that
 	# his face reads, and where the dialogue bar may cover him without losing anything.
@@ -594,126 +594,13 @@ func _add_fishbowl(at: Vector3) -> void:
 	# Bigger than a real bowl for a 7 cm fish, deliberately. At a true 17 cm the bowl
 	# was 40 px across from the room camera and Count Fingers was a speck - and he is a
 	# character with lines, not set dressing. Scaled until he reads.
-	const RADIUS := 0.26
-	const WALL := 0.010
-
-	var bowl := Node3D.new()
+	# The bowl is a prefab like every other prop; it brings its own glass with it.
+	const PREFAB := "res://props/fishbowl/fishbowl.tscn"
+	var bowl := (load(PREFAB) as PackedScene).instantiate() as Node3D
 	bowl.name = "Fishbowl"
 	bowl.position = at
-	bowl.set_script(load("res://props/fishbowl/fishbowl.gd"))
 	_room.add_child(bowl)
 
-	var glass := StandardMaterial3D.new()
-	glass.albedo_color = Color(0.72, 0.86, 0.92, 0.22)
-	glass.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	glass.metallic = 0.0
-	glass.roughness = 0.04
-	# Both faces, because the inside of the far wall is visible through the near one.
-	glass.cull_mode = BaseMaterial3D.CULL_DISABLED
-	glass.refraction_enabled = false
-
-	# The generated bowl if there is one, primitives if not. The generated mesh has the
-	# brass rim and the turned shape the design has and a sphere never will; what it
-	# does NOT have is glass, because a generator delights its textures and cannot make
-	# a transparent surface. So the mesh comes from the art and the glass comes from
-	# here - its own texture is dropped entirely by the override.
-	var model := load(BOWL_MODEL) as PackedScene if ResourceLoader.exists(BOWL_MODEL) else null
-	if model:
-		var mesh_root := model.instantiate() as Node3D
-		# Tripo read the bowl's mouth as a dish on the FRONT of a sphere, so the model
-		# arrives lying on its back. Stood up first, then measured: fitting it by an
-		# unrotated box sizes it by its depth and leaves it floating off the stand.
-		var upright := Basis.from_euler(Vector3(deg_to_rad(-90.0), 0.0, 0.0))
-		var box: AABB = Transform3D(upright, Vector3.ZERO) * _visual_bounds(mesh_root)
-		var fit: float = (RADIUS * 2.0) / maxf(box.size.y, 0.001)
-		mesh_root.transform = Transform3D(upright.scaled(Vector3.ONE * fit),
-			Vector3(-box.get_center().x * fit, -box.position.y * fit,
-				-box.get_center().z * fit))
-		bowl.add_child(mesh_root)
-		bowl.set("glass", bowl.get_path_to(mesh_root))
-	else:
-		for radius in [RADIUS, RADIUS - WALL]:
-			var shell := SphereMesh.new()
-			shell.radius = radius
-			shell.height = radius * 2.0
-			shell.is_hemisphere = true
-			shell.radial_segments = 48
-			shell.rings = 24
-			var piece := MeshInstance3D.new()
-			piece.mesh = shell
-			# A hemisphere is the TOP half, so it is turned over to make a bowl.
-			piece.rotation.x = PI
-			piece.position.y = radius
-			piece.material_override = glass
-			piece.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-			bowl.add_child(piece)
-
-	# The water, sitting a little below the rim. A flat disc is enough: the surface is
-	# only ever seen from above the waterline at this camera.
-	var water := CylinderMesh.new()
-	water.top_radius = RADIUS - WALL * 1.6
-	water.bottom_radius = water.top_radius
-	water.height = 0.004
-	water.radial_segments = 48
-	var pool := MeshInstance3D.new()
-	pool.mesh = water
-	# Well below the rim. At 0.82 the bowl read as a full, shallow dish; the gap between
-	# the waterline and the rim is what says "bowl".
-	pool.position.y = RADIUS * 0.58
-	var wet := StandardMaterial3D.new()
-	wet.albedo_color = Color(0.35, 0.62, 0.70, 0.45)
-	wet.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	wet.roughness = 0.08
-	pool.material_override = wet
-	pool.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	bowl.add_child(pool)
-
-	_add_count_fingers(bowl, RADIUS)
-
-
-## The fish himself, floating inside the bowl. Loaded unrigged: see actors/parts/fish.gd
-## for why there is no skeleton to animate.
-const COUNT_FINGERS := "res://art/characters/count_fingers/count_fingers_mesh.glb"
-## Metres, nose to tail. His design sheet says 6-8 cm; the bowl is already far bigger
-## than a real one for the same reason, and at 15 cm in a 52 cm bowl he was 29% of its
-## width and read as a speck. 30 cm puts him at 58%, which is where the owner's target
-## render has him. He is a character with lines, not set dressing.
-const FISH_LENGTH := 0.27
-## Measured in the ENGINE, not in Blender: his GLB drops in standing on his tail with
-## his nose along +Y, and -90 about X lays him level with it out towards the room.
-## Blender's importer turns the file to its own Z-up on the way in, so a profile that
-## looks perfectly level there says nothing about which way he lands in Godot.
-const FISH_REST := Vector3(-90.0, 90.0, 0.0)
-
-func _add_count_fingers(bowl: Node3D, radius: float) -> void:
-	if not ResourceLoader.exists(COUNT_FINGERS):
-		push_warning("Count Fingers: no model at %s" % COUNT_FINGERS)
-		return
-	var model := (load(COUNT_FINGERS) as PackedScene).instantiate() as Node3D
-
-	# Scale off his measured length rather than a guessed factor, so a re-export at a
-	# different size does not quietly put a trout in the bowl.
-	var bounds := _visual_bounds(model)
-	var longest: float = maxf(bounds.size.x, maxf(bounds.size.y, bounds.size.z))
-	if longest > 0.0:
-		model.scale = Vector3.ONE * (FISH_LENGTH / longest)
-
-	var swimmer := Node3D.new()
-	swimmer.name = "CountFingers"
-	swimmer.set_script(load("res://actors/parts/fish.gd"))
-	# Below the waterline, off-centre, nose out of the glass towards the room.
-	swimmer.position = Vector3(0.0, radius * 0.52, 0.0)
-	swimmer.add_child(model)
-	# Rotation and centring on the same node, worked out together: the offset has to be
-	# the centre AFTER the turn, or laying him flat swings him out through the glass.
-	# Facing is the MODEL's, not the swimmer's, because fish.gd overwrites the
-	# swimmer's rotation every frame to make him drift.
-	var rest := Basis.from_euler(Vector3(
-		deg_to_rad(FISH_REST.x), deg_to_rad(FISH_REST.y), deg_to_rad(FISH_REST.z)))
-	var fit: float = model.scale.x
-	model.transform = Transform3D(rest.scaled(Vector3.ONE * fit),
-		-(rest * bounds.get_center()) * fit)
-	bowl.add_child(swimmer)
 
 
 ## A generated prop, scaled to its real size and stood on the floor.
@@ -724,6 +611,21 @@ func _add_count_fingers(bowl: Node3D, radius: float) -> void:
 ## box, because a prop squashed to match a guessed depth looks wrong in a way nobody
 ## can point at.
 func _add_prop(piece: Dictionary) -> void:
+	# A prefab if the prop has one, which is every generated prop. It already carries
+	# its real size, which way up it goes and its collision, and its origin is the
+	# point it stands on - so placing it is dropping it at a spot on the floor. The
+	# raw-.glb path below is the fallback for anything that has not been through
+	# tools/make_prefabs.gd yet.
+	var prefab := "res://props/%s/%s.tscn" % [piece["name"], piece["name"]]
+	if ResourceLoader.exists(prefab):
+		var thing := (load(prefab) as PackedScene).instantiate() as Node3D
+		thing.name = String(piece["name"]).to_pascal_case()
+		var at: Vector3 = piece["at"]
+		var tall: float = float((piece["size"] as Vector3).y)
+		thing.position = Vector3(at.x, at.y - tall * 0.5, at.z)
+		_room.add_child(thing)
+		return
+
 	var scene: PackedScene = load(String(piece["model"]))
 	if scene == null:
 		push_warning("%s: no model at %s" % [piece["name"], piece["model"]])

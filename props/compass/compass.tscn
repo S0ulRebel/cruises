@@ -1,0 +1,8 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://art/props/compass/compass.glb" id="1_uu8fx"]
+
+[node name="Compass" type="Node3D" unique_id=1746008304]
+
+[node name="Model" type="Node3D" parent="." unique_id=196400698 instance=ExtResource("1_uu8fx")]
+transform = Transform3D(0.09004397, 0, 0, 0, -3.935947e-09, 0.09004397, 0, -0.09004397, -3.935947e-09, 0, 0.017344903, 0.044956036)

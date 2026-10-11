@@ -1,0 +1,426 @@
+{
+  "asset_id": "prop:supply_crate",
+  "name": "Nailed supply crate",
+  "role": "Scene 1 — Captain Livé’s quarters; the crate puzzle opened with the rapier",
+  "asset_type": "prop_turnaround_sheet",
+  "files": {
+    "sheet": "sheet.png"
+  },
+  "dimensions_m": {
+    "width": 0.9,
+    "height": 0.9,
+    "depth": 0.9
+  },
+  "dimension_contract": "dimensions_m describes the complete closed upright supply crate, including its permanent battens and nail heads, in metres. The explicit owner brief and main.gd crate blockout both specify 0.9W × 0.9H × 0.9D. This asset replaces the nailed puzzle crate and retains its Crate hotspot; it is separate from the decorative brass-and-skull pirate_chest. Uniformly fit the reconstructed mesh to the target and verify its bounds. The illustration is a reconstruction reference, not exact CAD; do not independently resize reference views or stretch model axes to conceal source differences.",
+  "source": {
+    "generation_status": "selected source delivered",
+    "producer": "OpenAI imagegen via ChatGPT",
+    "mode": "built-in",
+    "model_identifier": "Not exposed by the built-in tool",
+    "date": "2026-10-11",
+    "repository_base_commit": "e061e737e198b862e3f408d9008d8586c769b6f0",
+    "original_filename": "exec-2129f8d5-c841-4d7f-991d-7b2f3a6f5269.png",
+    "generated_source_sha256": "3416e3b2c889bb9ea60c6ba822b652345a78ba7832391b7fc73399163a853561",
+    "sha256": "4ae46b4e9244f708320b6d094ce1b05cafe7fbe831999438952114a28de39b86",
+    "references": [
+      {
+        "original_path": "/workspace/scratch/9d89bc03e38f/supply_crate_geometry_guide.png",
+        "sha256": "e1ef6a307e12c767063c736da37c4d62a78527cb3fba4445ae58c75c72dd4e9b",
+        "original_filename": "supply_crate_geometry_guide.png"
+      },
+      {
+        "original_path": "/workspace/scratch/9d89bc03e38f/cruises_git/art/props/captain_desk/sheet.png",
+        "sha256": "02300d11cad484407755dfea20b66770abc9e92e895095b834bb505477b4f69c",
+        "repository_path": "art/props/captain_desk/sheet.png"
+      }
+    ],
+    "generation_history": [
+      {
+        "pass": 1,
+        "stage": "measured_guide_cel_shaded",
+        "prompt": "Use case: stylized-concept.\nAsset type: production four-view modeling sheet of one nailed-shut wooden SUPPLY CRATE for a cartoony pirate adventure game.\n\nREFERENCE 1 is the measured construction template: preserve its four identical square external envelopes and their exact common height, baseline and positions. REFERENCE 2 is the already approved captain's desk; match its chunky cartoon wood, broad worn edges and clean cel shading. Do not copy the desk's brass ornamentation.\n\nONE cubic closed shipping crate, actual size0.9m wide x0.9m tall x0.9m deep. Plain warm dark-brown rough wooden planks and wide simple nailed wooden reinforcing battens. A thin closed lid cap with a readable horizontal seam immediately beneath it; visibly large square dark iron nail heads fastening the upper battens and lid edges make it unmistakably NAILED SHUT. This is an ordinary supply crate for a pry-open puzzle. No hinges, padlock, hasp, brass corner armor, skull or treasure-chest styling. No rope is necessary. No loose nails or separate tools. Keep it completely closed and empty of visible contents.\n\nRetain the template's exact outer square silhouette in each view: straight level top and bottom, vertical sides, all four exactly the same height and width. Any wear, chipped wood, bevel shading and nail heads must stay within that measured silhouette. Keep the top plane invisible: cameras horizontal at crate mid-height, orthographic with no pitch or yaw drift. No perspective, top-down view or three-quarter angles.\n\nVIEW ORDER left to right:\n1 FRONT: straight square front with cream stencil paint ON THE WOOD, between the reinforcing battens. Exact text in four clearly readable lines:\nLE CHAOS\nNAVIGUE\nTOUJOURS\nPLUS LOIN\nNo other text anywhere. The stencil is flat paint, not raised lettering or a sign attached to the crate.\n2 LEFT SIDE: actual blank plank left side, with the same lid seam and nailed reinforcement; no stencil.\n3 RIGHT SIDE: actual opposite blank plank side, same construction; no stencil.\n4 BACK: actual blank rear planks and nailed battens, no stencil, no hinges, no lock. Different wood grain may distinguish faces, but it is the same single crate.\n\nFinish: cartoony Monkey Island / Discworld proportions, broad readable plank divisions, a few large wood knots, worn honey-brown exposed edges on dark warm wood, restrained grain and dents. Same soft neutral form shading in every view, no room lighting baked in, no gritty realism. A 3D game prop reference, not a product photograph.\nExactly four complete views on flat pure white background in ONE horizontal row. Clear empty vertical bands between them. All four precisely equal height and one shared baseline. No cast shadows, floor, scenery, labels, measurement marks, guides, captions, borders, or any other objects. Follow image1 geometry exactly while finishing it with image2's cartoon material style.",
+        "referenced_image_paths": [
+          "/workspace/scratch/9d89bc03e38f/supply_crate_geometry_guide.png",
+          "/workspace/scratch/9d89bc03e38f/cruises_git/art/props/captain_desk/sheet.png"
+        ],
+        "transparent_background": false,
+        "source_path": "/workspace/scratch/9d89bc03e38f/generated_images/exec-2129f8d5-c841-4d7f-991d-7b2f3a6f5269.png",
+        "selected": true,
+        "original_filename": "exec-2129f8d5-c841-4d7f-991d-7b2f3a6f5269.png",
+        "output_sha256": "3416e3b2c889bb9ea60c6ba822b652345a78ba7832391b7fc73399163a853561",
+        "referenced_images": [
+          {
+            "original_path": "/workspace/scratch/9d89bc03e38f/supply_crate_geometry_guide.png",
+            "sha256": "e1ef6a307e12c767063c736da37c4d62a78527cb3fba4445ae58c75c72dd4e9b",
+            "original_filename": "supply_crate_geometry_guide.png"
+          },
+          {
+            "original_path": "/workspace/scratch/9d89bc03e38f/cruises_git/art/props/captain_desk/sheet.png",
+            "sha256": "02300d11cad484407755dfea20b66770abc9e92e895095b834bb505477b4f69c",
+            "repository_path": "art/props/captain_desk/sheet.png"
+          }
+        ]
+      }
+    ],
+    "selected_pass": 1,
+    "selected_prompt": "Use case: stylized-concept.\nAsset type: production four-view modeling sheet of one nailed-shut wooden SUPPLY CRATE for a cartoony pirate adventure game.\n\nREFERENCE 1 is the measured construction template: preserve its four identical square external envelopes and their exact common height, baseline and positions. REFERENCE 2 is the already approved captain's desk; match its chunky cartoon wood, broad worn edges and clean cel shading. Do not copy the desk's brass ornamentation.\n\nONE cubic closed shipping crate, actual size0.9m wide x0.9m tall x0.9m deep. Plain warm dark-brown rough wooden planks and wide simple nailed wooden reinforcing battens. A thin closed lid cap with a readable horizontal seam immediately beneath it; visibly large square dark iron nail heads fastening the upper battens and lid edges make it unmistakably NAILED SHUT. This is an ordinary supply crate for a pry-open puzzle. No hinges, padlock, hasp, brass corner armor, skull or treasure-chest styling. No rope is necessary. No loose nails or separate tools. Keep it completely closed and empty of visible contents.\n\nRetain the template's exact outer square silhouette in each view: straight level top and bottom, vertical sides, all four exactly the same height and width. Any wear, chipped wood, bevel shading and nail heads must stay within that measured silhouette. Keep the top plane invisible: cameras horizontal at crate mid-height, orthographic with no pitch or yaw drift. No perspective, top-down view or three-quarter angles.\n\nVIEW ORDER left to right:\n1 FRONT: straight square front with cream stencil paint ON THE WOOD, between the reinforcing battens. Exact text in four clearly readable lines:\nLE CHAOS\nNAVIGUE\nTOUJOURS\nPLUS LOIN\nNo other text anywhere. The stencil is flat paint, not raised lettering or a sign attached to the crate.\n2 LEFT SIDE: actual blank plank left side, with the same lid seam and nailed reinforcement; no stencil.\n3 RIGHT SIDE: actual opposite blank plank side, same construction; no stencil.\n4 BACK: actual blank rear planks and nailed battens, no stencil, no hinges, no lock. Different wood grain may distinguish faces, but it is the same single crate.\n\nFinish: cartoony Monkey Island / Discworld proportions, broad readable plank divisions, a few large wood knots, worn honey-brown exposed edges on dark warm wood, restrained grain and dents. Same soft neutral form shading in every view, no room lighting baked in, no gritty realism. A 3D game prop reference, not a product photograph.\nExactly four complete views on flat pure white background in ONE horizontal row. Clear empty vertical bands between them. All four precisely equal height and one shared baseline. No cast shadows, floor, scenery, labels, measurement marks, guides, captions, borders, or any other objects. Follow image1 geometry exactly while finishing it with image2's cartoon material style.",
+    "alignment_guide": {
+      "path": "/workspace/scratch/9d89bc03e38f/supply_crate_geometry_guide.png",
+      "method": "New precise orthographic construction diagram drawn with matplotlib Agg; not an edit or manipulation of generated art pixels.",
+      "canvas": [
+        2172,
+        724
+      ],
+      "centers_x_px": [
+        272,
+        814,
+        1358,
+        1900
+      ],
+      "square_envelope_px": 460,
+      "top_y_px": 132,
+      "bottom_y_px": 592,
+      "purpose": "Exact common-envelope guide for built-in imagegen; final art is generated.",
+      "sha256": "e1ef6a307e12c767063c736da37c4d62a78527cb3fba4445ae58c75c72dd4e9b"
+    },
+    "assembly": {
+      "tool": "tools/crop_views.py",
+      "tool_modified": false,
+      "arguments": [
+        "--row",
+        "0",
+        "1",
+        "--names",
+        "front",
+        "left",
+        "right",
+        "back",
+        "--pad",
+        "0.12",
+        "--size",
+        "574",
+        "--dry-run",
+        "--preview",
+        "art/props/supply_crate/sheet.png"
+      ],
+      "method": "Unchanged repository cutter crops and translates native source rectangles onto four equal square cells with shared baseline; no per-view scaling or raster retouching.",
+      "native_common_canvas_px": 574,
+      "resampled": false,
+      "per_view_scaling": false,
+      "source_measurements": {
+        "image_size_px": [
+          2172,
+          724
+        ],
+        "background_rgb": [
+          254,
+          254,
+          254
+        ],
+        "views": [
+          {
+            "view": "front",
+            "bounds_px": [
+              41,
+              133,
+              504,
+              589
+            ],
+            "width_px": 463,
+            "height_px": 456,
+            "last_ink_y_px": 588,
+            "width_height_ratio": 1.015351
+          },
+          {
+            "view": "left",
+            "bounds_px": [
+              583,
+              133,
+              1046,
+              589
+            ],
+            "width_px": 463,
+            "height_px": 456,
+            "last_ink_y_px": 588,
+            "width_height_ratio": 1.015351
+          },
+          {
+            "view": "right",
+            "bounds_px": [
+              1126,
+              133,
+              1589,
+              589
+            ],
+            "width_px": 463,
+            "height_px": 456,
+            "last_ink_y_px": 588,
+            "width_height_ratio": 1.015351
+          },
+          {
+            "view": "back",
+            "bounds_px": [
+              1669,
+              133,
+              2132,
+              589
+            ],
+            "width_px": 463,
+            "height_px": 456,
+            "last_ink_y_px": 588,
+            "width_height_ratio": 1.015351
+          }
+        ],
+        "clear_vertical_gaps_px": [
+          79,
+          80,
+          80
+        ]
+      },
+      "source_object_rectangles_pixel_identical_after_translation": [
+        true,
+        true,
+        true,
+        true
+      ]
+    }
+  },
+  "object_scope": {
+    "rule": "Model the object only, never a dressed arrangement.",
+    "contents": "One closed wooden supply crate with permanently attached battens, nails and front stencil paint.",
+    "excluded": [
+      "skull",
+      "crossed bones",
+      "ornamental brass guards",
+      "hasp",
+      "padlock",
+      "treasure",
+      "loose key",
+      "rapier",
+      "separate rope coil",
+      "other props",
+      "scenery"
+    ],
+    "distinct_from": "prop:pirate_chest"
+  },
+  "design": {
+    "status": "selected source visually reviewed",
+    "structure": "Plain square wooden shipping crate with vertical face planks, broad horizontal reinforcing battens and prominent square dark iron nail heads. Flat thin lid cap with a distinct horizontal seam underneath.",
+    "front": "Exact cream stencil painted on the central front planks, in four lines: LE CHAOS / NAVIGUE / TOUJOURS / PLUS LOIN.",
+    "stencil_text": "LE CHAOS NAVIGUE TOUJOURS PLUS LOIN",
+    "stencil_role": "Flat object paint, not extruded letters or a label outside the object.",
+    "left": "Blank vertical planks, broad top/bottom battens and dark square nails; wood knots distinguish this side.",
+    "right": "Opposite blank plank face with the same lid, battens and nails; no front lettering.",
+    "back": "Actual blank rear plank panel with consistent battens and nails, no stencil, hinges or lock.",
+    "finish": "Warm dark brown wood with broad honey-colored chipped edges, large readable wood knots and restrained cel shading. Plain black iron nails; no brass armor or skull emblem.",
+    "closure": "Closed nailed lid and reinforcing battens, with a visible seam for the pry-open puzzle. No rope, hinges or hasp are present.",
+    "openings": "No through-hole is required by the closed crate. Do not create an open lid, window or see-through panel merely to satisfy a hole rule.",
+    "state": "Closed. The source does not show the crate interior, a detached lid or an open state."
+  },
+  "placement": {
+    "convention_status": "Current engine puzzle slot measured; no engine code or transforms changed.",
+    "engine_source": "main.gd::FURNITURE and main.gd::HOTSPOTS",
+    "engine_furniture_name": "crate",
+    "engine_visual_name": "Crate",
+    "engine_model_path_target": "art/props/supply_crate/supply_crate.glb",
+    "engine_center_m": [
+      3.9,
+      0.45,
+      1.9
+    ],
+    "proposed_origin": "Ground-level center of the footprint",
+    "proposed_world_origin_m": [
+      3.9,
+      0,
+      1.9
+    ],
+    "hotspot_position_m": [
+      3.9,
+      0.9,
+      1.9
+    ],
+    "approach_position_m": [
+      3.9,
+      0,
+      2.9
+    ],
+    "interaction_contract": "Preserve the existing Crate hotspot and rapier combination. It gives the separate key item and sets crate_open. Do not bind this puzzle to pirate_chest."
+  },
+  "framing": {
+    "view_order": [
+      "front",
+      "left",
+      "right",
+      "back"
+    ],
+    "projection": "Level orthographic front, left, right and back elevations",
+    "camera": "Fixed scale with camera level at object midpoint, nominal 0.45 m above the base, horizontal optical axis, zero pitch and roll. No perspective or broad top plane.",
+    "fixed_object_pose": "Upright and nailed shut in all four views",
+    "target_width_height_ratios": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "image_size_px": [
+      2296,
+      574
+    ],
+    "cell_size_px": [
+      574,
+      574
+    ],
+    "background": "Plain opaque near-white",
+    "background_rgb": [
+      254,
+      254,
+      254
+    ],
+    "labels_in_turnaround_band": false,
+    "stencil_on_front_object_only": true,
+    "ground_line_drawn": false,
+    "ground_line_last_ink_y_px": 505,
+    "separation_px": [
+      111,
+      111,
+      111
+    ],
+    "scale": "All four source and final envelopes measure 463 × 456 px. Native source crops were translated only; no independent scaling."
+  },
+  "validation": {
+    "status": "source presentation and pixel framing measured; mesh and engine checks pending",
+    "method": "Read-only full-row NumPy/Pillow measurements using the unchanged repository cutter’s modal_colour, ink_mask and find_figures at default tolerance 18. Bounds are [x0,y0,x1,y1], upper bounds exclusive. Stencil and design reviewed visually on the final sheet.",
+    "detected_views": 4,
+    "views": [
+      {
+        "view": "front",
+        "bounds_px": [
+          55,
+          50,
+          518,
+          506
+        ],
+        "width_px": 463,
+        "height_px": 456,
+        "last_ink_y_px": 505,
+        "width_height_ratio": 1.015351
+      },
+      {
+        "view": "left",
+        "bounds_px": [
+          629,
+          50,
+          1092,
+          506
+        ],
+        "width_px": 463,
+        "height_px": 456,
+        "last_ink_y_px": 505,
+        "width_height_ratio": 1.015351
+      },
+      {
+        "view": "right",
+        "bounds_px": [
+          1203,
+          50,
+          1666,
+          506
+        ],
+        "width_px": 463,
+        "height_px": 456,
+        "last_ink_y_px": 505,
+        "width_height_ratio": 1.015351
+      },
+      {
+        "view": "back",
+        "bounds_px": [
+          1777,
+          50,
+          2240,
+          506
+        ],
+        "width_px": 463,
+        "height_px": 456,
+        "last_ink_y_px": 505,
+        "width_height_ratio": 1.015351
+      }
+    ],
+    "height_spread_px": 0,
+    "ground_line_spread_px": 0,
+    "minimum_empty_band_px": 111,
+    "strict_one_pixel_height_check_passed": true,
+    "strict_one_pixel_baseline_check_passed": true,
+    "source_object_rectangles_pixel_identical": true,
+    "stencil_text_checked": true,
+    "visual_review": {
+      "projection": "Four face-on orthographic elevations with no broad top plane or perspective drift. Same closed lid, broad battens and square nail heads across the views.",
+      "isolation": "Four whole separated crate views on white; no key, rapier, skull, floor shadow, sheet labels or other props.",
+      "stencil": "Exact required wording appears as cream paint on the front only; no attached sign or raised letter geometry is specified.",
+      "puzzle_readability": "Thin closed lid seam, nailed top battens and large iron heads communicate a nailed-shut shipping crate."
+    },
+    "reconstruction_run": false,
+    "engine_import_run": false,
+    "limitations": [
+      "The closed source does not demonstrate an interior, detached lid or open state. Mechanical opening and interior fit remain engine/model work.",
+      "All four outer envelopes are 463 × 456 px, width/height 1.015351, about 1.54% wider than an exact square. Common scale and alignment pass; the target remains 0.9 m cubed. Verify the reconstructed bounds rather than treating the painted envelope as exact CAD.",
+      "Tripo mesh generation, lettering as flat material, lid separation, inside surfaces and engine import have not been run."
+    ],
+    "foreground_threshold": "Sum of absolute RGB distance from modal background exceeds 54.",
+    "verified_stencil_lines": [
+      "LE CHAOS",
+      "NAVIGUE",
+      "TOUJOURS",
+      "PLUS LOIN"
+    ],
+    "native_view_canvas_px": [
+      574,
+      574
+    ],
+    "view_canvas_after_2x_upscale_px": [
+      1148,
+      1148
+    ],
+    "upscaling_applied": false,
+    "width_height_ratio_all_views": 1.015351,
+    "width_excess_percent_vs_square": 1.5351
+  },
+  "pipeline": {
+    "status": "source_sheet_only",
+    "view_extraction": "delegated_to_claude_code",
+    "view_extraction_names": [
+      "front",
+      "left",
+      "right",
+      "back"
+    ],
+    "upload_view_mapping": {
+      "front": "front.png",
+      "left": "left.png",
+      "right": "right.png",
+      "back": "back.png"
+    },
+    "upload_note": "Assign each crop to its named Tripo slot; the sheet display order is not the positional upload order.",
+    "three_d_generator_allowed": "Tripo only",
+    "forbidden_generators": [
+      "Hunyuan3D",
+      "HY-Motion"
+    ],
+    "nc_models_used": false,
+    "rigging_required": false,
+    "generated_3d_model": false,
+    "validated_in_engine": false,
+    "target_triangles": [
+      6000,
+      8000
+    ],
+    "triangle_target_note": "Furniture range from HANDOFF, not a claim about an existing mesh. Simple crate geometry can use fewer triangles if it retains the silhouette and closure.",
+    "lighting_note": "Broad cel shading, plank grooves and edge highlights are baked into the source. Use Tripo texture lighting removal and inspect under room lighting.",
+    "recommended_crop_command": "python tools/crop_views.py art/props/supply_crate/sheet.png --row 0 1 --names front left right back --pad 0.12 --size 574 --out art/props/supply_crate/views",
+    "native_view_canvas_px": 574,
+    "optional_2x_view_canvas_px": 1148,
+    "mechanical_state_note": "Deliver one closed static source. The engine owns the lid opening and crate_open behavior; no character rig is required.",
+    "next_step": "Extract the named views, reconstruct and texture in Tripo, verify flat stencil paint and nailed lid readability, then replace the crate visual while preserving its rapier/key puzzle.",
+    "optional_2x_crop_command": "python tools/crop_views.py art/props/supply_crate/sheet.png --row 0 1 --names front left right back --pad 0.12 --size 1148 --out art/props/supply_crate/views",
+    "upscale_note": "Use gap detection to retain the native 574 px common canvas. A uniform 2x export to 1148 px meets the documented minimum but adds no source detail. Do not use equal-cell counting with another padding pass on the already assembled source."
+  }
+}

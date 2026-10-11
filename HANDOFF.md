@@ -504,7 +504,6 @@ render for this room. Match its palette and its level of detail.
 
 | id | what | notes |
 | --- | --- | --- |
-| `supply_crate` | the nailed-shut crate | NOT the brass chest. Plain planks, rope-bound or nailed, stencilled `LE CHAOS NAVIGUE TOUJOURS PLUS LOIN` across the front. It must read as *nailed shut* — the puzzle is prising it open with a rapier |
 | `rapier` | thin French duelling rapier | inventory item. Swept brass hilt, worn grip. It is the crate's answer, so it must read as a lever as well as a sword |
 | `key` | small brass key | inventory item, comes out of the crate. Chunky and cartoony enough to read at 128 px in the bag |
 | `bowl_stand` | the pedestal the fishbowl sits on | in the render: a short turned wooden column with a brass collar, front left. The glass bowl itself is built from primitives in engine — glass is the one thing a generator is worst at — so this is the stand ONLY, with a flat top the bowl sits in |
@@ -577,6 +576,19 @@ not the current 0.26 m hemisphere height. Views show the bowl sideways, mouth +Z
 rotate -90° about X to read it upright. Check silhouette, collar and clear visibility
 of the fish when fitting the foreground-left stand. The image’s reflections/tint
 are illustration, not a transparency texture. No engine code changed.
+
+---
+
+### 2026-10-11 — for the engine side — reconstruct and integrate the supply crate
+
+`art/props/supply_crate/sheet.png` and `asset.json` are delivered. Reconstruct the
+closed nailed crate at 0.9 × 0.9 × 0.9 m, keeping the French front stencil as flat
+paint. Replace `main.gd::FURNITURE`’s `crate` / `Crate` visual at its current center
+`(3.9,0.45,1.9)`; preserve the Crate hotspot, rapier answer, separate key item and
+`crate_open` flag. Keep the decorative `pirate_chest` as a different object.
+Check the nailed lid seam, lettering/material, bounds and any opening/interior work
+in the model; the sheet shows the closed state only. All source heights and final
+baselines match exactly; the common painted envelope is 1.54% wider than a square.
 
 ---
 
@@ -852,6 +864,19 @@ prompts, hashes, measured profile limits and the sideways-to-upright convention 
 in the sidecar. Upright dimensions are 0.52 × 0.44 × 0.52 m; height is a new provisional
 art target. This remains a construction reference for engine-built transparent glass,
 not a required Tripo job. The separate `bowl_stand` queue item remains open.
+
+---
+
+### 2026-10-11 — art side — supply crate sheet delivered
+
+Moved `supply_crate` from the blocking queue to Done. Delivered
+`art/props/supply_crate/sheet.png` and `asset.json`: plain nailed wood, a readable
+closed lid seam and the exact front stencil `LE CHAOS NAVIGUE TOUJOURS PLUS LOIN`.
+Four flat orthographic views; final sheet 2296×574, each object 463×456 px, shared
+baseline y505, separators 111/111/111 px. Native source crops were translated only;
+all four object rectangles remain pixel-identical. Full prompt, references, hashes
+and measured proportion limits are in the sidecar. Reconstruction and puzzle
+integration remain Open. Rapier, key, bowl stand and porthole remain queued.
 
 ---
 

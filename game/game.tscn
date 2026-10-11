@@ -12,13 +12,13 @@
 [ext_resource type="PackedScene" path="res://stage/stage.tscn" id="stage"]
 [ext_resource type="PackedScene" path="res://cutscene/cutscene.tscn" id="cutscene"]
 [ext_resource type="PackedScene" path="res://systems/audio/audio.tscn" id="audio"]
-[ext_resource type="Resource" path="res://items/compass/compass.tres" id="item_compass"]
-[ext_resource type="Resource" path="res://items/brass_inkwell/brass_inkwell.tres" id="item_brass_inkwell"]
-[ext_resource type="Resource" path="res://items/rapier/rapier.tres" id="item_rapier"]
-[ext_resource type="Resource" path="res://items/fishbowl/fishbowl.tres" id="item_fishbowl"]
-[ext_resource type="Resource" path="res://items/key/key.tres" id="item_key"]
-[ext_resource type="Resource" path="res://items/ladle/ladle.tres" id="item_ladle"]
-[ext_resource type="Resource" path="res://items/rolled_charts/rolled_charts.tres" id="item_rolled_charts"]
+[ext_resource type="Resource" path="res://items/compass/item.tres" id="item_compass"]
+[ext_resource type="Resource" path="res://items/brass_inkwell/item.tres" id="item_brass_inkwell"]
+[ext_resource type="Resource" path="res://items/rapier/item.tres" id="item_rapier"]
+[ext_resource type="Resource" path="res://items/fishbowl/item.tres" id="item_fishbowl"]
+[ext_resource type="Resource" path="res://items/key/item.tres" id="item_key"]
+[ext_resource type="Resource" path="res://items/ladle/item.tres" id="item_ladle"]
+[ext_resource type="Resource" path="res://items/rolled_charts/item.tres" id="item_rolled_charts"]
 [ext_resource type="Script" path="res://systems/content/item_definition.gd" id="item_type"]
 
 [node name="Game" type="Node3D" node_paths=PackedStringArray("location", "state", "interactions", "caption", "choices", "dialogue", "inventory", "pointer", "cold_open_stage", "cutscene", "audio")]
@@ -61,3 +61,4 @@ visible = false
 [node name="Cutscene" parent="." instance=ExtResource("cutscene")]
 
 [node name="Audio" parent="." instance=ExtResource("audio")]
+

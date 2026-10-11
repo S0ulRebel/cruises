@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://locations/location.gd" id="1_yd40d"]
 [ext_resource type="PackedScene" path="res://props/captain_desk/captain_desk.tscn" id="2_7l27h"]
+[ext_resource type="Script" path="res://props/parts/unlit.gd" id="3_q5x5u"]
 [ext_resource type="PackedScene" path="res://props/captain_chair/captain_chair.tscn" id="4_e7pdq"]
 [ext_resource type="PackedScene" path="res://props/supply_crate/supply_crate.tscn" id="5_on6kc"]
 [ext_resource type="PackedScene" path="res://props/pirate_chest/pirate_chest.tscn" id="6_3ipg4"]
@@ -11,17 +12,20 @@
 [ext_resource type="PackedScene" path="res://props/rapier/rapier.tscn" id="10_826sm"]
 [ext_resource type="PackedScene" path="res://props/bowl_stand/bowl_stand.tscn" id="11_tgcne"]
 [ext_resource type="PackedScene" path="res://props/fishbowl/fishbowl.tscn" id="12_prnol"]
+[ext_resource type="Script" path="res://props/fishbowl/fishbowl.gd" id="13_b3yxj"]
+[ext_resource type="Script" path="res://actors/mover/mover.gd" id="15_on7o2"]
 [ext_resource type="PackedScene" path="res://actors/captain_live/captain_live.tscn" id="16_83auf"]
+[ext_resource type="Resource" path="res://actors/captain_live/character.tres" id="16_heooe"]
+[ext_resource type="Resource" path="res://actors/santi_wong/character.tres" id="18_mdfra"]
 [ext_resource type="PackedScene" path="res://actors/santi_wong/santi_wong.tscn" id="18_y4ssf"]
-
 [ext_resource type="PackedScene" path="res://locations/components/cabin_floor.tscn" id="shell_0"]
 [ext_resource type="PackedScene" path="res://locations/components/cabin_wall.tscn" id="shell_1"]
 [ext_resource type="PackedScene" path="res://locations/components/cabin_side_wall.tscn" id="shell_2"]
 [ext_resource type="PackedScene" path="res://locations/components/cabin_ceiling.tscn" id="shell_3"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_8nydx"]
-vertices = PackedVector3Array(-5.7, 0.20000002, -3.2, -5.7, 0.20000002, 3.2000003, 5.7, 0.20000002, 3.2000003, 5.7, 0.20000002, -3.2)
-polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+vertices = PackedVector3Array(-4.1, 0.20000002, -2.8, -3.6, 0.20000002, -2.8, -3.6, 0.20000002, -3.2, -5.7, 0.20000002, -3.2, -4.8, 0.20000002, -2, -4.3, 0.20000002, -2.1999998, -3.3, 0.20000002, 0.9000001, -2.8999999, 0.20000002, 0.9000001, -3, 0.20000002, -0.5999999, -5.7, 0.20000002, 1.2000003, -4.6, 0.20000002, -0.5999999, -4.8, 0.20000002, -0.79999995, -3.5, 0.20000002, 1.2000003, -3.1, 0.20000002, -2.8, 3.5, 0.20000002, -3.2, 3.9000006, 0.20000002, 3.2000003, 3.9000006, 0.20000002, 2.7000003, 3.3000002, 0.20000002, 2.7000003, 3.9000006, 0.20000002, 1.0999999, 4, 0.20000002, 0.20000005, 3.4000006, 0.20000002, 0.20000005, 3.3000002, 0.20000002, 1.0999999, -2.2, 0.20000002, 1.9000001, 3.1000004, 0.20000002, 2.5, 3.1000004, 0.20000002, 1.3000002, -2.2, 0.20000002, 1.0999999, -2.5, 0.20000002, 2.2000003, -2.8999999, 0.20000002, 2.2000003, -2.8999999, 0.20000002, 3.2000003, 3.1999998, 0.20000002, 0, -2.8999999, 0.20000002, -2.1999998, -2.3, 0.20000002, -2, 3.1999998, 0.20000002, -1.2, 3.5, 0.20000002, -1.3999999, -2.3, 0.20000002, -0.79999995, -2.5, 0.20000002, -0.5999999, -2.3999999, 0.20000002, 0.9000001, 4.8, 0.20000002, -1.2, 4.8, 0.20000002, -0.5999999, 5.7, 0.20000002, -0.5999999, 4.6000004, 0.20000002, -1.3999999, 5.7, 0.20000002, -3.2, -4.2, 0.9, -1.6, -4.2, 0.9, -1.2, -2.8999999, 0.9, -1.2, -2.8999999, 0.9, -1.6, 3.8000002, 1.1, -0.79999995, 3.8000002, 1.1, -0.39999986, 4.2, 1.1, -0.39999986, 4.2, 1.1, -0.79999995, 4.5, 0.20000002, 2.7000003, 5.7, 0.20000002, 3.2000003, 4.5, 0.20000002, 1.0999999, 4.6000004, 0.20000002, 0.20000005, 4.7, 0.20000002, 1.3000002, 4.7, 0.20000002, 2.5, 4.8, 0.20000002, 0, -3.5, 0.20000002, 2, -5.7, 0.20000002, 3.2000003, 3.6999998, 1.1, 1.7000003, 3.6999998, 1.1, 2.1, 4.1000004, 1.1, 2.1, 4.1000004, 1.1, 1.7000003)
+polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(5, 4, 0), PackedInt32Array(0, 4, 3), PackedInt32Array(8, 7, 6), PackedInt32Array(11, 10, 9), PackedInt32Array(4, 11, 3), PackedInt32Array(3, 11, 9), PackedInt32Array(6, 12, 8), PackedInt32Array(8, 12, 10), PackedInt32Array(10, 12, 9), PackedInt32Array(1, 2, 13), PackedInt32Array(13, 2, 14), PackedInt32Array(17, 16, 15), PackedInt32Array(19, 18, 20), PackedInt32Array(20, 18, 21), PackedInt32Array(25, 24, 22), PackedInt32Array(22, 24, 23), PackedInt32Array(26, 28, 27), PackedInt32Array(20, 21, 29), PackedInt32Array(29, 21, 24), PackedInt32Array(30, 13, 31), PackedInt32Array(31, 13, 32), PackedInt32Array(32, 13, 33), PackedInt32Array(33, 13, 14), PackedInt32Array(29, 24, 32), PackedInt32Array(32, 24, 25), PackedInt32Array(32, 25, 34), PackedInt32Array(32, 34, 31), PackedInt32Array(26, 22, 28), PackedInt32Array(28, 22, 17), PackedInt32Array(28, 17, 15), PackedInt32Array(36, 7, 35), PackedInt32Array(35, 7, 8), PackedInt32Array(23, 17, 22), PackedInt32Array(35, 34, 36), PackedInt32Array(36, 34, 25), PackedInt32Array(39, 38, 37), PackedInt32Array(37, 40, 39), PackedInt32Array(39, 40, 41), PackedInt32Array(41, 40, 14), PackedInt32Array(14, 40, 33), PackedInt32Array(45, 44, 42), PackedInt32Array(42, 44, 43), PackedInt32Array(49, 48, 46), PackedInt32Array(46, 48, 47), PackedInt32Array(16, 50, 15), PackedInt32Array(15, 50, 51), PackedInt32Array(18, 19, 52), PackedInt32Array(52, 19, 53), PackedInt32Array(56, 39, 54), PackedInt32Array(54, 39, 55), PackedInt32Array(55, 39, 51), PackedInt32Array(56, 38, 39), PackedInt32Array(52, 53, 54), PackedInt32Array(54, 53, 56), PackedInt32Array(55, 51, 50), PackedInt32Array(57, 27, 28), PackedInt32Array(57, 9, 12), PackedInt32Array(28, 58, 57), PackedInt32Array(57, 58, 9), PackedInt32Array(62, 61, 59), PackedInt32Array(59, 61, 60)]
 geometry_parsed_geometry_type = 1
 geometry_source_geometry_mode = 1
 geometry_source_group_name = &"nav_source"
@@ -31,7 +35,28 @@ agent_height = 2.0
 agent_radius = 0.3
 agent_max_climb = 0.2
 
-[node name="CaptainsCabin" type="Node3D" node_paths=PackedStringArray("camera", "player", "navigation_regions") unique_id=534964259]
+[sub_resource type="QuadMesh" id="QuadMesh_7pwen"]
+size = Vector2(12, 4.6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eboqt"]
+shading_mode = 0
+albedo_color = Color(0.22745098, 0.14117648, 0.08627451, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_r6qal"]
+size = Vector2(7, 4.6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fssfj"]
+shading_mode = 0
+albedo_color = Color(0.47843137, 0.3372549, 0.21176471, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_78l53"]
+size = Vector2(12, 7)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ksy6v"]
+shading_mode = 0
+albedo_color = Color(0.3529412, 0.2509804, 0.15686275, 1)
+
+[node name="CaptainsCabin" type="Node3D" unique_id=534964259 node_paths=PackedStringArray("camera", "player", "navigation_regions")]
 script = ExtResource("1_yd40d")
 camera = NodePath("Camera")
 player = NodePath("Live")
@@ -45,52 +70,77 @@ fov = 62.0
 [node name="Navigation" type="NavigationRegion3D" parent="." unique_id=915343654]
 navigation_mesh = SubResource("NavigationMesh_8nydx")
 
-[node name="Desk" type="StaticBody3D" parent="." unique_id=351815366 instance=ExtResource("2_7l27h")]
+[node name="Desk" type="StaticBody3D" parent="." unique_id=351815366 groups=["nav_source"] instance=ExtResource("2_7l27h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6, 0, -1.4)
+script = ExtResource("3_q5x5u")
 
-[node name="Chair" type="StaticBody3D" parent="." unique_id=1231876568 instance=ExtResource("4_e7pdq")]
+[node name="Chair" type="StaticBody3D" parent="." unique_id=1231876568 groups=["nav_source"] instance=ExtResource("4_e7pdq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6, 0, -2.15)
+script = ExtResource("3_q5x5u")
 
-[node name="Crate" type="StaticBody3D" parent="." unique_id=284158492 instance=ExtResource("5_on6kc")]
+[node name="Crate" type="StaticBody3D" parent="." unique_id=284158492 groups=["nav_source"] instance=ExtResource("5_on6kc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9, 0, 1.9)
+script = ExtResource("3_q5x5u")
 
-[node name="Chest" type="StaticBody3D" parent="." unique_id=1245247560 instance=ExtResource("6_3ipg4")]
+[node name="Chest" type="StaticBody3D" parent="." unique_id=1245247560 groups=["nav_source"] instance=ExtResource("6_3ipg4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -0.6)
+script = ExtResource("3_q5x5u")
 
 [node name="Porthole" type="Node3D" parent="." unique_id=1603678830 instance=ExtResource("7_gfp3u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0999999, -3.4)
+script = ExtResource("3_q5x5u")
 
 [node name="Compass" type="Node3D" parent="." unique_id=674718296 instance=ExtResource("8_o75wq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.9, 0.765, -1.25)
+script = ExtResource("3_q5x5u")
 
 [node name="BrassInkwell" type="Node3D" parent="." unique_id=1493920142 instance=ExtResource("9_5c5j0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.1, 0.765, -1.55)
+script = ExtResource("3_q5x5u")
 
 [node name="Rapier" type="Node3D" parent="." unique_id=1401042500 instance=ExtResource("10_826sm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.3, 0.72, -1.15)
+script = ExtResource("3_q5x5u")
 
-[node name="BowlStand" type="StaticBody3D" parent="." unique_id=1338743776 instance=ExtResource("11_tgcne")]
+[node name="BowlStand" type="StaticBody3D" parent="." unique_id=1338743776 groups=["nav_source"] instance=ExtResource("11_tgcne")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9, 0, 1.5)
+script = ExtResource("3_q5x5u")
 
 [node name="Fishbowl" type="Node3D" parent="." unique_id=1755904177 instance=ExtResource("12_prnol")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9, 0.65, 1.5)
+script = ExtResource("13_b3yxj")
+glass = NodePath("Model")
 
 [node name="Live" type="CharacterBody3D" parent="." unique_id=1654608170 instance=ExtResource("16_83auf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4, 0, 1.2)
+script = ExtResource("15_on7o2")
+definition = ExtResource("16_heooe")
 
 [node name="Santi" type="CharacterBody3D" parent="." unique_id=1604026883 instance=ExtResource("18_y4ssf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2, 0, 0.2)
+script = ExtResource("15_on7o2")
+definition = ExtResource("18_mdfra")
+character_height = 1.7
 
-[node name="Floor" parent="." instance=ExtResource("shell_0")]
+[node name="Floor" type="StaticBody3D" parent="." unique_id=588879328 groups=["nav_source"] instance=ExtResource("shell_0")]
+collision_layer = 2
 
-[node name="Backdrop" parent="." instance=ExtResource("shell_1")]
+[node name="Backdrop" type="MeshInstance3D" parent="." unique_id=891265419 instance=ExtResource("shell_1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3, -3.5)
+mesh = SubResource("QuadMesh_7pwen")
+surface_material_override/0 = SubResource("StandardMaterial3D_eboqt")
 
-[node name="WallLeft" parent="." instance=ExtResource("shell_2")]
+[node name="WallLeft" type="MeshInstance3D" parent="." unique_id=1751106110 instance=ExtResource("shell_2")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -6, 2.3, 0)
+mesh = SubResource("QuadMesh_r6qal")
+surface_material_override/0 = SubResource("StandardMaterial3D_fssfj")
 
-[node name="WallRight" parent="." instance=ExtResource("shell_2")]
+[node name="WallRight" type="MeshInstance3D" parent="." unique_id=1307679982 instance=ExtResource("shell_2")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 6, 2.3, 0)
+mesh = SubResource("QuadMesh_r6qal")
+surface_material_override/0 = SubResource("StandardMaterial3D_fssfj")
 
-[node name="Ceiling" parent="." instance=ExtResource("shell_3")]
+[node name="Ceiling" type="MeshInstance3D" parent="." unique_id=2084848219 instance=ExtResource("shell_3")]
 transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 4.6, 0)
+mesh = SubResource("PlaneMesh_78l53")
+surface_material_override/0 = SubResource("StandardMaterial3D_ksy6v")

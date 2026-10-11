@@ -1,3 +1,4 @@
+@tool
 class_name Hotspot
 extends Area3D
 ## A thing in the room worth clicking.
@@ -30,6 +31,7 @@ enum Verb { LOOK, USE, TALK }
 @export var visual: Node3D
 @export var approach_marker: Marker3D
 @export var target_actor: Node3D
+@export var standoff_distance := 0.9
 ## Shown when the cursor is over it.
 @export var display_name := "thing"
 ## The response to LOOK. The bulk of an adventure game's writing lives in these.
@@ -79,8 +81,12 @@ signal talked(conversation_path: String)
 signal combined(item_id: String, outcome: Dictionary)
 
 
-func _ready() -> void:
-	input_ray_pickable = true
+func _get_configuration_warnings() -> PackedStringArray:
+	var warnings := PackedStringArray()
+	if visual == null: warnings.append("Assign this prefab's local visual reference.")
+	if find_children("*", "CollisionShape3D", false, false).is_empty():
+		warnings.append("Author a CollisionShape3D child for clicking.")
+	return warnings
 
 
 ## The approach for one action, or the fallback, or null for "work it out".
@@ -98,10 +104,11 @@ func approach_for(verb: Verb) -> Approach:
 ## Returns {"at": Vector3, "facing": float}. facing is NAN for "keep whatever you had".
 func resolve_approach(verb: Verb, from: Vector3) -> Dictionary:
 	var spec := approach_for(verb)
-	var standoff: float = spec.standoff if spec else 0.9
+	var standoff: float = spec.standoff if spec else standoff_distance
+	var origin := target_actor.global_position if target_actor else global_position
 	var at: Vector3 = approach_marker.global_position if approach_marker else \
 		(to_global(spec.at) if spec and spec.at != Vector3.ZERO else \
-		Approach.default_for(global_position, from, standoff))
+		Approach.default_for(origin, from, standoff))
 
 	# Snap onto the walkable area. An authored point that drifted off the mesh, or a
 	# computed one inside a wall, would otherwise leave the character walking forever.

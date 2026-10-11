@@ -48,6 +48,7 @@ carve_navigation_mesh = false
 script = ExtResource("21_hotspot")
 visual = NodePath("../Body")
 target_actor = NodePath("..")
+standoff_distance = 1.1
 display_name = "Santi Wong"
 conversation = "res://screenplay/santi_galley.json"
 

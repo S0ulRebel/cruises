@@ -11,6 +11,7 @@ const SHELL := ["Floor", "Backdrop", "WallLeft", "WallRight", "Ceiling"]
 const HighlightScript := preload("res://ui/highlight/highlight.gd")
 
 func _run() -> void:
+	root.size = Vector2i(1920, 1080)
 	var game := instantiate_scene("res://game/game.tscn")
 	if game == null:
 		finish()
@@ -43,6 +44,7 @@ func _run() -> void:
 	check("startup navigation is ready", location.navigation_ready)
 	check("Game wires one shared session state", game.get("state") is GameState)
 	check("startup releases interaction busy state", game.get("interactions") != null and not game.get("interactions").busy)
+	check_camera_framing(location)
 	await check_location_transition(game)
 	game.queue_free()
 	await process_frame
@@ -225,11 +227,12 @@ func check_layout(location: Location) -> void:
 		if parts.size() != 2:
 			continue
 		var label: String = parts[1]
-		if label not in PREFABS and label not in SHELL and label != "Camera":
+		# The original camera stays recorded as migration evidence. Its explicitly
+		# authored replacement is tested by visibility/picking, without moving props.
+		if label not in PREFABS and label not in SHELL:
 			continue
 		var node: Node3D
-		if label == "Camera": node = location.camera
-		elif label in SHELL: node = location.get_node_or_null(label) as Node3D
+		if label in SHELL: node = location.get_node_or_null(label) as Node3D
 		else: node = by_prefab(location, PREFABS[label])
 		if not check("baseline object exists: " + label, node != null):
 			continue
@@ -247,7 +250,61 @@ func check_layout(location: Location) -> void:
 			Vector3(values[9], values[10], values[11]))
 		check("baseline composition preserved: " + label, node.transform.is_equal_approx(expected), str(node.transform))
 		tested += 1
-	check("all baseline prop/actor/environment transforms were checked", tested == PREFABS.size() + SHELL.size() + 1)
+	check("all baseline prop/actor/environment transforms were checked", tested == PREFABS.size() + SHELL.size())
+
+func check_camera_framing(location: Location) -> void:
+	var camera := location.camera
+	check("camera has the explicitly authored all-props framing profile",
+		camera.get_meta("framing_profile", "") == "cabin_all_props_v1")
+	var frame := Rect2(Vector2(24, 24), Vector2(1872, 1032))
+	for label in PREFABS:
+		var object := by_prefab(location, PREFABS[label])
+		if object == null: continue
+		var projected := projected_bounds(object, camera)
+		check("complete object bounds remain in frame: " + String(label),
+			projected.size.x > 0.0 and projected.size.y > 0.0 and frame.encloses(projected), str(projected))
+	for actor in [location.player, location.get_node("Santi")]:
+		var height := projected_bounds(actor, camera).size.y
+		check("actor remains readable at gameplay scale: " + String(actor.name),
+			height >= 250.0 and height <= 390.0, "%.1f px" % height)
+	for child in location.find_children("*", "Area3D", true, false):
+		var spot := child as Hotspot
+		if spot == null: continue
+		# Cast through the visual centre, including actors and solid bodies, so the
+		# Captain cannot accidentally make a tabletop item impossible to click.
+		var visual_bounds := world_bounds(spot.visual)
+		var screen := camera.unproject_position(visual_bounds.get_center())
+		var origin := camera.project_ray_origin(screen)
+		var query := PhysicsRayQueryParameters3D.create(origin,
+			origin + camera.project_ray_normal(screen) * 1000.0)
+		query.collide_with_areas = true
+		var hit := location.get_world_3d().direct_space_state.intersect_ray(query)
+		check("visual-centre ray selects its own hotspot: " + spot.display_name,
+			hit.get("collider") == spot, str(screen))
+	for screen in [Vector2(24, 1056), Vector2(960, 1056), Vector2(1896, 1056)]:
+		check("authored floor fills the bottom of the view", location.floor_point_under(screen) != null, str(screen))
+
+func projected_bounds(node: Node3D, camera: Camera3D) -> Rect2:
+	var initialized := false
+	var bounds := Rect2()
+	for mesh in node.find_children("*", "MeshInstance3D", true, false):
+		if mesh.mesh == null: continue
+		var box: AABB = mesh.get_aabb()
+		for i in 8:
+			var point := camera.unproject_position(mesh.global_transform * box.get_endpoint(i))
+			bounds = Rect2(point, Vector2.ZERO) if not initialized else bounds.expand(point)
+			initialized = true
+	return bounds
+
+func world_bounds(node: Node3D) -> AABB:
+	var initialized := false
+	var bounds := AABB()
+	for mesh in node.find_children("*", "MeshInstance3D", true, false):
+		if mesh.mesh == null: continue
+		var box: AABB = mesh.global_transform * mesh.get_aabb()
+		bounds = box if not initialized else bounds.merge(box)
+		initialized = true
+	return bounds
 
 func check_hotspots(location: Node, minimum: int) -> void:
 	var checked := 0

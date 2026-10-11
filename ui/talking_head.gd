@@ -20,6 +20,11 @@ extends SubViewportContainer
 ## Where a character's head piece lives. `%s` is the character id.
 const HEAD_PATH := "res://art/characters/%s/pieces/head/head_face.glb"
 
+## Where a character's hat, hair and the rest sit on their portrait head. The head
+## piece is a bare face - no hat, no hair - so the portrait is not the character until
+## these go on. See the file itself for where the numbers come from.
+const PIECES_PATH := "res://data/pieces.json"
+
 ## The bone the jaw rotates on, and the three lip shapes, as authored by the
 ## face-animation session. Named here rather than guessed at per character.
 const JAW_BONE := "Jaw"
@@ -149,9 +154,63 @@ func show_character(character_id: String) -> bool:
 	if PORTRAIT_LIGHTING:
 		_unshade(head)
 
-	_frame_on_face(head)
+	# The bare head decides the framing; a piece marked in_frame may then push the top
+	# of it up, and nothing else can. A hat belongs in the picture, but the captain's
+	# plume is a foot of feather and counting it would shrink his face to a thumbnail.
+	var bare := _bounds_of(head)
+	var framed := _add_pieces(character_id, head)
+	for node in framed:
+		bare = bare.merge(_bounds_of(node))
+	_frame_on_face(bare)
 	_viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
 	return _skeleton != null
+
+
+## Hang the character's hat and the rest on the head.
+##
+## Siblings of the head mesh rather than BoneAttachment3D children: the portrait head
+## does not move - only its jaw does - and a bone attachment would add the Head bone's
+## rest transform on top of a placement that was measured in the mesh's own space.
+## The moment the head starts turning in the panel this becomes a BoneAttachment3D on
+## JAW_BONE's parent, and the offsets stay as they are.
+## Returns the pieces that are allowed to affect the framing.
+func _add_pieces(character_id: String, head: Node3D) -> Array[Node3D]:
+	var framed: Array[Node3D] = []
+	for piece in _pieces_for(character_id):
+		var path := String(piece.get("model", ""))
+		if not ResourceLoader.exists(path):
+			push_warning("TalkingHead: %s has no model at %s" % [character_id, path])
+			continue
+		var scene := load(path) as PackedScene
+		if scene == null:
+			continue
+		var node := scene.instantiate() as Node3D
+		var scale: float = float(piece.get("scale", 1.0))
+		var euler: Array = piece.get("rotation_degrees", [0.0, 0.0, 0.0])
+		var offset: Array = piece.get("offset", [0.0, 0.0, 0.0])
+		var basis := Basis.from_euler(Vector3(
+			deg_to_rad(float(euler[0])), deg_to_rad(float(euler[1])), deg_to_rad(float(euler[2]))))
+		node.transform = Transform3D(basis.scaled(Vector3.ONE * scale),
+			Vector3(float(offset[0]), float(offset[1]), float(offset[2])))
+		head.add_child(node)
+		if bool(piece.get("in_frame", true)):
+			framed.append(node)
+	return framed
+
+
+static func _pieces_for(character_id: String) -> Array:
+	if not FileAccess.file_exists(PIECES_PATH):
+		return []
+	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(PIECES_PATH))
+	if not (parsed is Dictionary):
+		return []
+	var mine: Variant = parsed.get(character_id)
+	if not (mine is Dictionary):
+		return []
+	var out: Array = []
+	for name in mine:
+		out.append(mine[name])
+	return out
 
 
 ## Draw the texture exactly as painted, with no engine lighting at all. Tripo delights
@@ -170,8 +229,7 @@ func _unshade(root: Node) -> void:
 
 ## Point the camera at the face, worked out from where the head actually is rather
 ## than from numbers that only suit one character.
-func _frame_on_face(head: Node3D) -> void:
-	var bounds := _bounds_of(head)
+func _frame_on_face(bounds: AABB) -> void:
 	if bounds.size == Vector3.ZERO:
 		return
 	# Aim slightly below the middle: a portrait is about the mouth and eyes, and the
@@ -183,7 +241,13 @@ func _frame_on_face(head: Node3D) -> void:
 	# Fit the face height, which is roughly the top half of the piece once the neck is
 	# discounted, into `framing` of the panel.
 	var face_height: float = bounds.size.y * 0.72
-	var distance: float = (face_height / framing) * 0.5 / tan(deg_to_rad(_camera.fov * 0.5))
+	var half: float = (face_height / framing) * 0.5
+	# If a hat reaches above what that would show, pull back by exactly enough to get
+	# it in - rather than re-fitting the whole box, which would drop the chin and the
+	# neck into frame and shrink the face for no gain.
+	var wanted_top: float = bounds.position.y + bounds.size.y
+	half = maxf(half, wanted_top - target.y)
+	var distance: float = half / tan(deg_to_rad(_camera.fov * 0.5))
 	_camera.global_position = target + Vector3(0, 0, maxf(distance, 0.25))
 	_camera.look_at(target)
 

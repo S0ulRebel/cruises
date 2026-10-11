@@ -1,0 +1,44 @@
+{
+  "_note": [
+    "Who is in the first room, and where. Read by the game (to find each character in",
+    "the room scene and give the dialogue their name and colour) and by",
+    "tools/build_cabin.gd (to place them when a room is first built).",
+    "",
+    "`assets` is the folder under art/characters and the key in the speech data. It is",
+    "NOT the same as `id`: the id is what the screenplay calls them, which is short",
+    "because a writer types it a thousand times. Keeping both means a character can be",
+    "renamed in the script without moving any files.",
+    "",
+    "`at` only decides where a character is the first time a room is built. After that",
+    "the room scene holds the position and the owner moves them by dragging."
+  ],
+  "cast": [
+    {
+      "id": "live",
+      "name": "Captain Livé",
+      "assets": "captain_live",
+      "height": 1.9,
+      "colour": "#1c1a1f",
+      "at": [
+        -1.4,
+        0,
+        1.2
+      ],
+      "model": "res://art/characters/captain_live/captain_live_hands.glb"
+    },
+    {
+      "id": "santi",
+      "name": "Santi Wong",
+      "assets": "santi_wong",
+      "height": 1.7,
+      "colour": "#efe6d8",
+      "at": [
+        2.2,
+        0,
+        0.2
+      ],
+      "model": "res://art/characters/santi_wong/santi_wong_animated.glb",
+      "talk": "res://screenplay/santi_galley.json"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "_comment": "Per-character speaking style. Same system, different numbers, so one line reads as a different person. Tune by eye.",
+  "_fields": {
+    "wpm": "words per minute, sets syllable duration",
+    "jaw_max": "degrees; the character's widest opening. Range for Live is -3.25 (closed) to +30",
+    "jaw_closed": "degrees at rest; the mesh is modelled mouth-open so this is negative",
+    "shape_gain": "multiplier on WIDE/ROUND/PRESSED, 0 = jaw only",
+    "pause_hold": "seconds held closed at a full stop",
+    "comma_hold": "seconds held closed at a comma",
+    "undershoot": "0..1, how far short of the target each syllable stops; mumbling"
+  },
+  "captain_live": {
+    "wpm": 135, "jaw_max": 16.0, "jaw_closed": -3.25,
+    "shape_gain": 0.75, "pause_hold": 0.42, "comma_hold": 0.20, "undershoot": 0.30
+  },
+  "santi_wong": {
+    "wpm": 170, "jaw_max": 28.0, "jaw_closed": -3.25,
+    "shape_gain": 1.00, "pause_hold": 0.30, "comma_hold": 0.14, "undershoot": 0.05
+  },
+  "_default": {
+    "wpm": 150, "jaw_max": 22.0, "jaw_closed": -3.25,
+    "shape_gain": 0.85, "pause_hold": 0.36, "comma_hold": 0.18, "undershoot": 0.15
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "_comment": "Letter -> mouth pose. Approximate by design: English spelling is not phonetic and nobody lip-reads at panel size. Tune these by eye; no rebuild needed.",
+  "_fields": {
+    "jaw": "0..1, fraction of the character's jaw_max",
+    "wide": "0..1 WIDE blendshape",
+    "round": "0..1 ROUND blendshape",
+    "pressed": "0..1 PRESSED blendshape"
+  },
+  "vowels": {
+    "a": { "jaw": 1.00, "wide": 0.25, "round": 0.00, "pressed": 0.00 },
+    "e": { "jaw": 0.55, "wide": 0.85, "round": 0.00, "pressed": 0.00 },
+    "i": { "jaw": 0.40, "wide": 0.90, "round": 0.00, "pressed": 0.00 },
+    "o": { "jaw": 0.70, "wide": 0.00, "round": 0.85, "pressed": 0.00 },
+    "u": { "jaw": 0.45, "wide": 0.00, "round": 1.00, "pressed": 0.00 },
+    "y": { "jaw": 0.40, "wide": 0.80, "round": 0.00, "pressed": 0.00 }
+  },
+  "digraphs": {
+    "oo": { "jaw": 0.35, "wide": 0.00, "round": 1.00, "pressed": 0.00 },
+    "ee": { "jaw": 0.35, "wide": 1.00, "round": 0.00, "pressed": 0.00 },
+    "ea": { "jaw": 0.60, "wide": 0.80, "round": 0.00, "pressed": 0.00 },
+    "ou": { "jaw": 0.75, "wide": 0.00, "round": 0.75, "pressed": 0.00 },
+    "ow": { "jaw": 0.75, "wide": 0.00, "round": 0.80, "pressed": 0.00 },
+    "oa": { "jaw": 0.70, "wide": 0.00, "round": 0.70, "pressed": 0.00 },
+    "ai": { "jaw": 0.80, "wide": 0.55, "round": 0.00, "pressed": 0.00 },
+    "ar": { "jaw": 0.95, "wide": 0.10, "round": 0.10, "pressed": 0.00 }
+  },
+  "consonants": {
+    "b": { "jaw": 0.00, "wide": 0.00, "round": 0.00, "pressed": 1.00 },
+    "m": { "jaw": 0.00, "wide": 0.00, "round": 0.00, "pressed": 1.00 },
+    "p": { "jaw": 0.00, "wide": 0.00, "round": 0.00, "pressed": 1.00 },
+    "f": { "jaw": 0.12, "wide": 0.35, "round": 0.00, "pressed": 0.55 },
+    "v": { "jaw": 0.12, "wide": 0.35, "round": 0.00, "pressed": 0.55 },
+    "w": { "jaw": 0.20, "wide": 0.00, "round": 0.90, "pressed": 0.00 },
+    "r": { "jaw": 0.28, "wide": 0.00, "round": 0.45, "pressed": 0.00 },
+    "l": { "jaw": 0.35, "wide": 0.30, "round": 0.00, "pressed": 0.00 },
+    "s": { "jaw": 0.14, "wide": 0.60, "round": 0.00, "pressed": 0.20 },
+    "z": { "jaw": 0.14, "wide": 0.60, "round": 0.00, "pressed": 0.20 },
+    "t": { "jaw": 0.18, "wide": 0.40, "round": 0.00, "pressed": 0.10 },
+    "d": { "jaw": 0.20, "wide": 0.40, "round": 0.00, "pressed": 0.10 },
+    "n": { "jaw": 0.16, "wide": 0.35, "round": 0.00, "pressed": 0.15 },
+    "k": { "jaw": 0.25, "wide": 0.25, "round": 0.00, "pressed": 0.00 },
+    "g": { "jaw": 0.25, "wide": 0.25, "round": 0.00, "pressed": 0.00 },
+    "h": { "jaw": 0.30, "wide": 0.15, "round": 0.00, "pressed": 0.00 },
+    "_default": { "jaw": 0.20, "wide": 0.30, "round": 0.00, "pressed": 0.10 }
+  },
+  "rest": { "jaw": 0.00, "wide": 0.00, "round": 0.00, "pressed": 0.35 }
+}

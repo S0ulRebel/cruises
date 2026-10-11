@@ -106,7 +106,7 @@ func _build_floor() -> void:
 	var mat := StandardMaterial3D.new()
 	mat.albedo_color = Color("#2a1b10")
 	mat.roughness = 0.95
-	visual.material_override = mat
+	visual.set_surface_override_material(0, mat)
 	floor_body.add_child(visual)
 
 
@@ -123,13 +123,19 @@ func _build_backdrop() -> void:
 	var mat := StandardMaterial3D.new()
 	mat.albedo_color = Color("#3a2416")
 	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	backdrop.material_override = mat
+	backdrop.set_surface_override_material(0, mat)
 	add_child(backdrop)
 
 	_build_shell()
 
 
 ## The rest of the box: two side walls and a ceiling.
+##
+## Their materials go in the SURFACE OVERRIDE slot, never in material_override.
+## material_override beats everything, cannot be changed per instance in the editor,
+## and silently swallowed a whole unlit pass - the walls and floor kept their lit
+## material with every light switched off and rendered black. The surface slot is the
+## one the inspector shows and the one the owner can drop a material into.
 ##
 ## Placeholder, like the backdrop - the art session's room pieces replace all of it.
 ## Until then they are what stops the camera looking out of the room into grey void,
@@ -165,7 +171,7 @@ func _build_shell() -> void:
 		wall.position = Vector3(side * room_width * 0.5, wall_height * 0.5, 0.0)
 		# Turned to face into the room: a quad faces +Z, so the left wall looks +X.
 		wall.rotation_degrees = Vector3(0.0, -90.0 * side, 0.0)
-		wall.material_override = walls
+		wall.set_surface_override_material(0, walls)
 		add_child(wall)
 
 	var ceiling := MeshInstance3D.new()
@@ -176,7 +182,7 @@ func _build_shell() -> void:
 	ceiling.position = Vector3(0.0, wall_height, 0.0)
 	# A PlaneMesh faces up; flipped so it is seen from underneath.
 	ceiling.rotation_degrees = Vector3(180.0, 0.0, 0.0)
-	ceiling.material_override = ceiling_material
+	ceiling.set_surface_override_material(0, ceiling_material)
 	add_child(ceiling)
 
 

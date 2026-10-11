@@ -21,35 +21,35 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_twxhl"]
 size = Vector3(12, 0.2, 7)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y4ssf"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_y4ssf"]
+size = Vector2(12, 7)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ujyaw"]
 albedo_color = Color(0.16470589, 0.105882354, 0.0627451, 1)
 roughness = 0.95
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_ujyaw"]
-size = Vector2(12, 7)
+[sub_resource type="QuadMesh" id="QuadMesh_thq1o"]
+size = Vector2(12, 4.6)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_thq1o"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q1srp"]
 shading_mode = 0
 albedo_color = Color(0.22745098, 0.14117648, 0.08627451, 1)
 
-[sub_resource type="QuadMesh" id="QuadMesh_q1srp"]
-size = Vector2(12, 4.6)
+[sub_resource type="QuadMesh" id="QuadMesh_7pwen"]
+size = Vector2(7, 4.6)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7pwen"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eboqt"]
 albedo_color = Color(0.47843137, 0.3372549, 0.21176471, 1)
 roughness = 0.95
-
-[sub_resource type="QuadMesh" id="QuadMesh_eboqt"]
-size = Vector2(7, 4.6)
 
 [sub_resource type="QuadMesh" id="QuadMesh_r6qal"]
 size = Vector2(7, 4.6)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fssfj"]
-albedo_color = Color(0.3529412, 0.2509804, 0.15686275, 1)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_t84db"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_fssfj"]
 size = Vector2(12, 7)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t84db"]
+albedo_color = Color(0.3529412, 0.2509804, 0.15686275, 1)
 
 [sub_resource type="Environment" id="Environment_78l53"]
 background_mode = 1
@@ -122,55 +122,55 @@ at = Vector3(3.9, 0, 2.9)
 [sub_resource type="BoxShape3D" id="BoxShape3D_8te8y"]
 size = Vector3(0.9, 0.9, 0.9)
 
-[node name="CaptainQuarters" type="Node3D" unique_id=951297505]
+[node name="CaptainQuarters" type="Node3D" unique_id=850293260]
 script = ExtResource("1_jo7n4")
 
-[node name="Camera" type="Camera3D" parent="." unique_id=813858075]
+[node name="Camera" type="Camera3D" parent="." unique_id=1139446946]
 transform = Transform3D(1, 0, 0, 0, 0.9986295, 0.05233596, 0, -0.05233596, 0.9986295, 0, 1.15, 4.1)
 current = true
 fov = 62.0
 
-[node name="Floor" type="StaticBody3D" parent="." unique_id=1616252849]
+[node name="Floor" type="StaticBody3D" parent="." unique_id=85427234]
 
-[node name="@CollisionShape3D@46" type="CollisionShape3D" parent="Floor" unique_id=1625672303]
+[node name="@CollisionShape3D@46" type="CollisionShape3D" parent="Floor" unique_id=1822214250]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 shape = SubResource("BoxShape3D_twxhl")
 
-[node name="FloorVisual" type="MeshInstance3D" parent="Floor" unique_id=540215866]
-material_override = SubResource("StandardMaterial3D_y4ssf")
-mesh = SubResource("PlaneMesh_ujyaw")
+[node name="FloorVisual" type="MeshInstance3D" parent="Floor" unique_id=836266809]
+mesh = SubResource("PlaneMesh_y4ssf")
+surface_material_override/0 = SubResource("StandardMaterial3D_ujyaw")
 
-[node name="Backdrop" type="MeshInstance3D" parent="." unique_id=1138325780]
+[node name="Backdrop" type="MeshInstance3D" parent="." unique_id=798070745]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3, -3.5)
-material_override = SubResource("StandardMaterial3D_thq1o")
-mesh = SubResource("QuadMesh_q1srp")
+mesh = SubResource("QuadMesh_thq1o")
+surface_material_override/0 = SubResource("StandardMaterial3D_q1srp")
 
-[node name="WallLeft" type="MeshInstance3D" parent="." unique_id=14691934]
+[node name="WallLeft" type="MeshInstance3D" parent="." unique_id=1074801623]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -6, 2.3, 0)
-material_override = SubResource("StandardMaterial3D_7pwen")
-mesh = SubResource("QuadMesh_eboqt")
+mesh = SubResource("QuadMesh_7pwen")
+surface_material_override/0 = SubResource("StandardMaterial3D_eboqt")
 
-[node name="WallRight" type="MeshInstance3D" parent="." unique_id=94462406]
+[node name="WallRight" type="MeshInstance3D" parent="." unique_id=1184123200]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 6, 2.3, 0)
-material_override = SubResource("StandardMaterial3D_7pwen")
 mesh = SubResource("QuadMesh_r6qal")
+surface_material_override/0 = SubResource("StandardMaterial3D_eboqt")
 
-[node name="Ceiling" type="MeshInstance3D" parent="." unique_id=798822336]
+[node name="Ceiling" type="MeshInstance3D" parent="." unique_id=1359087633]
 transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 4.6, 0)
-material_override = SubResource("StandardMaterial3D_fssfj")
-mesh = SubResource("PlaneMesh_t84db")
+mesh = SubResource("PlaneMesh_fssfj")
+surface_material_override/0 = SubResource("StandardMaterial3D_t84db")
 
-[node name="KeyLight" type="DirectionalLight3D" parent="." unique_id=1986287187]
+[node name="KeyLight" type="DirectionalLight3D" parent="." unique_id=268783037]
 transform = Transform3D(0.7880108, -0.41195798, 0.45752564, 0, 0.7431448, 0.6691306, -0.6156615, -0.5272821, 0.5856061, 0, 0, 0)
 light_color = Color(1, 0.8235294, 0.627451, 1)
 light_energy = 0.8
 light_specular = 0.0
 shadow_enabled = true
 
-[node name="Lighting" type="WorldEnvironment" parent="." unique_id=476901590]
+[node name="Lighting" type="WorldEnvironment" parent="." unique_id=2069006931]
 environment = SubResource("Environment_78l53")
 
-[node name="Navigation" type="NavigationRegion3D" parent="." unique_id=213010060]
+[node name="Navigation" type="NavigationRegion3D" parent="." unique_id=94053805]
 navigation_mesh = SubResource("NavigationMesh_ksy6v")
 
 [node name="Desk" type="StaticBody3D" parent="." unique_id=1048235815 instance=ExtResource("2_yd40d")]
@@ -205,7 +205,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9, 0.65, 1.5)
 script = ExtResource("12_tgcne")
 glass = NodePath("Model")
 
-[node name="@Area3D@53" type="Area3D" parent="." unique_id=1782400119]
+[node name="@Area3D@53" type="Area3D" parent="." unique_id=42687502]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55, -3.3)
 script = ExtResource("13_prnol")
 approach = SubResource("Resource_8nydx")
@@ -213,10 +213,10 @@ display_name = "Porthole"
 description = "Fog. The same fog as yesterday, and no closer to telling us where we are."
 metadata/visual = "Porthole"
 
-[node name="@CollisionShape3D@52" type="CollisionShape3D" parent="@Area3D@53" unique_id=1469068022]
+[node name="@CollisionShape3D@52" type="CollisionShape3D" parent="@Area3D@53" unique_id=1778001759]
 shape = SubResource("BoxShape3D_l2wfm")
 
-[node name="@Area3D@55" type="Area3D" parent="." unique_id=954660295]
+[node name="@Area3D@55" type="Area3D" parent="." unique_id=587610673]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6, 0.8, -1.4)
 script = ExtResource("13_prnol")
 approach = SubResource("Resource_jersa")
@@ -224,10 +224,10 @@ display_name = "Desk"
 description = "Charts, a compass, and a dried-out inkwell. He navigates by instinct and blames the charts."
 metadata/visual = "Desk"
 
-[node name="@CollisionShape3D@54" type="CollisionShape3D" parent="@Area3D@55" unique_id=760907049]
+[node name="@CollisionShape3D@54" type="CollisionShape3D" parent="@Area3D@55" unique_id=1540026639]
 shape = SubResource("BoxShape3D_h6wp6")
 
-[node name="@Area3D@57" type="Area3D" parent="." unique_id=857729918]
+[node name="@Area3D@57" type="Area3D" parent="." unique_id=404730216]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.3, 0.95, -1.2)
 script = ExtResource("13_prnol")
 approach = SubResource("Resource_xfm3a")
@@ -244,10 +244,10 @@ combinations = {
 }
 metadata/visual = "Fishbowl"
 
-[node name="@CollisionShape3D@56" type="CollisionShape3D" parent="@Area3D@57" unique_id=1483708547]
+[node name="@CollisionShape3D@56" type="CollisionShape3D" parent="@Area3D@57" unique_id=401714358]
 shape = SubResource("BoxShape3D_ggyt7")
 
-[node name="@Area3D@59" type="Area3D" parent="." unique_id=1318335999]
+[node name="@Area3D@59" type="Area3D" parent="." unique_id=1641687209]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.3, 0.86, -1.15)
 script = ExtResource("13_prnol")
 approach = SubResource("Resource_s0n6w")
@@ -255,10 +255,10 @@ display_name = "Rapier"
 description = "Thin, French, and considerably better travelled than most men. It is holding down a chart."
 gives_item = "rapier"
 
-[node name="@CollisionShape3D@58" type="CollisionShape3D" parent="@Area3D@59" unique_id=1444763152]
+[node name="@CollisionShape3D@58" type="CollisionShape3D" parent="@Area3D@59" unique_id=1709533564]
 shape = SubResource("BoxShape3D_qc71v")
 
-[node name="@Area3D@61" type="Area3D" parent="." unique_id=991281464]
+[node name="@Area3D@61" type="Area3D" parent="." unique_id=693342675]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.9, 0.82, -1.25)
 script = ExtResource("13_prnol")
 approach = SubResource("Resource_f3y8p")
@@ -267,10 +267,10 @@ description = "The needle swings, settles, and points at nothing in particular. 
 gives_item = "compass"
 metadata/visual = "Compass"
 
-[node name="@CollisionShape3D@60" type="CollisionShape3D" parent="@Area3D@61" unique_id=2038766348]
+[node name="@CollisionShape3D@60" type="CollisionShape3D" parent="@Area3D@61" unique_id=1845541355]
 shape = SubResource("BoxShape3D_k3sm0")
 
-[node name="Inkwell" type="Area3D" parent="." unique_id=548908473]
+[node name="Inkwell" type="Area3D" parent="." unique_id=501960055]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.1, 0.84, -1.55)
 script = ExtResource("13_prnol")
 approach = SubResource("Resource_gf5ly")
@@ -279,10 +279,10 @@ description = "Dry since the second week. He writes the log from memory, which i
 gives_item = "brass_inkwell"
 metadata/visual = "Brass_inkwell"
 
-[node name="@CollisionShape3D@62" type="CollisionShape3D" parent="Inkwell" unique_id=1540510403]
+[node name="@CollisionShape3D@62" type="CollisionShape3D" parent="Inkwell" unique_id=2002816425]
 shape = SubResource("BoxShape3D_3u823")
 
-[node name="@Area3D@64" type="Area3D" parent="." unique_id=1828582049]
+[node name="@Area3D@64" type="Area3D" parent="." unique_id=1074711958]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9, 0.9, 1.9)
 script = ExtResource("13_prnol")
 approach = SubResource("Resource_atbtm")
@@ -308,14 +308,14 @@ combinations = {
 }
 metadata/visual = "Crate"
 
-[node name="@CollisionShape3D@63" type="CollisionShape3D" parent="@Area3D@64" unique_id=573284973]
+[node name="@CollisionShape3D@63" type="CollisionShape3D" parent="@Area3D@64" unique_id=1090326286]
 shape = SubResource("BoxShape3D_8te8y")
 
-[node name="live" type="CharacterBody3D" parent="." unique_id=643481626 instance=ExtResource("15_va43j")]
+[node name="live" type="CharacterBody3D" parent="." unique_id=1556913817 instance=ExtResource("15_va43j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4, 0, 1.2)
 script = ExtResource("16_ufmvm")
 
-[node name="santi" type="CharacterBody3D" parent="." unique_id=62050317 instance=ExtResource("17_83auf")]
+[node name="santi" type="CharacterBody3D" parent="." unique_id=1534907380 instance=ExtResource("17_83auf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2, 0, 0.2)
 script = ExtResource("16_ufmvm")
 character_height = 1.7

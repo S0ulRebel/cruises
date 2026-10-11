@@ -164,6 +164,15 @@ func _enter_room() -> void:
 		await _self_check()
 	if "--record" in args2:
 		await _record()
+	# Stylised-lighting comparison. A tool, not the game - see tools/look_test.gd.
+	var look := ""
+	for i in args2.size():
+		if args2[i] == "--look" and i + 1 < args2.size():
+			look = args2[i + 1]
+	if not look.is_empty():
+		preload("res://tools/look_test.gd").apply(_room, look, self)
+		await get_tree().process_frame
+
 	if "--shot" in args2:
 		if "--hover" in args2:
 			# Put the cursor on something clickable so the caption and the highlight

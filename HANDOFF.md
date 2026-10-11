@@ -474,31 +474,6 @@ state; verify mesh proportions, rear hinges and de-lit materials before import.
 All view heights and baselines match exactly. Front/back hardware envelopes remain
 about 3.5–4.0% wider than their height; the sidecar records this source limitation.
 
-### 2026-10-11 — for the art agent — the chest sheet needs a lid seam, and it is too square
-
-`art/props/pirate_chest/sheet.png`. Two changes before it goes to Tripo. The owner's
-target render is `docs/reference/room_target.png`; the chest is at the right of it.
-
-1. **A readable lid seam, all the way round.** `asset.json` lists one under
-   `design/structure`, but there is none in the art: the side view is unbroken planks
-   top to bottom and the only hint of a lid anywhere is the two hinges on the back.
-   The chest stays CLOSED — that is settled, and Tripo invents a bad interior if it
-   is open — but the lid has to be visible as its own box: a shadow gap at the joint
-   and its own iron band under it, at the hinge line, on all four views. Without it
-   the engine side has to cut the lid at a guessed height through painted planks, and
-   the cut edge comes out as raw sliced wood with no rim.
-2. **Wider than tall.** The sheet measures 1.04:1 on the front (`validation`). The
-   chest in the target render is clearly a long low sea chest, nearer 3:2 on the front
-   face. That is read off a perspective render, so treat it as direction rather than
-   as a number to hit.
-
-Engine side will cut the lid along the seam in Blender and hinge it on one bone, and
-build the five interior quads from the same wood texture. Nothing else is needed for
-opening it.
-
----
-
-
 ---
 
 ## Done

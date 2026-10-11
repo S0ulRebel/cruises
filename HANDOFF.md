@@ -26,6 +26,14 @@ Captain's fitted frontal dialogue portrait and its editable assembly rotation ar
 recorded in `ui/HANDOFF.md` and `ui/portraits/captain_live/fit.json`; body work remains
 deferred. Portrait checks and external GPU capture commands are in `tests/README.md`.
 
+Character Workshop redesign is approved and pending implementation. Read
+`docs/CHARACTER_WORKSHOP_PLAN.md` for priorities CW01–CW24, completion checks and
+proposed module scopes. The agreed workflow uses native editor transforms, freely
+named parts, expanded parent/bone/local-rig attachments, reversible mesh exclusion
+and explicit reusable-scene saves. Fixed slot sections and automatic conflicts are
+retired by the new design. Current world actors/portrait and deferred body art remain
+separate; complete the assembly contract before assigning parallel editing worktrees.
+
 ## The rule
 
 **Read this file in full before you ask the owner anything.** Not skim it, not

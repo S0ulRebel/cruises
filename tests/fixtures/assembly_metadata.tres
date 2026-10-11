@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://tests/fixtures/assembly_metadata.gd" id="1"]
+
+[sub_resource type="StandardMaterial3D" id="Material"]
+albedo_color = Color(0.8, 0.4, 0.1, 1)
+
+[resource]
+script = ExtResource("1")
+material = SubResource("Material")
+related = Array[Resource]([SubResource("Material")])

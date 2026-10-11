@@ -1,0 +1,527 @@
+{
+  "asset_id": "prop:fishbowl",
+  "name": "Count Fingers’ fishbowl",
+  "role": "Scene 1 — foreground glass vessel for Count Fingers, separate from its stand",
+  "asset_type": "prop_turnaround_sheet",
+  "files": {
+    "sheet": "sheet.png"
+  },
+  "dimensions_m": {
+    "width": 0.52,
+    "height": 0.44,
+    "depth": 0.52
+  },
+  "dimension_contract": "dimensions_m describes the complete empty upright glass bowl and attached brass base collar, excluding water, fish and stand. The 0.52 m maximum diameter is retained from the engine; 0.44 m height is a new provisional art target matching the approved bulbous silhouette, not a measurement of the existing 0.52 × 0.26 × 0.52 m hemisphere primitive. Use the stated 0.52 × 0.44 × 0.52 m dimensions to author the engine geometry; the painted profile envelopes are not exact CAD dimensions. The sheet presents the bowl sideways, reconstruction box 0.52W × 0.52H × 0.44D m, with its opening toward +Z. Rotate -90 degrees about X to return it upright before checking bounds and grounding the closed base. This is a shape/construction reference, not a transparency texture. Engine-built transparent glass remains the intended route; Tripo reconstruction is not required.",
+  "source": {
+    "producer": "OpenAI imagegen via ChatGPT",
+    "mode": "built-in",
+    "model_identifier": "Not exposed by the built-in tool",
+    "date": "2026-10-11",
+    "original_filename": "exec-8396694e-fe52-4315-a80e-e58fa2c51c25.png",
+    "generated_source_sha256": "d6b5ab0a055e851554b6e1d8fbe61d6e591d046bced6ae456a840b33190fa7d0",
+    "sha256": "e6d4f6239b627ef87fe21505d9c32cb13bb39eb5e75ac8c9ba0b6e692d50f9a8",
+    "repository_base_commit": "f148415c781e4d57767f2a08d5ef821107bf4706",
+    "references": [
+      {
+        "original_path": "/workspace/scratch/9d89bc03e38f/bowl_geometry_guide.png",
+        "sha256": "20d4b4dd96ade3f55fb2618c6fe250735063cd6dde7352125c9b9b85bb4593a9",
+        "original_filename": "bowl_geometry_guide.png"
+      },
+      {
+        "original_path": "/workspace/scratch/9d89bc03e38f/cruises_git/art/props/captain_desk/sheet.png",
+        "sha256": "02300d11cad484407755dfea20b66770abc9e92e895095b834bb505477b4f69c",
+        "repository_path": "art/props/captain_desk/sheet.png"
+      }
+    ],
+    "generation_history": [
+      {
+        "pass": 1,
+        "stage": "initial",
+        "prompt": "Use case: stylized-concept.\nAsset type: four-view modeling sheet of Count Fingers' EMPTY FISHBOWL, for Tripo reconstruction and a cartoony pirate adventure game.\n\nREFERENCE ROLES: image1 is the approved cabin. Use ONLY the round bulbous clear-glass fishbowl in the lower-left foreground as the design reference, including its thick rolled glass lip and small riveted brass band around the flat bottom. Image2 (bare desk) and image3 (Captain) establish the stylized sculpted cartoon finish. No room or characters in the output.\n\nExactly ONE empty glass bowl, shown FOUR times in one horizontal row: FRONT, LEFT SIDE, RIGHT SIDE, BACK. No printed labels.\nThe bowl is reconstructed LYING ON ITS SIDE in ALL FOUR VIEWS. This fixed object orientation is intentional: the front camera must look straight INTO ITS OPEN MOUTH. It will be rotated upright in the game. Never show four upright profile bowls, and never tilt the cameras. All views depict one fixed sideways bowl, with only the viewing direction changing.\n\nBOWL DESIGN: a nearly spherical plump body with a softly narrowed short neck, thick rolled round open glass lip, a flat CLOSED glass bottom and a restrained antique-brass base collar with broad round rivets, as in the reference. The small brass collar is part of the bowl; there is no wooden stand, stool, pedestal or tray. Clear empty glass, no water, blue liquid, fish, gravel, weeds, ornaments or other contents. No lid, stopper, cap or cover. Wall thickness about1cm, visibly separate inner and outer surfaces. Mouth is a genuinely open cavity; do not seal it with a transparent-looking flat disk. Bottom remains closed.\n\nFIXED RECONSTRUCTION AXES: mouth axis horizontal, pointing toward the FRONT camera; base points away from front camera.\nVIEW1 FRONT: look straight down the open mouth, centered inside the wider spherical glass body silhouette. A circular thick rolled lip surrounds a clearly recessed hollow interior with curved inner walls and a distant closed inner floor. The opening is not filled by a flat circular glass pane.\nVIEW2 LEFT SIDE: true profile, mouth at IMAGE-RIGHT, brass base at IMAGE-LEFT. Show the full body curvature, short open neck/rim edge, thin glass wall and narrow base collar.\nVIEW3 RIGHT SIDE: opposite true profile, mouth at IMAGE-LEFT, brass base at IMAGE-RIGHT. Exactly the same dimensions and construction as view2.\nVIEW4 BACK: look straight at the OUTSIDE CLOSED BOTTOM. The circular brass base collar surrounds a closed clear glass bottom within the wider body silhouette. This is the underside, NOT another open mouth and not an open brass ring. No fake cutaways or cross-section views.\n\nUPRIGHT TARGET DIMENSIONS:0.52m maximum diameter ×0.44m overall height, including the small base band. Mouth diameter roughly0.38m; base diameter roughly0.40m. Reconstruction bounding dimensions while sideways are0.52W×0.52H×0.44D.\nThus FRONT and BACK are round envelopes with WIDTH=HEIGHT, and both SIDE views are0.846 times as wide as tall. All FOUR views are EXACTLY THE SAME PIXEL HEIGHT and share top and bottom y levels within1pixel. Side views must stay naturally narrower, no independent enlargement. Whole objects fully inside four equal framing cells with wide clear white vertical separators.\n\nRENDER: use broad, readable stylized glass edges and a very faint neutral blue-gray glass tint, with restrained white highlights confined to the surface. Keep the interior readable and empty; do not obscure it with strong reflections or a solid blue fill. Brass matches the warm worn desk hardware. Soft neutral even form lighting, no room reflections, no photoreal noise or ornate engraving. No golden cabin lighting baked into the glass.\nStrict orthographic cameras at object mid-height, horizontal optical axes, zero pitch and roll. No perspective or three-quarter angles. Flat opaque pure white backgroundRGB255 everywhere, including gaps/corners. No floor, cast shadow, drawn ground line, labels, dimensions or callouts. One high-resolution wide sheet, ideally3840×1280.",
+        "source_path": "/workspace/scratch/9d89bc03e38f/generated_images/exec-b2011d46-7f1a-486a-ad42-9a191b278254.png",
+        "referenced_image_paths": [
+          "/workspace/scratch/9d89bc03e38f/cruises_git/docs/reference/room_target.png",
+          "/workspace/scratch/9d89bc03e38f/cruises_git/art/props/captain_desk/sheet.png",
+          "/workspace/scratch/9d89bc03e38f/cruises_git/art/characters/captain_live/turnaround.png"
+        ],
+        "transparent_background": false,
+        "selected": false,
+        "original_filename": "exec-b2011d46-7f1a-486a-ad42-9a191b278254.png",
+        "output_sha256": "bfd6f810330a4c1b6690f04332ef8a17db55092ebb1765d7f8773118d8d26385",
+        "referenced_images": [
+          {
+            "original_path": "/workspace/scratch/9d89bc03e38f/cruises_git/docs/reference/room_target.png",
+            "sha256": "a17f771d95d7aa37b8403b3b4cb918c7032737cdb031d62c893b424c878cebc3",
+            "repository_path": "docs/reference/room_target.png"
+          },
+          {
+            "original_path": "/workspace/scratch/9d89bc03e38f/cruises_git/art/props/captain_desk/sheet.png",
+            "sha256": "02300d11cad484407755dfea20b66770abc9e92e895095b834bb505477b4f69c",
+            "repository_path": "art/props/captain_desk/sheet.png"
+          },
+          {
+            "original_path": "/workspace/scratch/9d89bc03e38f/cruises_git/art/characters/captain_live/turnaround.png",
+            "sha256": "bcb66fe6213ab55672cb91328f22665a125511d211e3fded0397dd45ac1897fa",
+            "repository_path": "art/characters/captain_live/turnaround.png"
+          }
+        ]
+      },
+      {
+        "pass": 2,
+        "stage": "projection_correction",
+        "prompt": "Use case: precise-object-edit. Correct ONLY projection and proportions of this empty glass fishbowl sheet. Keep its design, brass base band, colors and fixed sideways orientation in all four views. No fish, water, contents or stand.\n\nSTRICT ORTHOGRAPHIC:\nThe bowl's mouth-to-base axis is EXACTLY horizontal in both profiles and points EXACTLY into the front camera in view1 / back camera in view4.\nView1: make the entire body outer contour a PERFECT CIRCLE. Make the open mouth lip and distant closed interior floor perfectly concentric with that outer circle, no offset. A clear real open mouth with rim thickness and concave inner walls, never a disk sealing the opening.\nView4: likewise a PERFECT CIRCLE outer body contour. MOVE THE BRASS BASE RING UP so its center coincides EXACTLY with the center of the outer body circle. The current brass ring hangs too low, which wrongly suggests an angled camera. Base ring, closed glass bottom and outer body must be CONCENTRIC circles, not tilted ellipses or offset.\nView2 and3: TRUE EDGE-ON PROFILES. No broad oval view INTO the mouth from either profile. Each rolled mouth lip should read as a NARROW vertical thick-glass edge at the end of the neck, not an oval opening30pixels wide. You are looking at the cylindrical neck from its SIDE, exactly90degrees to the mouth axis. Glass walls may show through each other, but the circular rim itself is edge-on. Same for the brass base collar: thin vertical band at the opposite end. Mouth right in view2, mouth left in view3. No camera pitch, yaw drift, three-quarter angles or perspective.\n\nDIMENSIONS: sideway bowl is0.52m diameter and0.44m mouth-to-base length. Current profiles are too long. Shorten ONLY the horizontal length of SECOND and THIRD views by about18%, keeping their height. Front and back width equals height; side width equals0.846×height. Every view has exactly the SAME outer diameter / pixelheight, same top and bottom level within1pixel. Keep4separatedcompleteviewsinonerow with morewhitegap after shortening profiles.\nPreserve thin closed glass bottom, genuinely hollow interior and thick open rolled lip. Same soft stylized clearglass and warmbrass, plainflatwhitebackground, no shadows, no labels.\nPixel guide in the current2172×724 canvas: front/back approximately456×456px; each side approximately386×456px. All four top and bottom levels identical. Use an exactly centered axial front and rear view, never a camera above the bowl axis.",
+        "source_path": "/workspace/scratch/9d89bc03e38f/generated_images/exec-41213e63-7b59-42b9-81f1-c9465ea48511.png",
+        "transparent_background": false,
+        "selected": false,
+        "reference_arguments_note": "Exact reference-image path arguments were not retained for this intermediate pass; no unverified arguments are asserted. The full prompt and resulting source image are retained.",
+        "original_filename": "exec-41213e63-7b59-42b9-81f1-c9465ea48511.png",
+        "output_sha256": "3c947e24225a3387dbead95788f3dbe47e55c2bc01f53c26b0360d927604ae54"
+      },
+      {
+        "pass": 3,
+        "stage": "diameter_correction",
+        "prompt": "Precise geometry correction to this four-view EMPTY sideways fishbowl sheet.\n\nThe measured silhouette heights are473 /457 /457 /473pixels. The two side views are16pixels too short. Increase ONLY their vertical diameter so ALL FOUR bowls are473pixels high. Keep each bowl's center on the SAME horizontal line. All four highest points and lowest points must align exactly, within1pixel. Do not change the front/back height. Keep the front/back widths about473pixels; make side widths about400pixels (0.44m length against0.52m diameter). Do not let shorter profile bowls remain.\n\nRemove all camera tilt from the axial end views: in FIRST and FOURTH, every circular lip, internal-floor edge, brass ring and outer body circumference shares exactly ONE common center. Move the first view's inner mouth/floor circles UP slightly to the outer-body center. Move the fourth view's brass base ring and bottom disk UP about20pixels until their center equals the outer glass silhouette's center. This is an axisymmetric bowl viewed perfectly straight down its axis. No off-center ring, no drooping base disk.\n\nSIDE VIEWS keep one horizontal mouth-to-base axis and perfectly vertical rim/base end planes. The mouth is edge-on, not seen at an angle: a thick narrow clear-glass vertical lip, no broad opening ellipse. Left profile mouth points image-right; right profile mouth image-left. Same faint clear glass, restrained highlights, thin walls, hollow open mouth and CLOSED bottom; same worn brass collar. No water or contents, no stand or extras. Same plain flat white background, four separated whole views, no text or shadows. Preserve this design; only equalize diameter and center the axial circles.",
+        "source_path": "/workspace/scratch/9d89bc03e38f/generated_images/exec-683df6ce-9ae2-4b68-a58b-2234014aab8a.png",
+        "transparent_background": false,
+        "selected": false,
+        "reference_arguments_note": "Exact reference-image path arguments were not retained for this intermediate pass; no unverified arguments are asserted. The full prompt and resulting source image are retained.",
+        "original_filename": "exec-683df6ce-9ae2-4b68-a58b-2234014aab8a.png",
+        "output_sha256": "b2f44ccaa55ea599554a03fa7f800f101c2b1d5f970d1a35017fdffc91baf99a"
+      },
+      {
+        "pass": 4,
+        "stage": "profile_correction",
+        "prompt": "Final measured proportion pass on this exact bowl sheet. Keep the design, clear glass, brass collar, open mouth, closed bottom and four opposite views.\nIn the current2172×724 image the outer heights are491 /490 /491 /494px. Make every outer height491px, all tops at the same y and all bottoms at the same y. The fourth bowl is3px too tall; the second is1px short. Use exactly one shared diameter and camera scale. This matching silhouette size is essential.\nMake the side profiles about9% SHORTER horizontally: current widths457/459px should be416px, with heights491px unchanged. Front and back are circles about491×491px. Side bowls are416×491px, the specified0.44m length to0.52m diameter. Preserve the rounded body and very short rolled neck, don't add or stretch a neck.\nFront-mouth concentric circles and rear-brass concentric circles stay centered. Left-profile mouth image-right, right-profile mouth image-left. Strict straight orthographic view directions, no camera angle. One complete row on white with clear gaps, no labels, no ground shadows, no contents or extra props. No style change; match the four maximum heights precisely.",
+        "source_path": "/workspace/scratch/9d89bc03e38f/generated_images/exec-e14f2d40-995a-4898-90b3-e6b556f12556.png",
+        "transparent_background": false,
+        "selected": false,
+        "reference_arguments_note": "Exact reference-image path arguments were not retained for this intermediate pass; no unverified arguments are asserted. The full prompt and resulting source image are retained.",
+        "original_filename": "exec-e14f2d40-995a-4898-90b3-e6b556f12556.png",
+        "output_sha256": "7f0eda60449794c7942c61fa83b267986ef207205647bf252099b21b6090a685"
+      },
+      {
+        "pass": 5,
+        "stage": "silhouette_correction",
+        "prompt": "Rebuild this final four-view bowl sheet from one shared geometric template, keeping exactly this bowl design and materials.\n\nUse ONE identical outer diameter for all four views. The FIRST bowl supplies the master sphere diameter. COPY that same topmost and bottommost contour height into the second, third and fourth views. All four objects touch the same two invisible horizontal guide levels, with identical height to within1pixel. This is one rigid axisymmetric object rotated between cameras, not four separately drawn sizes. The fourth bowl must NOT be larger than the first. The two side bowls must NOT be shorter.\n\nThe body is a smooth spherical glass vessel truncated by the open-neck plane and closed-base plane. Front and back project to the same circular outer outline, and their inner rings are exactly concentric. Side maximum diameter is the identical height, with mouth-to-base length about85% of that height. View order: open-mouth FRONT; LEFT PROFILE with mouth right; RIGHT PROFILE with mouth left; CLOSED-BOTTOM BACK with brass ring. The bowl lies sideways in all four.\n\nKeep the open rolled lip, hollow interior, closed glass floor, attached brass base collar and opposite profile shapes. Neutral pale clear glass with restrained reflections, no liquid, fish, stand or contents. Pure white background, wide clean separators, no shadows, text or guides in the final. Orthographic cameras exactly at the object midline, no tilt or perspective. Re-render the entire sheet coherently at one shared scale; do not merely preserve the incorrect relative sizes of this input.",
+        "source_path": "/workspace/scratch/9d89bc03e38f/generated_images/exec-466d848c-d779-4ccd-be11-3c60d07f8674.png",
+        "transparent_background": false,
+        "selected": false,
+        "reference_arguments_note": "Exact reference-image path arguments were not retained for this intermediate pass; no unverified arguments are asserted. The full prompt and resulting source image are retained.",
+        "original_filename": "exec-466d848c-d779-4ccd-be11-3c60d07f8674.png",
+        "output_sha256": "cb3c144a755c39a9db89a7af13cb9e47176ecf02b7608b89bab62a72924d1a97"
+      },
+      {
+        "pass": 6,
+        "stage": "measured_guide_glass",
+        "prompt": "Create the final production four-view modeling reference sheet of the EMPTY glass fishbowl for the stylized pirate game.\n\nREFERENCE 1 is a measured orthographic geometry guide. Its FOUR outer silhouettes are binding: trace those silhouettes and retain their exact shared height, exact top and bottom positions, exact circle diameters, exact profile proportions and exact locations on the canvas. All four outer body shapes measure precisely the SAME maximum height. Do not enlarge any view. The side profiles are narrower than the front and back. This is an exterior-silhouette-locked render.\n\nREFERENCE 2 supplies the finished glass, chunky brass base collar, tiny brass rivets, rolled glass mouth and restrained cel-shaded highlights. Transfer that attractive cartoon glass-and-brass finish INTO the silhouettes of reference 1. Keep the outline and shading clean and clear at game scale. The pale neutral glass must feel translucent, with simple cream studio highlights and restrained internal refraction. Treat the brass ring as one base collar attached around the closed base, not a second mouth.\n\nThe bowl is lying on its side in ALL four views. From left to right:\n1 FRONT, looking directly INTO the open circular mouth, outer body a true circle, concentric glass rolled lip, inner wall and closed inner floor visible.\n2 LEFT SIDE, mouth at image RIGHT, brass closed base at image LEFT. Absolutely level profile. Mouth seen exactly edge-on; no peek into it.\n3 RIGHT SIDE, mouth at image LEFT, brass closed base at image RIGHT. Absolutely level opposite profile. Mouth exactly edge-on.\n4 BACK, looking square-on at the closed glass bottom encircled by its riveted brass base collar. Outer body a true circle matching view 1 exactly. A closed glass disk is inside the brass collar, no open hole.\n\nShared orthographic scale and one shared ground line. Optical axis level through each object's center. No perspective or three-quarter camera. Preserve the ample white separation and outer margins from reference 1. ONE row, precisely four separate views, each at the SAME maximum height. Flat pure white background, absolutely no cast shadows or ground plane, no gradient or labels. Nothing else in or around the bowl: no fish, no water, no gravel, no plants, no furniture, no stand. No text. Match the measured first reference faithfully; only finish the surfaces with the second reference's materials.",
+        "source_path": "/workspace/scratch/9d89bc03e38f/generated_images/exec-93aa6e23-0217-4c62-8cbb-fffdab2c1b46.png",
+        "referenced_image_paths": [
+          "/workspace/scratch/9d89bc03e38f/bowl_geometry_guide.png",
+          "/workspace/scratch/9d89bc03e38f/generated_images/exec-466d848c-d779-4ccd-be11-3c60d07f8674.png"
+        ],
+        "transparent_background": false,
+        "selected": false,
+        "original_filename": "exec-93aa6e23-0217-4c62-8cbb-fffdab2c1b46.png",
+        "output_sha256": "672221892f338c6e7c0fb6b9800042c09bf934273a7782fc50e757ebbda71df3",
+        "referenced_images": [
+          {
+            "original_path": "/workspace/scratch/9d89bc03e38f/bowl_geometry_guide.png",
+            "sha256": "20d4b4dd96ade3f55fb2618c6fe250735063cd6dde7352125c9b9b85bb4593a9",
+            "original_filename": "bowl_geometry_guide.png"
+          },
+          {
+            "original_path": "/workspace/scratch/9d89bc03e38f/generated_images/exec-466d848c-d779-4ccd-be11-3c60d07f8674.png",
+            "sha256": "cb3c144a755c39a9db89a7af13cb9e47176ecf02b7608b89bab62a72924d1a97",
+            "original_filename": "exec-466d848c-d779-4ccd-be11-3c60d07f8674.png"
+          }
+        ]
+      },
+      {
+        "pass": 7,
+        "stage": "measured_guide_cel_shaded",
+        "prompt": "Finish this exact measured diagram as a polished hand-painted CEL-SHADED 3D-game prop turnaround of an EMPTY GLASS FISHBOWL with a brass base collar. Use image 1 as an exact unchangeable template for all four OUTSIDE CONTOURS and their sizes and positions. Use image 2 only for the chunky cartoon game's material style.\n\nDo not change the size or outline of any shape in image 1. All four objects' topmost boundary must stay on precisely the same horizontal pixel row and their bottommost boundary must stay on precisely the same horizontal pixel row. Their bodies are rotationally symmetrical and have exactly the same maximum diameter. The front and back are true circles 480 pixels in diameter; the left and right profiles are only 406 pixels wide and also exactly 480 pixels high. Keep these proportions; do not lengthen profiles. This is a restrained surface-paint edit within an exact geometry template.\n\nRender pale neutral transparent-looking glass with simple cel-shaded highlights, a dark clean fine outline, a thick rolled open lip, and a single narrow worn warm-brass base collar with small rounded rivets. Cartoon Monkey Island / Discworld prop treatment, broad simple facets and restrained graphic highlights. Match the desk's cartoon rendering discipline in image 2. No realism, no chrome mirror sheen, no tiny texture noise.\n\nKeep the bowl lying on its side in all four level ORTHOGRAPHIC views, ordered FRONT / LEFT / RIGHT / BACK.\nFRONT: view directly into the open circular mouth, concentric mouth rim and visible recessed closed inner floor. Outer body a true circle.\nLEFT: exact profile, mouth edge-on at image RIGHT, brass base collar at image LEFT.\nRIGHT: exact opposite profile, mouth edge-on at image LEFT, brass base collar at image RIGHT.\nBACK: closed circular glass base inside the concentric brass collar; outer body a true circle. This is not a second opening.\nNo perspective or tilted camera. No cast shadows.\nPreserve the empty white margins and wide empty white gaps. Four separate views, one horizontal row, same height and ground line, identical orthographic magnification. White plain solid background. No text, labels, arrows or callouts. No fish, water, plants, gravel, furniture, tabletop, pedestal or stand. Only this one empty fishbowl, in four views.",
+        "source_path": "/workspace/scratch/9d89bc03e38f/generated_images/exec-8396694e-fe52-4315-a80e-e58fa2c51c25.png",
+        "referenced_image_paths": [
+          "/workspace/scratch/9d89bc03e38f/bowl_geometry_guide.png",
+          "/workspace/scratch/9d89bc03e38f/cruises_git/art/props/captain_desk/sheet.png"
+        ],
+        "transparent_background": false,
+        "selected": true,
+        "original_filename": "exec-8396694e-fe52-4315-a80e-e58fa2c51c25.png",
+        "output_sha256": "d6b5ab0a055e851554b6e1d8fbe61d6e591d046bced6ae456a840b33190fa7d0",
+        "referenced_images": [
+          {
+            "original_path": "/workspace/scratch/9d89bc03e38f/bowl_geometry_guide.png",
+            "sha256": "20d4b4dd96ade3f55fb2618c6fe250735063cd6dde7352125c9b9b85bb4593a9",
+            "original_filename": "bowl_geometry_guide.png"
+          },
+          {
+            "original_path": "/workspace/scratch/9d89bc03e38f/cruises_git/art/props/captain_desk/sheet.png",
+            "sha256": "02300d11cad484407755dfea20b66770abc9e92e895095b834bb505477b4f69c",
+            "repository_path": "art/props/captain_desk/sheet.png"
+          }
+        ]
+      }
+    ],
+    "selected_pass": 7,
+    "selected_stage": "measured_guide_cel_shaded",
+    "selected_prompt": "Finish this exact measured diagram as a polished hand-painted CEL-SHADED 3D-game prop turnaround of an EMPTY GLASS FISHBOWL with a brass base collar. Use image 1 as an exact unchangeable template for all four OUTSIDE CONTOURS and their sizes and positions. Use image 2 only for the chunky cartoon game's material style.\n\nDo not change the size or outline of any shape in image 1. All four objects' topmost boundary must stay on precisely the same horizontal pixel row and their bottommost boundary must stay on precisely the same horizontal pixel row. Their bodies are rotationally symmetrical and have exactly the same maximum diameter. The front and back are true circles 480 pixels in diameter; the left and right profiles are only 406 pixels wide and also exactly 480 pixels high. Keep these proportions; do not lengthen profiles. This is a restrained surface-paint edit within an exact geometry template.\n\nRender pale neutral transparent-looking glass with simple cel-shaded highlights, a dark clean fine outline, a thick rolled open lip, and a single narrow worn warm-brass base collar with small rounded rivets. Cartoon Monkey Island / Discworld prop treatment, broad simple facets and restrained graphic highlights. Match the desk's cartoon rendering discipline in image 2. No realism, no chrome mirror sheen, no tiny texture noise.\n\nKeep the bowl lying on its side in all four level ORTHOGRAPHIC views, ordered FRONT / LEFT / RIGHT / BACK.\nFRONT: view directly into the open circular mouth, concentric mouth rim and visible recessed closed inner floor. Outer body a true circle.\nLEFT: exact profile, mouth edge-on at image RIGHT, brass base collar at image LEFT.\nRIGHT: exact opposite profile, mouth edge-on at image LEFT, brass base collar at image RIGHT.\nBACK: closed circular glass base inside the concentric brass collar; outer body a true circle. This is not a second opening.\nNo perspective or tilted camera. No cast shadows.\nPreserve the empty white margins and wide empty white gaps. Four separate views, one horizontal row, same height and ground line, identical orthographic magnification. White plain solid background. No text, labels, arrows or callouts. No fish, water, plants, gravel, furniture, tabletop, pedestal or stand. Only this one empty fishbowl, in four views.",
+    "reference_provenance_note": "Exact reference arguments for passes 2–5 were not retained; those entries preserve their full prompts and generated outputs without asserting unverified input arrays. Passes 1, 6 and 7 retain the recorded arrays. The selected pass uses the new geometry guide and captain_desk style reference. Earlier prompts mentioned Tripo; the final engine route remains primitive glass as documented in HANDOFF.",
+    "alignment_guide": {
+      "path": "/workspace/scratch/9d89bc03e38f/bowl_geometry_guide.png",
+      "method": "New precise orthographic diagram drawn with matplotlib Agg, not an edit or manipulation of generated image pixels.",
+      "canvas": [
+        2172,
+        724
+      ],
+      "diameter_before_stroke_px": 480,
+      "profile_length_before_stroke_px": 406,
+      "center_y_px": 362,
+      "centers_x_px": [
+        272,
+        814,
+        1358,
+        1900
+      ],
+      "purpose": "Measured silhouette guide used as input to built-in imagegen, not delivered as final art.",
+      "sha256": "20d4b4dd96ade3f55fb2618c6fe250735063cd6dde7352125c9b9b85bb4593a9"
+    },
+    "assembly": {
+      "tool": "tools/crop_views.py",
+      "tool_modified": false,
+      "arguments": [
+        "--row",
+        "0",
+        "1",
+        "--names",
+        "front",
+        "left",
+        "right",
+        "back",
+        "--pad",
+        "0.12",
+        "--size",
+        "601",
+        "--dry-run",
+        "--preview",
+        "art/props/fishbowl/sheet.png"
+      ],
+      "method": "Unchanged repository cutter: crop and translate onto native equal square panels with shared baseline; no per-view scaling or raster retouching.",
+      "native_common_canvas_px": 601,
+      "resampled": false,
+      "per_view_scaling": false,
+      "source_measurements": {
+        "image_size_px": [
+          2172,
+          724
+        ],
+        "background_rgb": [
+          254,
+          254,
+          254
+        ],
+        "views": [
+          {
+            "view": "front",
+            "bounds_px": [
+              29,
+              118,
+              514,
+              603
+            ],
+            "width_px": 485,
+            "height_px": 485,
+            "last_ink_y_px": 602,
+            "width_height_ratio": 1.0
+          },
+          {
+            "view": "left",
+            "bounds_px": [
+              595,
+              118,
+              1021,
+              603
+            ],
+            "width_px": 426,
+            "height_px": 485,
+            "last_ink_y_px": 602,
+            "width_height_ratio": 0.878351
+          },
+          {
+            "view": "right",
+            "bounds_px": [
+              1150,
+              118,
+              1577,
+              603
+            ],
+            "width_px": 427,
+            "height_px": 485,
+            "last_ink_y_px": 602,
+            "width_height_ratio": 0.880412
+          },
+          {
+            "view": "back",
+            "bounds_px": [
+              1656,
+              118,
+              2140,
+              603
+            ],
+            "width_px": 484,
+            "height_px": 485,
+            "last_ink_y_px": 602,
+            "width_height_ratio": 0.997938
+          }
+        ],
+        "clear_vertical_gaps_px": [
+          81,
+          129,
+          79
+        ]
+      },
+      "source_object_rectangles_pixel_identical_after_translation": [
+        true,
+        true,
+        true,
+        true
+      ]
+    }
+  },
+  "object_scope": {
+    "rule": "Model the object only, never a dressed arrangement.",
+    "contents": "One empty glass bowl with its attached brass base collar.",
+    "excluded": [
+      "Count Fingers",
+      "other fish",
+      "water",
+      "bowl_stand",
+      "pedestal",
+      "table",
+      "gravel",
+      "plants",
+      "interior ornaments",
+      "other props",
+      "scenery"
+    ],
+    "rigging_required": false
+  },
+  "design": {
+    "structure": "Bulbous transparent glass vessel with a broad open mouth, thick rolled lip, closed glass bottom and compact attached brass base collar.",
+    "front": "Looking directly into the open circular mouth, with lip thickness and the interior bowl/base surface visible.",
+    "left": "Sideways profile, mouth on image-right and brass base collar on image-left.",
+    "right": "Opposite sideways profile, mouth on image-left and brass base collar on image-right.",
+    "back": "Exterior closed glass bottom encircled by the brass base collar; not a second mouth.",
+    "finish": "Clear pale cool-tinted glass with broad illustrative highlights, and warm worn brass with chunky rivets. Glass cues are a material reference, not albedo or opacity data.",
+    "cavity": "Open mouth and closed bottom; not a geometric through-hole. Transparent pixels or painted reflections alone do not establish hollow mesh topology.",
+    "separate_stand": "The brass collar belongs to the bowl. The turned wooden bowl_stand remains a separate asset in the engine queue."
+  },
+  "reconstruction_orientation": {
+    "status": "Proposed reference convention; no new mesh generated or engine transform applied.",
+    "fixed_object_pose": "Sideways, mouth toward +Z, closed base toward -Z",
+    "dimensions_m": {
+      "width": 0.52,
+      "height": 0.52,
+      "depth": 0.44
+    },
+    "axis_convention": "Right-handed: +Y up on the sheet, +X right, opening axis +Z.",
+    "camera_positions": {
+      "front": "+Z looking -Z",
+      "left": "-X looking +X",
+      "right": "+X looking -X",
+      "back": "-Z looking +Z"
+    },
+    "upright_rotation_degrees_xyz": [
+      -90,
+      0,
+      0
+    ],
+    "upright_axis_mapping": "Reconstruction +Z becomes engine +Y; reconstruction +Y becomes engine -Z; reconstruction +X remains engine +X.",
+    "grounding": "After rotation, place the closed base at y=0. If the origin is the reconstruction bounding-box center, add +0.22 m along engine Y. Recheck the imported mesh’s actual axes and bounds first.",
+    "dimension_rule": "Fit uniformly; do not stretch model axes or independently resize image views."
+  },
+  "placement": {
+    "convention_status": "Approved placement direction only; final pedestal coordinates remain engine work.",
+    "engine_visual_name": "Fishbowl",
+    "engine_source": "main.gd::_add_fishbowl",
+    "existing_primitive_dimensions_m": [
+      0.52,
+      0.26,
+      0.52
+    ],
+    "legacy_engine_base_m": [
+      -3.3,
+      0.76,
+      -1.2
+    ],
+    "target_location": "Foreground left, on the separate bowl_stand so Count Fingers is readable in exploration.",
+    "origin": "Closed base centered on the stand’s support surface",
+    "placement_note": "The old desk position is documented for comparison, not proposed as the new placement."
+  },
+  "framing": {
+    "view_order": [
+      "front",
+      "left",
+      "right",
+      "back"
+    ],
+    "projection": "Level orthographic front, opposite profiles and back",
+    "camera": "Horizontal optical axis at the midpoint of the fixed sideways object; zero pitch and roll.",
+    "image_size_px": [
+      2404,
+      601
+    ],
+    "cell_size_px": [
+      601,
+      601
+    ],
+    "background": "Plain opaque near-white",
+    "background_rgb": [
+      254,
+      254,
+      254
+    ],
+    "labels_in_turnaround_band": false,
+    "ground_line_drawn": false,
+    "ground_line_last_ink_y_px": 528,
+    "scale": "All four raw-source and final silhouettes are exactly 485 px high. Native crops were translated only; no view was scaled.",
+    "separation_px": [
+      145,
+      175,
+      145
+    ]
+  },
+  "validation": {
+    "status": "source framing measured; engine geometry and materials remain unverified",
+    "detected_views": 4,
+    "views": [
+      {
+        "view": "front",
+        "bounds_px": [
+          58,
+          44,
+          543,
+          529
+        ],
+        "width_px": 485,
+        "height_px": 485,
+        "last_ink_y_px": 528,
+        "width_height_ratio": 1.0
+      },
+      {
+        "view": "left",
+        "bounds_px": [
+          688,
+          44,
+          1114,
+          529
+        ],
+        "width_px": 426,
+        "height_px": 485,
+        "last_ink_y_px": 528,
+        "width_height_ratio": 0.878351
+      },
+      {
+        "view": "right",
+        "bounds_px": [
+          1289,
+          44,
+          1716,
+          529
+        ],
+        "width_px": 427,
+        "height_px": 485,
+        "last_ink_y_px": 528,
+        "width_height_ratio": 0.880412
+      },
+      {
+        "view": "back",
+        "bounds_px": [
+          1861,
+          44,
+          2345,
+          529
+        ],
+        "width_px": 484,
+        "height_px": 485,
+        "last_ink_y_px": 528,
+        "width_height_ratio": 0.997938
+      }
+    ],
+    "height_spread_px": 0,
+    "ground_line_spread_px": 0,
+    "minimum_empty_band_px": 145,
+    "strict_one_pixel_height_check_passed": true,
+    "strict_one_pixel_baseline_check_passed": true,
+    "source_object_rectangles_pixel_identical": true,
+    "visual_review": {
+      "view_construction": "Open-mouth front, opposite edge-on profiles and closed-bottom back; mouth points image-right in left profile and image-left in right profile. A brass collar surrounds only the closed base.",
+      "style": "Selected guide-based pass uses clean outlines and broad cel-shaded glass/brass shapes, with less photographic reflection detail than the earlier attempts.",
+      "isolation": "Four whole, separate objects on plain white; no fish, water, stand, floor shadow, labels or scenery.",
+      "opening": "Thick rolled mouth and recessed inner floor are depicted; the back is closed. This is a construction illustration and does not verify a hollow mesh.",
+      "material": "Pale glass fill and graphic highlights identify the material; retain actual transparent glass in engine rather than baking this image into opacity."
+    },
+    "reconstruction_run": false,
+    "engine_import_run": false,
+    "limitations": [
+      "The 0.44 m upright height is a provisional new art target; it differs from the current hemisphere primitive.",
+      "Illustrated glass reflections and pale tint are not a physically consistent optical simulation, usable opacity map or proof of wall topology. Preserve transparent glass in engine.",
+      "The bowl is closed at the base and does not require a through-hole. Water, Count Fingers and the stand are separately built assets.",
+      "Final front/back envelope ratios are 1.000000, 0.997938; opposite profile ratios are 0.878351, 0.880412, versus the nominal 0.846154. These profiles are about 3.81–4.05% wider than the target ratio, including the lip, collar and outline. Author the engine mesh from dimensions_m instead of treating painted pixel bounds as exact geometry."
+    ],
+    "method": "Read-only NumPy/Pillow bounds using the unchanged repository cutter’s modal_colour, ink_mask and find_figures at tolerance 18. Bounds are [x0,y0,x1,y1] with upper bounds exclusive. Final visual review separately checks presentation and design, not mesh topology.",
+    "foreground_threshold": "Sum of absolute RGB distance from modal background exceeds 54.",
+    "native_view_canvas_px": [
+      601,
+      601
+    ],
+    "view_canvas_after_2x_upscale_px": [
+      1202,
+      1202
+    ],
+    "upscaling_applied": false,
+    "target_front_back_width_height_ratio": 1.0,
+    "target_profile_width_height_ratio": 0.846154,
+    "measured_profile_width_height_ratios": [
+      0.878351,
+      0.880412
+    ],
+    "profile_width_excess_percent_of_target": [
+      3.8051,
+      4.0487
+    ]
+  },
+  "pipeline": {
+    "status": "source_sheet_only",
+    "intended_route": "Engine-built transparent glass mesh, using this sheet as shape/construction reference",
+    "tripo_reconstruction_required": false,
+    "three_d_generator_allowed_if_requested": "Tripo only",
+    "view_extraction": "Optional reference inspection; use named gap-detected views and one common canvas",
+    "view_extraction_names": [
+      "front",
+      "left",
+      "right",
+      "back"
+    ],
+    "upload_view_mapping": {
+      "front": "front.png",
+      "left": "left.png",
+      "right": "right.png",
+      "back": "back.png"
+    },
+    "upload_note": "If reconstruction is later requested, assign images by their named view; sheet display order is not positional upload order.",
+    "rigging_required": false,
+    "animation_required": false,
+    "generated_3d_model": false,
+    "validated_in_engine": false,
+    "water_separate": true,
+    "fish_separate": true,
+    "stand_separate": true,
+    "material_note": "Retain transparent inner/outer glass shell treatment and separate water/fish. Do not bake the illustrated highlights or pale blue-gray body fill into the engine opacity or water geometry.",
+    "next_step": "Use the final reference to refine the engine’s bowl silhouette and brass collar, fit the separate stand and confirm Count Fingers remains readable through the glass. No automatic replacement of the existing primitive route is implied.",
+    "recommended_crop_command": "python tools/crop_views.py art/props/fishbowl/sheet.png --row 0 1 --names front left right back --pad 0.12 --size 601 --out art/props/fishbowl/views",
+    "optional_2x_crop_command": "python tools/crop_views.py art/props/fishbowl/sheet.png --row 0 1 --names front left right back --pad 0.12 --size 1202 --out art/props/fishbowl/views",
+    "upscale_note": "Native view canvases are 601 px square. A common 1202 px export meets the documented post-upscale minimum if image reconstruction is later requested, but adds no source detail. Gap detection avoids padding the existing equal cells again.",
+    "nc_models_used": false
+  }
+}

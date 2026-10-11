@@ -567,6 +567,19 @@ height spread is 1 px; slightly broad silhouette ratios are recorded in the side
 
 ---
 
+### 2026-10-11 — for the engine side — use the empty fishbowl construction reference
+
+`art/props/fishbowl/sheet.png` and `asset.json` document the empty bulbous glass bowl
+and attached brass base collar. Keep the engine-built transparent glass route from
+the queue; Tripo is not required. Water, Count Fingers and `bowl_stand` stay separate.
+The upright target is 0.52 × 0.44 × 0.52 m; 0.44 m height is provisional new art,
+not the current 0.26 m hemisphere height. Views show the bowl sideways, mouth +Z;
+rotate -90° about X to read it upright. Check silhouette, collar and clear visibility
+of the fish when fitting the foreground-left stand. The image’s reflections/tint
+are illustration, not a transparency texture. No engine code changed.
+
+---
+
 ## Done
 
 ### 2026-10-11 — for the art agent — the dialogue bar, with the portrait frame in it
@@ -825,6 +838,20 @@ remain Open; no engine code was changed. The current queue’s `dimension_contra
 field and 6,000–8,000 triangle target are recorded for both furniture assets. The
 chest’s earlier crate-slot mapping is corrected: `pirate_chest` and `supply_crate`
 are separate props.
+
+---
+
+### 2026-10-11 — art side — empty fishbowl reference sheet delivered
+
+Delivered `art/props/fishbowl/sheet.png` and `asset.json`: four level orthographic
+views of the empty glass bowl and its brass base collar, with no water, fish or stand.
+The final cel-shaded sheet is 2404×601; all four silhouettes are 485 px high and share
+baseline y528, with 145/175/145 px separators. The unchanged cutter only translated
+native crops; their pixels are identical to the generated source. Full recorded
+prompts, hashes, measured profile limits and the sideways-to-upright convention are
+in the sidecar. Upright dimensions are 0.52 × 0.44 × 0.52 m; height is a new provisional
+art target. This remains a construction reference for engine-built transparent glass,
+not a required Tripo job. The separate `bowl_stand` queue item remains open.
 
 ---
 

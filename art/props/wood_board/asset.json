@@ -1,0 +1,167 @@
+{
+  "asset_id": "prop:wood_board",
+  "name": "Reusable textured wooden construction board",
+  "asset_type": "prop_turnaround_sheet",
+  "role": "Standalone modular scenery part for Captain Livé cabin; reusable elsewhere",
+  "files": {
+    "sheet": "sheet.png",
+    "views": "views/"
+  },
+  "dimensions_m": {
+    "width": 0.305,
+    "height": 0.107,
+    "depth": 1.65
+  },
+  "dimension_contract": "Provisional art guides adopted from selected source proportions; not owner measurements or reconstructed mesh bounds. Scale uniformly, inspect actual caps and joining surfaces before setting a placement grid. Source stands upright with long axisY, front+Z. Hand-hewn irregular wavy sides, taper, chunky corner cuts and carved bevels replace the rejected straight box. Final provisional length1.65m, maximum width0.305m and thickness0.107m adopt measured stylized source envelopes, not initial prompt dimensions. All source heights990px match. This is a substantial solid cartoon plank, not thin veneer. RotateX-90 degrees for broad-front-face-up flooring after exporter axes agree; Y long maps to-Z, +Z face maps to+Y. For horizontal wall cladding rotateZ90 degrees; standing vertical wall cladding needs no pose correction. Straight central end contact patches remain intended, but broad edge nicks can leave gaps; actual joint/floor flatness checks remain required.",
+  "view_order": [
+    "front",
+    "left",
+    "right",
+    "back"
+  ],
+  "reconstruction_orientation": {
+    "dimensions_m": {
+      "width": 0.305,
+      "height": 1.65,
+      "depth": 0.107
+    },
+    "axis_convention": "Right-handed +Y up, +Z front; beam longX, board longY in source.",
+    "camera_positions": {
+      "front": "+Z looking-Z",
+      "left": "-X looking+X",
+      "right": "+X looking-X",
+      "back": "-Z looking+Z"
+    },
+    "pose_and_engine_rotation": "Source stands upright with long axisY, front+Z. Hand-hewn irregular wavy sides, taper, chunky corner cuts and carved bevels replace the rejected straight box. Final provisional length1.65m, maximum width0.305m and thickness0.107m adopt measured stylized source envelopes, not initial prompt dimensions. All source heights990px match. This is a substantial solid cartoon plank, not thin veneer. RotateX-90 degrees for broad-front-face-up flooring after exporter axes agree; Y long maps to-Z, +Z face maps to+Y. For horizontal wall cladding rotateZ90 degrees; standing vertical wall cladding needs no pose correction. Straight central end contact patches remain intended, but broad edge nicks can leave gaps; actual joint/floor flatness checks remain required.",
+    "origin_recommendation": "Centre of mesh for modular assembly; record local endpoint and opposing edge markers after reconstruction."
+  },
+  "source": {
+    "producer": "OpenAI built-in image_gen",
+    "model_identifier": "Not exposed by tool",
+    "repository_base_commit": "f8e93919fd196eededba562069a4cf1cde26712c",
+    "original_filename": "exec-39caf50e-6794-4980-a137-c1e856cef092.png",
+    "sha256": "8ca6ed72b0f34d4c55771a88a67bc9cbbab272ab0831860c8765cbad372d1a8e",
+    "generation_history": [
+      {
+        "prompt": "Use case: stylized-concept. Make one single reusable textured WOODEN BOARD modeling-source sheet for Captain LivÃ© pirate cabin. Match the inspected cartoon captain, warm painted cabin, bookcase and supply-crate wood, and the preceding timber beam: simplified broad wood-grain colour strokes, muted honey chestnut, restrained wear, not realistic photographic wood. ONE straight rectangular wood board, no hardware, nail heads, lettering or joined panels. FLAT front and real flat reverse, two thin solid edges; modest small consistent bevels, square flush ends, no protruding knots, no large splits or broken corners, no tongue-and-groove. Provisional length1.50m, width0.25m, thickness0.04m. RECONSTRUCTION ORIENTATION: board stands VERTICALLY on one short end, long axis Y, widthX, front+Z. All views exactly1.50m high; front/back broad rectangles0.25m wide, left/right genuine very thin0.04m-wide edge strips, 6.25x narrower than broad faces, NEVER enlarge narrow strips. FOUR views in a single horizontal row: FRONT, LEFT SIDE, RIGHT SIDE, BACK. Strict level orthographic cameras, no tilt, no perspective or three-quarter. Front and back show flowing vertical grain along board length; profiles show the actual thickness and grain wrapping across the bevels. Opposite broad faces need distinct but coherent grain; same material hue, geometry and consistent small knot positions in those surfaces, not identical copied front. Exactly one orthographic scale; identical top and bottom heights within1pixel, one shared baseline; no footplate or shadow. Plain uniform white background to all edges and gaps. Generous white space between each view; full length completely inside frame. No captions, border, ruler, dimension labels, floor, ceiling, room, background props, people or extra views. Board only. Soft even low-contrast painted form shading, no baked directional lighting. Landscape source sheet with full tall boards taking most available vertical extent. This is a modular construction plank that can lie flat for flooring or upright for wall cladding, not an ornamental sign.",
+        "selected": false,
+        "output_filename": "exec-8f778c71-29cc-4c09-bfb3-16afec480383.png",
+        "output_sha256": "5e223cbef8793592d2cc42b4414e50f718fa59dc23acecdb6020f5e2c1359cdd"
+      },
+      {
+        "prompt": "Edit Image1, the wooden-board four-view source sheet, to give the ACTUAL SHAPE a clearly stylized hand-hewn cartoon pirate look. Image2 approved supply crate and Image3 captain desk are shape/rendering references. Owner said the first board looks like a rectangular box; do not just paint more grain onto a box. Preserve FOUR views FRONT LEFT RIGHT BACK, upright source long axisY, one camera scale, common top/bottom extents and ground line. GEOMETRY change: visibly undulating side outlines, subtle taper and a gently waisted/bulging contour over the long axis; asymmetric oversized rounded faceted bevels, two or three broad small sculpted edge bites, rounded offset corner cuts; still one continuous solid plank. Around8% width variation; some broad irregular bevel planes and edge curls/nicks like the crate boards. No perfectly ruler-straight parallel side outlines. Keep broad useful central front and back planes and flat short-end CONTACT patches so this can be reused for floors or walls, though small irregular edge gaps are expected. Don't bend the whole board into a banana, no excessive splitting, no bark or branches, no nailheads/metal/text, no broken or destroyed board. Broad face width about153px, true thin edges about47-48px, height991px, same for ALL4 views; never enlarge edges. Opposing faces show the SAME physical stylized outline reversed appropriately in the back, coherent wear around corners rather than four plank variants. LEFT/RIGHT are real thin edge profiles, not a rotated broad front. Neutral soft consistent cartoon form shading with broad chestnut/ochre carved planes and flowing vertical grain; match the warmer strongly stylized beam revision and existing pirate crate, avoid photoreal noise. Pure uniform white background, no shadows or ground or labels. Keep native canvas1536x1024, whole board uncropped, all four complete with generous white gaps. Strict level orthographic elevation cameras, no perspective or tilt. Match all4 visible native heights and baseline within1px.",
+        "selected": true,
+        "output_filename": "exec-39caf50e-6794-4980-a137-c1e856cef092.png",
+        "output_sha256": "8ca6ed72b0f34d4c55771a88a67bc9cbbab272ab0831860c8765cbad372d1a8e"
+      }
+    ],
+    "reference_files": [
+      {
+        "path": "docs/reference/room_target.png",
+        "sha256": "a17f771d95d7aa37b8403b3b4cb918c7032737cdb031d62c893b424c878cebc3",
+        "role": "Visually inspected identity/style reference before generation"
+      },
+      {
+        "path": "art/props/bookcase/sheet.png",
+        "sha256": "818aa99761b50b71ce0ccde37adb5ca4f04433a38b78b89112bd88bf16a551c0",
+        "role": "Visually inspected identity/style reference before generation"
+      },
+      {
+        "path": "art/props/supply_crate/sheet.png",
+        "sha256": "4ae46b4e9244f708320b6d094ce1b05cafe7fbe831999438952114a28de39b86",
+        "role": "Visually inspected identity/style reference before generation"
+      },
+      {
+        "path": "art/props/captain_desk/sheet.png",
+        "sha256": "02300d11cad484407755dfea20b66770abc9e92e895095b834bb505477b4f69c",
+        "role": "Visually inspected identity/style reference before generation"
+      },
+      {
+        "path": "art/characters/captain_live/sheet.png",
+        "sha256": "f17759c2dca9d0638451ccc6bcd2823ef958ddcffde3dd3a2538197bf651c7ec",
+        "role": "Visually inspected identity/style reference before generation"
+      }
+    ],
+    "postprocessing": "Generated source copied unchanged. Imagegen performed shape/style revisions and alignment attempts; full actual prompts retained, including unselected passes. Unmodified repository cutter translates own-bounds pixels to shared native squares; input views use a common2x LANCZOS upscale. No source-axis stretching or resizing."
+  },
+  "validation": {
+    "source_png_decoded": true,
+    "source_views": [
+      {
+        "view": "front",
+        "bounds_px": [
+          251,
+          14,
+          433,
+          1004
+        ],
+        "width_px": 182,
+        "height_px": 990
+      },
+      {
+        "view": "left",
+        "bounds_px": [
+          592,
+          14,
+          656,
+          1004
+        ],
+        "width_px": 64,
+        "height_px": 990
+      },
+      {
+        "view": "right",
+        "bounds_px": [
+          882,
+          14,
+          946,
+          1004
+        ],
+        "width_px": 64,
+        "height_px": 990
+      },
+      {
+        "view": "back",
+        "bounds_px": [
+          1105,
+          14,
+          1288,
+          1004
+        ],
+        "width_px": 183,
+        "height_px": 990
+      }
+    ],
+    "source_height_spread_px": 0,
+    "source_baseline_spread_px": 0,
+    "four_nonempty_views": true,
+    "one_height_and_baseline_met": true,
+    "native_canvas_px": 1227,
+    "native_source_pixels_preserved": true,
+    "foreground_pixels_lost": 0,
+    "input_square_px": 2454,
+    "input_upscale": "2x LANCZOS, same factor all4views; no extra detail created",
+    "projection_limit": "Source stands upright with long axisY, front+Z. Hand-hewn irregular wavy sides, taper, chunky corner cuts and carved bevels replace the rejected straight box. Final provisional length1.65m, maximum width0.305m and thickness0.107m adopt measured stylized source envelopes, not initial prompt dimensions. All source heights990px match. This is a substantial solid cartoon plank, not thin veneer. RotateX-90 degrees for broad-front-face-up flooring after exporter axes agree; Y long maps to-Z, +Z face maps to+Y. For horizontal wall cladding rotateZ90 degrees; standing vertical wall cladding needs no pose correction. Straight central end contact patches remain intended, but broad edge nicks can leave gaps; actual joint/floor flatness checks remain required."
+  },
+  "reuse_contract": {
+    "standalone": true,
+    "connected_parts": 1,
+    "no_attached_hardware": true,
+    "texture_family": "art/materials/captains_cabin/floorboards",
+    "matching_family_is_not_a_shared_uv_atlas": true,
+    "placement": "Repeat individual mesh instances; keep beam or board width/thickness fixed. Adapt length by cutting/extruding/re-UVing the module or fitting a final cap; do not stretch the painted grain along with a scaled mesh. Grain runs along the long axis.",
+    "joints": "Preserve central flat end contact patches; wavy sides and broad nicks are intentional cartoon shape. Joining planes, gap coverage and snap sockets remain untested. Check floor flatness and make nominal straight side contact lands in the model if needed without erasing the visible stylized contour.",
+    "multiple_rooms": true
+  },
+  "pipeline": {
+    "model_target": "art/props/wood_board/wood_board.glb",
+    "crop_command": "python tools/crop_views.py art/props/wood_board/sheet.png --row 0 1 --names front left right back --min-width-ratio 0.02 --size 2454 --out art/props/wood_board/views",
+    "reconstruction": "Tripo only per repository contract",
+    "reconstruction_run": false,
+    "rig_required": false,
+    "mesh_verified": false,
+    "modular_joint_fit_verified": false,
+    "engine_import_verified": false,
+    "lighting": "Soft painted form shading; remove lighting during final texturing, use current toon look."
+  }
+}

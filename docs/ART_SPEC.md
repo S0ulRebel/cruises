@@ -337,6 +337,52 @@ art/rooms/captain_live_quarters/
 
 ---
 
+## 2A. Reusable surface textures and construction parts
+
+The owner also requested materials and individual textured parts for building rooms
+whose final dimensions are unknown. These are reusable sources, separate from a
+camera-matched painted backdrop. The cabin kit index is
+`art/kits/captains_cabin/asset.json`.
+
+Surface colour textures live at
+`art/materials/captains_cabin/<material_id>/albedo.png`, with an `asset.json` recording
+the actual generated size, full prompt, inspected references, colour space, repeat
+directions, suggested tile span in metres and seam-review limits. Supply flat,
+neutral colour without room lighting. Normal, roughness and height maps are separate
+data; do not call painted grain a measured normal or displacement map.
+
+Map UVs by material density, not by stretching one image across a room. For surface
+dimensions `S_u` and `S_v` metres and tile spans `T_u` and `T_v`, the UV extent is
+`(S_u / T_u, S_v / T_v)`. Enable repeat and mipmaps, and align wood grain with the
+piece's long axis. The initial spans are provisional: floorboards 2.4m square
+(eight rows, about0.30m board width), wall planks 2m square (about0.25m row height),
+beam grain 1m square, carpet field 0.8m square. These do not define the room size.
+The carpet field has no finite rug border or fringe; edging is a separate strip.
+
+Inspect a repeated preview and record edge measurements. The delivered generated
+textures have approximate matching edges, not pixel-identical opposite edge rows.
+Live camera, mipmap and scene-light checks must precede any claim of seamless
+in-engine results. The original1254px images are retained without image correction.
+
+Individual construction parts follow section1A: one textured object per four-view
+sheet, front/left/right/back, with common height and baseline. `timber_beam` and
+`wood_board` include extracted views and sidecars. Their finished provisional sizes
+adopt the revised hand-hewn proportions: beam2.10x0.38x0.375m;
+floor board0.305x0.107x1.65m. The owner requested visibly stylized geometry,
+so bowed outlines, taper, broad carved bevels and worn corner cuts replace the
+initial straight boxes. Board height alignment passes; beam's2px (~1.27%) source
+height spread exceeds the1px requirement and remains an explicit modeling limit.
+The board stands on end in its source for useful elevations; rotateX-90 degrees to
+make its broad front face face upward, after exporter axes agree. Both sources have
+central end contact patches and no attached hardware. Curved side edges can leave
+gaps; make suitable contact lands and check floor flatness on the model. Cap/joint fitting
+and snap markers are not verified until the mesh exists. Keep grain density fixed
+when adapting a module's length: cut/extrude and adjust UVs instead of stretching
+the painted texture with the mesh. These sources do not replace the live cabin or
+define its final layout.
+
+---
+
 ## 3. Naming
 
 Lower snake case, everywhere, no spaces. The folder names the thing; the file names the

@@ -868,6 +868,45 @@ results here. All of these checks remain unverified.
 
 ---
 
+### 2026-10-11 — for the engine side — cabin textures and reusable construction parts
+
+The owner requested repeating material textures without fixing room dimensions,
+then requested a textured beam and board from multiple angles for modeling; keep
+both kinds of source. Index: `art/kits/captains_cabin/asset.json`.
+
+Four original colour textures with sidecars are under
+`art/materials/captains_cabin/`: `floorboards`, `wall_planks`, `beam_wood` and
+`carpet_burgundy`. Map by metres per tile, with repeat/mipmaps enabled, rather than
+stretching one image across the room. Suggested spans and grain axes are in each
+sidecar and `docs/ART_SPEC.md` section2A. Carpet is the inner repeating field only;
+any gold border belongs on a separate finite edge strip.
+
+The textures are1254px square, colour-only, neutral painted cartoon finish; no
+normal, height or roughness maps are supplied. Simple2x2 repeats were inspected.
+Opposite edge rows are approximately matched, not identical; numeric edge jumps
+are recorded. Check visible seams, repetition and brightness at the actual camera
+under the current toon lights before certifying the live material.
+
+Modeling sources are `art/props/timber_beam/` and `art/props/wood_board/`, each with
+`sheet.png`, `asset.json` and `views/`. Submit the four crops by their named slots.
+The owner rejected the initial box-like geometry. Selected revisions use bowed
+edges, taper, oversized carved bevels and worn corner cuts, matched to the crate
+and desk. The beam shows long front/back faces and opposite cut ends with end grain.
+Board source is upright, showing broad faces and thin edges. Board heights match;
+beam's155/157px heights differ2px (~1.27%), beyond the strict1px allowance. Resolve
+that source limit or check measured model projections before certifying reconstruction.
+All baselines match. Crops preserve complete native foreground, then use one
+common2x upscale. Provisional sizes adopt finished ratios rather than the initial
+prompt estimates: beam2.10x0.38x0.375m, board0.305x0.107x1.65m laid flat. The board is
+a substantial solid plank, not thin veneer. Rotation and source ratio limits are
+recorded. Check actual contact patches, side gaps, floor flatness, UV density and endpoint markers after
+reconstruction. Keep width/thickness and grain density fixed when adapting length.
+
+No reconstructed mesh, snap grid or room material assignment is claimed. Those
+checks remain Open. Do not rebuild the owner's scene as part of source delivery.
+
+---
+
 ## Done
 
 ### 2026-10-11 — for the engine side — scene authoring and agent collaboration plan
@@ -1378,6 +1417,35 @@ resampling in native extraction. Source height spreads range from 4 to 16px
 (0.66-4.46%); exact equal-scale projections are not claimed. Common 2x input sizes
 range from 1140 to 1712px. Reconstruction, cavities, rigging and fitting remain
 Open above. This is source artwork, not an assembled animation-ready character.
+
+---
+
+### 2026-10-11 — art side — cabin material textures and construction kit delivered
+
+Delivered four reusable colour tiles at `art/materials/captains_cabin/`, plus
+standalone textured `timber_beam` and `wood_board` four-view sources and their
+eight extracted reconstruction inputs at `art/props/`. The kit index is
+`art/kits/captains_cabin/asset.json`; surface-density guidance is in
+`docs/ART_SPEC.md` section2A. Inspected the cabin, established captain and relevant
+recent props before each asset; used built-in image generation with complete
+prompts and reference hashes recorded. All six selected PNG sources are unchanged.
+
+After owner feedback, revised both parts' silhouettes to hand-hewn cartoon timber
+with broad carved facets, curved edges, taper and corner wear. Original straight
+drafts are unselected; actual edit/alignment prompts are retained in provenance.
+Beam source2172x724px: heights155/157/157/155px, common baseline415px; strict1px
+height alignment NOT met, remaining2px difference (~1.27%) recorded. Board source
+1536x1024px: all heights990px, baseline1003px. Unmodified cutter gives native squares
+1067/1227px; pixel comparison verifies all eight native rectangles intact and zero
+detected foreground lost. Reconstruction inputs are2134/2454px with one common2x
+LANCZOS upscale per part. Initial dimension prompts differed from finished ratios;
+the sidecars preserve both and use explicit provisional final guides.
+
+Each texture is1254px square and was reviewed as a2x2 repeat. Approximate edge
+matching and residual transitions are recorded; no pixel-exact seamless guarantee
+or in-engine material test is claimed. Carpet has no outer border. User explicitly
+asked to retain textures while adding modeled-part references. Reconstruction,
+caps/joints, scene assignment and live seam/light checks remain Open above.
 
 ---
 

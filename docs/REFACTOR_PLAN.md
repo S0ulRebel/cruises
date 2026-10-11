@@ -4,7 +4,7 @@ Created 2026-10-11. Status: planned; implementation tasks are unchecked.
 
 The game must open with its default environment already visible in the editor.
 Every fixed object must be an editable, reusable Godot scene instance, with placement
-stored in the room scene. Scripts provide behavior and must preserve authored
+stored in the location scene. Scripts provide behavior and must preserve authored
 transforms and settings. Module boundaries and file ownership come first so multiple
 agents can implement the remaining work without overwriting one another.
 
@@ -12,6 +12,18 @@ This is the combined project audit and implementation plan. Follow the phases in
 order and run the relevant checks as each change lands; Priority 4 consolidates
 validation rather than postponing it. Keep checkboxes open until their completion
 checks pass, and record the relevant commit and validation result when completing a phase.
+
+## Confirmed scene naming
+
+- `game/game.tscn`, with root `Game`, is the startup and session scene.
+- `locations/<location_id>/<location_id>.tscn` contains one playable place, indoors,
+  outdoors or otherwise. Names describe the place; examples include `captains_cabin`,
+  `main_deck` and `island_beach`.
+- The cabin target is `locations/captains_cabin/captains_cabin.tscn`, with root
+  `CaptainsCabin`. Its current `rooms/` path moves during the coordinated path migration.
+- Use `snake_case` for files/folders and `PascalCase` for nodes/classes.
+- Location contents depend on the place. Walls, ceilings and navigation are included
+  where appropriate. Generic location code must not construct an indoor room shell.
 
 ## Rules for the migration
 
@@ -22,7 +34,7 @@ checks pass, and record the relevant commit and validation result when completin
 - Fixed scenery, actor components, interaction zones, default UI/audio and portrait
   accessories belong in saved scenes. Movement, animation, dialogue, puzzles and
   deliberate gameplay spawning remain behavior scripts.
-- One integration owner handles shared path/schema changes and room composition.
+- One integration owner handles shared path/schema changes and location composition.
   Parallel contributors own separate modules; shared API and scene edits are coordinated.
 - Normal game startup and verification must never rewrite scene, prefab, model or
   authored resource files. Authoring saves are explicit and target one owned asset.
@@ -43,7 +55,7 @@ and the reference layout exists before any construction code is deleted.
 
 ## Priority 1 Establish modular ownership before parallel implementation
 
-- [ ] **3. Define the module boundaries and folder destinations.** Each room, actor,
+- [ ] **3. Define the module boundaries and folder destinations.** Each location, actor,
   prop and UI feature owns its scenes, behavior and local resources. Shared components
   stay with their domain. Keep the existing outfit engine as one coherent module.
 - [ ] **4. Define small public interfaces.** Agree on exported node references, stable
@@ -51,14 +63,15 @@ and the reference layout exists before any construction code is deleted.
   signals, and dialogue/puzzle APIs. Components operate on their own children;
   their owner wires communication. Add editor configuration warnings for missing
   dependencies instead of silently doing nothing.
-- [ ] **5. Reduce Main to startup and wiring.** Separate room interactions, dialogue
+- [ ] **5. Rename the startup wrapper to Game and reduce it to wiring.** Separate
+  location interactions, dialogue
   orchestration, inventory/flag state, UI and audio. Give shared session state one
   owner and pass it explicitly to consumers. Move diagnostics into test harnesses.
   Avoid introducing a broad global manager or event bus.
 - [ ] **6. Move content definitions out of shared registries.** Replace hardcoded
   `Inventory.ITEMS`, the shared cast/placement table and shared portrait fitting
   table with per-item/per-character resources. Preserve screenplay IDs and asset
-  IDs as separate identifiers. Put world placement exclusively in room scenes.
+  IDs as separate identifiers. Put world placement exclusively in location scenes.
   Expose input through InputMap and audio settings through scene properties.
 - [ ] **7. Establish agent instructions and handoffs.** Document each module's allowed
   files, interfaces and checks in root/module agent instructions. Keep `HANDOFF.md`
@@ -71,10 +84,10 @@ and the reference layout exists before any construction code is deleted.
 
 Proposed ownership boundaries:
 
-- **Integration:** Main, project settings, shared interfaces, folder/path migration,
-  and composition of each room. Assign one owner per room scene.
+- **Integration:** Game, project settings, shared interfaces, folder/path migration,
+  and composition of each location. Assign one owner per location scene.
 - **Props:** each `props/<id>/` prefab, its colliders, hotspot, approach markers and
-  local resources. Room-specific instance settings stay with the room owner.
+  local resources. Location-specific instance settings stay with the location owner.
 - **Actors:** each actor's scene, portrait, metadata and fitted outfit resources.
   The outfit engine has a separate shared-module owner.
 - **UI:** individual caption, choices, inventory, pointer and portrait components.
@@ -84,29 +97,30 @@ Proposed ownership boundaries:
   one asset and are handed to its prefab owner for integration.
 
 Completion check: each implementation task has an owner and file scope. Integrate one
-room/prop/actor example using the agreed interfaces before broad parallel migration.
+location/prop/actor example using the agreed interfaces before broad parallel migration.
 
 ## Priority 2 Make saved scenes the source of layout
 
 - [ ] **9. Populate the entry scene.** Save the cabin instance and fixed service/UI
-  instances in Main. Opening the default game scene must show its environment.
+  instances in Game. Opening the default game scene must show its environment.
   Preserve scene transitions and the authored cold-open setting.
-- [ ] **10. Remove duplicate startup construction.** Bind the saved room camera,
+- [ ] **10. Remove duplicate startup construction.** Bind the saved cabin camera,
   floor, backdrop, shell and navigation region instead of rebuilding them in
   `room3d.gd`. Bind each actor's saved Agent and Obstacle instead of creating new
   copies in `mover.gd`. Save any missing defaults at their current exact transforms.
+  Other locations supply only the components they need.
 - [ ] **11. Make interactions part of their object.** Move hotspots, clickable
-  shapes and local approach markers into reusable prop/actor scenes. Replace whole-room
+  shapes and local approach markers into reusable prop/actor scenes. Replace whole-location
   name searches with explicit local visual references. Fix the fishbowl's obsolete
   desk hotspot, the inkwell name mismatch and the missing rapier highlight reference.
   Resolve authored approach points into world space when used.
 - [ ] **12. Make prefab transforms and appearance reusable.** Remove cabin positions
-  from actor prefab roots while preserving room instance placement. Give reusable
+  from actor prefab roots while preserving location instance placement. Give reusable
   roots consistent origins. Save editable glass/unlit materials or editor-visible
   material components. Animate the fish relative to its authored rest transform,
   preferably through a visual child, so authored rotation survives.
 - [ ] **13. Finish scene authoring for remaining fixed content.** Extract reusable
-  floor/wall/ceiling pieces, name anonymous nodes, and save cutscene locations,
+  floor/wall/ceiling pieces for the cabin, name anonymous nodes, and save cutscene locations,
   default HUD/audio nodes and per-character portrait accessories as scene instances.
   Preserve designer control over layout, sound levels and accessory fitting.
 - [ ] **14. Remove both regeneration paths and all custom game flags.** Extract the
@@ -132,8 +146,9 @@ Moving, rotating or duplicating a prefab carries its collision and interaction w
 ## Priority 3 Repair gameplay and character authoring
 
 - [ ] **16. Repair navigation from authored geometry.** Persist the floor/solid-prop
-  `nav_source` groups, keep one navigation region, and bake the actual authored
-  geometry. Fix synchronization before querying the map. Correct character avoidance:
+  `nav_source` groups, remove the cabin's duplicate navigation region, and bake the
+  actual authored geometry. Other locations may have zero, one or multiple authored
+  regions as needed for movement. Fix synchronization before querying the map. Correct character avoidance:
   carving flags affect baking, rather than dynamically cutting paths around moving
   actors. Make baking an explicit editor workflow or documented geometry refresh,
   with no placement changes. Verify moved furniture blocks paths correctly.
@@ -154,7 +169,7 @@ Moving, rotating or duplicating a prefab carries its collision and interaction w
   changes separate from default startup assembly.
 - [ ] **20. Normalize asset orientation and scale.** Reconcile the documented forward
   axis, dimensions and donor-rig rules. Correct source orientation/scale once where
-  needed, preserving the current room composition; remove compensating construction
+  needed, preserving the current location composition; remove compensating construction
   guesses. Use measured engine fitting for modular pieces and record unresolved art
   acceptance issues separately from this structural migration.
 
@@ -175,22 +190,23 @@ cleanly when movement cannot complete.
   leave tracked scenes, models and authored resources unchanged. Test modules and
   repeated prefab instances independently, then test their integration.
 - [ ] **23. Finish folder and documentation cleanup.** Move root test/profiling
-  harnesses into `tests/`, retire obsolete 2D/demo paths and update every resource
+  harnesses into `tests/`, migrate `rooms/` to `locations/` and the startup wrapper
+  to `game/`, retire obsolete 2D/demo paths and update every resource
   reference. Align README, conventions, pipeline, outfit and audio documentation with
   the implemented architecture. Remove obsolete `--pack`, `--room`, `--talk` and
   `--room3d` instructions, nonexistent tool links, and contradictory rig/scale/import
   statements. Update export rules so developer tools/tests are excluded while runtime
   resources remain included.
 - [ ] **24. Verify a clean checkout and the editing workflow.** Confirm required
-  assets load from versioned files and imports regenerate correctly. Open Main and
+  assets load from versioned files and imports regenerate correctly. Open Game and
   reusable scenes in the editor, run them, and verify no `ERROR` or `SCRIPT ERROR`
-  output. Compare
-  the default composition with the reference. Test a second room containing moved,
-  rotated and duplicate props/actors; test navigation, interaction and material
+  output. Compare the default composition with the reference. Test a different outdoor
+  location, such as a deck or beach, with moved, rotated and duplicate props/actors;
+  test navigation, interaction and material
   independence. Record results and complete the relevant handoff items.
 
 Completion check: all earlier phase checks pass, a clean checkout works, and the owner
-can construct another room by placing prefabs without changing placement code.
+can construct indoor and outdoor locations by placing prefabs without changing placement code.
 
 ## Audit evidence to preserve
 

@@ -824,6 +824,10 @@ The full checklist and completion checks are in
 the baseline, establish module ownership, migrate fixed content and remove builders,
 repair behavior, then validate integration and update documentation.
 
+Confirmed naming: use `game/` for startup and `locations/` for playable places,
+including indoor rooms and outdoor areas. The cabin remains `captains_cabin`,
+with planned root `CaptainsCabin`. Current code and paths are unchanged until migration.
+
 Only the plan and its documentation links are implemented. The game code, scenes,
 generators and flags still need the listed work. Do not run `--pack` or
 `tools/make_prefabs.gd`; both overwrite authored scenes.

@@ -32,9 +32,11 @@ because of it.
 
 What follows from it:
 
-- **A room is an authored scene.** `rooms/captains_cabin/captains_cabin.tscn` contains the
-  floor, the walls, the navigation region and an instance of every prop and actor in it,
-  each with its own transform. Opening it shows the room.
+- **A location is an authored scene.** It contains its fixed scenery and every placed
+  prop and actor, each with its own transform. Opening it shows the place. Include
+  navigation, walls or ceilings only where that location needs them. The cabin currently
+  lives at `rooms/captains_cabin/captains_cabin.tscn`; its migration target is
+  `locations/captains_cabin/captains_cabin.tscn`.
 - **Scripts find nodes; they do not make them.** A script reaches what it needs through an
   `@export` node slot or a group, never by instancing a `PackedScene` and positioning it.
 - **Code may still spawn what has no fixed place** — an item the player drops, a particle,
@@ -51,12 +53,18 @@ in two places and keeping them in step. A thing owns a folder, and everything be
 only to that thing lives in it. This is Godot's own advice — "group files around scenes" —
 and pillage_people's.
 
+The target structure uses `game/` for startup and `locations/` for every playable
+place, including indoor rooms, outdoor areas and other environments. Name each
+location for the place, such as `captains_cabin`, `main_deck` or `island_beach`.
+The current `main.tscn` and `rooms/` paths move during the planned migration;
+the tree below describes the target, not completed filesystem changes.
+
 ```
 res://
-├── main.tscn  main.gd           the entry point, and the orchestrator only
-├── rooms/                       authored places
+├── game/                       game.tscn  game.gd — startup and session wiring
+├── locations/                  authored indoor and outdoor places
 │   └── captains_cabin/          captains_cabin.tscn  captains_cabin.gd
-├── props/                       things placed in a room
+├── props/                       things placed in a location
 │   ├── captain_desk/            captain_desk.tscn
 │   ├── supply_crate/  pirate_chest/  fishbowl/  bowl_stand/  porthole/
 │   ├── rapier/  key/  compass/  brass_inkwell/  captain_chair/

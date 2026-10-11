@@ -504,7 +504,6 @@ render for this room. Match its palette and its level of detail.
 
 | id | what | notes |
 | --- | --- | --- |
-| `key` | small brass key | inventory item, comes out of the crate. Chunky and cartoony enough to read at 128 px in the bag |
 | `bowl_stand` | the pedestal the fishbowl sits on | in the render: a short turned wooden column with a brass collar, front left. The glass bowl itself is built from primitives in engine — glass is the one thing a generator is worst at — so this is the stand ONLY, with a flat top the bowl sits in |
 | `porthole` | brass porthole with its ring and dogs | currently a flat blue quad. Needs the brass ring and the glass; the weather behind it is the engine's problem |
 
@@ -602,6 +601,19 @@ narrower guide is preserved in provenance. Choose the scene/held rotation and gr
 anchor in engine; the point-up sheet pose is not an already fitted desk placement.
 Keep the `rapier` pickup/item ID and the supply-crate combination that gives `key`
 and sets `crate_open`. Model target: `art/props/rapier/rapier.glb`.
+
+---
+
+### 2026-10-11 — for the engine side — reconstruct the crate’s brass key reward
+
+`art/props/key/sheet.png` and `asset.json` are delivered. Reconstruct one integral
+key with a genuinely open bow and the single notched bit; front/back reverse the bit
+correctly and both show the bow opening. Target 2,500–3,500 triangles and the new
+provisional upright dimensions 0.045 × 0.10 × 0.015 m. Keep the relatively clean
+brass finish, matching the existing inventory description. Export to
+`art/props/key/key.glb` and preserve the exact item ID `key`, given by the rapier /
+supply-crate combination. No new pickup location or puzzle behavior is introduced.
+Check material, hole topology and readability at the inventory icon size.
 
 ---
 
@@ -904,6 +916,19 @@ guard gaps. All source object pixels are unchanged. Background is visible throug
 the guard in front and back. Full prompt, hashes, initial/final dimensional choices
 and measured envelopes are in the sidecar. Engine reconstruction/pickup fit remain
 Open; key, bowl stand and porthole remain queued.
+
+---
+
+### 2026-10-11 — art side — brass key sheet delivered
+
+Moved `key` from the blocking queue to Done. Delivered `art/props/key/sheet.png`
+and `asset.json`: clean brass bow/shaft/bit as one object, bow hole visible in front
+and back, thin opposite profiles. Final sheet 3400×850; all heights 686 px, baseline
+y747, gaps 643/746/642 px. The unchanged cutter translated native own-bounds crops
+without resampling; all source object pixels are identical. Full prompt, guide,
+hashes, provisional dimensions and measured ratios are recorded in the sidecar.
+Reconstruction/inventory integration remain Open; bowl stand and porthole remain
+queued.
 
 ---
 

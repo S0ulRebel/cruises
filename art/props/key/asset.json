@@ -1,0 +1,407 @@
+{
+  "asset_id": "prop:key",
+  "name": "Brass key",
+  "role": "Scene 1 — standalone inventory prize obtained from the supply-crate puzzle",
+  "asset_type": "prop_turnaround_sheet",
+  "files": {
+    "sheet": "sheet.png"
+  },
+  "dimensions_m": {
+    "width": 0.045,
+    "height": 0.1,
+    "depth": 0.015
+  },
+  "dimension_contract": "dimensions_m describes the complete upright key with its bow up and bit down, broad face in XY: 0.045W × 0.10H × 0.015D m. These are chosen provisional new art dimensions; no earlier numeric key size was supplied by the owner or engine. Uniformly fit the reconstructed key to the 0.10 m overall height and verify bow width and thickness against the reference. Inventory/scene rotation and held attachment remain engine work. The illustration is a reconstruction reference, not exact CAD; do not resize individual views or stretch model axes to conceal differences.",
+  "dimension_decision": "Provisional new art target for a small readable standalone brass key. The repository supplies no previous numeric key dimensions. Canonical upright bow-up reference orientation; inventory/scene orientation remains engine work.",
+  "source": {
+    "producer": "OpenAI imagegen via ChatGPT",
+    "mode": "built-in",
+    "model_identifier": "Not exposed by the built-in tool",
+    "date": "2026-10-11",
+    "repository_base_commit": "9a041d2d2e2584f70fd3876fd6d4635cebfabc43",
+    "original_filename": "exec-227888ed-6207-4a8f-9210-4fa3d59924cf.png",
+    "generated_source_sha256": "c8db717c342e59a3c2cb9d59ba5ec1dc6e9292ca066db35e18347015354dafdf",
+    "sha256": "b6df6009356078d1db35317a3cf00c711786ca0d5e27053ee00fa4672afc9909",
+    "references": [
+      {
+        "original_path": "/workspace/scratch/9d89bc03e38f/key_geometry_guide.png",
+        "sha256": "e69dca34d2addffd0d38d2a304283f6b12deb1e60a10840fcbaa598f7c49f248",
+        "original_filename": "key_geometry_guide.png"
+      },
+      {
+        "original_path": "/workspace/scratch/9d89bc03e38f/cruises_git/art/props/captain_desk/sheet.png",
+        "sha256": "02300d11cad484407755dfea20b66770abc9e92e895095b834bb505477b4f69c",
+        "repository_path": "art/props/captain_desk/sheet.png"
+      }
+    ],
+    "generation_history": [
+      {
+        "pass": 1,
+        "stage": "measured_guide_cel_shaded",
+        "prompt": "Use case: stylized-concept.\nAsset: one SMALL BRASS KEY, a production four-view modeling sheet for the pirate adventure game.\n\nREFERENCE1 is the exact measured orthographic geometry guide. Keep its four outside silhouettes, one shared total height, ring diameter, shaft length and front-versus-profile width ratios. REFERENCE2 is the approved captain's desk; use only the warm brass palette and clean readable cartoon material finish of its fittings.\n\nThe key is intentionally unusually CLEAN for this battered pirate ship: yellow brass, subtle soft bevels and light handling wear only, no rust, heavy tarnish or grime. Large simple round bow with a genuinely OPEN circular hole, a short robust straight shaft and one chunky rectangular bit with a single broad notch forming two clear teeth. One integral key, no attached ring, chain, label, tag, lock or decoration. No skull, crown or filigree. Match the existing stylized game, with a few broad cel-shaded highlights and softly exaggerated solid forms. No photoreal reflections, metallic mirror noise or tiny engraving.\n\nFixed orientation is vertical, bow up, shaft down, bit at the bottom. Proposed overall art size0.045m wide x0.10m high x0.015m deep, including all parts. Front and back width/height0.45; true profiles width/height0.15. The ring's opening is about0.025m across. The guide is the measured shape; round/bevel only within its boundary.\nFour views left to right:\n1 FRONT: flat broad face; bit/teeth extend IMAGE-RIGHT from the shaft. Round bow opening shows pure white background.\n2 LEFT SIDE: exact EDGE-ON projection, narrow true metal thickness. The round bow hole is hidden naturally by this edge view; do not turn the bow to show it. Shaft and teeth remain attached.\n3 RIGHT SIDE: exact opposite EDGE-ON projection at the same narrow thickness, not another front view.\n4 BACK: actual reverse broad face; the bit and teeth extend IMAGE-LEFT, the horizontal reverse of view1. Round bow opening again shows pure white background. No fake second bit.\nAll four are the SAME key in the SAME pose, only viewing direction changes. Precisely equal overall heights and one shared baseline. Top of bow and bottom of bit must align in all four within1pixel. Do not widen the side views.\n\nOrthographic cameras exactly level at the midpoint, no perspective, pitch, yaw drift or three-quarter angles. One row of four whole separated keys on a plain pure WHITE background. Preserve the guide's generous spaces between views and full margin. No cast shadows, floor, labels, captions, dimensions or background texture. Keep the hole clean white in both broad faces: no dark fill, no glass, no backing plate. Finish the measured guide with the game's clear brass rendering, preserving every functional silhouette.",
+        "referenced_image_paths": [
+          "/workspace/scratch/9d89bc03e38f/key_geometry_guide.png",
+          "/workspace/scratch/9d89bc03e38f/cruises_git/art/props/captain_desk/sheet.png"
+        ],
+        "transparent_background": false,
+        "source_path": "/workspace/scratch/9d89bc03e38f/generated_images/exec-227888ed-6207-4a8f-9210-4fa3d59924cf.png",
+        "selected": true,
+        "original_filename": "exec-227888ed-6207-4a8f-9210-4fa3d59924cf.png",
+        "output_sha256": "c8db717c342e59a3c2cb9d59ba5ec1dc6e9292ca066db35e18347015354dafdf",
+        "referenced_images": [
+          {
+            "original_path": "/workspace/scratch/9d89bc03e38f/key_geometry_guide.png",
+            "sha256": "e69dca34d2addffd0d38d2a304283f6b12deb1e60a10840fcbaa598f7c49f248",
+            "original_filename": "key_geometry_guide.png"
+          },
+          {
+            "original_path": "/workspace/scratch/9d89bc03e38f/cruises_git/art/props/captain_desk/sheet.png",
+            "sha256": "02300d11cad484407755dfea20b66770abc9e92e895095b834bb505477b4f69c",
+            "repository_path": "art/props/captain_desk/sheet.png"
+          }
+        ]
+      }
+    ],
+    "selected_pass": 1,
+    "selected_prompt": "Use case: stylized-concept.\nAsset: one SMALL BRASS KEY, a production four-view modeling sheet for the pirate adventure game.\n\nREFERENCE1 is the exact measured orthographic geometry guide. Keep its four outside silhouettes, one shared total height, ring diameter, shaft length and front-versus-profile width ratios. REFERENCE2 is the approved captain's desk; use only the warm brass palette and clean readable cartoon material finish of its fittings.\n\nThe key is intentionally unusually CLEAN for this battered pirate ship: yellow brass, subtle soft bevels and light handling wear only, no rust, heavy tarnish or grime. Large simple round bow with a genuinely OPEN circular hole, a short robust straight shaft and one chunky rectangular bit with a single broad notch forming two clear teeth. One integral key, no attached ring, chain, label, tag, lock or decoration. No skull, crown or filigree. Match the existing stylized game, with a few broad cel-shaded highlights and softly exaggerated solid forms. No photoreal reflections, metallic mirror noise or tiny engraving.\n\nFixed orientation is vertical, bow up, shaft down, bit at the bottom. Proposed overall art size0.045m wide x0.10m high x0.015m deep, including all parts. Front and back width/height0.45; true profiles width/height0.15. The ring's opening is about0.025m across. The guide is the measured shape; round/bevel only within its boundary.\nFour views left to right:\n1 FRONT: flat broad face; bit/teeth extend IMAGE-RIGHT from the shaft. Round bow opening shows pure white background.\n2 LEFT SIDE: exact EDGE-ON projection, narrow true metal thickness. The round bow hole is hidden naturally by this edge view; do not turn the bow to show it. Shaft and teeth remain attached.\n3 RIGHT SIDE: exact opposite EDGE-ON projection at the same narrow thickness, not another front view.\n4 BACK: actual reverse broad face; the bit and teeth extend IMAGE-LEFT, the horizontal reverse of view1. Round bow opening again shows pure white background. No fake second bit.\nAll four are the SAME key in the SAME pose, only viewing direction changes. Precisely equal overall heights and one shared baseline. Top of bow and bottom of bit must align in all four within1pixel. Do not widen the side views.\n\nOrthographic cameras exactly level at the midpoint, no perspective, pitch, yaw drift or three-quarter angles. One row of four whole separated keys on a plain pure WHITE background. Preserve the guide's generous spaces between views and full margin. No cast shadows, floor, labels, captions, dimensions or background texture. Keep the hole clean white in both broad faces: no dark fill, no glass, no backing plate. Finish the measured guide with the game's clear brass rendering, preserving every functional silhouette.",
+    "alignment_guide": {
+      "path": "/workspace/scratch/9d89bc03e38f/key_geometry_guide.png",
+      "creation_code": "/workspace/scratch/9d89bc03e38f/create_priority_prop_guides.py",
+      "parameters_record": "/workspace/scratch/9d89bc03e38f/priority_prop_geometry_guides.json",
+      "method": "New precise orthographic construction diagram drawn with matplotlib Agg, not an edit of existing art.",
+      "canvas": [
+        1800,
+        1200
+      ],
+      "height_before_outline_px": 800,
+      "front_width_before_outline_px": 360,
+      "profile_width_before_outline_px": 120,
+      "bow_hole_diameter_px": 200,
+      "top_y_px": 200,
+      "bottom_y_px": 1000,
+      "purpose": "Fixed-shape, shared-scale guide for built-in imagegen, not final artwork.",
+      "sha256": "e69dca34d2addffd0d38d2a304283f6b12deb1e60a10840fcbaa598f7c49f248",
+      "creation_code_sha256": "d2f25a8acc0e86fa1748d94ab7f114ca409db55d4f4608067e618f8b9e4cf959",
+      "parameters_record_sha256": "a1353d050c9b47fbc3b258539e3c4ceabb2eee5ae2e4f86e58477cd32dd4159d"
+    },
+    "assembly": {
+      "tool": "tools/crop_views.py",
+      "tool_modified": false,
+      "arguments": [
+        "--row",
+        "0",
+        "1",
+        "--names",
+        "front",
+        "left",
+        "right",
+        "back",
+        "--pad",
+        "0.12",
+        "--size",
+        "850",
+        "--dry-run",
+        "--preview",
+        "art/props/key/sheet.png"
+      ],
+      "method": "Unchanged cutter; native own-bounds crops translated to four850px square cells at one baseline, no resampling or raster retouching.",
+      "native_common_canvas_px": 850,
+      "resampled": false,
+      "per_view_scaling": false,
+      "source_measurements": {
+        "image_size_px": [
+          1536,
+          1024
+        ],
+        "background_rgb": [
+          254,
+          254,
+          254
+        ],
+        "views": [
+          {
+            "view": "front",
+            "bounds_px": [
+              36,
+              169,
+              347,
+              855
+            ],
+            "width_px": 311,
+            "height_px": 686,
+            "last_ink_y_px": 854,
+            "width_height_ratio": 0.453353
+          },
+          {
+            "view": "left",
+            "bounds_px": [
+              525,
+              169,
+              629,
+              855
+            ],
+            "width_px": 104,
+            "height_px": 686,
+            "last_ink_y_px": 854,
+            "width_height_ratio": 0.151603
+          },
+          {
+            "view": "right",
+            "bounds_px": [
+              907,
+              169,
+              1011,
+              855
+            ],
+            "width_px": 104,
+            "height_px": 686,
+            "last_ink_y_px": 854,
+            "width_height_ratio": 0.151603
+          },
+          {
+            "view": "back",
+            "bounds_px": [
+              1189,
+              169,
+              1500,
+              855
+            ],
+            "width_px": 311,
+            "height_px": 686,
+            "last_ink_y_px": 854,
+            "width_height_ratio": 0.453353
+          }
+        ],
+        "clear_vertical_gaps_px": [
+          178,
+          278,
+          178
+        ]
+      },
+      "source_object_rectangles_pixel_identical_after_translation": [
+        true,
+        true,
+        true,
+        true
+      ]
+    }
+  },
+  "object_scope": {
+    "rule": "Model the object only, never a dressed arrangement.",
+    "contents": "One integral brass key: open circular bow, shaft and a notched two-tooth bit.",
+    "excluded": [
+      "separate key ring",
+      "chain",
+      "tag",
+      "label",
+      "lock",
+      "crate",
+      "hand",
+      "character",
+      "other keys",
+      "other props",
+      "scenery"
+    ]
+  },
+  "design": {
+    "structure": "Large simple circular open bow, straight short robust shaft, one rectangular bit with a broad notch making two teeth; softly rounded edges.",
+    "front": "Broad brass face with the bit extending image-right; white background through the circular bow.",
+    "left": "True narrow edge profile; the bow opening is naturally hidden edge-on.",
+    "right": "Opposite narrow edge profile, same thickness and height.",
+    "back": "Actual reverse broad face with the same bit extending image-left; background visible through the bow again.",
+    "connectivity": "Bow, shaft and bit are visibly joined as one key; no detached ring or duplicated bit.",
+    "finish": "Clean warm yellow brass with restrained broad cel-shaded highlights and light handling wear; no heavy grime, tarnish or rust.",
+    "finish_authority": "ui/inventory.gd describes key as Small, cold, and far too clean for this ship. The cleaner metal finish follows that existing inventory description.",
+    "openings": "The bow’s circular through-hole is visibly empty background in both front and back; preserve it in reconstruction.",
+    "fixed_pose": "Bow up, bit down; same key orientation in all four views."
+  },
+  "reconstruction_orientation": {
+    "fixed_object_pose": "Upright bow-up",
+    "axis_convention": "Broad face in XY, metal thickness along Z; front bit extends +X.",
+    "dimensions_m": {
+      "width": 0.045,
+      "height": 0.1,
+      "depth": 0.015
+    },
+    "engine_placement_rotation": "Not supplied or applied; inventory/scene orientation remains engine work."
+  },
+  "placement": {
+    "convention_status": "Inventory/puzzle identity documented; no mesh or scene placement exists from this art delivery.",
+    "engine_item_id": "key",
+    "engine_inventory_name": "Brass key",
+    "engine_model_path_target": "art/props/key/key.glb",
+    "engine_sources": [
+      "ui/inventory.gd key entry",
+      "main.gd::HOTSPOTS Crate rapier combination"
+    ],
+    "interaction_contract": "The rapier used on the supply crate gives the key item and sets crate_open. Preserve the exact item ID key; this sheet does not add a separate scene pickup or change puzzle behavior.",
+    "attachment_anchor": "Engine to measure from the reconstructed bow/shaft if a held pose is needed; no hand fit verified."
+  },
+  "framing": {
+    "view_order": [
+      "front",
+      "left",
+      "right",
+      "back"
+    ],
+    "projection": "Level orthographic broad front, thin left edge, opposite right edge and broad back",
+    "camera": "Horizontal optical axis at object midpoint, one orthographic scale and zero pitch/roll; no widened edge views.",
+    "fixed_object_pose": "Bow up, bit down",
+    "image_size_px": [
+      3400,
+      850
+    ],
+    "cell_size_px": [
+      850,
+      850
+    ],
+    "background": "Plain opaque near-white",
+    "background_rgb": [
+      254,
+      254,
+      254
+    ],
+    "labels_in_turnaround_band": false,
+    "ground_line_drawn": false,
+    "ground_line_last_ink_y_px": 747,
+    "separation_px": [
+      643,
+      746,
+      642
+    ],
+    "scale": "All four source and final keys are exactly 686 px tall. No per-view scaling or raster edits."
+  },
+  "validation": {
+    "status": "Source presentation and pixel framing measured; reconstruction and engine use pending",
+    "method": "Read-only full-row NumPy/Pillow bounds with unchanged crop_views.py modal_colour, ink_mask and find_figures at default tolerance 18 and default gap detection. Bounds are [x0,y0,x1,y1], upper bounds exclusive.",
+    "foreground_threshold": "Sum of absolute RGB distance from modal background exceeds 54.",
+    "detected_views": 4,
+    "views": [
+      {
+        "view": "front",
+        "bounds_px": [
+          269,
+          62,
+          580,
+          748
+        ],
+        "width_px": 311,
+        "height_px": 686,
+        "last_ink_y_px": 747,
+        "width_height_ratio": 0.453353
+      },
+      {
+        "view": "left",
+        "bounds_px": [
+          1223,
+          62,
+          1327,
+          748
+        ],
+        "width_px": 104,
+        "height_px": 686,
+        "last_ink_y_px": 747,
+        "width_height_ratio": 0.151603
+      },
+      {
+        "view": "right",
+        "bounds_px": [
+          2073,
+          62,
+          2177,
+          748
+        ],
+        "width_px": 104,
+        "height_px": 686,
+        "last_ink_y_px": 747,
+        "width_height_ratio": 0.151603
+      },
+      {
+        "view": "back",
+        "bounds_px": [
+          2819,
+          62,
+          3130,
+          748
+        ],
+        "width_px": 311,
+        "height_px": 686,
+        "last_ink_y_px": 747,
+        "width_height_ratio": 0.453353
+      }
+    ],
+    "height_spread_px": 0,
+    "ground_line_spread_px": 0,
+    "minimum_empty_band_px": 642,
+    "strict_one_pixel_height_check_passed": true,
+    "strict_one_pixel_baseline_check_passed": true,
+    "source_object_rectangles_pixel_identical": true,
+    "native_view_canvas_px": [
+      850,
+      850
+    ],
+    "view_canvas_after_2x_upscale_px": [
+      1700,
+      1700
+    ],
+    "upscaling_applied": false,
+    "target_front_back_width_height_ratio": 0.45,
+    "target_profile_width_height_ratio": 0.15,
+    "implied_width_or_depth_m_at_0_10_height": [
+      0.045335,
+      0.01516,
+      0.01516,
+      0.045335
+    ],
+    "visual_review": {
+      "projection": "Front/back broad bow faces and opposite narrow edges; front bit points right and back bit points left. No camera tilt or three-quarter faces.",
+      "openings": "White background is clearly visible through the bow in front and back; side views remain naturally edge-on.",
+      "connectivity": "One joined bow, shaft and notched bit; no loose or duplicate parts.",
+      "finish": "Cleaner brass than the surrounding battered furniture, matching the inventory description.",
+      "isolation": "Four whole separated keys, no label, chain, lock, crate, floor shadow or other object."
+    },
+    "reconstruction_run": false,
+    "engine_import_run": false,
+    "limitations": [
+      "At 0.10 m height, the painted broad faces imply 0.045335 m width and the profiles imply 0.015160 m depth. These are about 0.75% and 1.07% above the nominal 0.045 m and 0.015 m dimensions; verify reconstructed bounds rather than treating outlines as exact CAD.",
+      "Visible bow openings and joined parts do not verify the generated mesh’s through-hole topology, connectivity or inventory rendering.",
+      "The key’s lock fit is not specified or tested by this reference."
+    ]
+  },
+  "pipeline": {
+    "status": "source_sheet_only",
+    "view_extraction": "delegated_to_claude_code",
+    "view_extraction_names": [
+      "front",
+      "left",
+      "right",
+      "back"
+    ],
+    "upload_view_mapping": {
+      "front": "front.png",
+      "left": "left.png",
+      "right": "right.png",
+      "back": "back.png"
+    },
+    "upload_note": "Assign each crop to its named Tripo slot; the sheet display order is not positional upload order.",
+    "three_d_generator_allowed": "Tripo only",
+    "forbidden_generators": [
+      "Hunyuan3D",
+      "HY-Motion"
+    ],
+    "nc_models_used": false,
+    "rigging_required": false,
+    "generated_3d_model": false,
+    "validated_in_engine": false,
+    "target_triangles": {
+      "minimum": 2500,
+      "maximum": 3500,
+      "source": "HANDOFF.md engine prop queue dated 2026-10-11; handheld reconstruction budget, not a measured mesh"
+    },
+    "lighting_note": "Broad brass highlights and bevel shading are baked into the illustration. Use Tripo texture lighting removal and keep the relatively clean yellow-brass finish.",
+    "recommended_crop_command": "python tools/crop_views.py art/props/key/sheet.png --row 0 1 --names front left right back --pad 0.12 --size 850 --out art/props/key/views",
+    "optional_2x_crop_command": "python tools/crop_views.py art/props/key/sheet.png --row 0 1 --names front left right back --pad 0.12 --size 1700 --out art/props/key/views",
+    "upscale_note": "Native common canvases are 850 px square. Uniform 2x output at 1700 px meets the documented minimum but adds no source detail. Use gap detection so existing cell margins are not padded again.",
+    "next_step": "Reconstruct the single key, verify the open bow and bit, fit its 0.10 m total height, and provide key.glb for the existing inventory item and crate puzzle reward."
+  }
+}

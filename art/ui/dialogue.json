@@ -1,12 +1,12 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "asset_id": "ui:captains_ledger",
   "name": "Captain’s Ledger",
   "date": "2026-10-11",
   "status": "source_art_delivered; engine_integration_pending",
   "approval": {
     "direction": "User selected the second response/ledger preview.",
-    "latest_correction": "Portrait and dialogue box must have exactly the same height and aligned top/bottom edges.",
+    "latest_correction": "The previous internal-connector attempt was rejected. The current source has a straight wooden divider meeting both rails with clean wooden T-junctions; brass remains only on the four outer corners. The label stays entirely inside parchment and the bar remains 300px high.",
     "scene_status": "Composition and colours accepted as a guide; carpet markings need simplification. Room image is not a final camera-matched backdrop."
   },
   "design_canvas_px": [
@@ -14,85 +14,79 @@
     1080
   ],
   "layout": {
-    "coordinate_format": "x, y, width, height; all values are logical pixels at 1920x1080",
-    "portrait_outer_rect_px": [
+    "coordinate_format": "x, y, width, height; logical pixels at 1920x1080; source rectangles use native PNG pixels",
+    "frame_outer_rect_px": [
       80,
       720,
-      300,
+      1760,
       300
     ],
-    "gap_rect_px": [
-      380,
-      720,
-      14,
-      300
-    ],
-    "dialogue_outer_rect_px": [
-      394,
-      720,
-      1446,
-      300
-    ],
+    "frame_asset": "integrated_frame",
+    "frame_rendering": "Three adjacent horizontal slices of one unchanged texture; fixed left assembly with plain wood divider, fixed right cap, and middle stretched only horizontally. No independent frame layers or internal metal connectors.",
     "visible_frame_height_px": 300,
-    "alignment": "same top 720 and bottom 1020, including name ribbon and ornaments",
+    "alignment": "One continuous bar, top 720 and bottom 1020; label and ornaments remain inside.",
+    "parchment_safe_vertical_range_px": [
+      752,
+      988
+    ],
     "name_ribbon_rect_px": [
       418,
-      732,
+      756,
       420,
-      44
+      40
     ],
     "name_safe_area_px": [
       461,
-      734,
+      756,
       342,
       40
     ],
-    "name_ribbon_max_width_px": 1398,
+    "name_ribbon_max_width_px": 1382,
     "scroll_region_px": [
       418,
-      784,
-      1398,
-      188
+      800,
+      1382,
+      156
     ],
     "content_viewport_px": [
       418,
-      784,
-      1366,
-      188
+      800,
+      1350,
+      156
     ],
     "scrollbar_region_px": [
-      1800,
-      784,
+      1784,
+      800,
       16,
-      188
+      156
     ],
     "scroll_track_rect_px": [
-      1800,
-      808,
+      1784,
+      824,
       16,
-      140
+      108
     ],
     "scroll_up_draw_rect_px": [
-      1800,
-      786,
+      1784,
+      802,
       16,
       12
     ],
     "scroll_down_draw_rect_px": [
-      1800,
-      958,
+      1784,
+      942,
       16,
       12
     ],
     "footer_rect_px": [
       418,
-      980,
-      1398,
+      960,
+      1382,
       28
     ],
     "continue_draw_rect_px": [
-      1798,
-      980,
+      1782,
+      962,
       18,
       24
     ],
@@ -101,28 +95,28 @@
       24
     ],
     "portrait_opening_local_approx_px": [
-      33.6,
-      31.2,
-      232.3,
-      235.4
+      41.75258,
+      32.47423,
+      249.74227,
+      231.95876
     ],
     "portrait_face_safe_local_rect_px": [
-      44,
+      62,
       44,
       212,
       212
     ],
     "portrait_face_safe_screen_rect_px": [
-      124,
+      142,
       764,
       212,
       212
     ],
-    "portrait_note": "Place the live SubViewport behind the frame. Its curved aperture needs masking or clipping; keep face and moving jaw inside the safe rectangle. A background backing colour is rendered separately, never baked into portrait_frame.png.",
+    "portrait_note": "Local coordinates are relative to the unified bar at 80,720. Draw the live SubViewport beneath integrated_frame.png; the opening is curved. Keep eyes, mouth and moving chin inside the safe rectangle.",
     "portrait_backing_colour": "#421617",
-    "sizing_rule": "Long text and wrapped choices scroll. Content must never enlarge either outer frame. Use the supplied atlas regions, not full PNG canvases, to eliminate unequal transparent padding.",
-    "responsive_rule": "Scale the logical canvas uniformly or adapt both containers together; never change one frame height alone.",
-    "portrait_live_viewport_note": "A larger live viewport may fill the curved aperture if clipped/masked to it; keep eyes, mouth and moving chin inside the 212x212 safe square."
+    "portrait_live_viewport_note": "A larger viewport may fill the opening if clipped/masked to its curved boundary. Keep the portrait backing separate; no character or backing is baked into the master PNG.",
+    "sizing_rule": "Long speech and wrapped responses scroll within 156px. Content never enlarges the 300px bar. Use the supplied adjacent source/destination rectangles; do not stretch the full PNG into the bar.",
+    "responsive_rule": "Scale the logical canvas uniformly. If adapting width at 300px height, keep the left 375px and right 150px sections fixed and stretch only the middle span."
   },
   "typography": {
     "name": {
@@ -148,7 +142,8 @@
     "footer": {
       "file": "fonts/source_sans_3/SourceSans3-Regular.ttf",
       "size_px": 24,
-      "colour": "#62402A"
+      "colour": "#62402A",
+      "line_height_px": 28
     },
     "font_provenance": "fonts/provenance.json",
     "note": "These are actual supplied fonts for live engine text. AI mockup lettering is illustrative and does not embed these font files."
@@ -158,7 +153,7 @@
       "portrait": "current speaker",
       "label": "speaker name",
       "scrolls": "speech text only",
-      "visible_full_lines_at_default_size": 4,
+      "visible_full_lines_at_default_size": 3,
       "start_position": "top",
       "auto_follow": "Only while the reader is already at the bottom. Preserve manual scroll-back.",
       "continue": "First activation finishes typewriter reveal; next advances. Scroll actions are never advance actions."
@@ -169,84 +164,110 @@
       "scrolls": "response list only",
       "single_line_row_min_height_px": 44,
       "row_gap_px": 4,
-      "visible_single_line_rows": 4,
-      "wrapped_rows": "Grow to fit text; fewer rows are visible when wrapping. Panel remains 300px high.",
+      "visible_single_line_rows": 3,
+      "wrapped_rows": "Grow to fit text; fewer rows are visible when wrapping. Three 44px single-line rows plus two 4px gaps occupy 140px of the 156px viewport. Panel remains 300px high.",
       "focus": "Selected background plus brass outline and chevron; keep live numbers.",
       "activation": "Mouse click or explicit confirm action, not scroll wheel or focus navigation."
     }
   },
   "assets": {
-    "dialogue_frame": {
-      "file": "dialogue_frame.png",
+    "integrated_frame": {
+      "file": "integrated_frame.png",
       "source_size_px": [
-        2172,
-        724
+        1644,
+        957
       ],
       "mode": "RGBA",
-      "sha256": "622a0488b70b8a81ddc8fa1ff36e15f8b33532dea31ac58e8bb64c6079d551ad",
+      "sha256": "ef89a1f7fcf2af7544f17e18fc9988abd60eaf8bc967abb3a5674a178c9db6f1",
       "native_raster_unchanged": true,
-      "background": "true alpha transparency outside the shape",
+      "background": "Transparent exterior and portrait aperture; parchment is almost opaque, median alpha 253/255.",
       "atlas_region_px": [
-        28,
-        99,
-        2116,
-        523
+        18,
+        275,
+        1608,
+        388
       ],
-      "nine_slice": {
-        "source_margins_ltrb_px": [
-          160,
-          160,
-          160,
-          160
-        ],
-        "texture_scale": 0.3,
-        "destination_margins_ltrb_px": [
-          48.0,
-          48.0,
-          48.0,
-          48.0
-        ],
-        "center": "stretch",
-        "edge_mode": "stretch",
-        "godot_method": "A fixed-size unscaled Control host owns the visual NinePatchRect child. Use the atlas region as NinePatchRect.region_rect, child scale (texture_scale, texture_scale), local child size target_size / texture_scale, and patch margins in source pixels. The visual child must not be a direct child of a Container. Keep live text and hit targets in the unscaled host.",
-        "draw_center": true
-      }
-    },
-    "portrait_frame": {
-      "file": "portrait_frame.png",
-      "source_size_px": [
-        1254,
-        1254
+      "render_strategy": "horizontal_three_slice",
+      "target_rect_px": [
+        80,
+        720,
+        1760,
+        300
       ],
-      "mode": "RGBA",
-      "sha256": "94ed08650ef536c7232d42b156ddcb0c07376bc2d385400f0547fe282c104480",
-      "native_raster_unchanged": true,
-      "background": "true alpha transparency outside the shape",
-      "atlas_region_px": [
-        37,
-        65,
-        1180,
-        1116
+      "cap_uniform_scale_ratio": [
+        75,
+        97
       ],
-      "nine_slice": {
-        "source_margins_ltrb_px": [
-          300,
-          300,
-          300,
-          300
-        ],
-        "texture_scale": 0.24,
-        "destination_margins_ltrb_px": [
-          72.0,
-          72.0,
-          72.0,
-          72.0
-        ],
-        "center": "stretch",
-        "edge_mode": "stretch",
-        "godot_method": "A fixed-size unscaled Control host owns the visual NinePatchRect child. Use the atlas region as NinePatchRect.region_rect, child scale (texture_scale, texture_scale), local child size target_size / texture_scale, and patch margins in source pixels. The visual child must not be a direct child of a Container. Keep live text and hit targets in the unscaled host.",
-        "draw_center": false
-      }
+      "cap_uniform_scale": 0.7731958762886598,
+      "slices": [
+        {
+          "id": "left_assembly",
+          "source_region_px": [
+            18,
+            275,
+            485,
+            388
+          ],
+          "destination_rect_px": [
+            80,
+            720,
+            375,
+            300
+          ],
+          "scale_xy": [
+            0.7731958762886598,
+            0.7731958762886598
+          ],
+          "behavior": "Fixed proportions; includes portrait aperture, entire straight wooden divider and both clean wood T-junctions."
+        },
+        {
+          "id": "middle_span",
+          "source_region_px": [
+            503,
+            275,
+            929,
+            388
+          ],
+          "destination_rect_px": [
+            455,
+            720,
+            1235,
+            300
+          ],
+          "scale_xy": [
+            1.3293864370290636,
+            0.7731958762886598
+          ],
+          "behavior": "Stretch horizontally only; cuts are in quiet rails/parchment beyond the divider and outer corner ornaments."
+        },
+        {
+          "id": "right_cap",
+          "source_region_px": [
+            1432,
+            275,
+            194,
+            388
+          ],
+          "destination_rect_px": [
+            1690,
+            720,
+            150,
+            300
+          ],
+          "scale_xy": [
+            0.7731958762886598,
+            0.7731958762886598
+          ],
+          "behavior": "Fixed proportions; includes complete right outer brass corners."
+        }
+      ],
+      "runtime_method": "Draw these three atlas regions into adjacent destination rectangles in one fixed Control host. All use the same source texture and meet exactly at x455 and x1690. Keep live text, portrait and controls separate. Preserve source alpha and the parchment field; do not overlay legacy frames or divider hardware.",
+      "portrait_hole_source_rect_px": [
+        72,
+        317,
+        323,
+        300
+      ]
     },
     "speaker_ribbon": {
       "file": "speaker_ribbon.png",
@@ -393,7 +414,7 @@
           ],
           "nominal_draw_size_px": [
             16,
-            140
+            108
           ],
           "nine_slice": {
             "source_margins_ltrb_px": [
@@ -431,11 +452,15 @@
     "layout_concept": "reference/layout_concept.png",
     "selected_direction": "reference/selected_response_concept.png",
     "room_composition": "reference/room_composition_concept.png",
-    "note": "Concept images are 1672x941 illustrations. Exact runtime dimensions come from this manifest. Preview dialogue/response copy is layout content, not additional authored game dialogue."
+    "note": "Concept images are 1672x941 illustrations. layout_concept.png shows the corrected unified frame and internal label. Exact runtime dimensions come from this manifest. Preview dialogue/response copy is layout content, not additional authored game dialogue."
   },
   "validation": {
-    "source_assets": "All five production PNGs open as RGBA; true alpha confirmed; portrait centre alpha 0. The parchment centre alpha is 253/255.",
-    "native_rasters": "All PNGs are byte-for-byte generated outputs; no resampling, repainting or alpha replacement has been performed. Regions and draw sizes are metadata.",
+    "source_assets": "The active master is 1644x957 RGBA with a plain wooden divider, clean wood T-junctions, four outer brass corners and a transparent portrait opening. The master and existing helper PNGs remain unchanged native source files.",
+    "integrated_frame_geometry": "The three source regions exactly cover [18,275,1608,388]; destination widths 375+1235+150=1760, all at y720/height 300. Outer brass fittings and the plain wooden divider remain in the fixed caps.",
+    "portrait_safe_area": "Screen [142,764,212,212] corresponds to sampled native bounds [98,331,373,607] with exclusive ends. Alpha 0..1; 99.972332% exactly 0; no opaque pixels.",
+    "alpha": "Measured portrait hole: 95895 pixels, mean alpha 0.15438761145/255, 93.733771% zero. Broad parchment sample alpha 252..254, median 253; center RGBA [245,225,192,253].",
+    "native_rasters": "All PNG files are byte-for-byte generated outputs; runtime source rectangles and draw sizes are metadata. Legacy standalone frames are preserved but unused.",
+    "details": "source_validation.json",
     "engine": "Not imported or tested in Godot in this art session. Integration ownership remains with the engine side."
   },
   "generation": "generation.json",
@@ -443,5 +468,35 @@
   "implementation_references": [
     "https://docs.godotengine.org/en/stable/classes/class_ninepatchrect.html",
     "https://docs.godotengine.org/en/stable/classes/class_control.html#class-control-property-scale"
-  ]
+  ],
+  "legacy_assets": {
+    "dialogue_frame": {
+      "file": "dialogue_frame.png",
+      "source_size_px": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "sha256": "622a0488b70b8a81ddc8fa1ff36e15f8b33532dea31ac58e8bb64c6079d551ad",
+      "native_raster_unchanged": true,
+      "status": "legacy_unused",
+      "runtime_use": false,
+      "superseded_by": "integrated_frame",
+      "note": "Preserved source history only. Do not render alongside the integrated frame."
+    },
+    "portrait_frame": {
+      "file": "portrait_frame.png",
+      "source_size_px": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "94ed08650ef536c7232d42b156ddcb0c07376bc2d385400f0547fe282c104480",
+      "native_raster_unchanged": true,
+      "status": "legacy_unused",
+      "runtime_use": false,
+      "superseded_by": "integrated_frame",
+      "note": "Preserved source history only. Do not render alongside the integrated frame."
+    }
+  }
 }

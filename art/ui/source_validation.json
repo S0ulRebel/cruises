@@ -10,7 +10,8 @@
       "center_alpha": 253,
       "fully_transparent_pixel_fraction": 0.306231,
       "has_true_transparency": true,
-      "has_visible_art": true
+      "has_visible_art": true,
+      "status": "legacy; not rendered in the integrated layout"
     },
     "portrait_frame": {
       "size_px": [
@@ -22,7 +23,8 @@
       "center_alpha": 0,
       "fully_transparent_pixel_fraction": 0.674181,
       "has_true_transparency": true,
-      "has_visible_art": true
+      "has_visible_art": true,
+      "status": "legacy; not rendered in the integrated layout"
     },
     "speaker_ribbon": {
       "size_px": [
@@ -59,16 +61,74 @@
       "fully_transparent_pixel_fraction": 0.80835,
       "has_true_transparency": true,
       "has_visible_art": true
+    },
+    "integrated_frame": {
+      "size_px": [
+        1644,
+        957
+      ],
+      "mode": "RGBA",
+      "sha256": "ef89a1f7fcf2af7544f17e18fc9988abd60eaf8bc967abb3a5674a178c9db6f1",
+      "native_raster_unchanged": true,
+      "atlas_region_px": [
+        18,
+        275,
+        1608,
+        388
+      ],
+      "canvas_corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "portrait_center_rgba": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "parchment_center_rgba": [
+        245,
+        225,
+        192,
+        253
+      ],
+      "fully_transparent_pixel_fraction": 0.6599082951335657,
+      "has_true_transparency": true,
+      "has_visible_art": true,
+      "parchment_sample_alpha_min_max_median": [
+        252,
+        254,
+        253.0
+      ]
     }
   },
   "layout_assertions": {
+    "combined_frame_screen_xywh_px": [
+      80,
+      720,
+      1760,
+      300
+    ],
     "equal_height": 300,
     "same_top": 720,
     "same_bottom": 1020,
-    "gap": 14
+    "inter_panel_gap": 0,
+    "shared_divider": true,
+    "source_slices_tile_region": true,
+    "destination_slices_tile_combined_frame": true,
+    "fixed_caps_uniform_scale": 0.7731958762886598
   },
-  "scope": "Source raster properties and manifest geometry only; no engine-runtime claim.",
-  "portrait_aperture_measurement": {
+  "scope": "Read-only source image inspection, alpha measurements and manifest geometry; engine runtime integration remains pending.",
+  "revision": "integrated_frame_clean_wooden_join",
+  "active_assets": [
+    "integrated_frame",
+    "speaker_ribbon",
+    "response_highlight",
+    "controls_atlas"
+  ],
+  "legacy_portrait_aperture_measurement": {
     "alpha_threshold": 16,
     "enclosed_hole_source_ltrb_px": [
       177,
@@ -79,6 +139,43 @@
     "hole_pixels": 748464,
     "fully_zero_alpha_fraction": 0.9683618718,
     "mean_alpha_0_to_255": 0.0518875991,
-    "note": "True transparent centre; faint alpha1\u201316 raster fringe/speckles remain. The mean opacity over the hole is about0.0204%. No portrait or opaque backing is present. Native alpha was preserved."
+    "note": "True transparent centre; faint alpha1–16 raster fringe/speckles remain. The mean opacity over the hole is about0.0204%. No portrait or opaque backing is present. Native alpha was preserved."
+  },
+  "portrait_aperture_measurement": {
+    "asset": "integrated_frame.png",
+    "alpha_threshold": 16,
+    "enclosed_hole_source_xywh_px": [
+      72,
+      317,
+      323,
+      300
+    ],
+    "hole_pixels": 95895,
+    "fully_zero_alpha_fraction": 0.937337713123729,
+    "mean_alpha_0_to_255": 0.15438761145002347,
+    "safe_face_screen_xywh_px": [
+      142,
+      764,
+      212,
+      212
+    ],
+    "safe_face_sample_native_ltrb_px": [
+      98,
+      331,
+      373,
+      607
+    ],
+    "safe_face_alpha_min_max": [
+      0,
+      1
+    ],
+    "safe_face_fully_zero_alpha_fraction": 0.9997233201581027,
+    "note": "The aperture is genuinely transparent with faint generated alpha fringe. The safe face sample is 99.9723% alpha0, with the rest alpha1. Preserve native alpha and render the live portrait behind this opening."
+  },
+  "visual_review": {
+    "shared_join": "Both internal brass connectors have been removed. The one straight wooden divider reaches directly into both horizontal rails with simple rectangular construction.",
+    "outer_rails": "Continuous top and bottom walnut rails; brass fittings remain only on the four outside corners.",
+    "portrait_and_text": "Empty portrait aperture and blank parchment source; live content remains separate.",
+    "preview": "Updated reference/layout_concept.png shows this plain wooden join, inset response label and existing room, characters and response controls."
   }
 }

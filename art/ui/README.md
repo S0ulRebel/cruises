@@ -1,74 +1,70 @@
 # Captain’s Ledger UI art
 
-The owner selected the parchment, walnut and brass response-panel direction on
-11 October 2026, then requested matching portrait and dialogue-frame heights.
-This package supplies the artwork, actual font files and exact layout contract.
-Engine integration is still pending.
+The current UI uses **one continuous walnut/brass frame with one shared divider**.
+The owner requested this correction because the earlier independent portrait and
+speech frames had mismatched joins. The current correction removes both rejected internal metal connectors: a straight
+wood divider meets both rails in clean T-junctions. Brass remains only at the four
+outer corners. Engine integration is still pending.
 
 ## Start here
 
-Use `dialogue.json` for regions, patch margins, colours and positions. At the
-1920×1080 logical resolution the portrait is `(80,720,300,300)` and the text frame
-is `(394,720,1446,300)`. Both start at y720 and end at y1020, with a 14px gap.
-The name ribbon stays inside those bounds. Speech and responses scroll inside
-the text frame; longer content never increases either frame’s height.
+`dialogue.json` is the current layout and asset contract. At the 1920×1080 logical
+resolution, the whole bar is `(80,720,1760,300)`: top 720, bottom 1020. Render three
+adjacent regions of **the same `integrated_frame.png`**, with destination widths
+375, 1235 and 150px. Scale the left assembly and right cap uniformly by 75/97; stretch
+only the middle region horizontally. Source and destination rectangles are explicit
+in the manifest. This preserves the plain wooden divider and outer brass corners.
 
-## Delivered artwork
+There is no gap or second frame underneath the shared divider. The old
+`dialogue_frame.png` and `portrait_frame.png` remain in the repository as **legacy,
+unused sources**; their old rendering geometry has been removed from the active
+contract.
+
+The label ribbon now sits wholly inside the parchment at y756–796. Speech and
+responses use a bounded 156px-high viewport at y800–956; the footer occupies
+960–988. At the default sizes, three complete speech lines or three single-line
+responses fit. More content scrolls instead of enlarging the 300px bar.
+
+## Active artwork
 
 | File | Purpose |
 | --- | --- |
-| `dialogue_frame.png` | Empty parchment field with walnut rails and fixed brass corners. |
-| `portrait_frame.png` | Empty walnut/brass surround with a genuinely transparent opening. |
-| `speaker_ribbon.png` | Blank red ribbon for a live name or response-state label. |
+| `integrated_frame.png` | Continuous rails, one shared divider, transparent portrait aperture and parchment field. |
+| `speaker_ribbon.png` | Blank red ribbon for a dynamic name or response-state label. |
 | `response_highlight.png` | Blank red/gold selection background for single or wrapped rows. |
-| `controls_atlas.png` | Separate up/down arrows, right chevron, scroll thumb, track and empty number medallion. |
+| `controls_atlas.png` | Up/down arrows, right chevron, thumb, track and blank number medallion. |
 
-These are unchanged high-resolution RGBA source PNGs. Their full canvases have
-different transparent margins. **Use the measured `atlas_region_px` values** in
-the manifest so those margins cannot create unequal visible heights. Each
-control sprite has its own source rectangle; the atlas is never drawn as a whole.
+These are unchanged native RGBA PNGs. Use the measured source regions, not the full
+canvases or independently cropped/resampled copies. The ribbon, highlight and
+controls retain their own stretch or atlas metadata. Keep all live text and hit
+targets separate from the visual source layers.
 
-For each stretchable image, the manifest separates source patch margins from
-their intended displayed size. One Godot route is a fixed-size plain `Control`
-host with a visual `NinePatchRect` child: set its `region_rect`, source-pixel patch
-margins, uniform `texture_scale`, and local size to target size divided by that
-scale. Keep text and input controls in the unscaled host. The portrait does not
-draw the centre patch. Stretch the quiet rails/fields; preserve corner proportions.
-Do not put the scaled visual child directly under a `Container`, which can reset
-its scale. The [NinePatchRect](https://docs.godotengine.org/en/stable/classes/class_ninepatchrect.html)
-and [Control](https://docs.godotengine.org/en/stable/classes/class_control.html#class-control-property-scale)
-documentation describe these properties. This route has not been run in Godot
-in the art session.
+## Portrait and typography
 
-## Typography and live content
+The live portrait belongs behind the master’s transparent opening. Its safe face
+rectangle is **`(142,764,212,212)`** on screen. A larger viewport may fill the curved
+opening when masked/clipped to it; keep the eyes, mouth and moving chin in that
+safe area. A muted red backing remains a separate engine element.
 
-The supplied production type is Grenze SemiBold for names at 36px, Source Sans 3
-Regular for speech at 32px, and Source Sans 3 Semibold for choices at 30px. Original
-font licences and pinned download provenance are under `fonts/`. Use Source Sans 3
-Semibold for speaker-name glyphs missing from Grenze, including Cyrillic and Greek.
-The mockup lettering is illustrative; it did not embed these font files.
+The supplied fonts remain Grenze SemiBold 36px for names, Source Sans 3 Regular 32px
+for speech, Source Sans 3 Semibold 30px for choices, and Regular 24px for the footer.
+Original licences, pinned provenance and fallback information are under `fonts/`
+and in the manifest. Names, dialogue, numbers, hints and portraits remain dynamic.
+Mockup lettering and responses are illustrative, not new screenplay or canon.
 
-Names, dialogue, response numbers, hints and the animated portrait remain live.
-No such content is baked into the five production PNGs. A muted red backing can
-sit behind the portrait as a separate engine element. The manifest and
-`ENGINE_INTEGRATION.md` specify the measured aperture and safe face area.
+## Verification and integration
 
-## Integration and review
+`source_validation.json` records the native-image and alpha checks;
+`generation.json` records provenance. The master’s safe portrait sample contains
+only alpha 0–1, with 99.972332% exactly zero. Parchment is almost opaque, median alpha 253.
+The source PNG is not flattened or repainted to change those values.
 
-`ENGINE_INTEGRATION.md` records the remaining scrolling, focus, input and portrait
-state work. Scroll-wheel input must be consumed by the UI instead of advancing
-dialogue. Only actual story options should be shown; example mockup responses
-are layout demonstrations and must not be added to the screenplay.
+`ENGINE_INTEGRATION.md` gives the current mapping and remaining engine work. Verify
+slice joins, scrolling, keyboard focus, long text and portrait states in Godot.
+Scroll-wheel/navigation input must not advance dialogue. No engine code, animation
+or screenplay was changed by this art correction.
 
-`source_validation.json` records alpha/geometry checks; `generation.json` records
-the built-in image-generation prompts. All five source PNGs were checked as RGBA,
-with transparent exterior pixels and a transparent portrait centre. Font files
-were checked for family, weight, static format and accented-character coverage.
-Runtime rendering, input handling and localisation wrapping remain engine checks.
-
-The images under `reference/` are concept art, not runtime UI textures. The room
-is an approved composition/colour guide: pirate cabin, no modern utility fixtures,
-Count Fingers in the near foreground. The carpet pattern needs simplification.
-It is **not** a camera-matched production backdrop, and foreground props remain
-separate scene objects. `layout_concept.png` illustrates the equal-height revision;
-the exact geometry is in the manifest.
+`reference/layout_concept.png` illustrates the unified frame and internal label;
+the manifest supplies exact runtime dimensions. Reference room images remain
+composition guides, not camera-matched production backdrops. The earlier caveat
+about simplifying the carpet markings still applies.

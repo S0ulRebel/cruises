@@ -405,17 +405,27 @@ tuning the rest pose by eye at panel size to see whether that reads as a parting
 
 ### 2026-10-11 — for the engine side — integrate Captain’s Ledger dialogue UI
 
-Art is delivered in `art/ui/dialogue.json`; read `art/ui/ENGINE_INTEGRATION.md`
-for the exact 300px equal-height layout, measured portrait opening and remaining
-input work. Use live text/portraits over the separate blank images. Keep the
-portrait visible in the response state, as in the owner’s preferred preview.
+Use the corrected `art/ui/integrated_frame.png` and `art/ui/dialogue.json`.
+The current bar is one continuous frame with a straight wooden divider meeting both
+rails in clean wood T-junctions. Only its four outer corners have brass fittings: `(80,720,1760,300)` at 1920×1080. Draw the three adjacent atlas
+regions from that same source into widths 375/1235/150px. Caps keep their proportions;
+only the middle stretches horizontally. `dialogue_frame.png` and
+`portrait_frame.png` are preserved legacy sources and must not be rendered.
 
-Implement bounded scrolling for speech and response choices, visible keyboard
-focus and explicit confirm/continue actions. The current caption handler accepts
-any key/mouse press, so **consume wheel/navigation/scrollbar events before they
-can advance dialogue**. Choice buttons currently use `FOCUS_NONE`. Verify these
-behaviours in Godot; the art delivery does not claim them as implemented. Check
-wrapping with long test content without adding preview copy to the screenplay.
+Read `art/ui/ENGINE_INTEGRATION.md` for exact source/destination rectangles,
+portrait masking and input work. The live-face safe rectangle is
+`(142,764,212,212)`. Keep the portrait visible in the response state. The label now
+sits wholly inside parchment at y756–796, content scrolls within y800–956, and the
+footer occupies y960–988. Default typography fits three complete speech lines or
+three single-line response rows; longer content scrolls without enlarging the bar.
+
+Implement bounded scrolling, visible keyboard focus and explicit confirm/continue
+controls. The current caption handler accepts any key/mouse press, so **consume
+wheel/navigation/scrollbar events before they can advance dialogue**. Choice buttons
+currently use `FOCUS_NONE`. Verify the slice joins, portrait aperture, long text and
+these behaviors in Godot; the art delivery does not implement them. Mockup copy is
+layout content, not new screenplay or canon. No animation change is part of this
+frame correction.
 
 **Scene direction agreed with the owner:** retain the warm dark wood/brass/red
 palette and overall cabin layout, remove modern visible fittings (AC, sockets,
@@ -615,6 +625,28 @@ bottoms but does not remove those height differences. These limitations are also
 recorded in `pieces/asset.json` under `completion_audit` and belong with the already
 Open reconstruction/fit checks. Record any required source corrections here after
 those checks. Do not treat file presence as a fully accepted fitted character.
+
+### 2026-10-11 — art side — Captain’s Ledger frame join corrected
+
+**Result:** Delivered `art/ui/integrated_frame.png`, one unchanged 1644×957 RGBA
+source with continuous rails and a straight wooden divider reaching both rails.
+The owner rejected the preceding internal-connector attempt; both decorative
+connectors are now removed. Brass remains only at the four outer corners.
+This supersedes the two-frame/14px-gap geometry in the earlier UI delivery above.
+The existing standalone frame files are preserved as legacy/unused.
+
+Updated `art/ui/dialogue.json`, `README.md` and `ENGINE_INTEGRATION.md` for three
+adjacent regions of the same master, rendered into `(80,720,1760,300)` with fixed
+375px/150px caps and only the 1235px middle stretched horizontally. Moved the label
+fully below the upper rail at y756; the 156px scrolling viewport honestly fits three full
+speech lines or three single-line response rows. Fonts, helper controls and live
+text/portrait responsibilities are retained. The confirmed safe face rectangle is
+`(142,764,212,212)`; its source sample contains only alpha 0–1.
+
+`art/ui/source_validation.json` and `generation.json` record the new source and
+checks; `reference/layout_concept.png` shows the corrected composition. Engine
+integration and runtime verification remain in the existing Open item. No engine
+code, animation or screenplay was changed.
 
 ---
 

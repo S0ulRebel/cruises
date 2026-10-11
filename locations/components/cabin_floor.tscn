@@ -1,14 +1,12 @@
 [gd_scene format=3]
 
+[ext_resource type="ShaderMaterial" path="res://locations/captains_cabin/materials/floor.tres" id="floor_material"]
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_ujyaw"]
 size = Vector3(12, 0.2, 7)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_thq1o"]
 size = Vector2(12, 7)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q1srp"]
-shading_mode = 0
-albedo_color = Color(0.16470589, 0.105882354, 0.0627451, 1)
 
 [node name="CabinFloor" type="StaticBody3D" groups=["nav_source"]]
 collision_layer = 2
@@ -19,5 +17,5 @@ shape = SubResource("BoxShape3D_ujyaw")
 
 [node name="FloorVisual" type="MeshInstance3D" parent="."]
 mesh = SubResource("PlaneMesh_thq1o")
-surface_material_override/0 = SubResource("StandardMaterial3D_q1srp")
+surface_material_override/0 = ExtResource("floor_material")
 

@@ -50,3 +50,17 @@ Inkwell highlight uses its public mouse-entered signal after the real click asse
 the input simulation avoids moving the user's OS cursor. Speech/responses retain the
 existing animated Captain portrait and ledger. Camera measurements use
 [Godot's projection and ray APIs](https://docs.godotengine.org/en/stable/classes/class_camera3d.html).
+
+## 2026-10-11 — first cabin dressing pass
+
+Owner requested arranging the finished objects and assigning scene textures before any further modeling. The saved cabin now has metre-density floorboards, walnut walls, textured ceiling, a finite burgundy rug with a shader-drawn gold edge, reused timber beams/posts/baseboards, and three independent chart rolls on the back of the desk. Additions are authored in `dressing.tscn`; nothing is built or positioned by startup code.
+
+`materials/cabin_surface.gdshader` is a cabin-owned adoption of soft painted fake lighting, with linear OpenGL +Y tangent normals used in its actual illumination calculation. Existing shared library variants and VisualShader graphs are unchanged. Colour and normal share UV transforms: floor 2.4m per tile, wall 2m, carpet 0.8m. The finite rug border is shader colour, outside the unchanged repeating colour texture. Imported timber/roll surfaces use `dressing_material_binding.gd`, extending the library binding to preserve each original normal map in addition to its albedo and tint. No scene lights or texture light baking were added.
+
+The native crate visual is adopted in its existing prefab, at its measured 0.9m envelope and identity child transform. The prior Tripo GLB remains available. Existing furniture/actor/camera roots, gameplay hotspots, colliders and navigation polygons are unchanged. New timber/rug/charts are visual dressing with no new blockers or gameplay behaviour; parsed navigation collision geometry is unchanged, so the existing bake is retained. The individual rolls remain separately reusable, not a fused bundle or new inventory rule.
+
+Glass, water and Count Fingers now use painted/unshaded materials so the bowl is readable without engine lights. Model geometry, motion and placement are unchanged. Unshaded roughness is normalized to its unused default of 1 because Godot otherwise drops that property during material duplication, causing hover restoration values to differ.
+
+Validation: all 15 headless checks passed, including original transform/framing, navigation, movement, puzzle combinations, two-instance hover restoration, portrait and material library checks. The graphical framing harness passed all eight actual hotspot clicks and saved default/hover/speech/response images. GPU normal on/off validation changed 4,323 sampled foreground-floor pixels, confirming shader consumption of the supplied normal data. No engine/script errors in successful final import, checks or graphical runs.
+
+Generated colour tiles still have approximate edge continuity. Render was reviewed at the authored 1920x1080 camera; no pixel-perfect seamless claim is made. Fake lighting provides painted shading and a soft local colour pool, not geometry-aware cast shadows. This is the first dressing pass: future lantern/bookcase/globe/painting assets remain at their prior pipeline status. Blender editing sources are retained in `.gdignore` folders so importing the game does not require a local Blender installation.

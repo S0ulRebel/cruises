@@ -1,0 +1,100 @@
+{
+  "asset_id": "prop:supply_crate:direct_blender_trial",
+  "name": "Stylized supply crate modeling trial",
+  "status": "Standalone trial delivered for owner visual review; not installed in the game",
+  "date": "2026-10-11",
+  "authoring": "Direct native Blender geometry, authorized modeling experiment; not Tripo reconstruction",
+  "repository": "S0ulRebel/cruises",
+  "repository_base_commit": "485dbe110d58c8b7defe1b110ec3b250826e140c",
+  "references": [
+    {
+      "repository_path": "art/props/supply_crate/sheet.png",
+      "sha256": "4ae46b4e9244f708320b6d094ce1b05cafe7fbe831999438952114a28de39b86"
+    },
+    {
+      "repository_path": "art/props/supply_crate/asset.json",
+      "sha256": "d28b8eeb895e6b8f5ce4c049036719fee628c268b705861c0d331bf585a542c0"
+    },
+    {
+      "repository_path": "art/props/captain_desk/sheet.png",
+      "sha256": "02300d11cad484407755dfea20b66770abc9e92e895095b834bb505477b4f69c"
+    },
+    {
+      "repository_path": "docs/reference/room_target.png",
+      "sha256": "a17f771d95d7aa37b8403b3b4cb918c7032737cdb031d62c893b424c878cebc3"
+    },
+    {
+      "repository_path": "docs/ART_SPEC.md",
+      "sha256": "a7bb4f896ec78251afd5a428bc0fe0c749626df71e965883b1f5baf22af9cbf3"
+    },
+    {
+      "repository_path": "HANDOFF.md",
+      "sha256": "0421415f4a91ebc138441d54f2e435c54a030646cb8a7dfc1c1e375343308162"
+    },
+    {
+      "repository_path": "art/materials/captains_cabin/beam_wood/albedo.png",
+      "sha256": "aec4e11e512c4ee6802f874a2c9275c6e8360abf00082f3edf12fa9d42cdbdd3"
+    },
+    {
+      "repository_path": "art/materials/captains_cabin/beam_wood/normal_gentle_opengl.png",
+      "sha256": "43a9cf58e6546ba66f65c360b8ed561df4550d9f2f358bde637b888833b00755"
+    }
+  ],
+  "files": {
+    "model": "supply_crate.glb",
+    "editable_source": "supply_crate.blend",
+    "preview": "textured_preview.png",
+    "geometry_preview": "geometry_preview.png",
+    "rear_preview": "rear_preview.png"
+  },
+  "dimensions_m": {
+    "width": 0.9,
+    "height": 0.9,
+    "depth": 0.9
+  },
+  "dimensions_include": "All battens and iron nail heads",
+  "orientation": {
+    "up": "Godot +Y",
+    "front": "Godot +Z",
+    "origin": "Footprint center at Y=0"
+  },
+  "nodes": [
+    "SupplyCrate",
+    "Body",
+    "Lid"
+  ],
+  "triangles": 7192,
+  "materials": [
+    "Painted wood with gentle tangent normal",
+    "Front wood with flat cream lettering and gentle tangent normal",
+    "Exposed end grain",
+    "Dark iron nail heads"
+  ],
+  "textures": {
+    "wood_albedo": "Original approved beam wood albedo, unchanged sRGB",
+    "wood_normal": "Original approved gentle OpenGL tangent normal, unchanged linear data",
+    "front_albedo": "Existing wood plus native flat serif lettering via colour-only emission projection"
+  },
+  "stencil_lines": [
+    "LE CHAOS",
+    "NAVIGUE",
+    "TOUJOURS",
+    "PLUS LOIN"
+  ],
+  "lighting": "No studio lighting or AO added to textures; preview lights, camera and floor excluded from GLB",
+  "validation": {
+    "native_component_manifold_checks": "PASS",
+    "glb_geometry_uv_tangents_bounds": "PASS",
+    "godot_import_material_normal_maps": "PASS",
+    "godot_version": "4.7.2-stable (official)",
+    "visual_owner_acceptance": "Pending"
+  },
+  "limitations": [
+    "Static closed trial; no opening animation, collision, hotspot or puzzle logic.",
+    "Lid is separate and can translate upward; its origin matches the floor origin. No hinge pivot is implied.",
+    "Simple interior geometry was authored for this trial; the closed reference does not specify its construction.",
+    "Wood colour and normal tile repetition inherits the original approximate edge continuity.",
+    "The game toon shader must consume the supplied tangent normals through its own lighting calculation."
+  ],
+  "model_sha256": "ff5701e0e8fe1efb10917e9598156990f76574ec1556b6db303f941a1f29c15e"
+}

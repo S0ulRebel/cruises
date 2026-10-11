@@ -1,7 +1,7 @@
 {
   "asset_id": "prop:supply_crate",
   "name": "Nailed supply crate",
-  "role": "Scene 1 â€” Captain LivÃ©â€™s quarters; the crate puzzle opened with the rapier",
+  "role": "Scene 1 — Captain Livé’s quarters; the crate puzzle opened with the rapier",
   "asset_type": "prop_turnaround_sheet",
   "files": {
     "sheet": "sheet.png"
@@ -11,7 +11,7 @@
     "height": 0.9,
     "depth": 0.9
   },
-  "dimension_contract": "dimensions_m describes the complete closed upright supply crate, including its permanent battens and nail heads, in metres. The explicit owner brief and main.gd crate blockout both specify 0.9W Ã— 0.9H Ã— 0.9D. This asset replaces the nailed puzzle crate and retains its Crate hotspot; it is separate from the decorative brass-and-skull pirate_chest. Uniformly fit the reconstructed mesh to the target and verify its bounds. The illustration is a reconstruction reference, not exact CAD; do not independently resize reference views or stretch model axes to conceal source differences.",
+  "dimension_contract": "dimensions_m describes the complete closed upright supply crate, including its permanent battens and nail heads, in metres. The explicit owner brief and main.gd crate blockout both specify 0.9W × 0.9H × 0.9D. This asset replaces the nailed puzzle crate and retains its Crate hotspot; it is separate from the decorative brass-and-skull pirate_chest. Uniformly fit the reconstructed mesh to the target and verify its bounds. The illustration is a reconstruction reference, not exact CAD; do not independently resize reference views or stretch model axes to conceal source differences.",
   "source": {
     "generation_status": "selected source delivered",
     "producer": "OpenAI imagegen via ChatGPT",
@@ -285,11 +285,11 @@
       111,
       111
     ],
-    "scale": "All four source and final envelopes measure 463 Ã— 456 px. Native source crops were translated only; no independent scaling."
+    "scale": "All four source and final envelopes measure 463 × 456 px. Native source crops were translated only; no independent scaling."
   },
   "validation": {
     "status": "source presentation and pixel framing measured; mesh and engine checks pending",
-    "method": "Read-only full-row NumPy/Pillow measurements using the unchanged repository cutterâ€™s modal_colour, ink_mask and find_figures at default tolerance 18. Bounds are [x0,y0,x1,y1], upper bounds exclusive. Stencil and design reviewed visually on the final sheet.",
+    "method": "Read-only full-row NumPy/Pillow measurements using the unchanged repository cutter’s modal_colour, ink_mask and find_figures at default tolerance 18. Bounds are [x0,y0,x1,y1], upper bounds exclusive. Stencil and design reviewed visually on the final sheet.",
     "detected_views": 4,
     "views": [
       {
@@ -362,7 +362,7 @@
     "engine_import_run": false,
     "limitations": [
       "The closed source does not demonstrate an interior, detached lid or open state. Mechanical opening and interior fit remain engine/model work.",
-      "All four outer envelopes are 463 Ã— 456 px, width/height 1.015351, about 1.54% wider than an exact square. Common scale and alignment pass; the target remains 0.9 m cubed. Verify the reconstructed bounds rather than treating the painted envelope as exact CAD.",
+      "All four outer envelopes are 463 × 456 px, width/height 1.015351, about 1.54% wider than an exact square. Common scale and alignment pass; the target remains 0.9 m cubed. Verify the reconstructed bounds rather than treating the painted envelope as exact CAD.",
       "Tripo mesh generation, lettering as flat material, lid separation, inside surfaces and engine import have not been run."
     ],
     "foreground_threshold": "Sum of absolute RGB distance from modal background exceeds 54.",
@@ -422,5 +422,16 @@
     "next_step": "Extract the named views, reconstruct and texture in Tripo, verify flat stencil paint and nailed lid readability, then replace the crate visual while preserving its rapier/key puzzle.",
     "optional_2x_crop_command": "python tools/crop_views.py art/props/supply_crate/sheet.png --row 0 1 --names front left right back --pad 0.12 --size 1148 --out art/props/supply_crate/views",
     "upscale_note": "Use gap detection to retain the native 574 px common canvas. A uniform 2x export to 1148 px meets the documented minimum but adds no source detail. Do not use equal-cell counting with another padding pass on the already assembled source."
+  },
+  "native_model_delivery": {
+    "model": "native/supply_crate.glb",
+    "source": "native/source/supply_crate.blend",
+    "dimensions_m": [
+      0.9,
+      0.9,
+      0.9
+    ],
+    "authoring": "Owner-approved native Blender model adopted for the cabin refresh; earlier Tripo GLB retained.",
+    "scene_use": "props/supply_crate/supply_crate.tscn; existing hotspot and collision unchanged."
   }
 }

@@ -23,6 +23,11 @@
 [ext_resource type="PackedScene" path="res://locations/components/cabin_side_wall.tscn" id="shell_2"]
 [ext_resource type="PackedScene" path="res://locations/components/cabin_ceiling.tscn" id="shell_3"]
 
+[ext_resource type="ShaderMaterial" path="res://locations/captains_cabin/materials/back_wall.tres" id="look_back_wall"]
+[ext_resource type="ShaderMaterial" path="res://locations/captains_cabin/materials/side_wall.tres" id="look_side_wall"]
+[ext_resource type="ShaderMaterial" path="res://locations/captains_cabin/materials/ceiling.tres" id="look_ceiling"]
+[ext_resource type="PackedScene" path="res://locations/captains_cabin/dressing.tscn" id="dressing"]
+
 [sub_resource type="NavigationMesh" id="NavigationMesh_8nydx"]
 vertices = PackedVector3Array(-4.1, 0.20000002, -2.8, -3.6, 0.20000002, -2.8, -3.6, 0.20000002, -3.2, -5.7, 0.20000002, -3.2, -4.8, 0.20000002, -2, -4.3, 0.20000002, -2.1999998, -3.3, 0.20000002, 0.9000001, -2.8999999, 0.20000002, 0.9000001, -3, 0.20000002, -0.5999999, -5.7, 0.20000002, 1.2000003, -4.6, 0.20000002, -0.5999999, -4.8, 0.20000002, -0.79999995, -3.5, 0.20000002, 1.2000003, -3.1, 0.20000002, -2.8, 3.5, 0.20000002, -3.2, 3.9000006, 0.20000002, 3.2000003, 3.9000006, 0.20000002, 2.7000003, 3.3000002, 0.20000002, 2.7000003, 3.9000006, 0.20000002, 1.0999999, 4, 0.20000002, 0.20000005, 3.4000006, 0.20000002, 0.20000005, 3.3000002, 0.20000002, 1.0999999, -2.2, 0.20000002, 1.9000001, 3.1000004, 0.20000002, 2.5, 3.1000004, 0.20000002, 1.3000002, -2.2, 0.20000002, 1.0999999, -2.5, 0.20000002, 2.2000003, -2.8999999, 0.20000002, 2.2000003, -2.8999999, 0.20000002, 3.2000003, 3.1999998, 0.20000002, 0, -2.8999999, 0.20000002, -2.1999998, -2.3, 0.20000002, -2, 3.1999998, 0.20000002, -1.2, 3.5, 0.20000002, -1.3999999, -2.3, 0.20000002, -0.79999995, -2.5, 0.20000002, -0.5999999, -2.3999999, 0.20000002, 0.9000001, 4.8, 0.20000002, -1.2, 4.8, 0.20000002, -0.5999999, 5.7, 0.20000002, -0.5999999, 4.6000004, 0.20000002, -1.3999999, 5.7, 0.20000002, -3.2, -4.2, 0.9, -1.6, -4.2, 0.9, -1.2, -2.8999999, 0.9, -1.2, -2.8999999, 0.9, -1.6, 3.8000002, 1.1, -0.79999995, 3.8000002, 1.1, -0.39999986, 4.2, 1.1, -0.39999986, 4.2, 1.1, -0.79999995, 4.5, 0.20000002, 2.7000003, 5.7, 0.20000002, 3.2000003, 4.5, 0.20000002, 1.0999999, 4.6000004, 0.20000002, 0.20000005, 4.7, 0.20000002, 1.3000002, 4.7, 0.20000002, 2.5, 4.8, 0.20000002, 0, -3.5, 0.20000002, 2, -5.7, 0.20000002, 3.2000003, 3.6999998, 1.1, 1.7000003, 3.6999998, 1.1, 2.1, 4.1000004, 1.1, 2.1, 4.1000004, 1.1, 1.7000003)
 polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(5, 4, 0), PackedInt32Array(0, 4, 3), PackedInt32Array(8, 7, 6), PackedInt32Array(11, 10, 9), PackedInt32Array(4, 11, 3), PackedInt32Array(3, 11, 9), PackedInt32Array(6, 12, 8), PackedInt32Array(8, 12, 10), PackedInt32Array(10, 12, 9), PackedInt32Array(1, 2, 13), PackedInt32Array(13, 2, 14), PackedInt32Array(17, 16, 15), PackedInt32Array(19, 18, 20), PackedInt32Array(20, 18, 21), PackedInt32Array(25, 24, 22), PackedInt32Array(22, 24, 23), PackedInt32Array(26, 28, 27), PackedInt32Array(20, 21, 29), PackedInt32Array(29, 21, 24), PackedInt32Array(30, 13, 31), PackedInt32Array(31, 13, 32), PackedInt32Array(32, 13, 33), PackedInt32Array(33, 13, 14), PackedInt32Array(29, 24, 32), PackedInt32Array(32, 24, 25), PackedInt32Array(32, 25, 34), PackedInt32Array(32, 34, 31), PackedInt32Array(26, 22, 28), PackedInt32Array(28, 22, 17), PackedInt32Array(28, 17, 15), PackedInt32Array(36, 7, 35), PackedInt32Array(35, 7, 8), PackedInt32Array(23, 17, 22), PackedInt32Array(35, 34, 36), PackedInt32Array(36, 34, 25), PackedInt32Array(39, 38, 37), PackedInt32Array(37, 40, 39), PackedInt32Array(39, 40, 41), PackedInt32Array(41, 40, 14), PackedInt32Array(14, 40, 33), PackedInt32Array(45, 44, 42), PackedInt32Array(42, 44, 43), PackedInt32Array(49, 48, 46), PackedInt32Array(46, 48, 47), PackedInt32Array(16, 50, 15), PackedInt32Array(15, 50, 51), PackedInt32Array(18, 19, 52), PackedInt32Array(52, 19, 53), PackedInt32Array(56, 39, 54), PackedInt32Array(54, 39, 55), PackedInt32Array(55, 39, 51), PackedInt32Array(56, 38, 39), PackedInt32Array(52, 53, 54), PackedInt32Array(54, 53, 56), PackedInt32Array(55, 51, 50), PackedInt32Array(57, 27, 28), PackedInt32Array(57, 9, 12), PackedInt32Array(28, 58, 57), PackedInt32Array(57, 58, 9), PackedInt32Array(62, 61, 59), PackedInt32Array(59, 61, 60)]
@@ -38,23 +43,11 @@ agent_max_climb = 0.2
 [sub_resource type="QuadMesh" id="QuadMesh_7pwen"]
 size = Vector2(12, 4.6)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eboqt"]
-shading_mode = 0
-albedo_color = Color(0.22745098, 0.14117648, 0.08627451, 1)
-
 [sub_resource type="QuadMesh" id="QuadMesh_r6qal"]
 size = Vector2(7, 4.6)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fssfj"]
-shading_mode = 0
-albedo_color = Color(0.47843137, 0.3372549, 0.21176471, 1)
-
 [sub_resource type="PlaneMesh" id="PlaneMesh_78l53"]
 size = Vector2(12, 7)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ksy6v"]
-shading_mode = 0
-albedo_color = Color(0.3529412, 0.2509804, 0.15686275, 1)
 
 [node name="CaptainsCabin" type="Node3D" unique_id=534964259 node_paths=PackedStringArray("camera", "player", "navigation_regions")]
 script = ExtResource("1_yd40d")
@@ -130,19 +123,21 @@ collision_layer = 2
 [node name="Backdrop" type="MeshInstance3D" parent="." unique_id=891265419 instance=ExtResource("shell_1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3, -3.5)
 mesh = SubResource("QuadMesh_7pwen")
-surface_material_override/0 = SubResource("StandardMaterial3D_eboqt")
+surface_material_override/0 = ExtResource("look_back_wall")
 
 [node name="WallLeft" type="MeshInstance3D" parent="." unique_id=1751106110 instance=ExtResource("shell_2")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -6, 2.3, 0)
 mesh = SubResource("QuadMesh_r6qal")
-surface_material_override/0 = SubResource("StandardMaterial3D_fssfj")
+surface_material_override/0 = ExtResource("look_side_wall")
 
 [node name="WallRight" type="MeshInstance3D" parent="." unique_id=1307679982 instance=ExtResource("shell_2")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 6, 2.3, 0)
 mesh = SubResource("QuadMesh_r6qal")
-surface_material_override/0 = SubResource("StandardMaterial3D_fssfj")
+surface_material_override/0 = ExtResource("look_side_wall")
 
 [node name="Ceiling" type="MeshInstance3D" parent="." unique_id=2084848219 instance=ExtResource("shell_3")]
 transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 4.6, 0)
 mesh = SubResource("PlaneMesh_78l53")
-surface_material_override/0 = SubResource("StandardMaterial3D_ksy6v")
+surface_material_override/0 = ExtResource("look_ceiling")
+
+[node name="Dressing" parent="." instance=ExtResource("dressing")]

@@ -107,12 +107,19 @@
     "remaining": "Inspect under existing toon scene lights; use matte roughness about0.9 for wood,1.0 for carpet, zero metallic. These are art suggestions, not measured PBR maps."
   },
   "pipeline": {
-    "scene_assigned": false,
-    "engine_render_verified": false
+    "scene_assigned": true,
+    "engine_render_verified": true
   },
   "normal_map_delivery": {
     "default_variant": "gentle",
     "documentation": "../NORMAL_MAPS.md",
     "metadata": "normal_trials.json"
+  },
+  "scene_adoption": {
+    "date": "2026-10-11",
+    "location": "locations/captains_cabin/captains_cabin.tscn",
+    "material_controls": "locations/captains_cabin/materials/",
+    "lighting": "Runtime painted fake-light shader; no texture lighting bake.",
+    "seam_acceptance": "Reviewed at authored camera; approximate motifs/edges retained, no exact seamless claim."
   }
 }

@@ -1,0 +1,6 @@
+[gd_scene format=3]
+[ext_resource type="PackedScene" path="res://art/props/timber_beam/timber_beam.glb" id="model"]
+[ext_resource type="Script" path="res://props/parts/unlit.gd" id="unlit"]
+[node name="TimberBeam" type="Node3D"]
+script = ExtResource("unlit")
+[node name="Model" parent="." instance=ExtResource("model")]

@@ -871,19 +871,6 @@ and roof clearance before making a final socket. Recheck other holders separatel
 
 ---
 
-### 2026-10-11 — for the engine side — reconstruct the revised three-roll charts
-
-`art/props/rolled_charts/sheet.png` and `asset.json` replace the rejected slab source;
-`views/` is refreshed at 1210 px square. Three rolls now match the latest queue;
-the former source sidecar had four. Use Tripo and assign named front/left/right/back
-slots explicitly. The object is fixed at 45-degree horizontal yaw, so level cardinal
-views all expose layered roll ends at one scale; no end view was magnified.
-Undo the yaw to long-axis +X before measuring the retained 0.60 × 0.08 × 0.08 m
-engine envelope. Check real cylindrical volumes, three hollow bores, connectivity,
-de-lit materials and the recorded 4–6% painted proportion deviation. Target 2,500–3,500
-triangles. The 2D redo is delivered; successful reconstruction is NOT yet verified.
-
----
 
 ### 2026-10-11 — for the engine side — reconstruct and fit Santi Wong's modular set
 
@@ -954,29 +941,10 @@ a substantial solid plank, not thin veneer. Rotation and source ratio limits are
 recorded. Check actual contact patches, side gaps, floor flatness, UV density and endpoint markers after
 reconstruction. Keep width/thickness and grain density fixed when adapting length.
 
-No reconstructed mesh, snap grid or room material assignment is claimed. Those
-checks remain Open. Do not rebuild the owner's scene as part of source delivery.
+**Owner-authorized adoption, 2026-10-11:** Native beam/board models and live material assignment are now delivered in the first cabin dressing pass; see Done and `locations/captains_cabin/HANDOFF.md`. The earlier source-only statement is superseded. Snap-grid/contact-land certification and any future construction expansion remain open; do not infer those from decorative scene placement.
 
 ---
 
-### 2026-10-11 — for the engine side — use the stylized cabin normal maps
-
-The owner approved committing the three trials for engine use. Start at
-`art/materials/captains_cabin/NORMAL_MAPS.md` and the kit index. `floorboards`,
-`beam_wood` and `carpet_burgundy` each have `normal_gentle_opengl.png`,
-`normal_stronger_opengl.png`, `height_source.png` and `normal_trials.json`.
-All six normals are actual normalized tangent-space OpenGL +Y data, not grayscale
-height images. Start with gentle. Import settings enable normal data and mipmaps;
-leave Y inversion off, enable sampler repeat and share colour/normal UV transforms.
-
-Assign/test through each material/prefab owner. Custom fake-light/toon shaders must
-use the perturbed normal in their light calculation. Check final mesh tangents,
-UV density, colour/relief alignment, seams and strength at the game camera. Source
-registration/repeats are approximate; CPU comparison previews are not scene renders.
-Wall planks have no normal trial. Scene assignment and final visual acceptance
-remain Open; delivery does not rebuild scenery or modify shared shaders.
-
----
 
 ## Done
 
@@ -1545,6 +1513,51 @@ commit/push for engine use. Live assignment, seams and toon-light acceptance rem
 
 ---
 
+### 2026-10-11 — scene side — first cabin dressing pass delivered
+
+Owner requested scene arrangement/texturing before further modeling. Adopted the four existing cabin colour sources, gentle floor/beam/carpet normals, native timber/board parts, three separate reusable roll models and the native crate visual. Saved scene layout, fake-light material controls, painted bowl and verification are indexed in `locations/captains_cabin/HANDOFF.md`, `props/HANDOFF.md` and `tests/HANDOFF.md`. Existing actors, furniture roots, camera, navigation collision geometry and puzzle interactions are preserved. All 15 checks, eight real GPU hotspot clicks and actual normal-map render comparison passed. New modeling is paused in favour of scene review; no character replacement was made. Changes are saved locally; no commit or push is claimed.
+
+The old three-roll Tripo reconstruction request is superseded by the owner's direct-modeling and separate-reuse instructions. Runtime assets are `art/props/chart_roll_01/02/03/` and neutral `props/chart_roll_01/02/03/` prefabs. Each is 0.60x0.04x0.04m and 3,056 triangles. The original source sheet/metadata are retained; gameplay inventory remains unchanged. Historical task follows for provenance:
+
+### 2026-10-11 — for the engine side — reconstruct the revised three-roll charts
+
+`art/props/rolled_charts/sheet.png` and `asset.json` replace the rejected slab source;
+`views/` is refreshed at 1210 px square. Three rolls now match the latest queue;
+the former source sidecar had four. Use Tripo and assign named front/left/right/back
+slots explicitly. The object is fixed at 45-degree horizontal yaw, so level cardinal
+views all expose layered roll ends at one scale; no end view was magnified.
+Undo the yaw to long-axis +X before measuring the retained 0.60 × 0.08 × 0.08 m
+engine envelope. Check real cylindrical volumes, three hollow bores, connectivity,
+de-lit materials and the recorded 4–6% painted proportion deviation. Target 2,500–3,500
+triangles. The 2D redo is delivered; successful reconstruction is NOT yet verified.
+
+
+**Completion note:** Its original Tripo-only and fused-bundle instructions describe the older art handoff, not the current owner-authorized delivery. Native roll geometry, open bores, individual bounds and Godot imports are verified.
+
+---
+
+### 2026-10-11 — for the engine side — use the stylized cabin normal maps
+
+The owner approved committing the three trials for engine use. Start at
+`art/materials/captains_cabin/NORMAL_MAPS.md` and the kit index. `floorboards`,
+`beam_wood` and `carpet_burgundy` each have `normal_gentle_opengl.png`,
+`normal_stronger_opengl.png`, `height_source.png` and `normal_trials.json`.
+All six normals are actual normalized tangent-space OpenGL +Y data, not grayscale
+height images. Start with gentle. Import settings enable normal data and mipmaps;
+leave Y inversion off, enable sampler repeat and share colour/normal UV transforms.
+
+Assign/test through each material/prefab owner. Custom fake-light/toon shaders must
+use the perturbed normal in their light calculation. Check final mesh tangents,
+UV density, colour/relief alignment, seams and strength at the game camera. Source
+registration/repeats are approximate; CPU comparison previews are not scene renders.
+Wall planks have no normal trial. Scene assignment and final visual acceptance
+remain Open; delivery does not rebuild scenery or modify shared shaders.
+
+
+**Completed live adoption:** Gentle normals now drive the unshaded cabin shader on floor, carpet and imported timber. Original PNGs are unchanged, UV transforms are shared, and an actual GPU normal on/off comparison confirms visible lighting changes. Tile motifs and colour/height registration remain artistic approximations; this does not certify perfect seams. Further visual tuning can use the editable local materials.
+
+---
+
 ## Blocked
 
 _(nothing yet)_
@@ -1561,3 +1574,7 @@ _(nothing yet)_
 - **`SoftBody3D` does not collide** in 4.7.2. Cloth is spring bones. `docs/MODULAR.md`.
 - **Tripo multiview takes exactly four images**, front/left/back/right, front required.
   No close-up detail slot.
+
+## 2026-10-11 — cabin integration with latest main
+
+Owner requested pulling and reviewing latest main before combining the scene work. Pulled `9003da4` on main and reapplied only the cabin dressing, reusable native assets and their material/prop support. All upstream Character Workshop code, source views and texture import settings are retained. The camera node is exactly the latest-main version, including position, rotation, FOV and framing profile; navigation and existing placement are unchanged. Shared documentation and runner conflicts are resolved by retaining the upstream checks and adding cabin_dressing_check, for 22 checks. Owner requested immediate handover and no further test runs. Owner authorized committing and pushing this integrated cabin pass to main. No further tests are requested.

@@ -1,0 +1,109 @@
+{
+  "asset_id": "rolled_charts_reusable_rolls_trial",
+  "name": "Three independently reusable rolled chart variants",
+  "generated_on": "2026-10-11",
+  "authoring": "Native procedural Blender mesh, owner-authorized modeling trial. No Tripo body or prop geometry reused.",
+  "source_art": "art/props/rolled_charts/sheet.png",
+  "repository_base_commit": "485dbe110d58c8b7defe1b110ec3b250826e140c",
+  "inspected_artwork": [
+    {
+      "path": "docs/reference/room_target.png",
+      "sha256": "a17f771d95d7aa37b8403b3b4cb918c7032737cdb031d62c893b424c878cebc3",
+      "visually_inspected": true
+    },
+    {
+      "path": "art/props/rolled_charts/sheet.png",
+      "sha256": "b18d3585af4422a3509144cd4b4c2856c348e0ab814cea803e315da944d76b40",
+      "visually_inspected": true
+    },
+    {
+      "path": "art/props/desk_lantern/sheet.png",
+      "sha256": "149b205b2407e6d3a6c1834b29ecaa0807aa056b38b84f546ae9141313439543",
+      "visually_inspected": true
+    },
+    {
+      "path": "art/props/candle/sheet.png",
+      "sha256": "cab8a1673b93a2a3edf06ab79cab3262e0b6eb2aa5a4482a793aa64b661e4868",
+      "visually_inspected": true
+    },
+    {
+      "path": "art/characters/captain_live/turnaround.png",
+      "sha256": "bcb66fe6213ab55672cb91328f22665a125511d211e3fded0397dd45ac1897fa",
+      "visually_inspected": true
+    }
+  ],
+  "owner_override": "Export each chart roll separately for reuse; do not fuse into a three-roll bundle.",
+  "models": [
+    {
+      "id": "chart_roll_01",
+      "sha256": "634e5fdf1bd181099ff304d0b661c5179b26c23cbae2d49b011248625a8ceb8c",
+      "triangles": 3056,
+      "meshes": 1,
+      "embedded_colour_textures": 1,
+      "dimensions_m_godot": [
+        0.6000000238418579,
+        0.03999999910593033,
+        0.03999999910593033
+      ],
+      "floor_origin": true,
+      "valid_uvs_normals_and_tangents": true,
+      "studio_excluded": true
+    },
+    {
+      "id": "chart_roll_02",
+      "sha256": "2c06129b675bb156592a0965eb65d30c5595610de3daf340adaba09dd8ec4c2b",
+      "triangles": 3056,
+      "meshes": 1,
+      "embedded_colour_textures": 1,
+      "dimensions_m_godot": [
+        0.6000000238418579,
+        0.03999999910593033,
+        0.03999999910593033
+      ],
+      "floor_origin": true,
+      "valid_uvs_normals_and_tangents": true,
+      "studio_excluded": true
+    },
+    {
+      "id": "chart_roll_03",
+      "sha256": "009496f7e74fbc58e03de48d2eb56c0c847290acca44884cb5364ad2824a8683",
+      "triangles": 3056,
+      "meshes": 1,
+      "embedded_colour_textures": 1,
+      "dimensions_m_godot": [
+        0.6000000238418579,
+        0.03999999910593033,
+        0.03999999910593033
+      ],
+      "floor_origin": true,
+      "valid_uvs_normals_and_tangents": true,
+      "studio_excluded": true
+    }
+  ],
+  "dimension_contract": "Each independent complete roll is 0.600m along X, 0.040m high along Godot Y, 0.040m deep along Godot Z. Base lies at Y=0, origin centred in the footprint. All transforms identity. These are individual-roll targets from the source geometry guide, not the older combined bundle envelope of 0.600 x 0.080 x 0.080m.",
+  "geometry": "One connected closed solid representing a thick continuous 3.08-turn spiral of paper per roll; actual air gaps, hollow through-core, spiral end faces and a long free cut edge. Three variants differ in rim waviness, slight taper, free-edge orientation and painted wear.",
+  "materials": {
+    "albedo": "One 1024x1024 colour-only parchment texture per variant, embedded in each GLB and supplied separately.",
+    "lighting_baked": false,
+    "ao_baked": false,
+    "normal_maps": false,
+    "roughness": 0.94,
+    "metallic": 0,
+    "notes": "All depth comes from geometry and current lighting. Analytic pigment masks add broad ochre stains and sparse colour-only crease marks. Preview images use studio lights and ground shadows; neither is exported or painted into textures."
+  },
+  "blender_file": "chart_rolls.blend",
+  "preview": "textured_preview.png",
+  "integration_status": "Standalone models only. No repository changes, game placement, inventory changes, colliders, commits or pushes in this trial.",
+  "limitations": [
+    "Static rolled state only; not an animated unrolling sheet.",
+    "No printed map content, tie or cord; those are absent from the approved charts sheet.",
+    "Three independent rolls total 9168 triangles if all shown; each roll individually is within the 2500-3500 handheld prop target.",
+    "Final cabin placement and game shader visual acceptance remain engine work."
+  ],
+  "verification": [
+    "Closed manifold connected paper geometry, positive volume, no degenerate faces.",
+    "Axial ray confirms unobstructed central bore; radial ray crosses six separated paper surfaces per roll.",
+    "GLB dimensions, identity transforms, triangle count, UVs, normals, orthogonal tangents and embedded texture pixel equality.",
+    "Independent Godot import confirms dimensions, origin and material/texture loading."
+  ]
+}

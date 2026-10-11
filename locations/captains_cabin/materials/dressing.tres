@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" format=3]
+
+[ext_resource type="Shader" path="res://locations/captains_cabin/materials/cabin_surface.gdshader" id="shader"]
+
+[resource]
+shader = ExtResource("shader")
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/effect_strength = 0.55
+shader_parameter/pool_strength = 0.08

@@ -44,14 +44,19 @@
     {
       "id": "timber_beam",
       "asset": "art/props/timber_beam/asset.json",
-      "sheet": "art/props/timber_beam/sheet.png"
+      "sheet": "art/props/timber_beam/sheet.png",
+      "model": "art/props/timber_beam/timber_beam.glb",
+      "prefab": "props/timber_beam/timber_beam.tscn"
     },
     {
       "id": "wood_board",
       "asset": "art/props/wood_board/asset.json",
-      "sheet": "art/props/wood_board/sheet.png"
+      "sheet": "art/props/wood_board/sheet.png",
+      "model": "art/props/wood_board/wood_board.glb",
+      "prefab": "props/wood_board/wood_board.tscn"
     }
   ],
-  "status": "Source artwork delivered; no reconstructed mesh, UV packing, scene assignment or in-engine seam/lighting test performed.",
-  "normal_map_documentation": "art/materials/captains_cabin/NORMAL_MAPS.md"
+  "status": "Owner-approved native beam/board GLBs adopted in saved cabin dressing; colour and gentle normal textures assigned and GPU-verified. Source sheet framing limits remain historical. Snap/contact certification not claimed.",
+  "normal_map_documentation": "art/materials/captains_cabin/NORMAL_MAPS.md",
+  "native_source": "art/kits/captains_cabin/native/timber_trials.blend"
 }

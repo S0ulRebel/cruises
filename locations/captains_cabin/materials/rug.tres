@@ -1,0 +1,16 @@
+[gd_resource type="ShaderMaterial" format=3]
+
+[ext_resource type="Shader" path="res://locations/captains_cabin/materials/cabin_surface.gdshader" id="shader"]
+[ext_resource type="Texture2D" path="res://art/materials/captains_cabin/carpet_burgundy/albedo.png" id="albedo"]
+[ext_resource type="Texture2D" path="res://art/materials/captains_cabin/carpet_burgundy/normal_gentle_opengl.png" id="normal"]
+
+[resource]
+shader = ExtResource("shader")
+shader_parameter/albedo_texture = ExtResource("albedo")
+shader_parameter/normal_texture = ExtResource("normal")
+shader_parameter/use_normal = true
+shader_parameter/uv_scale = Vector2(11.499999999999998, 5.999999999999999)
+shader_parameter/surface_size = Vector2(9.2, 4.8)
+shader_parameter/border_width = 0.10
+shader_parameter/base_tint = Color(1.08, 1.0, 0.98, 1)
+shader_parameter/normal_depth = 0.7

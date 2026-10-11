@@ -33,6 +33,13 @@ const UnlitScript := preload("res://props/parts/unlit.gd")
 		roughness = value
 		_refresh()
 
+## Flat tinted glass for locations using painted lighting without engine lights.
+## Roughness applies when this is disabled; painted glass uses the unshaded default.
+@export var painted_glass := true:
+	set(value):
+		painted_glass = value
+		_refresh()
+
 var _original_materials: Dictionary = {}
 
 
@@ -82,10 +89,12 @@ func apply_material() -> void:
 		update_configuration_warnings()
 
 	var material := StandardMaterial3D.new()
+	# The cabin uses painted fake lighting; transparent glass must remain visible without Light3D.
+	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED if painted_glass else BaseMaterial3D.SHADING_MODE_PER_PIXEL
 	material.albedo_color = tint
 	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	material.metallic = 0.0
-	material.roughness = roughness
+	material.roughness = 1.0 if painted_glass else roughness
 	# Both faces, because the inside of the far wall is visible through the near one.
 	material.cull_mode = BaseMaterial3D.CULL_DISABLED
 

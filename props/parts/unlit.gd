@@ -87,6 +87,9 @@ static func flatten(root: Node) -> void:
 		if mesh.material_override is BaseMaterial3D:
 			var over: BaseMaterial3D = (mesh.material_override as BaseMaterial3D).duplicate()
 			over.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+			# Godot omits unused roughness when duplicating unshaded materials.
+			# Use its default so hover duplication/restoration keeps identical values.
+			over.roughness = 1.0
 			mesh.material_override = over
 			continue
 		for surface in mesh.get_surface_override_material_count():
@@ -95,6 +98,7 @@ static func flatten(root: Node) -> void:
 				continue
 			var flat: BaseMaterial3D = base.duplicate()
 			flat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+			flat.roughness = 1.0
 			mesh.set_surface_override_material(surface, flat)
 
 

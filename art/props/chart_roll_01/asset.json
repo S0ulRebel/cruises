@@ -1,0 +1,18 @@
+{
+  "asset_id": "prop:chart_roll_01",
+  "name": "Reusable chart roll 1",
+  "dimensions_m": {
+    "width": 0.6,
+    "height": 0.04,
+    "depth": 0.04
+  },
+  "dimension_contract": "Godot X length 0.6m, Y up 0.04m, Z depth 0.04m; base Y=0, footprint-centred origin, identity transforms.",
+  "model": "chart_roll_01.glb",
+  "source_art": "art/props/rolled_charts/sheet.png",
+  "editable_source": "art/props/rolled_charts/native/chart_rolls.blend",
+  "triangles": 3056,
+  "authoring": "Owner-approved native thick spiral paper geometry, independent roll, not a fused bundle.",
+  "albedo_lighting_baked": false,
+  "sha256": "634e5fdf1bd181099ff304d0b661c5179b26c23cbae2d49b011248625a8ceb8c",
+  "scene_use": "Captain cabin desk dressing; no new inventory or interaction behaviour."
+}

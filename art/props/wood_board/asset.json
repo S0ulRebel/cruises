@@ -163,5 +163,12 @@
     "modular_joint_fit_verified": false,
     "engine_import_verified": false,
     "lighting": "Soft painted form shading; remove lighting during final texturing, use current toon look."
+  },
+  "native_model_delivery": {
+    "model": "wood_board.glb",
+    "authoring": "Owner-approved native Blender construction part",
+    "sha256": "26a17de6688cfca9401a42ba33df6c0bef8e3ccf78271e9e036038c79b32ee22",
+    "source": "art/kits/captains_cabin/native/timber_trials.blend",
+    "scene_use": "Captain cabin dressing, 2026-10-11"
   }
 }

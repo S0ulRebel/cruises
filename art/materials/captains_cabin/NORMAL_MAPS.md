@@ -60,3 +60,9 @@ height patterns follow the colour features visually; exact registration and
 perfect seam continuity are not guaranteed. Periodic numerical filtering does
 not prove that the drawn motifs tile exactly. Broad grooves and soft carpet
 motifs are intentional; these maps do not change silhouettes or mesh joints.
+
+## Live adoption — 2026-10-11
+
+The owner requested arranging and texturing the cabin before more modeling. Gentle floor, beam and carpet normals are now used by `locations/captains_cabin/materials/cabin_surface.gdshader`. The shader samples linear normal data and transforms the perturbed tangent normal into the fake-light calculation. The same tex_uv drives colour and normal, with repeat/mipmaps enabled. Wall planks remain colour-only. All original PNGs are unchanged.
+
+Scene and density details are in `locations/captains_cabin/HANDOFF.md`. Headless material/placement checks pass. A Compatibility GPU normal-on/off comparison passed with 4,323 changed foreground-floor samples; this is live shader evidence rather than the earlier CPU preview. Source motif registration and tiling remain approximate. This supersedes the source-only assignment statement above; further visual tuning remains editable.

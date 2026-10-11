@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" format=3]
+
+[ext_resource type="Shader" path="res://locations/captains_cabin/materials/cabin_surface.gdshader" id="shader"]
+[ext_resource type="Texture2D" path="res://art/materials/captains_cabin/wall_planks/albedo.png" id="albedo"]
+
+[resource]
+shader = ExtResource("shader")
+shader_parameter/albedo_texture = ExtResource("albedo")
+shader_parameter/uv_scale = Vector2(3.5, 2.3)
+shader_parameter/base_tint = Color(0.98, 0.95, 0.93, 1)

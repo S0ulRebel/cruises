@@ -34,7 +34,7 @@ in textual `.import` settings are normalized for comparison; all other files use
 exact-byte hashes. Import caches and generated untracked preview textures are not
 authored test outputs.
 
-The 21-check default suite covers interaction wording and combinations, speech timing,
+The 22-check default suite covers interaction wording and combinations, speech timing,
 role-based outfit attachment/refit, animation filters, shared inventory/dialogue
 flags including choice `clear`, serialized interaction success/failure/cancellation,
 bounded movement completion, actual authored puzzle data, navigation through saved
@@ -111,3 +111,13 @@ They save frames to a unique directory under `OS.get_cache_dir()/cruises-tests`,
 print its absolute path, and report actual rig/clip/frame assertions. `hymocheck`
 and `prof` remain optional import/profile diagnostics and can be selected with
 `-Checks`. No harness writes PNGs into `res://` or shares a fixed output directory.
+
+## Cabin dressing and normal-map rendering
+
+The default suite now includes 22 checks. `cabin_dressing_check` verifies authored texture/prop adoption without altering source assets. To additionally prove that the normal maps affect actual shader lighting, run without `--headless`:
+
+```powershell
+& 'D:/Godot/Godot_v4.7.2-stable_win64_console.exe' --path . --resolution 1920x1080 --script res://tests/cabin_dressing_check.gd
+```
+
+The normal on/off frames and result are written to the printed unique cache directory. This check requires visible foreground-floor pixel changes and the source hash protections of the normal runner still apply. Ordinary startup and tests never author or resave scene placement.

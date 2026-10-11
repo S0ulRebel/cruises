@@ -1,0 +1,454 @@
+[gd_scene format=3]
+[ext_resource type="PackedScene" path="res://props/timber_beam/timber_beam.tscn" id="beam"]
+[ext_resource type="PackedScene" path="res://props/wood_board/wood_board.tscn" id="board"]
+[ext_resource type="PackedScene" path="res://props/chart_roll_01/chart_roll_01.tscn" id="roll1"]
+[ext_resource type="PackedScene" path="res://props/chart_roll_02/chart_roll_02.tscn" id="roll2"]
+[ext_resource type="PackedScene" path="res://props/chart_roll_03/chart_roll_03.tscn" id="roll3"]
+[ext_resource type="Script" path="res://locations/captains_cabin/dressing_material_binding.gd" id="binding"]
+[ext_resource type="ShaderMaterial" path="res://locations/captains_cabin/materials/dressing.tres" id="painted"]
+[ext_resource type="ShaderMaterial" path="res://locations/captains_cabin/materials/rug.tres" id="rugmat"]
+[sub_resource type="PlaneMesh" id="rug"]
+size = Vector2(9.2, 4.8)
+[node name="Dressing" type="Node3D"]
+[node name="Rug" type="MeshInstance3D" parent="."]
+position = Vector3(0.1, 0.008, -0.05)
+mesh = SubResource("rug")
+material_override = ExtResource("rugmat")
+cast_shadow = 0
+[node name="CeilingTimbers" type="Node3D" parent="."]
+
+[node name="Beam1_1" parent="CeilingTimbers" instance=ExtResource("beam")]
+position = Vector3(-4.95, 4.05, -3.0)
+rotation = Vector3(0, 0, 0)
+script = null
+
+[node name="Beam1_1Paint" type="Node3D" parent="CeilingTimbers"]
+script = ExtResource("binding")
+target = NodePath("../Beam1_1/Model")
+material = ExtResource("painted")
+
+[node name="Beam1_2" parent="CeilingTimbers" instance=ExtResource("beam")]
+position = Vector3(-2.97, 4.05, -3.0)
+rotation = Vector3(0, 0, 0)
+script = null
+
+[node name="Beam1_2Paint" type="Node3D" parent="CeilingTimbers"]
+script = ExtResource("binding")
+target = NodePath("../Beam1_2/Model")
+material = ExtResource("painted")
+
+[node name="Beam1_3" parent="CeilingTimbers" instance=ExtResource("beam")]
+position = Vector3(-0.99, 4.05, -3.0)
+rotation = Vector3(0, 0, 0)
+script = null
+
+[node name="Beam1_3Paint" type="Node3D" parent="CeilingTimbers"]
+script = ExtResource("binding")
+target = NodePath("../Beam1_3/Model")
+material = ExtResource("painted")
+
+[node name="Beam1_4" parent="CeilingTimbers" instance=ExtResource("beam")]
+position = Vector3(0.99, 4.05, -3.0)
+rotation = Vector3(0, 0, 0)
+script = null
+
+[node name="Beam1_4Paint" type="Node3D" parent="CeilingTimbers"]
+script = ExtResource("binding")
+target = NodePath("../Beam1_4/Model")
+material = ExtResource("painted")
+
+[node name="Beam1_5" parent="CeilingTimbers" instance=ExtResource("beam")]
+position = Vector3(2.97, 4.05, -3.0)
+rotation = Vector3(0, 0, 0)
+script = null
+
+[node name="Beam1_5Paint" type="Node3D" parent="CeilingTimbers"]
+script = ExtResource("binding")
+target = NodePath("../Beam1_5/Model")
+material = ExtResource("painted")
+
+[node name="Beam1_6" parent="CeilingTimbers" instance=ExtResource("beam")]
+position = Vector3(4.95, 4.05, -3.0)
+rotation = Vector3(0, 0, 0)
+script = null
+
+[node name="Beam1_6Paint" type="Node3D" parent="CeilingTimbers"]
+script = ExtResource("binding")
+target = NodePath("../Beam1_6/Model")
+material = ExtResource("painted")
+
+[node name="Beam2_1" parent="CeilingTimbers" instance=ExtResource("beam")]
+position = Vector3(-4.95, 4.05, -1.25)
+rotation = Vector3(0, 0, 0)
+script = null
+
+[node name="Beam2_1Paint" type="Node3D" parent="CeilingTimbers"]
+script = ExtResource("binding")
+target = NodePath("../Beam2_1/Model")
+material = ExtResource("painted")
+
+[node name="Beam2_2" parent="CeilingTimbers" instance=ExtResource("beam")]
+position = Vector3(-2.97, 4.05, -1.25)
+rotation = Vector3(0, 0, 0)
+script = null
+
+[node name="Beam2_2Paint" type="Node3D" parent="CeilingTimbers"]
+script = ExtResource("binding")
+target = NodePath("../Beam2_2/Model")
+material = ExtResource("painted")
+
+[node name="Beam2_3" parent="CeilingTimbers" instance=ExtResource("beam")]
+position = Vector3(-0.99, 4.05, -1.25)
+rotation = Vector3(0, 0, 0)
+script = null
+
+[node name="Beam2_3Paint" type="Node3D" parent="CeilingTimbers"]
+script = ExtResource("binding")
+target = NodePath("../Beam2_3/Model")
+material = ExtResource("painted")
+
+[node name="Beam2_4" parent="CeilingTimbers" instance=ExtResource("beam")]
+position = Vector3(0.99, 4.05, -1.25)
+rotation = Vector3(0, 0, 0)
+script = null
+
+[node name="Beam2_4Paint" type="Node3D" parent="CeilingTimbers"]
+script = ExtResource("binding")
+target = NodePath("../Beam2_4/Model")
+material = ExtResource("painted")
+
+[node name="Beam2_5" parent="CeilingTimbers" instance=ExtResource("beam")]
+position = Vector3(2.97, 4.05, -1.25)
+rotation = Vector3(0, 0, 0)
+script = null
+
+[node name="Beam2_5Paint" type="Node3D" parent="CeilingTimbers"]
+script = ExtResource("binding")
+target = NodePath("../Beam2_5/Model")
+material = ExtResource("painted")
+
+[node name="Beam2_6" parent="CeilingTimbers" instance=ExtResource("beam")]
+position = Vector3(4.95, 4.05, -1.25)
+rotation = Vector3(0, 0, 0)
+script = null
+
+[node name="Beam2_6Paint" type="Node3D" parent="CeilingTimbers"]
+script = ExtResource("binding")
+target = NodePath("../Beam2_6/Model")
+material = ExtResource("painted")
+
+[node name="Beam3_1" parent="CeilingTimbers" instance=ExtResource("beam")]
+position = Vector3(-4.95, 4.05, 0.5)
+rotation = Vector3(0, 0, 0)
+script = null
+
+[node name="Beam3_1Paint" type="Node3D" parent="CeilingTimbers"]
+script = ExtResource("binding")
+target = NodePath("../Beam3_1/Model")
+material = ExtResource("painted")
+
+[node name="Beam3_2" parent="CeilingTimbers" instance=ExtResource("beam")]
+position = Vector3(-2.97, 4.05, 0.5)
+rotation = Vector3(0, 0, 0)
+script = null
+
+[node name="Beam3_2Paint" type="Node3D" parent="CeilingTimbers"]
+script = ExtResource("binding")
+target = NodePath("../Beam3_2/Model")
+material = ExtResource("painted")
+
+[node name="Beam3_3" parent="CeilingTimbers" instance=ExtResource("beam")]
+position = Vector3(-0.99, 4.05, 0.5)
+rotation = Vector3(0, 0, 0)
+script = null
+
+[node name="Beam3_3Paint" type="Node3D" parent="CeilingTimbers"]
+script = ExtResource("binding")
+target = NodePath("../Beam3_3/Model")
+material = ExtResource("painted")
+
+[node name="Beam3_4" parent="CeilingTimbers" instance=ExtResource("beam")]
+position = Vector3(0.99, 4.05, 0.5)
+rotation = Vector3(0, 0, 0)
+script = null
+
+[node name="Beam3_4Paint" type="Node3D" parent="CeilingTimbers"]
+script = ExtResource("binding")
+target = NodePath("../Beam3_4/Model")
+material = ExtResource("painted")
+
+[node name="Beam3_5" parent="CeilingTimbers" instance=ExtResource("beam")]
+position = Vector3(2.97, 4.05, 0.5)
+rotation = Vector3(0, 0, 0)
+script = null
+
+[node name="Beam3_5Paint" type="Node3D" parent="CeilingTimbers"]
+script = ExtResource("binding")
+target = NodePath("../Beam3_5/Model")
+material = ExtResource("painted")
+
+[node name="Beam3_6" parent="CeilingTimbers" instance=ExtResource("beam")]
+position = Vector3(4.95, 4.05, 0.5)
+rotation = Vector3(0, 0, 0)
+script = null
+
+[node name="Beam3_6Paint" type="Node3D" parent="CeilingTimbers"]
+script = ExtResource("binding")
+target = NodePath("../Beam3_6/Model")
+material = ExtResource("painted")
+
+[node name="Beam4_1" parent="CeilingTimbers" instance=ExtResource("beam")]
+position = Vector3(-4.95, 4.05, 2.25)
+rotation = Vector3(0, 0, 0)
+script = null
+
+[node name="Beam4_1Paint" type="Node3D" parent="CeilingTimbers"]
+script = ExtResource("binding")
+target = NodePath("../Beam4_1/Model")
+material = ExtResource("painted")
+
+[node name="Beam4_2" parent="CeilingTimbers" instance=ExtResource("beam")]
+position = Vector3(-2.97, 4.05, 2.25)
+rotation = Vector3(0, 0, 0)
+script = null
+
+[node name="Beam4_2Paint" type="Node3D" parent="CeilingTimbers"]
+script = ExtResource("binding")
+target = NodePath("../Beam4_2/Model")
+material = ExtResource("painted")
+
+[node name="Beam4_3" parent="CeilingTimbers" instance=ExtResource("beam")]
+position = Vector3(-0.99, 4.05, 2.25)
+rotation = Vector3(0, 0, 0)
+script = null
+
+[node name="Beam4_3Paint" type="Node3D" parent="CeilingTimbers"]
+script = ExtResource("binding")
+target = NodePath("../Beam4_3/Model")
+material = ExtResource("painted")
+
+[node name="Beam4_4" parent="CeilingTimbers" instance=ExtResource("beam")]
+position = Vector3(0.99, 4.05, 2.25)
+rotation = Vector3(0, 0, 0)
+script = null
+
+[node name="Beam4_4Paint" type="Node3D" parent="CeilingTimbers"]
+script = ExtResource("binding")
+target = NodePath("../Beam4_4/Model")
+material = ExtResource("painted")
+
+[node name="Beam4_5" parent="CeilingTimbers" instance=ExtResource("beam")]
+position = Vector3(2.97, 4.05, 2.25)
+rotation = Vector3(0, 0, 0)
+script = null
+
+[node name="Beam4_5Paint" type="Node3D" parent="CeilingTimbers"]
+script = ExtResource("binding")
+target = NodePath("../Beam4_5/Model")
+material = ExtResource("painted")
+
+[node name="Beam4_6" parent="CeilingTimbers" instance=ExtResource("beam")]
+position = Vector3(4.95, 4.05, 2.25)
+rotation = Vector3(0, 0, 0)
+script = null
+
+[node name="Beam4_6Paint" type="Node3D" parent="CeilingTimbers"]
+script = ExtResource("binding")
+target = NodePath("../Beam4_6/Model")
+material = ExtResource("painted")
+
+[node name="BackWallTimbers" type="Node3D" parent="."]
+
+[node name="Post1_1" parent="BackWallTimbers" instance=ExtResource("beam")]
+position = Vector3(-5.51, 1.2, -3.5)
+rotation = Vector3(0, 0, 1.57079632679)
+script = null
+
+[node name="Post1_1Paint" type="Node3D" parent="BackWallTimbers"]
+script = ExtResource("binding")
+target = NodePath("../Post1_1/Model")
+material = ExtResource("painted")
+
+[node name="Post1_2" parent="BackWallTimbers" instance=ExtResource("beam")]
+position = Vector3(-5.51, 3.3, -3.5)
+rotation = Vector3(0, 0, 1.57079632679)
+script = null
+
+[node name="Post1_2Paint" type="Node3D" parent="BackWallTimbers"]
+script = ExtResource("binding")
+target = NodePath("../Post1_2/Model")
+material = ExtResource("painted")
+
+[node name="Post2_1" parent="BackWallTimbers" instance=ExtResource("beam")]
+position = Vector3(-2.31, 1.2, -3.5)
+rotation = Vector3(0, 0, 1.57079632679)
+script = null
+
+[node name="Post2_1Paint" type="Node3D" parent="BackWallTimbers"]
+script = ExtResource("binding")
+target = NodePath("../Post2_1/Model")
+material = ExtResource("painted")
+
+[node name="Post2_2" parent="BackWallTimbers" instance=ExtResource("beam")]
+position = Vector3(-2.31, 3.3, -3.5)
+rotation = Vector3(0, 0, 1.57079632679)
+script = null
+
+[node name="Post2_2Paint" type="Node3D" parent="BackWallTimbers"]
+script = ExtResource("binding")
+target = NodePath("../Post2_2/Model")
+material = ExtResource("painted")
+
+[node name="Post3_1" parent="BackWallTimbers" instance=ExtResource("beam")]
+position = Vector3(2.69, 1.2, -3.5)
+rotation = Vector3(0, 0, 1.57079632679)
+script = null
+
+[node name="Post3_1Paint" type="Node3D" parent="BackWallTimbers"]
+script = ExtResource("binding")
+target = NodePath("../Post3_1/Model")
+material = ExtResource("painted")
+
+[node name="Post3_2" parent="BackWallTimbers" instance=ExtResource("beam")]
+position = Vector3(2.69, 3.3, -3.5)
+rotation = Vector3(0, 0, 1.57079632679)
+script = null
+
+[node name="Post3_2Paint" type="Node3D" parent="BackWallTimbers"]
+script = ExtResource("binding")
+target = NodePath("../Post3_2/Model")
+material = ExtResource("painted")
+
+[node name="Post4_1" parent="BackWallTimbers" instance=ExtResource("beam")]
+position = Vector3(5.890000000000001, 1.2, -3.5)
+rotation = Vector3(0, 0, 1.57079632679)
+script = null
+
+[node name="Post4_1Paint" type="Node3D" parent="BackWallTimbers"]
+script = ExtResource("binding")
+target = NodePath("../Post4_1/Model")
+material = ExtResource("painted")
+
+[node name="Post4_2" parent="BackWallTimbers" instance=ExtResource("beam")]
+position = Vector3(5.890000000000001, 3.3, -3.5)
+rotation = Vector3(0, 0, 1.57079632679)
+script = null
+
+[node name="Post4_2Paint" type="Node3D" parent="BackWallTimbers"]
+script = ExtResource("binding")
+target = NodePath("../Post4_2/Model")
+material = ExtResource("painted")
+
+[node name="Baseboards" type="Node3D" parent="."]
+
+[node name="BackBoard1" parent="Baseboards" instance=ExtResource("board")]
+position = Vector3(-5.175, 0.16, -3.39)
+rotation = Vector3(0, 1.57079632679, 1.57079632679)
+script = null
+
+[node name="BackBoard1Paint" type="Node3D" parent="Baseboards"]
+script = ExtResource("binding")
+target = NodePath("../BackBoard1/Model")
+material = ExtResource("painted")
+
+[node name="BackBoard2" parent="Baseboards" instance=ExtResource("board")]
+position = Vector3(-3.696428571428571, 0.16, -3.39)
+rotation = Vector3(0, 1.57079632679, 1.57079632679)
+script = null
+
+[node name="BackBoard2Paint" type="Node3D" parent="Baseboards"]
+script = ExtResource("binding")
+target = NodePath("../BackBoard2/Model")
+material = ExtResource("painted")
+
+[node name="BackBoard3" parent="Baseboards" instance=ExtResource("board")]
+position = Vector3(-2.217857142857143, 0.16, -3.39)
+rotation = Vector3(0, 1.57079632679, 1.57079632679)
+script = null
+
+[node name="BackBoard3Paint" type="Node3D" parent="Baseboards"]
+script = ExtResource("binding")
+target = NodePath("../BackBoard3/Model")
+material = ExtResource("painted")
+
+[node name="BackBoard4" parent="Baseboards" instance=ExtResource("board")]
+position = Vector3(-0.7392857142857148, 0.16, -3.39)
+rotation = Vector3(0, 1.57079632679, 1.57079632679)
+script = null
+
+[node name="BackBoard4Paint" type="Node3D" parent="Baseboards"]
+script = ExtResource("binding")
+target = NodePath("../BackBoard4/Model")
+material = ExtResource("painted")
+
+[node name="BackBoard5" parent="Baseboards" instance=ExtResource("board")]
+position = Vector3(0.7392857142857139, 0.16, -3.39)
+rotation = Vector3(0, 1.57079632679, 1.57079632679)
+script = null
+
+[node name="BackBoard5Paint" type="Node3D" parent="Baseboards"]
+script = ExtResource("binding")
+target = NodePath("../BackBoard5/Model")
+material = ExtResource("painted")
+
+[node name="BackBoard6" parent="Baseboards" instance=ExtResource("board")]
+position = Vector3(2.2178571428571425, 0.16, -3.39)
+rotation = Vector3(0, 1.57079632679, 1.57079632679)
+script = null
+
+[node name="BackBoard6Paint" type="Node3D" parent="Baseboards"]
+script = ExtResource("binding")
+target = NodePath("../BackBoard6/Model")
+material = ExtResource("painted")
+
+[node name="BackBoard7" parent="Baseboards" instance=ExtResource("board")]
+position = Vector3(3.6964285714285703, 0.16, -3.39)
+rotation = Vector3(0, 1.57079632679, 1.57079632679)
+script = null
+
+[node name="BackBoard7Paint" type="Node3D" parent="Baseboards"]
+script = ExtResource("binding")
+target = NodePath("../BackBoard7/Model")
+material = ExtResource("painted")
+
+[node name="BackBoard8" parent="Baseboards" instance=ExtResource("board")]
+position = Vector3(5.175, 0.16, -3.39)
+rotation = Vector3(0, 1.57079632679, 1.57079632679)
+script = null
+
+[node name="BackBoard8Paint" type="Node3D" parent="Baseboards"]
+script = ExtResource("binding")
+target = NodePath("../BackBoard8/Model")
+material = ExtResource("painted")
+
+[node name="DeskCharts" type="Node3D" parent="."]
+
+[node name="ChartRoll01" parent="DeskCharts" instance=ExtResource("roll1")]
+position = Vector3(-3.75, 0.77, -1.81)
+rotation = Vector3(0, -0.14, 0)
+script = null
+
+[node name="ChartRoll01Paint" type="Node3D" parent="DeskCharts"]
+script = ExtResource("binding")
+target = NodePath("../ChartRoll01/Model")
+material = ExtResource("painted")
+
+[node name="ChartRoll02" parent="DeskCharts" instance=ExtResource("roll2")]
+position = Vector3(-3.58, 0.77, -1.97)
+rotation = Vector3(0, 0.09, 0)
+script = null
+
+[node name="ChartRoll02Paint" type="Node3D" parent="DeskCharts"]
+script = ExtResource("binding")
+target = NodePath("../ChartRoll02/Model")
+material = ExtResource("painted")
+
+[node name="ChartRoll03" parent="DeskCharts" instance=ExtResource("roll3")]
+position = Vector3(-3.87, 0.77, -2.08)
+rotation = Vector3(0, -0.04, 0)
+script = null
+
+[node name="ChartRoll03Paint" type="Node3D" parent="DeskCharts"]
+script = ExtResource("binding")
+target = NodePath("../ChartRoll03/Model")
+material = ExtResource("painted")

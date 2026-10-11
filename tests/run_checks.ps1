@@ -2,7 +2,7 @@
 [CmdletBinding()]
 param(
     [string]$Godot = 'D:\Godot\Godot_v4.7.2-stable_win64_console.exe',
-    [string[]]$Checks = @('combocheck', 'hovercheck', 'speechcheck', 'dressercheck', 'layercheck', 'state_dialogue_check', 'interaction_check', 'movement_check', 'portrait_check', 'flagcheck', 'playcombo', 'navcheck', 'authored_scene_check', 'stylized_lighting_check', 'assembly_check', 'mesh_exclusion_check', 'workshop_backend_check', 'workshop_integration_check', 'workshop_legacy_check', 'workshop_editor_check', 'workshop_head_swap_check'),
+    [string[]]$Checks = @('combocheck', 'hovercheck', 'speechcheck', 'dressercheck', 'layercheck', 'state_dialogue_check', 'interaction_check', 'movement_check', 'portrait_check', 'flagcheck', 'playcombo', 'navcheck', 'authored_scene_check', 'stylized_lighting_check', 'assembly_check', 'mesh_exclusion_check', 'workshop_backend_check', 'workshop_integration_check', 'workshop_legacy_check', 'workshop_editor_check', 'workshop_head_swap_check', 'cabin_dressing_check'),
     [int]$TimeoutSeconds = 45,
     [int]$ImportTimeoutSeconds = 300,
     [switch]$SkipImport,

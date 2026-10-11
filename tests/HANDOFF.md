@@ -23,7 +23,7 @@
 - `portrait_check` adds actual speech/response portrait reuse, framing, jaw attachment,
   authored-transform and teardown checks. `portrait_capture` provides isolated GPU
   images of the actual Game panels and verifies speech changes visible pixels.
-- Character Workshop is included in the 21-check default suite. Native editor tests
+- Character Workshop is included in the default suite. Native editor tests
   launch an authored @tool fixture in the actual editor, not a second SceneTree loop.
   Assembly, nested composition, animation graphs, exported actor and head swap have
   explicit separate-process reopen routes. Mesh/legacy/editor checks spawn their own
@@ -44,3 +44,9 @@
   playback retains borrowed walk alongside separate active local facial animation.
 - Automated native command coverage does not constitute owner visual usability or
   final clothing/neck art acceptance; those remain in CHARACTER_WORKSHOP_PLAN.md.
+
+## 2026-10-11 — cabin dressing validation
+
+`cabin_dressing_check.gd` checks serialized dressing ownership, no added click/navigation blockers, no Light3D dependency, metre-density floor/rug materials, retained imported beam normal maps, independent roll bounds/origins/tabletop placement, and the existing crate hotspot after native visual adoption. It is included alongside the existing Character Workshop checks in the 22-check default runner.
+
+With a rendering window, the same check renders normal-on/off frames and requires actual foreground-floor pixel changes. Compatibility/RTX 4060 Ti run passed with 4,323 changed samples. Captures use a unique OS cache folder and never save project resources. The existing graphical framing capture also passed all eight real hotspot clicks after the dressing changes.

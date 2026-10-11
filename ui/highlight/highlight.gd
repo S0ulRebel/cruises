@@ -17,7 +17,7 @@ const STRENGTH := 0.18
 const VISUAL := "visual"
 
 
-## Light `what`, or the mesh it names, searching under `room` for that name.
+## Light `what`, or its explicitly assigned local visual.
 static func set_on(what: Node, on: bool, _room: Node = null) -> void:
 	var target: Node = what
 	if what is Hotspot and what.visual:

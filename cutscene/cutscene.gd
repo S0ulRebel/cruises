@@ -130,6 +130,7 @@ func play() -> void:
 				push_warning("Unknown beat '%s' - skipped" % kind)
 
 	_caption.hide_box()
+	_caption.clear_action()
 	finished.emit()
 
 

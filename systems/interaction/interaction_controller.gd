@@ -12,9 +12,11 @@ var _pointer: Node
 var _state: GameState
 var _cast: Dictionary = {}
 var _hovered: Hotspot
+var _hotspots: Array[Hotspot] = []
 
 func setup(location: Location, caption: Node, dialogue: Node, inventory: Node,
 		pointer: Node, state: GameState, cast: Dictionary) -> void:
+	release_location()
 	_location = location
 	_caption = caption
 	_dialogue = dialogue
@@ -26,6 +28,7 @@ func setup(location: Location, caption: Node, dialogue: Node, inventory: Node,
 	for child in location.find_children("*", "Area3D", true, false):
 		if child is Hotspot:
 			var spot := child as Hotspot
+			_hotspots.append(spot)
 			spot.input_event.connect(_click.bind(spot))
 			spot.mouse_entered.connect(_hover.bind(spot))
 			spot.mouse_exited.connect(_unhover.bind(spot))
@@ -41,6 +44,19 @@ func release_location() -> void:
 	_clear_hover()
 	if is_instance_valid(_location) and _location.floor_clicked.is_connected(_walk):
 		_location.floor_clicked.disconnect(_walk)
+	for spot in _hotspots:
+		if not is_instance_valid(spot): continue
+		if spot.input_event.is_connected(_click.bind(spot)):
+			spot.input_event.disconnect(_click.bind(spot))
+		if spot.mouse_entered.is_connected(_hover.bind(spot)):
+			spot.mouse_entered.disconnect(_hover.bind(spot))
+		if spot.mouse_exited.is_connected(_unhover.bind(spot)):
+			spot.mouse_exited.disconnect(_unhover.bind(spot))
+	_hotspots.clear()
+	if is_instance_valid(_state) and _state.selection_changed.is_connected(_selection_changed):
+		_state.selection_changed.disconnect(_selection_changed)
+	if is_instance_valid(_inventory) and _inventory.opened.is_connected(_clear_hover):
+		_inventory.opened.disconnect(_clear_hover)
 	_location = null
 
 func _walk(point: Vector3) -> void:

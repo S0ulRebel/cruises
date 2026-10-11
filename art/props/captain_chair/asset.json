@@ -1,0 +1,395 @@
+{
+  "asset_id": "prop:captain_chair",
+  "name": "Captain Livé’s chair",
+  "role": "Scene 1 — Captain Livé’s quarters; replacement for the chair blockout",
+  "asset_type": "prop_turnaround_sheet",
+  "files": {
+    "sheet": "sheet.png"
+  },
+  "dimensions_m": {
+    "width": 0.5,
+    "height": 1.0,
+    "depth": 0.5,
+    "note": "Original explicit owner brief is authoritative. The current main.gd chair placeholder is 1.9 m tall; that blockout discrepancy must be corrected during integration. Painted envelope ratios are measured below and are not exact dimensional blueprints."
+  },
+  "source": {
+    "producer": "OpenAI image generation via ChatGPT",
+    "mode": "built-in",
+    "model_identifier": "Not exposed by the built-in image generation tool",
+    "original_filename": "exec-0f658387-f829-4844-8c55-9ef742419554.png",
+    "generated_source_sha256": "81cf5d663bec6e0fda020d0b1d66d20a56aee106d480479ad91ff1d9453bc5c4",
+    "sha256": "666dc66e33e9d4479d9da068595522e7b3d158271de579dae1510aae26a3c7dd",
+    "repository_base_commit": "41032916b3433c534fa72f4fd00ee280c181128c",
+    "references": [
+      {
+        "role": "Approved captain’s cabin composition and warm red/walnut/brass furniture direction",
+        "path": "art/ui/reference/room_composition_concept.png",
+        "commit": "41032916b3433c534fa72f4fd00ee280c181128c",
+        "sha256": "47438ed7de96189fb47bfabd0506242d442ef8ca1ddfeea7d3f40c00020dd44f"
+      },
+      {
+        "role": "Approved broad cartoon wood/brass form shading and orthographic prop presentation",
+        "path": "art/props/captain_desk/sheet.png",
+        "commit": "41032916b3433c534fa72f4fd00ee280c181128c",
+        "sha256": "02300d11cad484407755dfea20b66770abc9e92e895095b834bb505477b4f69c"
+      },
+      {
+        "role": "Approved stylised character rendering world",
+        "path": "art/characters/captain_live/turnaround.png",
+        "commit": "41032916b3433c534fa72f4fd00ee280c181128c",
+        "sha256": "bcb66fe6213ab55672cb91328f22665a125511d211e3fded0397dd45ac1897fa"
+      }
+    ],
+    "generation_history": [
+      {
+        "pass": "initial_red_leather_chair",
+        "filename": "exec-cc30b252-5459-45c0-b97f-5b50f6fb33bd.png",
+        "prompt": "Use case: stylized-concept.\nAsset type: four-view orthographic reconstruction sheet of Captain Livé's chair, for Tripo.\n\nREFERENCE ROLES: image1 approved cabin contains the high-backed oxblood-red leather chair behind the desk: use that chair as design reference. Image2 approved desk defines warm worn wood/brass and broad cartoon shading. Image3 Captain defines the sculpted cartoony game style. Do not draw the room, desk or character.\n\nOne empty chair only, shown exactly FOUR times in one horizontal row. Order FRONT, LEFT SIDE, RIGHT SIDE, BACK; no printed words or labels. Same unchanged chair, same scale, true orthographic views. Entire chair top to feet visible in each, very clear empty white vertical bands between all four.\n\nDESIGN: tall upholstered captain's armchair in a dark warm walnut frame. High gently scalloped back with small rolled wing edges; padded dark oxblood/burgundy-red leather on its front, broad diamond button tufting, worn lighter red edges, readable brass upholstery tacks around the perimeter. Thick red leather seat at about0.44m from ground. Short chunky wood legs, two front/two rear, softened carved forms, broad readable wear, restrained brass feet/tacks. Curved wooden arm rails with worn leather pads and open background-visible spaces below the arms. No modern office swivel, wheels or adjustable mechanisms. One arm is badly repaired with a rough warm wood splint and two big blunt brass nails fixed to its OUTSIDE, an integral repair of the chair, not an extra prop. The other arm is intact. No rope wrapping across gaps, no loose cushion, clothes, books, hat, tools or person.\n\nCONSISTENT ASYMMETRY: in the FRONT view, the repaired arm is on IMAGE-RIGHT, the intact arm on IMAGE-LEFT. The LEFT SIDE view shows the intact outside arm, with the front edge of the chair/seat pointing IMAGE-RIGHT. The RIGHT SIDE view shows the repaired outside arm clearly, with the front edge of chair/seat pointing IMAGE-LEFT. In the BACK view the repaired arm is therefore IMAGE-LEFT. Do not put repairs on both arms and do not move a repair between views. Rear of high back is plain stretched red leather in a dark walnut surround, no front diamond tufting repeated on the rear. Seat front and rear supports correctly reverse in the opposing profiles.\n\nDIMENSIONS:0.5m width,1.0m total height,0.5m depth. Thus EACH of the four projected outer bounds is HALF AS WIDE AS IT IS TALL, the same0.5:1 ratio. High back is not a huge wide throne. Four identical projected heights, topmost crest on same pixel y and all feet on same invisible baseline within1px; projected overall widths also close to identical. The natural rearward rake of the back may appear in the profiles as real chair geometry, never camera perspective. Keep scale fixed in each view, never enlarge narrow profiles.\n\nPROJECTION: strictly orthographic, camera at the middle of the chair, horizontal optical axis, zero pitch/roll, no perspective or three-quarter angles. Front only the front, side only true profile, back only true rear. No view from above and no artificially visible broad seat top in front/back. In true side elevation far-side legs and arm overlap their nearer counterparts in depth. White background visibly passes through the open space below BOTH arm rails in the side views and between the legs in all views.\n\nFlat solid white opaque backgroundRGB255 across corners/gaps, no floor or drawn baseline, no cast shadows, borders, annotations or text. Neutral even soft form shading on the chair, broad sculpted cartoon color masses, samewarmmahogany/brass style as desk, not photorealistic wornleather noise. Native wide high-resolution sheet, ideally3840×1280.",
+        "output_sha256": "be66e74d34640b66ca287984e13daea05abc8e24fa06922ea9d92eaa62e99250",
+        "input": "References above"
+      },
+      {
+        "pass": "proportions_and_consistent_arm_repair",
+        "filename": "exec-b2976ad4-ab0c-408c-9e02-953437b9b1e6.png",
+        "prompt": "Use case: precise-object-edit.\nPreserve this red-leather Captain's armchair design and front / left / right / back view order. Correct the widths and repair consistency without changing the style.\n\nACTUAL DIMENSIONS: 0.5m WIDTH × 1.0m HEIGHT × 0.5m DEPTH. Each orthographic view must be HALF AS WIDE as it is tall. Current measured widths are 448 / 366 / 367 / 437 pixels, with heights 597 / 597 / 597 / 599 pixels. They are too broad. Narrow all views to about300pixels wide, with an identical600pixel height for every chair. Thus the FIRST and FOURTH become about one third narrower; SECOND and THIRD about one sixth narrower. Keep each centered in its existing cell. All four silhouettes must have the SAME0.5 width/height ratio, one common top crest level and one common bottom foot level within1px.\n\nREPAIR: exactly ONE rough horizontal splint board lies along the OUTSIDE of the RIGHT armrest rail. In the THIRD view (right profile), retain the existing horizontal golden-brown rough board with two brass nailheads. In the FIRST (front) view, REMOVE the long vertical golden board currently covering the right front upright; restore that upright to dark original walnut. The real horizontal splint is only visible END-ON in front: a small thin rectangular board end at armrest height, not a long vertical plank. In FOURTH (back), show only its little opposite end beside the left armrest, at the same height. SECOND view is the intact left arm. Do not repair both arms. No other rough boards.\n\nKeep worn oxblood-red leather, the same button-tufted front backrest, plain red rear upholstery, brass tacks, all four leg designs, plain white background and clear leg/under-arm openings. Same broad saturated sculpted cartoon rendering. Strict level orthographic cameras, no perspective or three-quarter angles. Do not show a broad flat seat upper plane in front/back, only its rounded cushion edge. No labels, contents, figures, ground lines or shadows.",
+        "output_sha256": "4be361f631ae1e55a1970676aa64e110c6080ce3505004b18721d1ce1f76abd2",
+        "input": "exec-cc30b252-5459-45c0-b97f-5b50f6fb33bd.png"
+      },
+      {
+        "pass": "narrower_orthographic_dimensions",
+        "filename": "exec-4e98bcd1-aced-4ecd-9b2d-41112720ff62.png",
+        "prompt": "Precision edit of the four chairs. Keep design and repair exactly as this image. Make the chairs visibly NARROWER while retaining height.\nEach complete chair must be exactly TWICE AS TALL AS IT IS WIDE in every view: width/height0.50. This is essential for a0.5m wide and1.0m high game prop. The first and fourth are still far too broad. Compress only their width by another23%. Compress the second and third widths by another10%. Keep all four heights identical, top/bottom y levels identical, complete legs, arm gaps and white separators.\nDo not undo the good repair: one horizontal splint on the third view's outer arm; only thin ends visible in front/back.\nKeep dark walnut, worn red leather, front tufting, plain rear, brass tacks and feet, one row front/left/right/back, perfectly level orthographic elevations, white background. No perspective, no scenery, no text. Preserve the current camera and construction. Only correct the width to half the height for all four, and ensure top-to-foot heights match within1pixel. The four objects should have notably slender vertical silhouettes, NOT wide throne silhouettes.\nMeasured input heights front643,left642,right642,back647px. Correct all four to642px, with the same crest level and common lowest foot baseline. The back must not remain5px taller.",
+        "output_sha256": "4a62e1dae0527385639c659a3aa6354d7cc9a68a9a88e28d0d64dd49e11bf54e",
+        "input": "exec-b2976ad4-ab0c-408c-9e02-953437b9b1e6.png"
+      },
+      {
+        "pass": "final_width_refinement",
+        "filename": "exec-50421624-9455-4a03-afec-2605fa048cc7.png",
+        "prompt": "Precise final proportion correction, keeping the current design and all four views.\nThe last edit made the chair too narrow. Preserve the current vertical dimensions, design, repair, camera and colors. Increase ONLY horizontal widths modestly:\nfirst view299px→342px, second275px→342px, third275px→342px, fourth302px→342px.\nAll four chairs should now have the same outer width342px and height683px. This is the required0.50 width-to-height ratio, matching0.5×1.0×0.5m. Keep their existing centers and wide white separators. Do NOT make them taller or smaller in the canvas. Match every top to the same y and every lowest foot to the same baseline, heights equal within1pixel.\nEverything else exactly as-is: front tufted red leather, plain rear, dark walnut, brass studs/feet, one horizontal rough-board repair on the outside right arm, true opposite left/right profiles, empty white gaps under the arm rails, one level orthographic four-view row. No new objects, shadows, perspective or labels.",
+        "output_sha256": "518e517414932fd15d9b0ebd5ead72ec627598215b3ac9c3753793d7f6461ddd",
+        "input": "exec-4e98bcd1-aced-4ecd-9b2d-41112720ff62.png"
+      },
+      {
+        "pass": "profile_depth_refinement",
+        "filename": "exec-0f658387-f829-4844-8c55-9ef742419554.png",
+        "prompt": "Edit ONLY the SECOND and THIRD chair silhouettes in this four-view sheet. Keep FIRST and FOURTH completely unchanged.\nThe two side profiles need about10% more DEPTH. Increase their horizontal widths from313/317pixels to approximately345pixels. Preserve their vertical size EXACTLY683pixels; do not scale them taller or shorter. This increases seat/arm depth consistently in the opposite left/right profiles and yields the intended0.5m depth for1.0m height.\nKeep those profiles centered at the same positions, same top and foot baseline. Maintain the arm repair on the third profile only, the same under-arm openings, raked high back, legs, colors, tacks and proportions except the specified small depth increase. First/front and fourth/back are already correct and must remain unchanged.\nNo other changes. Same camera-level orthographic projection, four complete separated views on flat white, no text or shadows.",
+        "output_sha256": "81cf5d663bec6e0fda020d0b1d66d20a56aee106d480479ad91ff1d9453bc5c4",
+        "input": "exec-50421624-9455-4a03-afec-2605fa048cc7.png"
+      }
+    ],
+    "assembly": {
+      "tool": "tools/crop_views.py",
+      "tool_modified": false,
+      "arguments": [
+        "--row",
+        "0",
+        "1",
+        "--names",
+        "front",
+        "left",
+        "right",
+        "back",
+        "--pad",
+        "0.12",
+        "--size",
+        "848",
+        "--dry-run",
+        "--preview",
+        "art/props/captain_chair/sheet.png"
+      ],
+      "method": "Unchanged repository cutter crops the four objects to their measured bounds and translates them onto equal 848 px square canvases with one baseline. Native common canvas equals output size; no resampling, per-view scaling or geometric edits. The final contact sheet is the four canvases in one horizontal row.",
+      "source_measurements": {
+        "image_size_px": [
+          1774,
+          887
+        ],
+        "background_rgb": [
+          254,
+          254,
+          254
+        ],
+        "views": [
+          {
+            "view": "front",
+            "bounds_px": [
+              107,
+              78,
+              460,
+              761
+            ],
+            "width_px": 353,
+            "height_px": 683,
+            "last_ink_y_px": 760,
+            "width_height_ratio": 0.516837
+          },
+          {
+            "view": "left",
+            "bounds_px": [
+              505,
+              77,
+              870,
+              761
+            ],
+            "width_px": 365,
+            "height_px": 684,
+            "last_ink_y_px": 760,
+            "width_height_ratio": 0.533626
+          },
+          {
+            "view": "right",
+            "bounds_px": [
+              906,
+              77,
+              1269,
+              761
+            ],
+            "width_px": 363,
+            "height_px": 684,
+            "last_ink_y_px": 760,
+            "width_height_ratio": 0.530702
+          },
+          {
+            "view": "back",
+            "bounds_px": [
+              1304,
+              78,
+              1660,
+              762
+            ],
+            "width_px": 356,
+            "height_px": 684,
+            "last_ink_y_px": 761,
+            "width_height_ratio": 0.520468
+          }
+        ],
+        "clear_vertical_gaps_px": [
+          45,
+          36,
+          35
+        ]
+      },
+      "native_common_canvas_px": 848,
+      "resampled": false,
+      "source_object_rectangles_pixel_identical_after_translation": [
+        true,
+        true,
+        true,
+        true
+      ]
+    }
+  },
+  "object_scope": {
+    "rule": "Model the object only, never a dressed arrangement.",
+    "contents": "One unoccupied captain’s armchair with attached leather upholstery, wood structure, brass fittings and one repaired arm.",
+    "excluded": [
+      "character",
+      "loose cushions",
+      "coat",
+      "hat",
+      "weapons",
+      "desk",
+      "other props",
+      "scenery"
+    ],
+    "rigging_required": false
+  },
+  "design": {
+    "structure": "High-backed wooden armchair with a shaped crest, padded leather seat and arm rails, stout front legs, rear legs and brass trim.",
+    "front": "Worn red leather with broad diamond tufting, brass upholstery tacks and dark warm walnut supports.",
+    "back": "Plain red leather rear panel enclosed by walnut and brass tacks; no front-face tufting repeated on the back.",
+    "left": "Intact arm in profile, with the chair front pointing image-right.",
+    "right": "The repaired arm in profile, chair front pointing image-left. One broad horizontal wood splint is attached to the outside with two large brass nails.",
+    "repair_consistency": "The same right-arm repair is seen end-on at image-right in front, fully in the right profile, and end-on at image-left in back. The left profile shows the intact opposite arm.",
+    "finish": "Warm dark walnut, worn saturated red leather, broad lighter wood wear and chunky golden brass; sculpted cartoon game rendering.",
+    "openings": "Background is visible beneath the arm rails in both opposite profiles, and between the legs. Preserve these real openings in reconstruction.",
+    "state": "One static unoccupied chair; no separate rig or animation is specified."
+  },
+  "placement": {
+    "convention_status": "Engine slot documented; no placement code changed.",
+    "engine_visual_name": "Chair",
+    "engine_furniture_name": "chair",
+    "engine_source": "main.gd::FURNITURE",
+    "current_engine_blockout_dimensions_m": [
+      0.5,
+      1.9,
+      0.5
+    ],
+    "current_engine_center_m": [
+      -3.6,
+      0.95,
+      -2.1
+    ],
+    "proposed_origin": "Ground-level center of footprint",
+    "proposed_world_origin_m": [
+      -3.6,
+      0,
+      -2.1
+    ],
+    "proposed_engine_center_m": [
+      -3.6,
+      0.5,
+      -2.1
+    ],
+    "required_engine_change": "Use the owner’s 1.0 m chair height instead of the current 1.9 m placeholder; update its vertical center and collision height together.",
+    "dimension_rule": "Uniformly fit the reconstructed model to the authoritative height and inspect width/depth. Do not independently stretch model axes or source views to disguise silhouette differences."
+  },
+  "framing": {
+    "view_order": [
+      "front",
+      "left",
+      "right",
+      "back"
+    ],
+    "projection": "Level orthographic front, opposite profiles and rear elevation",
+    "camera": "Horizontal optical axis at object mid-height; no perspective or three-quarter view. Small upholstery and wood bevels remain visible.",
+    "fixed_object_pose": "Upright, unoccupied",
+    "image_size_px": [
+      3392,
+      848
+    ],
+    "cell_size_px": [
+      848,
+      848
+    ],
+    "background": "Plain opaque near-white",
+    "background_rgb": [
+      254,
+      254,
+      254
+    ],
+    "labels_in_turnaround_band": false,
+    "ground_line_drawn": false,
+    "ground_line_last_ink_y_px": 746,
+    "scale": "Source and final silhouette heights are 683/684/684/684 px, within the one-pixel raster tolerance. No view scaling was applied.",
+    "separation_px": [
+      489,
+      484,
+      489
+    ]
+  },
+  "validation": {
+    "method": "Read-only NumPy/Pillow measurements using the unchanged repository cutter’s modal_colour, ink_mask and find_figures functions at tolerance 18, followed by visual review of the final sheet. Bounds are [x0,y0,x1,y1], with upper bounds exclusive.",
+    "foreground_threshold": "Sum of absolute RGB difference from modal (254,254,254) exceeds 54.",
+    "detected_views": 4,
+    "views": [
+      {
+        "view": "front",
+        "bounds_px": [
+          247,
+          64,
+          600,
+          747
+        ],
+        "width_px": 353,
+        "height_px": 683,
+        "last_ink_y_px": 746,
+        "width_height_ratio": 0.516837
+      },
+      {
+        "view": "left",
+        "bounds_px": [
+          1089,
+          63,
+          1454,
+          747
+        ],
+        "width_px": 365,
+        "height_px": 684,
+        "last_ink_y_px": 746,
+        "width_height_ratio": 0.533626
+      },
+      {
+        "view": "right",
+        "bounds_px": [
+          1938,
+          63,
+          2301,
+          747
+        ],
+        "width_px": 363,
+        "height_px": 684,
+        "last_ink_y_px": 746,
+        "width_height_ratio": 0.530702
+      },
+      {
+        "view": "back",
+        "bounds_px": [
+          2790,
+          63,
+          3146,
+          747
+        ],
+        "width_px": 356,
+        "height_px": 684,
+        "last_ink_y_px": 746,
+        "width_height_ratio": 0.520468
+      }
+    ],
+    "height_spread_px": 1,
+    "ground_line_spread_px": 0,
+    "minimum_empty_band_px": 484,
+    "strict_one_pixel_height_check_passed": true,
+    "strict_one_pixel_baseline_check_passed": true,
+    "native_view_canvas_px": [
+      848,
+      848
+    ],
+    "view_canvas_after_2x_upscale_px": [
+      1696,
+      1696
+    ],
+    "upscaling_applied": false,
+    "source_object_rectangles_pixel_identical": true,
+    "visual_review": {
+      "projection": "Tufted front, intact left profile, repaired right profile and plain upholstered rear are distinct views of the same construction.",
+      "repair": "One outside right-arm splint, on the corresponding side in front/profile/back; the opposite arm remains intact.",
+      "openings": "White background remains beneath both profile arm rails and between the legs; no floor or cast shadow fills them.",
+      "isolation": "Four complete separated chairs, no character, accessories, labels or scenery."
+    },
+    "limitations": [
+      "Measured outer width/height ratios are 0.516837, 0.533626, 0.530702, 0.520468 for front/left/right/back. The source envelopes are slightly broader than the exact 0.5 target ratio, including upholstery, arm ends and legs.",
+      "The current engine chair placeholder is 0.5 × 1.9 × 0.5 m, which conflicts with the owner’s 0.5 × 1.0 × 0.5 m brief. This delivery does not silently inherit the placeholder height.",
+      "Tripo reconstruction, arm/leg openings, repaired-arm connectivity, de-lit materials and engine fit have not been verified in a generated mesh."
+    ],
+    "target_width_height_ratio": 0.5,
+    "target_depth_height_ratio": 0.5
+  },
+  "pipeline": {
+    "status": "source_sheet_only",
+    "view_extraction": "delegated_to_claude_code",
+    "view_extraction_names": [
+      "front",
+      "left",
+      "right",
+      "back"
+    ],
+    "upload_view_mapping": {
+      "front": "front.png",
+      "left": "left.png",
+      "right": "right.png",
+      "back": "back.png"
+    },
+    "upload_note": "Assign each crop to its named Tripo slot; the sheet display order is not the positional upload order.",
+    "three_d_generator_allowed": "Tripo only",
+    "forbidden_generators": [
+      "Hunyuan3D",
+      "HY-Motion"
+    ],
+    "nc_models_used": false,
+    "rigging_required": false,
+    "animation_required": false,
+    "generated_3d_model": false,
+    "validated_in_engine": false,
+    "lighting_note": "Broad form shading and leather/brass highlights are baked into the source. Use reconstruction texture lighting removal and inspect under room lighting.",
+    "recommended_crop_command": "python tools/crop_views.py art/props/captain_chair/sheet.png --row 0 1 --names front left right back --pad 0.12 --size 848 --out art/props/captain_chair/views",
+    "upscale_note": "Use gap detection to retain the native 848 px common canvas. Then upscale all four crops 2x to 1696 px, or use the optional command. The larger output meets the minimum but adds no detail. Equal-cell --count 4 is omitted to avoid padding the existing cell margins again.",
+    "next_step": "Reconstruct and verify the one repaired arm and open under-arm/leg spaces, then replace the engine chair blockout at the owner’s 1.0 m height.",
+    "optional_2x_crop_command": "python tools/crop_views.py art/props/captain_chair/sheet.png --row 0 1 --names front left right back --pad 0.12 --size 1696 --out art/props/captain_chair/views",
+    "target_triangles": {
+      "minimum": 6000,
+      "maximum": 8000,
+      "source": "HANDOFF.md engine prop queue dated 2026-10-11; budget for reconstruction, not a measured mesh"
+    }
+  },
+  "dimension_contract": "dimensions_m describes the complete unoccupied upright chair in metres, ground to crest. The explicit owner brief is 0.5W × 1.0H × 0.5D; the existing 1.9m-tall engine blockout is not the art scale. Uniformly fit to the 1.0m height and inspect width/depth against the measured reference envelopes. The illustration is a reconstruction reference, not exact CAD."
+}

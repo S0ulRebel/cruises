@@ -467,17 +467,18 @@ piece. Nothing further is needed from the art agent for the bar.
 
 `art/props/pirate_chest/sheet.png` and `asset.json` are ready for the closed chest.
 Extract the named front/left/right/back views using the sidecar command, reconstruct
-with Tripo, and replace `main.gd::FURNITURE`’s `crate` / `Crate` visual at the existing
-0.9 × 0.9 × 0.9 m target. Preserve the hotspot and puzzle state. The skull and crossed
-bones are flat paint, not a separate skull mesh. The sheet has no contents or open
+with Tripo at the retained 0.9 × 0.9 × 0.9 m target. The engine queue now distinguishes
+this ornamental `pirate_chest` from the nailed puzzle `supply_crate`: place the chest
+as its own prop on the right of the cabin, without replacing the supply-crate hotspot.
+The skull and crossed bones are flat paint, not a separate skull mesh. The sheet has no contents or open
 state; verify mesh proportions, rear hinges and de-lit materials before import.
 All view heights and baselines match exactly. Front/back hardware envelopes remain
 about 3.5–4.0% wider than their height; the sidecar records this source limitation.
 
 ### 2026-10-11 — for the art agent — the prop queue for the captain's cabin
 
-The owner has put you on the **chest** (delivered, `art/props/pirate_chest/`) and the
-**captain's chair**. This is everything else the room needs, in the order the engine
+The **chest** and **captain's chair** sheets are delivered at `art/props/pirate_chest/`
+and `art/props/captain_chair/`; see their Done entries. This is everything else the room needs, in the order the engine
 side wants it. Work down it; you do not need to ask before starting the next one.
 
 The reference for all of it is `docs/reference/room_target.png` — the owner's target
@@ -488,8 +489,10 @@ render for this room. Match its palette and its level of detail.
   is lower_snake_case and is load-bearing for anything that goes in the inventory: the
   engine loads `art/props/<id>/<id>.glb` and renders the inventory icon from the model
   itself, so the id below is the folder name, exactly.
-- Four orthographic views, front / left / back / right, equal heights, flat background,
-  no props, no floor shadow — as in the chest and compass sheets.
+- Four orthographic sheet views, **front / left / right / back**, equal heights and
+  flat background, no other props or floor shadow. This follows `ART_SPEC.md` section1A
+  and the delivered chest/compass sheets. Assign upload slots by filename, not by
+  the sheet’s display position; do not swap right and back.
 - Polycount, measured off what is already in the game and reading correctly at the room
   camera: hand-held items **2,500–3,500 tris** (compass 2,746, inkwell 3,070), furniture
   **6,000–8,000** (desk 6,051). Nothing needs more.
@@ -501,7 +504,6 @@ render for this room. Match its palette and its level of detail.
 
 | id | what | notes |
 | --- | --- | --- |
-| `captain_chair` | the chair behind the desk | assigned to you already; tall buttoned oxblood leather back, as in the render |
 | `supply_crate` | the nailed-shut crate | NOT the brass chest. Plain planks, rope-bound or nailed, stencilled `LE CHAOS NAVIGUE TOUJOURS PLUS LOIN` across the front. It must read as *nailed shut* — the puzzle is prising it open with a rapier |
 | `rapier` | thin French duelling rapier | inventory item. Swept brass hilt, worn grip. It is the crate's answer, so it must read as a lever as well as a sword |
 | `key` | small brass key | inventory item, comes out of the crate. Chunky and cartoony enough to read at 128 px in the bag |
@@ -549,6 +551,19 @@ the engine side cuts and hinges the lid itself.
 
 ---
 
+
+---
+
+### 2026-10-11 — for the engine side — reconstruct and place the captain’s chair
+
+`art/props/captain_chair/sheet.png` and `asset.json` provide the four orthographic
+views. Reconstruct the red-leather/walnut chair, retaining the open spaces beneath
+both arm rails and the one outside right-arm repair. The owner’s dimensions are
+**0.5 × 1.0 × 0.5 m**; `main.gd::FURNITURE` still has a **1.9 m** chair placeholder.
+Correct its height and vertical center/collision together when replacing it; the
+proposed ground origin remains `(-3.6,0,-2.1)`. Do not scale this chair to 1.9 m.
+Check de-lit materials, repair connectivity and final proportions. The source
+height spread is 1 px; slightly broad silhouette ratios are recorded in the sidecar.
 
 ---
 
@@ -794,6 +809,22 @@ high, all baselines are y435, and empty separators are 163/169/163 px. The uncha
 cutter only translated native source crops; no resampling. Full prompts, source
 hashes and measured proportion limits are in the sidecar. Reconstruction and engine
 integration remain Open; no engine code was changed.
+
+---
+
+### 2026-10-11 — art side — captain’s chair sheet delivered
+
+Delivered `art/props/captain_chair/sheet.png` and `asset.json`: tufted red-leather
+front, plain red rear, walnut/brass structure and one horizontal right-arm splint.
+Four opposite orthographic views in a 3392×848 white sheet; heights are
+683/684/684/684 px, all baselines are y746, and separators are
+489/484/489 px. Native source crops were translated only, with no resampling.
+The sidecar contains all five prompts, hashes, measured ratios and the 1.0 m owner
+height versus 1.9 m engine-placeholder discrepancy. Reconstruction and engine fit
+remain Open; no engine code was changed. The current queue’s `dimension_contract`
+field and 6,000–8,000 triangle target are recorded for both furniture assets. The
+chest’s earlier crate-slot mapping is corrected: `pirate_chest` and `supply_crate`
+are separate props.
 
 ---
 

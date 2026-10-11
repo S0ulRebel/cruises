@@ -1,7 +1,7 @@
 {
   "asset_id": "prop:pirate_chest",
   "name": "Pirate skull chest",
-  "role": "Scene 1 — Captain Livé’s quarters; replacement for the crate blockout",
+  "role": "Scene 1 — Captain Livé’s quarters; ornamental pirate skull chest at the right of the approved room",
   "asset_type": "prop_turnaround_sheet",
   "files": {
     "sheet": "sheet.png"
@@ -190,22 +190,11 @@
     "through_holes": "No through-holes are required by this closed chest design."
   },
   "placement": {
-    "convention_status": "Engine slot documented; no placement code changed.",
-    "engine_visual_name": "Crate",
-    "engine_furniture_name": "crate",
-    "engine_source": "main.gd::FURNITURE",
-    "engine_center_m": [
-      3.9,
-      0.45,
-      1.9
-    ],
-    "proposed_origin": "Ground-level center of footprint",
-    "proposed_world_origin_m": [
-      3.9,
-      0,
-      1.9
-    ],
-    "dimension_rule": "Preserve the reconstructed proportions when uniformly fitting the target size. Do not independently stretch image views or model axes to conceal source-envelope differences."
+    "convention_status": "Updated from engine handoff a1af03e: pirate_chest and supply_crate are separate props. Final chest transform is assigned by the engine; no code changed.",
+    "origin": "Ground-level center of chest footprint",
+    "scene_region": "Right-hand side of the approved captain’s cabin",
+    "distinct_from": "supply_crate / main.gd crate puzzle hotspot",
+    "dimension_rule": "Uniformly fit to dimensions_m and inspect mesh proportions; do not independently distort source views or model axes."
   },
   "framing": {
     "view_order": [
@@ -354,7 +343,13 @@
     "lighting_note": "Broad form shading and brass highlights are baked into the source. Use reconstruction texture lighting removal and inspect under the room lights.",
     "recommended_crop_command": "python tools/crop_views.py art/props/pirate_chest/sheet.png --row 0 1 --names front left right back --pad 0.2 --size 544 --out art/props/pirate_chest/views",
     "upscale_note": "Use gap detection and pad 0.2 to retain the native 544 px common canvas. Then upscale every crop 2x to 1088 px, or use the optional command. The larger output meets the documented minimum but adds no source detail. Equal-cell --count 4 includes the existing cell margins in its width calculation and would add a second padding step, so it is intentionally omitted.",
-    "next_step": "Reconstruct the closed chest, verify proportions and flat skull texture, then replace the engine crate blockout while preserving its hotspot and puzzle state.",
-    "optional_2x_crop_command": "python tools/crop_views.py art/props/pirate_chest/sheet.png --row 0 1 --names front left right back --pad 0.2 --size 1088 --out art/props/pirate_chest/views"
-  }
+    "next_step": "Reconstruct the skull chest as its own prop, verify rear hinges and flat skull paint, and place it on the room’s right side. Keep the nailed supply_crate and its puzzle separate.",
+    "optional_2x_crop_command": "python tools/crop_views.py art/props/pirate_chest/sheet.png --row 0 1 --names front left right back --pad 0.2 --size 1088 --out art/props/pirate_chest/views",
+    "target_triangles": {
+      "minimum": 6000,
+      "maximum": 8000,
+      "source": "HANDOFF.md engine prop queue dated 2026-10-11; budget for reconstruction, not a measured mesh"
+    }
+  },
+  "dimension_contract": "dimensions_m describes the complete closed, upright skull chest in metres. The original 0.9m chest target is retained. The source is a reconstruction reference, not exact CAD; uniformly fit the mesh and verify its bounds. This ornamental pirate_chest is separate from the nailed puzzle supply_crate introduced in the engine handoff; do not bind it to that crate hotspot."
 }

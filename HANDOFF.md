@@ -764,9 +764,39 @@ H0.32 imply 0.18068–0.18122 m, within 0.7% of target.
 Use the sidecar's named front/left/right/back extraction at native 729 px or uniform
 2x at 1458 px. Reconstruct the connected metal frame, inspect/form the actual holder
 cavity (its interior depth is not established by level views), verify pane seats,
-door details and vent openings, then add separate glass, candle/wick, flame and warm
-light. Set the origin at the flat foot and fit on the desk's left side; no exact
+door details and vent openings, then add separate glass and use the standalone
+`candle` asset for the removable wax/wick insert; see its engine task below.
+Fit the flame effect and warm light as separate runtime components. Set the origin
+at the flat foot and fit on the desk's left side; no exact
 scene transform or fitted assembly has been tested by this source delivery.
+
+---
+
+### 2026-10-11 — for the engine side — reconstruct and reuse the standalone candle
+
+`art/props/candle/sheet.png` and `asset.json` provide one unlit ivory wax candle
+with its embedded dark wick, a softly rolled uneven rim, restrained wax drips and
+a flat supporting base. The owner explicitly wants a **separate reusable object**
+that can be removed from a lantern or placed elsewhere. Reconstruct this as its own
+`candle` asset/prefab at `art/props/candle/candle.glb`; keep fixture attachment at the
+instance level. Set its root to the flat base center, +Y up. Flame and warm light are
+optional separate runtime components attached near the measured wick tip.
+
+The final provisional envelope is **0.033 × 0.080 × 0.033 m**, including wick
+and wax relief. This adopts the finished projected width/depth of 0.03255–0.03332m
+at H0.080m. The measured lower stem projects to about Ø0.0301–0.0310m; its lowest
+0.025m is straight and undripped. The original Ø0.030m envelope / Ø0.028m stem
+guide targets remain recorded in the sidecar. The intended wick tip is local Y0.080m.
+Named front/left/right/back crops are native 720px square, or uniform 2x at 1440px.
+Use the sidecar's commands and measure the reconstructed envelope, flat base,
+upper rim and actual wick before import.
+
+For the desk lantern, guide-only fitting cues are a Ø0.034m holder bore, 0.023m
+interior depth and seat Y0.049m. A candidate base translation (0,0.049,0) puts this
+candle's wick tip at lantern Y0.129m, 0.101m below the guide hood. The revised Ø0.031m
+stem gives 1.5mm nominal radial clearance. The existing holder's actual cavity is
+unverified: check/form the bore and seat, then check door, glass
+and roof clearance before making a final socket. Recheck other holders separately.
 
 ---
 
@@ -1202,6 +1232,24 @@ crop checks passed. The unchanged cutter translated native source rectangles onl
 every rectangle remains pixel-identical. Full prompt, guide source/geometry,
 reference hashes, provisional dimensions and measured limits are in the sidecar.
 Metal reconstruction, holder depth and all component fitting remain Open.
+
+---
+
+### 2026-10-11 — art side — reusable candle sheet delivered
+
+Delivered the separately requested `art/props/candle/sheet.png` and `asset.json`:
+one unlit ivory wax candle with embedded wick, ready as a source for a removable,
+reusable prop. The candle is separate from all holders, lanterns and flame/light
+effects. Complete dimensions 0.033 × 0.080 × 0.033m are provisional art targets
+adopted from the final painting; original guide dimensions remain in the sidecar.
+
+Final sheet 2880×720px; native source heights 580/581/581/581px; final last-ink
+baselines 633/633/633/633px and clear separator widths 482/479/479px. The unchanged
+repository cutter placed each source rectangle on a shared native 720px square canvas;
+all four rectangles retain identical source pixels with no resampling. The sidecar
+records the full imagegen prompt, guide source/geometry, reference hashes, measured
+proportions and provisional lantern-fit cues. Reconstruction, material review and
+the standalone prefab/optional effects remain Open above.
 
 ---
 

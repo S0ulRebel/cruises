@@ -1,0 +1,907 @@
+{
+  "asset_id": "prop:candle",
+  "name": "Reusable ivory candle",
+  "role": "Scene 1 — Captain Livé’s quarters; standalone removable candle for the desk lantern and reuse elsewhere",
+  "asset_type": "prop_turnaround_sheet",
+  "files": {
+    "sheet": "sheet.png"
+  },
+  "dimensions_m": {
+    "width": 0.033,
+    "height": 0.08,
+    "depth": 0.033
+  },
+  "dimension_contract": "Final provisional complete upright envelope 0.033W × 0.080H × 0.033D m, including wax drips and the unlit wick. This adopts the finished source proportions: assigning 0.080m total height gives complete projected widths/depths of approximately 0.03255–0.03332m and lower-stem projected widths of approximately 0.03007–0.03098m. Use an approximately 0.031m lower stem as a fitting target and measure the actual reconstructed mesh. The original guide targeted a 0.030m envelope, 0.028m body and highest wax rim at Y0.074m; these original targets are preserved in the source guide rather than presented as final measurements. The finished highest wax rim is approximately Y0.0725m, while the wick tip defines total height Y0.080m. The lowest 0.025m remains straight and free of projecting drips to seat in a holder; the flat base also supports standalone placement. X is width, Y height, Z depth. Dimensions exclude all flame, light, holders and lantern hardware. No source view has been resized to enforce these dimensions.",
+  "view_order": [
+    "front",
+    "left",
+    "right",
+    "back"
+  ],
+  "reconstruction_orientation": {
+    "fixed_object_pose": "Upright unlit candle resting on its flat wax base; fixed wax drips and wick, with only the viewing direction changing.",
+    "axis_convention": "Right-handed: +Y up, +X right in the front view, +Z toward the distinctive long front wax drip.",
+    "dimensions_m": {
+      "width": 0.033,
+      "height": 0.08,
+      "depth": 0.033
+    },
+    "camera_positions": {
+      "front": "+Z looking -Z",
+      "left": "-X looking +X",
+      "right": "+X looking -X",
+      "back": "-Z looking +Z"
+    },
+    "engine_rotation": "No reconstruction-to-resting pose correction is intended after exporter axes are matched. Placement and yaw belong to each instance.",
+    "origin_recommendation": "Center the flat base at local (0,0,0), with the supporting underside at Y=0."
+  },
+  "reuse_contract": {
+    "owner_request": "Create the candle as a separate object so it can be reused anywhere else or removed when needed.",
+    "standalone_asset_id": "candle",
+    "model_target": "art/props/candle/candle.glb",
+    "assembly": "Wax and embedded wick are the single reusable candle prop. Keep a separate prefab/instance root so it can stand alone, be picked up, or be attached to and detached from a holder without editing the fixture mesh.",
+    "optional_runtime_components": "A flame effect and warm light may attach near the measured wick tip. Both remain separate from the static mesh and can be enabled or disabled independently. This source depicts the unlit state.",
+    "suggested_wick_tip_marker_local_m": [
+      0,
+      0.08,
+      0
+    ],
+    "socket_status": "Suggested marker from the construction guide only; place it on the actual reconstructed wick tip.",
+    "container_dependency": "None. Lanterns and holders are separate assets; the candle can be instantiated without them."
+  },
+  "lantern_fit": {
+    "status": "Construction-guide fit only; actual reconstruction and engine assembly are unverified.",
+    "fixture_asset": "prop:desk_lantern",
+    "fixture_sidecar": "art/props/desk_lantern/asset.json",
+    "fixture_guide_holder_bore_diameter_m": 0.034,
+    "fixture_guide_holder_floor_y_m": 0.049,
+    "fixture_guide_holder_rim_y_m": 0.072,
+    "fixture_guide_holder_depth_m": 0.023,
+    "original_guide_lower_candle_body_diameter_m": 0.028,
+    "final_nominal_lower_candle_body_diameter_m": 0.031,
+    "final_nominal_lower_body_radial_clearance_m": 0.0015,
+    "final_nominal_maximum_envelope_radial_clearance_m": 0.0005,
+    "minimum_radial_clearance_inferred_from_projected_lower_stem_m": 0.00151,
+    "lower_stem_measurements": {
+      "method": "Source silhouette spans with unchanged cutter tolerance18; measured horizontal elevations in the straight lower stem at5–25mm above base after assigning total height80mm. These projected widths are not a reconstructed 3D bore-fit result.",
+      "views": [
+        {
+          "view": "front",
+          "sample_rows_px": [
+            460,
+            605
+          ],
+          "intended_vertical_band_above_base_m": [
+            0.005,
+            0.025
+          ],
+          "projected_width_range_px": [
+            218,
+            221
+          ],
+          "median_projected_width_px": 219.0,
+          "maximum_projected_width_at_0_080_m_height": 0.030483,
+          "median_projected_width_at_0_080_m_height": 0.030207,
+          "minimum_projected_width_at_0_080_m_height": 0.030069
+        },
+        {
+          "view": "left",
+          "sample_rows_px": [
+            460,
+            606
+          ],
+          "intended_vertical_band_above_base_m": [
+            0.005,
+            0.025
+          ],
+          "projected_width_range_px": [
+            220,
+            222
+          ],
+          "median_projected_width_px": 220.0,
+          "maximum_projected_width_at_0_080_m_height": 0.030568,
+          "median_projected_width_at_0_080_m_height": 0.030293,
+          "minimum_projected_width_at_0_080_m_height": 0.030293
+        },
+        {
+          "view": "right",
+          "sample_rows_px": [
+            460,
+            606
+          ],
+          "intended_vertical_band_above_base_m": [
+            0.005,
+            0.025
+          ],
+          "projected_width_range_px": [
+            220,
+            223
+          ],
+          "median_projected_width_px": 221.0,
+          "maximum_projected_width_at_0_080_m_height": 0.030706,
+          "median_projected_width_at_0_080_m_height": 0.03043,
+          "minimum_projected_width_at_0_080_m_height": 0.030293
+        },
+        {
+          "view": "back",
+          "sample_rows_px": [
+            460,
+            606
+          ],
+          "intended_vertical_band_above_base_m": [
+            0.005,
+            0.025
+          ],
+          "projected_width_range_px": [
+            222,
+            225
+          ],
+          "median_projected_width_px": 223.0,
+          "maximum_projected_width_at_0_080_m_height": 0.030981,
+          "median_projected_width_at_0_080_m_height": 0.030706,
+          "minimum_projected_width_at_0_080_m_height": 0.030568
+        }
+      ]
+    },
+    "provisional_base_translation_in_fixture_m": [
+      0,
+      0.049,
+      0
+    ],
+    "provisional_wick_tip_y_in_fixture_m": 0.129,
+    "fixture_guide_hood_underside_y_m": 0.23,
+    "provisional_wick_tip_to_hood_clearance_m": 0.101,
+    "verification": "Measure or form the reconstructed holder cavity and check its bore, seat depth, panes, door and roof clearance before creating a final socket. Nominal clearance uses the revised final 0.031m lower stem and 0.033m envelope; original guide 0.028/0.030m targets are retained separately. The upper rim remains above the intended 0.023m seating depth. These projected/nominal clearances are not a measured mesh-fit result. Recheck other holders independently."
+  },
+  "source": {
+    "producer": "OpenAI image generation via ChatGPT",
+    "tool": "image_gen.imagegen",
+    "model_identifier": "Not exposed by the built-in image generation tool",
+    "repository_base_commit": "59122d25cb9e8a9c111b3188bdc1833850ebc5b6",
+    "original_filename": "exec-d9e99232-a101-4722-9074-e3a7d8db5b28.png",
+    "generation_history": [
+      {
+        "pass": "reusable_unlit_candle_from_geometric_guide",
+        "prompt": "Use case: precise-object-edit / stylized-concept.\nEdit Image 1, the geometric candle construction guide, into a finished production modeling sheet for the Cruises pirate adventure game. Image 2 is the delivered desk-lantern sheet: use its broad sculpted game-art finish, readable form shading and disciplined framing as a style reference only. DO NOT include any lantern or metal fittings in the new sheet.\n\nONE REUSABLE OBJECT: candle. A single short unlit warm ivory wax candle with an embedded charcoal-dark wick, a softly rolled uneven melted upper rim, and restrained rounded wax drips. The candle stands directly on its own FLAT wax base. Nominal straight body diameter 28mm, maximum upper rim and drip envelope 30mm, complete height 80mm INCLUDING WICK; highest wax rim 74mm. The lowest 25mm of the candle is clean straight wax without projecting drips, so it can slide into different holders. No tapering spike or puddle below the base. This is the standalone wax-and-wick insert, with nothing else attached.\n\nKeep the guide's exact silhouette, complete width/height ratio 0.375, straight axis, flat supporting baseline, short vertical wick, and all four true projections. Preserve the SAME geometric object with consistent physical wax drips: one long FRONT drip down to about 34mm above its base, one shorter BACK drip down to 52mm, left side drip down to 55mm, right side drip down to 60mm. These are not four candle variants. The front drip moves to the appropriate edge in each profile; the back is the actual rear. Follow the guide's uneven upper rim consistently around the cylinder. Keep the melt shallow; do not invent a deep hollow or tilt the camera to expose the top.\n\nFOUR VIEWS in ONE horizontal row, left to right FRONT, LEFT SIDE, RIGHT SIDE, BACK. STRICT LEVEL ORTHOGRAPHIC ELEVATIONS: zero camera pitch, zero roll, zero perspective; camera aimed horizontally at the middle of the same fixed upright object. Only the viewing direction changes. +Y up, +Z points toward the long front drip. The candle's circular cross-section gives the same complete 30mm width/depth in all four views. Never rotate a wax drip to face every camera. Do not show a large top ellipse, underside ellipse, pedestal or supporting surface.\n\nSHARED SCALE AND FRAMING: preserve Image 1's common top of wick and common flat bottom of wax. All four complete native pixel heights and baselines must match within 1 pixel. No view-specific resizing. Full uncut object in every view, including the whole wick and base. Fill most of the height while retaining breathing room and wide clear vertical separator bands. One wide 3:1 canvas matching the guide, highest available native resolution.\n\nFINISH: finished stylised 3D game-art illustration, softly sculpted wax, rounded drip tips and subtly softened cylinder edges. Warm pale ivory body with gentle cream highlights and warm beige shadows, dark brown-charcoal wick. Use broad clean form shading and restrained wax surface wear; clearly distinguish ivory wax from white background. Consistent neutral soft studio illumination across all views. Match the level of stylisation in the existing pirate prop sheet. The guide is geometric scaffolding, not a request for flat vector art. No metallic shine, wooden grain, photoreal noise, crosshatching, decorative motifs or labels.\n\nBACKGROUND: flat uniform opaque WHITE throughout, including corners and separators. No floor plane, cast shadows, borders, alignment lines, text, dimensions, numbers, watermark, scenery or extra props. No flame, sparks, smoke, glow, emitted light, glass, lantern, candle holder, saucer, melting puddle or separate floating part. Exactly one coherent four-view source sheet of the same unlit candle.\n",
+        "selected": true,
+        "output_sha256": "d468654acb76743b656c246f16acf53dfa6a17e8cd68a2a3d5b4f3e891ffccf2",
+        "output_size_px": [
+          2172,
+          724
+        ],
+        "source_heights_px": [
+          580,
+          581,
+          581,
+          581
+        ],
+        "source_baseline_spread_px": 1
+      }
+    ],
+    "generated_source_sha256": "d468654acb76743b656c246f16acf53dfa6a17e8cd68a2a3d5b4f3e891ffccf2",
+    "sha256": "cab8a1673b93a2a3edf06ab79cab3262e0b6eb2aa5a4482a793aa64b661e4868",
+    "references": [
+      {
+        "path": "art/props/desk_lantern/sheet.png",
+        "role": "Existing prop rendering and framing reference only; the lantern is not part of this asset",
+        "commit": "59122d25cb9e8a9c111b3188bdc1833850ebc5b6",
+        "sha256": "149b205b2407e6d3a6c1834b29ecaa0807aa056b38b84f546ae9141313439543"
+      },
+      {
+        "path": "docs/reference/room_target.png",
+        "role": "Owner cabin style and broad material treatment, inspected before generation; not a direct imagegen input",
+        "commit": "59122d25cb9e8a9c111b3188bdc1833850ebc5b6",
+        "sha256": "a17f771d95d7aa37b8403b3b4cb918c7032737cdb031d62c893b424c878cebc3"
+      }
+    ],
+    "construction_guide": {
+      "role": "Original deterministic candle geometry projected to four orthographic elevations, then edited into artwork with imagegen. The guide is scaffolding, not the delivered art or a finished 3D model.",
+      "png_sha256": "f556fae97c1cacbf72ca7339566f2c1b0d414efa85908ceb17d667d1d8c548b4",
+      "svg_sha256": "69b91bdfc32aec54a5b217d8b52bbb01dee2f30c99cdf20c00e490357d142e10",
+      "generator_source_sha256": "76dc025facd9faf619eee82eaf5dcf0426a3434d636487e302c97c46420f6c33",
+      "generator_source": "\"\"\"Original geometric guide for one reusable, unlit candle.\n\nThe builder uses no existing image pixels. All four views project the same\nanalytic wax-and-wick assembly at a single level orthographic camera scale.\n\"\"\"\nfrom pathlib import Path\nimport json\nimport math\nimport subprocess\nimport numpy as np\n\nHERE=Path(__file__).resolve().parent\nWIDTH,HEIGHT=2400,800\nSCALE,BASELINE=8000.,720.\nCENTERS=[300,900,1500,2100]\nFACES=[]\n\n\ndef face(points,colour,part):\n    FACES.append((np.asarray(points,float),colour,part))\n\n\ndef tint(colour,k):\n    return '#'+''.join(f'{min(255,max(0,round(int(colour[i:i+2],16)*k))):02x}' for i in (1,3,5))\n\n\nN=128\nANGLES=np.arange(N)*2*math.pi/N\nraw=np.array([.00145*math.cos(3*a+.25)+.00065*math.sin(2*a-.4) for a in ANGLES])\nRIM_SHIFT=.074-float(raw.max())\n\n\ndef rim(a):\n    return RIM_SHIFT+.00145*math.cos(3*a+.25)+.00065*math.sin(2*a-.4)\n\n\ndef point(radius,angle,y):\n    return (radius*math.cos(angle),y,radius*math.sin(angle))\n\n\n# Flat-bottom cylinder. Only its upper rim is gently irregular. No fixed\n# holder, wax puddle or drips on the bottom25mm insertion band are present.\nRADIUS=.014\nfor j,a in enumerate(ANGLES):\n    b=ANGLES[(j+1)%N]\n    p0=point(RADIUS,a,0); p1=point(RADIUS,b,0)\n    p2=point(RADIUS,b,rim(b)); p3=point(RADIUS,a,rim(a))\n    light=.89+.11*max(0,math.cos((a+b)/2-.7))\n    face([p0,p1,p2,p3],tint('#ddc9a0',light),'wax_body')\n    face([(0,0,0),p1,p0],'#b9a680','flat_wax_base')\n    # Very shallow gently uneven top, not a crater or an invented tilted\n    # ellipse. Any surface visibility follows the actual level projection.\n    face([p3,p2,(0,.072,0)],'#dbc69b','wax_top')\n\n\n# A continuous softly rolled upper rim sets the complete30mm envelope in\n# every direction while leaving the body/insertion band at28mm diameter.\nLIP=[(-.004,.014),(-.003,.0147),(-.0017,.015),(-.0005,.0148),(0,.014)]\nfor j,a in enumerate(ANGLES):\n    b=ANGLES[(j+1)%N]\n    for (dy0,r0),(dy1,r1) in zip(LIP,LIP[1:]):\n        face([point(r0,a,rim(a)+dy0),point(r0,b,rim(b)+dy0),\n              point(r1,b,rim(b)+dy1),point(r1,a,rim(a)+dy1)],\n             '#e7d3a8','rolled_wax_rim')\n\n\nDRIPS=[\n    {'name':'front_long_drip','angle':math.pi/2,'half_angle':.29,'lowest_y':.034},\n    {'name':'back_short_drip','angle':3*math.pi/2,'half_angle':.22,'lowest_y':.052},\n    {'name':'right_small_drip','angle':0,'half_angle':.18,'lowest_y':.060},\n    {'name':'left_medium_drip','angle':math.pi,'half_angle':.23,'lowest_y':.055},\n]\n\n# Each drip is an original, thin wax relief attached to the cylinder. Its\n# maximum thickness is1mm; all boundaries return to the underlying wax.\n# Cardinal centers guarantee a complete30mm envelope in X and Z.\nfor drip in DRIPS:\n    rows=[]\n    for u in np.linspace(-1,1,33):\n        a=drip['angle']+drip['half_angle']*u\n        top=rim(a)\n        lower=drip['lowest_y']+(top-drip['lowest_y'])*abs(u)**6\n        row=[]\n        for v in np.linspace(0,1,25):\n            y=top+(lower-top)*v\n            thickness=.001*math.sqrt(max(0,1-u*u))*math.sin(math.pi*v)\n            row.append(point(RADIUS+thickness,a,y))\n        rows.append(row)\n    for i in range(len(rows)-1):\n        for k in range(len(rows[0])-1):\n            # Readable material blocks identify the original relief without\n            # pretending to be final painterly shading or a cast shadow.\n            u=-1+(2*(i+.5)/(len(rows)-1))\n            col=tint('#ebd8b0',.94+.06*math.sqrt(max(0,1-u*u)))\n            face([rows[i][k],rows[i+1][k],rows[i+1][k+1],rows[i][k+1]],col,drip['name'])\n\n\n# One short straight unlit dark wick. Its buried lower end joins the wax;\n# the common highest point is visible from all four directions.\nwick_radius=.00085\nfor j in range(32):\n    a=j*2*math.pi/32; b=(j+1)*2*math.pi/32\n    low0=point(wick_radius,a,.070); low1=point(wick_radius,b,.070)\n    high0=point(wick_radius,a,.080); high1=point(wick_radius,b,.080)\n    face([low0,low1,high1,high0],'#42362a','unlit_wick')\n    face([(0,.080,0),high0,high1],'#32281f','wick_tip')\n\n\nVIEWS=[('front',(1,0,0),(0,0,1)),('left',(0,0,1),(-1,0,0)),\n       ('right',(0,0,-1),(1,0,0)),('back',(-1,0,0),(0,0,-1))]\nsvg=[f'<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"{WIDTH}\" height=\"{HEIGHT}\" viewBox=\"0 0 {WIDTH} {HEIGHT}\">',\n     '<rect width=\"100%\" height=\"100%\" fill=\"#ffffff\"/>']\nmeasurements=[]\nfor index,(name,right,camera) in enumerate(VIEWS):\n    right=np.array(right);camera=np.array(camera)\n    polygons=[];extrema=[]\n    for points,colour,part in FACES:\n        uv=np.column_stack((CENTERS[index]+SCALE*(points@right),BASELINE-SCALE*points[:,1]))\n        extrema.extend(uv.tolist())\n        area=sum(uv[k,0]*uv[(k+1)%len(uv),1]-uv[(k+1)%len(uv),0]*uv[k,1] for k in range(len(uv)))\n        if abs(area)>.01:\n            polygons.append((float(np.mean(points@camera)),uv,colour,part))\n    polygons.sort(key=lambda p:p[0])\n    svg.append(f'<g id=\"{name}\" stroke-linejoin=\"round\">')\n    for depth,uv,colour,part in polygons:\n        coords=' '.join(f'{x:.3f},{y:.3f}' for x,y in uv)\n        svg.append(f'<polygon points=\"{coords}\" fill=\"{colour}\" stroke=\"{colour}\" stroke-width=\"0.45\"/>')\n    svg.append('</g>')\n    pts=np.array(extrema)\n    bounds=[float(pts[:,0].min()),float(pts[:,1].min()),float(pts[:,0].max()),float(pts[:,1].max())]\n    measurements.append({'view':name,'geometry_bounds_px':bounds,'geometry_width_px':bounds[2]-bounds[0],\n                         'geometry_height_px':bounds[3]-bounds[1],'geometry_baseline_px':bounds[3]})\nsvg.append('</svg>')\nsvg_path=HERE/'guide.svg'\nsvg_path.write_text('\\n'.join(svg),encoding='utf-8')\nsubprocess.run(['inkscape',str(svg_path),'--export-type=png',f'--export-filename={HERE/\"guide.png\"}',\n                f'--export-width={WIDTH}',f'--export-height={HEIGHT}'],check=True,capture_output=True)\n\nmetadata={\n 'asset_id':'prop:candle',\n 'purpose':'Original deterministic construction diagram for imagegen; not finished artwork.',\n 'dimensions_m':{'width':.030,'height':.080,'depth':.030},\n 'dimension_authority':'Provisional art target for the standalone reusable short candle; not measured engine geometry.',\n 'image_pixels_used_as_inputs':False,\n 'canvas_px':[WIDTH,HEIGHT], 'pixels_per_metre':SCALE,\n 'view_order':[x[0] for x in VIEWS],\n 'axis_convention':'+Y up; +Z long front wax drip; origin centered on flat underside atY0. Front+Z, left-X, right+X, back-Z cameras.',\n 'main_wax_diameter_m':.028,\n 'max_wax_relief_envelope_diameter_m':.030,\n 'continuous_rolled_upper_rim_diameter_m':.030,\n 'undripped_straight_base_band_m':.025,\n 'rim_y_range_m':[float(min(rim(a) for a in ANGLES)),float(max(rim(a) for a in ANGLES))],\n 'wick':{'diameter_m':.0017,'highest_y_m':.080,'buried_start_y_m':.070,'lit':False},\n 'drips':[{'name':d['name'],'center_angle_degrees':math.degrees(d['angle']),\n           'half_angle_degrees':math.degrees(d['half_angle']),'lowest_y_m':d['lowest_y'],\n           'maximum_radial_relief_m':.001} for d in DRIPS],\n 'views':measurements,\n 'lantern_fit_note':'Optional removable insertion. Reference guide bore34mm and seatY0.049m are provisional; actual reconstructed cavity and engine fit remain unverified.',\n 'excludes':['holder','lantern','base puddle','flame','glow','smoke','cast shadow','text','scenery'],\n}\n(HERE/'guide_geometry.json').write_text(json.dumps(metadata,indent=2)+'\\n')\nprint(json.dumps(metadata,indent=2))\n",
+      "geometry": {
+        "asset_id": "prop:candle",
+        "purpose": "Original deterministic construction diagram for imagegen; not finished artwork.",
+        "dimensions_m": {
+          "width": 0.03,
+          "height": 0.08,
+          "depth": 0.03
+        },
+        "dimension_authority": "Provisional art target for the standalone reusable short candle; not measured engine geometry.",
+        "image_pixels_used_as_inputs": false,
+        "canvas_px": [
+          2400,
+          800
+        ],
+        "pixels_per_metre": 8000.0,
+        "view_order": [
+          "front",
+          "left",
+          "right",
+          "back"
+        ],
+        "axis_convention": "+Y up; +Z long front wax drip; origin centered on flat underside atY0. Front+Z, left-X, right+X, back-Z cameras.",
+        "main_wax_diameter_m": 0.028,
+        "max_wax_relief_envelope_diameter_m": 0.03,
+        "continuous_rolled_upper_rim_diameter_m": 0.03,
+        "undripped_straight_base_band_m": 0.025,
+        "rim_y_range_m": [
+          0.0700626759810966,
+          0.074
+        ],
+        "wick": {
+          "diameter_m": 0.0017,
+          "highest_y_m": 0.08,
+          "buried_start_y_m": 0.07,
+          "lit": false
+        },
+        "drips": [
+          {
+            "name": "front_long_drip",
+            "center_angle_degrees": 90.0,
+            "half_angle_degrees": 16.615776058793873,
+            "lowest_y_m": 0.034,
+            "maximum_radial_relief_m": 0.001
+          },
+          {
+            "name": "back_short_drip",
+            "center_angle_degrees": 270.0,
+            "half_angle_degrees": 12.60507149287811,
+            "lowest_y_m": 0.052,
+            "maximum_radial_relief_m": 0.001
+          },
+          {
+            "name": "right_small_drip",
+            "center_angle_degrees": 0.0,
+            "half_angle_degrees": 10.313240312354818,
+            "lowest_y_m": 0.06,
+            "maximum_radial_relief_m": 0.001
+          },
+          {
+            "name": "left_medium_drip",
+            "center_angle_degrees": 180.0,
+            "half_angle_degrees": 13.178029288008934,
+            "lowest_y_m": 0.055,
+            "maximum_radial_relief_m": 0.001
+          }
+        ],
+        "views": [
+          {
+            "view": "front",
+            "geometry_bounds_px": [
+              180.0,
+              80.0,
+              420.0,
+              720.0
+            ],
+            "geometry_width_px": 240.0,
+            "geometry_height_px": 640.0,
+            "geometry_baseline_px": 720.0
+          },
+          {
+            "view": "left",
+            "geometry_bounds_px": [
+              780.0,
+              80.0,
+              1020.0,
+              720.0
+            ],
+            "geometry_width_px": 240.0,
+            "geometry_height_px": 640.0,
+            "geometry_baseline_px": 720.0
+          },
+          {
+            "view": "right",
+            "geometry_bounds_px": [
+              1380.0,
+              80.0,
+              1620.0,
+              720.0
+            ],
+            "geometry_width_px": 240.0,
+            "geometry_height_px": 640.0,
+            "geometry_baseline_px": 720.0
+          },
+          {
+            "view": "back",
+            "geometry_bounds_px": [
+              1980.0,
+              80.0,
+              2220.0,
+              720.0
+            ],
+            "geometry_width_px": 240.0,
+            "geometry_height_px": 640.0,
+            "geometry_baseline_px": 720.0
+          }
+        ],
+        "lantern_fit_note": "Optional removable insertion. Reference guide bore34mm and seatY0.049m are provisional; actual reconstructed cavity and engine fit remain unverified.",
+        "excludes": [
+          "holder",
+          "lantern",
+          "base puddle",
+          "flame",
+          "glow",
+          "smoke",
+          "cast shadow",
+          "text",
+          "scenery"
+        ]
+      }
+    },
+    "assembly": {
+      "tool": "tools/crop_views.py",
+      "tool_sha256": "d288d0630d4bb5b1cf50daea4b2e73d1e283ddde66627e4afab9eb2deed0b309",
+      "arguments": [
+        "<selected-generated-source.png>",
+        "--row",
+        "0",
+        "1",
+        "--names",
+        "front",
+        "left",
+        "right",
+        "back",
+        "--pad",
+        "0.12",
+        "--size",
+        "720",
+        "--dry-run",
+        "--preview",
+        "art/props/candle/sheet.png",
+        "--out",
+        "<temporary-preview-directory>"
+      ],
+      "method": "Unmodified repository cutter. Native own-bounds rectangles translated onto four identical 720px square canvases; no resampling or independent view scaling. The preview strip is the delivered sheet.",
+      "source_measurements": {
+        "sha256": "d468654acb76743b656c246f16acf53dfa6a17e8cd68a2a3d5b4f3e891ffccf2",
+        "png_decode_verified": true,
+        "png_iend_present": true,
+        "image_size_px": [
+          2172,
+          724
+        ],
+        "mode": "RGB",
+        "background_rgb": [
+          254,
+          254,
+          254
+        ],
+        "corners_rgb": [
+          [
+            254,
+            253,
+            253
+          ],
+          [
+            254,
+            255,
+            255
+          ],
+          [
+            254,
+            253,
+            254
+          ],
+          [
+            254,
+            254,
+            254
+          ]
+        ],
+        "measurement_method": "Unmodified tools/crop_views.py ink_mask tolerance18 and find_figures, full image; no resampling",
+        "view_count": 4,
+        "views": [
+          {
+            "view": "front",
+            "bounds_px": [
+              162,
+              61,
+              398,
+              641
+            ],
+            "width_px": 236,
+            "height_px": 580,
+            "last_ink_y_px": 640
+          },
+          {
+            "view": "left",
+            "bounds_px": [
+              699,
+              61,
+              939,
+              642
+            ],
+            "width_px": 240,
+            "height_px": 581,
+            "last_ink_y_px": 641
+          },
+          {
+            "view": "right",
+            "bounds_px": [
+              1234,
+              61,
+              1475,
+              642
+            ],
+            "width_px": 241,
+            "height_px": 581,
+            "last_ink_y_px": 641
+          },
+          {
+            "view": "back",
+            "bounds_px": [
+              1765,
+              61,
+              2007,
+              642
+            ],
+            "width_px": 242,
+            "height_px": 581,
+            "last_ink_y_px": 641
+          }
+        ],
+        "height_spread_px": 1,
+        "baseline_spread_px": 1,
+        "gaps": [
+          {
+            "empty_columns": 301,
+            "rgb_min": [
+              249,
+              243,
+              234
+            ],
+            "rgb_max": [
+              255,
+              255,
+              255
+            ],
+            "foreground_pixels": 0
+          },
+          {
+            "empty_columns": 295,
+            "rgb_min": [
+              248,
+              242,
+              235
+            ],
+            "rgb_max": [
+              255,
+              255,
+              255
+            ],
+            "foreground_pixels": 0
+          },
+          {
+            "empty_columns": 290,
+            "rgb_min": [
+              249,
+              247,
+              243
+            ],
+            "rgb_max": [
+              255,
+              255,
+              255
+            ],
+            "foreground_pixels": 0
+          }
+        ],
+        "native_common_canvas_px": 720,
+        "foreground_touches_canvas_edge": false
+      },
+      "pixel_identity_checks": [
+        {
+          "view": "front",
+          "source_bounds_px": [
+            162,
+            61,
+            398,
+            641
+          ],
+          "final_bounds_px": [
+            242,
+            54,
+            478,
+            634
+          ],
+          "rectangle_pixels_identical": true
+        },
+        {
+          "view": "left",
+          "source_bounds_px": [
+            699,
+            61,
+            939,
+            642
+          ],
+          "final_bounds_px": [
+            960,
+            53,
+            1200,
+            634
+          ],
+          "rectangle_pixels_identical": true
+        },
+        {
+          "view": "right",
+          "source_bounds_px": [
+            1234,
+            61,
+            1475,
+            642
+          ],
+          "final_bounds_px": [
+            1679,
+            53,
+            1920,
+            634
+          ],
+          "rectangle_pixels_identical": true
+        },
+        {
+          "view": "back",
+          "source_bounds_px": [
+            1765,
+            61,
+            2007,
+            642
+          ],
+          "final_bounds_px": [
+            2399,
+            53,
+            2641,
+            634
+          ],
+          "rectangle_pixels_identical": true
+        }
+      ],
+      "native_common_canvas_px": 720,
+      "resampled": false
+    }
+  },
+  "pipeline": {
+    "status": "source_sheet_only",
+    "view_extraction": "delegated_to_claude_code",
+    "view_extraction_names": [
+      "front",
+      "left",
+      "right",
+      "back"
+    ],
+    "upload_view_mapping": {
+      "front": "front.png",
+      "left": "left.png",
+      "right": "right.png",
+      "back": "back.png"
+    },
+    "upload_note": "Assign Tripo slots by the matching filenames. Sheet display order is front/left/right/back; do not infer upload slot order from its position.",
+    "three_d_generator_allowed": "Tripo only",
+    "forbidden_generators": [
+      "Hunyuan3D",
+      "HY-Motion"
+    ],
+    "nc_models_used": false,
+    "rigging_required": false,
+    "generated_3d_model": false,
+    "validated_in_engine": false,
+    "model_target": "art/props/candle/candle.glb",
+    "target_triangles": {
+      "maximum": 2500,
+      "source": "Provisional cap at the low end of the hand-held prop budget in HANDOFF.md. Use substantially fewer if the rolled wax rim, drip silhouette and wick remain readable."
+    },
+    "reconstruction_scope": "One unlit warm ivory wax candle with embedded dark wick, rounded upper rim, restrained fixed wax drips, straight lower stem and flat base. No holder, lantern, glass, flame, smoke, emission or pooled wax on a supporting surface.",
+    "lighting_note": "Soft wax form shading is baked into the illustration. Use Tripo texture lighting removal and inspect under engine lights. The source contains no emitted glow.",
+    "native_crop_command": "python tools/crop_views.py art/props/candle/sheet.png --row 0 1 --names front left right back --pad 0.12 --size 720 --out art/props/candle/views",
+    "recommended_2x_crop_command": "python tools/crop_views.py art/props/candle/sheet.png --row 0 1 --names front left right back --pad 0.12 --size 1440 --out art/props/candle/views",
+    "upscale_note": "Native common canvases are 720px square. Common 2x extraction at 1440px meets the 1024px minimum; it does not add source detail. The delivered sheet itself is assembled without resampling.",
+    "next_step": "Extract the four named views, reconstruct and texture the wax/wick object, verify the base/envelope/upper rim and wick, then make a standalone prefab. Fit optional flame/light components at the actual wick tip and test removable placement in the desk lantern."
+  },
+  "known_limits": [
+    "The level orthographic elevations convey the rolled rim and exposed wick but do not measure the small uneven top surface depth; inspect/form that feature during reconstruction without tilting or independently scaling source views.",
+    "The lantern guide supplies nominal holder dimensions only. Actual cavity, clearances, placement and fitted candle assembly remain unverified.",
+    "Soft form shading is part of the source illustration, not a validated de-lit material map. No dynamic flame, illumination, melting simulation or engine prefab is delivered by this sheet."
+  ],
+  "review_status": "Delivered source for owner review; reconstruction and engine fit remain unverified.",
+  "sheet_validation": {
+    "sha256": "cab8a1673b93a2a3edf06ab79cab3262e0b6eb2aa5a4482a793aa64b661e4868",
+    "png_decode_verified": true,
+    "png_iend_present": true,
+    "image_size_px": [
+      2880,
+      720
+    ],
+    "mode": "RGB",
+    "background_rgb": [
+      254,
+      254,
+      254
+    ],
+    "corners_rgb": [
+      [
+        254,
+        254,
+        254
+      ],
+      [
+        254,
+        254,
+        254
+      ],
+      [
+        254,
+        254,
+        254
+      ],
+      [
+        254,
+        254,
+        254
+      ]
+    ],
+    "measurement_method": "Unmodified tools/crop_views.py ink_mask tolerance18 and find_figures, full image; no resampling",
+    "view_count": 4,
+    "views": [
+      {
+        "view": "front",
+        "bounds_px": [
+          242,
+          54,
+          478,
+          634
+        ],
+        "width_px": 236,
+        "height_px": 580,
+        "last_ink_y_px": 633
+      },
+      {
+        "view": "left",
+        "bounds_px": [
+          960,
+          53,
+          1200,
+          634
+        ],
+        "width_px": 240,
+        "height_px": 581,
+        "last_ink_y_px": 633
+      },
+      {
+        "view": "right",
+        "bounds_px": [
+          1679,
+          53,
+          1920,
+          634
+        ],
+        "width_px": 241,
+        "height_px": 581,
+        "last_ink_y_px": 633
+      },
+      {
+        "view": "back",
+        "bounds_px": [
+          2399,
+          53,
+          2641,
+          634
+        ],
+        "width_px": 242,
+        "height_px": 581,
+        "last_ink_y_px": 633
+      }
+    ],
+    "height_spread_px": 1,
+    "baseline_spread_px": 0,
+    "gaps": [
+      {
+        "empty_columns": 482,
+        "rgb_min": [
+          254,
+          254,
+          254
+        ],
+        "rgb_max": [
+          254,
+          254,
+          254
+        ],
+        "foreground_pixels": 0
+      },
+      {
+        "empty_columns": 479,
+        "rgb_min": [
+          254,
+          254,
+          254
+        ],
+        "rgb_max": [
+          254,
+          254,
+          254
+        ],
+        "foreground_pixels": 0
+      },
+      {
+        "empty_columns": 479,
+        "rgb_min": [
+          254,
+          254,
+          254
+        ],
+        "rgb_max": [
+          254,
+          254,
+          254
+        ],
+        "foreground_pixels": 0
+      }
+    ],
+    "native_common_canvas_px": 720,
+    "foreground_touches_canvas_edge": false,
+    "visual_checks": {
+      "one_standalone_wax_and_wick_object": true,
+      "same_level_orthographic_projection": true,
+      "front_left_right_back_order": true,
+      "consistent_distinct_front_back_and_side_drips": true,
+      "flat_supporting_base_and_clear_lower_seating_band": true,
+      "dark_straight_unlit_wick": true,
+      "no_holder_lantern_flame_glow_smoke_or_puddle": true,
+      "no_floor_cast_shadow_labels_or_borders": true,
+      "review_method": "Direct source/guide/final inspection and independent visual review; illustration evidence only, not reconstructed-mesh validation."
+    },
+    "background_note": "All corners and the three full-height separator bands are uniform RGB254/254/254, one level below pure white. Each generated own-bounds rectangle retains its exact source pixels, including minor raster noise immediately around silhouettes."
+  },
+  "dimension_evidence": {
+    "status": "New provisional art target; no measured engine transform.",
+    "guide_dimensions_m": {
+      "width": 0.03,
+      "height": 0.08,
+      "depth": 0.03
+    },
+    "final_provisional_dimensions_m": {
+      "width": 0.033,
+      "height": 0.08,
+      "depth": 0.033
+    },
+    "dimension_revision": "The original 0.030m complete width/depth and 0.028m body guide were broadened slightly by imagegen. Final 0.033m width/depth and approximately 0.031m lower stem adopt the measured finished proportions without reshaping or resampling the source. Original guide dimensions and geometry are retained.",
+    "painted_envelopes_at_target_height": [
+      {
+        "view": "front",
+        "implied_width_or_depth_at_0_080_m_height": 0.032552,
+        "target_width_or_depth_m": 0.033,
+        "difference_percent": -1.358
+      },
+      {
+        "view": "left",
+        "implied_width_or_depth_at_0_080_m_height": 0.033046,
+        "target_width_or_depth_m": 0.033,
+        "difference_percent": 0.141
+      },
+      {
+        "view": "right",
+        "implied_width_or_depth_at_0_080_m_height": 0.033184,
+        "target_width_or_depth_m": 0.033,
+        "difference_percent": 0.558
+      },
+      {
+        "view": "back",
+        "implied_width_or_depth_at_0_080_m_height": 0.033322,
+        "target_width_or_depth_m": 0.033,
+        "difference_percent": 0.975
+      }
+    ],
+    "lower_stem_measurements": {
+      "method": "Source silhouette spans with unchanged cutter tolerance18; measured horizontal elevations in the straight lower stem at5–25mm above base after assigning total height80mm. These projected widths are not a reconstructed 3D bore-fit result.",
+      "views": [
+        {
+          "view": "front",
+          "sample_rows_px": [
+            460,
+            605
+          ],
+          "intended_vertical_band_above_base_m": [
+            0.005,
+            0.025
+          ],
+          "projected_width_range_px": [
+            218,
+            221
+          ],
+          "median_projected_width_px": 219.0,
+          "maximum_projected_width_at_0_080_m_height": 0.030483,
+          "median_projected_width_at_0_080_m_height": 0.030207,
+          "minimum_projected_width_at_0_080_m_height": 0.030069
+        },
+        {
+          "view": "left",
+          "sample_rows_px": [
+            460,
+            606
+          ],
+          "intended_vertical_band_above_base_m": [
+            0.005,
+            0.025
+          ],
+          "projected_width_range_px": [
+            220,
+            222
+          ],
+          "median_projected_width_px": 220.0,
+          "maximum_projected_width_at_0_080_m_height": 0.030568,
+          "median_projected_width_at_0_080_m_height": 0.030293,
+          "minimum_projected_width_at_0_080_m_height": 0.030293
+        },
+        {
+          "view": "right",
+          "sample_rows_px": [
+            460,
+            606
+          ],
+          "intended_vertical_band_above_base_m": [
+            0.005,
+            0.025
+          ],
+          "projected_width_range_px": [
+            220,
+            223
+          ],
+          "median_projected_width_px": 221.0,
+          "maximum_projected_width_at_0_080_m_height": 0.030706,
+          "median_projected_width_at_0_080_m_height": 0.03043,
+          "minimum_projected_width_at_0_080_m_height": 0.030293
+        },
+        {
+          "view": "back",
+          "sample_rows_px": [
+            460,
+            606
+          ],
+          "intended_vertical_band_above_base_m": [
+            0.005,
+            0.025
+          ],
+          "projected_width_range_px": [
+            222,
+            225
+          ],
+          "median_projected_width_px": 223.0,
+          "maximum_projected_width_at_0_080_m_height": 0.030981,
+          "median_projected_width_at_0_080_m_height": 0.030706,
+          "minimum_projected_width_at_0_080_m_height": 0.030568
+        }
+      ]
+    },
+    "mesh_fit_checks": [
+      "Confirm flat base at localY0, complete envelope including wick/drips, and clear lower seating section.",
+      "Keep the candle removable and reusable as its own instance; do not fuse it into lantern geometry.",
+      "Place optional flame/light at the measured wick tip and verify the actual holder cavity and clearances."
+    ],
+    "wax_top_measurements": {
+      "method": "Existing cutter foreground mask excluding the central20% horizontal wick corridor; approximate highest wax envelope from side rim peaks visible in the actual source. Not a mesh measurement.",
+      "views": [
+        {
+          "view": "front",
+          "highest_noncentral_wax_y_px": 116,
+          "implied_wax_height_at_0_080_m_total_height": 0.072414
+        },
+        {
+          "view": "left",
+          "highest_noncentral_wax_y_px": 115,
+          "implied_wax_height_at_0_080_m_total_height": 0.072565
+        },
+        {
+          "view": "right",
+          "highest_noncentral_wax_y_px": 116,
+          "implied_wax_height_at_0_080_m_total_height": 0.072427
+        },
+        {
+          "view": "back",
+          "highest_noncentral_wax_y_px": 116,
+          "implied_wax_height_at_0_080_m_total_height": 0.072427
+        }
+      ]
+    }
+  }
+}

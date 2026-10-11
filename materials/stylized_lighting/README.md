@@ -107,3 +107,24 @@ math. No screen/depth texture, custom renderer feature or texture re-export is u
 
 The response, falloff, cone and analytic blocker formulas are deliberately small
 artist-controlled implementations, with equivalent node and text forms for comparison.
+
+## Verified — 2026-10-11
+
+- Root integration `8d1521b` passed all 13 project checks and the intentional
+  engine-error rejection probe. Tracked authored source/asset hashes did not change.
+  Logs: `C:/Users/Nikola/AppData/Local/Temp/cruises-checks-72f76ada4f23497aa963bef9f1fc87c8/`.
+- All 32 materials compiled on the RTX 4060 Ti / OpenGL Compatibility renderer.
+  The GPU harness passed 64 code/graph comparisons (directional, point, mixed and
+  original-texture bypass); sampled pixels matched, and all 16 bypass images matched
+  the independently rendered original unshaded material. Detailed report/images:
+  `C:/Users/Nikola/AppData/Local/cruises-tests/stylized-lighting-parity-28168-863746/`.
+- Module checks additionally exercised exact opposite-vector cancellation and a
+  moved analytic blocker. Full-resolution module spotlight images differed by at
+  most one 8-bit step from graph arithmetic; the integrated GPU check samples every
+  second pixel and uses tolerance limits recorded in its report.
+- The real 1920×1080 lab was rendered and inspected with primitive, chair, toon,
+  rim, spotlight, hatch, halftone and blocker selections. UI and teardown produced
+  no engine/script errors. Captures:
+  `C:/Users/Nikola/AppData/Local/Temp/cruises-lighting-authoring-20261011/`.
+- Forward+ and Mobile have not been validated. Existing game materials and source
+  models remain unchanged.

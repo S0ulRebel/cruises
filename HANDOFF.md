@@ -1383,6 +1383,17 @@ Open above. This is source artwork, not an assembled animation-ready character.
 
 ---
 
+### 2026-10-11 — engine — editable fake-lighting material library
+
+Delivered 16 techniques with equivalent `_shader` and built-in-node `_graph`
+materials, plus authored reusable samples and a comparison lab at
+`materials/stylized_lighting/gallery/material_lab.tscn`. Scene fake-light controls
+target explicitly assigned components; source textures, independent instance settings
+and authored transforms are preserved. No game look or source mesh was replaced.
+Usage, researched references, limits and measurements are recorded in
+`materials/stylized_lighting/README.md`. All 13 project checks and 64 GPU pair
+comparisons pass; Compatibility is validated, Forward+/Mobile remain untested.
+
 ## Blocked
 
 _(nothing yet)_

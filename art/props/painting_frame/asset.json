@@ -1,0 +1,728 @@
+{
+  "asset_id": "prop:painting_frame",
+  "name": "Captain Livé’s empty painting frame",
+  "role": "Scene 1 — simple landscape wall frame with independently replaceable image content",
+  "asset_type": "prop_turnaround_sheet",
+  "files": {
+    "sheet": "sheet.png"
+  },
+  "dimensions_m": {
+    "width": 1.4,
+    "height": 0.9,
+    "depth": 0.1
+  },
+  "dimension_contract": "Proposed complete outer frame envelope, including all integral corner fittings and trim: 1.40W × 0.90H × 0.10D m. Width is X, height Y and thickness Z in the upright landscape orientation. These are newly declared art targets, not an existing measured engine transform. The construction guide uses 0.10 m rails enclosing a nominal 1.20 × 0.70 m aperture. Verify the generated mesh’s actual outer bounds and clear opening before fitting any image plane; do not stretch individual reference views to compensate for reconstruction differences. Measured painted envelopes at H=0.90 m imply front/back widths 1.395395/1.390372 m and 0.112500 m depth in both profiles, versus the proposed 1.40 m width and 0.10 m depth. The 12.5 mm profile excess is real and disclosed; it has not been hidden by image resizing.",
+  "dimension_decision": "Provisional new art target for a complete empty landscape frame. The guide aperture is 1.20 × 0.70 m (12:7). No authoritative existing frame dimensions, engine transform or final picture-plane fit were supplied.",
+  "source": {
+    "producer": "OpenAI imagegen via ChatGPT",
+    "mode": "built-in",
+    "model_identifier": "Not exposed by the built-in tool",
+    "date": "2026-10-11",
+    "repository_base_commit": "c0729bf9ef5efaf076bac945365887758dce74a2",
+    "original_filename": "exec-041c2a49-9b94-4b7f-8c7a-7ce428812cbd.png",
+    "generated_source_sha256": "05ed6adca36c356bc35a6c4c6dd3f673e3d5b0661612e1ba2647cb01e65576ce",
+    "sha256": "645c50bf5a8a4e3d21ad2f119908e9f698e405e79f7045d2500fd1890946a3b1",
+    "references": [
+      {
+        "original_path": "/workspace/scratch/9d89bc03e38f/painting_frame_geometry_guide.png",
+        "original_filename": "painting_frame_geometry_guide.png",
+        "sha256": "77c5123f852e80b709e2fb318564cb1261d1e467d7976174b3e39e5c940ea78b"
+      }
+    ],
+    "generation_history": [
+      {
+        "pass": 1,
+        "stage": "measured_guide_cel_shaded",
+        "prompt": null,
+        "prompt_retention_note": "The exact full prompt was held in transient tool state, which was lost during context compaction. The instruction summary below is retained context, not a claimed verbatim reconstruction of that prompt.",
+        "retained_prompt_opening": "Paint this exact measured EMPTY FRAME diagram into finished cel-shaded game art. Preserve its geometry, composition and all four matching heights.",
+        "generation_instruction_summary": "Use the measured empty-frame guide as the sole image reference. Preserve its four level orthographic front, left, right and back views, geometry, silhouettes, matching heights, shared baseline and flat white background. Finish the frame in dark warm reddish walnut with broad worn amber edges, narrow brass inner trim and four small brass L-shaped front corner fittings. Keep the rear plain wood with a shallow rebate, the side profiles genuinely thin, and the aperture completely open to the white background in front and back. No artwork, canvas, backing, glass, picture light, other props, labels, dimensions, perspective or cast shadows.",
+        "referenced_image_paths": [
+          "/workspace/scratch/9d89bc03e38f/painting_frame_geometry_guide.png"
+        ],
+        "transparent_background": false,
+        "source_path": "/workspace/scratch/9d89bc03e38f/generated_images/exec-041c2a49-9b94-4b7f-8c7a-7ce428812cbd.png",
+        "selected": true,
+        "rejection_reason": null,
+        "original_filename": "exec-041c2a49-9b94-4b7f-8c7a-7ce428812cbd.png",
+        "output_sha256": "05ed6adca36c356bc35a6c4c6dd3f673e3d5b0661612e1ba2647cb01e65576ce",
+        "referenced_images": [
+          {
+            "original_path": "/workspace/scratch/9d89bc03e38f/painting_frame_geometry_guide.png",
+            "original_filename": "painting_frame_geometry_guide.png",
+            "sha256": "77c5123f852e80b709e2fb318564cb1261d1e467d7976174b3e39e5c940ea78b"
+          }
+        ]
+      }
+    ],
+    "selected_pass": 1,
+    "selected_prompt": null,
+    "prompt_retention_note": "The exact full prompt was held in transient tool state, which was lost during context compaction. The instruction summary below is retained context, not a claimed verbatim reconstruction of that prompt.",
+    "retained_prompt_opening": "Paint this exact measured EMPTY FRAME diagram into finished cel-shaded game art. Preserve its geometry, composition and all four matching heights.",
+    "generation_instruction_summary": "Use the measured empty-frame guide as the sole image reference. Preserve its four level orthographic front, left, right and back views, geometry, silhouettes, matching heights, shared baseline and flat white background. Finish the frame in dark warm reddish walnut with broad worn amber edges, narrow brass inner trim and four small brass L-shaped front corner fittings. Keep the rear plain wood with a shallow rebate, the side profiles genuinely thin, and the aperture completely open to the white background in front and back. No artwork, canvas, backing, glass, picture light, other props, labels, dimensions, perspective or cast shadows.",
+    "alignment_guide": {
+      "path": "/workspace/scratch/9d89bc03e38f/painting_frame_geometry_guide.png",
+      "metadata_path": "/workspace/scratch/9d89bc03e38f/furnishing_geometry_guides.json",
+      "metadata_key": "props.painting_frame",
+      "source_code": "/workspace/scratch/9d89bc03e38f/create_furnishing_geometry_guides.py",
+      "method": "New measured geometric diagram of one open frame, projected into four level orthographic views. No existing raster artwork was edited to create the guide.",
+      "sha256": "77c5123f852e80b709e2fb318564cb1261d1e467d7976174b3e39e5c940ea78b",
+      "metadata_sha256": "8b257ba7fe982985f9c437b7fbc68e88ac1503af9c616950c5830cfe9801aadb",
+      "source_code_sha256": "18ff5321e457c4a3e866d90e99f7dd1e9c8bccc4b0c2d4130bc286b54d589748",
+      "construction_parameters": {
+        "purpose": "New measured geometry guide only; imagegen will create final artwork.",
+        "path": "/workspace/scratch/9d89bc03e38f/painting_frame_geometry_guide.png",
+        "canvas_px": [
+          2172,
+          724
+        ],
+        "dimensions_m": {
+          "width": 1.4,
+          "height": 0.9,
+          "depth": 0.1
+        },
+        "provisional_dimensions": true,
+        "pixels_per_metre": 500.0,
+        "view_order": [
+          "front",
+          "left",
+          "right",
+          "back"
+        ],
+        "view_centres_x_px": [
+          400.0,
+          950.0,
+          1222.0,
+          1772.0
+        ],
+        "geometric_top_y_px": 137.0,
+        "geometric_baseline_y_px": 587.0,
+        "geometric_height_px": 450.0,
+        "geometric_view_widths_px": [
+          700,
+          50,
+          50,
+          700
+        ],
+        "shape_parameters_m": {
+          "full_outer_width": 1.4,
+          "full_outer_height": 0.9,
+          "full_outer_depth": 0.1,
+          "clear_aperture_width": 1.2,
+          "clear_aperture_height": 0.7,
+          "rail_width": 0.1,
+          "front_brass_trim_width": 0.008,
+          "rear_rebate_outline_width": 1.24,
+          "rear_rebate_outline_height": 0.74,
+          "solid_back": false,
+          "canvas": false,
+          "glass": false,
+          "front_corner_fittings": "Four small integral L-shaped brass plates, within envelope"
+        },
+        "clear_white_aperture_rectangles_geometric_px": [
+          [
+            100,
+            187,
+            700,
+            537
+          ],
+          [
+            1472,
+            187,
+            2072,
+            537
+          ]
+        ],
+        "front_orientation": "+Z toward room; Y up; landscape orientation in every view",
+        "guide_rendering": "Flat vector geometry, 2 px outer strokes, no shadows, no labels.",
+        "cutter_min_width_ratio": 0.05,
+        "png_mode": "RGBA",
+        "read_only_cutter_measurement": {
+          "source": "Unmodified tools/crop_views.py imported read-only; full row, tolerance 18",
+          "background_rgb": [
+            255,
+            255,
+            255
+          ],
+          "min_width_ratio": 0.05,
+          "bounds_xyxy_exclusive": [
+            [
+              49,
+              136,
+              751,
+              588
+            ],
+            [
+              924,
+              136,
+              976,
+              588
+            ],
+            [
+              1196,
+              136,
+              1248,
+              588
+            ],
+            [
+              1421,
+              136,
+              2123,
+              588
+            ]
+          ],
+          "widths_px": [
+            702,
+            52,
+            52,
+            702
+          ],
+          "heights_px": [
+            452,
+            452,
+            452,
+            452
+          ],
+          "baseline_y_px": [
+            587,
+            587,
+            587,
+            587
+          ],
+          "height_spread_px": 0,
+          "baseline_spread_px": 0,
+          "clear_interview_gaps_px": [
+            173,
+            220,
+            173
+          ],
+          "native_shared_canvas_at_pad_0_12_px": 870,
+          "sha256": "77c5123f852e80b709e2fb318564cb1261d1e467d7976174b3e39e5c940ea78b",
+          "file_bytes": 10431,
+          "complete_png_iend": true
+        },
+        "white_aperture_checks": [
+          {
+            "inner_test_rect_xyxy": [
+              102,
+              189,
+              698,
+              535
+            ],
+            "every_pixel_white": true
+          },
+          {
+            "inner_test_rect_xyxy": [
+              1474,
+              189,
+              2070,
+              535
+            ],
+            "every_pixel_white": true
+          }
+        ]
+      }
+    },
+    "assembly": {
+      "tool": "tools/crop_views.py",
+      "tool_modified": false,
+      "arguments": [
+        "--row",
+        "0",
+        "1",
+        "--min-width-ratio",
+        "0.05",
+        "--names",
+        "front",
+        "left",
+        "right",
+        "back",
+        "--pad",
+        "0.12",
+        "--size",
+        "876",
+        "--dry-run",
+        "--preview",
+        "art/props/painting_frame/sheet.png"
+      ],
+      "native_common_canvas_px": 876,
+      "method": "Unchanged cutter crops native own-bounds rectangles and translates them into four common square cells. No resampling, per-view scaling or raster retouching.",
+      "resampled": false,
+      "per_view_scaling": false,
+      "source_measurements": {
+        "image_size_px": [
+          2172,
+          724
+        ],
+        "background_rgb": [
+          254,
+          254,
+          254
+        ],
+        "views": [
+          {
+            "view": "front",
+            "bounds_px": [
+              48,
+              131,
+              755,
+              587
+            ],
+            "width_px": 707,
+            "height_px": 456,
+            "last_ink_y_px": 586,
+            "width_height_ratio": 1.550438596,
+            "implied_envelope_m_at_0_90_height": 1.395394737,
+            "difference_percent_from_nominal_envelope": -0.328947
+          },
+          {
+            "view": "left",
+            "bounds_px": [
+              920,
+              131,
+              977,
+              587
+            ],
+            "width_px": 57,
+            "height_px": 456,
+            "last_ink_y_px": 586,
+            "width_height_ratio": 0.125,
+            "implied_envelope_m_at_0_90_height": 0.1125,
+            "difference_percent_from_nominal_envelope": 12.5
+          },
+          {
+            "view": "right",
+            "bounds_px": [
+              1193,
+              131,
+              1250,
+              587
+            ],
+            "width_px": 57,
+            "height_px": 456,
+            "last_ink_y_px": 586,
+            "width_height_ratio": 0.125,
+            "implied_envelope_m_at_0_90_height": 0.1125,
+            "difference_percent_from_nominal_envelope": 12.5
+          },
+          {
+            "view": "back",
+            "bounds_px": [
+              1418,
+              130,
+              2124,
+              587
+            ],
+            "width_px": 706,
+            "height_px": 457,
+            "last_ink_y_px": 586,
+            "width_height_ratio": 1.544857768,
+            "implied_envelope_m_at_0_90_height": 1.390371991,
+            "difference_percent_from_nominal_envelope": -0.687715
+          }
+        ],
+        "clear_vertical_gaps_px": [
+          165,
+          216,
+          168
+        ],
+        "aperture_checks": [
+          {
+            "view": "front",
+            "center_sample_rgb": [
+              253,
+              253,
+              253
+            ],
+            "enclosed_background_component_bounds_px": [
+              107,
+              189,
+              697,
+              526
+            ],
+            "enclosed_background_component_area_px": 198828,
+            "background_component_is_enclosed_by_frame": true,
+            "maximum_rgb_distance_from_background": 54,
+            "background_component_envelope_px": [
+              590,
+              337
+            ],
+            "topology_note": "2D aperture check only; generated mesh topology and physical rebate remain unverified."
+          },
+          {
+            "view": "back",
+            "center_sample_rgb": [
+              254,
+              254,
+              254
+            ],
+            "enclosed_background_component_bounds_px": [
+              1479,
+              190,
+              2064,
+              524
+            ],
+            "enclosed_background_component_area_px": 195389,
+            "background_component_is_enclosed_by_frame": true,
+            "maximum_rgb_distance_from_background": 39,
+            "background_component_envelope_px": [
+              585,
+              334
+            ],
+            "topology_note": "2D aperture check only; generated mesh topology and physical rebate remain unverified."
+          }
+        ]
+      },
+      "source_object_rectangles_pixel_identical_after_translation": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "min_width_ratio_reason": "A 0.10 m profile is nominally only 1/14 of the 1.40 m front width. The existing --min-width-ratio 0.05 option retains the genuine narrow profiles without changing cutter code or scaling individual views."
+    }
+  },
+  "object_scope": {
+    "rule": "Model the object only, never a dressed arrangement.",
+    "contents": "One connected, empty landscape wooden frame with four broad rails, modest integral brass corner plates, narrow brass inner trim and a plain rear rebate.",
+    "excluded": [
+      "painting",
+      "printed image",
+      "canvas",
+      "backing board",
+      "glass",
+      "picture light",
+      "hanging wall",
+      "other props",
+      "scenery"
+    ],
+    "owner_scope_change": "The current asset is painting_frame. It replaces the complete ship_painting request in this pass. The future artwork belongs to a separate interchangeable image plane or equivalent material surface."
+  },
+  "design": {
+    "status": "Selected generated source and final assembly visually reviewed; mesh construction and rebate dimensions remain unverified.",
+    "structure": "Four broad dark warm wooden rails with simple mitred corners, restrained bevels and worn amber edges. The center is a real background opening in the sheet, not a pale insert.",
+    "front": "Landscape room-facing elevation; narrow brass inner trim and four small riveted L-shaped brass corner plates. Plain near-white background remains visible through the opening.",
+    "left": "True narrow depth elevation. Room-facing front edge points image-right; rear rebate is toward image-left.",
+    "right": "Opposite true narrow depth elevation. Room-facing front edge points image-left; rear rebate is toward image-right.",
+    "back": "Actual plain wooden reverse with a visible inner bevel/rebate around the empty center. It carries no front corner plates, picture, canvas or backing board. The sheet does not measure the rebate’s physical depth.",
+    "finish": "Dark warm reddish walnut, worn amber edges, broad cel-shaded highlights and restrained aged-brass trim. A practical, lightly ornamented frame with no carved crest or elaborate gilding.",
+    "openings": "Both front and back must show plain background through the same genuine rectangular opening. Verify open topology after Tripo; white pixels alone do not validate a 3D through-hole.",
+    "guide_aperture_m": {
+      "width": 1.2,
+      "height": 0.7
+    },
+    "guide_aperture_aspect_ratio": {
+      "width": 12,
+      "height": 7,
+      "decimal": 1.7142857142857142
+    },
+    "guide_aperture_authority": "Proposed guide geometry only, not a measured finished image or generated mesh opening.",
+    "rear_rebate_note": "A simple seating feature for a future separate image surface; its final physical depth and fit are not established by the raster sheet."
+  },
+  "reconstruction_orientation": {
+    "fixed_object_pose": "Upright landscape wall-mounting orientation; only the viewing direction changes.",
+    "axis_convention": "Right-handed: +Y up and +X to the right in the front view. The broad frame lies in XY; total thickness is along Z and the room-facing front points +Z.",
+    "dimensions_m": {
+      "width": 1.4,
+      "height": 0.9,
+      "depth": 0.1
+    },
+    "camera_positions": {
+      "front": "+Z looking -Z",
+      "left": "-X looking +X",
+      "right": "+X looking -X",
+      "back": "-Z looking +Z"
+    },
+    "rotation_note": "No artistic pose correction is intended once exporter axes match the convention. Final room yaw and placement remain unassigned; no transform has been applied by this art task.",
+    "origin_recommendation": "Center the complete outer frame bounds at the origin for wall placement. Verify actual imported bounds before setting the scene transform."
+  },
+  "placement": {
+    "convention_status": "Proposed orientation and fitting contract only; there is no existing measured frame transform and no engine placement has been changed.",
+    "engine_model_path_target": "art/props/painting_frame/painting_frame.glb",
+    "target_location": "Cabin wall in the composition established by docs/reference/room_target.png. Final coordinates and rotation are engine work.",
+    "swappable_image_surface": {
+      "status": "Future separate component; not included in the frame sheet or reconstruction.",
+      "nominal_visible_aperture_m": {
+        "width": 1.2,
+        "height": 0.7
+      },
+      "nominal_content_aspect_ratio": "12:7",
+      "orientation": "Parallel to the frame’s XY plane, with its front toward +Z.",
+      "fit_contract": "Measure the reconstructed clear aperture and rear rebate, then fit a separate image plane with appropriate hidden edge overlap. Determine its Z offset from the actual model; keep it seated behind the inner lip and avoid coplanar surfaces.",
+      "content_contract": "Swap the independent artwork texture or surface without regenerating or modifying the frame mesh. The frame asset itself supplies no artwork, canvas, backing or glass."
+    }
+  },
+  "framing": {
+    "view_order": [
+      "front",
+      "left",
+      "right",
+      "back"
+    ],
+    "projection": "Level orthographic broad front, narrow left edge, opposite right edge and broad actual back.",
+    "camera": "Horizontal optical axis at the object midpoint; one orthographic scale, zero camera pitch or roll and no perspective. Narrow profiles represent the frame thickness.",
+    "fixed_object_pose": "Upright landscape wall-mounting orientation",
+    "image_size_px": [
+      3504,
+      876
+    ],
+    "cell_size_px": [
+      876,
+      876
+    ],
+    "background": "Plain opaque near-white",
+    "background_rgb": [
+      254,
+      254,
+      254
+    ],
+    "labels_in_turnaround_band": false,
+    "ground_line_drawn": false,
+    "ground_line_last_ink_y_px": 770,
+    "separation_px": [
+      494,
+      819,
+      495
+    ],
+    "scale": "Front, left and right are 456 px high; the rear is 457 px high. The 1 px spread meets ART_SPEC section 1A. The unchanged cutter translated native source rectangles only, with no resampling or height normalization."
+  },
+  "validation": {
+    "status": "Source/final PNG, four-view framing, isolation and visible open apertures checked. Reconstructed topology, physical fit and engine placement remain pending.",
+    "method": "Read-only full-row measurements with unmodified crop_views.py at tolerance 18 and min_width_ratio 0.05; aperture regions use 4-connected background components. Bounds are [x0,y0,x1,y1], with upper bounds exclusive. Both PNGs fully decoded before measurement.",
+    "foreground_threshold": "Sum of absolute RGB distance from modal background exceeds 54.",
+    "final_file_bytes": 611364,
+    "source_file_bytes": 1158797,
+    "source_png_full_decode_passed": true,
+    "final_png_full_decode_passed": true,
+    "source_png_iend_present": true,
+    "final_png_iend_present": true,
+    "detected_views": 4,
+    "views": [
+      {
+        "view": "front",
+        "bounds_px": [
+          84,
+          315,
+          791,
+          771
+        ],
+        "width_px": 707,
+        "height_px": 456,
+        "last_ink_y_px": 770,
+        "width_height_ratio": 1.550438596,
+        "implied_envelope_m_at_0_90_height": 1.395394737,
+        "difference_percent_from_nominal_envelope": -0.328947
+      },
+      {
+        "view": "left",
+        "bounds_px": [
+          1285,
+          315,
+          1342,
+          771
+        ],
+        "width_px": 57,
+        "height_px": 456,
+        "last_ink_y_px": 770,
+        "width_height_ratio": 0.125,
+        "implied_envelope_m_at_0_90_height": 0.1125,
+        "difference_percent_from_nominal_envelope": 12.5
+      },
+      {
+        "view": "right",
+        "bounds_px": [
+          2161,
+          315,
+          2218,
+          771
+        ],
+        "width_px": 57,
+        "height_px": 456,
+        "last_ink_y_px": 770,
+        "width_height_ratio": 0.125,
+        "implied_envelope_m_at_0_90_height": 0.1125,
+        "difference_percent_from_nominal_envelope": 12.5
+      },
+      {
+        "view": "back",
+        "bounds_px": [
+          2713,
+          314,
+          3419,
+          771
+        ],
+        "width_px": 706,
+        "height_px": 457,
+        "last_ink_y_px": 770,
+        "width_height_ratio": 1.544857768,
+        "implied_envelope_m_at_0_90_height": 1.390371991,
+        "difference_percent_from_nominal_envelope": -0.687715
+      }
+    ],
+    "height_spread_px": 1,
+    "ground_line_spread_px": 0,
+    "minimum_empty_band_px": 494,
+    "strict_one_pixel_height_check_passed": true,
+    "strict_one_pixel_baseline_check_passed": true,
+    "source_object_rectangles_pixel_identical": true,
+    "native_view_canvas_px": [
+      876,
+      876
+    ],
+    "view_canvas_after_2x_upscale_px": [
+      1752,
+      1752
+    ],
+    "upscaling_applied": false,
+    "target_front_back_width_height_ratio": 1.5555555555555554,
+    "target_profile_width_height_ratio": 0.11111111111111112,
+    "painted_profile_depth_m_at_0_90_height": 0.1125,
+    "painted_profile_depth_excess_mm": 12.5,
+    "painted_profile_depth_excess_percent": 12.5,
+    "aperture_checks": [
+      {
+        "view": "front",
+        "center_sample_rgb": [
+          253,
+          253,
+          253
+        ],
+        "enclosed_background_component_bounds_px": [
+          143,
+          373,
+          733,
+          710
+        ],
+        "enclosed_background_component_area_px": 198828,
+        "background_component_is_enclosed_by_frame": true,
+        "maximum_rgb_distance_from_background": 54,
+        "background_component_envelope_px": [
+          590,
+          337
+        ],
+        "topology_note": "2D aperture check only; generated mesh topology and physical rebate remain unverified."
+      },
+      {
+        "view": "back",
+        "center_sample_rgb": [
+          254,
+          254,
+          254
+        ],
+        "enclosed_background_component_bounds_px": [
+          2774,
+          374,
+          3359,
+          708
+        ],
+        "enclosed_background_component_area_px": 195389,
+        "background_component_is_enclosed_by_frame": true,
+        "maximum_rgb_distance_from_background": 39,
+        "background_component_envelope_px": [
+          585,
+          334
+        ],
+        "topology_note": "2D aperture check only; generated mesh topology and physical rebate remain unverified."
+      }
+    ],
+    "source_aperture_envelope_measurements": [
+      {
+        "view": "front",
+        "background_envelope_px": [
+          590,
+          337
+        ],
+        "background_envelope_aspect_ratio": 1.75074184,
+        "implied_background_envelope_m_at_0_90_outer_height": {
+          "width": 1.164473684,
+          "height": 0.665131579
+        },
+        "measurement_limit": "An antialiased 2D background component at the cutter threshold, not the physical reconstructed aperture or a verified image-plane fit."
+      },
+      {
+        "view": "back",
+        "background_envelope_px": [
+          585,
+          334
+        ],
+        "background_envelope_aspect_ratio": 1.751497006,
+        "implied_background_envelope_m_at_0_90_outer_height": {
+          "width": 1.152078775,
+          "height": 0.657768053
+        },
+        "measurement_limit": "An antialiased 2D background component at the cutter threshold, not the physical reconstructed aperture or a verified image-plane fit."
+      }
+    ],
+    "visual_review": {
+      "projection": "Two broad level landscape elevations and two genuinely narrow opposed edge views. Rear construction differs from the brass-trimmed front.",
+      "front": "Four small L-shaped brass corner plates with rivets and narrow brass trim around the open center.",
+      "profiles": "The front trim sits at image-right in the left profile and image-left in the right profile. Both are complete and separate.",
+      "back": "Plain worn wooden rear with mitred corners and an inner beveled/rebated seat; no duplicated front corner plates or opaque insert.",
+      "openings": "Both front and back show enclosed near-white background components through their centers. There is no artwork, blank canvas, backing, glass or reflection fill.",
+      "isolation": "One empty frame in four complete views, on plain near-white with clear gaps; no wall, picture light, other props, labels or cast shadow.",
+      "finish": "Consistent dark reddish walnut, warm amber wear and modest aged-brass fittings, with broad readable cel shading."
+    },
+    "reconstruction_run": false,
+    "engine_import_run": false,
+    "limitations": [
+      "The complete 1.40 × 0.90 × 0.10 m envelope is a new provisional art target, not an existing owner-measured frame or scene transform.",
+      "At 0.90 m height the front/back painted widths imply 1.395395/1.390372 m. Both 57 × 456 px edge views imply 0.1125 m depth, 12.5 mm or 12.5% above the proposed 0.10 m target. Verify/fix final mesh construction without independently resizing reference views.",
+      "The guide aperture is 1.20 × 0.70 m (12:7). The painted near-white background envelopes are 590 × 337 and 585 × 334 px, with aspect ratios about 1.751; they do not establish that exact guide opening. Measure the reconstructed aperture and rebate before choosing the final image-plane dimensions, overlap and texture fit.",
+      "The source shows a rear bevel/rebate but does not establish its physical depth, seating tolerance or mounting hardware. Those require mesh inspection.",
+      "Visible 2D openings do not verify an open reconstructed mesh. Artwork, canvas, backing, glass and picture light are excluded; a future changeable image surface is a separate engine component.",
+      "The exact full imagegen prompt was lost from transient tool state during context compaction. The producer, built-in mode, accepted source, guide, hashes, retained prompt opening and clearly labeled instruction summary are recorded; no missing verbatim prompt has been invented.",
+      "Broad form shading and highlights are baked into the artwork and must be checked under engine lighting."
+    ]
+  },
+  "pipeline": {
+    "status": "source_sheet_only",
+    "view_extraction": "delegated_to_claude_code",
+    "view_extraction_names": [
+      "front",
+      "left",
+      "right",
+      "back"
+    ],
+    "upload_view_mapping": {
+      "front": "front.png",
+      "left": "left.png",
+      "right": "right.png",
+      "back": "back.png"
+    },
+    "upload_note": "Assign each crop to its matching named Tripo slot; sheet position is not positional upload order.",
+    "three_d_generator_allowed": "Tripo only",
+    "forbidden_generators": [
+      "Hunyuan3D",
+      "HY-Motion"
+    ],
+    "rigging_required": false,
+    "generated_3d_model": false,
+    "validated_in_engine": false,
+    "target_triangles": {
+      "maximum": 8000,
+      "source": "The HANDOFF furniture range is 6,000–8,000 triangles. This simple four-rail frame may use substantially fewer; do not add topology to reach a nominal range."
+    },
+    "reconstruction_scope": "Opaque connected wooden frame and integral brass fittings only. Preserve the through-opening and the plain rear rebate. Do not generate a center plate, canvas, image, glass or wall.",
+    "lighting_note": "Keep source wear and broad stylized material form. Review baked illustration highlights under engine lighting and use Tripo texture lighting removal as appropriate.",
+    "crop_arguments_fixed": [
+      "--row",
+      "0",
+      "1",
+      "--min-width-ratio",
+      "0.05",
+      "--names",
+      "front",
+      "left",
+      "right",
+      "back",
+      "--pad",
+      "0.12"
+    ],
+    "thin_profile_note": "The nominal profile is only 1/14 of the front width. The default 0.25 span filter would discard real edge views; use the existing --min-width-ratio 0.05 option without altering cutter logic or view scale.",
+    "next_step": "Extract the named views, reconstruct only the connected empty frame, and verify the provisional complete bounds, genuine aperture and rear seating feature. Then choose wall placement and fit a separate changeable artwork surface using the measured mesh. No artwork or image plane is included in this art delivery.",
+    "nc_models_used": false,
+    "recommended_crop_command": "python tools/crop_views.py art/props/painting_frame/sheet.png --row 0 1 --min-width-ratio 0.05 --names front left right back --pad 0.12 --size 876 --out art/props/painting_frame/views",
+    "optional_2x_crop_command": "python tools/crop_views.py art/props/painting_frame/sheet.png --row 0 1 --min-width-ratio 0.05 --names front left right back --pad 0.12 --size 1752 --out art/props/painting_frame/views",
+    "upscale_note": "Native common canvases are 876 px square. Uniform 2x extraction to 1752 px meets the documented minimum but adds no source detail. Use automatic own-bounds gap detection with --min-width-ratio 0.05; do not widen the real thin edge views."
+  }
+}

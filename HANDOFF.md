@@ -507,18 +507,15 @@ sidecars; see their Done entries. Their reconstruction and engine integration ta
 remain Open below. The porthole sheet supplies its metal surround; transparent glass
 and weather are separate engine components.
 
-**2 — current owner scope: practical cabin fixtures.**
+**2 — current owner scope: practical cabin fixtures — art delivered.**
 
 The owner’s latest request narrows this pass to `wall_lantern`, empty `bookcase`,
-`desk_globe` and `painting_frame`, published one at a time. The lantern housing,
-empty bookcase and separate globe are delivered; their reconstruction/integration
-tasks remain Open. `painting_frame` replaces the
-former complete `ship_painting` request for this pass: frame only, no artwork,
-canvas, backing, glass or picture light. Books remain separate from the shelving.
-
-| id | what |
-| --- | --- |
-| `painting_frame` | empty landscape brass/gilt-and-wood frame; open aperture front/back, no artwork, canvas, backing, glass or light |
+`desk_globe` and `painting_frame`, published one at a time. All four requested art
+sources and sidecars are delivered; their reconstruction/integration tasks remain
+Open below. `painting_frame` replaces the former complete `ship_painting` request:
+the frame is empty, with no artwork, canvas, backing, glass or picture light.
+Future picture contents are separate and replaceable. Books remain separate from
+the shelving.
 
 **Deferred by the owner as too fancy for this pass:**
 
@@ -710,6 +707,33 @@ UVs and globe mechanics remain unverified. Place the base on the separate bookca
 its 0.46125 m guide bay gives 0.08125 m nominal vertical clearance, not a verified
 assembled fit. Check real shelf depth, front lip/setback and pedestal support.
 No exact scene transform, interaction or navigation-accurate chart is supplied.
+
+---
+
+### 2026-10-11 — for the engine side — reconstruct and place the empty painting frame
+
+`art/props/painting_frame/sheet.png` and `asset.json` supply the connected wooden
+frame with modest brass inner trim and four front corner plates. The back is plain
+wood with an inner bevel/rebate; both broad views show the empty opening. Use the
+named crop command with `--min-width-ratio 0.05` to retain the actual thin profiles.
+Reconstruct the frame only: no painting, blank canvas, backing, glass or picture
+light. Future image content is a separate changeable surface.
+
+The complete **1.40 × 0.90 × 0.10 m** envelope is provisional new art, not an
+existing scene measurement. All source heights are 456/456/456/457 px. At H0.90 m,
+the front/back widths imply 1.395395/1.390372 m and the side profiles imply
+**0.1125 m depth**, 12.5 mm above the 0.10 m target. Retain the target and verify
+mesh construction; do not independently rescale the reference profiles.
+
+The guide’s **1.20 × 0.70 m aperture (12:7)** is a fitting target, not verified
+output geometry. The visible front/back background envelopes are 590×337 and
+585×334 px, about 1.751 in aspect. Check the real through-opening and rebate depth
+after reconstruction, then fit the separate image plane with appropriate hidden
+edge overlap and a non-coplanar seat behind the inner lip. Set its final texture fit
+from that measured aperture rather than assuming the guide dimensions survived.
+The frame is upright in XY with front +Z. No exact wall transform or image-plane Z
+offset is supplied. Reconstruction, final material lighting and engine placement
+remain untested by this art delivery.
 
 ---
 
@@ -1098,6 +1122,23 @@ provenance, hashes and measured proportional limits are in the sidecar.
 Reconstruction, texture seams/topology and bookcase fit remain Open. The empty
 painting frame remains current; deferred curtains/palm and future dressing are
 unchanged.
+
+---
+
+### 2026-10-11 — art side — empty painting frame sheet delivered
+
+Delivered `art/props/painting_frame/sheet.png` and `asset.json`; removed the last
+pending row in the current four-prop scope. Final sheet 3504×876, native 876 px
+cells; heights 456/456/456/457 px, shared baseline y770 and gaps 494/819/495 px.
+Source and final PNG decode/IEND passed. The unchanged cutter translated native
+own-bounds rectangles only; all four remain pixel-identical. Front and rear
+openings are enclosed background regions, with no image, backing, glass or light.
+The sidecar records the provisional dimensions, measured profile/aperture limits,
+tool/model provenance, source/guide hashes and actual selected-source evidence.
+The exact full prompt was lost from transient state; it is explicitly null, with
+the retained opening and a labeled instruction summary instead of invented text.
+All four requested art sources are delivered. Reconstruction and changeable-image
+fit remain Open; curtains/palm stay deferred and later dressing remains queued.
 
 ---
 

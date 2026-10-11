@@ -46,6 +46,12 @@ func show_character(character_id: String) -> bool:
 	_root.add_child(_rig)
 	_skeleton = _rig.get_node_or_null(_rig.skeleton_path) as Skeleton3D
 	_mesh = _rig.get_node_or_null(_rig.face_mesh_path) as MeshInstance3D
+	# The same head asset may also be used on the world actor or another panel.
+	# Give this portrait its own deformation resources, retaining source materials.
+	if _mesh and _mesh.mesh:
+		_mesh.mesh = _mesh.mesh.duplicate()
+		if _mesh.skin:
+			_mesh.skin = _mesh.skin.duplicate()
 	if _skeleton:
 		_jaw = _skeleton.find_bone(_rig.jaw_bone)
 		if _jaw >= 0:

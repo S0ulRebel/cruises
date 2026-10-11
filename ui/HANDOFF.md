@@ -1,5 +1,25 @@
 # UI, cold-open stage and audio handoff
 
+## 2026-10-12 — head renderer resource isolation
+
+Owner clarified the doubled outline is on the small dialogue head and requested
+checking the earlier room/portrait sharing issue. Each TalkingHead now has a
+scene-local World3D/Environment, used directly instead of cloning a shared saved
+World3D through `own_world_3d`. Captain portrait environment is scene-local too.
+The viewport explicitly clears every render. On character load, its animated face
+Mesh and Skin are copied for that portrait instance; source geometry/materials,
+authored fitting, and the room actor are unchanged. Cached reuse retains the copies.
+
+Focused runtime inspection confirms separate world scenario RIDs from the room
+and each other, separate World3D sources, and separate face Mesh/Skin resources
+for speech and response heads, without engine errors. The old effective worlds
+were already separate, although their source World3D and head resources were
+shared. This removes that sharing path; it is not proof that the reported visible
+outline has disappeared. No full suite run. The earlier active-portrait guard
+alone did not resolve the owner's visual report; don't mark that report accepted
+solely from resource counts. Diagnostic log is outside the project in the current
+task's `work/portrait_worlds_after.log`.
+
 ## 2026-10-11 — response hover and ribbon corrections
 
 Choices open without automatic first-row focus: deferred focus had scrolled the

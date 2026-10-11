@@ -6,6 +6,10 @@ and prop sheets, and the engine side, who puts them in the game.
 
 ## Current architecture — 2026-10-11
 
+2026-10-12 portrait follow-up: small head renderers now own scene-local worlds
+and private face Mesh/Skin resources. This removes the shared source/deformation
+path; the visible doubled outline is not yet confirmed resolved. See `ui/HANDOFF.md`.
+
 Owner UI corrections: response hit regions follow actual text height, choices
 open without first-row focus, and the extra response chevron is removed. Ribbon
 text fits and is centered. Only one dialogue portrait renders at a time; reported

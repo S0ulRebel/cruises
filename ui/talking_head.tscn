@@ -1,11 +1,13 @@
 [gd_scene format=3]
 [ext_resource type="Script" path="res://ui/talking_head.gd" id="1"]
 [sub_resource type="Environment" id="Environment"]
+resource_local_to_scene = true
 background_mode = 0
 ambient_light_source = 2
 ambient_light_color = Color(0.62, 0.60, 0.58, 1)
 ambient_light_energy = 0.45
 [sub_resource type="World3D" id="World"]
+resource_local_to_scene = true
 environment = SubResource("Environment")
 [node name="TalkingHead" type="SubViewportContainer"]
 custom_minimum_size = Vector2(224, 224)
@@ -16,8 +18,8 @@ stretch = true
 script = ExtResource("1")
 [node name="Viewport" type="SubViewport" parent="."]
 transparent_bg = true
-own_world_3d = true
 world_3d = SubResource("World")
 size = Vector2i(224, 224)
+render_target_clear_mode = 0
 render_target_update_mode = 0
 [node name="Content" type="Node3D" parent="Viewport"]

@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" path="res://ui/portraits/captain_live/moustache.glb" id="moustache"]
 [ext_resource type="PackedScene" path="res://ui/portraits/captain_live/chin_tuft.glb" id="chin_tuft"]
 [sub_resource type="Environment" id="Environment"]
+resource_local_to_scene = true
 background_mode = 0
 ambient_light_source = 2
 ambient_light_color = Color(0.62, 0.60, 0.58, 1)

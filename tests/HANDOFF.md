@@ -1,5 +1,27 @@
 # Validation handoff
 
+## 2026-10-12 — Character Workshop visual workspace
+
+All 22 default checks/cold reopen routes and the deliberate engine-error rejection
+self-test pass on Godot 4.7.2. The native editor fixture now passes 174/174 assertions:
+two real scene views, authored hierarchy/collapse retention, root selection,
+viewport drags and cancellation, exact transform Apply/Cancel/undo, picked
+attachments, project search, safe GLB import and existing source/save independence.
+Evidence: `%TEMP%/cruises-checks-8886df44ee964b44917681864e669c83/`.
+
+After asset-thumbnail layout/fallback changes, editor, workshop integration with
+cold reopen, and authored-scene checks pass again with authored hashes unchanged:
+`%TEMP%/cruises-checks-c4a8b69c52474907a6455d990aa0c8c2/`.
+The optional `CRUISES_WORKSHOP_CAPTURE` destination exercises Compatibility GPU
+rendering in the actual editor; it captures workspace, Assets and Fine adjust
+externally. The final run passes 174/174 with no engine/script errors, and inspected
+images show the real portrait assembly and hair/chair thumbnails.
+Evidence: `%TEMP%/cruises-workshop-final-109c40bcbfd24286b2be2a64d43193f1/`.
+Final coordinate-label correction also passes the native editor check with authored
+hashes intact: `%TEMP%/cruises-checks-4176714cb41f45db9bd4db05e039ba4d/`.
+This verifies the delivered UI; final body/clothing art and owner usability
+acceptance remain separate from automated checks.
+
 2026-10-11 owner corrections: `authored_scene_check.gd` now expects the lower
 `cabin_reference_eye_level_v1` camera, actor heights 280–480px, and a deliberate
 partial foreground crate crop (at least 35% of its projected width in frame).

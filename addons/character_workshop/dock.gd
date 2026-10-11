@@ -1,18 +1,26 @@
 @tool
-extends ScrollContainer
-## Authored controls; list contents come from the current scene, never slot tables.
+extends VBoxContainer
+## Viewport-first authoring workspace. Hierarchy reflects actual parts and parents.
 
 signal request(action: String, value: Variant)
 
 const Ops = preload("res://actors/assembly/operations.gd")
+const Part = preload("res://actors/assembly/part.gd")
 
 var current_part: Node3D
 var current_mesh: MeshInstance3D
 var current_target: Node3D
 var _syncing := false
+var _root: Node3D
+var _selection: Node3D
+var _tool := "move"
+var _hierarchy_signature := ""
+var _tree_items: Dictionary = {}
+var _collapsed: Dictionary = {}
+var _editor: EditorInterface
 
 func _ready() -> void:
-	for pair: Array in [["New", "new"], ["Open", "open"], ["Save", "save"], ["SaveActor", "save_actor"], ["RepairReferences", "repair_references"], ["ImportLegacy", "legacy"], ["BorrowClips", "borrow"], ["Add", "add"], ["Adopt", "adopt"], ["Duplicate", "duplicate"], ["Visibility", "visibility"], ["Remove", "remove"], ["Replace", "replace"], ["Attach", "attach"], ["Detach", "detach"], ["Bind", "bind"], ["CancelBinding", "cancel_binding"], ["SelectBox", "select_box"], ["SelectSurface", "select_surface"], ["ClearFaces", "clear_faces"], ["Exclude", "exclude"], ["Restore", "restore"], ["ResetMesh", "reset_mesh"], ["Play", "play"], ["Stop", "stop"], ["Rest", "rest"]]:
+	for pair: Array in [["New", "new"], ["Open", "open"], ["Save", "save"], ["SaveActor", "save_actor"], ["RepairReferences", "repair_references"], ["ImportLegacy", "legacy"], ["BorrowClips", "borrow"], ["Adopt", "adopt"], ["Duplicate", "duplicate"], ["Visibility", "visibility"], ["Remove", "remove"], ["Replace", "replace"], ["Attach", "attach"], ["Detach", "detach"], ["Bind", "bind"], ["CancelBinding", "cancel_binding"], ["SelectBox", "select_box"], ["SelectSurface", "select_surface"], ["ClearFaces", "clear_faces"], ["Exclude", "exclude"], ["Restore", "restore"], ["ResetMesh", "reset_mesh"], ["Play", "play"], ["Stop", "stop"], ["Rest", "rest"], ["Inspector", "inspector"]]:
 		var action: String = pair[1]
 		get_node("%" + pair[0]).pressed.connect(func(): request.emit(action, null))
 	%Parts.item_selected.connect(_part_selected)
@@ -28,8 +36,64 @@ func _ready() -> void:
 	%Templates.item_selected.connect(func(index: int): request.emit("template", %Templates.get_item_metadata(index)))
 	%Players.item_selected.connect(func(_index: int): request.emit("player_changed", null))
 	%Mode.item_selected.connect(func(_index: int): _populate_bones())
-	%Parts.create_item()
-	set_status("Open a character assembly or choose New. Use Godot's scene tree, Inspector and native transform handles.")
+	%Add.pressed.connect(show_assets)
+	%AddHierarchyPart.pressed.connect(show_assets)
+	%More.pressed.connect(show_advanced)
+	%AdvancedTools.close_requested.connect(%AdvancedTools.hide)
+	%TwoViews.toggled.connect(func(value: bool): %DetailView.visible = value)
+	for pair: Array in [["Move", "move"], ["Rotate", "rotate"], ["Scale", "scale"], ["PickAttach", "attach"]]:
+		var mode: String = pair[1]
+		get_node("%" + pair[0]).pressed.connect(func(): request.emit("tool", mode))
+	%MainView.request.connect(_forward_request)
+	%DetailView.request.connect(_forward_request)
+	%Assets.request.connect(_forward_request)
+	%Sidebar.set_tab_title(0, "Character")
+	%Sidebar.set_tab_title(1, "Assets")
+	set_status("Choose New or a template, then Add part. Select in the hierarchy or either view; W/E/R change tools, F frames selection.")
+	set_tool(_tool)
+
+func initialize(editor: EditorInterface) -> void:
+	_editor = editor
+	%Assets.initialize(editor)
+
+func refresh_catalog() -> void:
+	%Assets.refresh_catalog()
+
+func show_assets() -> void:
+	%Sidebar.current_tab = 1
+	%Assets.focus_search()
+
+func show_advanced() -> void:
+	if %AdvancedTools.visible:
+		%AdvancedTools.hide()
+	else:
+		%AdvancedTools.popup_centered(Vector2i(490, 640))
+
+func _forward_request(action: String, value: Variant) -> void:
+	request.emit(action, value)
+
+func set_tool(mode: String) -> void:
+	_tool = mode
+	for pair: Array in [["Move", "move"], ["Rotate", "rotate"], ["Scale", "scale"], ["PickAttach", "attach"]]:
+		get_node("%" + pair[0]).set_pressed_no_signal(mode == pair[1])
+	%MainView.set_tool(mode)
+	%DetailView.set_tool(mode)
+
+func cancel_drag() -> void:
+	%MainView.cancel_drag()
+	%DetailView.cancel_drag()
+
+func set_face_selection(mesh: MeshInstance3D, source: Mesh, faces: Dictionary) -> void:
+	%MainView.set_face_selection(mesh, source, faces)
+	%DetailView.set_face_selection(mesh, source, faces)
+
+func frame_all() -> void:
+	%MainView.frame_all()
+	%DetailView.frame_all()
+
+func frame_selected() -> void:
+	%MainView.frame_selected()
+	%DetailView.frame_selected()
 
 func _can_drop_data(_position: Vector2, data: Variant) -> bool:
 	return data is Dictionary and data.get("type", "") == "files" and data.get("files", []).size() > 0
@@ -43,20 +107,27 @@ func set_status(message: String, is_error: bool = false) -> void:
 
 func populate(root: Node3D, parts: Array, selected: Node3D) -> void:
 	_syncing = true
-	current_part = selected
-	%Parts.clear()
-	var tree_root: TreeItem = %Parts.create_item()
-	for part: Node3D in parts:
-		var item: TreeItem = %Parts.create_item(tree_root)
-		item.set_text(0, str(part.name) + (" (hidden)" if not part.visible else ""))
-		item.set_text(1, str(part.get("source_path")).get_file())
-		item.set_tooltip_text(0, "%s\nID: %s\n%s" % [root.get_path_to(part), part.get("part_id"), part.get("source_path")])
-		item.set_metadata(0, part)
-		if part == selected:
-			item.select(0)
-	%PartInfo.text = "%s\n%s" % [selected.name, selected.get("source_path")] if selected != null else "Select a part or model in the scene tree."
+	var scene_changed := root != _root
+	var selection_changed := selected != _selection
+	_root = root
+	_selection = selected
+	current_part = selected if selected is Part and parts.has(selected) else null
+	_populate_hierarchy(root, parts, selected, selection_changed)
+	%AssemblyTitle.text = str(root.name) + (" · unsaved" if root.scene_file_path.is_empty() else "") if root != null else "Character Workshop"
+	%AssemblyTitle.tooltip_text = root.scene_file_path if root != null else "Open or create an assembly."
+	%PartInfo.text = str(selected.name) if selected != null else "Select a part"
+	%PartInfo.tooltip_text = str(current_part.get("source_path")) if current_part != null else "Select a part in the hierarchy or viewport."
+	%MainView.set_context(root, selected)
+	%DetailView.set_context(root, selected)
+	if scene_changed:
+		%MainView.frame_all()
+		%DetailView.frame_selected() if selected != null else %DetailView.frame_all()
+	elif selection_changed and selected != null:
+		%DetailView.frame_selected()
 	for name: String in ["Duplicate", "Visibility", "Remove", "Replace", "Attach", "Detach", "Bind", "Exclude", "Restore", "ResetMesh"]:
-		get_node("%" + name).disabled = selected == null
+		get_node("%" + name).disabled = current_part == null
+	%PickAttach.disabled = current_part == null
+	%Inspector.disabled = selected == null
 	%Targets.clear()
 	if root != null:
 		for node: Node in _nodes(root):
@@ -74,11 +145,11 @@ func populate(root: Node3D, parts: Array, selected: Node3D) -> void:
 	_populate_bones()
 	var old_mesh: MeshInstance3D = current_mesh if is_instance_valid(current_mesh) else null
 	%Meshes.clear()
-	if selected != null:
-		for node: Node in _nodes(selected):
-			if node is MeshInstance3D and node.mesh != null and Ops.nearest_part(node) == selected:
+	if current_part != null:
+		for node: Node in _nodes(current_part):
+			if node is MeshInstance3D and node.mesh != null and Ops.nearest_part(node) == current_part:
 				var index: int = %Meshes.item_count
-				%Meshes.add_item(str(selected.get_path_to(node)))
+				%Meshes.add_item(str(current_part.get_path_to(node)))
 				%Meshes.set_item_metadata(index, node)
 				if node == old_mesh:
 					%Meshes.select(index)
@@ -96,8 +167,76 @@ func populate(root: Node3D, parts: Array, selected: Node3D) -> void:
 				if node == old_player:
 					%Players.select(index)
 	_populate_clips()
-	%Statistics.text = _statistics(selected)
+	%Statistics.text = _statistics(current_part)
 	_syncing = false
+
+func _populate_hierarchy(root: Node3D, parts: Array, selected: Node3D, reveal_selection: bool = false) -> void:
+	var signature := "%s:%s" % [root.get_instance_id(), root.name] if root != null else "empty"
+	for part: Node3D in parts:
+		var parent: Node3D = _hierarchy_parent(part, root, parts)
+		signature += "|%s:%s:%s:%s:%s" % [part.get_instance_id(), part.name, parent.get_instance_id() if parent != null else 0, part.visible, part.get("bone_name")]
+	if signature != _hierarchy_signature:
+		_remember_collapsed(%Parts.get_root())
+		%Parts.clear()
+		_tree_items.clear()
+		_hierarchy_signature = signature
+		var tree_root: TreeItem = %Parts.create_item()
+		tree_root.set_text(0, str(root.name) if root != null else "No character open")
+		tree_root.set_metadata(0, root)
+		tree_root.set_selectable(0, root != null)
+		if root != null:
+			_tree_items[root.get_instance_id()] = tree_root
+			tree_root.collapsed = _collapsed.get(root.get_instance_id(), false)
+			for part: Node3D in parts:
+				_hierarchy_item(part, root, parts, tree_root)
+	%Parts.deselect_all()
+	if selected != null and _tree_items.has(selected.get_instance_id()):
+		var item: TreeItem = _tree_items[selected.get_instance_id()]
+		if reveal_selection:
+			var ancestor := item.get_parent()
+			while ancestor != null:
+				ancestor.collapsed = false
+				ancestor = ancestor.get_parent()
+		item.select(0)
+		if reveal_selection:
+			%Parts.scroll_to_item(item)
+
+func _hierarchy_parent(part: Node3D, root: Node3D, parts: Array) -> Node3D:
+	var parent: Node = part.get_parent()
+	while parent != null and parent != root:
+		if parent is Part and parts.has(parent):
+			return parent as Node3D
+		parent = parent.get_parent()
+	return root
+
+func _hierarchy_item(part: Node3D, root: Node3D, parts: Array, tree_root: TreeItem) -> TreeItem:
+	var identity := part.get_instance_id()
+	if _tree_items.has(identity):
+		return _tree_items[identity]
+	var parent := _hierarchy_parent(part, root, parts)
+	var parent_item := tree_root
+	if parent != null and parent != root:
+		parent_item = _hierarchy_item(parent, root, parts, tree_root)
+	var item: TreeItem = %Parts.create_item(parent_item)
+	_tree_items[identity] = item
+	var bone: String = str(part.get("bone_name"))
+	item.set_text(0, str(part.name) + (" (hidden)" if not part.visible else ""))
+	item.set_metadata(0, part)
+	item.collapsed = _collapsed.get(identity, false)
+	var attachment := "\nBone: " + bone if not bone.is_empty() else ""
+	item.set_tooltip_text(0, "%s\n%s%s\nID: %s" % [root.get_path_to(part), part.get("source_path"), attachment, part.get("part_id")])
+	if has_theme_icon("Node3D", "EditorIcons"):
+		item.set_icon(0, get_theme_icon("Node3D", "EditorIcons"))
+	return item
+
+func _remember_collapsed(item: TreeItem) -> void:
+	if item == null:
+		return
+	var node: Variant = item.get_metadata(0)
+	if is_instance_valid(node):
+		_collapsed[node.get_instance_id()] = item.collapsed
+	for child: TreeItem in item.get_children():
+		_remember_collapsed(child)
 
 func _nodes(node: Node) -> Array:
 	var values: Array = [node]

@@ -125,6 +125,26 @@ add/duplicate/hide/remove/replace/attach/detach/exclude/reset. User paths are ch
 through dialogs. No fixed categories or slot naming. Animation preview duplicates
 mutable animation/material resources; one-shot clips remain one-shot.
 
+The editor now uses a main-screen workspace. `dock.gd` coordinates a real hierarchy,
+asset browser and two reusable `workshop_view.tscn` panes. A pane shares the edited
+root's World3D and owns its camera/UI outside that root. `set_context`, `set_tool`,
+framing, drag cancellation and face-overlay updates are public widget methods.
+Requests select native nodes, pick attachment targets or submit `{part,before,after}`
+world transforms. Live drags restore their original transform before the commands
+boundary records local transforms in native undo; root transforms are also supported.
+Fine adjustment has the same command boundary, with stale-context validation and
+explicit Apply/Cancel. Cameras, grids, environments and browsing previews never pack
+into a saved character. Reference geometry is used to pick posed skinned meshes.
+
+The read-only asset browser discovers imported models/3D scenes from EditorFileSystem,
+filters project paths and queues visible thumbnail previews. Requests add explicit
+project paths. Missing native previews use one representative visible mesh, inspected
+through SceneState without instantiation; preview material overrides affect private
+mesh copies only. Explicit import requests validate external GLBs for self-contained
+resources, copy them to a chosen project folder without overwrites, and add them
+after successful import.
+Formats with external dependencies use Godot's normal complete-asset import workflow.
+
 Check real native editor startup, UI commands and undo; static assembly, independent
 copies, local Head/Jaw and blend shapes, transformed parent attachment, save/cold
 reload, masked skinned meshes, and native/borrowed locomotion. Script errors fail.

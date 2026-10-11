@@ -4,6 +4,7 @@ extends RefCounted
 ## validate before changing the scene, and saving requires one explicit destination.
 
 const CARRIER_META := &"assembly_bone_carrier"
+const SOURCE_GROUP_META := &"assembly_source_group"
 
 
 static func generate_id() -> String:
@@ -26,9 +27,46 @@ static func create_part(source_path: String) -> Dictionary:
 	part.source_path = source_path
 	model.name = "Model"
 	part.add_child(model)
+	initialize_source_composition(part)
 	_expand_and_clone(part)
 	ensure_owned(part, part)
 	return _success({"part": part})
+
+
+## Native adoption snapshots must be captured after putting the chosen node under
+## its new wrapper as Model. Restore the first snapshot before unwrapping on undo.
+static func capture_source_composition(part: AssemblyPart) -> Array[Dictionary]:
+	var result: Array[Dictionary] = []
+	if is_instance_valid(part):
+		_capture_source_nodes(part.get_node_or_null("Model"), result)
+	return result
+
+
+## Explicit import/adoption only. A saved prefab's entire hierarchy is source
+## content, even when it already contains nested parts and generated carriers.
+## Capture once before/after and restore after on redo to keep stable identities.
+static func initialize_source_composition(part: AssemblyPart) -> void:
+	if not is_instance_valid(part):
+		return
+	var model := part.get_node_or_null("Model")
+	if model == null:
+		return
+	for nested in collect_parts(model):
+		nested.part_id = generate_id()
+	_mark_source_group(model, part.part_id)
+
+
+static func restore_source_composition(states: Array) -> void:
+	for state: Dictionary in states:
+		var node: Node = state.get("node")
+		if not is_instance_valid(node):
+			continue
+		if node is AssemblyPart and state.has("part_id"):
+			(node as AssemblyPart).part_id = state.part_id
+		if bool(state.get("had_source_group", false)):
+			node.set_meta(SOURCE_GROUP_META, state.get("source_group"))
+		elif node.has_meta(SOURCE_GROUP_META):
+			node.remove_meta(SOURCE_GROUP_META)
 
 
 static func collect_parts(root: Node) -> Array[AssemblyPart]:
@@ -193,13 +231,19 @@ static func attach(part: AssemblyPart, target: Node3D, mode: int, bone: String, 
 static func duplicate_part(part: AssemblyPart) -> Dictionary:
 	if not is_instance_valid(part):
 		return _failure("Choose an existing part to duplicate.")
-	# A part's dependent attachments are separate instances. Copy its own Model and
-	# ordinary components, not nested AssemblyParts or generated dependent sockets.
+	# Imported compositions may themselves contain AssemblyParts and bone carriers.
+	# Keep their recorded source group; later attachments remain separate instances.
+	var source_group := str(part.get_meta(SOURCE_GROUP_META, part.part_id))
 	var copy := part.duplicate(Node.DUPLICATE_SIGNALS | Node.DUPLICATE_GROUPS | Node.DUPLICATE_SCRIPTS) as AssemblyPart
 	if copy == null:
 		return _failure("This part could not be duplicated.")
-	_prune_dependent_parts(copy)
-	copy.part_id = generate_id()
+	_prune_dependent_parts(copy, source_group)
+	for nested in collect_parts(copy):
+		nested.part_id = generate_id()
+	_remap_source_group(copy, source_group, copy.part_id)
+	# A duplicated nested source part becomes its own independent grouping root.
+	if copy.has_meta(SOURCE_GROUP_META):
+		copy.remove_meta(SOURCE_GROUP_META)
 	copy.attachment_mode = AssemblyPart.AttachmentMode.SKINNED if part.attachment_mode == AssemblyPart.AttachmentMode.SKINNED else AssemblyPart.AttachmentMode.FREE
 	if copy.attachment_mode != AssemblyPart.AttachmentMode.SKINNED:
 		copy.target_path = NodePath()
@@ -425,13 +469,38 @@ static func _clone_value(value: Variant, resources: Dictionary) -> Variant:
 	return value
 
 
-static func _prune_dependent_parts(node: Node) -> void:
+static func _capture_source_nodes(node: Node, states: Array[Dictionary]) -> void:
+	if not is_instance_valid(node):
+		return
+	var state := {"node": node, "had_source_group": node.has_meta(SOURCE_GROUP_META), "source_group": node.get_meta(SOURCE_GROUP_META, "")}
+	if node is AssemblyPart:
+		state["part_id"] = (node as AssemblyPart).part_id
+	states.append(state)
 	for child in node.get_children():
-		if child is AssemblyPart or _is_carrier(child):
+		_capture_source_nodes(child, states)
+
+
+static func _mark_source_group(node: Node, group_id: String) -> void:
+	node.set_meta(SOURCE_GROUP_META, group_id)
+	for child in node.get_children():
+		_mark_source_group(child, group_id)
+
+
+static func _remap_source_group(node: Node, old_id: String, new_id: String) -> void:
+	if str(node.get_meta(SOURCE_GROUP_META, "")) == old_id:
+		node.set_meta(SOURCE_GROUP_META, new_id)
+	for child in node.get_children():
+		_remap_source_group(child, old_id, new_id)
+
+
+static func _prune_dependent_parts(node: Node, source_group: String) -> void:
+	for child in node.get_children():
+		var source_member := not source_group.is_empty() and str(child.get_meta(SOURCE_GROUP_META, "")) == source_group
+		if (child is AssemblyPart or _is_carrier(child)) and not source_member:
 			node.remove_child(child)
 			child.free()
 		else:
-			_prune_dependent_parts(child)
+			_prune_dependent_parts(child, source_group)
 
 
 static func _is_carrier(node: Node) -> bool:

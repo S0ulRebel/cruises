@@ -1,6 +1,7 @@
 extends SceneTree
 ## Explicit authoring checks. Outputs are unique user:// directories, never source
 ## assets. Run again with -- cold <printed COLD_SCENE_PATH> for a process-cold reopen.
+## Also run -- nested <printed COLD_NESTED_SCENE_PATH> for nested source compositions.
 
 const STATIC := "res://tests/fixtures/assembly_static.tscn"
 const HEAD := "res://art/characters/captain_live/pieces/head/head_face.glb"
@@ -19,6 +20,10 @@ func _run() -> void:
 	var args := OS.get_cmdline_user_args()
 	if args.size() == 2 and args[0] == "cold":
 		await _cold(args[1])
+		_finish()
+		return
+	if args.size() == 2 and args[0] == "nested":
+		await _cold_nested(args[1])
 		_finish()
 		return
 	var assembly := CharacterAssembly.new()
@@ -166,6 +171,9 @@ func _run() -> void:
 		_validate_loaded(loaded)
 		loaded.free()
 		print("COLD_SCENE_PATH=" + output)
+	var nested_output := await _nested_composition_checks(output_dir)
+	if not nested_output.is_empty():
+		print("COLD_NESTED_SCENE_PATH=" + nested_output)
 	assembly.free()
 	_cleanup()
 	_finish()
@@ -182,6 +190,183 @@ func _cold(path: String) -> void:
 	await process_frame
 	_validate_loaded(instance)
 	instance.free()
+
+
+func _nested_composition_checks(output_dir: String) -> String:
+	var source := CharacterAssembly.new()
+	source.name = "TwoPartSource"
+	source.assembly_id = AssemblyOperations.generate_id()
+	root.add_child(source)
+	var body: AssemblyPart = AssemblyOperations.create_part(STATIC).part
+	body.name = "SourceBody"
+	source.add_child(body)
+	body.transform = Transform3D(Basis.from_euler(Vector3(0.2, -0.1, 0.3)).scaled(Vector3(1.2, 0.9, 0.8)), Vector3(0.1, 0.3, -0.2))
+	var rig := Skeleton3D.new()
+	rig.name = "SourceSkeleton"
+	rig.add_bone("SourceSocket")
+	rig.set_bone_rest(0, Transform3D(Basis.from_euler(Vector3(0.1, 0.2, 0)), Vector3(0, 1.7, 0)))
+	body.get_node("Model").add_child(rig)
+	var accessory: AssemblyPart = AssemblyOperations.create_part(STATIC).part
+	accessory.name = "SourceAccessory"
+	source.add_child(accessory)
+	accessory.position = Vector3(0.2, 2.1, 0.3)
+	accessory.binding_data = Resource.new()
+	accessory.binding_data.set_meta("donor_path", accessory.get_path_to(rig))
+	var mask := MeshExclusionMask.new()
+	mask.source_node_path = NodePath("Model")
+	accessory.geometry_masks.append(mask)
+	AssemblyOperations.ensure_owned(source, source)
+	await process_frame
+	var attached := AssemblyOperations.attach(accessory, rig, AssemblyPart.AttachmentMode.BONE, "SourceSocket", source)
+	_check("nested source prefab has authored bone attachment", attached.ok and accessory.get_node_or_null(accessory.target_path) == rig)
+	var saved_source := output_dir + "/two_part_source.tscn"
+	var authored_ids := [body.part_id, accessory.part_id]
+	var saved := AssemblyOperations.save_scene(source, saved_source)
+	if not _check("nested two-part source saves explicitly", saved.ok):
+		source.free()
+		return ""
+	source.free()
+	var source_hash := FileAccess.get_sha256(ProjectSettings.globalize_path(saved_source))
+	var adopted := AssemblyPart.new()
+	adopted.part_id = AssemblyOperations.generate_id()
+	var adopted_model := (ResourceLoader.load(saved_source, "PackedScene", ResourceLoader.CACHE_MODE_IGNORE_DEEP) as PackedScene).instantiate()
+	adopted_model.name = "Model"
+	adopted.add_child(adopted_model)
+	var adoption_before := AssemblyOperations.capture_source_composition(adopted)
+	AssemblyOperations.initialize_source_composition(adopted)
+	var adoption_after := AssemblyOperations.capture_source_composition(adopted)
+	_check("explicit native adoption regenerates nested source identities", _ids_exclude(adopted, authored_ids) and _unique_ids(adopted))
+	AssemblyOperations.restore_source_composition(adoption_before)
+	_check("native adoption undo restores exact nested IDs and metadata presence", _source_snapshot_matches(adoption_before) and _named_part(adopted, "SourceBody").part_id == authored_ids[0] and _named_part(adopted, "SourceAccessory").part_id == authored_ids[1])
+	AssemblyOperations.restore_source_composition(adoption_after)
+	_check("native adoption redo restores the same new identities and source groups", _source_snapshot_matches(adoption_after) and _ids_exclude(adopted, authored_ids))
+	adopted.free()
+	var first_result := AssemblyOperations.create_part(saved_source)
+	var second_result := AssemblyOperations.create_part(saved_source)
+	if not _check("saved composition can be imported twice", first_result.ok and second_result.ok):
+		if first_result.ok: first_result.part.free()
+		if second_result.ok: second_result.part.free()
+		return ""
+	var assembly := CharacterAssembly.new()
+	assembly.name = "NestedAssembly"
+	assembly.assembly_id = AssemblyOperations.generate_id()
+	root.add_child(assembly)
+	var first: AssemblyPart = first_result.part
+	first.name = "FirstComposition"
+	assembly.add_child(first)
+	var second: AssemblyPart = second_result.part
+	second.name = "SecondComposition"
+	assembly.add_child(second)
+	second.position.x = 3
+	_check("both imports retain two source parts and their carrier", AssemblyOperations.collect_parts(first).size() == 3 and AssemblyOperations.collect_parts(second).size() == 3 and _nested_references_valid(first) and _nested_references_valid(second))
+	_check("imported nested IDs are new and disjoint", _unique_ids(assembly) and _ids_exclude(assembly, authored_ids))
+	_check("separate imported compositions have independent mutable resources", first.get_node("Model/SourceBody/Model").mesh != second.get_node("Model/SourceBody/Model").mesh and _named_part(first, "SourceAccessory").binding_data != _named_part(second, "SourceAccessory").binding_data)
+	var first_rig := first.get_node("Model/SourceBody/Model/SourceSkeleton") as Skeleton3D
+	var external: AssemblyPart = AssemblyOperations.create_part(STATIC).part
+	external.name = "ExternalAccessory"
+	assembly.add_child(external)
+	AssemblyOperations.ensure_owned(assembly, assembly)
+	var external_attachment := AssemblyOperations.attach(external, first_rig, AssemblyPart.AttachmentMode.BONE, "SourceSocket", assembly)
+	_check("external dependent added after import remains separate", external_attachment.ok and AssemblyOperations.collect_parts(first).size() == 4)
+	var source_ids: Array = []
+	for part in AssemblyOperations.collect_parts(assembly):
+		source_ids.append(part.part_id)
+	var nested_copy := AssemblyOperations.duplicate_part(_named_part(first, "SourceBody"))
+	if _check("duplicating an inner source part retains composed accessory and excludes external one", nested_copy.ok and AssemblyOperations.collect_parts(nested_copy.part).size() == 2 and _nested_references_valid(nested_copy.part) and _ids_exclude(nested_copy.part, source_ids)):
+		nested_copy.part.free()
+	elif nested_copy.ok:
+		nested_copy.part.free()
+	var duplicated := AssemblyOperations.duplicate_part(first)
+	if not _check("composition duplicate retains authored parts but excludes external accessory", duplicated.ok and AssemblyOperations.collect_parts(duplicated.part).size() == 3 and _named_part(duplicated.part, "ExternalAccessory") == null):
+		if duplicated.ok: duplicated.part.free()
+		assembly.free()
+		return ""
+	var copy: AssemblyPart = duplicated.part
+	copy.name = "CopiedComposition"
+	assembly.add_child(copy)
+	copy.global_transform = duplicated.world_transform
+	copy.position.x += 6
+	AssemblyOperations.ensure_owned(copy, assembly)
+	AssemblyOperations.rebase_references(duplicated.reference_states)
+	_check("composition duplicate regenerates every nested part ID", _unique_ids(assembly) and _ids_exclude(copy, source_ids))
+	_check("copied source attachment and binding paths resolve inside its own rig", _nested_references_valid(copy))
+	var copied_body := _named_part(copy, "SourceBody")
+	var original_body := _named_part(first, "SourceBody")
+	var copied_model := copied_body.get_node("Model") as MeshInstance3D
+	var original_model := original_body.get_node("Model") as MeshInstance3D
+	_check("nested duplicate mutable meshes and binding masks remain independent", copied_model.mesh != original_model.mesh and _named_part(copy, "SourceAccessory").geometry_masks[0] != _named_part(first, "SourceAccessory").geometry_masks[0])
+	var output := output_dir + "/nested_assembly.tscn"
+	var saved_nested := AssemblyOperations.save_scene(assembly, output)
+	_check("multiple imports and duplicate can save together with unique identities", saved_nested.ok)
+	_check("source prefab is untouched by import duplicate and save", FileAccess.get_sha256(ProjectSettings.globalize_path(saved_source)) == source_hash)
+	assembly.free()
+	if not saved_nested.ok:
+		return ""
+	await _cold_nested(output)
+	return output
+
+
+func _cold_nested(path: String) -> void:
+	var packed := ResourceLoader.load(path, "PackedScene", ResourceLoader.CACHE_MODE_IGNORE_DEEP) as PackedScene
+	if not _check("nested reusable scene opens", packed != null):
+		return
+	var instance := packed.instantiate()
+	root.add_child(instance)
+	await process_frame
+	_check("cold nested scene retains all three compositions and one external accessory", AssemblyOperations.collect_parts(instance).size() == 10 and _unique_ids(instance))
+	for node_name in ["FirstComposition", "SecondComposition", "CopiedComposition"]:
+		var part := instance.get_node(node_name) as AssemblyPart
+		_check("cold %s retains its local authored attachment paths" % node_name, _nested_references_valid(part))
+		var copied := AssemblyOperations.duplicate_part(part)
+		if _check("cold %s duplicate preserves source boundary" % node_name, copied.ok and AssemblyOperations.collect_parts(copied.part).size() == 3 and _named_part(copied.part, "ExternalAccessory") == null):
+			copied.part.free()
+		elif copied.ok:
+			copied.part.free()
+	instance.free()
+
+
+func _nested_references_valid(part: AssemblyPart) -> bool:
+	var body := _named_part(part, "SourceBody")
+	var accessory := _named_part(part, "SourceAccessory")
+	if body == null or accessory == null:
+		return false
+	var rig := body.get_node_or_null("Model/SourceSkeleton") as Skeleton3D
+	return rig != null and accessory.get_parent() is BoneAttachment3D and accessory.get_node_or_null(accessory.target_path) == rig and accessory.get_node_or_null(accessory.binding_data.get_meta("donor_path")) == rig and accessory.get_node_or_null(accessory.geometry_masks[0].source_node_path) == accessory.get_node("Model")
+
+
+func _named_part(root_node: Node, node_name: String) -> AssemblyPart:
+	for part in AssemblyOperations.collect_parts(root_node):
+		if part.name == node_name:
+			return part
+	return null
+
+
+func _unique_ids(root_node: Node) -> bool:
+	var seen := {}
+	for part in AssemblyOperations.collect_parts(root_node):
+		if part.part_id.is_empty() or seen.has(part.part_id):
+			return false
+		seen[part.part_id] = true
+	return true
+
+
+func _ids_exclude(root_node: Node, excluded: Array) -> bool:
+	for part in AssemblyOperations.collect_parts(root_node):
+		if part.part_id in excluded:
+			return false
+	return true
+
+
+func _source_snapshot_matches(states: Array) -> bool:
+	for state: Dictionary in states:
+		var node: Node = state.node
+		if not is_instance_valid(node) or node.has_meta(AssemblyOperations.SOURCE_GROUP_META) != state.had_source_group:
+			return false
+		if state.had_source_group and node.get_meta(AssemblyOperations.SOURCE_GROUP_META) != state.source_group:
+			return false
+		if state.has("part_id") and (node as AssemblyPart).part_id != state.part_id:
+			return false
+	return true
 
 
 func _validate_loaded(instance: Node) -> void:

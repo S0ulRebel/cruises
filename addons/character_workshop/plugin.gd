@@ -393,12 +393,20 @@ func _bind(part: Node3D, donor: Node3D) -> void:
 			result.model.free()
 		return
 	dock.get_node("%CancelBinding").hide()
+	if _binding_cancel:
+		if result.get("model") is Node and is_instance_valid(result.model):
+			result.model.free()
+		dock.set_status("Binding cancelled; the original Model is retained.")
+		return
 	if not is_instance_valid(part) or not is_instance_valid(donor):
 		if result.get("model") is Node and is_instance_valid(result.model):
 			result.model.free()
 		dock.set_status("Binding cancelled because its part or donor was removed.", true)
 		return
-	_report(commands.apply_binding(part, result, donor), "Clothing bound. Undo restores the whole original Model; fit provenance is retained.")
+	var applied: Dictionary = commands.apply_binding(part, result, donor)
+	if not applied.get("ok", false) and result.get("model") is Node and is_instance_valid(result.model):
+		result.model.free()
+	_report(applied, "Clothing bound. Undo restores the whole original Model; fit provenance is retained.")
 
 func _geometry_source() -> Mesh:
 	if not is_instance_valid(dock.current_part) or not is_instance_valid(dock.current_mesh):

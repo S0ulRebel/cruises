@@ -400,8 +400,8 @@ func change_geometry(part: Node3D, mesh: MeshInstance3D, selected: Dictionary, o
 	var error := _valid_part(part)
 	if not error.is_empty():
 		return _fail(error)
-	if mesh == null or mesh.mesh == null or not part.is_ancestor_of(mesh):
-		return _fail("Select a mesh inside this part.")
+	if mesh == null or mesh.mesh == null or Ops.nearest_part(mesh) != part:
+		return _fail("Select a mesh owned by this part. Select an attached part separately to edit its geometry.")
 	for value: Resource in part.get("geometry_masks"):
 		if value is Mask and part.get_node_or_null(value.source_node_path) == null:
 			return _fail("An exclusion target was moved or renamed. Repair the retained mesh references first.")
@@ -446,10 +446,17 @@ func change_geometry(part: Node3D, mesh: MeshInstance3D, selected: Dictionary, o
 		new_masks.append(next)
 	var collision: Array = []
 	for node: Node in _all_nodes(part):
-		if node is CollisionShape3D or node is CollisionPolygon3D:
+		if (node is CollisionShape3D or node is CollisionPolygon3D) and Ops.nearest_part(node) == part:
 			collision.append({"node": node, "disabled": node.disabled})
-	var collision_original: Dictionary = previous.get_meta("collision_original", {}) if previous != null else {}
-	if previous == null:
+	# Every mask on one part shares the pre-exclusion baseline. A second mesh must
+	# not capture the already-disabled state and keep collision disabled after Reset.
+	var collision_original: Dictionary = previous.get_meta("collision_original", {}).duplicate() if previous != null else {}
+	if collision_original.is_empty():
+		for value: Resource in old_masks:
+			if value is Mask and value.has_meta("collision_original"):
+				collision_original = value.get_meta("collision_original").duplicate()
+				break
+	if collision_original.is_empty():
 		for entry: Dictionary in collision:
 			collision_original[part.get_path_to(entry.node)] = entry.disabled
 	next.set_meta("collision_original", collision_original)
@@ -503,6 +510,10 @@ func apply_binding(part: Node3D, result: Dictionary, donor: Node3D) -> Dictionar
 		return _fail(error)
 	if not result.get("ok", false):
 		return result
+	if not dependents(part).is_empty():
+		return _fail("Detach this part's dependent attachments before converting its Model.")
+	if not part.get("geometry_masks").is_empty():
+		return _fail("Reset this part's mesh exclusions before binding, then reapply them to the bound result.")
 	var old: Node = part.get_node_or_null("Model")
 	var model: Node = result.get("model")
 	if old == null or model == null or model.get_parent() != null:

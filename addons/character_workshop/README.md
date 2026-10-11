@@ -42,6 +42,8 @@ Orange overlays preview selected faces, including excluded source faces for rest
 Disable face mode to resume ordinary transform handling; viewport input is otherwise
 untouched. Existing collision in a changed part is disabled deliberately, with its
 original state retained for reset/undo. Author suitable replacement collision explicitly.
+Geometry controls list only meshes owned by the selected part. Select an attached part
+separately to change its mesh; exclusion does not disable that attachment's collision.
 
 Masks identify source faces and retain a fingerprint. Stale masks fail validation;
 old face indices are never applied to an unrelated mesh. UVs, materials, skin weights

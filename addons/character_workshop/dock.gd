@@ -4,6 +4,8 @@ extends ScrollContainer
 
 signal request(action: String, value: Variant)
 
+const Ops = preload("res://actors/assembly/operations.gd")
+
 var current_part: Node3D
 var current_mesh: MeshInstance3D
 var current_target: Node3D
@@ -74,7 +76,7 @@ func populate(root: Node3D, parts: Array, selected: Node3D) -> void:
 	%Meshes.clear()
 	if selected != null:
 		for node: Node in _nodes(selected):
-			if node is MeshInstance3D and node.mesh != null:
+			if node is MeshInstance3D and node.mesh != null and Ops.nearest_part(node) == selected:
 				var index: int = %Meshes.item_count
 				%Meshes.add_item(str(selected.get_path_to(node)))
 				%Meshes.set_item_metadata(index, node)
@@ -201,6 +203,8 @@ func _statistics(part: Node3D) -> String:
 	var bones := 0
 	var shapes := 0
 	for node: Node in _nodes(part):
+		if Ops.nearest_part(node) != part:
+			continue
 		if node is MeshInstance3D and node.mesh != null:
 			if node.mesh.has_method("get_blend_shape_count"):
 				shapes += node.mesh.get_blend_shape_count()

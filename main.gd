@@ -23,6 +23,7 @@ const BorrowClips := preload("res://actors/parts/borrow_clips.gd")
 const Animator := preload("res://actors/parts/animator.gd")
 const Hotspot := preload("res://room3d/hotspot.gd")
 const Inventory := preload("res://ui/inventory.gd")
+const Pointer := preload("res://ui/pointer.gd")
 
 ## Skip the cold open and start in the room. Defaults ON while the room is being built:
 ## the cold open is a 35-second 2D cutscene, and sitting through it before every test is
@@ -56,6 +57,8 @@ var _player: Mover
 var _cast: Dictionary = {}
 var _movers: Dictionary = {}
 var _inventory: Inventory
+var _pointer: Pointer
+var _hovered: Node = null
 var _busy := false  ## A cutscene or conversation is running; the room ignores clicks.
 var _auto := false
 
@@ -98,6 +101,10 @@ func _ready() -> void:
 	_dialogue.setup(_caption, _choices)
 	_dialogue.set_cast(_cast)
 	_dialogue.verbose = _auto
+
+	_pointer = Pointer.new()
+	_pointer.name = "Pointer"
+	add_child(_pointer)
 
 	_inventory = Inventory.new()
 	_inventory.name = "Inventory"
@@ -165,6 +172,23 @@ func _enter_room() -> void:
 	if "--record" in args2:
 		await _record()
 	if "--shot" in args2:
+		if "--hover" in args2:
+			# Put the cursor on something clickable so the caption and the highlight
+			# are in the picture. Without a real mouse position there is nothing to
+			# photograph - hover state does not exist until something is under it.
+			# By TYPE, not by name: the hotspot and the mesh it lights up are both
+			# called "Crate", and find_child returns whichever comes first.
+			var crate: Hotspot = null
+			for node in _room.find_children("*", "Area3D", true, false):
+				if node is Hotspot and (node as Hotspot).display_name == "Crate":
+					crate = node as Hotspot
+					break
+			if crate:
+				Input.warp_mouse(_room.camera.unproject_position(crate.global_position))
+				await get_tree().process_frame
+				await get_tree().process_frame
+				_hover_hotspot(crate)
+			await get_tree().create_timer(0.4).timeout
 		if "--talking" in OS.get_cmdline_user_args() + OS.get_cmdline_args():
 			# Through the REAL conversation, not a say() of our own. Calling say()
 			# directly bypasses the cast lookup, which is exactly where the portrait
@@ -183,6 +207,82 @@ func _enter_room() -> void:
 					break
 			await get_tree().create_timer(0.5).timeout
 		await _save_shot()
+
+
+## Name what is under the cursor, and say what clicking would do. The verb depends on
+## what is being carried, so this is recomputed on hover rather than cached - picking
+## up the rapier changes what the crate offers without the cursor leaving it.
+func _hover_hotspot(spot: Hotspot) -> void:
+	if _busy:
+		return
+	_hovered = spot
+	_highlight(spot, true)
+	var verb := spot.resolve(_inventory.selection)
+	var held := _inventory.display_name(_inventory.selection) if not _inventory.selection.is_empty() else ""
+	_pointer.point_at(spot.display_name, spot.phrase(verb, held))
+
+
+func _hover_person(mover: Node3D, who: String) -> void:
+	if _busy:
+		return
+	_hovered = mover
+	_pointer.point_at(who, "Talk to %s" % who)
+
+
+func _unhover(what: Node) -> void:
+	if _hovered != what:
+		return
+	_highlight(what, false)
+	_hovered = null
+	_pointer.clear()
+
+
+## A rim of light on whatever the cursor is over. Cheap, readable over any backdrop,
+## and it does not shift the thing it is marking - an outline that grows the silhouette
+## reads as the object moving.
+func _highlight(what: Node, on: bool) -> void:
+	# A hotspot has no mesh of its own, so it names one - see _hotspot().
+	var target: Node = what
+	if what.has_meta("visual"):
+		var named := _room.find_child(String(what.get_meta("visual")), true, false)
+		if named:
+			target = named
+	for node in _meshes_of(target):
+		var mesh := node as MeshInstance3D
+		# material_override beats any surface override, so a mesh that has one has to
+		# be lit through it - setting a surface override on a box built by _add_box
+		# changes nothing at all, silently.
+		if mesh.material_override is BaseMaterial3D:
+			_set_glow(mesh.material_override as BaseMaterial3D, on)
+			continue
+		for surface in mesh.mesh.get_surface_count():
+			var material := mesh.get_active_material(surface)
+			if material is BaseMaterial3D:
+				var lit: BaseMaterial3D = mesh.get_surface_override_material(surface) as BaseMaterial3D
+				if lit == null:
+					lit = (material as BaseMaterial3D).duplicate()
+					mesh.set_surface_override_material(surface, lit)
+				_set_glow(lit, on)
+
+
+## A lift rather than a glow. Warm, not white, so it reads as lamplight catching the
+## thing rather than as a selection box - and faint, because 0.9 turned the crate into
+## a lantern. The player needs to know it is clickable, not be dazzled by it.
+func _set_glow(material: BaseMaterial3D, on: bool) -> void:
+	material.emission_enabled = on
+	material.emission = Color("#c79a52")
+	material.emission_energy_multiplier = 0.18 if on else 0.0
+
+
+## Every mesh in or under a node, including the node itself. A generated prop is a
+## mesh inside a scene; a placeholder box IS the mesh.
+func _meshes_of(node: Node) -> Array:
+	var out: Array = []
+	if node is MeshInstance3D:
+		out.append(node)
+	for child in node.find_children("*", "MeshInstance3D", true, false):
+		out.append(child)
+	return out
 
 
 func _on_floor_clicked(point: Vector3) -> void:
@@ -214,10 +314,14 @@ func _add_talk_trigger(mover: Mover, entry: Dictionary) -> void:
 			if click and click.pressed and click.button_index == MOUSE_BUTTON_LEFT and not _busy:
 				get_viewport().set_input_as_handled()
 				_approach_and_talk(mover, conversation))
+	var who := String(entry.get("name", entry["id"]))
+	area.mouse_entered.connect(_hover_person.bind(mover, who))
+	area.mouse_exited.connect(_unhover.bind(mover))
 
 
 func _approach_and_talk(target: Mover, conversation: String) -> void:
 	_busy = true
+	_pointer.clear()
 	# Stop short of them rather than walking into their chest, and face them when we
 	# get there. A character carries an obstacle, so the path already goes around them
 	# rather than through - this is only about where to stop.
@@ -310,7 +414,7 @@ func _add_furniture() -> void:
 			_add_collision(piece["at"], piece["size"])
 		else:
 			_add_box(piece["at"], piece["size"], Color(String(piece["colour"])),
-				bool(piece.get("solid", true)))
+				bool(piece.get("solid", true)), String(piece["name"]))
 	for piece in DRESSING:
 		_add_prop(piece)
 	_add_fishbowl(Vector3(-3.3, 0.76, -1.2))                                         # on the desk
@@ -483,8 +587,10 @@ func _add_collision(at: Vector3, size: Vector3) -> void:
 ## The body is what makes it a thing rather than a picture. It stops the character
 ## walking through it, it is what the walkable area is cut around (see Room3D.NAV_SOURCE),
 ## and it is what a click has to land on. A mesh with no body is scenery.
-func _add_box(at: Vector3, size: Vector3, colour: Color, solid := true) -> void:
+func _add_box(at: Vector3, size: Vector3, colour: Color, solid := true, label := "") -> void:
 	var mesh := MeshInstance3D.new()
+	if not label.is_empty():
+		mesh.name = label.capitalize()
 	var box := BoxMesh.new()
 	box.size = size
 	mesh.mesh = box
@@ -785,20 +891,20 @@ func _save_shot() -> void:
 ## The things worth clicking, as data for the same reason as FURNITURE. `stand` is the
 ## fallback approach; ZERO means work it out from wherever the character happens to be.
 const HOTSPOTS := [
-	{ "label": "Porthole", "at": Vector3(0.0, 1.55, -3.3), "stand": Vector3(0.0, 0, -2.4),
+	{ "label": "Porthole", "at": Vector3(0.0, 1.55, -3.3), "stand": Vector3(0.0, 0, -2.4), "visual": "Porthole",
 	  "props": { "description": "Fog. The same fog as yesterday, and no closer to telling us where we are." } },
-	{ "label": "Desk", "at": Vector3(-3.6, 0.8, -1.4), "stand": Vector3(-3.6, 0, -0.3),
+	{ "label": "Desk", "at": Vector3(-3.6, 0.8, -1.4), "stand": Vector3(-3.6, 0, -0.3), "visual": "Desk",
 	  "props": { "description": "Charts, a compass, and a dried-out inkwell. He navigates by instinct and blames the charts." } },
 	{ "label": "Fishbowl", "at": Vector3(-3.3, 0.95, -1.2), "stand": Vector3(-3.0, 0, -0.3),
 	  "props": { "description": "Count Fingers regards you the way a customs officer regards a crate.",
 	             "gives_item": "fishbowl" } },
-	{ "label": "Compass", "at": Vector3(-3.9, 0.82, -1.25), "stand": Vector3(-3.9, 0, -0.3),
+	{ "label": "Compass", "at": Vector3(-3.9, 0.82, -1.25), "stand": Vector3(-3.9, 0, -0.3), "visual": "Compass",
 	  "props": { "description": "The needle swings, settles, and points at nothing in particular. Much like its owner.",
 	             "gives_item": "compass" } },
-	{ "label": "Inkwell", "at": Vector3(-3.1, 0.84, -1.55), "stand": Vector3(-3.1, 0, -0.3),
+	{ "label": "Inkwell", "at": Vector3(-3.1, 0.84, -1.55), "stand": Vector3(-3.1, 0, -0.3), "visual": "Brass_inkwell",
 	  "props": { "description": "Dry since the second week. He writes the log from memory, which is why it is a work of fiction.",
 	             "gives_item": "brass_inkwell" } },
-	{ "label": "Crate", "at": Vector3(3.9, 0.9, 1.9), "stand": Vector3(3.9, 0, 2.9),
+	{ "label": "Crate", "at": Vector3(3.9, 0.9, 1.9), "stand": Vector3(3.9, 0, 2.9), "visual": "Crate",
 	  "props": { "description": "Stencilled LE CHAOS NAVIGUE TOUJOURS PLUS LOIN. Nailed shut.",
 	             "needs_item": "rapier",
 	             "refusal": "It is nailed shut, and the captain is not going to use his fingers.",
@@ -808,10 +914,15 @@ const HOTSPOTS := [
 
 func _add_hotspots() -> void:
 	for entry in HOTSPOTS:
-		_hotspot(String(entry["label"]), entry["at"], entry["stand"], entry["props"])
+		_hotspot(String(entry["label"]), entry["at"], entry["stand"], entry["props"],
+			String(entry.get("visual", "")))
 
 
-func _hotspot(label: String, at: Vector3, stand: Vector3, props: Dictionary) -> void:
+## `visual` names the room child to light up on hover. A hotspot is an invisible area;
+## the thing the player sees is a separate mesh, and without this the caption appears
+## while nothing on screen responds.
+func _hotspot(label: String, at: Vector3, stand: Vector3, props: Dictionary,
+		visual := "") -> void:
 	var spot := Area3D.new()
 	spot.set_script(Hotspot)
 	spot.name = label
@@ -846,6 +957,10 @@ func _hotspot(label: String, at: Vector3, stand: Vector3, props: Dictionary) -> 
 			if click and click.pressed and click.button_index == MOUSE_BUTTON_LEFT and not _busy:
 				get_viewport().set_input_as_handled()
 				_approach_hotspot(spot))
+	if not visual.is_empty():
+		spot.set_meta("visual", visual)
+	spot.mouse_entered.connect(_hover_hotspot.bind(spot))
+	spot.mouse_exited.connect(_unhover.bind(spot))
 
 
 ## Walk over, then act. Acting from across the room reads as telekinesis.
@@ -855,6 +970,7 @@ func _hotspot(label: String, at: Vector3, stand: Vector3, props: Dictionary) -> 
 ## from what he is carrying.
 func _approach_hotspot(spot: Hotspot) -> void:
 	_busy = true
+	_pointer.clear()
 	var verb := spot.resolve(_inventory.selection)
 	var where := spot.resolve_approach(verb, _player.global_position)
 	_player.walk_to(where["at"], where["facing"])

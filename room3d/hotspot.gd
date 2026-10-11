@@ -94,6 +94,30 @@ func resolve(held: String) -> Verb:
 	return Verb.LOOK
 
 
+## What clicking this would read as, for the cursor caption. The player should know
+## before they click whether they are about to look at the crate or prise it open with
+## the rapier they are carrying.
+##
+## `held_name` is the display name of the held item, not its id - "Rapier", not
+## "rapier" - because this is prose, not a lookup.
+func phrase(verb: Verb, held_name := "") -> String:
+	match verb:
+		Verb.TALK:
+			return "Talk to %s" % display_name
+		Verb.USE:
+			if not held_name.is_empty() and not needs_item.is_empty():
+				return "Use %s on %s" % [held_name, display_name]
+			if not gives_item.is_empty():
+				return "Take %s" % display_name
+			return "Use %s" % display_name
+		_:
+			# A hotspot that WANTS something says so, so the player knows it is a lock
+			# rather than scenery, without being told which key.
+			if not needs_item.is_empty() and held_name.is_empty():
+				return "Look at %s" % display_name
+			return "Look at %s" % display_name
+
+
 func interact(verb: Verb, held: String) -> void:
 	match verb:
 		Verb.TALK:

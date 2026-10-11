@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" format=3]
+
+[ext_resource type="Shader" path="res://materials/stylized_lighting/variants/12_spotlight/spotlight_graph_shader.tres" id="1_pks55"]
+
+[resource]
+resource_local_to_scene = true
+resource_name = "Spotlight Graph"
+render_priority = 0
+shader = ExtResource("1_pks55")
+shader_parameter/point_weight = 1.0

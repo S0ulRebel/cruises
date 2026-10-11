@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" format=3]
+
+[ext_resource type="Shader" path="res://materials/stylized_lighting/variants/15_height_gradient/height_gradient_graph_shader.tres" id="1_u0rv3"]
+
+[resource]
+resource_local_to_scene = true
+resource_name = "Height Gradient Graph"
+render_priority = 0
+shader = ExtResource("1_u0rv3")

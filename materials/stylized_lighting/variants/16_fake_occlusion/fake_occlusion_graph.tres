@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" format=3]
+
+[ext_resource type="Shader" path="res://materials/stylized_lighting/variants/16_fake_occlusion/fake_occlusion_graph_shader.tres" id="1_sc5qc"]
+
+[resource]
+resource_local_to_scene = true
+resource_name = "Fake Occlusion Graph"
+render_priority = 0
+shader = ExtResource("1_sc5qc")

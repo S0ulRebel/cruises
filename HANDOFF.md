@@ -815,6 +815,21 @@ triangles. The 2D redo is delivered; successful reconstruction is NOT yet verifi
 
 ---
 
+### 2026-10-11 — for the engine side — scene authoring and agent collaboration plan
+
+The owner requested a prioritized plan covering editable reusable scene objects,
+removal of scene regeneration flags/tools, and modular ownership for parallel agents.
+The full checklist and completion checks are in
+[docs/REFACTOR_PLAN.md](docs/REFACTOR_PLAN.md). Follow its priority order: preserve
+the baseline, establish module ownership, migrate fixed content and remove builders,
+repair behavior, then validate integration and update documentation.
+
+Only the plan and its documentation links are implemented. The game code, scenes,
+generators and flags still need the listed work. Do not run `--pack` or
+`tools/make_prefabs.gd`; both overwrite authored scenes.
+
+---
+
 ## Done
 
 ### 2026-10-11 — for the art agent — the dialogue bar, with the portrait frame in it

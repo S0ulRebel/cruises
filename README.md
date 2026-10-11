@@ -15,6 +15,11 @@ That file is how the art side and the engine side pass work to each other - what
 open, what is done, and the decisions that are settled. It is not chat and it is not
 relayed by the owner.
 
+The current structural work is tracked in the prioritized
+[Scene Authoring and Agent Collaboration Plan](docs/REFACTOR_PLAN.md).
+It covers editable prefab scenes, removal of regeneration flags, module ownership
+and the checks required before the migration is complete.
+
 ## What runs today
 
 The cold open, played from a data file, with placeholder art.

@@ -126,6 +126,59 @@ func _build_backdrop() -> void:
 	backdrop.material_override = mat
 	add_child(backdrop)
 
+	_build_shell()
+
+
+## The rest of the box: two side walls and a ceiling.
+##
+## Placeholder, like the backdrop - the art session's room pieces replace all of it.
+## Until then they are what stops the camera looking out of the room into grey void,
+## which the low wide lens does in three directions at once.
+##
+## LIT, where the backdrop is unshaded. The backdrop stands in for a painting and a
+## painting carries its own light; these stand in for walls, and a wall that does not
+## take light is the one surface in the room that cannot show it is a room. They are
+## also what the stylised lighting will be judged against, so they have to receive it.
+##
+## Not solid. Nothing walks into them - the floor is 12 x 7 and the navigation mesh is
+## cut from it, so the character already cannot leave. A collision body here would be
+## a second thing to keep in step for no gain.
+func _build_shell() -> void:
+	# A shade off the backdrop so the corners read. Flat colour either way; the point
+	# is that the eye can see where one plane stops and the next begins.
+	var walls := StandardMaterial3D.new()
+	walls.albedo_color = Color("#4a2f1c")
+	walls.roughness = 0.95
+
+	var ceiling_material := StandardMaterial3D.new()
+	# Darker than the walls. A ceiling the same value as the walls flattens the box;
+	# in the target render it is the darkest surface because nothing lights it.
+	ceiling_material.albedo_color = Color("#2a1b10")
+	ceiling_material.roughness = 1.0
+
+	for side in [-1.0, 1.0]:
+		var wall := MeshInstance3D.new()
+		wall.name = "WallLeft" if side < 0.0 else "WallRight"
+		var quad := QuadMesh.new()
+		quad.size = Vector2(room_depth, wall_height)
+		wall.mesh = quad
+		wall.position = Vector3(side * room_width * 0.5, wall_height * 0.5, 0.0)
+		# Turned to face into the room: a quad faces +Z, so the left wall looks +X.
+		wall.rotation_degrees = Vector3(0.0, -90.0 * side, 0.0)
+		wall.material_override = walls
+		add_child(wall)
+
+	var ceiling := MeshInstance3D.new()
+	ceiling.name = "Ceiling"
+	var lid := PlaneMesh.new()
+	lid.size = Vector2(room_width, room_depth)
+	ceiling.mesh = lid
+	ceiling.position = Vector3(0.0, wall_height, 0.0)
+	# A PlaneMesh faces up; flipped so it is seen from underneath.
+	ceiling.rotation_degrees = Vector3(180.0, 0.0, 0.0)
+	ceiling.material_override = ceiling_material
+	add_child(ceiling)
+
 
 ## The walkable area, baked from the floor minus whatever solid stands on it.
 ##

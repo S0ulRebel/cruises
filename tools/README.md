@@ -14,7 +14,8 @@ imports them. Scene packing flags and batch scene/prefab builders are removed.
   `unrig`, `extract_shells`, `merge_animations`, `add_hand_poses`) require source and
   destination arguments. Follow `docs/RIGGING.md` for new modular parts and the
   legacy full-character guide in `docs/PIPELINE.md` for existing imports.
-- `make_loop.py source.wav --out output.ogg`: audio loop authoring.
+- `make_loop.py source.wav --out output.wav`: cut a lossless audio loop; encode its
+  final OGG with `encode_ogg.py` through Blender as described in `docs/AUDIO.md`.
 
 Keep source models and import settings versioned. Do not delete local art or caches
 to conceal validation failures. Diagnostic output belongs in a unique run directory.

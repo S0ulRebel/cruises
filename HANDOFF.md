@@ -6,7 +6,8 @@ and prop sheets, and the engine side, who puts them in the game.
 
 ## Current architecture — 2026-10-11
 
-Scene migration is in progress on `codex/modular-scenes`. Read `AGENTS.md` and
+Scene migration is integrated on `codex/modular-scenes`; final clean-checkout
+verification is in progress. Read `AGENTS.md` and
 `docs/REFACTOR_PLAN.md`. Game owns startup wiring; named `locations/` own placement.
 Fixed objects and UI/audio use authored prefabs. Packing flags and batch builders
 have been retired. Normal startup/tests must not save scene/model resources.
@@ -14,6 +15,11 @@ have been retired. Normal startup/tests must not save scene/model resources.
 Detailed implementation handoffs belong in module directories. This file indexes
 integration status and preserves historical art decisions. Root integration owns
 shared paths and location composition; parallel editing uses assigned worktrees.
+
+Module records: `actors/HANDOFF.md`, `props/HANDOFF.md`, `ui/HANDOFF.md` and
+`tests/HANDOFF.md`. `docs/migration/README.md` indexes commits, checks and preserved
+baseline evidence. The original camera composition and unrigged clothing delivery
+still have the authoring decisions listed there.
 
 ## The rule
 
@@ -836,13 +842,16 @@ The full checklist and completion checks are in
 the baseline, establish module ownership, migrate fixed content and remove builders,
 repair behavior, then validate integration and update documentation.
 
-Confirmed naming: use `game/` for startup and `locations/` for playable places,
-including indoor rooms and outdoor areas. The cabin remains `captains_cabin`,
-with planned root `CaptainsCabin`. Current code and paths are unchanged until migration.
+Implemented naming: `game/game.tscn` is the startup wrapper, root Game;
+`locations/captains_cabin/captains_cabin.tscn`, root CaptainsCabin, is the initial
+playable place. Indoor and outdoor locations reuse the same authored components.
 
-Only the plan and its documentation links are implemented. The game code, scenes,
-generators and flags still need the listed work. Do not run `--pack` or
-`tools/make_prefabs.gd`; both overwrite authored scenes.
+Fixed content and default UI/audio are now reusable scenes. Both batch builders and
+custom game/packing switches are removed. Module agents used separate worktrees;
+integration includes navigation, movement/interaction completion, dialogue scrolling,
+portrait/item resources and isolated explicit outfit saves. Tasks 1–23 are complete;
+the plan keeps task 24 open for final clean-checkout and lifecycle verification.
+See `docs/migration/README.md` for evidence and remaining art/composition decisions.
 
 ---
 

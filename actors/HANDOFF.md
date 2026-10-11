@@ -18,5 +18,5 @@ The outfit workshop discovers current delivery paths and uses explicit, isolated
 per-character/per-outfit outputs. Role-based pinned fitting/refitting and explicit
 assembled-scene export were verified. See outfit/README.md for the authoring workflow.
 
-Integration uses each Mover.definition; old cast placement tables should be retired.
-Captain's portrait_scene is assigned by UI/integration when that scene lands.
+Integration uses each Mover.definition; old cast placement/fitting tables are retired.
+Captain's portrait_scene now points to ui/portraits/captain_live.tscn.

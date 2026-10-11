@@ -29,7 +29,7 @@ GameState owns flags, held items and selection. UI presents state; dialogue and 
 
 ## Navigation and assets
 
-Walkable bodies use physics layer 2. Static bake sources persist in nav_source. Bake authored NavigationRegion3D geometry in the editor after moving solid objects; save the mesh with the location. Startup waits for synchronization and does not bake. Dynamic character avoidance uses saved NavigationAgent3D settings; obstacle carving affects baking.
+Walkable bodies use physics layer 2. Static bake sources persist in nav_source. Bake authored NavigationRegion3D geometry in the editor after moving solid objects; save the mesh with the location. Startup waits for synchronization and does not bake. A location with no navigation regions is deliberately nonwalkable; a supplied region requires a usable baked mesh. Failed transitions preserve the previous place and session state. Dynamic character avoidance uses saved NavigationAgent3D settings; obstacle carving affects baking.
 
 One model metre equals one world metre; actor origins are at the feet. Existing actors face +Z to match measured donor clips and Mover. Props preserve their measured orientation as editable model-child transforms. No script guesses orientation or rescales source art at startup.
 

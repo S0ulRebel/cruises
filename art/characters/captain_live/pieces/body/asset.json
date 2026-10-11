@@ -5,7 +5,8 @@
   "character_id": "captain_live",
   "slot": "body",
   "files": {
-    "sheet": "sheet.png"
+    "sheet": "sheet.png",
+    "model": "body.glb"
   },
   "source": {
     "producer": "OpenAI image generation via ChatGPT",
@@ -79,7 +80,7 @@
     "nominal_height_m": 1.67
   },
   "pipeline": {
-    "status": "source_sheets_ready_for_tripo_experiment",
+    "status": "owner_selected_modular_body_delivered_pending_engine_fit",
     "rigging": "Auto-rig this body by the documented pipeline; its resulting T-pose is the fitting and weight-copy reference for the other pieces.",
     "three_d_generator_allowed": "Tripo only",
     "forbidden_generators": [
@@ -87,7 +88,7 @@
       "HY-Motion"
     ],
     "nc_models_used": false,
-    "reconstruction_complete": false,
+    "reconstruction_complete": true,
     "engine_import_complete": false,
     "ready_for_reconstruction_experiment": true,
     "view_extraction": "tools/crop_views.py using validation.final_extraction.recommended_command",
@@ -183,5 +184,40 @@
       "after_two_x_upscale_px": 1918
     },
     "source_framing_precision": "Native height and baseline differences are recorded in final_extraction; do not describe all source sheets as pixel-exact. Extracted inputs share one per-piece scale and baseline."
+  },
+  "model_delivery": {
+    "role": "owner-selected lower-polygon base body for Captain Live modular assembly",
+    "provided_by": "owner",
+    "provided_date": "2026-10-11",
+    "original_filename": "captain live body.glb",
+    "copy_policy": "supplied GLB copied byte-for-byte; no geometry, texture, rig or transform edits",
+    "texture_lighting": "owner-supplied corrected version after removing lighting from the texture; not independently rendered",
+    "model_file": "body.glb",
+    "sha256": "599233fd71d747b282ded6b702652b083a10ba8441ea701f5367832a29da69bb",
+    "bytes": 7071760,
+    "mesh_count": 1,
+    "triangle_count": 22032,
+    "vertex_count": 12308,
+    "skin_count": 0,
+    "joint_count": 0,
+    "animation_count": 0,
+    "embedded_image_count": 1,
+    "glb_generator": "Tripo",
+    "replaces": {
+      "model_file": "body.glb",
+      "recoverable_from_commit": "0c2ae599878ba4dd9c9164bf71662770499d5a35",
+      "sha256": "96ac8cf531732a16879c9cbc8ea160f5e1596ebe7947b6ea5a52f14deed22b34",
+      "bytes": 4213948,
+      "mesh_count": 1,
+      "triangle_count": 50270,
+      "vertex_count": 44543,
+      "skin_count": 0,
+      "joint_count": 0,
+      "animation_count": 0,
+      "embedded_image_count": 1,
+      "glb_generator": "Tripo"
+    },
+    "godot_import": "existing canonical path, import settings and UID retained; engine import and fitting not run",
+    "world_actor_replacement": false
   }
 }

@@ -26,3 +26,7 @@ saved prefabs had bypassed BorrowClips' loop setup, so their one-shot walk clips
 froze after 1.067 seconds while navigation continued. Gestures remain one-shot;
 source GLBs and placement are unchanged. movement_check observes leg motion and
 translation beyond two walk durations, then verifies the arrival blend to idle.
+
+## 2026-10-11 — owner-selected modular Captain body
+
+`art/characters/captain_live/pieces/body/body.glb` is now the owner-supplied lower-polygon body for modular assembly, using the corrected texture version provided after the owner removed lighting. The supplied GLB is copied unchanged. It contains 22,032 mesh triangles, 0 skins, 0 joints and 0 animation clips. The previous source had 50,270 mesh triangles and remains recoverable from commit `0c2ae59`. Existing import UID/settings are retained. Delivery provenance, checksums and measured file counts are in the body asset.json. Use this canonical body for future modular fitting; the separate head/clothing still require fitting. The current world Captain, portrait and scene/camera are unchanged. Engine import, rig fitting and tests were not run for this delivery.

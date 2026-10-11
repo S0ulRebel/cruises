@@ -28,9 +28,11 @@ pwsh -NoProfile -File tests/run_checks.ps1 -SkipImport -ProbeFailure
 
 Each run writes logs to a new directory under the OS temporary directory and prints
 its absolute path. The runner hashes tracked authored scripts, scenes, resources,
-models, JSON and project settings before import and after all checks; unexpected
-source changes fail validation. Import caches and generated preview textures are
-not authored test outputs.
+models, JSON, project/import settings, UIDs, textures, audio and fonts before import
+and after all checks; unexpected source changes fail validation. Only line endings
+in textual `.import` settings are normalized for comparison; all other files use
+exact-byte hashes. Import caches and generated untracked preview textures are not
+authored test outputs.
 
 The default suite covers interaction wording and combinations, speech timing,
 role-based outfit attachment/refit, animation filters, shared inventory/dialogue
@@ -41,7 +43,9 @@ counts, local prefab references, independent instance materials and persistent
 session state through an indoor-to-outdoor location transition. Transition checks
 also reject wrong scene types, missing camera/player references and unusable authored
 navigation without destroying the current location or state, while allowing places
-that deliberately have no navigation regions.
+that deliberately have no navigation regions. Hover checks compare per-instance
+fishbowl emission, restore material values through a failed transition, then free
+highlighted and formerly highlighted instances and allow renderer teardown to finish.
 
 `fixtures/outdoor_location.tscn` reuses the real crate and humanoid actor prefabs
 without walls or a ceiling. Its saved `outdoor_navigation.tres` was explicitly baked

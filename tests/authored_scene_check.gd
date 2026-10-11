@@ -8,6 +8,7 @@ const PREFABS := {
 	"Fishbowl": "fishbowl", "live": "captain_live", "santi": "santi_wong"
 }
 const SHELL := ["Floor", "Backdrop", "WallLeft", "WallRight", "Ceiling"]
+const HighlightScript := preload("res://ui/highlight/highlight.gd")
 
 func _run() -> void:
 	var game := instantiate_scene("res://game/game.tscn")
@@ -47,6 +48,7 @@ func _run() -> void:
 	await process_frame
 	await physics_frame
 	await check_outdoor_reuse()
+	await check_fishbowl_highlight_teardown()
 	finish()
 
 func check_location_transition(game: Node) -> void:
@@ -90,6 +92,14 @@ func check_rejected_transition(game: Node, path: String) -> void:
 	var before := counts(previous)
 	var connections := previous.floor_clicked.get_connections().size()
 	var hotspot_connections := hotspot_bindings(previous)
+	var hovered: Hotspot
+	var hover_rest := {}
+	if path.ends_with("broken_navigation_location.tscn"):
+		hovered = previous.get_node("Fishbowl/Hotspot") as Hotspot
+		hover_rest = material_values(hovered.visual)
+		# Exercise the controller's real public input signal so release_location clears hover.
+		hovered.mouse_entered.emit()
+		check("prop is highlighted before failed navigation", all_glowing(material_values(hovered.visual)))
 	var started := Time.get_ticks_msec()
 	var accepted: bool = await game.change_location(load(path) as PackedScene)
 	var label := path.get_file()
@@ -104,6 +114,8 @@ func check_rejected_transition(game: Node, path: String) -> void:
 	check("failed transition reconnects interactions exactly once", previous.floor_clicked.get_connections().size() == connections)
 	check("failed transition preserves each hotspot's bindings", hotspot_bindings(previous) == hotspot_connections)
 	check("failed transition leaves the session usable", game.get("initialized") == true and not game.get("interactions").busy)
+	if hovered != null:
+		check("failed hovered transition restores exact material values", material_values(hovered.visual) == hover_rest)
 
 func hotspot_bindings(location: Location) -> Dictionary:
 	var bindings := {}
@@ -112,6 +124,68 @@ func hotspot_bindings(location: Location) -> Dictionary:
 			bindings[String(location.get_path_to(area))] = [area.input_event.get_connections().size(),
 				area.mouse_entered.get_connections().size(), area.mouse_exited.get_connections().size()]
 	return bindings
+
+func material_values(visual: Node) -> Dictionary:
+	var values := {}
+	for mesh_node in HighlightScript.meshes_of(visual):
+		var mesh := mesh_node as MeshInstance3D
+		if mesh.mesh == null: continue
+		for surface in mesh.mesh.get_surface_count():
+			var material := mesh.get_active_material(surface) as BaseMaterial3D
+			if material == null: continue
+			# Store values only, so the assertion itself cannot keep a material RID alive.
+			values["%s:%d" % [visual.get_path_to(mesh), surface]] = {
+				"albedo": material.albedo_color, "roughness": material.roughness,
+				"transparency": material.transparency, "shading": material.shading_mode,
+				"emission_enabled": material.emission_enabled, "emission": material.emission,
+				"emission_energy": material.emission_energy_multiplier}
+	return values
+
+func all_glowing(values: Dictionary) -> bool:
+	if values.is_empty(): return false
+	for value in values.values():
+		if not value["emission_enabled"] or value["emission"] != HighlightScript.COLOUR or not is_equal_approx(value["emission_energy"], HighlightScript.STRENGTH):
+			return false
+	return true
+
+func check_fishbowl_highlight_teardown() -> void:
+	var one := instantiate_scene("res://props/fishbowl/fishbowl.tscn") as Node3D
+	var two := instantiate_scene("res://props/fishbowl/fishbowl.tscn") as Node3D
+	if one == null or two == null:
+		if one != null: one.free()
+		if two != null: two.free()
+		return
+	one.name = "FishbowlOne"
+	two.name = "FishbowlTwo"
+	one.position.x = -1.0
+	two.position.x = 1.0
+	root.add_child(one)
+	root.add_child(two)
+	await process_frame
+	await process_frame
+	var first := one.get_node("Hotspot") as Hotspot
+	var second := two.get_node("Hotspot") as Hotspot
+	var first_rest := material_values(first.visual)
+	var second_rest := material_values(second.visual)
+	check("both fishbowls expose highlightable materials", not first_rest.is_empty() and not second_rest.is_empty())
+	HighlightScript.set_on(first, true)
+	check("first fishbowl highlights locally", all_glowing(material_values(first.visual)))
+	check("first fishbowl leaves the second instance's emission unchanged", material_values(second.visual) == second_rest)
+	HighlightScript.set_on(first, false)
+	check("first fishbowl restores all material values", material_values(first.visual) == first_rest)
+	HighlightScript.set_on(second, true)
+	check("second fishbowl highlights locally", all_glowing(material_values(second.visual)))
+	check("second fishbowl leaves the first instance's emission unchanged", material_values(first.visual) == first_rest)
+	HighlightScript.set_on(second, false)
+	check("second fishbowl restores all material values", material_values(second.visual) == second_rest)
+	# Free one while highlighted and one after hover-off; keep no Material references.
+	HighlightScript.set_on(first, true)
+	one.queue_free()
+	two.queue_free()
+	await process_frame
+	await process_frame
+	await process_frame
+	check("highlighted and formerly highlighted fishbowls free cleanly", not is_instance_valid(one) and not is_instance_valid(two))
 
 func counts(node: Node) -> Dictionary:
 	var out := {}

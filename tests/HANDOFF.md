@@ -14,3 +14,9 @@
 - Failed transition coverage requires Game's rollback contract: preserve the old
   location, camera, navigation and session state on invalid references/type or an
   empty authored navigation mesh. A deliberately nonwalkable location is allowed.
+- Material regression checks highlight two independent fishbowls, restore hover-off
+  values, and free both with frame waits. Snapshots contain values only and cannot
+  hide a renderer lifetime bug by retaining material references. Rollback also
+  exercises a real hovered prop and compares its restored material values.
+- Source hashes include import settings, script UIDs, textures/audio/fonts. Normalize
+  only newline differences in text `.import` files; keep all other byte hashes exact.

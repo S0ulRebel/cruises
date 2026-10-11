@@ -54,10 +54,18 @@ function Invoke-GodotCheck([string]$Name, [string[]]$LaunchArguments, [bool]$Req
 function Get-AuthoredHashes {
     $hashes = @{}
     foreach ($path in (& git -C $projectPath ls-files)) {
-        if ($path -match '\.(?:tscn|tres|glb|gd|json|godot)$') {
+        if ($path -match '\.(?:tscn|tres|glb|gd|json|godot|import|uid|png|jpg|jpeg|ogg|wav|ttf|otf)$') {
             $absolutePath = Join-Path $projectPath $path
             if (Test-Path -LiteralPath $absolutePath -PathType Leaf) {
-                $hashes[$path] = (Get-FileHash -LiteralPath $absolutePath -Algorithm SHA256).Hash
+                if ($path.EndsWith('.import', [StringComparison]::OrdinalIgnoreCase)) {
+                    # Godot may normalize these text files' line endings during import.
+                    # Settings, UIDs and every other character still participate in the hash.
+                    $canonical = [Text.Encoding]::UTF8.GetString([IO.File]::ReadAllBytes($absolutePath)).Replace("`r`n", "`n").Replace("`r", "`n")
+                    $algorithm = [Security.Cryptography.SHA256]::Create()
+                    try { $hashes[$path] = [BitConverter]::ToString($algorithm.ComputeHash([Text.Encoding]::UTF8.GetBytes($canonical))).Replace('-', '') }
+                    finally { $algorithm.Dispose() }
+                }
+                else { $hashes[$path] = (Get-FileHash -LiteralPath $absolutePath -Algorithm SHA256).Hash }
             }
         }
     }

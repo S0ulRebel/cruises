@@ -405,6 +405,18 @@ tuning the rest pose by eye at panel size to see whether that reads as a parting
 
 ### 2026-10-11 — for the engine side — integrate Captain’s Ledger dialogue UI
 
+**Latest owner direction — five previews awaiting selection:** remove the vertical
+portrait/text divider entirely and raise `Your response` onto the top rail. The
+portrait now shares one continuous parchment background with the response list.
+See `art/ui/reference/no_divider_variations/README.md` and its five numbered PNGs:
+walnut/brass, fine brass inlay, rope edge, oxblood leather and carved walnut.
+No option has been selected yet. The source/geometry below describes the previous
+delivery; its divider and portrait aperture are superseded. Produce the selected
+continuous background/outer frame before binding final art. Scrolling, focus and
+input work can continue independently. No engine changes accompany these previews.
+
+**Previous delivered source, retained until replacement:**
+
 Use the corrected `art/ui/integrated_frame.png` and `art/ui/dialogue.json`.
 The current bar is one continuous frame with a straight wooden divider meeting both
 rails in clean wood T-junctions. Only its four outer corners have brass fittings: `(80,720,1760,300)` at 1920×1080. Draw the three adjacent atlas

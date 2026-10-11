@@ -1,8 +1,19 @@
 # Captain’s Ledger UI art
 
-The current UI uses **one continuous walnut/brass frame with one shared divider**.
+## Current review — five versions without the divider
+
+The owner’s latest direction removes the internal divider and separate portrait
+backing, and raises **Your response** onto the upper rail. Five numbered previews
+are in [reference/no_divider_variations/README.md](reference/no_divider_variations/README.md).
+An option has not yet been selected. The earlier production package documented
+below is retained; its divider/aperture construction needs replacement after the
+frame choice. Scrolling and input work can continue independently.
+
+## Previous production package
+
+The previous delivery uses **one continuous walnut/brass frame with one shared divider**.
 The owner requested this correction because the earlier independent portrait and
-speech frames had mismatched joins. The current correction removes both rejected internal metal connectors: a straight
+speech frames had mismatched joins. That correction removed both rejected internal metal connectors: a straight
 wood divider meets both rails in clean T-junctions. Brass remains only at the four
 outer corners. Engine integration is still pending.
 

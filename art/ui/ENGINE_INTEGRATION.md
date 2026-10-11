@@ -1,5 +1,11 @@
 # Captain’s Ledger — engine integration
 
+> **Owner review update, 11 October 2026:** the next frame has no internal divider
+> or portrait aperture. Five previews are under `reference/no_divider_variations/`;
+> selection is pending. The geometry below describes the previous delivered art.
+> Replace that art mapping after selection; scrolling, focus and input work remain
+> applicable. The new portrait will sit over a continuous panel background.
+
 11 October 2026. The current source uses **one continuous frame and a plain wooden
 divider**, replacing the two independently rendered frames. This document and
 `dialogue.json` describe art integration; Godot runtime verification remains open.

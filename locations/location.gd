@@ -27,10 +27,29 @@ func await_navigation() -> bool:
 	if navigation_regions.is_empty():
 		return false
 	var map := get_world_3d().navigation_map
+	var region_rids: Array[RID] = []
+	for region in navigation_regions:
+		if region.enabled and region.navigation_mesh and region.navigation_mesh.get_polygon_count() > 0:
+			region_rids.append(region.get_rid())
+	if region_rids.is_empty(): return false
 	for frame in 240:
 		await get_tree().physics_frame
 		if map.is_valid() and NavigationServer3D.map_get_iteration_id(map) > 0:
-			navigation_ready = not NavigationServer3D.map_get_regions(map).is_empty()
+			navigation_ready = true
+			for region in navigation_regions:
+				if region.get_rid() not in region_rids: continue
+				if NavigationServer3D.region_get_iteration_id(region.get_rid()) == 0:
+					navigation_ready = false
+					break
+				var vertices := region.navigation_mesh.get_vertices()
+				var polygon := region.navigation_mesh.get_polygon(0)
+				var probe := Vector3.ZERO
+				for vertex in polygon: probe += vertices[vertex]
+				probe = region.to_global(probe / polygon.size())
+				# A registered region can precede its polygons in the map's iteration.
+				if NavigationServer3D.map_get_closest_point_owner(map, probe) not in region_rids:
+					navigation_ready = false
+					break
 			if navigation_ready:
 				return true
 	push_warning("Location: navigation did not synchronize.")

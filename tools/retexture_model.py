@@ -1,6 +1,6 @@
 r"""Swap the texture inside a .glb, leaving every vertex, bone and pivot exactly where it was.
 
-    python tools/retexture_model.py art/models/shark.glb "C:/Users/Nikola/Downloads/clean.jpg"
+    python tools/retexture_model.py model.glb clean.jpg --out retextured.glb
     python tools/retexture_model.py model.glb new.jpg --out retextured.glb
     python tools/retexture_model.py model.glb --extract current.jpg
 
@@ -95,11 +95,13 @@ def main():
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("model", help="the .glb to patch")
     ap.add_argument("texture", nargs="?", help="the image to put in it")
-    ap.add_argument("--out", help="write here instead of over the model")
+    ap.add_argument("--out", help="explicit output model path (required when replacing)")
     ap.add_argument("--extract", metavar="FILE",
                     help="write the model's CURRENT image here and stop")
     ap.add_argument("--index", type=int, default=0, help="which image, if there are several")
     args = ap.parse_args()
+    if not args.extract and not args.out:
+        ap.error("replacing a texture requires an explicit --out path")
 
     model = Path(args.model)
     chunks = split(model.read_bytes())
@@ -162,7 +164,7 @@ def main():
     image["mimeType"] = mime
     gltf["buffers"][0]["byteLength"] = len(packed)
 
-    out = Path(args.out) if args.out else model
+    out = Path(args.out)
     # Written beside the target and moved into place, so a failure halfway through leaves the
     # model that was working still working.
     scratch = out.with_suffix(out.suffix + ".part")

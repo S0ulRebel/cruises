@@ -160,28 +160,35 @@ func phrase(verb: Verb, held_name := "") -> String:
 
 
 func interact(verb: Verb, held: String) -> void:
+	var result := result_for(verb, held)
+	match String(result["kind"]):
+		"talk": talked.emit(String(result["path"]))
+		"combine": combined.emit(held, result["outcome"])
+		"take": used.emit(String(result["item"]))
+		"refuse": refused.emit(String(result["text"]))
+		_: looked.emit(String(result["text"]))
+
+## Return the action without starting asynchronous responses through signal handlers.
+func result_for(verb: Verb, held: String) -> Dictionary:
 	match verb:
 		Verb.TALK:
-			talked.emit(conversation)
+			return {"kind": "talk", "path": conversation}
 		Verb.USE:
 			# A written outcome for this exact item beats both the lock and the
 			# generic refusal, including when the outcome is "that did nothing, and
 			# here is a line about it".
 			if not held.is_empty() and combinations.has(held):
-				combined.emit(held, combinations[held])
-				return
+				return {"kind": "combine", "outcome": combinations[held]}
 			# Something is being used ON this, and this had no answer for it. Say so.
 			# Without this a hotspot that has combinations but no needs_item swallows
 			# every unlisted item in silence, which reads as a broken click.
 			if not held.is_empty() and not combinations.is_empty():
-				refused.emit(refusal if not refusal.is_empty()
-					else "That is not going to work.")
-				return
+				return {"kind": "refuse", "text": refusal if not refusal.is_empty()
+					else "That is not going to work."}
 			if not needs_item.is_empty() and needs_item != held:
-				refused.emit(refusal if not refusal.is_empty()
-					else "That is not going to work.")
-				return
-			used.emit(gives_item)
+				return {"kind": "refuse", "text": refusal if not refusal.is_empty()
+					else "That is not going to work."}
+			return {"kind": "take", "item": gives_item}
 		_:
-			looked.emit(description if not description.is_empty()
-				else "It is a %s." % display_name)
+			return {"kind": "look", "text": description if not description.is_empty()
+				else "It is a %s." % display_name}

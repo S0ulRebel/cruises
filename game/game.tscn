@@ -1,0 +1,63 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://game/game.gd" id="game"]
+[ext_resource type="PackedScene" path="res://locations/captains_cabin/captains_cabin.tscn" id="cabin"]
+[ext_resource type="Script" path="res://systems/game_state/game_state.gd" id="state"]
+[ext_resource type="Script" path="res://systems/interaction/interaction_controller.gd" id="interaction"]
+[ext_resource type="Script" path="res://dialogue/dialogue.gd" id="dialogue"]
+[ext_resource type="PackedScene" path="res://ui/caption.tscn" id="caption"]
+[ext_resource type="PackedScene" path="res://ui/choices.tscn" id="choices"]
+[ext_resource type="PackedScene" path="res://ui/inventory.tscn" id="inventory"]
+[ext_resource type="PackedScene" path="res://ui/pointer.tscn" id="pointer"]
+[ext_resource type="PackedScene" path="res://stage/stage.tscn" id="stage"]
+[ext_resource type="PackedScene" path="res://cutscene/cutscene.tscn" id="cutscene"]
+[ext_resource type="PackedScene" path="res://systems/audio/audio.tscn" id="audio"]
+[ext_resource type="Resource" path="res://items/compass/compass.tres" id="item_compass"]
+[ext_resource type="Resource" path="res://items/brass_inkwell/brass_inkwell.tres" id="item_brass_inkwell"]
+[ext_resource type="Resource" path="res://items/rapier/rapier.tres" id="item_rapier"]
+[ext_resource type="Resource" path="res://items/fishbowl/fishbowl.tres" id="item_fishbowl"]
+[ext_resource type="Resource" path="res://items/key/key.tres" id="item_key"]
+[ext_resource type="Resource" path="res://items/ladle/ladle.tres" id="item_ladle"]
+[ext_resource type="Resource" path="res://items/rolled_charts/rolled_charts.tres" id="item_rolled_charts"]
+[ext_resource type="Script" path="res://systems/content/item_definition.gd" id="item_type"]
+
+[node name="Game" type="Node3D" node_paths=PackedStringArray("location", "state", "interactions", "caption", "choices", "dialogue", "inventory", "pointer", "cold_open_stage", "cutscene", "audio")]
+script = ExtResource("game")
+location = NodePath("CaptainsCabin")
+state = NodePath("State")
+interactions = NodePath("Interactions")
+caption = NodePath("Caption")
+choices = NodePath("Choices")
+dialogue = NodePath("Dialogue")
+inventory = NodePath("Inventory")
+pointer = NodePath("Pointer")
+cold_open_stage = NodePath("ColdOpenStage")
+cutscene = NodePath("Cutscene")
+audio = NodePath("Audio")
+
+[node name="CaptainsCabin" parent="." instance=ExtResource("cabin")]
+
+[node name="State" type="Node" parent="."]
+script = ExtResource("state")
+items = Array[ExtResource("item_type")]([ExtResource("item_compass"), ExtResource("item_brass_inkwell"), ExtResource("item_rapier"), ExtResource("item_fishbowl"), ExtResource("item_key"), ExtResource("item_ladle"), ExtResource("item_rolled_charts")])
+
+[node name="Interactions" type="Node" parent="."]
+script = ExtResource("interaction")
+
+[node name="Caption" parent="." instance=ExtResource("caption")]
+
+[node name="Choices" parent="." instance=ExtResource("choices")]
+
+[node name="Inventory" parent="." instance=ExtResource("inventory")]
+
+[node name="Pointer" parent="." instance=ExtResource("pointer")]
+
+[node name="Dialogue" type="Node" parent="."]
+script = ExtResource("dialogue")
+
+[node name="ColdOpenStage" parent="." instance=ExtResource("stage")]
+visible = false
+
+[node name="Cutscene" parent="." instance=ExtResource("cutscene")]
+
+[node name="Audio" parent="." instance=ExtResource("audio")]

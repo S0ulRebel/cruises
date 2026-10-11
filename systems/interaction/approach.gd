@@ -11,7 +11,7 @@ extends Resource
 ## you are doing. You talk to someone from the front. You take the key out of their
 ## back pocket from behind. Same person, same click, two different spots.
 
-## Where to stand, in room space. ZERO means "work it out": the nearest point on the
+## Where to stand, in hotspot LOCAL space. ZERO means "work it out": the nearest point on the
 ## walkable area to the object.
 @export var at := Vector3.ZERO
 ## Which way to face on arrival, in degrees. Ignored unless `face` is EXPLICIT.

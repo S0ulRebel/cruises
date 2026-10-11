@@ -4,6 +4,17 @@
 the owner relaying messages. Two sides write here: the art agent, who makes turnarounds
 and prop sheets, and the engine side, who puts them in the game.
 
+## Current architecture — 2026-10-11
+
+Scene migration is in progress on `codex/modular-scenes`. Read `AGENTS.md` and
+`docs/REFACTOR_PLAN.md`. Game owns startup wiring; named `locations/` own placement.
+Fixed objects and UI/audio use authored prefabs. Packing flags and batch builders
+have been retired. Normal startup/tests must not save scene/model resources.
+
+Detailed implementation handoffs belong in module directories. This file indexes
+integration status and preserves historical art decisions. Root integration owns
+shared paths and location composition; parallel editing uses assigned worktrees.
+
 ## The rule
 
 **Read this file in full before you ask the owner anything.** Not skim it, not
@@ -11,7 +22,8 @@ acknowledge that it exists — open it and read it. A session acknowledged this 
 without opening it and then asked him for something that was already in it. He is not
 a messenger between us.
 
-1. `git pull` before you start anything. This file changes several times a day.
+1. Check branch/status and the assigned worktree before editing. Fetch/rebase only
+   when coordinated with the integrator; do not pull over active local edits.
 2. Read **Open** below. Work the items addressed to you, oldest first.
 3. Before asking ANY question about the characters, the pipeline, the head, the mouth,
    the rig, the pieces, or what has been decided — read this file. If the answer is

@@ -2,10 +2,10 @@
 # this machine can use it.
 .godot/
 
-# Screenshot the --shot run overwrites every time.
+# Historical scratch screenshots.
 shot.png
 
-# Frame dump from the --record run, 2500+ PNGs regenerated on demand.
+# Historical frame dumps.
 recording/
 cruises_scene1.mp4
 
@@ -15,3 +15,7 @@ shot_live.png
 shot_ui.png
 walk_strip.png
 views_check.png
+
+# Export and unique validation outputs.
+build/
+test_results/

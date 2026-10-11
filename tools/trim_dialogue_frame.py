@@ -11,10 +11,11 @@ So the bar is DERIVED rather than hand-trimmed: the master stays byte-for-byte w
 they delivered and their hashes still hold, and when they redeliver it this is one
 command rather than a measurement someone has to repeat.
 
-    python tools/trim_dialogue_frame.py
+    python tools/trim_dialogue_frame.py --out <owned-output.png>
 """
 
 from pathlib import Path
+import argparse
 
 from PIL import Image
 
@@ -25,17 +26,20 @@ REGION = (39, 176, 39 + 2094, 176 + 387)
 
 ROOT = Path(__file__).resolve().parent.parent
 MASTER = ROOT / "art" / "ui" / "dialogue_frame.png"
-BAR = ROOT / "art" / "ui" / "dialogue_frame_bar.png"
 
 
 def main() -> None:
-    master = Image.open(MASTER).convert("RGBA")
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--master", type=Path, default=MASTER)
+    parser.add_argument("--out", type=Path, required=True)
+    args = parser.parse_args()
+    master = Image.open(args.master).convert("RGBA")
     if master.size != (2172, 724):
         raise SystemExit("master is %sx%s, not the 2172x724 the region was measured on"
                          % master.size)
     bar = master.crop(REGION)
-    bar.save(BAR)
-    print("%s  %dx%d" % (BAR.relative_to(ROOT), bar.width, bar.height))
+    bar.save(args.out)
+    print("%s  %dx%d" % (args.out, bar.width, bar.height))
 
 
 if __name__ == "__main__":

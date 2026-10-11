@@ -130,6 +130,8 @@ func play() -> void:
 			continue
 
 		_caption.hide_box()
+		if _choices.has_method("set_player"):
+			_choices.set_player(_cast.get(String(_conversation.get("player", "live")), {}))
 		var picked: int = await _choices.ask(offered.map(func(c: Dictionary) -> String:
 			return String(c.get("text", "..."))))
 
@@ -140,6 +142,8 @@ func play() -> void:
 			_mark_used(convo_id, at, int(choice.get("_index", -1)))
 		for flag in choice.get("set", []):
 			flags[String(flag)] = true
+		for flag in choice.get("clear", []):
+			flags.erase(String(flag))
 
 		# A choice may speak before it jumps - usually the player's own line.
 		if choice.has("say"):

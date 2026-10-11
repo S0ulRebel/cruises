@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Cruises"
 config/description="A point-and-click comedy adventure. Pirates, a cruise ship, and a crack in space and time."
-run/main_scene="res://main.tscn"
+run/main_scene="res://game/game.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 
 [display]
@@ -27,9 +27,20 @@ window/stretch/mode="canvas_items"
 ; rasterised mesh edges do not line up with the map and paths come back empty. The
 ; default map is 0.25 m, which is far too coarse for a room where a character has to
 ; walk between a desk and a wall. Set here rather than per mesh so every room matches
-; the map by default. Room3D._build_navigation uses the same numbers.
+; the map by default. Authored NavigationMesh resources use the same numbers.
 3d/default_cell_size=0.1
 3d/default_cell_height=0.1
+
+[input]
+
+dialogue_continue={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"physical_keycode":32), Object(InputEventKey,"physical_keycode":4194309)]
+}
+inventory_toggle={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"physical_keycode":73)]
+}
 
 [rendering]
 

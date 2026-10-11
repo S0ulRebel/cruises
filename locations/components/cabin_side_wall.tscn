@@ -1,0 +1,13 @@
+[gd_scene format=3]
+
+[sub_resource type="QuadMesh" id="QuadMesh_r6qal"]
+size = Vector2(7, 4.6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fssfj"]
+shading_mode = 0
+albedo_color = Color(0.47843137, 0.3372549, 0.21176471, 1)
+
+[node name="CabinSideWall" type="MeshInstance3D"]
+mesh = SubResource("QuadMesh_r6qal")
+surface_material_override/0 = SubResource("StandardMaterial3D_fssfj")
+

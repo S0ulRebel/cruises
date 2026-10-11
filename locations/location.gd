@@ -3,8 +3,9 @@ class_name Location
 extends Node3D
 ## Authored environment. Never creates or relocates scene contents.
 signal floor_clicked(point: Vector3)
+const Mover := preload("res://actors/mover/mover.gd")
 @export var camera: Camera3D
-@export var player: CharacterBody3D
+@export var player: Mover
 @export var navigation_regions: Array[NavigationRegion3D] = []
 @export_flags_3d_physics var walkable_collision_mask := 2
 var navigation_ready := false

@@ -1,126 +1,17 @@
-# Cruises (working title)
+# Cruises
 
-A point-and-click comedy adventure. Pirates come through a crack in space and time and
-take possession of a cruise ship; the game is the three-way collision between the
-pirates, the ship's crew, and the guests.
+A Godot point-and-click comedy adventure: pirates arrive on a cruise ship through a crack in space and time. The current playable location is the captain's cabin.
 
-The folder name is deliberately neutral. The working title on the art board uses a
-phrase Disney owns, and that cannot go on a store page — so nothing here depends on
-what the game ends up being called.
+Open project.godot in Godot 4.7.2. Open game/game.tscn to edit the default composition, or locations/captains_cabin/captains_cabin.tscn to edit the place. Press Play or run `godot --path .`. Click the floor to walk, an object to interact, or Santi to talk. I opens inventory. Continue/Space/Enter advances dialogue; the wheel scrolls. Game exposes skip_cold_open in the Inspector.
 
-## Working on this
+Fixed scenery, actors, interactions and UI/audio are saved scenes. Drag an instance to move it; its collider and interaction move with it. Reuse prefabs in another location. After changing solid geometry, select Navigation, bake its mesh in the editor and save the location. There are no packing or custom game flags.
 
-Read **[HANDOFF.md](HANDOFF.md)** first, every time, and `git pull` before you start.
-That file is how the art side and the engine side pass work to each other - what is
-open, what is done, and the decisions that are settled. It is not chat and it is not
-relayed by the owner.
+Read [CONVENTIONS.md](CONVENTIONS.md), [AGENTS.md](AGENTS.md) and module instructions before editing. [HANDOFF.md](HANDOFF.md) indexes current work and art decisions. The prioritized [refactor plan](docs/REFACTOR_PLAN.md) records migration checks and progress. Separate branches/worktrees and ownership support parallel work; one integrator owns shared interfaces and each location.
 
-The current structural work is tracked in the prioritized
-[Scene Authoring and Agent Collaboration Plan](docs/REFACTOR_PLAN.md).
-It covers editable prefab scenes, removal of regeneration flags, module ownership
-and the checks required before the migration is complete.
+Game wires the saved location, GameState, interactions, dialogue, HUD and audio. Character/item resources own IDs, prose and presentation. Locations own placement. Outfit authoring requires explicit outputs; see [the workshop guide](actors/outfit/README.md) and [donor rig rules](docs/RIGGING.md).
 
-## What runs today
+Conversations and screenplays live in screenplay/*.json. Conversation nodes contain lines, choices, goto/branch and exit. Node/choice set and clear modify shared flags; if/unless gate visibility; once hides a used choice; say provides its spoken line. Cutscene beats include location, enter, say, action, wait, sfx, shake, flicker and end.
 
-The cold open, played from a data file, with placeholder art.
+Run checks with tests/run_checks.ps1 and the Godot executable argument documented there. Engine/script errors, failed assertions, timeouts and missing completion markers fail the run. Tests and offline tools are excluded from game exports.
 
-```
-godot --path .                      # the cold open. Space or click, Esc to quit
-godot --path . -- --auto            # plays itself, prints a timed running order
-godot --path . -- --room            # room blocking: click the floor to walk
-godot --path . -- --talk            # one conversation, on its own
-godot --path . -- --talk --auto     # walks every branch, prints a transcript
-```
-
-`--auto` is how you judge the scene. It prints each beat with the second it started, so
-the question "is the silence before the pop too long" has an answer you can read:
-
-```
-[ 20.13s] Captain Choi: "Satisfaction of our guests is our utmost destination."
-[ 24.80s]   [sfx]            <- the pop
-[ 26.91s]   [shake]
-[ 34.64s]   [end]
-```
-
-## The shape of it
-
-```
-main.gd                 the entry points, and what each one builds
-screenplay/*.json       scenes and conversations. Data, not code
-cutscene/cutscene.gd    plays a screenplay, one beat at a time
-dialogue/dialogue.gd    plays a branching conversation
-room/room.gd            a place: floor polygon, perspective markers, hotspots
-actors/walker/walker.gd someone who can cross a room
-stage/stage.gd          cutscene backdrop. Coloured blocks until there is art
-ui/caption.gd           spoken lines and stage directions
-ui/choices.gd           what the player could say
-art/                    delivered by the art side, to docs/ART_SPEC.md
-```
-
-## Conversations
-
-Most of a comedy adventure is talking, so conversations are a data format the writer
-owns. See `screenplay/santi_galley.json` - it is a worked example that uses every
-feature, so it doubles as the reference.
-
-A conversation is a bag of nodes. A node says some lines, then offers choices, jumps,
-or ends.
-
-| field | on | does |
-|---|---|---|
-| `lines` | node | spoken, in order |
-| `choices` | node | what the player may say |
-| `set` / `clear` | node, choice | remember something |
-| `goto` | node, choice | jump |
-| `exit` | node, choice | end the conversation |
-| `once` | choice | hide it after it has been used |
-| `if` / `unless` | choice | show only when flags match |
-| `say` | choice | the player's own line before the jump |
-
-`--talk --auto` picks the first available option every time. With `once` on the content
-branches that walks the whole conversation and falls out of the exit, so it doubles as
-a coverage check: anything that does not appear in the transcript is unreachable.
-
-### Why the screenplay is a file
-
-The writer is not the programmer, and the joke depends on how long the silence runs.
-Reordering beats, cutting a line or stretching a pause has to be possible without
-touching the engine or waiting for anyone.
-
-Beats understood today:
-
-| beat | fields | does |
-|---|---|---|
-| `location` | `id` | switch backdrop, clear the stage |
-| `enter` | `who: [ids]` | put people on stage |
-| `say` | `who`, `text` | a line; waits for the reader |
-| `action` | `text` | a stage direction, shown over the picture |
-| `wait` | `secs` | hold — this is where the comic timing lives |
-| `sfx` | `id`, `caption` | a sound; captioned until there is audio |
-| `shake` | `secs`, `power` | the ship convulses |
-| `flicker` | `secs` | the lights go |
-| `end` | | stop |
-
-An unknown beat is skipped with a warning, so a newer screenplay still runs on an older
-build rather than crashing.
-
-### Why the art is blocks
-
-This build exists to find out whether the *scene* works — the running order, the length
-of the pause, whether the two cooks rhyme. Blocks answer that as well as paintings do,
-and art made before the timing is settled is art that gets redrawn. Every placeholder is
-keyed by an id from the screenplay, so a real backdrop or character drops into the same
-slot with nothing else changing.
-
-Stage directions are printed over the picture for the same reason: the picture cannot
-show them yet. They switch off in one place (`show_stage_directions` on Main) the moment
-it can.
-
-## Next
-
-- A real room instead of two bands, and a character who can cross it. The gap between a
-  character sheet and a character who walks is the biggest production risk in the
-  project.
-- The cruise-side cast. The premise's comedy is pirates against crew against guests, and
-  only the pirates are designed.
-- Audio: the pop is the first sound the game needs, and currently it is a caption.
+Source/import settings are versioned; .godot/ regenerates on opening a clone. The migration baseline is in docs/migration/. Art acceptance and fitting backlogs remain documented separately from scene structure.

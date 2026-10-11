@@ -1,4 +1,8 @@
-# From a turnaround sheet to an animated character in Godot
+# Legacy full-character import pipeline
+
+New modular parts follow [RIGGING.md](RIGGING.md): one pinned donor armature,
+measured fitting and explicit output paths. The procedure below documents the
+existing full-character assets. Do not auto-rig every garment or change donor rests.
 
 Every step, in order, with the settings that matter. Deviating from any of them has cost
 a day at least once, and the reason is given next to each so nobody has to rediscover it.
@@ -16,7 +20,7 @@ for, and Mixamo orients the character itself.
 
 ## 1. Cut the views
 
-    python tools/crop_views.py art/characters/<id>/turnaround.png art/characters/<id>/views
+    python tools/crop_views.py art/characters/<id>/turnaround.png --out art/characters/<id>/views
 
 Each figure is composited onto a shared canvas at a shared foot line rather than square
 cropped, because a square crop around a tall narrow figure catches its neighbour. The tool
@@ -174,18 +178,19 @@ In the character's `.import`:
 | `animation/fps` | **30** | matches the merge |
 | `animation/remove_immutable_tracks` | **false** | otherwise a pinned hips track snaps back to the rest pose |
 
-`.import` files are gitignored, so a fresh clone loses them. Anything that matters belongs
-in the `.glb`, which is why the size is baked rather than left in `root_scale`.
+Source `.import` settings are versioned; only `.godot/` is a cache. Dimensions
+remain baked into the model with root_scale 1.0 for consistent measurements.
 
 Godot caches imports aggressively and will happily report the clip list from a previous
 build. After replacing a `.glb`:
 
-    rm -f .godot/imported/<name>.glb-*
-    godot --headless --path . --import
+    godot --headless --path . --editor --import --quit
 
 Then run it and **look at it**:
 
-    godot --path . -- --shot
+    godot --path .
+
+Use a dedicated test render harness with an explicit output path for screenshots.
 
 The startup line prints the measured size and the clip list, which is the quickest check
 that the right file was loaded.

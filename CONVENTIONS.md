@@ -1,165 +1,46 @@
-# Conventions
+# Project conventions
 
-Where things go in this project, and why. Written now because the game is about to stop
-being small, and because the alternative is deciding it once per file and getting a
-different answer each time.
+Fixed content belongs in saved Godot scenes. Opening `game/game.tscn` shows the default cabin. Play wires behavior without replacing its contents. The owner's instructions take precedence over these conventions.
 
-Three sources, in this order of authority:
+## Structure and naming
 
-1. **The owner's rule** (below, Part 0). It overrides anything else here.
-2. **Godot's own documentation** — [project organization](https://docs.godotengine.org/en/stable/tutorials/best_practices/project_organization.html).
-3. **`D:\code\pillage_people\CONVENTIONS.md`** — the sister project. Where that document
-   and this one cover the same ground, they say the same thing on purpose.
+- `game/`: startup composition and session wiring; root Game.
+- `locations/<location_id>/`: indoor and outdoor places. The initial place is captains_cabin, root CaptainsCabin.
+- `locations/components/`: reusable authored environment pieces.
+- `props/<prop_id>/`: prefab, materials, collider and local interaction.
+- `actors/<actor_id>/`: actor prefab, character metadata and fitted outfits.
+- `actors/outfit/`: shared fitting; `actors/mover/`: movement.
+- `items/<item_id>/`: inventory definition resources; no placement.
+- `ui/`: authored components, entry prefabs and character portraits.
+- `systems/`: focused content, state, interaction and audio services.
+- `dialogue/`, `cutscene/`, `stage/`, `screenplay/`: storytelling.
+- `art/`: source models, textures, fonts, provenance and reference art.
+- `tests/`: checks and fixtures; `tools/`: explicit offline authoring.
 
-Community practice ([abmarnie](https://github.com/abmarnie/godot-architecture-organization-advice),
-[Simon Dalvai](https://simondalvai.org/blog/godot-best-practices/)) agrees with both and is
-followed where it adds something; it is not an authority on its own.
+Use snake_case for files/folders and PascalCase for nodes/classes. Keep a feature's script, scene and local resources together. Stable screenplay IDs (live, santi) are distinct from art IDs (captain_live, santi_wong) and node names.
 
----
+## Authored scenes and behavior
 
-## Part 0 — Placement lives in the scene, not in code
+Every fixed object is a reusable scene instance, including simple floors and walls. Prefab roots have neutral placement; location instances carry transforms. Local colliders, clickable shapes and approach Marker3D nodes travel with the object. Hotspots export local visual/marker references. Avoid whole-location name searches.
 
-**Every prop, every character and every light is a node in a scene file, placed where it
-goes, and movable by dragging it in the editor.** Nothing that has a position in the world
-is created by a script at startup.
+Components operate on their own subtree. Their owner wires references/signals. Missing required dependencies produce editor warnings or a clear error. Variable choice/inventory entries, animation and deliberate gameplay scene changes may instantiate saved prefabs. They must not recreate default composition or override authored camera, material and component settings.
 
-This is the rule the project currently breaks worst: `main.tscn` is a single empty
-`Node3D` and all 1,183 lines of `main.gd` run at `_ready` to build the cabin — desk, chair,
-crate, chest, porthole, fishbowl, the fish, both characters, every hotspot. The owner
-cannot move the chair without editing a `Vector3` in GDScript, rendering a screenshot, and
-looking at it. That is not a workflow; it is a guessing game, and this document exists
-because of it.
+GameState owns flags, held items and selection. UI presents state; dialogue and puzzles share it explicitly. Movement reports success, cancellation or failure. Interactions remain busy through the complete walk and response and cannot act after failed movement.
 
-What follows from it:
+## Navigation and assets
 
-- **A location is an authored scene.** It contains its fixed scenery and every placed
-  prop and actor, each with its own transform. Opening it shows the place. Include
-  navigation, walls or ceilings only where that location needs them. The cabin currently
-  lives at `rooms/captains_cabin/captains_cabin.tscn`; its migration target is
-  `locations/captains_cabin/captains_cabin.tscn`.
-- **Scripts find nodes; they do not make them.** A script reaches what it needs through an
-  `@export` node slot or a group, never by instancing a `PackedScene` and positioning it.
-- **Code may still spawn what has no fixed place** — an item the player drops, a particle,
-  a piece of UI. The test is: *would a human ever want to drag it?* If yes, it is in the
-  scene.
-- **A number that only exists to correct an asset is not placement, it is a bug.** See
-  Part 4.
+Walkable bodies use physics layer 2. Static bake sources persist in nav_source. Bake authored NavigationRegion3D geometry in the editor after moving solid objects; save the mesh with the location. Startup waits for synchronization and does not bake. Dynamic character avoidance uses saved NavigationAgent3D settings; obstacle carving affects baking.
 
-## Part 1 — Where files go
+One model metre equals one world metre; actor origins are at the feet. Existing actors face +Z to match measured donor clips and Mover. Props preserve their measured orientation as editable model-child transforms. No script guesses orientation or rescales source art at startup.
 
-**Organise by thing, not by file type.** A `scenes/` folder beside a `scripts/` folder is
-tidy with nine files and unusable with two hundred: every edit means finding the same name
-in two places and keeping them in step. A thing owns a folder, and everything belonging
-only to that thing lives in it. This is Godot's own advice — "group files around scenes" —
-and pillage_people's.
+New skinned parts follow [RIGGING.md](docs/RIGGING.md): reuse the pinned donor armature and fit the mesh without changing donor rest bones. Imported scale is 1.0 when dimensions are baked. Unrigged garments require measured fitting before replacing the default world actor.
 
-The target structure uses `game/` for startup and `locations/` for every playable
-place, including indoor rooms, outdoor areas and other environments. Name each
-location for the place, such as `captains_cabin`, `main_deck` or `island_beach`.
-The current `main.tscn` and `rooms/` paths move during the planned migration;
-the tree below describes the target, not completed filesystem changes.
+Version sources, .import settings and .gd.uid files. .godot/ is a cache. Offline converters require explicit destinations. Normal startup/tests never save over scenes, models or resources. There are no project-defined game/packing flags.
 
-```
-res://
-├── game/                       game.tscn  game.gd — startup and session wiring
-├── locations/                  authored indoor and outdoor places
-│   └── captains_cabin/          captains_cabin.tscn  captains_cabin.gd
-├── props/                       things placed in a location
-│   ├── captain_desk/            captain_desk.tscn
-│   ├── supply_crate/  pirate_chest/  fishbowl/  bowl_stand/  porthole/
-│   ├── rapier/  key/  compass/  brass_inkwell/  captain_chair/
-│   └── parts/                   hotspot.gd, approach.gd - shared by every prop
-├── actors/                      things that act
-│   ├── captain_live/            captain_live.tscn  captain_live.gd
-│   ├── santi/  count_fingers/
-│   └── parts/                   mover.gd, animator.gd, fish.gd
-├── ui/                          caption/  portrait/  inventory/  pointer/  choices/
-├── systems/                     dialogue/  speech/  audio/
-├── art/                         models, textures, sheets - DATA ONLY
-├── data/                        .json and .tres the game reads
-├── tests/                       flat, named after what they check
-├── tools/                       python and blender, not shipped
-└── docs/
-```
+## Parallel ownership
 
-### The rules
+Read AGENTS.md and module instructions. One integrator owns shared paths, interfaces, project settings and each location scene. Parallel agents use separate branches/worktrees and assigned file scopes. Coordinate shared API edits first. Detailed handoffs stay in modules; HANDOFF.md indexes current integration and art decisions.
 
-**1. A thing owns a folder.** Its scene, its script and any resource only it uses sit
-together. Never `scenes/rapier.tscn` paired with `scripts/rapier.gd`.
+Run relevant module checks and the integration runner. Engine/script errors fail even when Godot exits zero. Diagnostic output uses a unique run directory. Comments explain measured constraints and reasons.
 
-**2. Files are named after their folder.** `rapier/rapier.tscn`, not `rapier/prop.tscn`. A
-folder whose files are named something else is a folder you have to open to identify.
-
-**3. `art/` is data. If it has a `.gd`, it is not art.** Imported models, textures and
-reference sheets go there and nothing in it is loaded as code. A prop's *scene* lives in
-`props/`, even though its *mesh* came from `art/`.
-
-**4. snake_case for files and folders, PascalCase for node names.** Godot's own rule. The
-PCK filesystem is case-sensitive even when Windows is not, so a capital letter that works
-here breaks the export.
-
-**5. Name a thing for what it is, not the role it plays.** `supply_crate`, not `crate_2`.
-
-**6. Third-party code goes in `addons/`**, with its licence.
-
-**7. `tests/` is flat**, named after what it checks — `combocheck.gd`, `navcheck.gd` —
-because tests cut across folders and mirroring the tree means picking one owner for a test
-that has several.
-
-## Part 2 — How scenes are built
-
-**One controller script per scene, on the root, named after the scene.** `captains_cabin.gd`
-sits on the root of `captains_cabin.tscn` and on nothing else.
-
-**A scene is self-contained and must run on its own.** If it only works under one
-particular parent, it is a fragment, not a scene. Anything it needs from outside arrives
-as an `@export`, which is also what lets the owner wire it in the editor.
-
-**A controller touches its own children and no one else's.** No `get_node("../Sibling")`,
-no walking the tree for a cousin. Call down, signal up.
-
-**Don't make a scene out of two nodes with no script.** A `MeshInstance3D` with a
-`StaticBody3D` under it is three clicks; a scene file for it is a file to keep in step.
-
-## Part 3 — Where behaviour goes
-
-**One component, one noun.** `Mover`. `Animator`. `Hotspot`. If the name needs "and" or
-falls back on "Manager", it is two.
-
-**Components never reference each other; the owner wires them.** A component that connects
-to a sibling's signal knows that sibling exists, which is the coupling you were removing,
-moved sideways.
-
-**Extract on the THIRD user, or on a bug — never in advance.** One user is a feature, two
-is a coincidence. The strong signal is the same idea existing twice and having drifted,
-because that has already cost you something.
-
-**A component that cannot work says so once, loudly** — `push_error` and a flag, never a
-silent `return` that does nothing every frame forever.
-
-**Static typing everywhere.** Typed GDScript is checked at parse time and runs faster.
-
-## Part 4 — Assets
-
-**Models point -Z.** Godot points a node's `-Z` forward, so a model faces `-Z` in the file.
-When it does not, **fix the file** with `tools/reorient_model.py` — never with a
-compensating rotation in code.
-
-This project has three of those compensating rotations right now: `spin` on the chest,
-`lie_flat` on the compass and the rapier, and `FISH_REST` on Count Fingers. Each exists
-because a Tripo export landed on its back or its face, and each has to be rediscovered by
-rendering the game and squinting. They come out as the assets are reoriented.
-
-**Measure which end is which; do not infer it from shape.** Count Fingers cost an hour of
-pitching and yawing because a render that looked like a level fish in Blender said nothing
-about where he lands in Godot — Blender's glTF importer turns the file to its own Z-up on
-the way in. The reliable test is in the engine, at full resolution.
-
-**Every generated prop carries an `asset.json`** with `dimensions_m`, so the engine scales
-it from its real size rather than from whatever Tripo normalised it to.
-
-## Comments
-
-Explain **why**, not what. The code says what. A comment earns its place by recording
-something the next reader cannot recover: a measurement, a constraint, or a thing that was
-tried and did not work.
+References: [Godot scene organization](https://docs.godotengine.org/en/stable/tutorials/best_practices/scene_organization.html) and [project organization](https://docs.godotengine.org/en/stable/tutorials/best_practices/project_organization.html).

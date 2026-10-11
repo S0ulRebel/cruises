@@ -136,7 +136,7 @@ def find_figures(mask: np.ndarray, min_gap: int,
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("sheet", type=Path)
-    ap.add_argument("--out", type=Path, default=Path("views"))
+    ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--row", nargs=2, type=float, metavar=("TOP", "BOTTOM"),
                     help="turnaround band as fractions of image height, if detection misses")
     ap.add_argument("--cols", nargs=2, type=float, metavar=("LEFT", "RIGHT"),

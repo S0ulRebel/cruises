@@ -177,14 +177,10 @@ A rigged **GLB**, Mixamo-compatible skeleton, under ~50k triangles.
   feet because that is what stands on the floor and what depth-sorts correctly. A model
   with its origin at the hips floats or sinks in every room.
 - Facing **+Z** in the bind pose.
-- **Scale is set in the `.glb.import` file, not in code** - `nodes/root_scale=1.9` for
-  Livé. Scaling the instantiated node at runtime looks right by its bounds and renders
-  the character visibly distorted, because a skinned mesh's inverse bind matrices do
-  not scale with it.
-- **Blender writes these Z-up**, so the character arrives lying on its back. The engine
-  measures the bounds and applies +90 degrees about X when Z is the long axis, so this
-  needs nothing from the art side - but do not "fix" it in the file as well, or it will
-  be corrected twice.
+- Bake measured dimensions into the exported model and use `nodes/root_scale=1.0`.
+  Version `.glb.import` settings. Do not rescale or guess orientation at startup.
+- Export Y-up glTF and preserve measured prefab-child orientation. New modular parts
+  use the pinned donor and fitting rules in `RIGGING.md`.
 - One metre in the model equals **one metre**. Scale is on the sheets — Livé 1.9 m,
   Mehmet 1.8 m, Santi 1.7 m, Al 1.7 m, Count Fingers 6–8 cm.
 
@@ -198,8 +194,9 @@ A rigged **GLB**, Mixamo-compatible skeleton, under ~50k triangles.
 
   So a character occupies between 23% and 36% of screen height. Texture detail finer
   than that is invisible — 2048² is generous, and 1024² is honestly enough for anyone
-  who is not Livé. Run `godot --path . -- --room3d --auto` to re-measure if the camera
-  changes.
+  who is not Livé. These are historical blockout-camera measurements. The current
+  authored cabin camera is at (0, 1.15, 4.1), pitch -3 degrees, FOV 62 degrees.
+  Use a dedicated render harness to re-measure after changing the camera.
 - Textures no larger than 2048 × 2048, one material per character where possible.
 
 ---

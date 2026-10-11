@@ -59,12 +59,9 @@ it.
 
 ## 3. Godot
 
-Looping is set on the STREAM in code, not by restarting the player when it finishes:
-
-```gdscript
-if stream is AudioStreamOggVorbis:
-    (stream as AudioStreamOggVorbis).loop = true
-```
+Looping is authored on the stream in `systems/audio/audio.tscn`. The saved Music
+AudioStreamPlayer exposes stream, volume, bus and autoplay in the Inspector.
+Scripts control playback without creating players or changing shared streams.
 
 A restart-on-finished leaves a gap of at least one frame, which is inaudible under music
 and very audible under a quiet room tone.

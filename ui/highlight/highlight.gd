@@ -18,18 +18,19 @@ const VISUAL := "visual"
 
 
 ## Light `what`, or the mesh it names, searching under `room` for that name.
-static func set_on(what: Node, on: bool, room: Node) -> void:
+static func set_on(what: Node, on: bool, _room: Node = null) -> void:
 	var target: Node = what
-	if what.has_meta(VISUAL):
-		var named := room.find_child(String(what.get_meta(VISUAL)), true, false)
-		if named:
-			target = named
+	if what is Hotspot and what.visual:
+		target = what.visual
 	for node in meshes_of(target):
 		var mesh := node as MeshInstance3D
 		# material_override beats any surface override, so a mesh that has one has to
 		# be lit through it - setting a surface override on a mesh that already has an
 		# override changes nothing at all, silently.
 		if mesh.material_override is BaseMaterial3D:
+			if not mesh.has_meta("highlight_unique_override"):
+				mesh.material_override = mesh.material_override.duplicate()
+				mesh.set_meta("highlight_unique_override", true)
 			_glow(mesh.material_override as BaseMaterial3D, on)
 			continue
 		if mesh.mesh == null:
@@ -38,16 +39,21 @@ static func set_on(what: Node, on: bool, room: Node) -> void:
 			var material := mesh.get_active_material(surface)
 			if material is BaseMaterial3D:
 				var lit := mesh.get_surface_override_material(surface) as BaseMaterial3D
-				if lit == null:
+				if lit == null or not mesh.has_meta("highlight_unique_%d" % surface):
 					lit = (material as BaseMaterial3D).duplicate()
 					mesh.set_surface_override_material(surface, lit)
+					mesh.set_meta("highlight_unique_%d" % surface, true)
 				_glow(lit, on)
 
 
 static func _glow(material: BaseMaterial3D, on: bool) -> void:
-	material.emission_enabled = on
-	material.emission = COLOUR
-	material.emission_energy_multiplier = STRENGTH if on else 0.0
+	if not material.has_meta("highlight_rest"):
+		material.set_meta("highlight_rest", [material.emission_enabled, material.emission,
+			material.emission_energy_multiplier])
+	var rest: Array = material.get_meta("highlight_rest")
+	material.emission_enabled = true if on else rest[0]
+	material.emission = COLOUR if on else rest[1]
+	material.emission_energy_multiplier = STRENGTH if on else rest[2]
 
 
 ## Every mesh in or under a node, including the node itself. A generated prop is a

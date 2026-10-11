@@ -8,7 +8,10 @@ extends SceneTree
 
 func _init() -> void:
 	var failures := 0
-	var main: GDScript = load("res://main.gd")
+	# The room's contents live with the builder that places them, not in main.gd -
+	# see CONVENTIONS.md. Checking against a hand-copied layout stops testing the game
+	# the moment either drifts, so this reads the real table.
+	var main: GDScript = load("res://tools/build_cabin.gd")
 	var items: Dictionary = load("res://ui/inventory.gd").ITEMS
 
 	var gives: Array = []

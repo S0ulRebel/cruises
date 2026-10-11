@@ -1,5 +1,32 @@
 # UI, cold-open stage and audio handoff
 
+## 2026-10-12 — portrait mesh shading repair
+
+Inspected the assembled portrait and the original/rigged head GLBs, rather than
+inferring correctness from renderer instance counts. The head is one mesh;
+hair/hat/moustache/chin are separate accessories. Hair contains a solid brown
+fill behind the face opening, but part-color isolation shows no second visible
+skin face. The moustache/chin extracts do not contain another head.
+
+The concrete defect is in the rigged head's base normals: all 40,395 rigged
+corners match the original position and UV, but 29,895 normals differ (90th
+percentile angle 22.91 degrees). The rigging derivative lost the original smooth
+shading, creating jagged ridges on the left temple/cheek and neck. Restoring the
+authored normals removes those shading ridges in direct GPU comparisons.
+
+The portrait now references `portraits/captain_live/head_face_normals.glb`, a
+UI-local derivative made with `tools/restore_mesh_normals.py`. Only base NORMAL
+bytes change: topology, vertex positions, UVs, skin weights/binds, three facial
+morph targets and embedded texture bytes remain unchanged. Both original head
+assets remain intact, as do authored fitting and world actors. `fit.json` records
+the sources, hash and reproducible command.
+
+Focused Compatibility captures compared identical speech poses (0/35/65/100%)
+and resting pose, with and without the correction. The live caption shows the
+smoother face and speech remains functional. No full suite run. Owner review of
+the reported appearance is still the visual acceptance step. Evidence is in this
+task's external `outputs/portrait_mesh_trace/` directory.
+
 ## 2026-10-12 — head renderer resource isolation
 
 Owner clarified the doubled outline is on the small dialogue head and requested

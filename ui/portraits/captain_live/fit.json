@@ -25,14 +25,18 @@
     {"path": "art/characters/captain_live/pieces/hat/hat.glb", "sha256": "C1DE06A2CE87225802D63A8CDC4AA7118E27DE0AEBDE5C0D50DD73C43024B4D3"}
   ],
   "derivatives": [
+    {"path": "ui/portraits/captain_live/head_face_normals.glb", "source": "art/characters/captain_live/pieces/head/head_face.glb", "normal_reference": "art/characters/captain_live/pieces/head/head.glb", "sha256": "CD51FB740B31877D59AA9ABC3EAE3D4118A40EA10C267F801C2D281F0D5A9BE1", "repair": "Restore base surface normals by matching position and UV; retain geometry, skin, morph targets and embedded textures unchanged."},
     {"path": "ui/portraits/captain_live/moustache.glb", "source_shell": 0, "sha256": "B42E87290FAC5B38ECE3CBCE463250A597847509E25523F7F89D69B665BAD445"},
     {"path": "ui/portraits/captain_live/chin_tuft.glb", "source_shell": 1, "sha256": "3161CA7576A7A9E60BB0774C5FB3037CF24C27CCD143955DBD21A5B6DA377446"}
   ],
   "authoring_commands": [
+    "python tools/restore_mesh_normals.py --reference art/characters/captain_live/pieces/head/head.glb --rigged art/characters/captain_live/pieces/head/head_face.glb --out ui/portraits/captain_live/head_face_normals.glb",
     "blender -b --factory-startup --python tools/extract_shells.py -- art/characters/captain_live/pieces/face/face.glb --shell 0 --out ui/portraits/captain_live/moustache.glb",
     "blender -b --factory-startup --python tools/extract_shells.py -- art/characters/captain_live/pieces/face/face.glb --shell 1 --out ui/portraits/captain_live/chin_tuft.glb"
   ],
   "authoring_notes": [
+    "2026-10-12: The rigged head retained all source positions/UVs but changed 29,895 base normals; the 90th percentile change is 22.91 degrees. This produced jagged shading/false contours on the left temple and cheek. The portrait uses a UI-local corrected derivative; source GLBs remain intact. GPU speech/rest comparisons confirmed smoother shading with the same silhouette and animation.",
+    "The hair GLB includes a solid head-shaped fill behind its face opening. Isolated part-color renders show it behind the face, not a second visible skin face. Moustache/chin derivatives contain only their extracted accessory shells. No extra body/head scene is instantiated by this portrait.",
     "The scene is the editable source of fitting. This sidecar records provenance and is never loaded to reset transforms or rebuild content.",
     "The face source contains two disconnected shells with independent origins. Separating them preserves UVs and texture while allowing the chin tuft to follow Jaw independently of the moustache.",
     "Jaw attachment rotation cancels the source Jaw rest orientation; changing the source rig requires checking this local fit again.",

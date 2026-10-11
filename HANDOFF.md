@@ -6,9 +6,13 @@ and prop sheets, and the engine side, who puts them in the game.
 
 ## Current architecture — 2026-10-11
 
-2026-10-12 portrait follow-up: small head renderers now own scene-local worlds
-and private face Mesh/Skin resources. This removes the shared source/deformation
-path; the visible doubled outline is not yet confirmed resolved. See `ui/HANDOFF.md`.
+2026-10-12 portrait mesh repair: the rigged head had lost its original surface
+normals, creating jagged shading/false contours on the left temple and cheek.
+The portrait now uses a UI-local derivative restoring those normals, with source
+geometry, textures, skin and facial morphs intact. Identical speech/rest GPU
+comparisons confirm smoother shading; owner visual acceptance remains pending.
+Its renderers also retain scene-local worlds/private deformation resources.
+See `ui/HANDOFF.md` and the portrait's `fit.json` for provenance and commands.
 
 Owner UI corrections: response hit regions follow actual text height, choices
 open without first-row focus, and the extra response chevron is removed. Ribbon

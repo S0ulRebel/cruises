@@ -1,6 +1,6 @@
 [gd_scene format=3]
 [ext_resource type="Script" path="res://ui/portraits/portrait_rig.gd" id="script"]
-[ext_resource type="PackedScene" path="res://art/characters/captain_live/pieces/head/head_face.glb" id="head"]
+[ext_resource type="PackedScene" path="res://ui/portraits/captain_live/head_face_normals.glb" id="head"]
 [ext_resource type="PackedScene" path="res://art/characters/captain_live/pieces/hair/hair.glb" id="hair"]
 [ext_resource type="PackedScene" path="res://art/characters/captain_live/pieces/hat/hat.glb" id="hat"]
 [ext_resource type="PackedScene" path="res://ui/portraits/captain_live/moustache.glb" id="moustache"]

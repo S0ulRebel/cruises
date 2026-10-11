@@ -404,9 +404,11 @@ const FURNITURE := [
 	  "colour": "#4a2f16", "model": "res://art/props/captain_desk/captain_desk.glb" },
 	# 0.5 x 1.0 x 0.5 from the chair's own sidecar. The box that stood here was 1.9 m
 	# tall, which is a wardrobe, not a chair.
-	{ "name": "chair", "at": Vector3(-3.6, 0.50, -2.1), "size": Vector3(0.5, 1.0, 0.5),
-	  "colour": "#3a2416", "model": "res://art/props/captain_chair/captain_chair.glb",
-	  "spin": Vector3(-90, 180, 0) },
+	# The owner's own generation, which arrives upright and needs no spin. 1.35 m to
+	# the crest rather than the sidecar's 1.0: it is a throne behind a 0.76 m desk and
+	# at 1.0 nothing of it clears the desktop.
+	{ "name": "chair", "at": Vector3(-3.6, 0.675, -2.15), "size": Vector3(0.62, 1.35, 0.62),
+	  "colour": "#3a2416", "model": "res://art/props/captain_chair/captain_chair.glb" },
 	# The nailed supply crate - its own prop, not the brass skull chest. Both are 0.9 m
 	# cubes and for one commit the chest stood in for it; the owner kept them separate.
 	{ "name": "crate", "at": Vector3(3.9, 0.45, 1.9), "size": Vector3(0.9, 0.9, 0.9),

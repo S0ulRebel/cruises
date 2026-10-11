@@ -1,0 +1,217 @@
+{
+  "asset_id": "character_piece:santi_wong:waist",
+  "name": "Santi Wong — Leather harness, belt and empty tool loops",
+  "asset_type": "character_piece_turnaround",
+  "character_id": "santi_wong",
+  "slot": "waist",
+  "files": {
+    "sheet": "sheet.png"
+  },
+  "source": {
+    "producer": "OpenAI built-in image_gen",
+    "model_identifier": "Not exposed by built-in tool",
+    "created_utc": "2026-10-11",
+    "repository_base_commit": "89447ff5e432ca6a971e91e2d3e4498330078042",
+    "original_filename": "exec-dbf9d2af-ca7a-43a0-af97-6245ec2a4b0d.png",
+    "sha256": "f921f0951474930dfe17b854653581e33c5898bbd7de217e96302c9c2c56fdcb",
+    "reference_files": [
+      {
+        "path": "art/characters/santi_wong/sheet.png",
+        "sha256": "ecf43a6c2ec88deb5142a7504414f4d67de2b592ef459bcf2245da51baf6bf6c",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/santi_wong/turnaround.png",
+        "sha256": "4ef6ba4568a6f98f86a49560445a4d0c3737e053e97886ee13c410df942fd84e",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "docs/reference/room_target.png",
+        "sha256": "a17f771d95d7aa37b8403b3b4cb918c7032737cdb031d62c893b424c878cebc3",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/turnaround.png",
+        "sha256": "bcb66fe6213ab55672cb91328f22665a125511d211e3fded0397dd45ac1897fa",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/body/sheet.png",
+        "sha256": "c3df25279534e21f15db4505908695f427e404533a89673456672998e33c65cd",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/head/sheet.png",
+        "sha256": "4d2e6ecee83fc81c6af8fe9df18ea9e7eb81b84630eff272a09b8c9b71227f81",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/hat/sheet.png",
+        "sha256": "753a68de3f6fdf15ebc33fef1c72aed4eb3358aca322fa5f1d74ab03e0662217",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/hair/sheet.png",
+        "sha256": "4724b0d681448d07cd43515220bc1f0beb609dcf44c8cc2d2044766c88d6f501",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/face/sheet.png",
+        "sha256": "4e7ed2070ff4802950e0f734a332aa8576b57ac421e158f7d7f9112e2f365837",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/shirt/sheet.png",
+        "sha256": "f7e8e669bfb488acd074a01cd044b266a0a467100570aeeada9b50bcf8dde107",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/coat/sheet.png",
+        "sha256": "6cdbfe7f956d8ea85feea4a0e4c81e6c56e018f79bf20940aae1a66d041b3bd2",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/trousers/sheet.png",
+        "sha256": "673215a6bc9330664d53247a0dd047de3c1758f2b57b7f095a6beacefe11ec52",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/waist/sheet.png",
+        "sha256": "9de8d261459537d62f4cabb1b61a9cfca72c100426bcd8f82c3d0c7b8f0986ef",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/boots/sheet.png",
+        "sha256": "3400b0bb4c71ae6b0902d0969f03c56cf38f48b74640d4cbe29c88ed84257c1d",
+        "role": "Approved identity/style or inspected modular source example"
+      }
+    ],
+    "generation_history": [
+      {
+        "prompt": "Use case: identity-preserve. Modular leather HARNESS AND BELT waist-slot wearable for Santi Wong. References approvedSanti design and turnaround show darkbrown shoulder suspenders connected to wide belt at his broad belly, small squared brass buckles and hardware, restrained leather pouches and empty toolloops at hips. Only that connected harness/belt and attached leather pouch/loops, no pots spoons knives ladles or hanging metal cookware. Match originalSanti, no new armor or modern holster. Belt wraps broad barrel waist; two shoulder straps rise to shoulders and run down rear to belt. Front straps parallel down chest, no cross on front. Buckles modest wornbrass, darkwarmbrown leather broad clean planes, chunky cartoon rendering, no grainy realistic leathertexture.\nEntire invisible torso space must show PUREWHITE background THROUGH shoulder/waist strap openings; don't fill harness with brown mannequin or fabric. No skin, body, trousers, apron, shirt, scarf, hat or props. Empty wearable harness, connected suspension straps to continuous belt, plausible thickness. Show front waist buckle and rear plain belt, pouches stay on same anatomical side acrossviews. A few small empty tool loops on sides.\nFit to same Santi broad torso in T-pose; no sleeves/arms. Four LEVEL cardinal orthographic views FRONT LEFT BACK RIGHT in horizontal row, one shared scale and identical shoulderstrap-top and belt/pouch-bottom envelope. Full garment in eachview, physically narrow side profiles, clean wide white separators and outermargins. No labels text borders groundline shadows or scenery. No change reference costume.",
+        "output_filename": "exec-dbf9d2af-ca7a-43a0-af97-6245ec2a4b0d.png",
+        "output_sha256": "f921f0951474930dfe17b854653581e33c5898bbd7de217e96302c9c2c56fdcb",
+        "selected": true
+      }
+    ],
+    "postprocessing": "Selected generated source copied unchanged; no repainting, axis stretching, rescaling or background editing."
+  },
+  "dimensions_m": {
+    "width": 0.68,
+    "height": 0.5,
+    "depth": 0.48
+  },
+  "dimension_contract": {
+    "authority": "Provisional art fitting estimates, not owner measurements or reconstructed bounds. 1.70m applies to complete dressed character only.",
+    "same_body": "Fit to Santi short stocky body, not Livé slender body.",
+    "uniform_metric_fitting_required": true,
+    "shared_raster_scale_verified": false
+  },
+  "presentation": {
+    "view_order": [
+      "front",
+      "left",
+      "back",
+      "right"
+    ],
+    "camera": "Level orthographic elevations intended; illustrated projection limits noted per slot. Head profiles may turn slightly for cavity visibility.",
+    "pose": "Natural fixed wearable shape in the body T-pose",
+    "background_rgb": [
+      254,
+      254,
+      254
+    ],
+    "image_size_px": [
+      2172,
+      724
+    ],
+    "lighting": "Soft dimensional painted cartoon shading baked into source; de-light during texturing.",
+    "ownership_and_fit_note": "Connected leather suspenders/belt, attached leather pouches and empty loops only. Background visible in harness openings. Cookware is separate reusable prop work, not fused into this model; exact rear buckle surfaces and pouch continuity need mesh review."
+  },
+  "wearing": {
+    "hold": "SKINNED",
+    "head_role": false,
+    "override_default": false,
+    "note": "Connected leather suspenders/belt, attached leather pouches and empty loops only. Background visible in harness openings. Cookware is separate reusable prop work, not fused into this model; exact rear buckle surfaces and pouch continuity need mesh review."
+  },
+  "validation": {
+    "method": "Visual comparison plus unmodified tools/crop_views.py, modal-background distance tolerance18; own-bounds native cropping.",
+    "views": [
+      {
+        "view": "front",
+        "bounds_px": [
+          55,
+          105,
+          527,
+          579
+        ],
+        "height_px": 474,
+        "width_px": 472
+      },
+      {
+        "view": "left",
+        "bounds_px": [
+          668,
+          96,
+          961,
+          580
+        ],
+        "height_px": 484,
+        "width_px": 293
+      },
+      {
+        "view": "back",
+        "bounds_px": [
+          1148,
+          104,
+          1601,
+          582
+        ],
+        "height_px": 478,
+        "width_px": 453
+      },
+      {
+        "view": "right",
+        "bounds_px": [
+          1747,
+          96,
+          2037,
+          581
+        ],
+        "height_px": 485,
+        "width_px": 290
+      }
+    ],
+    "height_spread_px": 11,
+    "height_spread_percent": 2.27,
+    "strict_equal_source_heights_met": false,
+    "source_png_decoded": true,
+    "four_nonempty_crops_verified": true,
+    "all_crop_baselines_identical": true,
+    "native_crop_canvas_px": 601,
+    "pixels_lost": 0,
+    "limitation": "Cutter aligns baselines but does not correct the native source height differences, view turns or metre scale. These are source limitations, not a proven physical fit."
+  },
+  "pipeline": {
+    "status": "source_sheet_only",
+    "suggested_crop_command": "python tools/crop_views.py art/characters/santi_wong/pieces/waist/sheet.png --row 0 1 --names front left back right --min-width-ratio 0.1 --size 601 --out art/characters/santi_wong/pieces/waist/views",
+    "two_x_upscale_target_px": 1202,
+    "upscale_note": "Extract at native size then apply one common2x LANCZOS upscale to all4 images. Minimum target1062px across set. Upscale adds no source detail.",
+    "cropped_inputs_are_reproducible_not_committed": true,
+    "three_d_generator_allowed": "Tripo only",
+    "nc_models_used": false,
+    "reconstruction_run": false,
+    "mouth_cavity_mesh_verified": false,
+    "rigging_verified": false,
+    "engine_fit_verified": false,
+    "rigging_route": "docs/RIGGING.md one donor armature, not independent auto-riggers"
+  },
+  "brief_acceptance": {
+    "all_requirements_met": false,
+    "remaining": [
+      "Connected leather suspenders/belt, attached leather pouches and empty loops only. Background visible in harness openings. Cookware is separate reusable prop work, not fused into this model; exact rear buckle surfaces and pouch continuity need mesh review.",
+      "Native height spread 11px / 2.27%; exact one-scale orthographic reconstruction is not demonstrated by generated artwork.",
+      "Reconstruction, cavities and metric fit not verified."
+    ]
+  }
+}

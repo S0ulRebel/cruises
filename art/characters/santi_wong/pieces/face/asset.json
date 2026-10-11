@@ -1,0 +1,217 @@
+{
+  "asset_id": "character_piece:santi_wong:face",
+  "name": "Santi Wong — Handlebar moustache and pointed goatee",
+  "asset_type": "character_piece_turnaround",
+  "character_id": "santi_wong",
+  "slot": "face",
+  "files": {
+    "sheet": "sheet.png"
+  },
+  "source": {
+    "producer": "OpenAI built-in image_gen",
+    "model_identifier": "Not exposed by built-in tool",
+    "created_utc": "2026-10-11",
+    "repository_base_commit": "89447ff5e432ca6a971e91e2d3e4498330078042",
+    "original_filename": "exec-9715f0e9-8b11-47e1-bacf-3376caa11e91.png",
+    "sha256": "50740abaf7646f221d59db62523c01b279c841f944eb025c53ad29a291e30d25",
+    "reference_files": [
+      {
+        "path": "art/characters/santi_wong/sheet.png",
+        "sha256": "ecf43a6c2ec88deb5142a7504414f4d67de2b592ef459bcf2245da51baf6bf6c",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/santi_wong/turnaround.png",
+        "sha256": "4ef6ba4568a6f98f86a49560445a4d0c3737e053e97886ee13c410df942fd84e",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "docs/reference/room_target.png",
+        "sha256": "a17f771d95d7aa37b8403b3b4cb918c7032737cdb031d62c893b424c878cebc3",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/turnaround.png",
+        "sha256": "bcb66fe6213ab55672cb91328f22665a125511d211e3fded0397dd45ac1897fa",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/body/sheet.png",
+        "sha256": "c3df25279534e21f15db4505908695f427e404533a89673456672998e33c65cd",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/head/sheet.png",
+        "sha256": "4d2e6ecee83fc81c6af8fe9df18ea9e7eb81b84630eff272a09b8c9b71227f81",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/hat/sheet.png",
+        "sha256": "753a68de3f6fdf15ebc33fef1c72aed4eb3358aca322fa5f1d74ab03e0662217",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/hair/sheet.png",
+        "sha256": "4724b0d681448d07cd43515220bc1f0beb609dcf44c8cc2d2044766c88d6f501",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/face/sheet.png",
+        "sha256": "4e7ed2070ff4802950e0f734a332aa8576b57ac421e158f7d7f9112e2f365837",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/shirt/sheet.png",
+        "sha256": "f7e8e669bfb488acd074a01cd044b266a0a467100570aeeada9b50bcf8dde107",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/coat/sheet.png",
+        "sha256": "6cdbfe7f956d8ea85feea4a0e4c81e6c56e018f79bf20940aae1a66d041b3bd2",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/trousers/sheet.png",
+        "sha256": "673215a6bc9330664d53247a0dd047de3c1758f2b57b7f095a6beacefe11ec52",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/waist/sheet.png",
+        "sha256": "9de8d261459537d62f4cabb1b61a9cfca72c100426bcd8f82c3d0c7b8f0986ef",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/boots/sheet.png",
+        "sha256": "3400b0bb4c71ae6b0902d0969f03c56cf38f48b74640d4cbe29c88ed84257c1d",
+        "role": "Approved identity/style or inspected modular source example"
+      }
+    ],
+    "generation_history": [
+      {
+        "prompt": "Use case: identity-preserve. Modular FACE facial-hair component for Santi Wong. Image1 approvedSanti defines his compact black curled handlebar moustache and distinctive pointed GOATEE, fuller and longer than Captain's tiny chin tuft. Image2 Captain facial-hair sheet is component arrangement/workflow/style only. Image3 Santi bald head is fit reference, no head in output.\nGenerate ONLY ONE connected black/darkbrown handlebar moustache at upperlip plus ONE SEPARATE tapered chin goatee below, placed as if on Santi's invisible rounded face. Moustache two small curving lobes join at philtrum, fine upcurled tips across uppercheeks. Goatee an actual pointed tuft on chin, no cheek beard or sideburns. Leave white gap for mouth between moustache and goatee. Keep goatee short enough to match original reference, not a full hanging beard. These two hair islands collectively one face-slot model. No skin, nose, mouth, teeth, eyebrows, haircap or guide head. Broad sculpted cartoon locks and soft highlights, not photoreal hairstrands.\nOne horizontal row of4 groups FRONT LEFT BACK RIGHT. Front and reverse/back show moustache width; rear is concave skin attachment surfaces, not a duplicate convex front. Profiles correctly curve along invisible cheek: leftview rounded centre atleft and tips sweep backwardsright; rightmirror. Goatee attachment slightly forward belowlowerlip in profiles. All4 preserve same anatomical moustache-to-chin spacing and SAME total height and lowestgoatee baseline. Narrow profiles retain physical width, no magnification. Four clear separated whole groups, large purewhite bands. Pure opaque white background no shadows labels text or extra objects.",
+        "output_filename": "exec-9715f0e9-8b11-47e1-bacf-3376caa11e91.png",
+        "output_sha256": "50740abaf7646f221d59db62523c01b279c841f944eb025c53ad29a291e30d25",
+        "selected": true
+      }
+    ],
+    "postprocessing": "Selected generated source copied unchanged; no repainting, axis stretching, rescaling or background editing."
+  },
+  "dimensions_m": {
+    "width": 0.2,
+    "height": 0.14,
+    "depth": 0.035
+  },
+  "dimension_contract": {
+    "authority": "Provisional art fitting estimates, not owner measurements or reconstructed bounds. 1.70m applies to complete dressed character only.",
+    "same_body": "Fit to Santi short stocky body, not Livé slender body.",
+    "uniform_metric_fitting_required": true,
+    "shared_raster_scale_verified": false
+  },
+  "presentation": {
+    "view_order": [
+      "front",
+      "left",
+      "back",
+      "right"
+    ],
+    "camera": "Level orthographic elevations intended; illustrated projection limits noted per slot. Head profiles may turn slightly for cavity visibility.",
+    "pose": "Natural fixed wearable shape in the body T-pose",
+    "background_rgb": [
+      254,
+      254,
+      254
+    ],
+    "image_size_px": [
+      1882,
+      836
+    ],
+    "lighting": "Soft dimensional painted cartoon shading baked into source; de-light during texturing.",
+    "ownership_and_fit_note": "Moustache and goatee are two disconnected islands at anatomical spacing. Goatee must follow Jaw; moustache follows Head. Split/isolate or skin accordingly during rigging; never pin moving chin tuft to static upper-head bone."
+  },
+  "wearing": {
+    "hold": "SKINNED",
+    "head_role": false,
+    "override_default": true,
+    "note": "Moustache and goatee are two disconnected islands at anatomical spacing. Goatee must follow Jaw; moustache follows Head. Split/isolate or skin accordingly during rigging; never pin moving chin tuft to static upper-head bone."
+  },
+  "validation": {
+    "method": "Visual comparison plus unmodified tools/crop_views.py, modal-background distance tolerance18; own-bounds native cropping.",
+    "views": [
+      {
+        "view": "front",
+        "bounds_px": [
+          32,
+          265,
+          518,
+          594
+        ],
+        "height_px": 329,
+        "width_px": 486
+      },
+      {
+        "view": "left",
+        "bounds_px": [
+          598,
+          252,
+          864,
+          585
+        ],
+        "height_px": 333,
+        "width_px": 266
+      },
+      {
+        "view": "back",
+        "bounds_px": [
+          939,
+          265,
+          1448,
+          586
+        ],
+        "height_px": 321,
+        "width_px": 509
+      },
+      {
+        "view": "right",
+        "bounds_px": [
+          1530,
+          250,
+          1801,
+          586
+        ],
+        "height_px": 336,
+        "width_px": 271
+      }
+    ],
+    "height_spread_px": 15,
+    "height_spread_percent": 4.46,
+    "strict_equal_source_heights_met": false,
+    "source_png_decoded": true,
+    "four_nonempty_crops_verified": true,
+    "all_crop_baselines_identical": true,
+    "native_crop_canvas_px": 631,
+    "pixels_lost": 0,
+    "limitation": "Cutter aligns baselines but does not correct the native source height differences, view turns or metre scale. These are source limitations, not a proven physical fit."
+  },
+  "pipeline": {
+    "status": "source_sheet_only",
+    "suggested_crop_command": "python tools/crop_views.py art/characters/santi_wong/pieces/face/sheet.png --row 0 1 --names front left back right --min-width-ratio 0.1 --size 631 --out art/characters/santi_wong/pieces/face/views",
+    "two_x_upscale_target_px": 1262,
+    "upscale_note": "Extract at native size then apply one common2x LANCZOS upscale to all4 images. Minimum target1062px across set. Upscale adds no source detail.",
+    "cropped_inputs_are_reproducible_not_committed": true,
+    "three_d_generator_allowed": "Tripo only",
+    "nc_models_used": false,
+    "reconstruction_run": false,
+    "mouth_cavity_mesh_verified": false,
+    "rigging_verified": false,
+    "engine_fit_verified": false,
+    "rigging_route": "docs/RIGGING.md one donor armature, not independent auto-riggers"
+  },
+  "brief_acceptance": {
+    "all_requirements_met": false,
+    "remaining": [
+      "Moustache and goatee are two disconnected islands at anatomical spacing. Goatee must follow Jaw; moustache follows Head. Split/isolate or skin accordingly during rigging; never pin moving chin tuft to static upper-head bone.",
+      "Native height spread 15px / 4.46%; exact one-scale orthographic reconstruction is not demonstrated by generated artwork.",
+      "Reconstruction, cavities and metric fit not verified."
+    ]
+  }
+}

@@ -1,0 +1,205 @@
+{
+  "asset_id": "character_piece_set:santi_wong",
+  "name": "Santi Wong modular source set",
+  "asset_type": "character_piece_set",
+  "character_id": "santi_wong",
+  "created_utc": "2026-10-11",
+  "reference_sheet": "art/characters/santi_wong/sheet.png",
+  "brief": "docs/ARTIST_BRIEF_PIECES.md",
+  "view_order": [
+    "front",
+    "left",
+    "back",
+    "right"
+  ],
+  "slots": [
+    {
+      "slot": "body",
+      "name": "Bare stocky rigging body",
+      "sheet": "body/sheet.png",
+      "asset": "body/asset.json",
+      "sha256": "969ff4280086eef1fc5cdf491782ae5b4380adc95ed36365dfe731216bba23b8",
+      "crop_command": "python tools/crop_views.py art/characters/santi_wong/pieces/body/sheet.png --row 0 1 --names front left back right --min-width-ratio 0.1 --size 766 --out art/characters/santi_wong/pieces/body/views",
+      "native_crop_square_px": 766,
+      "input_after_2x_upscale_px": 1532,
+      "height_spread_px": 4,
+      "height_spread_percent": 0.66
+    },
+    {
+      "slot": "head",
+      "name": "Bald head and neck, lips slightly parted",
+      "sheet": "head/sheet.png",
+      "asset": "head/asset.json",
+      "sha256": "e550f9e9700bbf780052cc05a2e8b10b9bb3aca64dda3a1711ff46b16dd3d0a6",
+      "crop_command": "python tools/crop_views.py art/characters/santi_wong/pieces/head/sheet.png --row 0 1 --names front left back right --min-width-ratio 0.1 --size 673 --out art/characters/santi_wong/pieces/head/views",
+      "native_crop_square_px": 673,
+      "input_after_2x_upscale_px": 1346,
+      "height_spread_px": 14,
+      "height_spread_percent": 2.58
+    },
+    {
+      "slot": "hat",
+      "name": "Skull-and-spoons chef toque",
+      "sheet": "hat/sheet.png",
+      "asset": "hat/asset.json",
+      "sha256": "dc6a3eb030c64c99925dd12094c9b9566f56b2d78c8dc77f5d96e174a42b5587",
+      "crop_command": "python tools/crop_views.py art/characters/santi_wong/pieces/hat/sheet.png --row 0 1 --names front left back right --min-width-ratio 0.1 --size 721 --out art/characters/santi_wong/pieces/hat/views",
+      "native_crop_square_px": 721,
+      "input_after_2x_upscale_px": 1442,
+      "height_spread_px": 13,
+      "height_spread_percent": 2.23
+    },
+    {
+      "slot": "hair",
+      "name": "Dark corkscrew curls",
+      "sheet": "hair/sheet.png",
+      "asset": "hair/asset.json",
+      "sha256": "006978e425e7324a32092278e41bec4a2c12075b11df3378d76a82bb426d781e",
+      "crop_command": "python tools/crop_views.py art/characters/santi_wong/pieces/hair/sheet.png --row 0 1 --names front left back right --min-width-ratio 0.1 --size 622 --out art/characters/santi_wong/pieces/hair/views",
+      "native_crop_square_px": 622,
+      "input_after_2x_upscale_px": 1244,
+      "height_spread_px": 16,
+      "height_spread_percent": 3.58
+    },
+    {
+      "slot": "face",
+      "name": "Handlebar moustache and pointed goatee",
+      "sheet": "face/sheet.png",
+      "asset": "face/asset.json",
+      "sha256": "50740abaf7646f221d59db62523c01b279c841f944eb025c53ad29a291e30d25",
+      "crop_command": "python tools/crop_views.py art/characters/santi_wong/pieces/face/sheet.png --row 0 1 --names front left back right --min-width-ratio 0.1 --size 631 --out art/characters/santi_wong/pieces/face/views",
+      "native_crop_square_px": 631,
+      "input_after_2x_upscale_px": 1262,
+      "height_spread_px": 15,
+      "height_spread_percent": 4.46
+    },
+    {
+      "slot": "shirt",
+      "name": "Rolled-sleeve ivory chef shirt",
+      "sheet": "shirt/sheet.png",
+      "asset": "shirt/asset.json",
+      "sha256": "16c1ac0c0c3eabe9d4afd308cf13f6a5f6dae91fbad9c3caf3371727946382ff",
+      "crop_command": "python tools/crop_views.py art/characters/santi_wong/pieces/shirt/sheet.png --row 0 1 --names front left back right --min-width-ratio 0.1 --size 856 --out art/characters/santi_wong/pieces/shirt/views",
+      "native_crop_square_px": 856,
+      "input_after_2x_upscale_px": 1712,
+      "height_spread_px": 5,
+      "height_spread_percent": 1.27
+    },
+    {
+      "slot": "coat",
+      "name": "Separate tied cloth apron",
+      "sheet": "coat/sheet.png",
+      "asset": "coat/asset.json",
+      "sha256": "d59bfd89a09d0fc9beb645308e3f6929ef9f99b79c6bbf8e30f043ee9168cb1b",
+      "crop_command": "python tools/crop_views.py art/characters/santi_wong/pieces/coat/sheet.png --row 0 1 --names front left back right --min-width-ratio 0.1 --size 778 --out art/characters/santi_wong/pieces/coat/views",
+      "native_crop_square_px": 778,
+      "input_after_2x_upscale_px": 1556,
+      "height_spread_px": 11,
+      "height_spread_percent": 1.75
+    },
+    {
+      "slot": "trousers",
+      "name": "Striped baggy breeches",
+      "sheet": "trousers/sheet.png",
+      "asset": "trousers/asset.json",
+      "sha256": "396dc2ff9ab06901e1a0f143b99e6a570e983a64097877e9e9ba6f8e301dec1c",
+      "crop_command": "python tools/crop_views.py art/characters/santi_wong/pieces/trousers/sheet.png --row 0 1 --names front left back right --min-width-ratio 0.1 --size 682 --out art/characters/santi_wong/pieces/trousers/views",
+      "native_crop_square_px": 682,
+      "input_after_2x_upscale_px": 1364,
+      "height_spread_px": 8,
+      "height_spread_percent": 1.45
+    },
+    {
+      "slot": "waist",
+      "name": "Leather harness, belt and empty tool loops",
+      "sheet": "waist/sheet.png",
+      "asset": "waist/asset.json",
+      "sha256": "f921f0951474930dfe17b854653581e33c5898bbd7de217e96302c9c2c56fdcb",
+      "crop_command": "python tools/crop_views.py art/characters/santi_wong/pieces/waist/sheet.png --row 0 1 --names front left back right --min-width-ratio 0.1 --size 601 --out art/characters/santi_wong/pieces/waist/views",
+      "native_crop_square_px": 601,
+      "input_after_2x_upscale_px": 1202,
+      "height_spread_px": 11,
+      "height_spread_percent": 2.27
+    },
+    {
+      "slot": "boots",
+      "name": "Brown buckled work boots — pair",
+      "sheet": "boots/sheet.png",
+      "asset": "boots/asset.json",
+      "sha256": "af54db9ef73589ffa069a01ed93a12af8d9a686b74af9b6aa462853b22fde736",
+      "crop_command": "python tools/crop_views.py art/characters/santi_wong/pieces/boots/sheet.png --row 0 1 --names front left back right --min-width-ratio 0.1 --count 4 --size 673 --out art/characters/santi_wong/pieces/boots/views",
+      "native_crop_square_px": 673,
+      "input_after_2x_upscale_px": 1346,
+      "height_spread_px": 4,
+      "height_spread_percent": 1.03
+    },
+    {
+      "slot": "accessory",
+      "name": "Red neckerchief",
+      "sheet": "accessory/sheet.png",
+      "asset": "accessory/asset.json",
+      "sha256": "66bcebcc777c427316b082805c59b2606ffbf05a01c46f4440b9c69498ed5708",
+      "crop_command": "python tools/crop_views.py art/characters/santi_wong/pieces/accessory/sheet.png --row 0 1 --names front left back right --min-width-ratio 0.1 --size 570 --out art/characters/santi_wong/pieces/accessory/views",
+      "native_crop_square_px": 570,
+      "input_after_2x_upscale_px": 1140,
+      "height_spread_px": 7,
+      "height_spread_percent": 1.86
+    }
+  ],
+  "authorization": "Owner explicitly requested Santi Wong modular rebuild after inspecting Captain Livé references on 2026-10-11; supersedes old Livé-only art scope for Santi source creation. Does not imply Livé full engine fit is verified.",
+  "slot_ownership": {
+    "body": "Bare stocky rigging body",
+    "head": "Bald head and neck, lips slightly parted",
+    "hat": "Skull-and-spoons chef toque",
+    "hair": "Dark corkscrew curls",
+    "face": "Handlebar moustache and pointed goatee",
+    "shirt": "Rolled-sleeve ivory chef shirt",
+    "coat": "Separate tied cloth apron",
+    "trousers": "Striped baggy breeches",
+    "waist": "Leather harness, belt and empty tool loops",
+    "boots": "Brown buckled work boots — pair",
+    "accessory": "Red neckerchief"
+  },
+  "pose_contract": {
+    "body": "A-pose, arms about45 degrees down, palms down; scaffold head retained",
+    "shirt": "T-pose, sleeves horizontal",
+    "other_wearables": "Fit same Santi body in T-pose; no independent arm pose applies"
+  },
+  "fit_contract": {
+    "legacy_assembled_height_m": 1.7,
+    "reference_includes_chef_hat": true,
+    "bare_body_height_estimate_m": 1.4,
+    "all_piece_measurements_are_provisional_art_fitting_guides": true,
+    "source_rasters_share_calibrated_pixels_per_metre": false,
+    "instruction": "Retain assembled Santi1.70m silhouette including tall hat. Uniformly fit each piece to Santi body in T-pose after reconstruction. Do not normalize every component to1.70m, copy Livé fits or stretch image axes. Bare-body1.40m is provisional, not measured mesh."
+  },
+  "rigging_contract": {
+    "route": "Follow docs/RIGGING.md: one donor Mixamo armature; do not auto-rig every piece. Fitcheck real Santi body first; his short limbs and belly make donor alignment unverified.",
+    "scaffold_head": "Retain in source; hide/remove base head surface under detailed head.",
+    "jaw": "On detailed head skeleton; upper teeth fixed, lower teeth/jaw linked, tongue weights verified with re-imported mesh; test closure without tearing.",
+    "face_goatee": "Goatee follows Jaw; moustache follows Head.",
+    "accessory_hold_override": "SKINNED for neckerchief",
+    "coat_mapping": "Existing coat slot used for cloth apron; no slot addition required."
+  },
+  "pipeline_gates": {
+    "tripo_only": true,
+    "source_set_complete": true,
+    "all_source_scale_requirements_met": false,
+    "mouth_cavity_mesh_verified": false,
+    "jaw_closure_verified": false,
+    "donor_fit_verified": false,
+    "garment_cavities_verified": false,
+    "body_rig_and_piece_fit_verified": false,
+    "engine_import_verified": false
+  },
+  "status": "Eleven source sheets and sidecars delivered. Four-view extraction verified per piece; native source height/projection differences recorded. Reconstruction, fit and animation untested.",
+  "excluded_props": [
+    "ladle",
+    "cleaver",
+    "pan",
+    "other cookware",
+    "cat",
+    "barrel"
+  ],
+  "inspection": "Approved Santi source/turnaround and matching Livé modular sheet visually inspected before each generation; source reference hashes recorded in sidecars."
+}

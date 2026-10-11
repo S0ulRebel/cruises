@@ -93,6 +93,8 @@ with source provenance, measured framing and the exact extraction command.
 
 Record reconstruction results, failed slots and any questions in this file. Do not
 start another character until this Livé set has gone through the pipeline.
+**Owner override, 11 Oct:** Santi modular source creation is explicitly authorized;
+see his delivery and reconstruction task below. Livé's remaining checks still apply.
 
 ### 2026-10-10 — for the ComfyUI sessions (face, Spine, fingers) — read this instead of asking
 
@@ -833,6 +835,39 @@ triangles. The 2D redo is delivered; successful reconstruction is NOT yet verifi
 
 ---
 
+### 2026-10-11 — for the engine side — reconstruct and fit Santi Wong's modular set
+
+Start at `art/characters/santi_wong/pieces/asset.json`. Eleven separate sheets and
+sidecars are delivered: body, head, hat, hair, face, shirt, coat (apron), trousers,
+waist (harness/belt), boots pair and accessory (red neckerchief). The owner explicitly
+requested this rebuild using Livé's modular references, superseding the old Livé-only
+source-art gate; this does not certify the remaining Livé pipeline checks.
+
+1. Use the recorded per-slot crop command, then a common 2x upscale of all four
+   views. Order is front / left / back / right. Boots need `--count 4` to preserve
+   paired boots. Other sheets use detection and `--min-width-ratio 0.1`.
+2. Check Santi's A-pose, palms-down stocky body against the current one-donor
+   armature workflow in `docs/RIGGING.md` before fitting clothing. His proportions
+   have not passed donor fit. Retain the scaffold head for this check, then hide or
+   remove its surface beneath the detailed head. Shirt sleeves are T-pose.
+3. Reconstruct the slightly parted-mouth head; verify actual cavity, upper/lower
+   teeth and tongue, then jaw closure without tearing. Mouth depiction is source
+   artwork only. Moustache follows Head; chin goatee follows Jaw.
+4. Fit each piece uniformly in metres to the reconstructed Santi body. The legacy
+   assembled height is 1.70m INCLUDING the chef hat. Bare body 1.40m and all sidecar
+   dimensions are provisional. No shared pixels-per-metre calibration is claimed.
+   Native height differences are 0.66-4.46%; cropping aligns baselines without
+   correcting source scale or projection. Do not stretch axes to conceal them.
+5. Use `coat` for the cloth apron; `accessory` neckerchief requires a SKINNED hold
+   override. Check garment openings, hat cavity, harness loops, both boots and
+   scarf clearance. Cookware/ladle remain separate props. No engine code or fused
+   Santi files were replaced by this source delivery.
+
+Record reconstruction, body fit, mouth closure, garment clearance and engine-import
+results here. All of these checks remain unverified.
+
+---
+
 ## Done
 
 ### 2026-10-11 — for the engine side — scene authoring and agent collaboration plan
@@ -1322,6 +1357,27 @@ view crops use one common 2x upscale. Full prompts, reference hashes, dimension
 contract and measured limitations are in the sidecar. Reconstruction remains Open.
 The owner also requires inspecting other artwork before EVERY new asset; recorded
 in the art conventions above. Show this prop to the owner before starting the next.
+
+---
+
+### 2026-10-11 — art side — Santi Wong modular source set delivered
+
+Delivered eleven four-view sheets with per-piece metadata and the index at
+`art/characters/santi_wong/pieces/asset.json`. Inspected approved Santi identity
+artwork, room style reference and corresponding Livé modular pieces before
+generation; preserved the stocky cook and separated all wearables. Full selected
+and revision prompts, reference hashes, provisional sizes, slot mapping and source
+limits are recorded. Body is A-pose with scaffold head; shirt is T-pose; detailed
+head uses the current slightly parted-mouth guidance. Apron maps to `coat`, red
+neckerchief to `accessory`; moustache and chin goatee are separate islands.
+
+All eleven original generated PNGs are copied unchanged. The existing cutter
+extracts 44 nonempty native views on shared per-piece square canvases/baselines;
+pixel comparisons verify complete foreground coverage with no clipping or
+resampling in native extraction. Source height spreads range from 4 to 16px
+(0.66-4.46%); exact equal-scale projections are not claimed. Common 2x input sizes
+range from 1140 to 1712px. Reconstruction, cavities, rigging and fitting remain
+Open above. This is source artwork, not an assembled animation-ready character.
 
 ---
 

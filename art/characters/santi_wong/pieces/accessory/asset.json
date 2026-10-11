@@ -1,0 +1,229 @@
+{
+  "asset_id": "character_piece:santi_wong:accessory",
+  "name": "Santi Wong — Red neckerchief",
+  "asset_type": "character_piece_turnaround",
+  "character_id": "santi_wong",
+  "slot": "accessory",
+  "files": {
+    "sheet": "sheet.png"
+  },
+  "source": {
+    "producer": "OpenAI built-in image_gen",
+    "model_identifier": "Not exposed by built-in tool",
+    "created_utc": "2026-10-11",
+    "repository_base_commit": "89447ff5e432ca6a971e91e2d3e4498330078042",
+    "original_filename": "exec-d302b55b-93c2-4934-b024-d392883071e4.png",
+    "sha256": "66bcebcc777c427316b082805c59b2606ffbf05a01c46f4440b9c69498ed5708",
+    "reference_files": [
+      {
+        "path": "art/characters/santi_wong/sheet.png",
+        "sha256": "ecf43a6c2ec88deb5142a7504414f4d67de2b592ef459bcf2245da51baf6bf6c",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/santi_wong/turnaround.png",
+        "sha256": "4ef6ba4568a6f98f86a49560445a4d0c3737e053e97886ee13c410df942fd84e",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "docs/reference/room_target.png",
+        "sha256": "a17f771d95d7aa37b8403b3b4cb918c7032737cdb031d62c893b424c878cebc3",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/turnaround.png",
+        "sha256": "bcb66fe6213ab55672cb91328f22665a125511d211e3fded0397dd45ac1897fa",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/body/sheet.png",
+        "sha256": "c3df25279534e21f15db4505908695f427e404533a89673456672998e33c65cd",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/head/sheet.png",
+        "sha256": "4d2e6ecee83fc81c6af8fe9df18ea9e7eb81b84630eff272a09b8c9b71227f81",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/hat/sheet.png",
+        "sha256": "753a68de3f6fdf15ebc33fef1c72aed4eb3358aca322fa5f1d74ab03e0662217",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/hair/sheet.png",
+        "sha256": "4724b0d681448d07cd43515220bc1f0beb609dcf44c8cc2d2044766c88d6f501",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/face/sheet.png",
+        "sha256": "4e7ed2070ff4802950e0f734a332aa8576b57ac421e158f7d7f9112e2f365837",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/shirt/sheet.png",
+        "sha256": "f7e8e669bfb488acd074a01cd044b266a0a467100570aeeada9b50bcf8dde107",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/coat/sheet.png",
+        "sha256": "6cdbfe7f956d8ea85feea4a0e4c81e6c56e018f79bf20940aae1a66d041b3bd2",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/trousers/sheet.png",
+        "sha256": "673215a6bc9330664d53247a0dd047de3c1758f2b57b7f095a6beacefe11ec52",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/waist/sheet.png",
+        "sha256": "9de8d261459537d62f4cabb1b61a9cfca72c100426bcd8f82c3d0c7b8f0986ef",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/boots/sheet.png",
+        "sha256": "3400b0bb4c71ae6b0902d0969f03c56cf38f48b74640d4cbe29c88ed84257c1d",
+        "role": "Approved identity/style or inspected modular source example"
+      }
+    ],
+    "generation_history": [
+      {
+        "prompt": "Use case: identity-preserve. Modular red NECKERCHIEF ONLY for Santi Wong, accessory slot with explicit SKINNED wear override. ApprovedSanti design and turnaround define the red short tied scarf around his THICK neck: folded broad neckband, small knot centre FRONT, two short triangular cloth ends resting below collar at upperchest, triangular back flap at nape. Not a long captain's waist sash, not a tie reaching belly. Preserve red muted scarlet, broad sculpted cartoon folds and simple painted soft highlights, no fine cloth fibres. Wearable hollow neckloop with genuine empty central neckspace, no head/skin/collar/shirt or stand. Scarf ends attach to same frontknot, rear has broad triangle as existingreference. One coherent removable garment.\nExactly4orthographic elevations FRONT LEFT BACK RIGHT in one horizontalrow. Front knot centred firstview; left profileknotleft, true rear backtrianglethird with no duplicated frontknot, rightprofileknotright. Same height/lowesttipbaseline and camera scale in all4, narrow sides preserve true physicalwidth; no individual magnification. Full scarf with clear whitegaps between allviews and amplemargins. Flat purewhite255 background, no shadows labels text borders or extra objects. Rendering matches reference cartoon, not photoreal fabric.",
+        "output_filename": "exec-32f11d16-254b-40c5-8ca8-08530954ce39.png",
+        "output_sha256": "bebe3f4bbda29ad023a3dc419817b0cf98d20f70e56577ee172ae6a8cc9da973",
+        "selected": false
+      },
+      {
+        "prompt": "Use case: precise-object-edit. Correct projection ONLY on this red neckerchief component sheet. Four FRONT LEFT BACK RIGHT cardinal views must be LEVEL orthographic with ZERO camera pitch. Current views reveal the top inside of the neckloop and angle down: remove elevated-camera effect. The loop's upperedge appears level horizontal at both front and back, sides show physical neckloop DEPTH so they must be NARROWER than front/back. Keep knot atfront, two short tails belowfrontcollar, triangular nape flap atrear. Rearthird view must still show lowfront tailtips peekingbelow the reartriangle if that geometry is taller, so ALL four views have same overallheight and same lowestbaseline at one scale. Do not enlarge reartriangle tofakeheight. All four represent SAME fixed scarf, no independent shapechanges. Preserve redpalette, folds, original short ends, chunky painted cartoon style and hollowneckloop. No body, shirt, labels, shadows or stand. Flatwhite background, complete silhouettes and widewhitegaps.",
+        "output_filename": "exec-8fb6bcb9-732f-4c16-b049-32d3766b9ec4.png",
+        "output_sha256": "31f5b669ef96f388a131fd62ea198400b9038e5c3e1629b7d364654938eaa9c2",
+        "selected": false
+      },
+      {
+        "prompt": "Use case: precise-object-edit. Correct just matching projection/scale in this4view Santi scarf sheet. FIRST FRONT is authority: totalheight353px. SECOND LEFT is344px, THIRD BACK316px, FOURTH RIGHT348px. These are same scarf so need SAME353px height in each. In BACK THIRD, the two front-knot cloth tails visible below the rear triangular flap are TOO SHORT: extend those lower two tips DOWN37pixels to reach samelowestbaseline as FRONT. Keep rear triangular flap unchanged; don'tstretchwholebackview or inventnewcloth. In SECOND/FOURTH keep same shape but adjust a fewpixels in lowerfronttails so each353px tall and samegroundbaseline as FIRST. Keep allfourupperloopedges atonecommontop. Do not enlarge or deform wholeview.\nAlso remove elevatedcamera: neckloop top rim viewed perfectly LEVEL, no lookingdown intothe loop. FOUR4truecardinal FRONT LEFT BACK RIGHT ofthesame neckscarf. Sideviews should have actualshortneckloopdepth with knobfront onleft/right respectively, not3/4 showingwidefront. Preserve exactly redcartoonpaintedfolds, shortknottails, hollownohead/no mannequin, purewhitebackground. No text/shadows, wholeobject gaps. Three rear tips may be visible becausefronttails extendbelow backflap; don'tclose neckopening.",
+        "output_filename": "exec-d302b55b-93c2-4934-b024-d392883071e4.png",
+        "output_sha256": "66bcebcc777c427316b082805c59b2606ffbf05a01c46f4440b9c69498ed5708",
+        "selected": true
+      }
+    ],
+    "postprocessing": "Selected generated source copied unchanged; no repainting, axis stretching, rescaling or background editing."
+  },
+  "dimensions_m": {
+    "width": 0.34,
+    "height": 0.26,
+    "depth": 0.22
+  },
+  "dimension_contract": {
+    "authority": "Provisional art fitting estimates, not owner measurements or reconstructed bounds. 1.70m applies to complete dressed character only.",
+    "same_body": "Fit to Santi short stocky body, not Livé slender body.",
+    "uniform_metric_fitting_required": true,
+    "shared_raster_scale_verified": false
+  },
+  "presentation": {
+    "view_order": [
+      "front",
+      "left",
+      "back",
+      "right"
+    ],
+    "camera": "Level orthographic elevations intended; illustrated projection limits noted per slot. Head profiles may turn slightly for cavity visibility.",
+    "pose": "Natural fixed wearable shape in the body T-pose",
+    "background_rgb": [
+      254,
+      254,
+      254
+    ],
+    "image_size_px": [
+      2172,
+      724
+    ],
+    "lighting": "Soft dimensional painted cartoon shading baked into source; de-light during texturing.",
+    "ownership_and_fit_note": "Red short neckerchief; override accessory default PINNED hold with SKINNED for cloth fitting. Rear front-tail tips visible below nape flap. Residual rim visibility/profile depth are illustrated; check actual loop and neck clearance."
+  },
+  "wearing": {
+    "hold": "SKINNED",
+    "head_role": false,
+    "override_default": true,
+    "note": "Red short neckerchief; override accessory default PINNED hold with SKINNED for cloth fitting. Rear front-tail tips visible below nape flap. Residual rim visibility/profile depth are illustrated; check actual loop and neck clearance."
+  },
+  "validation": {
+    "method": "Visual comparison plus unmodified tools/crop_views.py, modal-background distance tolerance18; own-bounds native cropping.",
+    "views": [
+      {
+        "view": "front",
+        "bounds_px": [
+          43,
+          183,
+          503,
+          552
+        ],
+        "height_px": 369,
+        "width_px": 460
+      },
+      {
+        "view": "left",
+        "bounds_px": [
+          574,
+          183,
+          1025,
+          558
+        ],
+        "height_px": 375,
+        "width_px": 451
+      },
+      {
+        "view": "back",
+        "bounds_px": [
+          1117,
+          182,
+          1565,
+          553
+        ],
+        "height_px": 371,
+        "width_px": 448
+      },
+      {
+        "view": "right",
+        "bounds_px": [
+          1674,
+          182,
+          2122,
+          558
+        ],
+        "height_px": 376,
+        "width_px": 448
+      }
+    ],
+    "height_spread_px": 7,
+    "height_spread_percent": 1.86,
+    "strict_equal_source_heights_met": false,
+    "source_png_decoded": true,
+    "four_nonempty_crops_verified": true,
+    "all_crop_baselines_identical": true,
+    "native_crop_canvas_px": 570,
+    "pixels_lost": 0,
+    "limitation": "Cutter aligns baselines but does not correct the native source height differences, view turns or metre scale. These are source limitations, not a proven physical fit."
+  },
+  "pipeline": {
+    "status": "source_sheet_only",
+    "suggested_crop_command": "python tools/crop_views.py art/characters/santi_wong/pieces/accessory/sheet.png --row 0 1 --names front left back right --min-width-ratio 0.1 --size 570 --out art/characters/santi_wong/pieces/accessory/views",
+    "two_x_upscale_target_px": 1140,
+    "upscale_note": "Extract at native size then apply one common2x LANCZOS upscale to all4 images. Minimum target1062px across set. Upscale adds no source detail.",
+    "cropped_inputs_are_reproducible_not_committed": true,
+    "three_d_generator_allowed": "Tripo only",
+    "nc_models_used": false,
+    "reconstruction_run": false,
+    "mouth_cavity_mesh_verified": false,
+    "rigging_verified": false,
+    "engine_fit_verified": false,
+    "rigging_route": "docs/RIGGING.md one donor armature, not independent auto-riggers"
+  },
+  "brief_acceptance": {
+    "all_requirements_met": false,
+    "remaining": [
+      "Red short neckerchief; override accessory default PINNED hold with SKINNED for cloth fitting. Rear front-tail tips visible below nape flap. Residual rim visibility/profile depth are illustrated; check actual loop and neck clearance.",
+      "Native height spread 7px / 1.86%; exact one-scale orthographic reconstruction is not demonstrated by generated artwork.",
+      "Reconstruction, cavities and metric fit not verified."
+    ]
+  }
+}

@@ -1,0 +1,223 @@
+{
+  "asset_id": "character_piece:santi_wong:body",
+  "name": "Santi Wong — Bare stocky rigging body",
+  "asset_type": "character_piece_turnaround",
+  "character_id": "santi_wong",
+  "slot": "body",
+  "files": {
+    "sheet": "sheet.png"
+  },
+  "source": {
+    "producer": "OpenAI built-in image_gen",
+    "model_identifier": "Not exposed by built-in tool",
+    "created_utc": "2026-10-11",
+    "repository_base_commit": "89447ff5e432ca6a971e91e2d3e4498330078042",
+    "original_filename": "exec-3ea50349-1618-455d-b2ae-bceb06e3e54d.png",
+    "sha256": "969ff4280086eef1fc5cdf491782ae5b4380adc95ed36365dfe731216bba23b8",
+    "reference_files": [
+      {
+        "path": "art/characters/santi_wong/sheet.png",
+        "sha256": "ecf43a6c2ec88deb5142a7504414f4d67de2b592ef459bcf2245da51baf6bf6c",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/santi_wong/turnaround.png",
+        "sha256": "4ef6ba4568a6f98f86a49560445a4d0c3737e053e97886ee13c410df942fd84e",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "docs/reference/room_target.png",
+        "sha256": "a17f771d95d7aa37b8403b3b4cb918c7032737cdb031d62c893b424c878cebc3",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/turnaround.png",
+        "sha256": "bcb66fe6213ab55672cb91328f22665a125511d211e3fded0397dd45ac1897fa",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/body/sheet.png",
+        "sha256": "c3df25279534e21f15db4505908695f427e404533a89673456672998e33c65cd",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/head/sheet.png",
+        "sha256": "4d2e6ecee83fc81c6af8fe9df18ea9e7eb81b84630eff272a09b8c9b71227f81",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/hat/sheet.png",
+        "sha256": "753a68de3f6fdf15ebc33fef1c72aed4eb3358aca322fa5f1d74ab03e0662217",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/hair/sheet.png",
+        "sha256": "4724b0d681448d07cd43515220bc1f0beb609dcf44c8cc2d2044766c88d6f501",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/face/sheet.png",
+        "sha256": "4e7ed2070ff4802950e0f734a332aa8576b57ac421e158f7d7f9112e2f365837",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/shirt/sheet.png",
+        "sha256": "f7e8e669bfb488acd074a01cd044b266a0a467100570aeeada9b50bcf8dde107",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/coat/sheet.png",
+        "sha256": "6cdbfe7f956d8ea85feea4a0e4c81e6c56e018f79bf20940aae1a66d041b3bd2",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/trousers/sheet.png",
+        "sha256": "673215a6bc9330664d53247a0dd047de3c1758f2b57b7f095a6beacefe11ec52",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/waist/sheet.png",
+        "sha256": "9de8d261459537d62f4cabb1b61a9cfca72c100426bcd8f82c3d0c7b8f0986ef",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/boots/sheet.png",
+        "sha256": "3400b0bb4c71ae6b0902d0969f03c56cf38f48b74640d4cbe29c88ed84257c1d",
+        "role": "Approved identity/style or inspected modular source example"
+      }
+    ],
+    "generation_history": [
+      {
+        "prompt": "Use case: identity-preserve. Modular BASE BODY turnaround for Santi Wong. Reference1 approved dressed Santi defines his EXACT stocky physique: very broad rounded barrel torso, prominent belly, thick neck, big head, sturdy short legs, thick arms and large hands. Reference2 Captain bare body is POSE/WORKFLOW and cartoon style only; absolutely do not copy his thin build. Reference3 is Santi's new bald head, head-shape identity only. Adult male cartoon pirate cook, warm peach skin, broad smooth simplified shapes, no photorealistic anatomy, skin pores or bodybuilder muscles.\nONLY complete BALD CLEAN-SHAVEN BAREFOOT base figure in plain fitted neutral-grey underwear shorts for modesty. Keep simple complete skull/chin/neck scaffold head; no need open mouth. No hair, moustache, hat, shirt, apron, trousers, scarf, harness, boots or props. Preserve actual round build beneath clothes; assembled reference1.70m includes tall chef hat, provisional bare-body height about1.40m. No flattening belly or elongating legs.\nBODY A-POSE: arms straight diagonally45degrees DOWN from horizontal, symmetric, away from ribs; legs slightly apart, feet forward. Palms face DOWN, forearms pronated, thumbs toward character front. FRONT/BACK hands naturally near-edge-on, profiles show dorsal surface and separated fingers. Exactly4 fingers and1 thumb each, relaxed spread, clear gaps where projection allows. Never palms-forward. Same frozen A-pose in all4 cardinal views; profiles naturally occlude far limbs, no different poses per camera.\nOne horizontal row FRONT LEFT BACK RIGHT, left nosepointsleft/rightnosepointsright. Level true orthographic cameras. All crowns/soles matching within1pixel, shared scale, each figure whole with generous white bands between all4 and margins. No clipping fingertips or toes, no labels/text/shadows/ground line. Pure white255 background, soft painted cartoon rendering matching the Santi and modularCaptain references.",
+        "output_filename": "exec-9d4f0fc4-d5be-492a-9c77-33b25a74e81c.png",
+        "output_sha256": "d05aa7840ca5a9828a75748faf84558a6cd5d9757866e979f3428194643e3108",
+        "selected": false
+      },
+      {
+        "prompt": "Use case: precise-object-edit. Correct ONLY ARMS and HANDS of this Santi Wong modular barebody sheet. Current first/third arms are about25degrees down fromhorizontal. Lower both arms to EXACTLY45degrees DOWN from horizontal at shoulder, elbowsstraight neutralwrists. Preserve shoulderposition, actual armlength and same broad stockybody, belly, head, legs, underwear, skin and style. Make exactly SAME frozen45degree A-pose in FRONT LEFT BACK RIGHT. PALMS DOWN towardfloor and thumbs towardcharacterfront, notpalmsforward. In front/back hands appear natural edge-on/foreshortened, profiles show dorsal surfaces; four fingers plus one thumb each, relaxed spread clearly separated in broadsideview with whitegaps. Do not turn hands tofacecamera toshowfingers. Eachprofile fararm should naturallyocclude, not splay or stagger.\nKeep same total bodyheight and alignedsolebaseline, equal camera scale in all4, wholefigures with ampleoutermargins andwhitegaps; moving arms lower increases room betweenfigures. Strictlevelorthographiccameras. Purewhite background no castshadow/scenery/text/labels. No clothes beyond plain grey underwear, nohair/facialhair/hat/props. All other anatomy unchanged.",
+        "output_filename": "exec-3ea50349-1618-455d-b2ae-bceb06e3e54d.png",
+        "output_sha256": "969ff4280086eef1fc5cdf491782ae5b4380adc95ed36365dfe731216bba23b8",
+        "selected": true
+      }
+    ],
+    "postprocessing": "Selected generated source copied unchanged; no repainting, axis stretching, rescaling or background editing."
+  },
+  "dimensions_m": {
+    "width": 1.38,
+    "height": 1.4,
+    "depth": 0.55
+  },
+  "dimension_contract": {
+    "authority": "Provisional art fitting estimates, not owner measurements or reconstructed bounds. 1.70m applies to complete dressed character only.",
+    "same_body": "Fit to Santi short stocky body, not Livé slender body.",
+    "uniform_metric_fitting_required": true,
+    "shared_raster_scale_verified": false
+  },
+  "presentation": {
+    "view_order": [
+      "front",
+      "left",
+      "back",
+      "right"
+    ],
+    "camera": "Level orthographic elevations intended; illustrated projection limits noted per slot. Head profiles may turn slightly for cavity visibility.",
+    "pose": "A-pose, palms down",
+    "background_rgb": [
+      254,
+      254,
+      254
+    ],
+    "image_size_px": [
+      2172,
+      724
+    ],
+    "lighting": "Soft dimensional painted cartoon shading baked into source; de-light during texturing.",
+    "ownership_and_fit_note": "A-pose arms approximately 45 degrees down, palms down, complete bald scaffold head retained, grey modesty underwear. Hide/remove scaffold head beneath detailed head. Hand pronation and exact digit topology require mesh inspection."
+  },
+  "wearing": {
+    "hold": "SKINNED",
+    "head_role": false,
+    "override_default": false,
+    "note": "A-pose arms approximately 45 degrees down, palms down, complete bald scaffold head retained, grey modesty underwear. Hide/remove scaffold head beneath detailed head. Hand pronation and exact digit topology require mesh inspection."
+  },
+  "validation": {
+    "method": "Visual comparison plus unmodified tools/crop_views.py, modal-background distance tolerance18; own-bounds native cropping.",
+    "views": [
+      {
+        "view": "front",
+        "bounds_px": [
+          49,
+          61,
+          664,
+          662
+        ],
+        "height_px": 601,
+        "width_px": 615
+      },
+      {
+        "view": "left",
+        "bounds_px": [
+          745,
+          59,
+          987,
+          664
+        ],
+        "height_px": 605,
+        "width_px": 242
+      },
+      {
+        "view": "back",
+        "bounds_px": [
+          1102,
+          60,
+          1720,
+          662
+        ],
+        "height_px": 602,
+        "width_px": 618
+      },
+      {
+        "view": "right",
+        "bounds_px": [
+          1830,
+          59,
+          2072,
+          664
+        ],
+        "height_px": 605,
+        "width_px": 242
+      }
+    ],
+    "height_spread_px": 4,
+    "height_spread_percent": 0.66,
+    "strict_equal_source_heights_met": false,
+    "source_png_decoded": true,
+    "four_nonempty_crops_verified": true,
+    "all_crop_baselines_identical": true,
+    "native_crop_canvas_px": 766,
+    "pixels_lost": 0,
+    "limitation": "Cutter aligns baselines but does not correct the native source height differences, view turns or metre scale. These are source limitations, not a proven physical fit."
+  },
+  "pipeline": {
+    "status": "source_sheet_only",
+    "suggested_crop_command": "python tools/crop_views.py art/characters/santi_wong/pieces/body/sheet.png --row 0 1 --names front left back right --min-width-ratio 0.1 --size 766 --out art/characters/santi_wong/pieces/body/views",
+    "two_x_upscale_target_px": 1532,
+    "upscale_note": "Extract at native size then apply one common2x LANCZOS upscale to all4 images. Minimum target1062px across set. Upscale adds no source detail.",
+    "cropped_inputs_are_reproducible_not_committed": true,
+    "three_d_generator_allowed": "Tripo only",
+    "nc_models_used": false,
+    "reconstruction_run": false,
+    "mouth_cavity_mesh_verified": false,
+    "rigging_verified": false,
+    "engine_fit_verified": false,
+    "rigging_route": "docs/RIGGING.md one donor armature, not independent auto-riggers"
+  },
+  "brief_acceptance": {
+    "all_requirements_met": false,
+    "remaining": [
+      "A-pose arms approximately 45 degrees down, palms down, complete bald scaffold head retained, grey modesty underwear. Hide/remove scaffold head beneath detailed head. Hand pronation and exact digit topology require mesh inspection.",
+      "Native height spread 4px / 0.66%; exact one-scale orthographic reconstruction is not demonstrated by generated artwork.",
+      "Reconstruction, cavities and metric fit not verified."
+    ]
+  }
+}

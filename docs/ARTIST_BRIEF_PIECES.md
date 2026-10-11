@@ -60,8 +60,10 @@ but draw them at the same scale as the body anyway.
 
 ## Heads: the mouth must be open
 
-Every `head` sheet is drawn with the mouth **open**, roughly as if mid-word - not a
-yawn, not a grin. The opening must read as a hole in the head, not as a crease.
+Every `head` sheet is drawn with the lips **slightly parted**, aiming for a gap of
+**2-3% of head height**, per the 11 Oct mouth findings in `HANDOFF.md`. Livé's
+wide-open source reconstructed a cavity but cannot close cleanly with the jaw alone.
+The small opening must still read as depth into the head, not as a painted crease.
 
 - **Teeth and tongue drawn and visible.** They are not in the current art and cannot
   be added afterwards. If they are not on the sheet they will not exist.
@@ -101,10 +103,24 @@ her. Her pieces are drawn on her body, in her T-pose.
 
 ## Order of work
 
-**Captain Livé first, and only him.** Body, head, hat, hair, face, shirt, coat,
-trousers, waist, boots.
+**Initial scope: Captain Livé first.** His separate head passed the mouth-cavity
+reconstruction check on 10 Oct; full body, garment fitting and jaw closure are
+separate checks recorded in `HANDOFF.md`.
 
-We put that one set through the whole pipeline before anyone draws a second character.
-The head is the risk: nobody yet knows whether the generator will build a real mouth
-cavity from a drawn one, or seal it over. That answer changes the brief, and it is
-much cheaper to learn it once.
+**Owner update, 11 Oct: create Santi Wong the same way.** This explicit request
+supersedes the earlier Livé-only source-art gate for Santi. Inspect the approved
+Santi artwork and corresponding Livé modular sheets before every new piece. Keep
+Santi's short, stocky build, tall chef toque, curls, moustache/goatee, stained ivory
+shirt/apron, striped breeches, leather harness, boots and red neckerchief.
+
+Santi's sources are at `art/characters/santi_wong/pieces/asset.json`: the ten Livé
+slots plus `accessory` for the neckerchief. The apron occupies the existing `coat`
+slot. The neckerchief requires a SKINNED hold override; goatee follows Jaw while
+moustache follows Head. Cookware stays separate. His assembled 1.70m silhouette
+includes the toque; per-piece dimensions are provisional fitting guides. The source
+rasters are not calibrated to common pixels per metre. Measure and fit the
+reconstructed Santi body before applying clothing. Follow the current single-donor
+armature procedure in `RIGGING.md`, rather than auto-rigging each component.
+
+Source delivery does not establish Santi's mouth cavity, donor fit, garment
+clearance or animation. These remain Open in the handoff.

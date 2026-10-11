@@ -32,9 +32,26 @@ extends Node3D
 		roughness = value
 		_refresh()
 
+var _original_materials: Dictionary = {}
+
 
 func _ready() -> void:
 	apply_material()
+
+
+func _enter_tree() -> void:
+	if is_node_ready():
+		apply_material.call_deferred()
+
+
+func _exit_tree() -> void:
+	var bowl := get_node_or_null(glass) as Node3D
+	if bowl != null:
+		for node in bowl.find_children("*", "MeshInstance3D", true, false):
+			var mesh := node as MeshInstance3D
+			if _original_materials.has(mesh.get_instance_id()):
+				mesh.material_override = _original_materials[mesh.get_instance_id()]
+	_original_materials.clear()
 
 
 func _refresh() -> void:
@@ -65,5 +82,7 @@ func apply_material() -> void:
 
 	for node in bowl.find_children("*", "MeshInstance3D", true, false):
 		var vis := node as MeshInstance3D
+		if not _original_materials.has(vis.get_instance_id()):
+			_original_materials[vis.get_instance_id()] = vis.material_override
 		vis.material_override = material
 		vis.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF

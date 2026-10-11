@@ -29,6 +29,28 @@ func _ready() -> void:
 	apply()
 
 
+func _enter_tree() -> void:
+	if is_node_ready():
+		apply.call_deferred()
+
+
+func _exit_tree() -> void:
+	# Detach temporary material RIDs while meshes still exist; Godot otherwise
+	# queries released instance-material parameters when a whole prefab is freed.
+	var what := get_node_or_null(target)
+	if what != null:
+		for node in what.find_children("*", "MeshInstance3D", true, false):
+			var mesh := node as MeshInstance3D
+			if not mesh.has_meta("unlit_original_materials"):
+				continue
+			var original: Dictionary = mesh.get_meta("unlit_original_materials")
+			mesh.material_override = original["override"]
+			var surfaces: Array = original["surfaces"]
+			for surface in mini(surfaces.size(), mesh.get_surface_override_material_count()):
+				mesh.set_surface_override_material(surface, surfaces[surface])
+			mesh.remove_meta("unlit_original_materials")
+
+
 func apply() -> void:
 	var what := get_node_or_null(target)
 	if what == null:
@@ -49,6 +71,11 @@ func _get_configuration_warnings() -> PackedStringArray:
 static func flatten(root: Node) -> void:
 	for node in root.find_children("*", "MeshInstance3D", true, false):
 		var mesh := node as MeshInstance3D
+		if not mesh.has_meta("unlit_original_materials"):
+			var originals: Array = []
+			for surface in mesh.get_surface_override_material_count():
+				originals.append(mesh.get_surface_override_material(surface))
+			mesh.set_meta("unlit_original_materials", {"override": mesh.material_override, "surfaces": originals})
 		# material_override beats every surface override, so a mesh that has one has
 		# to be flattened through it or nothing happens, silently.
 		if mesh.material_override is BaseMaterial3D:

@@ -12,6 +12,10 @@ transforms/undo, free/parent/bone/local-rig attachments, reversible fused-geomet
 exclusion, explicit binding, previews, legacy conversion and reusable scene saves
 are implemented. Use [the authoring guide](../actors/assembly/README.md).
 
+Owner usability correction: New empty and New from template now open an editable,
+independent unsaved scene immediately. Existing scene tabs remain available; browsing
+is deferred to Open/Save As. A template is never located again or saved on creation.
+
 Implementation checkpoints: foundation `02cd8c7`, masks `6bf1e37`, integration
 services/templates `95e9409`, legacy conversion `941d9c8`, editor `8a8f13f`,
 head-swap example `8a2f798`, owner/collision isolation `8eb2d60`, nested source
@@ -25,6 +29,13 @@ output, head swap and the actual gameplay actor. The runner self-test rejected a
 deliberate engine-error false-pass. Production checks had no engine/script errors;
 tracked authored sources, including binary `.res` meshes, retained their hashes.
 Evidence: `%TEMP%/cruises-checks-c672df683e5e4f13966fe5ac8e6f1f52/`.
+
+Template workflow follow-up: 125/125 native editor assertions pass, including
+immediate unsaved creation, retained scene tabs, repeated independent copies and
+Open/Save As dialogs. Authored-scene and workshop integration checks also pass,
+including separate cold reopen, with no engine errors or authored source changes.
+Evidence: `%TEMP%/cruises-checks-e4f55424f02b480eb0b0bafc1c525dfc/` and
+`%TEMP%/cruises-checks-ac9e3e05b0e144f38b82a54340b443a9/`.
 
 - **CW14:** The saved head-swap demonstration removes the Zombie skull/jaw while
   retaining its skeleton and the Captain's Head/Jaw, three facial shapes and jaw

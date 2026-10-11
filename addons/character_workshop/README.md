@@ -6,9 +6,11 @@ There are no fixed clothing slots or mandatory filenames.
 
 ## Assemble a character
 
-1. Choose **New** or an editable template, then choose a new `.tscn` destination.
-   **Open** accepts another saved assembly. Exported gameplay actors with an authored
-   `Body` assembly can also be reopened and edited.
+1. Choose **New empty** or **New from template**. The character opens immediately
+   as a new, unsaved scene with private editable resources; no file browser appears.
+   Existing scene tabs stay open. Choose a destination later through **Save As**.
+   **Open** browses for another saved assembly. Exported gameplay actors with an
+   authored `Body` assembly can also be reopened and edited.
 2. **Add model / prefab** accepts imported 3D models and ordinary scenes anywhere in
    the project. Drop files on the dock, or drag a model into the native scene tree
    and use **Adopt selected**. Every instance has an independent stable identity.

@@ -188,7 +188,7 @@ func set_face_count(count: int, excluded: int = 0) -> void:
 
 func set_templates(paths: PackedStringArray) -> void:
 	%Templates.clear()
-	%Templates.add_item("Choose an editable template…")
+	%Templates.add_item("New from template…")
 	%Templates.set_item_metadata(0, "")
 	for path: String in paths:
 		var index: int = %Templates.item_count

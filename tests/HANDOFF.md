@@ -33,6 +33,12 @@
   false-pass self-test is rejected correctly. Tracked source hashes include `.res`
   and `.scn` along with the existing script/model/import/resource coverage.
   Evidence: `%TEMP%/cruises-checks-c672df683e5e4f13966fe5ac8e6f1f52/`.
+- Template workflow follow-up passes 125/125 native editor assertions, including
+  immediate unsaved creation, tab preservation, private template resources and
+  Open/Save As dialogs. Authored-scene and workshop integration checks pass,
+  including the separate exported-actor cold reopen; authored hashes remain intact.
+  Evidence: `%TEMP%/cruises-checks-e4f55424f02b480eb0b0bafc1c525dfc/` and
+  `%TEMP%/cruises-checks-ac9e3e05b0e144f38b82a54340b443a9/`.
 - Binding integration verifies source snapshots/material independence, cancel/join,
   stale edits, malformed skins and unweighted rigged surfaces. Actual exported Mover
   playback retains borrowed walk alongside separate active local facial animation.

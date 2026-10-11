@@ -16,7 +16,6 @@ var face_mode := false
 var _reference_poses: Array = []
 var _camera: Camera3D
 var _file_action := ""
-var _template_path := ""
 var _pending_action := ""
 var _pending_part: Node3D
 var _policy := "cancel"
@@ -41,7 +40,7 @@ func _enter_tree() -> void:
 	commands.changed.connect(_command_changed)
 	scene_changed.connect(_scene_changed)
 	get_editor_interface().get_selection().selection_changed.connect(_selection_changed)
-	add_tool_menu_item("Character Workshop: New assembly…", _new_assembly)
+	add_tool_menu_item("Character Workshop: New empty character", _new_assembly)
 	set_input_event_forwarding_always_enabled()
 	set_force_draw_over_forwarding_enabled()
 	set_process(true)
@@ -56,7 +55,7 @@ func _exit_tree() -> void:
 	_restore_preview()
 	if get_editor_interface().get_selection().selection_changed.is_connected(_selection_changed):
 		get_editor_interface().get_selection().selection_changed.disconnect(_selection_changed)
-	remove_tool_menu_item("Character Workshop: New assembly…")
+	remove_tool_menu_item("Character Workshop: New empty character")
 	remove_control_from_docks(dock)
 	dock.queue_free()
 
@@ -150,8 +149,7 @@ func _request(action: String, value: Variant) -> void:
 			_new_assembly()
 		"template":
 			if not str(value).is_empty():
-				_template_path = str(value)
-				_show_file("new", FileDialog.FILE_MODE_SAVE_FILE, ["*.tscn ; Character scene"])
+				_create_from_template(str(value))
 		"open":
 			_show_file("open", FileDialog.FILE_MODE_OPEN_FILE, ["*.tscn, *.scn ; Character scenes"])
 		"save":
@@ -243,8 +241,7 @@ func _show_file(action: String, mode: int, filters: PackedStringArray) -> void:
 	dialog.popup_centered_ratio(0.7)
 
 func _new_assembly() -> void:
-	_template_path = "res://actors/assembly/templates/empty.tscn"
-	_show_file("new", FileDialog.FILE_MODE_SAVE_FILE, ["*.tscn ; Character scene"])
+	_create_from_template("res://actors/assembly/templates/empty.tscn")
 
 func _file_selected(path: String) -> void:
 	match _file_action:
@@ -260,8 +257,6 @@ func _file_selected(path: String) -> void:
 				return
 			_report(Ops.save_scene(_scene_root(), path), "Assembly saved to %s. Reopen it to continue editing." % path)
 			get_editor_interface().get_resource_filesystem().scan()
-		"new":
-			_create_from_template(_template_path, path)
 		"save_actor":
 			_restore_preview()
 			if _has_moved_references():
@@ -305,21 +300,51 @@ func _files_selected(paths: PackedStringArray) -> void:
 	for path: String in paths:
 		_report(commands.add_source(path), "Added %s. Rename it in the native scene tree and fit it with transform handles." % path.get_file())
 
-func _create_from_template(path: String, output: String) -> void:
-	if output == path:
-		dock.set_status("Choose a new scene destination; templates remain reusable.", true)
+func _create_from_template(path: String) -> void:
+	if not ResourceLoader.exists(path, "PackedScene"):
+		dock.set_status("Template unavailable: %s" % path, true)
 		return
 	var scene: PackedScene = load(path) as PackedScene
 	if scene == null:
 		dock.set_status("Template unavailable: %s" % path, true)
 		return
-	var root := scene.instantiate()
-	var result: Dictionary = Ops.save_scene(root, output)
-	root.free()
-	if result.ok:
-		get_editor_interface().get_resource_filesystem().scan()
-		get_editor_interface().open_scene_from_path(output)
-	_report(result, "New editable character: %s" % output)
+	var source := scene.instantiate()
+	if not source is Assembly:
+		source.free()
+		dock.set_status("Choose a CharacterAssembly template.", true)
+		return
+	var copy := Ops.independent_snapshot(source)
+	source.free()
+	if copy == null:
+		dock.set_status("The template could not be copied.", true)
+		return
+	_restore_preview()
+	var editor := get_editor_interface()
+	# Clear the scene dock's selected-node pointer before its old root is
+	# detached. Clearing EditorSelection alone leaves that native pointer stale.
+	editor.edit_node(null)
+	if editor.get_edited_scene_root() != null:
+		var shortcut := editor.get_editor_settings().get_shortcut("editor/new_scene")
+		if shortcut == null:
+			copy.free()
+			dock.set_status("Godot's New Scene command is unavailable.", true)
+			return
+		var event := InputEventShortcut.new()
+		event.shortcut = shortcut
+		editor.get_base_control().get_viewport().push_input(event, false)
+		if editor.get_edited_scene_root() != null:
+			copy.free()
+			dock.set_status("Godot could not open a new scene tab. Your current scene is unchanged.", true)
+			return
+	# An empty path makes this an independent, unsaved scene, not an inherited
+	# template. Only the user's later Save/Save As chooses a disk destination.
+	copy.scene_file_path = ""
+	editor.add_root_node(copy)
+	editor.mark_scene_as_unsaved()
+	dock.get_node("%Templates").select(0)
+	_select(copy)
+	_refresh()
+	dock.set_status("New unsaved character from %s. Edit it, then choose Save As when ready." % path.get_file().get_basename().capitalize())
 
 func _load_templates() -> void:
 	var paths := PackedStringArray()

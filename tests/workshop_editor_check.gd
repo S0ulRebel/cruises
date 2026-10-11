@@ -337,6 +337,7 @@ func _run() -> void:
 		edited_history.undo()
 		expect(Ops.collect_parts(get_parent()).is_empty(), "native dock add undo")
 		edited_history.clear_history()
+		await _check_unsaved_starters(plugin)
 	else:
 		print("WORKSHOP_EDITOR_NOTE: plugin enable test omitted; dock and native commands still verified.")
 	# Discard both directions of native history: references must not destroy parents.
@@ -350,3 +351,68 @@ func _run() -> void:
 	for frame: int in 4:
 		await get_tree().process_frame
 	get_tree().quit(1 if failures > 0 else 0)
+
+
+func _check_unsaved_starters(plugin: EditorPlugin) -> void:
+	# The runner must remain in the editor tree when New Scene changes scene tabs.
+	var tree := get_tree()
+	var previous_root := EditorInterface.get_edited_scene_root()
+	reparent(tree.root)
+	owner = null
+	var native_dock: Control = plugin.dock
+	var dialog := native_dock.get_node("%FileDialog") as FileDialog
+	var template_path := "res://actors/assembly/templates/captain_portrait.tscn"
+	var template_hash := FileAccess.get_sha256(template_path)
+	var empty_hash := FileAccess.get_sha256("res://actors/assembly/templates/empty.tscn")
+	native_dock.get_node("%New").pressed.emit()
+	for frame: int in 3:
+		await tree.process_frame
+	var empty := EditorInterface.get_edited_scene_root()
+	expect(empty is Assembly and empty != previous_root and empty.scene_file_path.is_empty() and Ops.collect_parts(empty).is_empty(), "New immediately creates an empty unsaved assembly")
+	expect(not dialog.visible, "New does not open a destination dialog")
+	expect(EditorInterface.get_open_scene_roots().has(previous_root), "New preserves the previous edited scene tab")
+	expect(plugin.commands.scene_root == empty, "new unsaved assembly is immediately editable in the dock")
+	var templates := native_dock.get_node("%Templates") as OptionButton
+	var index := -1
+	for item in templates.item_count:
+		if templates.get_item_metadata(item) == template_path:
+			index = item
+	expect(index > 0 and templates.get_item_text(0) == "New from template…", "template selector describes creating a character")
+	if index < 0:
+		return
+	templates.select(index)
+	templates.item_selected.emit(index)
+	for frame: int in 3:
+		await tree.process_frame
+	var first := EditorInterface.get_edited_scene_root()
+	expect(first is Assembly and first != empty and first.scene_file_path.is_empty() and Ops.collect_parts(first).size() == 5, "template selection immediately opens its unsaved character copy")
+	expect(not dialog.visible and templates.selected == 0, "template creation skips browsing and resets its chooser for reuse")
+	expect(EditorInterface.get_open_scene_roots().has(empty) and EditorInterface.get_open_scene_roots().has(previous_root), "template creation preserves existing scenes")
+	expect(plugin.commands.scene_root == first, "template copy is immediately editable")
+	if not first is Assembly or not first.has_node("SpeakingHead"):
+		return
+	var original_position := (first.get_node("SpeakingHead") as Node3D).position
+	(first.get_node("SpeakingHead") as Node3D).position += Vector3(0.25, 0, 0)
+	templates.select(index)
+	templates.item_selected.emit(index)
+	for frame: int in 3:
+		await tree.process_frame
+	var second := EditorInterface.get_edited_scene_root()
+	expect(second != first and second.scene_file_path.is_empty(), "selecting the same template again creates another unsaved character")
+	if second.has_node("SpeakingHead"):
+		expect((second.get_node("SpeakingHead") as Node3D).position.is_equal_approx(original_position), "editing one template copy does not change the next copy")
+	var source := (load(template_path) as PackedScene).instantiate()
+	if second.has_node("SpeakingHead"):
+		var source_mesh: MeshInstance3D = source.get_node("SpeakingHead/Model").find_children("*", "MeshInstance3D", true, false)[0]
+		var working_mesh: MeshInstance3D = second.get_node("SpeakingHead/Model").find_children("*", "MeshInstance3D", true, false)[0]
+		expect(source_mesh.mesh != working_mesh.mesh and source_mesh.get_active_material(0) != working_mesh.get_active_material(0), "template working copy has private editable mesh and materials")
+	source.free()
+	expect(FileAccess.get_sha256(template_path) == template_hash and FileAccess.get_sha256("res://actors/assembly/templates/empty.tscn") == empty_hash, "creating characters never saves over templates")
+	plugin._request("template", "res://actors/assembly/templates/missing_template.tscn")
+	expect(EditorInterface.get_edited_scene_root() == second and not dialog.visible, "missing template reports failure without changing the working scene")
+	native_dock.get_node("%Save").pressed.emit()
+	expect(dialog.visible and dialog.file_mode == FileDialog.FILE_MODE_SAVE_FILE and plugin._file_action == "save", "Save As retains the explicit destination dialog")
+	dialog.hide()
+	native_dock.get_node("%Open").pressed.emit()
+	expect(dialog.visible and dialog.file_mode == FileDialog.FILE_MODE_OPEN_FILE and plugin._file_action == "open", "Open existing retains the scene browser")
+	dialog.hide()

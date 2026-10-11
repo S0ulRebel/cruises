@@ -35,6 +35,10 @@ Binding and animation borrowing are deliberate and cancellable/transactional.
 No fixed slots, automatic conflicts, global asset registry or runtime builders.
 Module details: `actors/assembly/HANDOFF.md`, `actors/outfit/HANDOFF.md`,
 `addons/character_workshop/HANDOFF.md` and `tests/HANDOFF.md`.
+New empty and New from template now open independent unsaved characters immediately,
+preserving existing tabs. Open/Save As retain file browsing; creation never writes
+a scene. Native editor validation passes 125/125 assertions; focused integration
+and cold reopen checks pass. Evidence is indexed in the module handoffs.
 The editable `head_swap_demo.tscn` proves fused-head removal and local speaking-rig
 preservation; its neck seam/material fit needs art review. Production garment poses,
 the replacement body and final owner usability acceptance remain open. Current

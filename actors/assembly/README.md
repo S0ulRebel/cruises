@@ -6,10 +6,12 @@ Project Settings → Plugins. This is an editor workflow; F6 is not needed.
 
 ## Start and add parts
 
-1. Choose **Empty** for a static composition, **Rigged starter** for the existing
-   Zombie donor, or **Captain portrait** for the accepted speaking-head fitting.
-   Templates are ordinary scenes under `actors/assembly/templates/`.
-2. Save a working copy to your character folder. The template remains reusable.
+1. Choose **New empty** for a static composition, or choose **Rigged starter** or
+   **Captain portrait** under **New from template**. The character opens immediately
+   as an independent unsaved scene, with existing tabs preserved. Templates are
+   ordinary scenes under `actors/assembly/templates/`.
+2. Start editing, then choose **Save As** when ready to select your character folder.
+   Starting from a template never asks for a file or writes a scene to disk.
 3. **Add model / prefab** accepts imported models and 3D prefabs anywhere in the project.
    Each instance gets a separate stable identity. Names and directories do not
    determine eligibility. Add multiple copies, rename and reorder them freely.

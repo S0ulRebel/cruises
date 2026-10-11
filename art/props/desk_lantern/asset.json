@@ -1,0 +1,731 @@
+{
+  "asset_id": "prop:desk_lantern",
+  "name": "Captain Livé’s desk lantern",
+  "role": "Scene 1 — Captain Livé’s quarters; standalone candle-lantern housing on the left of the desk",
+  "asset_type": "prop_turnaround_sheet",
+  "files": {
+    "sheet": "sheet.png"
+  },
+  "dimensions_m": {
+    "width": 0.18,
+    "height": 0.32,
+    "depth": 0.18
+  },
+  "dimension_contract": "Provisional complete envelope for the standalone opaque brass desk-lantern housing: 0.18W × 0.32H × 0.18D m, including the circular foot, domed hood, door fittings and lifting eye. These are new art targets chosen for the tabletop lantern in docs/reference/room_target.png, not measured engine bounds and not the larger wall_lantern dimensions. X is width, Y is height and Z is depth. Preserve a flat supporting base and check the reconstructed mesh before placing on the desk. Glass panes, candle, wick, flame and emitted light are separate engine components; do not turn the white cage openings into a solid body.",
+  "view_order": [
+    "front",
+    "left",
+    "right",
+    "back"
+  ],
+  "reconstruction_orientation": {
+    "fixed_object_pose": "Upright resting on its flat foot, front door closed as a metal frame, lifting eye fixed in the XY plane; only the viewing direction changes.",
+    "axis_convention": "Right-handed: +Y up, +X to the right in the front view, +Z pointing out of the front door. The front/back eye openings are viewed along Z; the same eye is edge-on from ±X.",
+    "dimensions_m": {
+      "width": 0.18,
+      "height": 0.32,
+      "depth": 0.18
+    },
+    "camera_positions": {
+      "front": "+Z looking -Z",
+      "left": "-X looking +X",
+      "right": "+X looking -X",
+      "back": "-Z looking +Z"
+    },
+    "engine_rotation": "No reconstruction-to-resting pose correction is intended once exporter axes match this convention. Exact tabletop coordinates and yaw remain engine fitting work.",
+    "origin_recommendation": "Center X/Z under the foot and set the underside of its flat supporting base to Y=0."
+  },
+  "source": {
+    "producer": "OpenAI image generation via ChatGPT",
+    "tool": "image_gen.imagegen",
+    "model_identifier": "Not exposed by the built-in image generation tool",
+    "repository_base_commit": "12b12b3a432456ee8a4006aedc8004eeb864ae78",
+    "original_filename": "exec-742b9f9c-7644-4134-81c8-6a276c9ddd4d.png",
+    "generation_history": [
+      {
+        "pass": "brass_desk_lantern_from_geometric_guide",
+        "prompt": "Use case: precise-object-edit / stylized-concept.\nEdit Image1, the geometric desk-lantern guide, into a finished production modeling sheet for the Cruises pirate adventure game. Image2 is the owner's room target: match the SMALL TABLETOP BRASS CANDLE LANTERN standing at the LEFT EDGE OF THE DESK, not the wall lantern above it. Image3 is the already delivered wall-lantern sheet for consistent chunky brass materials and sculpted cartoon finish; do not copy its wall brackets or wallplate.\n\nONE STANDALONE OBJECT: desk_lantern. The same single connected upright brass tabletop lantern in every view, with a low circular tiered FLAT FOOT, four structural corner uprights around an airy open cage, a shallow empty central candle holder, a broad round/faceted domed vented cap, a small vent gap and an integral lifting eye. Keep the guide's exact silhouette, dimensions, proportions, connections, door detail positions and four orthographic projections. Make the shaped brass edges smoothly beveled and finished as stylised game art. Practical sturdy pirate-cabin hardware with restrained wear, no elaborate scrollwork.\n\nThis is the OPAQUE METAL HOUSING ONLY. All large cage openings must show the plain white background, so Tripo does not generate an opaque lantern core. The closed front door is represented by its metal frame, two front-left hinges and one front-right latch; no glass. In the rear view the front door details reverse left/right when visible THROUGH the open cage: do not invent a second rear door. The left and right profiles show the true opposite sides. The central short brass candle socket is EMPTY; nothing rises from it. No candle, wick, flame, glowing core or light. No wallplate, wall arm or suspension chain. The flat foot must support the entire lantern on a tabletop; do not draw the tabletop.\n\nFOUR VIEWS in ONE single horizontal row, left to right FRONT, LEFT SIDE, RIGHT SIDE, BACK. True orthographic level elevations: zero camera pitch, zero roll, zero perspective. Camera at the middle of the object; do not tilt to show top planes. The same fixed lantern pose with only viewing direction changing. +Y is up, +Z points forward. The lifting eye lies in the XY plane: its circular through-hole shows WHITE BACKGROUND in FRONT and BACK and becomes a narrow edge in BOTH SIDE views. Never turn the loop to face the camera in all four views.\n\nCOMPLETE DIMENSIONS: .18m wide x.32m high x.18m deep, including the entire lifting eye and flat foot. Every projection has the same complete height and the same18cm width/depth at ONE camera scale. Width/height ratio0.5625 in all four. Keep the guide's common top points and bottom points; native pixel heights and baselines must agree to within1pixel. Every view whole and uncropped. Keep large clear vertical bands of background between views. No independent enlargement of any view. The subtle hardware must not change the main physical envelope between views.\n\nSTYLE: cartoon pirate-adventure prop matching Captain Livé's cabin; broad amber-gold brass, warm brown recessed seams, soft sculpted shading, chunky softened edges, a few broad shallow dents and restrained worn edges. Broad readable material color masses, consistent neutral soft lighting across all views. No photorealism, no noisy grain, no harsh reflective mirror hotspots, no tiny decoration. The guide is geometry, not final flat vector style: render finished sculpted game art while keeping its projections precise.\n\nBACKGROUND: flat uniform opaque WHITE across the entire image, including corners, cage openings, lifting-eye holes and gaps. No scenery, floor, ground plane, cast shadows, labels, annotations, drawn alignment lines, borders, captions or watermark. Do not bake emitted light into this sheet. Exactly one coherent four-view sheet, wide3:1 canvas matching the guide, highest available native resolution.",
+        "selected": true,
+        "output_sha256": "d9d46c25ed9cdb3d67c83f7bd49d69a33ccff058394a06d4312397535d091211",
+        "output_size_px": [
+          2172,
+          724
+        ],
+        "source_heights_px": [
+          588,
+          588,
+          588,
+          588
+        ],
+        "source_baseline_spread_px": 0
+      }
+    ],
+    "generated_source_sha256": "d9d46c25ed9cdb3d67c83f7bd49d69a33ccff058394a06d4312397535d091211",
+    "sha256": "149b205b2407e6d3a6c1834b29ecaa0807aa056b38b84f546ae9141313439543",
+    "references": [
+      {
+        "path": "docs/reference/room_target.png",
+        "role": "Owner target: tabletop lantern at left of desk; design scale and room palette",
+        "commit": "12b12b3a432456ee8a4006aedc8004eeb864ae78",
+        "sha256": "a17f771d95d7aa37b8403b3b4cb918c7032737cdb031d62c893b424c878cebc3"
+      },
+      {
+        "path": "art/props/wall_lantern/sheet.png",
+        "role": "Existing brass housing finish only; wall brackets and plate deliberately excluded",
+        "commit": "12b12b3a432456ee8a4006aedc8004eeb864ae78",
+        "sha256": "8e8ce72adb221d8ceb5857714a7be97f46bc9bc942a8dedc2d3ad783d2d0636c"
+      },
+      {
+        "path": "art/characters/captain_live/turnaround.png",
+        "role": "Approved full-sheet framing inspected; not a direct input to this generation",
+        "commit": "12b12b3a432456ee8a4006aedc8004eeb864ae78",
+        "sha256": "bcb66fe6213ab55672cb91328f22665a125511d211e3fded0397dd45ac1897fa"
+      },
+      {
+        "path": "art/characters/santi_wong/turnaround.png",
+        "role": "Approved full-sheet framing inspected; not a direct input to this generation",
+        "commit": "12b12b3a432456ee8a4006aedc8004eeb864ae78",
+        "sha256": "4ef6ba4568a6f98f86a49560445a4d0c3737e053e97886ee13c410df942fd84e"
+      }
+    ],
+    "construction_guide": {
+      "role": "Original deterministic 3D construction guide projected to four orthographic elevations, then edited into artwork with imagegen. Not final art.",
+      "png_sha256": "bedcade82383b68353dce95b0675ebc17cbabe5d1046abac6bd19f04df2082a6",
+      "svg_sha256": "1578e36b511db96ade7f88ee2d8ea4cc4c9e832b797b8cff2072d684c148d9a7",
+      "generator_source_sha256": "22647bda1b7b8bc41dc0f14e3c7c55808b6ce26fe6406de5bc3f70e40362e9ec",
+      "generator_language": "Python standard-library geometry to SVG, rasterized with CairoSVG",
+      "generator_source": "\"\"\"Original deterministic orthographic brass desk-lantern construction guide.\n\nNo image pixels are used as inputs. This is geometric scaffolding for imagegen,\nnot finished art. All four projections use one actual assembled 3D shape.\n\"\"\"\nfrom pathlib import Path\nimport json\nimport math\nimport subprocess\nimport numpy as np\n\nHERE = Path(__file__).resolve().parent\nWIDTH, HEIGHT = 2400, 800\nSCALE, BASELINE = 2000.0, 720.0\nCENTERS = [300, 900, 1500, 2100]\nFACES = []\n\n\ndef face(points, colour, part):\n    FACES.append((np.array(points, dtype=float), colour, part))\n\n\ndef tint(colour, factor):\n    return '#' + ''.join(f'{min(255,max(0,round(int(colour[i:i+2],16)*factor))):02x}' for i in (1,3,5))\n\n\ndef box(x0,x1,y0,y1,z0,z1,colour,part):\n    p = [(x0,y0,z0),(x1,y0,z0),(x1,y1,z0),(x0,y1,z0),\n         (x0,y0,z1),(x1,y0,z1),(x1,y1,z1),(x0,y1,z1)]\n    for ids,k in [([0,1,2,3],.90),([4,7,6,5],1),([0,4,5,1],.78),\n                  ([3,2,6,7],1.08),([0,3,7,4],.88),([1,5,6,2],.97)]:\n        face([p[i] for i in ids],tint(colour,k),part)\n\n\ndef lathe(profile,colour,part,segments=64,cx=0,cz=0):\n    \"\"\"Closed profile in (y,r), optionally including an open cup interior.\"\"\"\n    profile = list(profile)\n    for k in range(len(profile)-1):\n        y0,r0=profile[k]; y1,r1=profile[k+1]\n        for j in range(segments):\n            a=j*2*math.pi/segments; b=(j+1)*2*math.pi/segments\n            p=[(cx+r0*math.cos(a),y0,cz+r0*math.sin(a)),\n               (cx+r0*math.cos(b),y0,cz+r0*math.sin(b)),\n               (cx+r1*math.cos(b),y1,cz+r1*math.sin(b)),\n               (cx+r1*math.cos(a),y1,cz+r1*math.sin(a))]\n            f=.9+.1*math.sin((a+b)/2)\n            if y0==y1: f=1.06\n            face(p,tint(colour,f),part)\n\n\ndef ring_xy(cx,cy,outer,inner,z0,z1,colour,part,n=64):\n    for j in range(n):\n        a=j*2*math.pi/n; b=(j+1)*2*math.pi/n\n        o0=(cx+outer*math.cos(a),cy+outer*math.sin(a))\n        o1=(cx+outer*math.cos(b),cy+outer*math.sin(b))\n        i0=(cx+inner*math.cos(a),cy+inner*math.sin(a))\n        i1=(cx+inner*math.cos(b),cy+inner*math.sin(b))\n        for z,k in [(z0,.9),(z1,1.05)]:\n            face([(*o0,z),(*o1,z),(*i1,z),(*i0,z)],tint(colour,k),part)\n        face([(*o0,z0),(*o1,z0),(*o1,z1),(*o0,z1)],tint(colour,.88),part)\n        face([(*i0,z0),(*i1,z0),(*i1,z1),(*i0,z1)],tint(colour,.75),part)\n\n\n# Flat-bottom tiered foot and tray. Whole width/depth are set here to0.18m.\nlathe([(0,0),(0,.075),(.008,.075),(.014,.083),(.020,.09),(.033,.09),\n       (.040,.087),(.045,.087),(.045,0)], '#bda778','flat_foot')\n\n# Four actual corner posts on the square cage; rear posts align naturally\n# behind their front counterparts in level front/back orthographic elevations.\nfor x in [-.054,.054]:\n    for z in [-.054,.054]:\n        box(x-.007,x+.007,.042,.236,z-.007,z+.007,'#c7b17d','corner_post')\n\n# Front door rails and back fixed rails. No pane, backing or rear diagonal.\nfor z in [-.061,.061]:\n    for y in [.051,.225]:\n        box(-.063,.063,y-.005,y+.005,z-.005,z+.005,'#bca474','cage_rail')\n\n# Front access door: two compact hinge barrels at the front-left corner.\nfor y in [.085,.201]:\n    lathe([(y-.011,0),(y-.011,.0055),(y+.011,.0055),(y+.011,0)],\n          '#ac9263','front_door_hinge',32,cx=-.062,cz=.062)\n\n# One solid pivoting latch (no fabricated hole) on front-right upright.\nbox(.035,.073,.142,.151,.059,.073,'#9e855a','front_door_latch')\nbox(.064,.072,.139,.154,.065,.076,'#c6ad76','front_latch_pivot')\n\n# Empty central cup. This is physically hollow, with the floor at0.049m;\n# level elevations cannot establish its interior depth, so metadata records it.\nlathe([(.045,0),(.045,.019),(.062,.019),(.065,.024),(.072,.024),\n       (.072,.017),(.049,.017),(.049,0)],'#bca371','empty_candle_holder')\n\n# Broad faceted dome, eave, then open vent band. Four tiny pillars hold the\n# upper vent cap so its gaps are truly open, never painted dark panels.\nlathe([(.230,0),(.230,.09),(.240,.09),(.244,.08),(.255,.064),\n       (.265,.042),(.271,.022),(.271,0)],'#c7b17d','domed_cap',32)\nfor x in [-.010,.010]:\n    for z in [-.010,.010]:\n        box(x-.0025,x+.0025,.270,.286,z-.0025,z+.0025,'#a18a5e','vent_post')\nlathe([(.284,0),(.284,.022),(.288,.022),(.288,0)],'#c7b17d','vent_cap',48)\n\n# Integral lifting eye, its hole genuine in front/back, edge-on in profiles.\n# Outer top is exactly0.320m; low edge overlaps the top cap by4mm.\nring_xy(0,.302,.018,.011,-.003,.003,'#c9b47f','lifting_eye')\n\nVIEWS=[('front',(1,0,0),(0,0,1)),('left',(0,0,1),(-1,0,0)),\n       ('right',(0,0,-1),(1,0,0)),('back',(-1,0,0),(0,0,-1))]\nsvg=[f'<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"{WIDTH}\" height=\"{HEIGHT}\" viewBox=\"0 0 {WIDTH} {HEIGHT}\">',\n     '<rect width=\"100%\" height=\"100%\" fill=\"#ffffff\"/>']\nmeasurements=[]\nfor index,(name,right,camera) in enumerate(VIEWS):\n    right=np.array(right); camera=np.array(camera)\n    polys=[]; extent=[]\n    for p,colour,part in FACES:\n        uv=np.column_stack((CENTERS[index]+SCALE*(p@right),BASELINE-SCALE*p[:,1]))\n        extent.extend(uv.tolist())\n        area=sum(uv[j,0]*uv[(j+1)%len(uv),1]-uv[(j+1)%len(uv),0]*uv[j,1] for j in range(len(uv)))\n        if abs(area)>.02:\n            polys.append((float(np.mean(p@camera)),uv,colour,part))\n    polys.sort(key=lambda item:item[0])\n    svg.append(f'<g id=\"{name}\" stroke-linejoin=\"round\">')\n    for _,uv,colour,part in polys:\n        coords=' '.join(f'{x:.3f},{y:.3f}' for x,y in uv)\n        svg.append(f'<polygon points=\"{coords}\" fill=\"{colour}\" stroke=\"{colour}\" stroke-width=\"0.45\"/>')\n    svg.append('</g>')\n    p=np.array(extent)\n    bounds=[float(p[:,0].min()),float(p[:,1].min()),float(p[:,0].max()),float(p[:,1].max())]\n    measurements.append({'view':name,'geometry_bounds_px':bounds,'geometry_width_px':bounds[2]-bounds[0],\n                         'geometry_height_px':bounds[3]-bounds[1],'geometry_baseline_px':bounds[3]})\nsvg.append('</svg>')\nsvg_path=HERE/'guide.svg'\nsvg_path.write_text('\\n'.join(svg),encoding='utf-8')\nsubprocess.run(['inkscape',str(svg_path),'--export-type=png',f'--export-filename={HERE/\"guide.png\"}',\n                f'--export-width={WIDTH}',f'--export-height={HEIGHT}'],check=True,capture_output=True)\n\nmetadata={\n 'asset_id':'prop:desk_lantern',\n 'purpose':'Original deterministic geometric scaffolding for imagegen; not final artwork.',\n 'dimensions_m':{'width':.18,'height':.32,'depth':.18},\n 'dimension_authority':'Provisional new art target, not an existing measured engine transform.',\n 'image_pixels_used_as_inputs':False,\n 'canvas_px':[WIDTH,HEIGHT], 'pixels_per_metre':SCALE,\n 'view_order':[x[0] for x in VIEWS],\n 'axis_convention':'+Y up, +Z front access door; front camera+Z; left camera-X; right camera+X; back camera-Z.',\n 'base_y_range_m':[0,.045],\n 'cage_post_y_range_m':[.042,.236],\n 'cage_post_centers_xz_m':[[-.054,-.054],[-.054,.054],[.054,-.054],[.054,.054]],\n 'cage_post_section_m':[.014,.014],\n 'front_door':'Two hinges on front-left upright; small solid swing latch on front-right. No rear brace.',\n 'holder':{'outer_radius_m':.024,'inner_radius_m':.017,'rim_y_m':.072,'interior_floor_y_m':.049,\n           'interior_depth_m':.023,'contents':'empty','verification_note':'Level elevations cannot establish cup interior depth; check actual hollow topology after reconstruction.'},\n 'dome_y_range_m':[.230,.271],\n 'open_vent_band_y_range_m':[.271,.284],\n 'lifting_eye':{'center_y_m':.302,'outer_radius_m':.018,'inner_radius_m':.011,'depth_m':.006,'plane':'XY'},\n 'views':measurements,\n 'excludes':['glass','candle','wick','flame','emission','wallplate','bracket','diagonal brace','cable','text','scenery','cast shadow'],\n}\n(HERE/'guide_geometry.json').write_text(json.dumps(metadata,indent=2)+'\\n')\nprint(json.dumps(metadata,indent=2))\n",
+      "geometry": {
+        "asset_id": "prop:desk_lantern",
+        "purpose": "Original deterministic geometric scaffolding for imagegen; not final artwork.",
+        "dimensions_m": {
+          "width": 0.18,
+          "height": 0.32,
+          "depth": 0.18
+        },
+        "dimension_authority": "Provisional new art target, not an existing measured engine transform.",
+        "image_pixels_used_as_inputs": false,
+        "canvas_px": [
+          2400,
+          800
+        ],
+        "pixels_per_metre": 2000.0,
+        "view_order": [
+          "front",
+          "left",
+          "right",
+          "back"
+        ],
+        "axis_convention": "+Y up, +Z front access door; front camera+Z; left camera-X; right camera+X; back camera-Z.",
+        "base_y_range_m": [
+          0,
+          0.045
+        ],
+        "cage_post_y_range_m": [
+          0.042,
+          0.236
+        ],
+        "cage_post_centers_xz_m": [
+          [
+            -0.054,
+            -0.054
+          ],
+          [
+            -0.054,
+            0.054
+          ],
+          [
+            0.054,
+            -0.054
+          ],
+          [
+            0.054,
+            0.054
+          ]
+        ],
+        "cage_post_section_m": [
+          0.014,
+          0.014
+        ],
+        "front_door": "Two hinges on front-left upright; small solid swing latch on front-right. No rear brace.",
+        "holder": {
+          "outer_radius_m": 0.024,
+          "inner_radius_m": 0.017,
+          "rim_y_m": 0.072,
+          "interior_floor_y_m": 0.049,
+          "interior_depth_m": 0.023,
+          "contents": "empty",
+          "verification_note": "Level elevations cannot establish cup interior depth; check actual hollow topology after reconstruction."
+        },
+        "dome_y_range_m": [
+          0.23,
+          0.271
+        ],
+        "open_vent_band_y_range_m": [
+          0.271,
+          0.284
+        ],
+        "lifting_eye": {
+          "center_y_m": 0.302,
+          "outer_radius_m": 0.018,
+          "inner_radius_m": 0.011,
+          "depth_m": 0.006,
+          "plane": "XY"
+        },
+        "views": [
+          {
+            "view": "front",
+            "geometry_bounds_px": [
+              120.0,
+              80.0,
+              480.0,
+              720.0
+            ],
+            "geometry_width_px": 360.0,
+            "geometry_height_px": 640.0,
+            "geometry_baseline_px": 720.0
+          },
+          {
+            "view": "left",
+            "geometry_bounds_px": [
+              720.0,
+              80.0,
+              1080.0,
+              720.0
+            ],
+            "geometry_width_px": 360.0,
+            "geometry_height_px": 640.0,
+            "geometry_baseline_px": 720.0
+          },
+          {
+            "view": "right",
+            "geometry_bounds_px": [
+              1320.0,
+              80.0,
+              1680.0,
+              720.0
+            ],
+            "geometry_width_px": 360.0,
+            "geometry_height_px": 640.0,
+            "geometry_baseline_px": 720.0
+          },
+          {
+            "view": "back",
+            "geometry_bounds_px": [
+              1920.0,
+              80.0,
+              2280.0,
+              720.0
+            ],
+            "geometry_width_px": 360.0,
+            "geometry_height_px": 640.0,
+            "geometry_baseline_px": 720.0
+          }
+        ],
+        "excludes": [
+          "glass",
+          "candle",
+          "wick",
+          "flame",
+          "emission",
+          "wallplate",
+          "bracket",
+          "diagonal brace",
+          "cable",
+          "text",
+          "scenery",
+          "cast shadow"
+        ]
+      }
+    },
+    "assembly": {
+      "tool": "tools/crop_views.py",
+      "tool_sha256": "d288d0630d4bb5b1cf50daea4b2e73d1e283ddde66627e4afab9eb2deed0b309",
+      "arguments": [
+        "<selected-generated-source.png>",
+        "--row",
+        "0",
+        "1",
+        "--names",
+        "front",
+        "left",
+        "right",
+        "back",
+        "--pad",
+        "0.12",
+        "--size",
+        "729",
+        "--dry-run",
+        "--preview",
+        "art/props/desk_lantern/sheet.png",
+        "--out",
+        "<temporary-preview-directory>"
+      ],
+      "method": "Unmodified repository cutter. Native own-bounds rectangles translated onto four identical 729 px square canvases; no resampling or independent view scaling. The preview strip is the delivered sheet.",
+      "source_measurements": {
+        "sha256": "d9d46c25ed9cdb3d67c83f7bd49d69a33ccff058394a06d4312397535d091211",
+        "png_decode_verified": true,
+        "png_iend_present": true,
+        "image_size_px": [
+          2172,
+          724
+        ],
+        "mode": "RGB",
+        "background_rgb": [
+          254,
+          254,
+          254
+        ],
+        "corners_rgb": [
+          [
+            253,
+            253,
+            255
+          ],
+          [
+            254,
+            255,
+            255
+          ],
+          [
+            253,
+            253,
+            253
+          ],
+          [
+            253,
+            252,
+            253
+          ]
+        ],
+        "measurement_method": "Unmodified tools/crop_views.py ink_mask tolerance18 and find_figures, full image; no resampling",
+        "view_count": 4,
+        "views": [
+          {
+            "view": "front",
+            "bounds_px": [
+              103,
+              64,
+              435,
+              652
+            ],
+            "width_px": 332,
+            "height_px": 588,
+            "last_ink_y_px": 651
+          },
+          {
+            "view": "left",
+            "bounds_px": [
+              645,
+              64,
+              978,
+              652
+            ],
+            "width_px": 333,
+            "height_px": 588,
+            "last_ink_y_px": 651
+          },
+          {
+            "view": "right",
+            "bounds_px": [
+              1190,
+              64,
+              1522,
+              652
+            ],
+            "width_px": 332,
+            "height_px": 588,
+            "last_ink_y_px": 651
+          },
+          {
+            "view": "back",
+            "bounds_px": [
+              1734,
+              64,
+              2067,
+              652
+            ],
+            "width_px": 333,
+            "height_px": 588,
+            "last_ink_y_px": 651
+          }
+        ],
+        "height_spread_px": 0,
+        "baseline_spread_px": 0,
+        "gaps": [
+          {
+            "empty_columns": 210,
+            "rgb_min": [
+              246,
+              245,
+              244
+            ],
+            "rgb_max": [
+              255,
+              255,
+              255
+            ],
+            "foreground_pixels": 0
+          },
+          {
+            "empty_columns": 212,
+            "rgb_min": [
+              245,
+              245,
+              242
+            ],
+            "rgb_max": [
+              255,
+              255,
+              255
+            ],
+            "foreground_pixels": 0
+          },
+          {
+            "empty_columns": 212,
+            "rgb_min": [
+              246,
+              245,
+              244
+            ],
+            "rgb_max": [
+              255,
+              255,
+              255
+            ],
+            "foreground_pixels": 0
+          }
+        ],
+        "native_common_canvas_px": 729,
+        "foreground_touches_canvas_edge": false
+      },
+      "pixel_identity_checks": [
+        {
+          "view": "front",
+          "source_bounds_px": [
+            103,
+            64,
+            435,
+            652
+          ],
+          "final_bounds_px": [
+            198,
+            54,
+            530,
+            642
+          ],
+          "rectangle_pixels_identical": true
+        },
+        {
+          "view": "left",
+          "source_bounds_px": [
+            645,
+            64,
+            978,
+            652
+          ],
+          "final_bounds_px": [
+            927,
+            54,
+            1260,
+            642
+          ],
+          "rectangle_pixels_identical": true
+        },
+        {
+          "view": "right",
+          "source_bounds_px": [
+            1190,
+            64,
+            1522,
+            652
+          ],
+          "final_bounds_px": [
+            1656,
+            54,
+            1988,
+            642
+          ],
+          "rectangle_pixels_identical": true
+        },
+        {
+          "view": "back",
+          "source_bounds_px": [
+            1734,
+            64,
+            2067,
+            652
+          ],
+          "final_bounds_px": [
+            2385,
+            54,
+            2718,
+            642
+          ],
+          "rectangle_pixels_identical": true
+        }
+      ],
+      "native_common_canvas_px": 729,
+      "resampled": false
+    }
+  },
+  "pipeline": {
+    "status": "source_sheet_only",
+    "view_extraction": "delegated_to_claude_code",
+    "view_extraction_names": [
+      "front",
+      "left",
+      "right",
+      "back"
+    ],
+    "upload_view_mapping": {
+      "front": "front.png",
+      "left": "left.png",
+      "right": "right.png",
+      "back": "back.png"
+    },
+    "upload_note": "Assign each Tripo slot by its matching filename. Sheet display order is front/left/right/back; do not infer the upload slot order from its position.",
+    "three_d_generator_allowed": "Tripo only",
+    "forbidden_generators": [
+      "Hunyuan3D",
+      "HY-Motion"
+    ],
+    "nc_models_used": false,
+    "rigging_required": false,
+    "generated_3d_model": false,
+    "validated_in_engine": false,
+    "model_target": "art/props/desk_lantern/desk_lantern.glb",
+    "target_triangles": {
+      "maximum": 3500,
+      "source": "Provisional small-fixture budget following the handoff's 2,500–3,500 triangle range; use fewer if the cage and silhouette remain readable."
+    },
+    "reconstruction_scope": "Connected opaque brass foot, four-post cage/closed door frame, hinges/latch, empty holder, domed hood, open vent details and lifting eye only. The eye and cage must remain genuinely open. No glass, candle, flame, wall hardware or scene furniture.",
+    "lighting_note": "Brass wear, broad form shading and highlights are baked into the illustration. Use Tripo texture lighting removal and inspect under the separately added engine candle/flame/light.",
+    "native_crop_command": "python tools/crop_views.py art/props/desk_lantern/sheet.png --row 0 1 --names front left right back --pad 0.12 --size 729 --out art/props/desk_lantern/views",
+    "recommended_2x_crop_command": "python tools/crop_views.py art/props/desk_lantern/sheet.png --row 0 1 --names front left right back --pad 0.12 --size 1458 --out art/props/desk_lantern/views",
+    "upscale_note": "Native common canvases are 729 px square. The same uniform 2x extraction at 1458 px meets the 1024 px minimum without adding source detail. The source sheet itself is assembled without resampling.",
+    "next_step": "Extract the four named views, reconstruct the open metal housing, inspect the eye/cage/vent openings and actual holder cavity, then fit separate panes, candle and flame/light components and place on the desk."
+  },
+  "known_limits": [
+    "The level orthographic elevations do not establish the candle holder’s interior depth. Its hollow construction exists in the guide, but verify or form the real cavity in the reconstructed mesh before fitting a candle.",
+    "Door hinge mechanics, pane seats, vent clearances and all fitted component dimensions remain unverified; the source shows a static closed metal frame.",
+    "The image is a stylised illustration with baked brass highlights, not a de-lit material map."
+  ],
+  "review_status": "Delivered source for owner review; reconstruction and engine fit remain unverified.",
+  "sheet_validation": {
+    "sha256": "149b205b2407e6d3a6c1834b29ecaa0807aa056b38b84f546ae9141313439543",
+    "png_decode_verified": true,
+    "png_iend_present": true,
+    "image_size_px": [
+      2916,
+      729
+    ],
+    "mode": "RGB",
+    "background_rgb": [
+      254,
+      254,
+      254
+    ],
+    "corners_rgb": [
+      [
+        254,
+        254,
+        254
+      ],
+      [
+        254,
+        254,
+        254
+      ],
+      [
+        254,
+        254,
+        254
+      ],
+      [
+        254,
+        254,
+        254
+      ]
+    ],
+    "measurement_method": "Unmodified tools/crop_views.py ink_mask tolerance18 and find_figures, full image; no resampling",
+    "view_count": 4,
+    "views": [
+      {
+        "view": "front",
+        "bounds_px": [
+          198,
+          54,
+          530,
+          642
+        ],
+        "width_px": 332,
+        "height_px": 588,
+        "last_ink_y_px": 641
+      },
+      {
+        "view": "left",
+        "bounds_px": [
+          927,
+          54,
+          1260,
+          642
+        ],
+        "width_px": 333,
+        "height_px": 588,
+        "last_ink_y_px": 641
+      },
+      {
+        "view": "right",
+        "bounds_px": [
+          1656,
+          54,
+          1988,
+          642
+        ],
+        "width_px": 332,
+        "height_px": 588,
+        "last_ink_y_px": 641
+      },
+      {
+        "view": "back",
+        "bounds_px": [
+          2385,
+          54,
+          2718,
+          642
+        ],
+        "width_px": 333,
+        "height_px": 588,
+        "last_ink_y_px": 641
+      }
+    ],
+    "height_spread_px": 0,
+    "baseline_spread_px": 0,
+    "gaps": [
+      {
+        "empty_columns": 397,
+        "rgb_min": [
+          254,
+          254,
+          254
+        ],
+        "rgb_max": [
+          254,
+          254,
+          254
+        ],
+        "foreground_pixels": 0
+      },
+      {
+        "empty_columns": 396,
+        "rgb_min": [
+          254,
+          254,
+          254
+        ],
+        "rgb_max": [
+          254,
+          254,
+          254
+        ],
+        "foreground_pixels": 0
+      },
+      {
+        "empty_columns": 397,
+        "rgb_min": [
+          254,
+          254,
+          254
+        ],
+        "rgb_max": [
+          254,
+          254,
+          254
+        ],
+        "foreground_pixels": 0
+      }
+    ],
+    "native_common_canvas_px": 729,
+    "foreground_touches_canvas_edge": false,
+    "lifting_eye_openings": [
+      {
+        "view": "front",
+        "genuine_enclosed_background_region": true,
+        "bounds_px": [
+          344,
+          72,
+          383,
+          110
+        ],
+        "background_pixels": 1154
+      },
+      {
+        "view": "back",
+        "genuine_enclosed_background_region": true,
+        "bounds_px": [
+          2533,
+          71,
+          2572,
+          109
+        ],
+        "background_pixels": 1155
+      }
+    ],
+    "visual_checks": {
+      "one_connected_metal_fixture": true,
+      "same_level_orthographic_projection": true,
+      "front_left_right_back_order": true,
+      "opposing_profiles": true,
+      "actual_rear": true,
+      "cage_open_in_all_four_views": true,
+      "eye_open_front_and_back_edge_on_in_profiles": true,
+      "flat_supporting_foot": true,
+      "empty_candle_holder": true,
+      "no_glass_candle_flame_glow_or_wall_hardware": true,
+      "no_floor_cast_shadow_labels_or_borders": true,
+      "review_method": "Direct final/source/guide inspection and independent visual review; illustration evidence only, not reconstructed mesh validation."
+    },
+    "background_note": "All corners and all three full-height separator bands are uniform RGB254/254/254, one level below pure white. Generated source pixels inside each own-bounds rectangle are preserved, including minor raster noise immediately around silhouettes. The lifting-eye and cage openings show the background; they are not painted opaque panels."
+  },
+  "dimension_evidence": {
+    "status": "New provisional art target; no measured engine transform",
+    "guide_dimensions_m": {
+      "width": 0.18,
+      "height": 0.32,
+      "depth": 0.18
+    },
+    "painted_envelopes_at_target_height": [
+      {
+        "view": "front",
+        "implied_width_or_depth_at_0_32_m_height": 0.18068,
+        "target_width_or_depth_m": 0.18,
+        "difference_percent": 0.378
+      },
+      {
+        "view": "left",
+        "implied_width_or_depth_at_0_32_m_height": 0.181224,
+        "target_width_or_depth_m": 0.18,
+        "difference_percent": 0.68
+      },
+      {
+        "view": "right",
+        "implied_width_or_depth_at_0_32_m_height": 0.18068,
+        "target_width_or_depth_m": 0.18,
+        "difference_percent": 0.378
+      },
+      {
+        "view": "back",
+        "implied_width_or_depth_at_0_32_m_height": 0.181224,
+        "target_width_or_depth_m": 0.18,
+        "difference_percent": 0.68
+      }
+    ],
+    "mesh_fit_checks": [
+      "Preserve the genuine lifting-eye through-hole, four open cage faces and small vent gaps.",
+      "Inspect or form the actual holder cavity; its interior depth cannot be established from these level views.",
+      "Verify door hardware/pane seats and add separate glass, candle, wick, flame and light.",
+      "Check actual flat foot contact and bounds before placing the lantern on the desk."
+    ]
+  }
+}

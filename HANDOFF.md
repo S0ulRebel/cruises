@@ -532,7 +532,6 @@ future work in the dressing queue below. See the picture-light Done entry.
 | id | what |
 | --- | --- |
 | `rolled_charts` | **REDO.** The owner discarded the first model — it came out a flat slab. Cause is in the sheet: the two end-on views were 107 px wide against an 814 px front, so there was nothing for Tripo to read the cylinder from. Give the ends their own full-width views |
-| `desk_lantern` | the glass-and-brass candle lantern standing on the desk, left of the render |
 | `rolled_parchment` | a single rolled parchment tied with cord. Asked for by name; distinct from `rolled_charts`, which is a bundle of three |
 | `loose_map` | an unrolled map lying flat, curled at the corners. Asked for by name |
 | `bookshelf_books` | a run of books for the shelves, as one piece. Asked for by name. Separate from `bookcase` so the shelves can be dressed without regenerating the unit |
@@ -749,6 +748,25 @@ Verify bounds, connected geometry and the shallow hood cavity. Rear fasteners ar
 proud of the plate, so inspect wall seating rather than assuming a flush contact.
 Fit above the separate painting frame; the emitter and actual warm light remain
 engine components. No exact placement or illumination has been tested by this sheet.
+
+---
+
+### 2026-10-11 — for the engine side — reconstruct and complete the desk lantern
+
+`art/props/desk_lantern/sheet.png` and `asset.json` supply the standalone brass
+housing: flat circular foot, four-post cage and closed front-door frame, hinges and
+latch, empty holder, domed cap, vent gap and lifting eye. Keep the cage open and the
+eye as a real through-hole; its opening is visible in front/back and edge-on in both
+profiles. There is no rear brace or wall hardware. Target **0.18 × 0.32 × 0.18 m**
+is provisional new art, not the larger wall-lantern size. Painted widths/depths at
+H0.32 imply 0.18068–0.18122 m, within 0.7% of target.
+
+Use the sidecar's named front/left/right/back extraction at native 729 px or uniform
+2x at 1458 px. Reconstruct the connected metal frame, inspect/form the actual holder
+cavity (its interior depth is not established by level views), verify pane seats,
+door details and vent openings, then add separate glass, candle/wick, flame and warm
+light. Set the origin at the flat foot and fit on the desk's left side; no exact
+scene transform or fitted assembly has been tested by this source delivery.
 
 ---
 
@@ -1169,6 +1187,21 @@ All three prompts, guide source/geometry, reference hashes, proportional limits,
 and the final provisional 0.40 × 0.17 × 0.19 m dimensions are in the sidecar.
 Reconstruction, wall seating and actual lighting remain Open. Other queued props
 and the owner's deferred curtains/palm are unchanged.
+
+---
+
+### 2026-10-11 — art side — desk-lantern sheet delivered
+
+Delivered the separately requested `art/props/desk_lantern/sheet.png` and
+`asset.json`; moved only this lantern from the pending dressing queue. The fixture
+matches the reference's tabletop lantern and keeps all nonmetal components for the
+engine. Final 2916×729; all four heights are exactly 588 px, common baseline y641,
+and clear uniform gaps are 397/396/397 px. The lifting-eye openings are enclosed
+background regions in front/back (1154/1155 px). Full PNG decode/IEND and named
+crop checks passed. The unchanged cutter translated native source rectangles only;
+every rectangle remains pixel-identical. Full prompt, guide source/geometry,
+reference hashes, provisional dimensions and measured limits are in the sidecar.
+Metal reconstruction, holder depth and all component fitting remain Open.
 
 ---
 

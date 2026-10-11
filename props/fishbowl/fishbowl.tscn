@@ -5,6 +5,8 @@
 [ext_resource type="PackedScene" path="res://actors/count_fingers/count_fingers.tscn" id="3_boloa"]
 [ext_resource type="Script" path="res://actors/parts/fish.gd" id="4_gvc2t"]
 
+[ext_resource type="Script" path="res://systems/interaction/hotspot.gd" id="20_hotspot"]
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xo1me"]
 transparency = 1
 albedo_color = Color(0.35, 0.62, 0.7, 0.45)
@@ -15,6 +17,9 @@ top_radius = 0.244
 bottom_radius = 0.244
 height = 0.004
 radial_segments = 48
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hotspot"]
+size = Vector3(0.9, 0.9, 0.9)
 
 [node name="Fishbowl" type="Node3D" unique_id=1755904177]
 script = ExtResource("1_bnhvk")
@@ -32,3 +37,26 @@ mesh = SubResource("CylinderMesh_gjsqw")
 [node name="CountFingers" type="Node3D" parent="." unique_id=2076905786 instance=ExtResource("3_boloa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1352, 0)
 script = ExtResource("4_gvc2t")
+
+[node name="ApproachMarker" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.65, 0.95)
+
+[node name="Hotspot" type="Area3D" parent="." node_paths=PackedStringArray("visual", "approach_marker")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.26, 0)
+script = ExtResource("20_hotspot")
+visual = NodePath("..")
+approach_marker = NodePath("../ApproachMarker")
+display_name = "Fishbowl"
+description = "Count Fingers regards you the way a customs officer regards a crate."
+gives_item = "fishbowl"
+combinations = {
+"brass_inkwell": {
+"say": "He holds the inkwell over the bowl. Count Fingers does not blink, because he cannot, but the intent is there."
+},
+"compass": {
+"say": "The needle swings towards the fish and stays there. Livé decides not to think about that."
+}
+}
+
+[node name="InteractionShape" type="CollisionShape3D" parent="Hotspot"]
+shape = SubResource("BoxShape3D_hotspot")

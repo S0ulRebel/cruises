@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CharacterDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://systems/content/character_definition.gd" id="1_character"]
+
+[resource]
+script = ExtResource("1_character")
+content_id = "live"
+asset_id = "captain_live"
+display_name = "Captain Livé"
+colour = Color(0.109804, 0.101961, 0.121569, 1)

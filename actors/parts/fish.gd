@@ -19,22 +19,30 @@ extends Node3D
 ## Degrees.
 @export var yaw := 22.0
 @export var pitch := 7.0
+@export var definition: CharacterDefinition
+## Only the visual child drifts. The prefab root keeps the designer's placement.
+@export var motion_target: Node3D
 
-var _home: Vector3
+var _rest := Transform3D.IDENTITY
 var _t := 0.0
 
 
 func _ready() -> void:
-	_home = position
+	if motion_target == null:
+		push_error("Count Fingers needs its authored Motion child.")
+		set_process(false)
+		return
+	_rest = motion_target.transform
 
 
 func _process(delta: float) -> void:
 	_t += delta
-	position = _home + Vector3(
+	var offset := Vector3(
 		sin(_t * 0.37) * drift,
 		sin(_t * 0.73) * bob,
 		cos(_t * 0.29) * drift)
-	rotation_degrees = Vector3(
-		sin(_t * 0.61) * pitch,
-		sin(_t * 0.23) * yaw,
-		sin(_t * 0.43) * pitch * 0.4)
+	var turn := Vector3(
+		deg_to_rad(sin(_t * 0.61) * pitch),
+		deg_to_rad(sin(_t * 0.23) * yaw),
+		deg_to_rad(sin(_t * 0.43) * pitch * 0.4))
+	motion_target.transform = _rest * Transform3D(Basis.from_euler(turn), offset)

@@ -163,7 +163,7 @@ func refit(slot: String) -> void:
 	var holder: Node3D = _worn[slot]["node"]
 	var socket := holder.get_parent() as BoneAttachment3D
 	# Same bone: just move it. A new bone, or a piece that now bends, has to be put on again.
-	if piece.hold == OutfitPiece.Hold.PINNED and socket != null and socket.bone_name == piece.bone:
+	if piece.hold == OutfitPiece.Hold.PINNED and socket != null and socket.bone_name == bone_for(piece):
 		holder.transform = _holder_transform(piece)
 	else:
 		wear(piece)
@@ -361,7 +361,10 @@ func _wear_pinned(piece: OutfitPiece) -> Node3D:
 ## centimetre scale, the piece comes out at its own size rather than a hundredth of it, which
 ## held.gd has to correct by measuring after the fact.
 func _holder_transform(piece: OutfitPiece) -> Transform3D:
-	var bone := _skeleton.find_bone(piece.bone)
+	var bone := _skeleton.find_bone(bone_for(piece))
+	if bone < 0:
+		push_error("Dresser: cannot fit a piece without a resolved attachment bone.")
+		return Transform3D.IDENTITY
 	var at_rest := _frame * _skeleton.get_bone_global_rest(bone)
 	return at_rest.affine_inverse() * piece.fit()
 

@@ -6,7 +6,7 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_26ynw"]
 size = Vector3(0.62, 1.35, 0.62)
 
-[node name="CaptainChair" type="StaticBody3D" unique_id=1231876568]
+[node name="CaptainChair" type="StaticBody3D" unique_id=1231876568 groups=["nav_source"]]
 script = ExtResource("1_3w1l2")
 
 [node name="Model" type="Node3D" parent="." unique_id=1138104241 instance=ExtResource("2_a4c8m")]

@@ -3,8 +3,28 @@
 [ext_resource type="Script" path="res://props/parts/unlit.gd" id="1_xi3cl"]
 [ext_resource type="PackedScene" path="res://art/props/rapier/rapier.glb" id="2_ixxp4"]
 
+[ext_resource type="Script" path="res://systems/interaction/hotspot.gd" id="20_hotspot"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hotspot"]
+size = Vector3(0.9, 0.9, 0.9)
+
 [node name="Rapier" type="Node3D" unique_id=1401042500]
 script = ExtResource("1_xi3cl")
 
 [node name="Model" type="Node3D" parent="." unique_id=803424789 instance=ExtResource("2_ixxp4")]
 transform = Transform3D(1.0505129, 0, 0, 0, -4.591938e-08, 1.0505129, 0, -1.0505129, -4.591938e-08, 0, 0.063348845, 0.525)
+
+[node name="ApproachMarker" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.72, 0.85)
+
+[node name="Hotspot" type="Area3D" parent="." node_paths=PackedStringArray("visual", "approach_marker")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14, 0)
+script = ExtResource("20_hotspot")
+visual = NodePath("..")
+approach_marker = NodePath("../ApproachMarker")
+display_name = "Rapier"
+description = "Thin, French, and considerably better travelled than most men. It is holding down a chart."
+gives_item = "rapier"
+
+[node name="InteractionShape" type="CollisionShape3D" parent="Hotspot"]
+shape = SubResource("BoxShape3D_hotspot")

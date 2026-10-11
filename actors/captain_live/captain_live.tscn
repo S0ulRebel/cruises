@@ -4,6 +4,8 @@
 [ext_resource type="PackedScene" path="res://art/characters/captain_live/captain_live_hands.glb" id="2_ulgsr"]
 [ext_resource type="Script" path="res://props/parts/unlit.gd" id="3_eirsj"]
 
+[ext_resource type="Resource" path="res://actors/captain_live/character.tres" id="20_character"]
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1dsn2"]
 radius = 0.26
 height = 1.9
@@ -69,11 +71,11 @@ nodes/head/node = SubResource("AnimationNodeAdd2_dwcc4")
 nodes/head/position = Vector2(300, 660)
 node_connections = [&"output", 0, &"head", &"gesture_right", 0, &"locomotion", &"gesture_right", 1, &"gesture_right_clip", &"gesture_left", 0, &"gesture_right", &"gesture_left", 1, &"gesture_left_clip", &"hands", 0, &"gesture_left", &"hands", 1, &"hands_clip", &"head", 0, &"hands", &"head", 1, &"head_clip"]
 
-[node name="live" type="CharacterBody3D" unique_id=1654608170]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4, 0, 1.2)
+[node name="CaptainLive" type="CharacterBody3D" unique_id=1654608170]
 script = ExtResource("1_0aaxx")
+definition = ExtResource("20_character")
 
-[node name="@CollisionShape3D@47" type="CollisionShape3D" parent="." unique_id=1500299778]
+[node name="BodyShape" type="CollisionShape3D" parent="." unique_id=1500299778]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, 0)
 shape = SubResource("CapsuleShape3D_1dsn2")
 
@@ -97,12 +99,14 @@ path_desired_distance = 0.35
 target_desired_distance = 0.35
 height = 1.9
 radius = 0.26
+avoidance_enabled = true
 
 [node name="Obstacle" type="NavigationObstacle3D" parent="." unique_id=1716041339]
 radius = 0.45
 height = 1.9
-affect_navigation_mesh = true
-carve_navigation_mesh = true
+avoidance_enabled = false
+affect_navigation_mesh = false
+carve_navigation_mesh = false
 
 [node name="Unlit" type="Node3D" parent="." unique_id=1511316496]
 script = ExtResource("3_eirsj")

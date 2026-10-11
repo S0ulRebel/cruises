@@ -4,26 +4,25 @@ extends Node3D
 ## Open actors/outfit/workshop.tscn and run it on its own (F6). Everything it offers is found
 ## on disk when it starts - nothing is listed by hand:
 ##
-##   bodies   art/models/characters/body_*.glb, then the grunt and captain as stand-ins
-##   pieces   art/models/characters/<slot>_*.glb, and the primitive stand-ins in placeholders/
-##
-## so a new part from Tripo is a file dropped in a folder, named for its slot. See
-## art/models/characters/README.md.
+##   bodies   art/characters/<character>/pieces/body/body.glb, plus rigged stand-ins
+##   pieces   art/characters/<character>/pieces/<slot>/<slot>.glb and placeholders/
 ##
 ## A piece nobody has placed yet gets a first guess read off the body - a coat is scaled so its
 ## cuffs reach the wrists, a hat sits on the skull, boots stand on the floor - and from there it
-## is nudged by hand in the Fit section and saved to actors/outfit/pieces/, where every outfit
-## that wears it picks the fit up. A whole character saves to actors/outfit/outfits/.
+## is nudged by hand in the Fit section. Saves require an explicit destination under
+## actors/<character>/outfits/<outfit>/; each outfit owns independent fitted pieces.
 ##
 ## Drag in the view to turn him, the wheel (or a pinch) to zoom, the right button (or two
 ## fingers) to raise and lower the camera. R rolls a random outfit; T stands him in the T-pose.
 
 const STAND_INS := ["res://art/characters/captain_live/captain_live_animated.glb",
 		"res://art/characters/santi_wong/santi_wong_animated.glb"]
-const BODY_DIRS := ["res://art/models/characters"]
-const PIECE_MODEL_DIRS := ["res://art/models/characters", "res://actors/outfit/placeholders"]
-const PIECE_DIR := "res://actors/outfit/pieces"
-const OUTFIT_DIR := "res://actors/outfit/outfits"
+const BODY_DIRS := ["res://art/characters", "res://art/models/characters"]
+const PIECE_MODEL_DIRS := ["res://art/characters", "res://art/models/characters", "res://actors/outfit/placeholders"]
+const ACTOR_DIR := "res://actors"
+## Saves happen only when requested, to these explicit per-character/per-outfit paths.
+@export_file("*.tres") var outfit_output := ""
+@export_file("*.tscn") var assembled_output := ""
 ## The clips every body borrows, through Retarget. A body with its own keeps them as well.
 const CLIP_SOURCE := "res://art/characters/captain_live/captain_live_animated.glb"
 ## Multipliers on the body's texture - the four the zombie sheet asks for, and none.
@@ -75,6 +74,8 @@ var _position_boxes: Array[SpinBox] = []
 var _rotation_boxes: Array[SpinBox] = []
 var _scale_boxes: Array[SpinBox] = []
 var _name_edit: LineEdit
+var _piece_output: LineEdit
+var _scene_output: LineEdit
 var _outfit_pick: OptionButton
 var _status: Label
 var _editing := ""
@@ -246,39 +247,41 @@ func guess(piece: OutfitPiece) -> void:
 	piece.position = target - anchor * size
 
 
-## Saves `piece` to actors/outfit/pieces/, named after its model. Returns the path, or "".
-func save_piece(piece: OutfitPiece) -> String:
-	# Saved is placed: from here on it keeps this fit on every body rather than being guessed.
-	piece.fitted = true
-	var path := "%s/%s.tres" % [PIECE_DIR, piece.model.get_file().get_basename()]
-	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(PIECE_DIR))
-	var error := ResourceSaver.save(piece, path)
+## Save an independent fit to one explicitly chosen destination.
+func save_piece(piece: OutfitPiece, path: String) -> String:
+	if not _valid_output(path, "tres"):
+		_say("Choose res://actors/<character>/outfits/<outfit>/pieces/<fit>.tres.")
+		return ""
+	var saved := piece.duplicate(true) as OutfitPiece
+	saved.fitted = true
+	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(path.get_base_dir()))
+	var error := ResourceSaver.save(saved, path)
 	if error != OK:
 		_say("Could not save %s (error %d)." % [path, error])
 		return ""
 	# Claimed explicitly: ResourceSaver.FLAG_CHANGE_PATH leaves resource_path empty in 4.7, and
 	# a piece with no path is copied INTO every outfit that wears it rather than pointed at -
 	# so re-fitting the coat later would leave every saved outfit wearing the old one.
-	piece.take_over_path(path)
+	saved.take_over_path(path)
 	return path
 
 
 ## Saves what is on the body as an outfit called `outfit_name`. Returns the path, or "".
-func save_outfit(outfit_name: String) -> String:
-	var clean := outfit_name.strip_edges().to_snake_case().validate_filename()
-	if clean == "":
-		_say("Give the outfit a name first.")
+func save_outfit(path: String) -> String:
+	if not _valid_output(path, "tres"):
+		_say("Choose res://actors/<character>/outfits/<outfit>/outfit.tres first.")
 		return ""
 	var outfit := Outfit.new()
 	outfit.body = _body_path
 	outfit.skin_colour = dresser.skin_colour()
 	for piece in dresser.pieces():
 		# The outfit points at its pieces, so each has to exist as a file of its own first.
-		if save_piece(piece) == "":
+		var fit_id := (piece.model + "|" + _body_path + "|" + piece.slot).sha256_text().substr(0, 12)
+		var fit_path := path.get_base_dir().path_join("pieces/%s_%s.tres" % [piece.slot, fit_id])
+		if save_piece(piece, fit_path) == "":
 			return ""
-		outfit.pieces.append(piece)
-	var path := "%s/%s.tres" % [OUTFIT_DIR, clean]
-	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(OUTFIT_DIR))
+		outfit.pieces.append(load(fit_path) as OutfitPiece)
+	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(path.get_base_dir()))
 	var error := ResourceSaver.save(outfit, path)
 	if error != OK:
 		_say("Could not save %s (error %d)." % [path, error])
@@ -289,7 +292,8 @@ func save_outfit(outfit_name: String) -> String:
 
 
 func load_outfit(path: String) -> void:
-	var outfit := load(path) as Outfit
+	var source := load(path) as Outfit
+	var outfit := source.duplicate(true) as Outfit if source != null else null
 	if outfit == null:
 		_say("%s is not an outfit." % path)
 		return
@@ -303,23 +307,126 @@ func load_outfit(path: String) -> void:
 		dresser.dress(outfit)
 		_after_wear()
 	set_skin(outfit.skin_colour)
-	_name_edit.text = path.get_file().get_basename()
+	_name_edit.text = path
 	_say("Loaded %s." % path)
+
+
+static func _valid_output(path: String, extension: String) -> bool:
+	if not path.begins_with("res://actors/") or path.get_extension() != extension:
+		return false
+	if path != path.simplify_path() or "\\" in path:
+		return false
+	var parts := path.trim_prefix("res://").split("/")
+	return parts.size() >= 5 and parts[2] == "outfits" and parts[1] != "" and parts[3] != ""
+
+
+## Explicit authoring action: freeze the currently fitted parts into one editable actor.
+## Nothing calls this at startup. The exported actor needs no Dresser to reconstruct it.
+func export_assembled(path: String) -> String:
+	if not _valid_output(path, "tscn"):
+		_say("Choose res://actors/<character>/outfits/<outfit>/actor.tscn first.")
+		return ""
+	if _model == null or dresser.skeleton() == null:
+		_say("Fit a rigged donor-bound body before exporting.")
+		return ""
+	var previous_clip := _clip
+	play("")
+	var actor := CharacterBody3D.new()
+	actor.name = path.trim_prefix("res://").split("/")[1].to_pascal_case()
+	actor.set_script(load("res://actors/mover/mover.gd"))
+	var character_path := path.trim_prefix("res://").split("/")[1]
+	character_path = "res://actors/%s/character.tres" % character_path
+	if ResourceLoader.exists(character_path):
+		actor.set("definition", load(character_path))
+	var body := Node3D.new()
+	body.name = "Body"
+	actor.add_child(body)
+	var model := _model.duplicate() as Node3D
+	model.name = "Model"
+	body.add_child(model)
+	var bounds := _assembled_bounds(model)
+	var height := maxf(bounds.size.y, 0.2)
+	actor.set("character_height", height)
+	var shape := CollisionShape3D.new()
+	shape.name = "BodyShape"
+	var capsule := CapsuleShape3D.new()
+	capsule.radius = minf(0.26, height * 0.25)
+	capsule.height = height
+	shape.shape = capsule
+	shape.position.y = bounds.position.y + height * 0.5
+	actor.add_child(shape)
+	var agent := NavigationAgent3D.new()
+	agent.name = "Agent"
+	agent.height = height
+	agent.radius = capsule.radius
+	agent.path_desired_distance = 0.35
+	agent.target_desired_distance = 0.35
+	agent.avoidance_enabled = true
+	actor.add_child(agent)
+	var obstacle := NavigationObstacle3D.new()
+	obstacle.name = "Obstacle"
+	obstacle.height = height
+	obstacle.radius = 0.45
+	obstacle.avoidance_enabled = false
+	obstacle.affect_navigation_mesh = false
+	obstacle.carve_navigation_mesh = false
+	actor.add_child(obstacle)
+	_claim_assembled(actor, actor)
+	var packed := PackedScene.new()
+	var error := packed.pack(actor)
+	if error == OK:
+		DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(path.get_base_dir()))
+		error = ResourceSaver.save(packed, path)
+	actor.free()
+	play(previous_clip)
+	if error != OK:
+		_say("Could not export %s (error %d)." % [path, error])
+		return ""
+	_say("Exported %s. Inspect its fitted parts and collision before placing it." % path)
+	return path
+
+
+## The fitted meshes are intentionally saved as owned nodes and resources, not lost
+## beneath imported instance boundaries. This is one explicit output, not a batch rebuild.
+static func _claim_assembled(node: Node, root: Node) -> void:
+	node.scene_file_path = ""
+	for child in node.get_children():
+		child.owner = root
+		_claim_assembled(child, root)
+
+
+static func _assembled_bounds(model: Node3D) -> AABB:
+	var bounds := AABB()
+	var found := false
+	for node in model.find_children("*", "MeshInstance3D", true, false):
+		var mesh := node as MeshInstance3D
+		if mesh.mesh == null:
+			continue
+		var box := RigSpace.chain(mesh, model) * mesh.get_aabb()
+		bounds = bounds.merge(box) if found else box
+		found = true
+	return bounds
 
 
 # --- bodies and clips --------------------------------------------------------------------------
 
 func _load_body(path: String) -> void:
-	if _model != null:
-		_model.queue_free()
-		_model = null
-		_player = null
 	var scene := load(path) as PackedScene
 	if scene == null:
 		_say("Could not load %s." % path)
 		return
+	var next_model := scene.instantiate() as Node3D
+	if next_model == null or next_model.find_children("*", "Skeleton3D", true, false).is_empty():
+		if next_model != null:
+			next_model.free()
+		_say("%s is unrigged. Bind it to the documented donor before fitting." % path)
+		return
+	if _model != null:
+		_model.queue_free()
+		_model = null
+		_player = null
 	_body_path = path
-	_model = scene.instantiate() as Node3D
+	_model = next_model
 	add_child(_model)
 	if not dresser.attach(_model):
 		_say("%s has no skeleton - it has to be rigged before anything can be worn." % path)
@@ -375,25 +482,22 @@ func _scan() -> void:
 	_bodies.clear()
 	for dir in BODY_DIRS:
 		for path in _files(dir):
-			if path.get_file().begins_with("body_") and _is_model(path):
+			if (path.get_file().begins_with("body_") or path.get_file().get_basename() == "body") and _is_model(path):
 				_bodies.append(path)
 	for path in STAND_INS:
 		if ResourceLoader.exists(path):
 			_bodies.append(path)
-	var saved := {}
-	for path in _files(PIECE_DIR):
-		if path.ends_with(".tres"):
-			var piece := load(path) as OutfitPiece
-			if piece != null:
-				saved[piece.model] = piece
 	_catalogue.clear()
 	for slot in OutfitPiece.SLOTS:
 		_catalogue[slot] = []
 	for dir in PIECE_MODEL_DIRS:
 		for path in _files(dir):
-			if not _is_model(path) or path.get_file().begins_with("body_"):
+			if not _is_model(path) or path.get_file().begins_with("body_") or path.get_file().get_basename() == "body":
 				continue
-			var piece: OutfitPiece = saved.get(path, OutfitPiece.for_model(path))
+			# Only named delivered parts or placeholders; do not mix experimental head variants.
+			if dir == "res://art/characters" and (not "/pieces/" in path or path.get_file().get_basename() != path.get_base_dir().get_file()):
+				continue
+			var piece: OutfitPiece = OutfitPiece.for_model(path)
 			if piece != null:
 				(_catalogue[piece.slot] as Array).append(piece)
 
@@ -629,15 +733,24 @@ func _build_panel() -> void:
 	_button(fit_actions, "Save piece", func() -> void:
 		var piece := dresser.worn(_editing)
 		if piece != null:
-			var path := save_piece(piece)
+			var path := save_piece(piece, _piece_output.text)
 			if path != "":
 				_say("Saved %s." % path))
 	_fit_rows.add_child(fit_actions)
+	_piece_output = LineEdit.new()
+	_piece_output.placeholder_text = "res://actors/captain_live/outfits/my_outfit/pieces/hat.tres"
+	_row(_fit_rows, "Fit file", _piece_output)
 
 	_heading(rows, "Outfit")
 	_name_edit = LineEdit.new()
-	_name_edit.placeholder_text = "zombie_sailor"
-	_row(rows, "Name", _name_edit)
+	_name_edit.placeholder_text = "res://actors/captain_live/outfits/my_outfit/outfit.tres"
+	_name_edit.text = outfit_output
+	_row(rows, "Outfit file", _name_edit)
+	_scene_output = LineEdit.new()
+	_scene_output.placeholder_text = "res://actors/captain_live/outfits/my_outfit/actor.tscn"
+	_scene_output.text = assembled_output
+	_row(rows, "Actor scene", _scene_output)
+	_button(rows, "Export assembled actor", func() -> void: export_assembled(_scene_output.text))
 	var outfit_actions := HBoxContainer.new()
 	_button(outfit_actions, "Save outfit", func() -> void: save_outfit(_name_edit.text))
 	_outfit_pick = OptionButton.new()
@@ -725,8 +838,8 @@ func _fill_outfits() -> void:
 	_outfit_pick.clear()
 	_outfit_pick.add_item("Load outfit...")
 	_outfit_pick.set_item_metadata(0, "")
-	for path in _files(OUTFIT_DIR):
-		if path.ends_with(".tres"):
+	for path in _files(ACTOR_DIR):
+		if "/outfits/" in path and path.get_file() == "outfit.tres":
 			_outfit_pick.add_item(path.get_file().get_basename())
 			_outfit_pick.set_item_metadata(_outfit_pick.item_count - 1, path)
 
@@ -775,7 +888,7 @@ func _show_fit() -> void:
 	var skeleton := dresser.skeleton()
 	for bone in skeleton.get_bone_count():
 		_bone_pick.add_item(skeleton.get_bone_name(bone))
-		if skeleton.get_bone_name(bone) == piece.bone:
+		if skeleton.get_bone_name(bone) == dresser.bone_for(piece):
 			_bone_pick.select(bone)
 
 

@@ -2,9 +2,14 @@
 
 [ext_resource type="Script" path="res://actors/parts/fish.gd" id="1_y20x6"]
 [ext_resource type="PackedScene" path="res://art/characters/count_fingers/count_fingers_mesh.glb" id="2_rqixw"]
+[ext_resource type="Resource" path="res://actors/count_fingers/character.tres" id="3_character"]
 
-[node name="CountFingers" type="Node3D" unique_id=2076905786]
+[node name="CountFingers" type="Node3D" unique_id=2076905786 node_paths=PackedStringArray("motion_target")]
 script = ExtResource("1_y20x6")
+definition = ExtResource("3_character")
+motion_target = NodePath("Motion")
 
-[node name="Model" type="Node3D" parent="." unique_id=1358662519 instance=ExtResource("2_rqixw")]
+[node name="Motion" type="Node3D" parent="."]
+
+[node name="Model" type="Node3D" parent="Motion" unique_id=1358662519 instance=ExtResource("2_rqixw")]
 transform = Transform3D(-1.1813605e-08, -0.2702638, -1.1813605e-08, 0, -1.1813605e-08, 0.2702638, -0.2702638, 1.1813605e-08, 5.163891e-16, 0.11312052, 0.09928062, -0.04368763)

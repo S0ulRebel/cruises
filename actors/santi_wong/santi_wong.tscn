@@ -4,6 +4,10 @@
 [ext_resource type="PackedScene" path="res://art/characters/santi_wong/santi_wong_animated.glb" id="2_d313a"]
 [ext_resource type="Script" path="res://props/parts/unlit.gd" id="3_0yx1c"]
 
+[ext_resource type="Resource" path="res://actors/santi_wong/character.tres" id="20_character"]
+
+[ext_resource type="Script" path="res://systems/interaction/hotspot.gd" id="21_hotspot"]
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lq1my"]
 radius = 0.26
 height = 1.7
@@ -12,12 +16,12 @@ height = 1.7
 radius = 0.45
 height = 1.7
 
-[node name="santi" type="CharacterBody3D" unique_id=1604026883]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2, 0, 0.2)
+[node name="SantiWong" type="CharacterBody3D" unique_id=1604026883]
 script = ExtResource("1_epemd")
+definition = ExtResource("20_character")
 character_height = 1.7
 
-[node name="@CollisionShape3D@49" type="CollisionShape3D" parent="." unique_id=201628320]
+[node name="BodyShape" type="CollisionShape3D" parent="." unique_id=201628320]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
 shape = SubResource("CapsuleShape3D_lq1my")
 
@@ -31,16 +35,23 @@ path_desired_distance = 0.35
 target_desired_distance = 0.35
 height = 1.7
 radius = 0.26
+avoidance_enabled = true
 
 [node name="Obstacle" type="NavigationObstacle3D" parent="." unique_id=1496472620]
 radius = 0.45
 height = 1.7
-affect_navigation_mesh = true
-carve_navigation_mesh = true
+avoidance_enabled = false
+affect_navigation_mesh = false
+carve_navigation_mesh = false
 
-[node name="Clickable" type="Area3D" parent="." unique_id=324635227]
+[node name="Hotspot" type="Area3D" parent="." unique_id=324635227 node_paths=PackedStringArray("visual", "target_actor")]
+script = ExtResource("21_hotspot")
+visual = NodePath("../Body")
+target_actor = NodePath("..")
+display_name = "Santi Wong"
+conversation = "res://screenplay/santi_galley.json"
 
-[node name="@CollisionShape3D@51" type="CollisionShape3D" parent="Clickable" unique_id=29447174]
+[node name="InteractionShape" type="CollisionShape3D" parent="Hotspot" unique_id=29447174]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
 shape = SubResource("CapsuleShape3D_uu4a5")
 

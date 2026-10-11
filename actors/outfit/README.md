@@ -46,16 +46,31 @@ A humanoid needs no file at all.
 
     godot --path . res://actors/outfit/workshop.tscn
 
-Where a piece is tried on and nudged into place. It lists everything in the model
-folders by file name - nothing has to be registered - guesses a first fit from the
-body's bones, and saves what you tune to `actors/outfit/pieces/`. A piece fitted once
-is fitted for every outfit that wears it.
+Where a piece is tried on and nudged into place. It discovers the delivered
+`art/characters/<character>/pieces/body/body.glb` bodies and
+`pieces/<slot>/<slot>.glb` parts, plus legacy rigged bodies and primitive placeholders.
+A delivered body without a Skeleton3D is listed but cannot be fitted or exported:
+bind it to the measured donor described in `docs/RIGGING.md` first.
+
+Saves are explicit authoring actions. Enter a destination such as
+`res://actors/captain_live/outfits/my_outfit/outfit.tres`. Each outfit owns independent
+fits under its own `pieces/` directory; model and body hashes avoid basename collisions.
+Loading an outfit makes working copies, so nudging it cannot mutate another outfit.
+The separate Fit file field saves one selected fit to its explicit destination.
+
+Enter `res://actors/captain_live/outfits/my_outfit/actor.tscn` and choose **Export
+assembled actor** to save the current fitted body and parts, owned and editable,
+with BodyShape, Agent and Obstacle already authored. This produces one explicit
+snapshot, including mesh/skin/material state; it can be larger than a GLB wrapper.
+It does not replace the default world actor or run a Dresser at game startup.
+Review fit, collision and animation in the editor before using an exported actor.
 
 `retarget.gd` comes with it: a new body arrives from Tripo with a skeleton and no
 clips, so the workshop lends it the captain's. It copies how far each bone has turned
 from its own rest rather than the rotations as written, which is what lets rigs with
 different rest poses and units share a clip.
 
-Paths repointed for this game: bodies and pieces are looked for in
-`art/models/characters` and `actors/outfit/placeholders`, and clips are borrowed from
-`captain_live_animated.glb`.
+The default world Captain retains `captain_live_hands.glb` and Santi retains
+`santi_wong_animated.glb`, preserving their current appearance. The delivered bare
+body and clothing still need measured donor binding and fitting before replacement.
+Pinned attachments use the resolved role bone consistently for placement and refitting.

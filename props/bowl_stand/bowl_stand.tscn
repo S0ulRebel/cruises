@@ -6,7 +6,7 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_cxaik"]
 size = Vector3(0.6, 0.65, 0.6)
 
-[node name="BowlStand" type="StaticBody3D" unique_id=1338743776]
+[node name="BowlStand" type="StaticBody3D" unique_id=1338743776 groups=["nav_source"]]
 script = ExtResource("1_6oeej")
 
 [node name="Model" type="Node3D" parent="." unique_id=490642509 instance=ExtResource("2_oj4yf")]

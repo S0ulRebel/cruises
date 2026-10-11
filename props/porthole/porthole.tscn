@@ -3,8 +3,27 @@
 [ext_resource type="Script" path="res://props/parts/unlit.gd" id="1_d4hat"]
 [ext_resource type="PackedScene" path="res://art/props/porthole/porthole.glb" id="2_pe3it"]
 
+[ext_resource type="Script" path="res://systems/interaction/hotspot.gd" id="20_hotspot"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hotspot"]
+size = Vector3(0.9, 0.9, 0.9)
+
 [node name="Porthole" type="Node3D" unique_id=1603678830]
 script = ExtResource("1_d4hat")
 
 [node name="Model" type="Node3D" parent="." unique_id=1429520323 instance=ExtResource("2_pe3it")]
 transform = Transform3D(0.9004396, 0, 0, 0, 0.9004396, 0, 0, 0, 0.9004396, 0, 0, 0)
+
+[node name="ApproachMarker" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.1, 1)
+
+[node name="Hotspot" type="Area3D" parent="." node_paths=PackedStringArray("visual", "approach_marker")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0.1)
+script = ExtResource("20_hotspot")
+visual = NodePath("..")
+approach_marker = NodePath("../ApproachMarker")
+display_name = "Porthole"
+description = "Fog. The same fog as yesterday, and no closer to telling us where we are."
+
+[node name="InteractionShape" type="CollisionShape3D" parent="Hotspot"]
+shape = SubResource("BoxShape3D_hotspot")

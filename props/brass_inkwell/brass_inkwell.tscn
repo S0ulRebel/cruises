@@ -3,8 +3,28 @@
 [ext_resource type="Script" path="res://props/parts/unlit.gd" id="1_6brmq"]
 [ext_resource type="PackedScene" path="res://art/props/brass_inkwell/brass_inkwell.glb" id="2_jxegq"]
 
+[ext_resource type="Script" path="res://systems/interaction/hotspot.gd" id="20_hotspot"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hotspot"]
+size = Vector3(0.9, 0.9, 0.9)
+
 [node name="BrassInkwell" type="Node3D" unique_id=1493920142]
 script = ExtResource("1_6brmq")
 
 [node name="Model" type="Node3D" parent="." unique_id=621325208 instance=ExtResource("2_jxegq")]
 transform = Transform3D(0.08003908, 0, 0, 0, 0.08003908, 0, 0, 0, 0.08003908, 0, 0, 0)
+
+[node name="ApproachMarker" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.765, 1.25)
+
+[node name="Hotspot" type="Area3D" parent="." node_paths=PackedStringArray("visual", "approach_marker")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.075, 0)
+script = ExtResource("20_hotspot")
+visual = NodePath("..")
+approach_marker = NodePath("../ApproachMarker")
+display_name = "Inkwell"
+description = "Dry since the second week. He writes the log from memory, which is why it is a work of fiction."
+gives_item = "brass_inkwell"
+
+[node name="InteractionShape" type="CollisionShape3D" parent="Hotspot"]
+shape = SubResource("BoxShape3D_hotspot")

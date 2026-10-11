@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://systems/content/item_definition.gd" id="1_item"]
+[ext_resource type="PackedScene" path="res://props/rapier/rapier.tscn" id="2_model"]
+
+[resource]
+script = ExtResource("1_item")
+content_id = "rapier"
+display_name = "Rapier"
+description = "Thin, French, and considerably better travelled than most men."
+model_scene = ExtResource("2_model")

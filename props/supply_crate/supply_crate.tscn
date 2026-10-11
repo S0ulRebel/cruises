@@ -3,10 +3,15 @@
 [ext_resource type="Script" path="res://props/parts/unlit.gd" id="1_a5lv8"]
 [ext_resource type="PackedScene" path="res://art/props/supply_crate/supply_crate.glb" id="2_goids"]
 
+[ext_resource type="Script" path="res://systems/interaction/hotspot.gd" id="20_hotspot"]
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_1yngw"]
 size = Vector3(0.9, 0.9, 0.9)
 
-[node name="SupplyCrate" type="StaticBody3D" unique_id=284158492]
+[sub_resource type="BoxShape3D" id="BoxShape3D_hotspot"]
+size = Vector3(0.9, 0.9, 0.9)
+
+[node name="SupplyCrate" type="StaticBody3D" unique_id=284158492 groups=["nav_source"]]
 script = ExtResource("1_a5lv8")
 
 [node name="Model" type="Node3D" parent="." unique_id=2007837771 instance=ExtResource("2_goids")]
@@ -15,3 +20,35 @@ transform = Transform3D(0.9004396, 0, 0, 0, 0.9004396, 0, 0, 0, 0.9004396, 0, 0,
 [node name="SupplyCrateShape" type="CollisionShape3D" parent="." unique_id=152807156]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
 shape = SubResource("BoxShape3D_1yngw")
+
+[node name="ApproachMarker" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+
+[node name="Hotspot" type="Area3D" parent="." node_paths=PackedStringArray("visual", "approach_marker")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+script = ExtResource("20_hotspot")
+visual = NodePath("..")
+approach_marker = NodePath("../ApproachMarker")
+display_name = "Crate"
+description = "Stencilled LE CHAOS NAVIGUE TOUJOURS PLUS LOIN. Nailed shut."
+refusal = "It is nailed shut, and the captain is not going to use his fingers."
+combinations = {
+"brass_inkwell": {
+"say": "He considers prising the lid with an inkwell, and his hand stops before his pride does."
+},
+"compass": {
+"say": "He holds the compass to the crate. The needle, loyal to nothing, points at the crate."
+},
+"fishbowl": {
+"say": "Count Fingers regards the crate. The crate, being a crate, does not regard him back."
+},
+"rapier": {
+"gives": "key",
+"say": "The lid comes up with a noise like a small argument. Inside: a key, and three years of damp.",
+"sets": "crate_open",
+"solved": true
+}
+}
+
+[node name="InteractionShape" type="CollisionShape3D" parent="Hotspot"]
+shape = SubResource("BoxShape3D_hotspot")

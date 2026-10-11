@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CharacterDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://systems/content/character_definition.gd" id="1_character"]
+
+[resource]
+script = ExtResource("1_character")
+content_id = "santi"
+asset_id = "santi_wong"
+display_name = "Santi Wong"
+colour = Color(0.937255, 0.901961, 0.847059, 1)
+conversation = "res://screenplay/santi_galley.json"

@@ -149,20 +149,21 @@ func _add(point: Vector3, influences: Dictionary) -> void:
 ## The NEAREST body points to `point`, as [index, distance] pairs.
 ##
 ## Searches outwards a shell of cells at a time. Finding enough points is not the same as
-## finding the nearest ones - a point just across a cell wall can be closer than one in the far
-## corner of this cell - so once enough are found it searches one more shell and then stops.
+## finding the nearest ones. Stop only when the fourth distance is no larger than
+## the minimum distance to any unsearched cell; otherwise use the complete search.
 func _nearest(point: Vector3) -> Array:
 	var centre := Vector3i((point / CELL).floor())
 	var best: Array = []
-	var last := -1
 	for radius in SEARCH + 1:
 		_search_shell(centre, radius, point, best)
-		if best.size() >= NEAREST and last == -1:
-			last = radius + 1
-		if last != -1 and radius >= last:
-			return best
-	if best.size() >= NEAREST:
-		return best
+		if best.size() >= NEAREST:
+			var low := Vector3(centre - Vector3i.ONE * radius) * CELL
+			var high := Vector3(centre + Vector3i.ONE * (radius + 1)) * CELL
+			var edge := minf(minf(point.x - low.x, high.x - point.x),
+					minf(minf(point.y - low.y, high.y - point.y),
+					minf(point.z - low.z, high.z - point.z)))
+			if float(best[-1][1]) <= edge:
+				return best
 	# Too far out for the grid to be worth it. Rare, so the plain way round is fine.
 	best.clear()
 	for index in _points.size():

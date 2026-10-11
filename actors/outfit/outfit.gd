@@ -17,6 +17,18 @@ extends Resource
 @export var skin_colour := Color.WHITE
 
 
+## External Resource entries are not reliably deep-copied by Array duplication.
+## Each authoring session explicitly owns every mutable fit.
+func working_copy() -> Outfit:
+	var copy := Outfit.new()
+	copy.body = body
+	copy.skin_colour = skin_colour
+	for piece in pieces:
+		if piece != null:
+			copy.pieces.append(piece.duplicate(true) as OutfitPiece)
+	return copy
+
+
 ## The piece in `slot`, or null.
 func piece_in(slot: String) -> OutfitPiece:
 	for piece in pieces:

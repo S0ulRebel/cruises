@@ -80,6 +80,7 @@ var _outfit_pick: OptionButton
 var _status: Label
 var _editing := ""
 var _rebind: Timer
+var _pending_refits := {}
 
 
 func _ready() -> void:
@@ -91,18 +92,14 @@ func _ready() -> void:
 	_rebind.one_shot = true
 	_rebind.wait_time = REBIND_DELAY
 	_rebind.timeout.connect(func() -> void:
-		dresser.refit(_editing)
+		_flush_refits()
 		_after_wear())
 	add_child(_rebind)
 	_build_stage()
 	_build_panel()
 	_scan()
 	_fill_lists()
-	if _bodies.is_empty():
-		_say("No rigged body found. Put one in art/models/characters/ as body_<name>.glb.")
-		return
-	_load_body(_bodies[0])
-	randomise()
+	_say("Legacy fitting preview: choose a rigged donor explicitly. For free assembly, use the Character Workshop editor dock.")
 
 
 # --- what the panel does -----------------------------------------------------------------------
@@ -114,19 +111,31 @@ func load_body(path: String) -> void:
 
 ## Puts `piece` in its slot, or empties `slot` when piece is null.
 func choose(slot: String, piece: OutfitPiece) -> void:
+	_flush_refits()
 	if piece == null:
 		_chosen.erase(slot)
 		dresser.take_off(slot)
 	else:
-		_chosen[slot] = piece
+		if dresser.skeleton() == null:
+			_say("Choose a rigged donor before using the legacy fitting preview.")
+			return
+		piece = piece.duplicate(true) as OutfitPiece
 		if not piece.fitted:
 			guess(piece)
-		dresser.wear(piece)
+		if not dresser.wear(piece):
+			_say("Could not fit %s; previous selection retained." % piece.model)
+			return
+		_chosen[slot] = piece
+		for conflict in piece.conflicts_with():
+			_chosen.erase(conflict)
 	_after_wear()
 
 
 ## A random piece or nothing in every slot, and a random skin.
 func randomise() -> void:
+	if dresser.skeleton() == null:
+		_say("Choose a rigged donor first.")
+		return
 	for slot in OutfitPiece.SLOTS:
 		var options: Array = _catalogue.get(slot, [])
 		if options.is_empty() or _rng.randf() < EMPTY_CHANCE:
@@ -249,6 +258,7 @@ func guess(piece: OutfitPiece) -> void:
 
 ## Save an independent fit to one explicitly chosen destination.
 func save_piece(piece: OutfitPiece, path: String) -> String:
+	_flush_refits()
 	if not _valid_output(path, "tres"):
 		_say("Choose res://actors/<character>/outfits/<outfit>/pieces/<fit>.tres.")
 		return ""
@@ -263,11 +273,13 @@ func save_piece(piece: OutfitPiece, path: String) -> String:
 	# a piece with no path is copied INTO every outfit that wears it rather than pointed at -
 	# so re-fitting the coat later would leave every saved outfit wearing the old one.
 	saved.take_over_path(path)
+	piece.fitted = true
 	return path
 
 
 ## Saves what is on the body as an outfit called `outfit_name`. Returns the path, or "".
 func save_outfit(path: String) -> String:
+	_flush_refits()
 	if not _valid_output(path, "tres"):
 		_say("Choose res://actors/<character>/outfits/<outfit>/outfit.tres first.")
 		return ""
@@ -293,10 +305,18 @@ func save_outfit(path: String) -> String:
 
 func load_outfit(path: String) -> void:
 	var source := load(path) as Outfit
-	var outfit := source.duplicate(true) as Outfit if source != null else null
+	var outfit := source.working_copy() if source != null else null
 	if outfit == null:
 		_say("%s is not an outfit." % path)
 		return
+	if not _rigged_body(outfit.body):
+		_say("Outfit donor is unavailable or unrigged; current outfit retained.")
+		return
+	for piece in outfit.pieces:
+		if not ResourceLoader.exists(piece.model):
+			_say("Missing model %s; current outfit retained." % piece.model)
+			return
+	_flush_refits()
 	_chosen.clear()
 	for piece in outfit.pieces:
 		if piece != null:
@@ -323,6 +343,7 @@ static func _valid_output(path: String, extension: String) -> bool:
 ## Explicit authoring action: freeze the currently fitted parts into one editable actor.
 ## Nothing calls this at startup. The exported actor needs no Dresser to reconstruct it.
 func export_assembled(path: String) -> String:
+	_flush_refits()
 	if not _valid_output(path, "tscn"):
 		_say("Choose res://actors/<character>/outfits/<outfit>/actor.tscn first.")
 		return ""
@@ -334,6 +355,11 @@ func export_assembled(path: String) -> String:
 	var actor := CharacterBody3D.new()
 	actor.name = path.trim_prefix("res://").split("/")[1].to_pascal_case()
 	actor.set_script(load("res://actors/mover/mover.gd"))
+	if _player != null:
+		for kind in ["idle", "walk"]:
+			var clip_name: String = kind if _player.has_animation(kind) else "captain/" + kind
+			if _player.has_animation(clip_name):
+				actor.set(kind + "_animation", StringName(clip_name))
 	var character_path := path.trim_prefix("res://").split("/")[1]
 	character_path = "res://actors/%s/character.tres" % character_path
 	if ResourceLoader.exists(character_path):
@@ -411,12 +437,13 @@ static func _assembled_bounds(model: Node3D) -> AABB:
 # --- bodies and clips --------------------------------------------------------------------------
 
 func _load_body(path: String) -> void:
+	_flush_refits()
 	var scene := load(path) as PackedScene
 	if scene == null:
 		_say("Could not load %s." % path)
 		return
 	var next_model := scene.instantiate() as Node3D
-	if next_model == null or next_model.find_children("*", "Skeleton3D", true, false).is_empty():
+	if next_model == null or (not next_model is Skeleton3D and next_model.find_children("*", "Skeleton3D", true, false).is_empty()):
 		if next_model != null:
 			next_model.free()
 		_say("%s is unrigged. Bind it to the documented donor before fitting." % path)
@@ -457,6 +484,14 @@ func _give_clips() -> void:
 		_model.add_child(_player)
 	else:
 		_player = players[0]
+	# Imported animation resources are shared. This preview gets its own libraries.
+	for library_name in _player.get_animation_library_list():
+		var source_library := _player.get_animation_library(library_name)
+		var library := AnimationLibrary.new()
+		for animation_name in source_library.get_animation_list():
+			library.add_animation(animation_name, source_library.get_animation(animation_name).duplicate(true) as Animation)
+		_player.remove_animation_library(library_name)
+		_player.add_animation_library(library_name, library)
 	if _body_path != CLIP_SOURCE and ResourceLoader.exists(CLIP_SOURCE):
 		var root := _player.get_node(_player.root_node)
 		var borrowed := Retarget.library(CLIP_SOURCE, _model, dresser.skeleton(), root)
@@ -468,7 +503,7 @@ func _give_clips() -> void:
 	_clip_pick.set_item_metadata(0, "")
 	for clip in _player.get_animation_list():
 		var animation := _player.get_animation(clip)
-		if not clip.contains("death"):
+		if String(clip).get_file() in ["idle", "walk", "run"]:
 			animation.loop_mode = Animation.LOOP_LINEAR
 		_clip_pick.add_item(clip)
 		_clip_pick.set_item_metadata(_clip_pick.item_count - 1, String(clip))
@@ -526,7 +561,10 @@ func _shape_of(path: String) -> PackedVector3Array:
 	var scene := load(path) as PackedScene
 	if scene != null:
 		var model := scene.instantiate()
-		for node in model.find_children("*", "MeshInstance3D", true, false):
+		var mesh_nodes := model.find_children("*", "MeshInstance3D", true, false)
+		if model is MeshInstance3D:
+			mesh_nodes.push_front(model)
+		for node in mesh_nodes:
 			var mesh_node := node as MeshInstance3D
 			if mesh_node.mesh == null:
 				continue
@@ -805,7 +843,7 @@ func _vector_row(parent: Control, label_text: String, step: float, low: float,
 		box.min_value = low
 		box.max_value = high
 		box.allow_greater = true
-		box.allow_lesser = true
+		box.allow_lesser = low < 0.0
 		box.custom_arrow_step = step
 		box.select_all_on_focus = true
 		box.prefix = "XYZ"[axis]
@@ -820,7 +858,7 @@ func _vector_row(parent: Control, label_text: String, step: float, low: float,
 func _fill_lists() -> void:
 	_body_pick.clear()
 	for path in _bodies:
-		_body_pick.add_item(path.get_file().get_basename())
+		_body_pick.add_item(path.trim_prefix("res://"))
 		_body_pick.set_item_metadata(_body_pick.item_count - 1, path)
 	for slot in OutfitPiece.SLOTS:
 		var pick: OptionButton = _slot_picks[slot]
@@ -840,7 +878,7 @@ func _fill_outfits() -> void:
 	_outfit_pick.set_item_metadata(0, "")
 	for path in _files(ACTOR_DIR):
 		if "/outfits/" in path and path.get_file() == "outfit.tres":
-			_outfit_pick.add_item(path.get_file().get_basename())
+			_outfit_pick.add_item(path.trim_prefix("res://"))
 			_outfit_pick.set_item_metadata(_outfit_pick.item_count - 1, path)
 
 
@@ -851,7 +889,8 @@ func _after_wear() -> void:
 		var worn := dresser.worn(slot)
 		pick.select(0)
 		for i in pick.item_count:
-			if worn != null and pick.get_item_metadata(i) == worn:
+			var candidate := pick.get_item_metadata(i) as OutfitPiece
+			if worn != null and candidate != null and candidate.model == worn.model:
 				pick.select(i)
 	var keep := _editing
 	_edit_pick.clear()
@@ -911,7 +950,31 @@ func _nudged(now: bool) -> void:
 		dresser.refit(_editing)
 		_after_wear()
 	else:
+		_pending_refits[_editing] = piece
 		_rebind.start()
+
+
+func _flush_refits() -> void:
+	if _rebind != null:
+		_rebind.stop()
+	if dresser == null:
+		return
+	for slot in _pending_refits.keys():
+		if dresser.worn(slot) == _pending_refits[slot]:
+			dresser.refit(slot)
+	_pending_refits.clear()
+
+
+static func _rigged_body(path: String) -> bool:
+	if not ResourceLoader.exists(path):
+		return false
+	var scene := load(path) as PackedScene
+	if scene == null:
+		return false
+	var model := scene.instantiate()
+	var valid := model is Skeleton3D or not model.find_children("*", "Skeleton3D", true, false).is_empty()
+	model.free()
+	return valid
 
 
 func _say(text: String) -> void:

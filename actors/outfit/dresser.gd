@@ -36,30 +36,36 @@ var _roles := {}
 ## Bound meshes, by body, model and fit, shared by every Dresser. The copy is the expensive
 ## part, and a crowd of zombies in one coat needs it once, not once each.
 static var _bound := {}
+static var _bound_order: Array[String] = []
+const MAX_BOUND_MESHES := 16
 
 
 ## Takes over `model`: finds its skeleton and works out its fit space. Everything else needs
 ## this first. Returns false, loudly, for a model with no skeleton - nothing can be worn on a
 ## statue.
 func attach(model: Node3D) -> bool:
-	take_off_all()
-	_model = model
-	_skeleton = null
-	_copier = null
-	_skin = null
-	_body_meshes.clear()
 	if model == null:
 		push_error("Dresser: nothing to dress.")
 		return false
 	var skeletons := model.find_children("*", "Skeleton3D", true, false)
+	if model is Skeleton3D:
+		skeletons.push_front(model)
 	if skeletons.is_empty():
 		push_error("Dresser: '%s' has no skeleton, so nothing can be worn on it. A body has to "
 				% model.scene_file_path + "be rigged before it can be dressed.")
 		return false
+	take_off_all()
+	_model = model
+	_copier = null
+	_skin = null
+	_body_meshes.clear()
 	_skeleton = skeletons[0]
 	_frame = RigSpace.frame_of(_skeleton, model)
 	_load_roles(model)
-	for node in model.find_children("*", "MeshInstance3D", true, false):
+	var meshes := model.find_children("*", "MeshInstance3D", true, false)
+	if model is MeshInstance3D:
+		meshes.push_front(model)
+	for node in meshes:
 		if (node as MeshInstance3D).skin != null:
 			_body_meshes.append(node)
 	if flat:
@@ -93,16 +99,8 @@ func wear(piece: OutfitPiece) -> bool:
 	if _skeleton == null:
 		push_error("Dresser: wear() before attach() - there is no body to put it on.")
 		return false
-	take_off(piece.slot)
-	# A dress and a shirt are the same cloth twice. Worn together they z-fight, which on a
-	# moving character looks like a shader bug rather than like wearing two things.
-	for other in piece.conflicts_with():
-		if _worn.has(other):
-			push_warning("Dresser: taking the %s off - a %s cannot be worn with one."
-					% [other, piece.slot])
-			take_off(other)
 	if not ResourceLoader.exists(piece.model):
-		push_error("Dresser: no model at '%s' for the %s." % [piece.model, piece.slot])
+		push_warning("Dresser: no model at '%s' for the %s; previous piece retained." % [piece.model, piece.slot])
 		return false
 	var node: Node3D
 	if piece.hold == OutfitPiece.Hold.SKINNED:
@@ -111,6 +109,13 @@ func wear(piece: OutfitPiece) -> bool:
 		node = _wear_pinned(piece)
 	if node == null:
 		return false
+	# Validate/build first. A rejected replacement must leave the old piece intact.
+	take_off(piece.slot)
+	for other in piece.conflicts_with():
+		if _worn.has(other):
+			push_warning("Dresser: taking the %s off - a %s cannot be worn with one."
+					% [other, piece.slot])
+			take_off(other)
 	_worn[piece.slot] = {"piece": piece, "node": node}
 	if flat:
 		flatten(node)
@@ -375,23 +380,35 @@ func _holder_transform(piece: OutfitPiece) -> Transform3D:
 ## position in the skeleton's space stays exactly there in the T-pose and is carried by its
 ## bones from there - no per-rig bind conventions to reproduce.
 func _skinned_mesh(piece: OutfitPiece) -> ArrayMesh:
-	var key := "%s|%s|%s" % [_model.scene_file_path, piece.model, piece.fit()]
+	var rig_signature := str(_frame)
+	for bone in _skeleton.get_bone_count():
+		rig_signature += str(_skeleton.get_bone_name(bone)) + str(_skeleton.get_bone_global_rest(bone))
+	var key := "%s|%s|%s|%s" % [_model.scene_file_path, piece.model, piece.fit(), rig_signature.sha256_text()]
 	if _skin == null:
 		_skin = Skin.new()
 		for bone in _skeleton.get_bone_count():
 			_skin.add_named_bind(_skeleton.get_bone_name(bone),
 					_skeleton.get_bone_global_rest(bone).affine_inverse())
 	if _bound.has(key):
+		_bound_order.erase(key)
+		_bound_order.append(key)
 		return _bound[key]
 	var model := _instance(piece.model)
 	if model == null:
 		return null
 	var into_skeleton := _frame.affine_inverse()
 	var out := ArrayMesh.new()
-	for node in model.find_children("*", "MeshInstance3D", true, false):
+	var mesh_nodes := model.find_children("*", "MeshInstance3D", true, false)
+	if model is MeshInstance3D:
+		mesh_nodes.push_front(model)
+	for node in mesh_nodes:
 		var source := node as MeshInstance3D
 		if source.mesh == null:
 			continue
+		if source.mesh is ArrayMesh and (source.mesh as ArrayMesh).get_blend_shape_count() > 0:
+			push_warning("Dresser: this part has facial blend shapes. Preserve its local rig with a bone attachment instead of donor binding.")
+			model.free()
+			return null
 		for surface in source.mesh.get_surface_count():
 			# Primitive meshes are always triangles; an imported one might be lines or points.
 			if source.mesh is ArrayMesh and (source.mesh as ArrayMesh) \
@@ -408,7 +425,19 @@ func _skinned_mesh(piece: OutfitPiece) -> ArrayMesh:
 		push_error("Dresser: '%s' has no triangles to wear." % piece.model)
 		return null
 	_bound[key] = out
+	_bound_order.append(key)
+	while _bound_order.size() > MAX_BOUND_MESHES:
+		_bound.erase(_bound_order.pop_front())
 	return out
+
+
+static func clear_bound_cache() -> void:
+	_bound.clear()
+	_bound_order.clear()
+
+
+static func bound_cache_size() -> int:
+	return _bound.size()
 
 
 ## Rewrites one surface's arrays in place: positions, normals and tangents into the skeleton's

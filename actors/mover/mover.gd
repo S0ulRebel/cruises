@@ -31,6 +31,8 @@ var _last_position := Vector3.ZERO
 ## spot while standing still reads as broken before anything else about him registers.
 const STILL := "idle"
 const MOVING := "walk"
+@export var idle_animation: StringName = &"idle"
+@export var walk_animation: StringName = &"walk"
 ## Long enough to hide the switch, short enough that a step does not start late.
 const BLEND := 0.18
 
@@ -115,10 +117,11 @@ func _play(clip: String) -> void:
 	if _tree != null:
 		_gait_target = 1.0 if clip == MOVING else 0.0
 		return
-	if _clips == null or _playing == clip or not _clips.has_animation(clip):
+	var resolved := String(idle_animation) if clip == STILL else String(walk_animation) if clip == MOVING else clip
+	if _clips == null or _playing == resolved or not _clips.has_animation(resolved):
 		return
-	_clips.play(clip, BLEND)
-	_playing = clip
+	_clips.play(resolved, BLEND)
+	_playing = resolved
 
 
 ## Hold a hand pose over whatever the body is doing. The name is a clip in the

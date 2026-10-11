@@ -1,0 +1,392 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://addons/character_workshop/dock.gd" id="1"]
+
+[node name="CharacterWorkshop" type="ScrollContainer"]
+custom_minimum_size = Vector2(330, 280)
+horizontal_scroll_mode = 0
+script = ExtResource("1")
+
+[node name="Content" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="Content"]
+layout_mode = 2
+text = "Character Workshop"
+theme_override_font_sizes/font_size = 19
+
+[node name="FileRow" type="HBoxContainer" parent="Content"]
+layout_mode = 2
+
+[node name="New" type="Button" parent="Content/FileRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "New"
+tooltip_text = "Create from the authored empty template. Choose a destination first."
+
+[node name="Open" type="Button" parent="Content/FileRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Open…"
+
+[node name="Save" type="Button" parent="Content/FileRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Save As…"
+tooltip_text = "Save this assembly and its authoring metadata to an explicit scene path. Native Ctrl+S remains available."
+
+[node name="Templates" type="OptionButton" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SaveActor" type="Button" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Save gameplay actor…"
+tooltip_text = "Optional: author movement, navigation and collision components in an explicitly saved reusable actor. Static characters need none of these."
+
+[node name="AddRow" type="HBoxContainer" parent="Content"]
+layout_mode = 2
+
+[node name="ImportLegacy" type="Button" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Import saved legacy fit / outfit…"
+tooltip_text = "Explicit conversion from an arbitrary saved fit or outfit. Originals remain intact; conversion warnings describe required rebinding."
+
+[node name="Add" type="Button" parent="Content/AddRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Add model / prefab…"
+size_flags_horizontal = 3
+
+[node name="Adopt" type="Button" parent="Content/AddRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Adopt selected"
+tooltip_text = "Wrap a model you already dragged into this assembly as an editable part."
+
+[node name="Hint" type="Label" parent="Content"]
+layout_mode = 2
+text = "Drop project files here. Select parts in the tree or viewport; use W/E/R and the Inspector to fit them."
+autowrap_mode = 3
+
+[node name="Parts" type="Tree" parent="Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 160)
+layout_mode = 2
+columns = 2
+hide_root = true
+column_titles_visible = false
+select_mode = 1
+
+[node name="PartInfo" type="Label" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Select a part."
+autowrap_mode = 3
+
+[node name="PartRow" type="HBoxContainer" parent="Content"]
+layout_mode = 2
+
+[node name="Duplicate" type="Button" parent="Content/PartRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Duplicate"
+
+[node name="Visibility" type="Button" parent="Content/PartRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Hide / Show"
+
+[node name="Remove" type="Button" parent="Content/PartRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Remove"
+
+[node name="Replace" type="Button" parent="Content/PartRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Replace…"
+
+[node name="AttachmentHeading" type="Label" parent="Content"]
+layout_mode = 2
+text = "Attachment"
+theme_override_font_sizes/font_size = 16
+
+[node name="Mode" type="OptionButton" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Targets" type="OptionButton" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 2
+clip_text = true
+tooltip_text = "Every actual node and skeleton in this assembly is available. A target may belong to any other part."
+
+[node name="Bones" type="OptionButton" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="AttachHint" type="Label" parent="Content"]
+layout_mode = 2
+text = "Attaching preserves placement and keeps the part's own skeleton, facial shapes and materials."
+autowrap_mode = 3
+
+[node name="RepairReferences" type="Button" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Repair moved / renamed references"
+tooltip_text = "After a native scene-tree move or rename, repair retained attachment, skin, donor and exclusion targets. This explicit action is undoable; opening a scene never silently repairs it."
+disabled = true
+
+[node name="AttachRow" type="HBoxContainer" parent="Content"]
+layout_mode = 2
+
+[node name="Attach" type="Button" parent="Content/AttachRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Attach / Apply"
+
+[node name="Detach" type="Button" parent="Content/AttachRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Detach to free"
+
+[node name="Bind" type="Button" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Bind clothing to selected donor…"
+tooltip_text = "Explicit weight transfer. The donor is the selected target above; facial/local rig conversion is rejected."
+
+[node name="GeometryHeading" type="Label" parent="Content"]
+layout_mode = 2
+text = "Reversible mesh exclusion"
+theme_override_font_sizes/font_size = 16
+
+[node name="CancelBinding" type="Button" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Cancel clothing binding"
+visible = false
+
+[node name="Meshes" type="OptionButton" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 2
+clip_text = true
+
+[node name="FaceMode" type="CheckButton" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Select reference-pose faces in viewport"
+tooltip_text = "Stops preview animation and temporarily resets bone poses. Left click adds faces; Subtract removes them. Disable to resume native transforms."
+
+[node name="Subtract" type="CheckButton" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Subtract from selection"
+
+[node name="Faces" type="Label" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0 selected"
+autowrap_mode = 3
+
+[node name="BoxLabel" type="Label" parent="Content"]
+layout_mode = 2
+text = "Region in source mesh coordinates (metres)"
+
+[node name="BoxGrid" type="GridContainer" parent="Content"]
+layout_mode = 2
+columns = 4
+
+[node name="Centre" type="Label" parent="Content/BoxGrid"]
+layout_mode = 2
+text = "Centre"
+
+[node name="CentreX" type="SpinBox" parent="Content/BoxGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -1000.0
+max_value = 1000.0
+step = 0.01
+prefix = "X"
+
+[node name="CentreY" type="SpinBox" parent="Content/BoxGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -1000.0
+max_value = 1000.0
+step = 0.01
+prefix = "Y"
+
+[node name="CentreZ" type="SpinBox" parent="Content/BoxGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -1000.0
+max_value = 1000.0
+step = 0.01
+prefix = "Z"
+
+[node name="Size" type="Label" parent="Content/BoxGrid"]
+layout_mode = 2
+text = "Size"
+
+[node name="SizeX" type="SpinBox" parent="Content/BoxGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.001
+max_value = 1000.0
+step = 0.01
+value = 1.0
+prefix = "X"
+
+[node name="SizeY" type="SpinBox" parent="Content/BoxGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.001
+max_value = 1000.0
+step = 0.01
+value = 1.0
+prefix = "Y"
+
+[node name="SizeZ" type="SpinBox" parent="Content/BoxGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.001
+max_value = 1000.0
+step = 0.01
+value = 1.0
+prefix = "Z"
+
+[node name="SelectBox" type="Button" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Select faces intersecting region"
+
+[node name="SurfaceRow" type="HBoxContainer" parent="Content"]
+layout_mode = 2
+
+[node name="Surface" type="OptionButton" parent="Content/SurfaceRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SelectSurface" type="Button" parent="Content/SurfaceRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Select"
+
+[node name="ClearFaces" type="Button" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Clear face selection"
+
+[node name="GeometryRow" type="HBoxContainer" parent="Content"]
+layout_mode = 2
+
+[node name="Exclude" type="Button" parent="Content/GeometryRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Exclude selected"
+
+[node name="Restore" type="Button" parent="Content/GeometryRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Restore selected"
+
+[node name="ResetMesh" type="Button" parent="Content/GeometryRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Reset mesh"
+
+[node name="GeometryHint" type="Label" parent="Content"]
+layout_mode = 2
+text = "Masks retain the original mesh. Exclusion disables this part's existing collision; author replacement collision explicitly. Save persists the derived geometry."
+autowrap_mode = 3
+
+[node name="PreviewHeading" type="Label" parent="Content"]
+layout_mode = 2
+text = "Preview (temporary; original materials by default)"
+autowrap_mode = 3
+theme_override_font_sizes/font_size = 16
+
+[node name="Players" type="OptionButton" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 2
+clip_text = true
+
+[node name="BorrowClips" type="Button" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Borrow compatible clips for selected part…"
+tooltip_text = "Select a rigged body part, then choose an animation model. The service validates matching bone names and prepares independent clips."
+
+[node name="Clip" type="OptionButton" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="PreviewRow" type="HBoxContainer" parent="Content"]
+layout_mode = 2
+
+[node name="Play" type="Button" parent="Content/PreviewRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Play"
+
+[node name="Stop" type="Button" parent="Content/PreviewRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Stop / Restore"
+
+[node name="Rest" type="Button" parent="Content/PreviewRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Rest pose"
+
+[node name="Loop" type="CheckButton" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Loop preview clip"
+
+[node name="PreviewShade" type="CheckButton" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Temporary neutral shading"
+
+[node name="Statistics" type="Label" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 2
+autowrap_mode = 3
+
+[node name="Status" type="Label" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 2
+autowrap_mode = 3
+
+[node name="FileDialog" type="FileDialog" parent="."]
+unique_name_in_owner = true
+title = "Choose a project resource"
+size = Vector2i(900, 600)
+access = 0
+
+[node name="Dependents" type="ConfirmationDialog" parent="."]
+unique_name_in_owner = true
+title = "Dependent attachments"
+dialog_text = "This part has dependent attachments. Choose explicitly how to handle them."
+
+[node name="DependencyPolicy" type="OptionButton" parent="Dependents"]
+unique_name_in_owner = true
+offset_left = 12.0
+offset_top = 52.0
+offset_right = 420.0
+offset_bottom = 85.0

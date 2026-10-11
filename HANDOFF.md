@@ -500,11 +500,12 @@ render for this room. Match its palette and its level of detail.
   every prop from that sidecar, so a wrong number puts a teacup the size of a barrel on
   the desk.
 
-**1 — blocking. These are grey boxes or missing items in the game right now.**
+**1 — blocking art sheets: delivered.**
 
-| id | what | notes |
-| --- | --- | --- |
-| `porthole` | brass porthole with its ring and dogs | currently a flat blue quad. Needs the brass ring and the glass; the weather behind it is the engine's problem |
+`supply_crate`, `rapier`, `key`, `bowl_stand` and `porthole` now have sheets and
+sidecars; see their Done entries. Their reconstruction and engine integration tasks
+remain Open below. The porthole sheet supplies its metal surround; transparent glass
+and weather are separate engine components.
 
 **2 — the room stops looking like a box.**
 
@@ -627,6 +628,24 @@ New provisional size is 0.60 × 0.65 × 0.60 m. The 0.60 m top accommodates the 
 bowl; 0.65 m plus its provisional 0.44 m height gives a nominal 1.09 m assembly.
 Verify contact, circle geometry, materials and foreground-left placement in engine;
 no final scene transform or assembled fit is claimed by this sheet.
+
+---
+
+### 2026-10-11 — for the engine side — reconstruct and glaze the porthole
+
+`art/props/porthole/sheet.png` and `asset.json` provide the metal surround only,
+with a clear aperture in front and back. Use the sidecar’s extraction command with
+`--min-width-ratio 0.05` so the genuine narrow profiles survive the default span
+filter. Keep the authoritative 0.90 × 0.90 × 0.08 m envelope including hardware,
+centered at `(0,1.55,-3.4)`, `solid=false`, broad plane XY and room-facing front +Z.
+Front hinge-left becomes rear hinge-right; the three front dogs do not duplicate
+onto the back. The painted profiles imply about 0.08884 m depth, 8.84 mm / 11.05%
+above the target; verify/correct mesh depth rather than changing the dimension
+contract or stretching image views. Hinge/latch mechanics remain unverified.
+Add a separate transparent glass disk within the inner rim and weather behind it;
+do not reconstruct an opaque center disk with Tripo. The guide aperture is about
+0.665 m, a proposed secondary measurement. Preserve the existing Porthole hotspot
+and approach. Metal reconstruction and glass/weather integration remain Open.
 
 ---
 
@@ -956,6 +975,21 @@ native crops, and all four source object rectangles remain pixel-identical.
 Full prompt, guide/reference hashes, provisional dimensions and measured ratios
 are recorded. Reconstruction and foreground bowl fit remain Open; porthole is
 still queued.
+
+---
+
+### 2026-10-11 — art side — porthole metal-surround sheet delivered
+
+Moved `porthole` from the blocking art queue to Done; all five priority sheets are
+now delivered. `art/props/porthole/sheet.png` and `asset.json` show the brass ring
+and attached hardware, with open white apertures in front/back and true narrow
+opposite profiles. Final sheet 2308×577; heights 466/466/466/465 px, baseline
+y507, gaps 321/531/322 px. Full PNG decode passed. The unchanged cutter used
+`--min-width-ratio 0.05` and translated native own-bounds crops only; every source
+object rectangle remains pixel-identical. Three full prompts, guide/reference
+hashes, the authoritative dimensions and the measured depth discrepancy are in the
+sidecar. Metal reconstruction and separate engine glass/weather remain Open.
+The furnishing and dressing queues remain unchanged.
 
 ---
 

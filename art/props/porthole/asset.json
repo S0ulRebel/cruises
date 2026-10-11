@@ -1,0 +1,552 @@
+{
+  "asset_id": "prop:porthole",
+  "name": "Captain’s quarters porthole",
+  "role": "Scene 1 — brass wall porthole surround; transparent glazing and weather are completed by the engine",
+  "asset_type": "prop_turnaround_sheet",
+  "files": {
+    "sheet": "sheet.png"
+  },
+  "dimensions_m": {
+    "width": 0.9,
+    "height": 0.9,
+    "depth": 0.08
+  },
+  "dimension_contract": "dimensions_m describes the complete upright porthole envelope in metres: 0.90W × 0.90H × 0.08D, including its integral mounting flange, hinge and dogs. These are the existing owner/engine dimensions from docs/CODEX_PROPS_BRIEF.md and main.gd::FURNITURE, not newly estimated art dimensions. The broad ring lies in XY with the room-facing front toward +Z; true edge views retain 0.08/0.90 = 0.088889 width/height. Uniformly fit the metal reconstruction and verify both diameter and depth; do not stretch axes or widen the profile images. The sheet depicts the METAL SURROUND ONLY with an open aperture. Complete the prop in engine with a separate transparent glass disk contained within this envelope, and separate weather behind it. Do not reconstruct an opaque center disk or bake fog into the metal. The guide’s approximately 0.665 m clear aperture is a proposed construction target, not an independently specified engine measurement. Painted contours are reference art rather than exact CAD.",
+  "dimension_decision": "Retain the authoritative 0.90 × 0.90 × 0.08 m wall-prop dimensions. The only proposed secondary measurement is an approximately 0.665 m clear aperture derived from the guide’s 340/460 diameter ratio.",
+  "source": {
+    "producer": "OpenAI imagegen via ChatGPT",
+    "mode": "built-in",
+    "model_identifier": "Not exposed by the built-in tool",
+    "date": "2026-10-11",
+    "alignment_guide": {
+      "path": "/workspace/scratch/9d89bc03e38f/porthole_geometry_guide.png",
+      "creation_code": "/workspace/scratch/9d89bc03e38f/create_priority_prop_guides.py",
+      "parameters_record": "/workspace/scratch/9d89bc03e38f/priority_prop_geometry_guides.json",
+      "method": "New precise orthographic construction diagram drawn with matplotlib Agg, not an edit of existing art.",
+      "canvas": [
+        2172,
+        724
+      ],
+      "centers_x_px": [
+        272,
+        814,
+        1358,
+        1900
+      ],
+      "center_y_px": 362,
+      "height_before_outline_px": 460,
+      "front_width_before_outline_px": 460,
+      "profile_width_before_outline_px": 40.88888888888889,
+      "clear_aperture_diameter_before_outline_px": 340,
+      "ring_radial_thickness_before_outline_px": 60,
+      "top_y_px": 132,
+      "bottom_y_px": 592,
+      "purpose": "Fixed-shape and shared-scale guide for built-in imagegen; not final artwork or final-sheet validation.",
+      "sha256": "1620233b3899bc2a3355803af76f99547b1dd96df8dddcfb8a61e2d6a608f502",
+      "creation_code_sha256": "d2f25a8acc0e86fa1748d94ab7f114ca409db55d4f4608067e618f8b9e4cf959",
+      "parameters_record_sha256": "a1353d050c9b47fbc3b258539e3c4ceabb2eee5ae2e4f86e58477cd32dd4159d"
+    },
+    "repository_base_commit": "8fc1a60c8888e636d807b9ec350ea960b7748791",
+    "original_filename": "exec-dc4fe825-37d0-4d0b-b97d-b1deed502eff.png",
+    "generated_source_sha256": "37e826a7c6782d1d937c14be4efe44987c8f9a8dbebaf947ba68d7664bd3ef7a",
+    "sha256": "64c9e27db9a75ab503defb407235fb3067bf303e49367f7e7919404c92da7754",
+    "references": [
+      {
+        "original_path": "/workspace/scratch/9d89bc03e38f/porthole_geometry_guide.png",
+        "sha256": "1620233b3899bc2a3355803af76f99547b1dd96df8dddcfb8a61e2d6a608f502",
+        "original_filename": "porthole_geometry_guide.png"
+      }
+    ],
+    "generation_history": [
+      {
+        "pass": 1,
+        "stage": "brass_rendering_geometry_iteration",
+        "prompt": "Use case: stylized-concept.\nAsset: the BRASS PORTHOLE SURROUND, a four-view modeling sheet for the pirate captain's cabin.\n\nREFERENCE1 is the measured orthographic shape template: preserve the front/back circles, clear hole, exact narrow profile thickness, all four matching heights and shared baseline. REFERENCE2 is the approved cabin with the brass porthole at right; use its bold nautical fittings and warm worn brass style. REFERENCE3 is the approved desk for consistent sculpted cartoon finish.\n\nOne circular brass porthole assembly: thick round outer mounting flange, substantial inner raised rim, broad rounded bolt/rivet heads around the ring, one compact hinge at9o'clock on the FRONT, and three chunky swivel fastening dogs at12,3and6o'clock on the FRONT. These dogs belong to the front face and must not sprout on the rear. All fittings are permanently attached and stay within the full0.90m circular outside envelope. No detached bolts or handles. One dark narrow inner gasket line is fine, but no opaque disk behind it.\n\nThis reconstruction sheet shows ONLY THE OPAQUE METAL SURROUND. The TRANSPARENT GLASS INSERT will be created separately in the engine, like the fishbowl's glass. Therefore the central aperture must be completely EMPTY PURE WHITE BACKGROUND in BOTH FRONT AND BACK, with no blue fill, glass glare, fog, sea, wall, curtain, painting or backing. Do not turn the through-hole into a solid medallion or mirror. The finished engine prop gets its glass and weather separately; this image provides the metal mesh.\n\nComplete target size0.90m wide x0.90m high x0.08m deep INCLUDING hinge and dogs. The clear aperture is about0.665m diameter, as in the guide. Front/back width equals height; the two edge profiles are only0.0889 times as wide as tall. Do not enlarge either narrow edge view. At the guide's460pxheight the whole side depth is only41px. Preserve that true depth and match all four heights exactly.\n\nFour fixed-pose views left to right:\n1 FRONT looking square-on at the round ring; hinge on IMAGE-LEFT, dogs top/right/bottom, clean white center.\n2 LEFT SIDE looking exactly edge-on from the hinge side; front-facing hardware projects to IMAGE-RIGHT, slim profile with no visible round opening or peek into the face.\n3 RIGHT SIDE true opposite profile; front-facing hardware projects to IMAGE-LEFT. Same total thickness and height as view2.\n4 BACK actual flat rear mounting face, center clean white. Hinge reverses to IMAGE-RIGHT. The three front dogs are on the far face, naturally hidden by the mounting ring; don't redraw the front as a second front.\nOne object, same mounting orientation in all four; rotate only the viewing direction. Strict level orthographic cameras with no perspective or tilt. All circles are concentric, not drooping or offset.\n\nStyle: warm aged brass, broad readable beveled surfaces and simple chunky rivets; small restrained worn edges, some brown patina in creases. Clean cel-shaded cartoon finish matching the approved game, no photoreal metallic noise. Soft neutral consistent form illumination, no scene-light reflections or cast shadows.\nOne row of four whole separated views with large plain WHITE gaps and margin. No floor, labels, captions, numbers, arrows, dimensions, background texture or other props. Keep all four outer diameters/heights exactly equal, preserve the narrow profiles, and leave both real openings white.",
+        "referenced_image_paths": [
+          "/workspace/scratch/9d89bc03e38f/porthole_geometry_guide.png",
+          "/workspace/scratch/9d89bc03e38f/cruises_git/docs/reference/room_target.png",
+          "/workspace/scratch/9d89bc03e38f/cruises_git/art/props/captain_desk/sheet.png"
+        ],
+        "transparent_background": false,
+        "source_path": "/workspace/scratch/9d89bc03e38f/generated_images/exec-7c68d5e8-c76c-4ff9-9b9c-16bf325ae971.png",
+        "selected": false,
+        "rejection_reason": "Heights573/579/579/571px; profiles65/66px too thick at579px height; front hardware outside circular silhouette.",
+        "original_filename": "exec-7c68d5e8-c76c-4ff9-9b9c-16bf325ae971.png",
+        "output_sha256": "89627e78118ccc252891ac95903c3ab91af49ceab8e5b95a35babdb92d0bb29b",
+        "referenced_images": [
+          {
+            "original_path": "/workspace/scratch/9d89bc03e38f/porthole_geometry_guide.png",
+            "sha256": "1620233b3899bc2a3355803af76f99547b1dd96df8dddcfb8a61e2d6a608f502",
+            "original_filename": "porthole_geometry_guide.png"
+          },
+          {
+            "original_path": "/workspace/scratch/9d89bc03e38f/cruises_git/docs/reference/room_target.png",
+            "sha256": "a17f771d95d7aa37b8403b3b4cb918c7032737cdb031d62c893b424c878cebc3",
+            "repository_path": "docs/reference/room_target.png"
+          },
+          {
+            "original_path": "/workspace/scratch/9d89bc03e38f/cruises_git/art/props/captain_desk/sheet.png",
+            "sha256": "02300d11cad484407755dfea20b66770abc9e92e895095b834bb505477b4f69c",
+            "repository_path": "art/props/captain_desk/sheet.png"
+          }
+        ]
+      },
+      {
+        "pass": 2,
+        "stage": "brass_rendering_geometry_iteration",
+        "prompt": "Use case: stylized-concept.\nProduce the final four-view porthole modeling sheet by PAINTING OVER REFERENCE 1'S EXACT MEASURED GEOMETRY. Reference 1 controls EVERY position, outline, view height and width. Reference 2 supplies ONLY the worn warm brass cartoon surface finish, never its size or layout.\n\nPreserve reference 1 canvas aspect 3:1, four views front / left / right / back. Every complete object has the SAME height and baseline. Front and back are perfect equal circles. Side views have the exact very narrow width from reference 1: 0.08 depth / 0.90 height = 0.08889. Strict horizontal orthographic projection. Do not enlarge views to fill extra white space. Do not expand the silhouettes when rendering bevels or adding outlines: put them INSIDE the guide boundary.\n\nAt a 2172x724 canvas: the front and back circular bodies are 460px diameter, centered at (272,362) and (1900,362). Both slim profiles are only 41px wide and 460px tall, centered at x814 and x1358. All four begin at y132 and end at y592. These are instructions, not labels to draw. Keep these projected bounds exactly, not approximately.\n\nSame single metal porthole seen from four angles. Front hinge at image-left; rear hinge at image-right. Three compact attached front locking plates/dogs at top, right, bottom. Their outlines fit INSIDE the circular front silhouette; they never add height or width. Compact hinge similarly lies inside the circle, no lateral bulge. In left edge view, hardware faces image-right; in right edge view, it faces image-left, always inside the total 41px depth envelope. Back has its simple mounting ring and rivets, no duplicate front locking dogs.\n\nFinish: reference 2's warm aged gold brass, simple rounded bevel highlights, small chunky rivets, restrained brown patina in creases, broad sparse scratches. Readable cel-shaded cartoon art fitting a pirate adventure game. Preserve the guide's thick circular ring with an approximately340px clear circular aperture. BOTH front and back aperture are PURE WHITE EMPTY BACKGROUND with no glass reflections, fog, colored disk, scenery or backing. Glass is a separate engine component.\nPlain white outside all four views. No texture on background, no shadow, floor, baseline stroke, labels, text, guide marks, dimension callouts or border. Render only this one metal surround, shown four ways. The precision of the guide's equal heights and exact thin side profiles is the highest priority.",
+        "referenced_image_paths": [
+          "/workspace/scratch/9d89bc03e38f/porthole_geometry_guide.png",
+          "/workspace/scratch/9d89bc03e38f/generated_images/exec-7c68d5e8-c76c-4ff9-9b9c-16bf325ae971.png"
+        ],
+        "transparent_background": false,
+        "source_path": "/workspace/scratch/9d89bc03e38f/generated_images/exec-56e6527c-f790-425f-a279-45341d66463a.png",
+        "selected": false,
+        "rejection_reason": "Heights567/575/575/564px; profiles66/67px remained too thick; measured guide geometry was not preserved.",
+        "original_filename": "exec-56e6527c-f790-425f-a279-45341d66463a.png",
+        "output_sha256": "48c7feff54e2b5446473c9ef64e5fe9c2cf1220a9ce89a21aa9feefd99032ec7",
+        "referenced_images": [
+          {
+            "original_path": "/workspace/scratch/9d89bc03e38f/porthole_geometry_guide.png",
+            "sha256": "1620233b3899bc2a3355803af76f99547b1dd96df8dddcfb8a61e2d6a608f502",
+            "original_filename": "porthole_geometry_guide.png"
+          },
+          {
+            "original_path": "/workspace/scratch/9d89bc03e38f/generated_images/exec-7c68d5e8-c76c-4ff9-9b9c-16bf325ae971.png",
+            "sha256": "89627e78118ccc252891ac95903c3ab91af49ceab8e5b95a35babdb92d0bb29b",
+            "original_filename": "exec-7c68d5e8-c76c-4ff9-9b9c-16bf325ae971.png"
+          }
+        ]
+      },
+      {
+        "pass": 3,
+        "stage": "measured_guide_only_surface_finish",
+        "prompt": "Edit this supplied measured four-view porthole diagram into finished stylized game art. KEEP ITS EXACT GEOMETRY AND COMPOSITION. Only paint surface color, wear and lighting onto the existing brass shapes.\n\nPreserve every outer silhouette, circle, aperture, narrow edge-view width, object position, common height and baseline exactly. Do not add any thickness or enlarge any hardware. All four views already have matching heights. Keep that. Do not crop, zoom, reposition or resize anything. The first and fourth outer diameters remain equal to each other's height; the two side elevations remain just 1/11.25 as wide as tall. The circle at far right is the BACK, with its hinge on the right; the first is the FRONT with its hinge on the left and attached locking plates at top/right/bottom. Keep all the hinge and plate shapes within the diagram's silhouette.\n\nFinish the metal in warm aged gold brass, with rich muted ochre midtones, amber-brown creases and broad cream-gold bevel highlights. A clean, chunky, cel-shaded cartoon prop for a pirate adventure in the style of Monkey Island or Discworld. Slightly worn edges and a few broad scratches, no photoreal texture. Use the existing small rivets, give each a rounded brass form. Simplify rather than add small details. Preserve the flat rear mounting face. Exactly level orthographic front, left, right, back.\n\nDo not add a black outline outside the original shapes; render outlines and bevels inside their existing boundaries. Keep the entire background and both round central holes flat pure white. No glass, fog, scenery, reflection in the hole, shadows, text, labels or other objects. No floor line.\nThe input is a dimensionally measured diagram. This edit adds only the worn-brass cartoon finish; its proportions and four shared heights are already correct and must stay untouched.",
+        "referenced_image_paths": [
+          "/workspace/scratch/9d89bc03e38f/porthole_geometry_guide.png"
+        ],
+        "transparent_background": false,
+        "source_path": "/workspace/scratch/9d89bc03e38f/generated_images/exec-dc4fe825-37d0-4d0b-b97d-b1deed502eff.png",
+        "selected": true,
+        "rejection_reason": null,
+        "original_filename": "exec-dc4fe825-37d0-4d0b-b97d-b1deed502eff.png",
+        "output_sha256": "37e826a7c6782d1d937c14be4efe44987c8f9a8dbebaf947ba68d7664bd3ef7a",
+        "referenced_images": [
+          {
+            "original_path": "/workspace/scratch/9d89bc03e38f/porthole_geometry_guide.png",
+            "sha256": "1620233b3899bc2a3355803af76f99547b1dd96df8dddcfb8a61e2d6a608f502",
+            "original_filename": "porthole_geometry_guide.png"
+          }
+        ]
+      }
+    ],
+    "selected_pass": 3,
+    "selected_prompt": "Edit this supplied measured four-view porthole diagram into finished stylized game art. KEEP ITS EXACT GEOMETRY AND COMPOSITION. Only paint surface color, wear and lighting onto the existing brass shapes.\n\nPreserve every outer silhouette, circle, aperture, narrow edge-view width, object position, common height and baseline exactly. Do not add any thickness or enlarge any hardware. All four views already have matching heights. Keep that. Do not crop, zoom, reposition or resize anything. The first and fourth outer diameters remain equal to each other's height; the two side elevations remain just 1/11.25 as wide as tall. The circle at far right is the BACK, with its hinge on the right; the first is the FRONT with its hinge on the left and attached locking plates at top/right/bottom. Keep all the hinge and plate shapes within the diagram's silhouette.\n\nFinish the metal in warm aged gold brass, with rich muted ochre midtones, amber-brown creases and broad cream-gold bevel highlights. A clean, chunky, cel-shaded cartoon prop for a pirate adventure in the style of Monkey Island or Discworld. Slightly worn edges and a few broad scratches, no photoreal texture. Use the existing small rivets, give each a rounded brass form. Simplify rather than add small details. Preserve the flat rear mounting face. Exactly level orthographic front, left, right, back.\n\nDo not add a black outline outside the original shapes; render outlines and bevels inside their existing boundaries. Keep the entire background and both round central holes flat pure white. No glass, fog, scenery, reflection in the hole, shadows, text, labels or other objects. No floor line.\nThe input is a dimensionally measured diagram. This edit adds only the worn-brass cartoon finish; its proportions and four shared heights are already correct and must stay untouched.",
+    "assembly": {
+      "tool": "tools/crop_views.py",
+      "tool_modified": false,
+      "arguments": [
+        "--row",
+        "0",
+        "1",
+        "--min-width-ratio",
+        "0.05",
+        "--names",
+        "front",
+        "left",
+        "right",
+        "back",
+        "--pad",
+        "0.12",
+        "--size",
+        "577",
+        "--dry-run",
+        "--preview",
+        "art/props/porthole/sheet.png"
+      ],
+      "method": "Unchanged cutter crops native own-bounds rectangles and translates them onto four 577 px square cells with a common baseline. No resampling, per-view scaling or raster retouching.",
+      "native_common_canvas_px": 577,
+      "resampled": false,
+      "per_view_scaling": false,
+      "source_measurements": {
+        "image_size_px": [
+          2172,
+          724
+        ],
+        "background_rgb": [
+          254,
+          254,
+          254
+        ],
+        "views": [
+          {
+            "view": "front",
+            "bounds_px": [
+              39,
+              129,
+              504,
+              595
+            ],
+            "width_px": 465,
+            "height_px": 466,
+            "last_ink_y_px": 594,
+            "width_height_ratio": 0.997854
+          },
+          {
+            "view": "left",
+            "bounds_px": [
+              790,
+              129,
+              836,
+              595
+            ],
+            "width_px": 46,
+            "height_px": 466,
+            "last_ink_y_px": 594,
+            "width_height_ratio": 0.098712
+          },
+          {
+            "view": "right",
+            "bounds_px": [
+              1336,
+              129,
+              1382,
+              595
+            ],
+            "width_px": 46,
+            "height_px": 466,
+            "last_ink_y_px": 594,
+            "width_height_ratio": 0.098712
+          },
+          {
+            "view": "back",
+            "bounds_px": [
+              1668,
+              130,
+              2133,
+              595
+            ],
+            "width_px": 465,
+            "height_px": 465,
+            "last_ink_y_px": 594,
+            "width_height_ratio": 1.0
+          }
+        ],
+        "clear_vertical_gaps_px": [
+          286,
+          500,
+          286
+        ]
+      },
+      "source_object_rectangles_pixel_identical_after_translation": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "min_width_ratio_reason": "The real 0.08 m edge views are narrower than the default character-oriented 25% span filter. Use the existing --min-width-ratio 0.05 option to retain them; no cutter logic or view scale was changed."
+    }
+  },
+  "object_scope": {
+    "rule": "Model the object only, never a dressed arrangement.",
+    "contents": "One connected brass porthole surround with mounting flange, inner bead, integral hinge and three front locking dogs.",
+    "excluded": [
+      "glass disk in the generated metal reconstruction",
+      "opaque center plate",
+      "weather",
+      "fog painting",
+      "ocean scene",
+      "wall panels",
+      "curtains",
+      "light switch",
+      "other props",
+      "scenery"
+    ],
+    "engine_assembly": "The final porthole remains one scene prop with separate metal and engine-authored transparent-glass children/materials. Weather remains behind that assembly."
+  },
+  "design": {
+    "structure": "Broad circular brass mounting flange and inner rim around an unobstructed round aperture; all hardware stays inside the stated complete envelope.",
+    "front": "Room-facing ring; hinge at image-left, with three locking dogs at 12, 3 and 6 o’clock. Pure white background is visible through the opening.",
+    "left": "True narrow edge profile. Room-facing front projects toward image-right; flange and hardware layers stay within the 0.08 m total depth.",
+    "right": "Opposite narrow edge profile. Room-facing front projects toward image-left; same diameter, depth and mounting structure.",
+    "back": "Actual wall-facing reverse, with hinge at image-right. Front dogs do not reappear as duplicate rear dogs. White background is visible through the same opening.",
+    "finish": "Warm worn brass with broad cartoon form shading and a restrained patina, matching the game’s existing brass furniture fittings.",
+    "openings": "The metal ring has a real through-aperture visible against white in front and back. Preserve open ring geometry before inserting separate transparent glass in engine.",
+    "glass": "No painted blue or grey fill, reflections or fog across the aperture in the reconstruction source. Engine glazing supplies transparency and reflections as a separate material.",
+    "fixed_pose": "Upright in the wall-mounting orientation; only viewing direction changes across the sheet.",
+    "proposed_clear_aperture_m": 0.665217,
+    "proposed_aperture_authority": "340 px opening / 460 px external diameter in the construction guide, scaled to 0.90 m. Approximate target, to be checked against the generated metal rim.",
+    "hardware_limit": "The hinge and dogs are simplified fixed construction cues, particularly in the edge views; the sheet does not establish mechanically functioning hinge knuckles or swiveling locks."
+  },
+  "reconstruction_orientation": {
+    "fixed_object_pose": "Upright wall mounting",
+    "axis_convention": "Right-handed: +Y up, +X to the right in the front view; broad face in XY, ring depth along Z and room-facing front toward +Z.",
+    "dimensions_m": {
+      "width": 0.9,
+      "height": 0.9,
+      "depth": 0.08
+    },
+    "camera_positions": {
+      "front": "+Z looking -Z",
+      "left": "-X looking +X",
+      "right": "+X looking -X",
+      "back": "-Z looking +Z"
+    },
+    "engine_placement_rotation_degrees_xyz": [
+      0,
+      0,
+      0
+    ],
+    "rotation_note": "No artistic pose correction is required once imported axes match the stated convention. Verify exporter axes before placement; no transform has been applied by the art delivery.",
+    "origin_recommendation": "Complete porthole bounds centered at the origin; the existing _add_prop helper also measures and centers the mesh from its actual bounds."
+  },
+  "placement": {
+    "convention_status": "Existing wall placeholder location documented; replacement mesh and glass integration remain engine work.",
+    "engine_furniture_id": "porthole",
+    "engine_visual_name": "Porthole",
+    "engine_model_path_target": "art/props/porthole/porthole.glb",
+    "engine_sources": [
+      "main.gd::FURNITURE porthole entry",
+      "main.gd::HOTSPOTS Porthole entry"
+    ],
+    "center_m": [
+      0.0,
+      1.55,
+      -3.4
+    ],
+    "complete_vertical_extent_m": [
+      1.1,
+      2.0
+    ],
+    "solid": false,
+    "navigation_note": "Wall scenery: preserve solid=false so this replacement does not introduce a floor navigation blocker.",
+    "existing_hotspot_m": [
+      0.0,
+      1.55,
+      -3.3
+    ],
+    "existing_approach_m": [
+      0.0,
+      0.0,
+      -2.4
+    ],
+    "interaction_contract": "Preserve the existing Porthole hotspot, its fog description and approach behavior; this art delivery changes no interactions.",
+    "glass_placement": "Engine to fit a transparent disk behind the inner rim and within the complete 0.08 m depth, using the measured reconstructed aperture. Avoid coplanar glass/metal surfaces."
+  },
+  "framing": {
+    "view_order": [
+      "front",
+      "left",
+      "right",
+      "back"
+    ],
+    "projection": "Level orthographic broad front, narrow left edge, opposite right edge and broad back",
+    "camera": "Horizontal optical axis at object midpoint; one orthographic scale and zero pitch or roll. Side width follows true depth.",
+    "fixed_object_pose": "Upright wall mounting",
+    "background": "Plain opaque near-white",
+    "labels_in_turnaround_band": false,
+    "ground_line_drawn": false,
+    "image_size_px": [
+      2308,
+      577
+    ],
+    "cell_size_px": [
+      577,
+      577
+    ],
+    "background_rgb": [
+      254,
+      254,
+      254
+    ],
+    "ground_line_last_ink_y_px": 507,
+    "separation_px": [
+      321,
+      531,
+      322
+    ],
+    "scale": "Front, left and right are 466 px high; the rear is 465 px high, within the 1 px raster limit. The unchanged cutter translated the native source rectangles only."
+  },
+  "validation": {
+    "status": "Source presentation and final pixel framing measured; metal reconstruction and engine glazing remain pending",
+    "method": "Read-only full-row NumPy/Pillow bounds with unchanged crop_views.py modal_colour, ink_mask and find_figures at tolerance 18 and min_width_ratio 0.05. Bounds are [x0,y0,x1,y1], upper bounds exclusive.",
+    "foreground_threshold": "Sum of absolute RGB distance from modal background exceeds 54.",
+    "target_front_back_width_height_ratio": 1.0,
+    "target_profile_width_height_ratio": 0.08888888888888889,
+    "reconstruction_run": false,
+    "engine_import_run": false,
+    "limitations": [
+      "The two 46 × 466 px edge envelopes imply 0.088841 m depth when uniformly fitted to 0.90 m height: 8.841 mm or 11.05% above the authoritative 0.08 m target. This includes the painted outline and simplified hardware, but the discrepancy is real. Keep 0.08 m in dimensions_m and check/correct mesh construction in engine or modeling tools; do not silently change the target or resize individual image views.",
+      "The reconstruction sheet supplies metal geometry only; transparent glass and weather still require engine integration.",
+      "Visible white apertures do not verify the reconstructed mesh’s open topology, connected hardware or glazing fit.",
+      "The approximately 0.665 m clear opening is a secondary proposed guide measurement, not an earlier owner or engine requirement.",
+      "A wall-specific rear seating recess and fastening fit are not measured by the placeholder box.",
+      "Hinge/latch articulation is unverified; simplified fixed hardware in the sheet is not a mechanical drawing."
+    ],
+    "detected_views": 4,
+    "views": [
+      {
+        "view": "front",
+        "bounds_px": [
+          56,
+          42,
+          521,
+          508
+        ],
+        "width_px": 465,
+        "height_px": 466,
+        "last_ink_y_px": 507,
+        "width_height_ratio": 0.997854
+      },
+      {
+        "view": "left",
+        "bounds_px": [
+          842,
+          42,
+          888,
+          508
+        ],
+        "width_px": 46,
+        "height_px": 466,
+        "last_ink_y_px": 507,
+        "width_height_ratio": 0.098712
+      },
+      {
+        "view": "right",
+        "bounds_px": [
+          1419,
+          42,
+          1465,
+          508
+        ],
+        "width_px": 46,
+        "height_px": 466,
+        "last_ink_y_px": 507,
+        "width_height_ratio": 0.098712
+      },
+      {
+        "view": "back",
+        "bounds_px": [
+          1787,
+          43,
+          2252,
+          508
+        ],
+        "width_px": 465,
+        "height_px": 465,
+        "last_ink_y_px": 507,
+        "width_height_ratio": 1.0
+      }
+    ],
+    "height_spread_px": 1,
+    "ground_line_spread_px": 0,
+    "minimum_empty_band_px": 321,
+    "strict_one_pixel_height_check_passed": true,
+    "strict_one_pixel_baseline_check_passed": true,
+    "source_object_rectangles_pixel_identical": true,
+    "native_view_canvas_px": [
+      577,
+      577
+    ],
+    "view_canvas_after_2x_upscale_px": [
+      1154,
+      1154
+    ],
+    "upscaling_applied": false,
+    "png_full_decode_passed": true,
+    "png_iend_passed": true,
+    "file_size_bytes": 507179,
+    "aperture_checks": [
+      {
+        "view": "front",
+        "center_sample_rgb": [
+          254,
+          254,
+          254
+        ],
+        "enclosed_background_component_bounds_px": [
+          120,
+          106,
+          458,
+          444
+        ],
+        "enclosed_background_component_area_px": 89612,
+        "maximum_rgb_distance_from_background": 54,
+        "background_component_is_enclosed_by_metal": true,
+        "topology_note": "2D background/contour check only; does not verify the future mesh has a through-hole."
+      },
+      {
+        "view": "back",
+        "center_sample_rgb": [
+          254,
+          254,
+          254
+        ],
+        "enclosed_background_component_bounds_px": [
+          1851,
+          106,
+          2188,
+          444
+        ],
+        "enclosed_background_component_area_px": 89646,
+        "maximum_rgb_distance_from_background": 54,
+        "background_component_is_enclosed_by_metal": true,
+        "topology_note": "2D background/contour check only; does not verify the future mesh has a through-hole."
+      }
+    ],
+    "implied_width_or_depth_m_at_0_90_height": [
+      0.898069,
+      0.088841,
+      0.088841,
+      0.9
+    ],
+    "painted_profile_depth_excess_mm": 8.841,
+    "painted_profile_depth_excess_percent": 11.052,
+    "visual_review": {
+      "projection": "Broad concentric front/back ring elevations with naturally narrow opposite edge views and one fixed wall-mounting pose.",
+      "apertures": "Both broad faces visibly expose plain background through their central openings; no glass, fog, reflection, backing or opaque disk is painted there.",
+      "hardware": "Front hinge at image-left, rear hinge at image-right. Front dogs at top/right/bottom do not duplicate onto the rear. Fittings stay inside the circular outside envelope.",
+      "profiles": "Room-facing hardware points image-right in the left edge view and image-left in the right edge view. Small mechanical details are simplified.",
+      "finish": "Consistent warm brass, broad cel-shaded bevel highlights and restrained worn/patinated patches.",
+      "isolation": "Four complete separated metal surrounds on near-white, with no labels, shadows, wall, curtain, glass or scenery."
+    }
+  },
+  "pipeline": {
+    "status": "source_sheet_only",
+    "view_extraction": "delegated_to_claude_code",
+    "view_extraction_names": [
+      "front",
+      "left",
+      "right",
+      "back"
+    ],
+    "upload_view_mapping": {
+      "front": "front.png",
+      "left": "left.png",
+      "right": "right.png",
+      "back": "back.png"
+    },
+    "upload_note": "Assign each crop to its named Tripo slot; sheet display order is not positional upload order.",
+    "three_d_generator_allowed": "Tripo only",
+    "forbidden_generators": [
+      "Hunyuan3D",
+      "HY-Motion"
+    ],
+    "nc_models_used": false,
+    "rigging_required": false,
+    "generated_3d_model": false,
+    "validated_in_engine": false,
+    "target_triangles": {
+      "maximum": 8000,
+      "source": "HANDOFF.md engine prop queue dated 2026-10-11 gives a 6,000–8,000 triangle furniture range. This simple wall fixture may use fewer triangles; do not add topology just to meet the range."
+    },
+    "lighting_note": "Retain warm brass and broad readable form shading. Remove baked illustration lighting when texturing so room lights do not double the highlights.",
+    "reconstruction_scope": "Metal surround only; preserve its open aperture and integral hardware. Do not generate glass or an opaque center disk through Tripo.",
+    "glass_route": "Engine-authored transparent disk or thin mesh child fitted inside the metal rim; distinct material from the metal.",
+    "weather_route": "Engine/backdrop weather layer beyond the glazing; not baked into this prop texture.",
+    "next_step": "Reconstruct the metal ring, verify the through-aperture, hardware, 0.90 m diameter and authoritative 0.08 m depth, then add separate transparent glass and weather in engine and replace the existing Porthole visual at its current wall center.",
+    "recommended_crop_command": "python tools/crop_views.py art/props/porthole/sheet.png --row 0 1 --min-width-ratio 0.05 --names front left right back --pad 0.12 --size 577 --out art/props/porthole/views",
+    "optional_2x_crop_command": "python tools/crop_views.py art/props/porthole/sheet.png --row 0 1 --min-width-ratio 0.05 --names front left right back --pad 0.12 --size 1154 --out art/props/porthole/views",
+    "upscale_note": "Native common canvases are 577 px square. Uniform 2x output at 1154 px meets the documented minimum but adds no source detail. Retain the thin profiles with --min-width-ratio 0.05 and use gap detection so existing cell margins are not padded again."
+  }
+}

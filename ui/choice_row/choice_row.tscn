@@ -1,11 +1,7 @@
 [gd_scene format=3]
 [ext_resource type="Script" path="res://ui/choice_row/choice_row.gd" id="script"]
 [ext_resource type="Texture2D" path="res://art/ui/response_highlight.png" id="highlight"]
-[ext_resource type="Texture2D" path="res://art/ui/controls_atlas.png" id="controls"]
 [ext_resource type="FontFile" path="res://art/ui/fonts/source_sans_3/SourceSans3-Semibold.ttf" id="font"]
-[sub_resource type="AtlasTexture" id="Chevron"]
-atlas = ExtResource("controls")
-region = Rect2(1181, 84, 238, 329)
 [sub_resource type="StyleBoxEmpty" id="Empty"]
 [node name="ChoiceRow" type="Button"]
 custom_minimum_size = Vector2(0, 44)
@@ -14,6 +10,8 @@ focus_mode = 2
 theme_override_styles/normal = SubResource("Empty")
 theme_override_styles/hover = SubResource("Empty")
 theme_override_styles/pressed = SubResource("Empty")
+theme_override_styles/focus = SubResource("Empty")
+clip_contents = true
 script = ExtResource("script")
 [node name="Highlight" type="NinePatchRect" parent="."]
 visible = false
@@ -32,22 +30,12 @@ patch_margin_bottom = 40
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 30.0
-offset_top = 4.0
+offset_left = 14.0
+offset_top = 2.0
 offset_right = -14.0
-offset_bottom = -4.0
+offset_bottom = -2.0
 mouse_filter = 2
 theme_override_fonts/font = ExtResource("font")
 theme_override_font_sizes/font_size = 30
 theme_override_constants/line_spacing = -4
 autowrap_mode = 3
-[node name="Chevron" type="TextureRect" parent="."]
-layout_mode = 0
-offset_left = 6.0
-offset_top = 10.0
-offset_right = 24.0
-offset_bottom = 34.0
-mouse_filter = 2
-visible = false
-texture = SubResource("Chevron")
-expand_mode = 1

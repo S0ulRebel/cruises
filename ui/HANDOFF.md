@@ -1,5 +1,28 @@
 # UI, cold-open stage and audio handoff
 
+## 2026-10-11 — response hover and ribbon corrections
+
+Choices open without automatic first-row focus: deferred focus had scrolled the
+first response above the clip region before layout settled, and kept it highlighted
+alongside hovered rows. Mouse motion releases row focus; Up/Down/Tab deliberately
+begins keyboard navigation. Number shortcuts/native confirmation remain available.
+Rows now fit the label's measured minimum height plus 4px padding (44px minimum),
+including wrapped text. Removed the redundant left chevron/native focus outline.
+Ribbon text is centered at size 26, whose 39px height fits its 40px safe area;
+the former size 36 needed 54px and extended below the ribbon.
+
+Only one `dialogue_portraits` group member stays active. Dismissal hides its cached
+rig and suspends rendering; reopening restores it. Both portraits already have
+independent World3D instances. The reported doubled Captain was not reproduced in
+isolated speech, animated poses or transitions; this prevents active overlap but
+does not establish the original cause. Authored portrait fitting is unchanged.
+
+Focused Compatibility previews at 1920x1080 verified visible text-center hover,
+no default focus/scroll jump, wrapped row fitting, keyboard entry, ribbon metrics,
+suspended speech portrait during responses and successful reuse. No engine/script
+errors. The full suite was not run at owner request. Captures/observations are
+outside the project in the current task's `outputs/dialogue_fixes/after/` directory.
+
 Fixed presentation nodes live in saved scenes. Runtime instancing is limited to variable inventory/response entries, selected item models, and whole character portrait scenes. Scripts preserve edited layout, camera and accessory transforms.
 
 ## Integration

@@ -6,6 +6,14 @@ and prop sheets, and the engine side, who puts them in the game.
 
 ## Current architecture — 2026-10-11
 
+Owner UI corrections: response hit regions follow actual text height, choices
+open without first-row focus, and the extra response chevron is removed. Ribbon
+text fits and is centered. Only one dialogue portrait renders at a time; reported
+doubling was not reproduced. See `ui/HANDOFF.md`. The cabin camera is lower/closer
+to the art reference, though furniture proportions/layout still prevent an exact
+match; see `locations/captains_cabin/HANDOFF.md`. Focused graphical previews were
+reviewed; no full suite was run for this pass.
+
 Scene migration is complete and merged into `main`, including clean-checkout
 and graphical verification. Read `AGENTS.md` and
 `docs/REFACTOR_PLAN.md`. Game owns startup wiring; named `locations/` own placement.

@@ -46,7 +46,6 @@ func ask(options: Array) -> int:
 	_portrait.settle()
 	_scroll.scroll_vertical = 0
 	_waiting = true
-	_list.get_child(0).grab_focus.call_deferred()
 	if auto_pick_secs > 0.0:
 		get_tree().create_timer(auto_pick_secs).timeout.connect(func() -> void:
 			if token == _generation and _waiting:
@@ -77,12 +76,26 @@ func dismiss() -> void:
 		_list.remove_child(child)
 		child.queue_free()
 
+func _input(event: InputEvent) -> void:
+	if _waiting and event is InputEventMouseMotion:
+		var focused := get_viewport().gui_get_focus_owner()
+		if focused != null and _list.is_ancestor_of(focused):
+			focused.release_focus()
+
 func _unhandled_key_input(event: InputEvent) -> void:
 	if not _waiting:
 		return
 	var key := event as InputEventKey
 	if key == null or not key.pressed or key.echo:
 		return
+	# Begin keyboard navigation only when the player requests it.
+	if key.keycode in [KEY_UP, KEY_DOWN, KEY_TAB]:
+		var focused := get_viewport().gui_get_focus_owner()
+		if focused == null or not _list.is_ancestor_of(focused):
+			var index := _count - 1 if key.keycode == KEY_UP or (key.keycode == KEY_TAB and key.shift_pressed) else 0
+			_list.get_child(index).grab_focus()
+			get_viewport().set_input_as_handled()
+			return
 	var number := key.keycode - KEY_1
 	if number >= 0 and number < mini(_count, 9):
 		_choose(number)

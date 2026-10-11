@@ -20,6 +20,10 @@ func set_characters(characters: Array[CharacterDefinition]) -> void:
 	_head.set_characters(characters)
 
 func speak(character_id: String, display := "", colour := Color(), line := "") -> void:
+	if is_in_group("dialogue_portraits"):
+		for other in get_tree().get_nodes_in_group("dialogue_portraits"):
+			if other != self and other is Portrait:
+				other.dismiss()
 	_who = character_id
 	var definition := _characters.get(character_id) as CharacterDefinition
 	_speech_id = definition.asset_id if definition else character_id
@@ -46,6 +50,7 @@ func settle() -> void:
 
 func dismiss() -> void:
 	settle()
+	_head.suspend()
 	hide()
 
 func has_live_head() -> bool:

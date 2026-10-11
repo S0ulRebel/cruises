@@ -80,7 +80,7 @@ mouse_filter = 2
 texture = SubResource("Right")
 expand_mode = 1
 stretch_mode = 0
-[node name="Portrait" parent="." instance=ExtResource("portrait")]
+[node name="Portrait" parent="." groups=["dialogue_portraits"] instance=ExtResource("portrait")]
 layout_mode = 0
 offset_left = 64.0
 offset_top = 36.0
@@ -116,7 +116,8 @@ offset_bottom = 40.0
 mouse_filter = 2
 theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
 theme_override_fonts/font = ExtResource("name_font")
-theme_override_font_sizes/font_size = 36
+theme_override_font_sizes/font_size = 26
+horizontal_alignment = 1
 vertical_alignment = 1
 text_overrun_behavior = 3
 [node name="Speech" type="RichTextLabel" parent="."]

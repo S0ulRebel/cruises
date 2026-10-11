@@ -56,11 +56,11 @@ player = NodePath("Live")
 navigation_regions = [NodePath("Navigation")]
 
 [node name="Camera" type="Camera3D" parent="." unique_id=800241176]
-position = Vector3(0, 3.4, 6.2)
-rotation = Vector3(-0.29670596, 0, 0)
+position = Vector3(0, 1.8, 5.5)
+rotation = Vector3(-0.10471976, 0, 0)
 current = true
 fov = 62.0
-metadata/framing_profile = "cabin_all_props_v1"
+metadata/framing_profile = "cabin_reference_eye_level_v1"
 
 [node name="Navigation" type="NavigationRegion3D" parent="." unique_id=915343654]
 navigation_mesh = SubResource("NavigationMesh_8nydx")

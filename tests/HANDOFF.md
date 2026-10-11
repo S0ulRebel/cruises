@@ -1,5 +1,13 @@
 # Validation handoff
 
+2026-10-11 owner corrections: `authored_scene_check.gd` now expects the lower
+`cabin_reference_eye_level_v1` camera, actor heights 280–480px, and a deliberate
+partial foreground crate crop (at least 35% of its projected width in frame).
+Other full bounds, all baseline noncamera transforms, picking and floor checks
+remain. Focused external graphical previews verified the UI changes, projection
+measurements and eight hotspot rays without engine errors; the full suite was
+not run at owner request. See UI/cabin module handoffs for evidence and limitations.
+
 - Root harnesses moved into `tests/`; authored Game/Location checks replace the
   stale Main/builder introspection checks. See `README.md` for commands and coverage.
 - The external PowerShell 7 runner requires successful exit and a completion marker,

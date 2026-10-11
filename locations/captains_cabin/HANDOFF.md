@@ -1,5 +1,25 @@
 # Captain's cabin camera framing
 
+## Current view — 2026-10-11 reference correction
+
+Owner rejected the elevated all-props view against `docs/reference/room_target.png`.
+Saved Camera now uses `cabin_reference_eye_level_v1`: `(0, 1.8, 5.5)`, pitch `-6°`,
+vertical FOV `62°`. This lowers/closes the view and enlarges the actors. Foreground
+crate extends past the right edge; its center is still visible and clickable.
+All original noncamera root transforms, colliders and navigation remain unchanged.
+Startup never resets the view. The artwork still differs in room width, furniture
+proportions and character placement: exact composition needs a separate layout/art
+pass and a navigation bake if static furniture moves.
+
+Focused Compatibility preview: Captain bounds 418px high, Santi 296px; all eight
+visual-center rays reach their own hotspot and the floor covers all three sampled
+bottom points. Captures/measurements are outside the project in the current task's
+`outputs/dialogue_fixes/after/` directory. Framing expectations were updated for the
+larger actors and deliberate partial crate crop. Full suite not run at owner request.
+Earlier measurements and validation below are historical.
+
+## Previous all-props view
+
 2026-10-11: the authored Camera uses `cabin_all_props_v1`: perspective at
 `(0, 3.4, 6.2)`, pitch `-17°`, unchanged vertical FOV `62°`, at 1920×1080.
 Only Camera properties changed. All 17 original actor/prop/environment root

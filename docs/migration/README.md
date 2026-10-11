@@ -59,11 +59,12 @@ Graphical evidence and prefab review records remain outside the archived checkou
 
 ## Remaining authoring decisions
 
-The subsequent camera-only follow-up is complete: the authored camera is at
-(0, 3.4, 6.2), pitch -17 degrees and FOV 62. All props are fully in frame and their
-visual-centre clicks reach the correct hotspot. All 17 noncamera baseline transforms
-remain unchanged. The original camera/baseline remains recorded; current framing
-and picking checks cover this deliberate improvement. See
+The owner subsequently requested a view closer to the art reference. The camera
+is now at (0, 1.8, 5.5), pitch -6 degrees and FOV 62. Foreground crate cropping is
+deliberate; other props and both actors remain in frame. All 17 noncamera baseline
+transforms remain unchanged. Earlier camera profiles remain recorded as history;
+current framing expectations cover this correction. Exact reference composition
+still requires layout/proportion changes. See
 `locations/captains_cabin/HANDOFF.md` for measurements and graphical evidence.
 
 1. Delivered modular body and coat GLBs have no joints. Bind and fit them to the

@@ -58,10 +58,16 @@ advance dialogue. The ribbon may widen up to 1382px for longer names/localisatio
 
 | Role | Supplied font | Size / line advance |
 | --- | --- | --- |
-| Name/state | Grenze SemiBold | 36/40px |
+| Name/state | Grenze SemiBold | 26px / 39px font height |
 | Speech | Source Sans 3 Regular | 32/40px |
-| Response | Source Sans 3 Semibold | 30/36px |
+| Response | Source Sans 3 Semibold | 30px / 40px font height |
 | Footer | Source Sans 3 Regular | 24/28px |
+
+Runtime correction, 11 October 2026: center the name horizontally and vertically
+inside its 40px safe area. Grenze at size 36 actually needs 54px in Godot; size 26
+fits. Response rows use the label's measured minimum height plus 4px padding,
+with a 44px minimum. Highlight the hovered row without an extra left chevron;
+start keyboard focus on the first navigation key, rather than when opening choices.
 
 The 188px viewport holds **four complete speech lines**, or exactly four 44px
 single-line response rows plus three 4px gaps. Wrapped choices grow their rows;

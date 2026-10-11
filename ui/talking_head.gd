@@ -23,6 +23,8 @@ func set_characters(characters: Array[CharacterDefinition]) -> void:
 
 func show_character(character_id: String) -> bool:
 	if character_id == _who and _rig != null:
+		_rig.show()
+		_viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
 		return _skeleton != null
 	_who = character_id
 	for child in _root.get_children():
@@ -67,6 +69,11 @@ func apply(pose: Dictionary, character_id: String) -> void:
 func settle(character_id: String) -> void:
 	apply(Speech.rest(), character_id)
 	_viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
+
+func suspend() -> void:
+	_viewport.render_target_update_mode = SubViewport.UPDATE_DISABLED
+	if is_instance_valid(_rig):
+		_rig.hide()
 
 func rig_report() -> Dictionary:
 	return {"character": _who, "has_skeleton": _skeleton != null,

@@ -1,7 +1,6 @@
 extends Button
 @onready var _label: Label = $Label
 @onready var _highlight: NinePatchRect = $Highlight
-@onready var _chevron: TextureRect = $Chevron
 
 func _ready() -> void:
 	focus_entered.connect(_update_focus)
@@ -9,6 +8,7 @@ func _ready() -> void:
 	mouse_entered.connect(_update_focus)
 	mouse_exited.connect(_update_focus)
 	resized.connect(_fit_height)
+	_label.minimum_size_changed.connect(_fit_height)
 	_update_focus()
 
 func configure(index: int, response: String) -> void:
@@ -17,11 +17,10 @@ func configure(index: int, response: String) -> void:
 
 func _fit_height() -> void:
 	if is_instance_valid(_label):
-		custom_minimum_size.y = maxf(44.0, _label.get_line_count() * 36.0 + 8.0)
+		custom_minimum_size.y = maxf(44.0, _label.get_minimum_size().y + 4.0)
 		_highlight.size = size / _highlight.scale
 
 func _update_focus() -> void:
 	var active := has_focus() or is_hovered()
 	_highlight.visible = active
-	_chevron.visible = has_focus()
 	_label.modulate = Color("#fff0ca") if active else Color("#32190e")

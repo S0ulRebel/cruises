@@ -254,19 +254,24 @@ func check_layout(location: Location) -> void:
 
 func check_camera_framing(location: Location) -> void:
 	var camera := location.camera
-	check("camera has the explicitly authored all-props framing profile",
-		camera.get_meta("framing_profile", "") == "cabin_all_props_v1")
+	check("camera has the explicitly authored eye-level framing profile",
+		camera.get_meta("framing_profile", "") == "cabin_reference_eye_level_v1")
 	var frame := Rect2(Vector2(24, 24), Vector2(1872, 1032))
 	for label in PREFABS:
 		var object := by_prefab(location, PREFABS[label])
 		if object == null: continue
 		var projected := projected_bounds(object, camera)
-		check("complete object bounds remain in frame: " + String(label),
-			projected.size.x > 0.0 and projected.size.y > 0.0 and frame.encloses(projected), str(projected))
+		if label == "Crate":
+			# Like the reference, the foreground prop may extend past the right edge.
+			check("foreground crate stays visibly in frame",
+				frame.intersection(projected).size.x >= projected.size.x * 0.35, str(projected))
+		else:
+			check("complete object bounds remain in frame: " + String(label),
+				projected.size.x > 0.0 and projected.size.y > 0.0 and frame.encloses(projected), str(projected))
 	for actor in [location.player, location.get_node("Santi")]:
 		var height := projected_bounds(actor, camera).size.y
 		check("actor remains readable at gameplay scale: " + String(actor.name),
-			height >= 250.0 and height <= 390.0, "%.1f px" % height)
+			height >= 280.0 and height <= 480.0, "%.1f px" % height)
 	for child in location.find_children("*", "Area3D", true, false):
 		var spot := child as Hotspot
 		if spot == null: continue

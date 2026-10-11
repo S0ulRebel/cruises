@@ -5,6 +5,7 @@
 [ext_resource type="FontFile" path="res://art/ui/fonts/grenze/Grenze-SemiBold.ttf" id="name_font"]
 [ext_resource type="FontFile" path="res://art/ui/fonts/source_sans_3/SourceSans3-Regular.ttf" id="text_font"]
 [ext_resource type="PackedScene" path="res://ui/portrait.tscn" id="portrait"]
+[ext_resource type="Script" path="res://ui/dialogue_panel/ledger_scrollbar.gd" id="scroll_script"]
 [sub_resource type="AtlasTexture" id="Left"]
 atlas = ExtResource("frame")
 region = Rect2(39, 176, 129, 387)
@@ -14,9 +15,6 @@ region = Rect2(168, 176, 1836, 387)
 [sub_resource type="AtlasTexture" id="Right"]
 atlas = ExtResource("frame")
 region = Rect2(2004, 176, 129, 387)
-[sub_resource type="AtlasTexture" id="Ribbon"]
-atlas = ExtResource("ribbon")
-region = Rect2(20, 211, 2132, 288)
 [sub_resource type="AtlasTexture" id="Up"]
 atlas = ExtResource("controls")
 region = Rect2(100, 145, 313, 215)
@@ -27,6 +25,26 @@ region = Rect2(611, 144, 316, 215)
 atlas = ExtResource("controls")
 region = Rect2(1181, 84, 238, 329)
 [sub_resource type="StyleBoxEmpty" id="Empty"]
+[sub_resource type="AtlasTexture" id="Thumb"]
+atlas = ExtResource("controls")
+region = Rect2(205, 576, 104, 345)
+[sub_resource type="StyleBoxEmpty" id="ScrollSlot"]
+content_margin_left = 16.0
+content_margin_right = 16.0
+[sub_resource type="StyleBoxEmpty" id="ScrollbarStyle"]
+content_margin_left = 8.0
+content_margin_right = 8.0
+[sub_resource type="StyleBoxEmpty" id="Grabber"]
+content_margin_left = 7.0
+content_margin_right = 7.0
+content_margin_top = 14.0
+content_margin_bottom = 14.0
+[sub_resource type="Theme" id="HiddenNativeScrollbar"]
+VScrollBar/styles/scroll = SubResource("ScrollSlot")
+VScrollBar/styles/scroll_focus = SubResource("ScrollSlot")
+VScrollBar/styles/grabber = SubResource("Grabber")
+VScrollBar/styles/grabber_highlight = SubResource("Grabber")
+VScrollBar/styles/grabber_pressed = SubResource("Grabber")
 [node name="DialoguePanel" type="Control"]
 custom_minimum_size = Vector2(1760, 300)
 offset_right = 1760.0
@@ -70,15 +88,25 @@ offset_right = 288.0
 offset_bottom = 260.0
 mouse_filter = 2
 
-[node name="Ribbon" type="TextureRect" parent="."]
+[node name="RibbonHost" type="Control" parent="."]
 layout_mode = 0
 offset_left = 338.0
 offset_top = 0.0
 offset_right = 758.0
 offset_bottom = 40.0
 mouse_filter = 2
-texture = SubResource("Ribbon")
-expand_mode = 1
+[node name="Ribbon" type="NinePatchRect" parent="RibbonHost"]
+layout_mode = 0
+offset_right = 3000.0
+offset_bottom = 285.714286
+scale = Vector2(0.14, 0.14)
+mouse_filter = 2
+texture = ExtResource("ribbon")
+region_rect = Rect2(20, 211, 2132, 288)
+patch_margin_left = 260
+patch_margin_top = 50
+patch_margin_right = 180
+patch_margin_bottom = 50
 [node name="Speaker" type="Label" parent="."]
 layout_mode = 0
 offset_left = 381.0
@@ -98,6 +126,7 @@ offset_top = 44.0
 offset_right = 1720.0
 offset_bottom = 232.0
 mouse_filter = 0
+theme = SubResource("HiddenNativeScrollbar")
 theme_override_colors/default_color = Color(0.196, 0.098, 0.055, 1)
 theme_override_fonts/normal_font = ExtResource("text_font")
 theme_override_font_sizes/normal_font_size = 32
@@ -113,6 +142,7 @@ offset_top = 44.0
 offset_right = 1720.0
 offset_bottom = 232.0
 mouse_filter = 0
+theme = SubResource("HiddenNativeScrollbar")
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 1
 [node name="List" type="VBoxContainer" parent="Responses"]
@@ -130,7 +160,40 @@ mouse_filter = 2
 theme_override_colors/font_color = Color(0.384, 0.251, 0.165, 1)
 theme_override_fonts/font = ExtResource("text_font")
 theme_override_font_sizes/font_size = 24
-text = "Continue Ã‚· Space or Enter"
+text = "Continue - Space or Enter"
+[node name="Scrollbar" type="VScrollBar" parent="."]
+layout_mode = 0
+offset_left = 1704.0
+offset_top = 68.0
+offset_right = 1720.0
+offset_bottom = 208.0
+focus_mode = 0
+theme_override_styles/scroll = SubResource("ScrollbarStyle")
+theme_override_styles/scroll_focus = SubResource("ScrollbarStyle")
+theme_override_styles/grabber = SubResource("Grabber")
+theme_override_styles/grabber_highlight = SubResource("Grabber")
+theme_override_styles/grabber_pressed = SubResource("Grabber")
+script = ExtResource("scroll_script")
+[node name="Track" type="NinePatchRect" parent="Scrollbar"]
+layout_mode = 0
+offset_right = 80.0
+offset_bottom = 700.0
+scale = Vector2(0.2, 0.2)
+mouse_filter = 2
+texture = ExtResource("controls")
+region_rect = Rect2(728, 508, 80, 466)
+patch_margin_left = 20
+patch_margin_top = 44
+patch_margin_right = 20
+patch_margin_bottom = 44
+[node name="Thumb" type="TextureRect" parent="Scrollbar"]
+layout_mode = 0
+offset_left = 1.0
+offset_right = 15.0
+offset_bottom = 44.0
+mouse_filter = 2
+texture = SubResource("Thumb")
+expand_mode = 1
 [node name="ScrollUp" type="Button" parent="."]
 layout_mode = 0
 offset_left = 1700.0
@@ -154,9 +217,9 @@ expand_mode = 1
 [node name="ScrollDown" type="Button" parent="."]
 layout_mode = 0
 offset_left = 1700.0
-offset_top = 210.0
+offset_top = 212.0
 offset_right = 1724.0
-offset_bottom = 234.0
+offset_bottom = 236.0
 mouse_filter = 0
 focus_mode = 0
 theme_override_styles/normal = SubResource("Empty")
@@ -182,7 +245,7 @@ focus_mode = 2
 theme_override_styles/normal = SubResource("Empty")
 theme_override_styles/hover = SubResource("Empty")
 theme_override_styles/pressed = SubResource("Empty")
-tooltip_text = "Continue"
+tooltip_text = "Continue - Space or Enter"
 [node name="Icon" type="TextureRect" parent="Continue"]
 layout_mode = 0
 offset_left = 6.0

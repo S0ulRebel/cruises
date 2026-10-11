@@ -1,6 +1,6 @@
 extends Button
 @onready var _label: Label = $Label
-@onready var _highlight: TextureRect = $Highlight
+@onready var _highlight: NinePatchRect = $Highlight
 @onready var _chevron: TextureRect = $Chevron
 
 func _ready() -> void:
@@ -18,6 +18,7 @@ func configure(index: int, response: String) -> void:
 func _fit_height() -> void:
 	if is_instance_valid(_label):
 		custom_minimum_size.y = maxf(44.0, _label.get_line_count() * 36.0 + 8.0)
+		_highlight.size = size / _highlight.scale
 
 func _update_focus() -> void:
 	var active := has_focus() or is_hovered()

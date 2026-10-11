@@ -17,6 +17,7 @@ var _following := true
 
 func _ready() -> void:
 	$Root/DialoguePanel/Responses.hide()
+	$Root/DialoguePanel/Scrollbar.bind_content(_line_label.get_v_scroll_bar())
 	$Root/DialoguePanel/Continue.pressed.connect(_advance)
 	$Root/DialoguePanel/ScrollUp.pressed.connect(_scroll.bind(-40.0))
 	$Root/DialoguePanel/ScrollDown.pressed.connect(_scroll.bind(40.0))

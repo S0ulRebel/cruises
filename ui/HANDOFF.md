@@ -12,7 +12,7 @@ Fixed presentation nodes live in saved scenes. Runtime instancing is limited to 
 - Audio `Music.autoplay`, stream and volume are authored in the prefab. Music looping is authored as `loop=true` in the existing quarters-theme import settings; `play()` and `stop()` remain.
 
 ## Authoring
-The ledger uses the unchanged supplied frame atlas, native fonts, transparent live portrait, fixed 1760x300 panel, scrollable speech/choices, and explicit Continue. Other characters require authored portrait prefabs using `ui/portraits/portrait_rig.gd` and exported skeleton/face/jaw paths. Missing portrait content shows the saved name placeholder.
+The ledger uses the unchanged supplied frame atlas, native fonts, transparent live portrait, fixed 1760x300 panel, scrollable speech/choices, native atlas scrollbar/controls, proportionate ribbon/highlight nine-patches, and explicit Continue. Other characters require authored portrait prefabs using `ui/portraits/portrait_rig.gd` and exported skeleton/face/jaw paths. Missing portrait content shows the saved name placeholder.
 
 ## Validation
 Godot 4.7.2 headless scene smoke instantiated twelve module scenes and checked authored face rig, camera transform, shared inventory state, response completion and two/three actor stage layouts. Input checks verified scroll never advances, Continue reveals before advancing, manual scroll-back is preserved, keyboard response selection and row cleanup. Graphical Compatibility checks rendered long speech and wrapped responses at 1920x1080, and repeated normal deferred portrait swaps without renderer errors.

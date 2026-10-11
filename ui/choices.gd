@@ -14,8 +14,9 @@ var _player: Dictionary = {}
 
 func _ready() -> void:
 	$Root/DialoguePanel/Speech.hide()
+	$Root/DialoguePanel/Scrollbar.bind_content(_scroll.get_v_scroll_bar())
 	$Root/DialoguePanel/Continue.hide()
-	$Root/DialoguePanel/Footer.text = "Choose a response · arrows and Enter, or number keys"
+	$Root/DialoguePanel/Footer.text = "Choose a response - arrows and Enter, or number keys"
 	$Root/DialoguePanel/ScrollUp.pressed.connect(_scroll_by.bind(-36))
 	$Root/DialoguePanel/ScrollDown.pressed.connect(_scroll_by.bind(36))
 

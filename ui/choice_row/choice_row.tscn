@@ -3,9 +3,6 @@
 [ext_resource type="Texture2D" path="res://art/ui/response_highlight.png" id="highlight"]
 [ext_resource type="Texture2D" path="res://art/ui/controls_atlas.png" id="controls"]
 [ext_resource type="FontFile" path="res://art/ui/fonts/source_sans_3/SourceSans3-Semibold.ttf" id="font"]
-[sub_resource type="AtlasTexture" id="Highlight"]
-atlas = ExtResource("highlight")
-region = Rect2(27, 279, 2118, 157)
 [sub_resource type="AtlasTexture" id="Chevron"]
 atlas = ExtResource("controls")
 region = Rect2(1181, 84, 238, 329)
@@ -18,14 +15,19 @@ theme_override_styles/normal = SubResource("Empty")
 theme_override_styles/hover = SubResource("Empty")
 theme_override_styles/pressed = SubResource("Empty")
 script = ExtResource("script")
-[node name="Highlight" type="TextureRect" parent="."]
+[node name="Highlight" type="NinePatchRect" parent="."]
 visible = false
 layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
+offset_right = 4500.0
+offset_bottom = 146.666667
+scale = Vector2(0.3, 0.3)
 mouse_filter = 2
-texture = SubResource("Highlight")
-expand_mode = 1
+texture = ExtResource("highlight")
+region_rect = Rect2(27, 279, 2118, 157)
+patch_margin_left = 72
+patch_margin_top = 40
+patch_margin_right = 72
+patch_margin_bottom = 40
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
 anchor_right = 1.0

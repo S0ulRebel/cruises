@@ -86,6 +86,7 @@ static func capture_attachment(part: AssemblyPart) -> Dictionary:
 		"carrier_parent": carrier.get_parent() if carrier != null else null,
 		"carrier_index": carrier.get_index() if carrier != null and carrier.get_parent() != null else 0,
 		"carrier_transform": carrier.transform if carrier != null else Transform3D.IDENTITY,
+		"reference_states": capture_references(_authoring_root(part)),
 	}
 
 
@@ -121,6 +122,7 @@ static func restore_attachment(part: AssemblyPart, state: Dictionary) -> void:
 		if carrier != null:
 			ensure_owned(carrier, owner)
 		ensure_owned(part, owner)
+	restore_references(state.get("reference_states", []))
 	part.update_configuration_warnings()
 
 
@@ -180,6 +182,9 @@ static func attach(part: AssemblyPart, target: Node3D, mode: int, bone: String, 
 	part.target_path = part.get_path_to(target)
 	part.bone_name = bone if mode == AssemblyPart.AttachmentMode.BONE else ""
 	ensure_owned(carrier if carrier != null else part, scene_root)
+	# Resolve actual target objects before moving nodes. A mesh bound to a donor
+	# outside this part must keep that donor even when hierarchy depth changes.
+	rebase_references(before.get("reference_states", []), part)
 	var detached := _detach_empty_carrier(old_parent)
 	part.update_configuration_warnings()
 	return _success({"before": before, "after": capture_attachment(part), "carrier": carrier, "detached_carrier": detached})
@@ -195,13 +200,15 @@ static func duplicate_part(part: AssemblyPart) -> Dictionary:
 		return _failure("This part could not be duplicated.")
 	_prune_dependent_parts(copy)
 	copy.part_id = generate_id()
-	copy.attachment_mode = AssemblyPart.AttachmentMode.FREE
-	copy.target_path = NodePath()
+	copy.attachment_mode = AssemblyPart.AttachmentMode.SKINNED if part.attachment_mode == AssemblyPart.AttachmentMode.SKINNED else AssemblyPart.AttachmentMode.FREE
+	if copy.attachment_mode != AssemblyPart.AttachmentMode.SKINNED:
+		copy.target_path = NodePath()
 	copy.bone_name = ""
 	copy.top_level = false
 	_expand_and_clone(copy)
 	ensure_owned(copy, copy)
-	return _success({"part": copy, "world_transform": _world_transform(part)})
+	var references := _duplicate_references(part, copy)
+	return _success({"part": copy, "world_transform": _world_transform(part), "reference_states": references})
 
 
 static func save_scene(root: Node, output_path: String) -> Dictionary:
@@ -227,6 +234,9 @@ static func save_scene(root: Node, output_path: String) -> Dictionary:
 				return _failure("Part %s has a missing attachment target." % part.name)
 			if part.attachment_mode == AssemblyPart.AttachmentMode.BONE and (not target is Skeleton3D or (target as Skeleton3D).find_bone(part.bone_name) < 0):
 				return _failure("Part %s has a missing skeleton/bone." % part.name)
+	for reference: Dictionary in capture_references(root):
+		if reference.key in [&"skeleton", &"donor_path"] and not reference.target is Skeleton3D:
+			return _failure("A skinned mesh or binding references a missing donor skeleton. Repair the reference before saving.")
 	var absolute := ProjectSettings.globalize_path(output_path)
 	if not DirAccess.dir_exists_absolute(absolute.get_base_dir()):
 		return _failure("The chosen output folder does not exist.")
@@ -251,6 +261,98 @@ static func save_scene(root: Node, output_path: String) -> Dictionary:
 static func _expand_and_clone(root: Node) -> void:
 	var resources := {}
 	_expand_node(root, resources)
+
+
+## Explicit authoring snapshots. The editor can retain target objects before a
+## native rename/reparent; no reference repair runs on opening or startup.
+static func capture_references(root: Node) -> Array[Dictionary]:
+	var result: Array[Dictionary] = []
+	if not is_instance_valid(root):
+		return result
+	if root is AssemblyPart:
+		var part := root as AssemblyPart
+		if not part.target_path.is_empty():
+			result.append(_reference(part, part, &"target_path", part.target_path, false))
+		if part.binding_data != null and part.binding_data.has_meta("donor_path"):
+			var path := NodePath(part.binding_data.get_meta("donor_path"))
+			result.append(_reference(part, part.binding_data, &"donor_path", path, true))
+	if root is MeshInstance3D:
+		var mesh := root as MeshInstance3D
+		if not mesh.skeleton.is_empty() and (mesh.skin != null or mesh.get_node_or_null(mesh.skeleton) is Skeleton3D):
+			result.append(_reference(mesh, mesh, &"skeleton", mesh.skeleton, false))
+	for child in root.get_children():
+		result.append_array(capture_references(child))
+	return result
+
+
+static func restore_references(states: Array) -> void:
+	for state: Dictionary in states:
+		_write_reference(state, state.get("value", NodePath()))
+
+
+## Call after inserting a duplicate, or after an explicit hierarchy operation.
+## Resolving nodes before movement prevents stale relative paths from being
+## mistaken for a different same-named skeleton after movement.
+static func rebase_references(states: Array, skip_target_part: AssemblyPart = null) -> void:
+	for state: Dictionary in states:
+		var base: Node = state.get("base")
+		var target: Node = state.get("target")
+		if not is_instance_valid(base) or not is_instance_valid(target):
+			continue
+		if base == skip_target_part and state.get("key") == &"target_path":
+			continue
+		if _root_node(base) != _root_node(target):
+			continue
+		_write_reference(state, base.get_path_to(target))
+
+
+static func _reference(base: Node, object: Object, key: StringName, value: NodePath, metadata: bool) -> Dictionary:
+	return {"base": base, "object": object, "key": key, "value": value, "metadata": metadata, "target": base.get_node_or_null(value)}
+
+
+static func _write_reference(state: Dictionary, value: NodePath) -> void:
+	var object: Object = state.get("object")
+	if not is_instance_valid(object):
+		return
+	if bool(state.get("metadata", false)):
+		object.set_meta(state.key, value)
+	else:
+		object.set(state.key, value)
+
+
+static func _duplicate_references(source: AssemblyPart, copy: AssemblyPart) -> Array[Dictionary]:
+	var result: Array[Dictionary] = []
+	for state: Dictionary in capture_references(source):
+		var source_base: Node = state.base
+		var base := copy.get_node_or_null(source.get_path_to(source_base))
+		if base == null:
+			continue # Explicitly omitted dependent part.
+		if base == copy and state.key == &"target_path" and copy.attachment_mode != AssemblyPart.AttachmentMode.SKINNED:
+			continue
+		var target: Node = state.target
+		if is_instance_valid(target) and (target == source or source.is_ancestor_of(target)):
+			target = copy.get_node_or_null(source.get_path_to(target))
+		var object: Object = base
+		if bool(state.metadata):
+			object = (base as AssemblyPart).binding_data
+		result.append({"base": base, "object": object, "key": state.key, "value": state.value, "metadata": state.metadata, "target": target})
+	return result
+
+
+static func _authoring_root(part: AssemblyPart) -> Node:
+	if is_instance_valid(part.owner) and part.owner.is_ancestor_of(part):
+		return part.owner
+	var current: Node = part
+	while current.get_parent() is Node3D:
+		current = current.get_parent()
+	return current
+
+
+static func _root_node(node: Node) -> Node:
+	var current := node
+	while current.get_parent() != null:
+		current = current.get_parent()
+	return current
 
 
 static func _expand_node(node: Node, resources: Dictionary) -> void:

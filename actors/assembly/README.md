@@ -34,11 +34,14 @@ methods return `ok` and `error`; failures validate before mutating the live scen
   the separate explicit binding service. The part's own rig is never converted.
 - Successful attach returns `before`, `after`, `carrier`, `detached_carrier`.
   Bone carriers are explicit owned `BoneAttachment3D` nodes, not runtime builders.
-- `duplicate_part(part)` returns an independent off-tree FREE `part` and the source's
-  `world_transform`. Insert under the scene root using its inverse world transform
+- `duplicate_part(part)` returns an independent off-tree `part`, the source's
+  `world_transform`, and `reference_states`. Parent/bone copies start FREE; already
+  SKINNED copies retain their binding metadata and deformation. Insert under the scene root using its inverse world transform
   to keep visual placement, then attach explicitly if desired. Do not share a source
   part's generated bone carrier. Independently attached dependent parts are excluded
   from the duplicate; their removal/reconnection remains an explicit editor choice.
+  **After insertion, explicitly call `rebase_references(result.reference_states)`**
+  so external donor skin/provenance paths match the duplicate's new hierarchy depth.
 - `save_scene(root, output_path)` requires an explicit existing folder and `.tscn`
   path (`res://`, `user://` or absolute). It validates IDs and attachment targets,
   saves a private expanded copy, and leaves live ownership/resources unchanged.
@@ -55,7 +58,7 @@ shared references. Imported assets themselves are never rewritten by these metho
 
 `capture_attachment(part)` retains these keys: `parent`, `index`, `transform`,
 `top_level`, `owner`, `attachment_mode`, `target_path`, `bone_name`, `carrier`,
-`carrier_parent`, `carrier_index`, `carrier_transform`. It does not overwrite part
+`carrier_parent`, `carrier_index`, `carrier_transform`, `reference_states`. It does not overwrite part
 identity, name, source, binding metadata, masks or visibility when restored.
 `target_path` is always relative to the part, not the assembly root.
 
@@ -65,6 +68,19 @@ its current skeleton pose. Empty generated carriers detach instead of `queue_fre
 The editor must retain them with undo references and clear them with the history.
 Never use an unrelated authored target or scene root as an undo lifetime reference.
 Callers must not free referenced parents/parts while their undo action is available.
+
+`reference_states` captures the edited scene's target objects and exact relative paths
+for `AssemblyPart.target_path`, `MeshInstance3D.skeleton`, and binding `donor_path`
+metadata. Attach resolves them before movement and rebases them afterward; restore
+undoes the path changes, including incoming references when a donor part moves.
+Local skeleton references inside a part remain local. Save rejects unresolved skins
+or donor provenance instead of silently exporting a broken character.
+
+`capture_references(root)`, `rebase_references(states, skip_target_part = null)` and
+`restore_references(states)` also support explicit editor hierarchy commands. These
+helpers never run automatically at startup. Native editor rename/reparent behavior
+and undo must be checked separately by the editor owner; metadata inside a Resource
+does not receive native NodePath fixes automatically.
 
 ## Checks
 

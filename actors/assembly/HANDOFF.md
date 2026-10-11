@@ -7,7 +7,7 @@ published API. Complete imported hierarchy/local rigs are retained; static assem
 works without a skeleton. Source assets and accepted actors/portrait remain intact.
 Authoring only creates parts/carriers; ordinary startup loads authored scene content.
 
-Validation: 51 authoring checks and 9 separate cold-reopen checks pass under Godot
+Validation: 64 authoring checks and 12 separate cold-reopen checks pass under Godot
 4.7.2. The real `head_face.glb` retains 2 local bones and 3 blend shapes, including a
 dependent arbitrary root-mesh part attached to local Jaw. Rotated/nonuniform parents,
 top-level parts, animated detach, snapshots, external resource aliases, clip-loop
@@ -22,8 +22,10 @@ Integration notes:
 
 - Target paths are relative to the part. Snapshots do not replace IDs/source paths.
 - Generated carriers must be retained by editor undo. Detached carriers are not freed.
-- Duplicate returns an off-tree FREE part and `world_transform`; place under scene
-  root and attach explicitly, never share the original part's generated carrier.
+- Duplicate returns an off-tree part, `world_transform` and `reference_states`; place
+  under scene root and explicitly call `rebase_references(reference_states)` after
+  insertion. Parent/bone copies start FREE; skinned copies preserve their deformation.
+  Never share the original part's generated carrier.
 - Duplicate excludes separately attached dependent parts. Editor removal/replacement
   prompts own dependent choices. Native editing remains available on saved scenes.
 - Binding is integration-owned; geometry masks/exclusion and native editor commands
@@ -32,3 +34,11 @@ Integration notes:
   clones mutable meshes/skins/materials/animations/resources, including external array
   entries. Large derived meshes save inline; asset footprint optimization is later.
 - No promise of generic unsupported-rig garment binding or automatic neck capping.
+
+Follow-up correctness fix: snapshots now retain whole-scene `reference_states`.
+Attachments/undo rebase external `MeshInstance3D.skeleton`, part targets and binding
+`donor_path` before/after moving bound garments or donors. Independent bound copies
+at a different hierarchy depth retain the actual donor; copied local rigs point to
+the copy's skeleton. Checks include both skins/provenance after cold saving/reopening.
+Unresolved skin/donor paths fail explicit saves. Native editor rename/reparent metadata
+tracking remains an editor integration concern, not an automatic runtime repair.

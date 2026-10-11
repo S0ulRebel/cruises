@@ -1,0 +1,223 @@
+{
+  "asset_id": "character_piece:santi_wong:head",
+  "name": "Santi Wong — Bald head and neck, lips slightly parted",
+  "asset_type": "character_piece_turnaround",
+  "character_id": "santi_wong",
+  "slot": "head",
+  "files": {
+    "sheet": "sheet.png"
+  },
+  "source": {
+    "producer": "OpenAI built-in image_gen",
+    "model_identifier": "Not exposed by built-in tool",
+    "created_utc": "2026-10-11",
+    "repository_base_commit": "89447ff5e432ca6a971e91e2d3e4498330078042",
+    "original_filename": "exec-9b1c315f-3afb-47b1-b3bf-5626518d8e21.png",
+    "sha256": "e550f9e9700bbf780052cc05a2e8b10b9bb3aca64dda3a1711ff46b16dd3d0a6",
+    "reference_files": [
+      {
+        "path": "art/characters/santi_wong/sheet.png",
+        "sha256": "ecf43a6c2ec88deb5142a7504414f4d67de2b592ef459bcf2245da51baf6bf6c",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/santi_wong/turnaround.png",
+        "sha256": "4ef6ba4568a6f98f86a49560445a4d0c3737e053e97886ee13c410df942fd84e",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "docs/reference/room_target.png",
+        "sha256": "a17f771d95d7aa37b8403b3b4cb918c7032737cdb031d62c893b424c878cebc3",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/turnaround.png",
+        "sha256": "bcb66fe6213ab55672cb91328f22665a125511d211e3fded0397dd45ac1897fa",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/body/sheet.png",
+        "sha256": "c3df25279534e21f15db4505908695f427e404533a89673456672998e33c65cd",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/head/sheet.png",
+        "sha256": "4d2e6ecee83fc81c6af8fe9df18ea9e7eb81b84630eff272a09b8c9b71227f81",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/hat/sheet.png",
+        "sha256": "753a68de3f6fdf15ebc33fef1c72aed4eb3358aca322fa5f1d74ab03e0662217",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/hair/sheet.png",
+        "sha256": "4724b0d681448d07cd43515220bc1f0beb609dcf44c8cc2d2044766c88d6f501",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/face/sheet.png",
+        "sha256": "4e7ed2070ff4802950e0f734a332aa8576b57ac421e158f7d7f9112e2f365837",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/shirt/sheet.png",
+        "sha256": "f7e8e669bfb488acd074a01cd044b266a0a467100570aeeada9b50bcf8dde107",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/coat/sheet.png",
+        "sha256": "6cdbfe7f956d8ea85feea4a0e4c81e6c56e018f79bf20940aae1a66d041b3bd2",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/trousers/sheet.png",
+        "sha256": "673215a6bc9330664d53247a0dd047de3c1758f2b57b7f095a6beacefe11ec52",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/waist/sheet.png",
+        "sha256": "9de8d261459537d62f4cabb1b61a9cfca72c100426bcd8f82c3d0c7b8f0986ef",
+        "role": "Approved identity/style or inspected modular source example"
+      },
+      {
+        "path": "art/characters/captain_live/pieces/boots/sheet.png",
+        "sha256": "3400b0bb4c71ae6b0902d0969f03c56cf38f48b74640d4cbe29c88ed84257c1d",
+        "role": "Approved identity/style or inspected modular source example"
+      }
+    ],
+    "generation_history": [
+      {
+        "prompt": "Use case: identity-preserve. Modular character HEAD AND NECK source sheet for Santi Wong, ship's cook. Image1 is approved Santi design, absolute authority for facial identity. Image2 Captain LivÃ© modular head is WORKFLOW AND PAINTED CARTOON STYLE only, do not copy his thin face or wide-open mouth. Santi is a broad stocky adult man with full round cheeks and double chin, short thick neck, bulbous reddish nose, heavy sharply arched black eyebrows, small expressive brown eyes, warm peach/orange skin. Preserve his mischievous stern face, not a realistic man and not a different chef.\nONLY isolated BALD CLEAN-SHAVEN head and full short thick neck. No scalp hair, sideburns, moustache, goatee, chef hat, scarf, shoulders, chest, pedestal, props. Keep eyebrows and eyes; hair and facial hair are separate modular pieces.\nCRITICAL updated mouth requirement: lips SLIGHTLY PARTED at rest, vertical lip gap about2â€“3percent of head height, not shouting, laughing or yawning. Small real recessed oral cavity with visible upper teeth, a glimpse of lower teeth and tongue behind the lips. The mouth is a hole with depth and dark maroon interior, not a painted black stripe. In BOTH side profiles show separation of lips and depth behind them, teeth and tongue through the small gap. Jaw in near-neutral rest so it can close. Preserve round chin and cheeks without tearing or extra holes.\nExactly one horizontal row of4 coherent orthographic elevations FRONT LEFT BACK RIGHT, left nosepoints left, right nosepoints right. Only profiles may turn very slightly toward viewer if needed for oral depth per the brief; back has NO facial features. Full head and neck base visible, matched crown heights and neck-cut baseline, one common scale, large pure-white vertical separators. Flat opaque white255 background, no cast shadows, gradients, labels, text or lines. Simple sculpted cartoon painted shading matching both approved references, broad clean skin planes, no pores, fine skin texture or realistic photography. All4 depict same head and same tiny parted mouth, one component per sheet.",
+        "output_filename": "exec-885f9e6f-d682-4831-a54d-972e4f4f510a.png",
+        "output_sha256": "ea90b5689575badba2d9a6aa1e768d96404cace7c77c2a7f8ab9bf94cd6f4419",
+        "selected": false
+      },
+      {
+        "prompt": "Use case: precise-object-edit. Edit ONLY mouth gap and slight view-scale mismatch in this Santi Wong bald modular head sheet. Preserve his exact round face identity, brows, nose, cheeks, chin, skin palette, cartoon style, four FRONT LEFT BACK RIGHT views, no hair or facial hair.\n1. Mouth is still too open. Reduce vertical gap between upper and lower lips by HALF, from about30px to14px on this1882x836sheet, approximately2.5â€“3percent of anatomical head height. Lips just parted, near-neutral jaw. Keep a narrow readable recessed mouth slit with upper teeth and a glimpse of tongue in front and both profiles. No painted-on closed mouth. No smile or shouting.\n2. BACK third head is slightly too small: increase that whole view uniformly about3percent so its total head/neck height matches other views. All FOUR total head/neck silhouettes must be the SAME541px height and share a common crown level and neck-cut baseline; preserve side profiles' physical widths, do not stretch axes. Adjust the tiny3px differences of the profiles by uniform scale if needed. Recompose with generous WHITE separator gaps and outer margins around EVERY view, rightmost head must not touch border. Zero shadows, flat white background, no text or labels.\nHead and full short thick neck only. No shoulders, clothing, stand, moustache, goatee or hair. All other design stays the same.",
+        "output_filename": "exec-9b1c315f-3afb-47b1-b3bf-5626518d8e21.png",
+        "output_sha256": "e550f9e9700bbf780052cc05a2e8b10b9bb3aca64dda3a1711ff46b16dd3d0a6",
+        "selected": true
+      }
+    ],
+    "postprocessing": "Selected generated source copied unchanged; no repainting, axis stretching, rescaling or background editing."
+  },
+  "dimensions_m": {
+    "width": 0.28,
+    "height": 0.34,
+    "depth": 0.34
+  },
+  "dimension_contract": {
+    "authority": "Provisional art fitting estimates, not owner measurements or reconstructed bounds. 1.70m applies to complete dressed character only.",
+    "same_body": "Fit to Santi short stocky body, not Livé slender body.",
+    "uniform_metric_fitting_required": true,
+    "shared_raster_scale_verified": false
+  },
+  "presentation": {
+    "view_order": [
+      "front",
+      "left",
+      "back",
+      "right"
+    ],
+    "camera": "Level orthographic elevations intended; illustrated projection limits noted per slot. Head profiles may turn slightly for cavity visibility.",
+    "pose": "Natural fixed wearable shape in the body T-pose",
+    "background_rgb": [
+      254,
+      254,
+      254
+    ],
+    "image_size_px": [
+      1881,
+      836
+    ],
+    "lighting": "Soft dimensional painted cartoon shading baked into source; de-light during texturing.",
+    "ownership_and_fit_note": "Clean-shaven except eyebrows; slightly parted lips, teeth and tongue drawn. Current front visible lip gap approximately 14–18px against anatomical crown-to-chin about 490px (~3%). Side cavity drawn but NOT yet reconstructed. Profiles slightly turned to show oral depth, per brief."
+  },
+  "wearing": {
+    "hold": "SKINNED",
+    "head_role": false,
+    "override_default": false,
+    "note": "Clean-shaven except eyebrows; slightly parted lips, teeth and tongue drawn. Current front visible lip gap approximately 14–18px against anatomical crown-to-chin about 490px (~3%). Side cavity drawn but NOT yet reconstructed. Profiles slightly turned to show oral depth, per brief."
+  },
+  "validation": {
+    "method": "Visual comparison plus unmodified tools/crop_views.py, modal-background distance tolerance18; own-bounds native cropping.",
+    "views": [
+      {
+        "view": "front",
+        "bounds_px": [
+          20,
+          114,
+          428,
+          657
+        ],
+        "height_px": 543,
+        "width_px": 408
+      },
+      {
+        "view": "left",
+        "bounds_px": [
+          463,
+          113,
+          930,
+          652
+        ],
+        "height_px": 539,
+        "width_px": 467
+      },
+      {
+        "view": "back",
+        "bounds_px": [
+          942,
+          110,
+          1363,
+          639
+        ],
+        "height_px": 529,
+        "width_px": 421
+      },
+      {
+        "view": "right",
+        "bounds_px": [
+          1375,
+          112,
+          1863,
+          651
+        ],
+        "height_px": 539,
+        "width_px": 488
+      }
+    ],
+    "height_spread_px": 14,
+    "height_spread_percent": 2.58,
+    "strict_equal_source_heights_met": false,
+    "source_png_decoded": true,
+    "four_nonempty_crops_verified": true,
+    "all_crop_baselines_identical": true,
+    "native_crop_canvas_px": 673,
+    "pixels_lost": 0,
+    "limitation": "Cutter aligns baselines but does not correct the native source height differences, view turns or metre scale. These are source limitations, not a proven physical fit."
+  },
+  "pipeline": {
+    "status": "source_sheet_only",
+    "suggested_crop_command": "python tools/crop_views.py art/characters/santi_wong/pieces/head/sheet.png --row 0 1 --names front left back right --min-width-ratio 0.1 --size 673 --out art/characters/santi_wong/pieces/head/views",
+    "two_x_upscale_target_px": 1346,
+    "upscale_note": "Extract at native size then apply one common2x LANCZOS upscale to all4 images. Minimum target1062px across set. Upscale adds no source detail.",
+    "cropped_inputs_are_reproducible_not_committed": true,
+    "three_d_generator_allowed": "Tripo only",
+    "nc_models_used": false,
+    "reconstruction_run": false,
+    "mouth_cavity_mesh_verified": false,
+    "rigging_verified": false,
+    "engine_fit_verified": false,
+    "rigging_route": "docs/RIGGING.md one donor armature, not independent auto-riggers"
+  },
+  "brief_acceptance": {
+    "all_requirements_met": false,
+    "remaining": [
+      "Clean-shaven except eyebrows; slightly parted lips, teeth and tongue drawn. Current front visible lip gap approximately 14–18px against anatomical crown-to-chin about 490px (~3%). Side cavity drawn but NOT yet reconstructed. Profiles slightly turned to show oral depth, per brief.",
+      "Native height spread 14px / 2.58%; exact one-scale orthographic reconstruction is not demonstrated by generated artwork.",
+      "Reconstruction, cavities and metric fit not verified."
+    ]
+  }
+}

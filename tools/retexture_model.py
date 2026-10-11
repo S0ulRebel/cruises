@@ -17,10 +17,8 @@ came with sits 0.199 units further back along Z than the one in the game, which 
 import scale of 4 is 0.8 m. This changes the pixels and nothing else, so nothing has to be
 re-checked but the look.
 
-It is also the only place the texture CAN live. Godot's import settings keep the image inside
-the .glb (materials/extract=0), and .gitignore drops the .import files - so a loose .jpg beside
-the model is a copy the game never reads. tools/README.md makes the same point about a model's
-orientation and scale, and for the same reason.
+Current models embed their textures in the .glb. Source .import settings are versioned;
+.godot/ is the regenerated cache. Extracted JPG previews are not runtime dependencies.
 
 Stdlib only: this is a binary patch on a container, not a modelling operation.
 """

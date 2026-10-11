@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://systems/interaction/hotspot.gd" id="20_hotspot"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hotspot"]
-size = Vector3(0.9, 0.9, 0.9)
+size = Vector3(0.94, 0.94, 0.182892)
 
 [node name="Porthole" type="Node3D" unique_id=1603678830]
 script = ExtResource("1_d4hat")
@@ -26,4 +26,5 @@ display_name = "Porthole"
 description = "Fog. The same fog as yesterday, and no closer to telling us where we are."
 
 [node name="InteractionShape" type="CollisionShape3D" parent="Hotspot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.1)
 shape = SubResource("BoxShape3D_hotspot")

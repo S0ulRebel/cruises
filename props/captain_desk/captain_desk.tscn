@@ -9,7 +9,7 @@
 size = Vector3(1.8, 0.76, 0.9)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hotspot"]
-size = Vector3(0.9, 0.9, 0.9)
+size = Vector3(1.84, 0.72, 1.646546)
 
 [node name="CaptainDesk" type="StaticBody3D" unique_id=351815366 groups=["nav_source"]]
 script = ExtResource("1_606oc")
@@ -33,4 +33,5 @@ display_name = "Desk"
 description = "Charts, a compass, and a dried-out inkwell. He navigates by instinct and blames the charts."
 
 [node name="InteractionShape" type="CollisionShape3D" parent="Hotspot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.44, 0)
 shape = SubResource("BoxShape3D_hotspot")

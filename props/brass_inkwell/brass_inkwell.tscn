@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://systems/interaction/hotspot.gd" id="20_hotspot"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hotspot"]
-size = Vector3(0.9, 0.9, 0.9)
+size = Vector3(0.1, 0.1, 0.0991402)
 
 [node name="BrassInkwell" type="Node3D" unique_id=1493920142]
 script = ExtResource("1_6brmq")
@@ -27,4 +27,5 @@ description = "Dry since the second week. He writes the log from memory, which i
 gives_item = "brass_inkwell"
 
 [node name="InteractionShape" type="CollisionShape3D" parent="Hotspot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0386737, 0)
 shape = SubResource("BoxShape3D_hotspot")

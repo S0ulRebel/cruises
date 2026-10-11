@@ -102,9 +102,11 @@ func _find_clips() -> void:
 	# A character with hand poses may carry an authored layered graph.
 	# Both are looked for: the cast is mixed while characters are still
 	# coming through the pipeline one at a time.
-	var trees := _body.find_children("*", "AnimationTree", true, false)
-	if not trees.is_empty():
-		_tree = trees[0] as AnimationTree
+	_tree = get_node_or_null("Layers") as AnimationTree
+	if _tree == null:
+		var trees := _body.find_children("*", "AnimationTree", true, false)
+		if not trees.is_empty():
+			_tree = trees[0] as AnimationTree
 
 
 func _play(clip: String) -> void:

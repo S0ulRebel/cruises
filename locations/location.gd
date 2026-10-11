@@ -46,11 +46,14 @@ func floor_point_under(screen_position: Vector2) -> Variant:
 		return null
 	var origin := camera.project_ray_origin(screen_position)
 	var query := PhysicsRayQueryParameters3D.create(origin,
-		origin + camera.project_ray_normal(screen_position) * 1000.0,
-		walkable_collision_mask)
-	query.collide_with_areas = false
+		origin + camera.project_ray_normal(screen_position) * 1000.0)
+	query.collide_with_areas = true
 	var hit := get_world_3d().direct_space_state.intersect_ray(query)
-	return hit.get("position") if hit else null
+	# Leave area/prop clicks unhandled so Godot physics picking can deliver them.
+	if hit and hit["collider"] is PhysicsBody3D:
+		if (hit["collider"].collision_layer & walkable_collision_mask) != 0:
+			return hit["position"]
+	return null
 
 func _unhandled_input(event: InputEvent) -> void:
 	if Engine.is_editor_hint():

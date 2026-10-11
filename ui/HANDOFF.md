@@ -16,3 +16,21 @@ The ledger uses the unchanged supplied frame atlas, native fonts, transparent li
 
 ## Validation
 Godot 4.7.2 headless scene smoke instantiated twelve module scenes and checked authored face rig, camera transform, shared inventory state, response completion and two/three actor stage layouts. Input checks verified scroll never advances, Continue reveals before advancing, manual scroll-back is preserved, keyboard response selection and row cleanup. Graphical Compatibility checks rendered long speech and wrapped responses at 1920x1080, and repeated normal deferred portrait swaps without renderer errors.
+
+## Captain frontal portrait — 2026-10-11
+`portraits/captain_live.tscn` now fits the separate delivered head, hair, hat and face
+parts against the approved turnaround. Hair sits behind the eyebrows; the moustache
+sits below the nose. UI-local extracts split the original face source into moustache
+and chin tuft. Native Head/Jaw attachments keep the moustache fixed and move the tuft
+with speech. The assembly pivots at the Head joint with a small 3-degree chin-up tilt;
+yaw/roll remain frontal. Select Assembly to adjust the connected portrait orientation,
+or the individual authored part to adjust its fit. The full hat and feather fit the
+224-pixel viewport. Sources, exact fit and explicit extraction commands are recorded
+in [fit.json](portraits/captain_live/fit.json). No runtime fitting or source regeneration
+was added. Original art and the world actor/body remain unchanged.
+
+`portrait_check` covers the actual Caption/Choices interfaces, independent/reused rigs,
+local-transform preservation, jaw/tuft movement, settling, framing and teardown.
+Compatibility GPU captures verify visible speech motion in the actual dialogue panel.
+The existing source head is modelled with an open mouth; fitting cannot make it fully
+close without replacing the source art. Body topology work remains deferred by the owner.

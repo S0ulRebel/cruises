@@ -1,0 +1,44 @@
+{
+  "date": "2026-10-11",
+  "prefab": "ui/portraits/captain_live.tscn",
+  "reference": "art/characters/captain_live/turnaround.png",
+  "scope": "Frontal dialogue portrait; world actor and deferred body are unchanged.",
+  "orientation": {
+    "source_forward": "+Z",
+    "up": "+Y",
+    "assembly_pivot": [0, 0.3, 0],
+    "assembly_rotation_degrees": [-3, 0, 0],
+    "head_local_position": [0, -0.3, 0],
+    "reason": "Small chin-up adjustment around the Head joint; rotate the assembly to preserve the connected parts."
+  },
+  "camera": {"projection": "orthographic", "position": [0, 0.85, 3], "size": 1.9},
+  "parts": {
+    "hair": {"bone": "Head", "local_position": [0, -0.03, -0.145], "uniform_scale": 0.85},
+    "hat": {"bone": "Head", "local_position": [0.075, 0.37, -0.08], "uniform_scale": 1.5},
+    "moustache": {"bone": "Head", "local_position": [0, -0.051, 0.156], "uniform_scale": 0.35},
+    "chin_tuft": {"bone": "Jaw", "local_position": [0, 0.444952, 0.01637], "local_rotation_radians": [-2.495009, 0, 0], "uniform_scale": 0.35}
+  },
+  "sources": [
+    {"path": "art/characters/captain_live/pieces/head/head_face.glb", "sha256": "C2DE45B0BB3F5DD85A6D464862BC98F405CD3F008EB8DC03B282854532655B78"},
+    {"path": "art/characters/captain_live/pieces/face/face.glb", "sha256": "B75372AE0F165ACDBE70D38820CDD11DE8CD5D4CE4B7B863CF4F29230A4750E6"},
+    {"path": "art/characters/captain_live/pieces/hair/hair.glb", "sha256": "33FE5F6BFE04B583BE473D16BA45A094786AD07DB6FFCB174211DFD25920BB9D"},
+    {"path": "art/characters/captain_live/pieces/hat/hat.glb", "sha256": "C1DE06A2CE87225802D63A8CDC4AA7118E27DE0AEBDE5C0D50DD73C43024B4D3"}
+  ],
+  "derivatives": [
+    {"path": "ui/portraits/captain_live/moustache.glb", "source_shell": 0, "sha256": "B42E87290FAC5B38ECE3CBCE463250A597847509E25523F7F89D69B665BAD445"},
+    {"path": "ui/portraits/captain_live/chin_tuft.glb", "source_shell": 1, "sha256": "3161CA7576A7A9E60BB0774C5FB3037CF24C27CCD143955DBD21A5B6DA377446"}
+  ],
+  "authoring_commands": [
+    "blender -b --factory-startup --python tools/extract_shells.py -- art/characters/captain_live/pieces/face/face.glb --shell 0 --out ui/portraits/captain_live/moustache.glb",
+    "blender -b --factory-startup --python tools/extract_shells.py -- art/characters/captain_live/pieces/face/face.glb --shell 1 --out ui/portraits/captain_live/chin_tuft.glb"
+  ],
+  "authoring_notes": [
+    "The scene is the editable source of fitting. This sidecar records provenance and is never loaded to reset transforms or rebuild content.",
+    "The face source contains two disconnected shells with independent origins. Separating them preserves UVs and texture while allowing the chin tuft to follow Jaw independently of the moustache.",
+    "Jaw attachment rotation cancels the source Jaw rest orientation; changing the source rig requires checking this local fit again.",
+    "Native BoneAttachment3D nodes follow speech animation. Runtime speech scripts do not fit or create accessories.",
+    "Head source is modelled with an open mouth and cannot fully close cleanly. A replacement slightly parted source head remains separate art work.",
+    "These existing textures are 4096 square for the head and 2048 square for accessories; this is not an 8K texture replacement."
+  ],
+  "checks": ["portrait_check", "portrait_capture (GPU)", "headcheck (GPU)"]
+}

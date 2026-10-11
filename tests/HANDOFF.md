@@ -20,3 +20,6 @@
   exercises a real hovered prop and compares its restored material values.
 - Source hashes include import settings, script UIDs, textures/audio/fonts. Normalize
   only newline differences in text `.import` files; keep all other byte hashes exact.
+- `portrait_check` adds actual speech/response portrait reuse, framing, jaw attachment,
+  authored-transform and teardown checks. `portrait_capture` provides isolated GPU
+  images of the actual Game panels and verifies speech changes visible pixels.

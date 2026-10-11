@@ -22,6 +22,9 @@ baseline evidence. Camera framing is completed; unrigged clothing still has the
 authoring decisions listed there. The fake-lighting library is indexed in
 `materials/stylized_lighting/README.md`; it owns its comparison lab and does not
 replace current game materials. Texture exports and rig fitting have separate owners.
+Captain's fitted frontal dialogue portrait and its editable assembly rotation are
+recorded in `ui/HANDOFF.md` and `ui/portraits/captain_live/fit.json`; body work remains
+deferred. Portrait checks and external GPU capture commands are in `tests/README.md`.
 
 ## The rule
 

@@ -34,7 +34,7 @@ in textual `.import` settings are normalized for comparison; all other files use
 exact-byte hashes. Import caches and generated untracked preview textures are not
 authored test outputs.
 
-The 13-check default suite covers interaction wording and combinations, speech timing,
+The 14-check default suite covers interaction wording and combinations, speech timing,
 role-based outfit attachment/refit, animation filters, shared inventory/dialogue
 flags including choice `clear`, serialized interaction success/failure/cancellation,
 bounded movement completion, actual authored puzzle data, navigation through saved
@@ -46,6 +46,20 @@ navigation without destroying the current location or state, while allowing plac
 that deliberately have no navigation regions. Hover checks compare per-instance
 fishbowl emission, restore material values through a failed transition, then free
 highlighted and formerly highlighted instances and allow renderer teardown to finish.
+
+`portrait_check` exercises the fitted Captain portrait through actual Caption and
+Choices panels. It checks frontal orientation, authored transform preservation,
+independent/reused rigs, jaw-driven chin-tuft motion, settling, framing and teardown.
+To capture the actual Game dialogue/response panels and verify visible speech motion:
+
+```powershell
+& 'D:/Godot/Godot_v4.7.2-stable_win64_console.exe' --path . --rendering-method gl_compatibility --resolution 1920x1080 --script res://tests/portrait_capture.gd
+```
+
+This manual GPU harness writes native portrait frames and complete panel screenshots
+to a unique external cache directory, prints its path and fails if speech produces
+no visible pixel changes. It does not save project resources or change the cold-open
+setting in the authored scene.
 
 `stylized_lighting_check` covers the 16 code/graph material pairs, graph connectivity,
 matching controls, texture/tint preservation, local material independence, explicit

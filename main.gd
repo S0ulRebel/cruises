@@ -167,6 +167,17 @@ func _enter_room() -> void:
 			_add_talk_trigger(mover, entry)
 
 	_add_hotspots()
+
+	# One-off: write the room out as an authored scene, so every prop and character
+	# becomes a node the owner can drag in the editor. See CONVENTIONS.md Part 0 -
+	# nothing with a position in the world should be built by a script at startup, and
+	# this is how the positions that already exist get into a .tscn without anyone
+	# re-typing a hundred Vector3s.
+	if "--pack" in OS.get_cmdline_user_args() + OS.get_cmdline_args():
+		_pack_room()
+		get_tree().quit()
+		return
+
 	_start_sound()
 	_room.floor_clicked.connect(_on_floor_clicked)
 	print("In the room. Click the floor to walk, click Santi to talk. Esc quits.")
@@ -222,6 +233,46 @@ func _enter_room() -> void:
 					break
 			await get_tree().create_timer(0.5).timeout
 		await _save_shot()
+
+
+## Save the built room as rooms/captains_cabin/captains_cabin.tscn.
+##
+## PackedScene only keeps nodes whose `owner` is the scene root, and nothing built in
+## code has an owner, so the tree is walked and claimed first. Run once:
+##
+##     godot --path . -- --pack
+func _pack_room() -> void:
+	const OUT := "res://rooms/captains_cabin/captains_cabin.tscn"
+	_claim(_room, _room)
+	var packed := PackedScene.new()
+	var err := packed.pack(_room)
+	if err != OK:
+		push_error("pack_room: could not pack (%d)" % err)
+		return
+	err = ResourceSaver.save(packed, OUT)
+	if err != OK:
+		push_error("pack_room: could not save %s (%d)" % [OUT, err])
+		return
+	print("packed %d nodes to %s" % [_count(_room), OUT])
+
+
+## Claim the nodes we built, and STOP at anything that is an instance of another
+## scene. Claiming a .glb's internal MeshInstance3D makes Godot save it as an editable
+## child with its full state, which writes the whole mesh into the .tscn - the first
+## attempt came out 8.7 MB with 24 ArrayMeshes inlined, duplicating the GLBs and
+## guaranteeing the scene goes stale the moment one is re-exported.
+static func _claim(node: Node, root: Node) -> void:
+	for child in node.get_children():
+		child.owner = root
+		if child.scene_file_path.is_empty():
+			_claim(child, root)
+
+
+static func _count(node: Node) -> int:
+	var n := 1
+	for child in node.get_children():
+		n += _count(child)
+	return n
 
 
 ## Name what is under the cursor, and say what clicking would do. The verb depends on
@@ -443,7 +494,7 @@ func _add_furniture() -> void:
 	for piece in FURNITURE:
 		if piece.has("model"):
 			_add_prop(piece)
-			_add_collision(piece["at"], piece["size"])
+			_add_collision(piece["at"], piece["size"], String(piece["name"]).to_pascal_case())
 		else:
 			_add_box(piece["at"], piece["size"], Color(String(piece["colour"])),
 				bool(piece.get("solid", true)), String(piece["name"]))
@@ -453,7 +504,7 @@ func _add_furniture() -> void:
 		"size": Vector3(0.6, BOWL_STAND_HEIGHT, 0.6),
 		"model": "res://art/props/bowl_stand/bowl_stand.glb" })
 	_add_collision(BOWL_AT + Vector3(0.0, BOWL_STAND_HEIGHT * 0.5, 0.0),
-		Vector3(0.6, BOWL_STAND_HEIGHT, 0.6))
+		Vector3(0.6, BOWL_STAND_HEIGHT, 0.6), "BowlStand")
 	# Count Fingers comes off the desk and onto his own pedestal in the foreground,
 	# left, where the owner's target render puts him - near the camera, big enough that
 	# his face reads, and where the dialogue bar may cover him without losing anything.
@@ -625,7 +676,7 @@ func _add_prop(piece: Dictionary) -> void:
 		push_warning("%s: no model at %s" % [piece["name"], piece["model"]])
 		return
 	var model := scene.instantiate() as Node3D
-	model.name = String(piece["name"]).capitalize()
+	model.name = String(piece["name"]).to_pascal_case()
 	_room.add_child(model)
 
 	# _visual_bounds measures in the model's OWN space, before its transform - so the
@@ -670,11 +721,14 @@ func _add_prop(piece: Dictionary) -> void:
 ## The collision for a prop whose art has arrived. Separate from the mesh, because a
 ## generated model's own shape is far more detail than a walkable area needs and the
 ## box is what the navigation bake reads.
-func _add_collision(at: Vector3, size: Vector3) -> void:
+func _add_collision(at: Vector3, size: Vector3, label := "Solid") -> void:
 	var body := StaticBody3D.new()
-	body.name = "Solid"
+	# Named after the prop, because these end up in the authored scene where "Solid",
+	# "Solid2", "Solid3" is a tree nobody can navigate.
+	body.name = "%sSolid" % label if label != "Solid" else "Solid"
 	body.position = at
 	var shape := CollisionShape3D.new()
+	shape.name = "%sShape" % body.name
 	var collider := BoxShape3D.new()
 	collider.size = size
 	shape.shape = collider

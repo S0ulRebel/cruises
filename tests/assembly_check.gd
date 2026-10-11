@@ -2,6 +2,7 @@ extends SceneTree
 ## Explicit authoring checks. Outputs are unique user:// directories, never source
 ## assets. Run again with -- cold <printed COLD_SCENE_PATH> for a process-cold reopen.
 ## Also run -- nested <printed COLD_NESTED_SCENE_PATH> for nested source compositions.
+## Animation graph regression: -- graphs <printed COLD_GRAPH_SCENE_PATH>.
 
 const STATIC := "res://tests/fixtures/assembly_static.tscn"
 const HEAD := "res://art/characters/captain_live/pieces/head/head_face.glb"
@@ -24,6 +25,10 @@ func _run() -> void:
 		return
 	if args.size() == 2 and args[0] == "nested":
 		await _cold_nested(args[1])
+		_finish()
+		return
+	if args.size() == 2 and args[0] == "graphs":
+		await _cold_graphs(args[1])
 		_finish()
 		return
 	var assembly := CharacterAssembly.new()
@@ -174,6 +179,9 @@ func _run() -> void:
 	var nested_output := await _nested_composition_checks(output_dir)
 	if not nested_output.is_empty():
 		print("COLD_NESTED_SCENE_PATH=" + nested_output)
+	var graph_output := await _animation_graph_checks(output_dir)
+	if not graph_output.is_empty():
+		print("COLD_GRAPH_SCENE_PATH=" + graph_output)
 	assembly.free()
 	_cleanup()
 	_finish()
@@ -367,6 +375,152 @@ func _source_snapshot_matches(states: Array) -> bool:
 		if state.has("part_id") and (node as AssemblyPart).part_id != state.part_id:
 			return false
 	return true
+
+
+func _animation_graph_checks(output_dir: String) -> String:
+	var assembly := CharacterAssembly.new()
+	assembly.name = "GraphAssembly"
+	assembly.assembly_id = AssemblyOperations.generate_id()
+	root.add_child(assembly)
+	var part: AssemblyPart = AssemblyOperations.create_part(STATIC).part
+	part.name = "OriginalGraphPart"
+	assembly.add_child(part)
+	var model := part.get_node("Model") as Node3D
+	var idle := AnimationNodeAnimation.new()
+	idle.animation = &"gentle"
+	var nested := AnimationNodeBlendTree.new()
+	nested.add_node("SharedIdle", idle, Vector2(40, 100))
+	nested.connect_node("output", 0, "SharedIdle")
+	var graph := AnimationNodeBlendTree.new()
+	graph.resource_name = "Editable body graph"
+	graph.graph_offset = Vector2(18, -24)
+	graph.add_node("Idle", idle, Vector2(50, 140))
+	graph.add_node("Nested", nested, Vector2(100, 240))
+	var mixer := AnimationNodeBlend2.new()
+	mixer.sync = true
+	graph.add_node("Mixer", mixer, Vector2(250, 150))
+	graph.set_node_position("output", Vector2(430, 180))
+	graph.connect_node("Mixer", 0, "Idle")
+	graph.connect_node("Mixer", 1, "Nested")
+	graph.connect_node("output", 0, "Mixer")
+	var machine := AnimationNodeStateMachine.new()
+	machine.resource_name = "Editable facial state machine"
+	machine.allow_transition_to_self = true
+	machine.add_node("Idle", nested, Vector2(300, 100))
+	var space := AnimationNodeBlendSpace1D.new()
+	space.min_space = -2.0
+	space.max_space = 3.0
+	space.add_blend_point(idle, -2.0, -1, "IdlePoint")
+	var alternate := AnimationNodeAnimation.new()
+	alternate.animation = &"gentle"
+	space.add_blend_point(alternate, 3.0, -1, "AlternatePoint")
+	machine.add_node("Run", space, Vector2(500, 150))
+	var start := AnimationNodeStateMachineTransition.new()
+	start.advance_mode = AnimationNodeStateMachineTransition.ADVANCE_MODE_AUTO
+	machine.add_transition("Start", "Idle", start)
+	var transition := AnimationNodeStateMachineTransition.new()
+	transition.xfade_time = 0.125
+	transition.xfade_curve = Curve.new()
+	transition.xfade_curve.add_point(Vector2.ZERO)
+	transition.xfade_curve.add_point(Vector2.ONE)
+	machine.add_transition("Idle", "Run", transition)
+	machine.add_transition("Run", "Idle", transition)
+	graph.set_meta("graph_aliases", {"idle": idle, "nested": nested, "transition": transition})
+	var body_tree := _add_graph_tree(model, "BodyTree", graph, true)
+	body_tree.set("parameters/Mixer/blend_amount", 0.37)
+	_add_graph_tree(model, "BodyTreeAlias", graph, false)
+	_add_graph_tree(model, "LocalFaceTree", machine, true)
+	AssemblyOperations.ensure_owned(assembly, assembly)
+	await process_frame
+	_check("authored active animation graphs are structurally valid", _graph_structure_valid(part))
+	var duplicate := AssemblyOperations.duplicate_part(part)
+	if not _check("nested blend-tree/state-machine part duplicates cleanly", duplicate.ok):
+		assembly.free()
+		return ""
+	var copy: AssemblyPart = duplicate.part
+	copy.name = "CopiedGraphPart"
+	assembly.add_child(copy)
+	AssemblyOperations.ensure_owned(copy, assembly)
+	var copied_graph := copy.get_node("Model/BodyTree").tree_root as AnimationNodeBlendTree
+	var copied_machine := copy.get_node("Model/LocalFaceTree").tree_root as AnimationNodeStateMachine
+	_check("duplicate keeps graph structure positions node properties and resource aliases", _graph_structure_valid(copy))
+	_check("duplicate graphs nested nodes transitions and curves are independent", copied_graph != graph and copied_graph.get_node("Idle") != idle and copied_graph.get_node("Nested") != nested and copied_machine != machine and copied_machine.get_transition(1) != transition and copied_machine.get_transition(1).xfade_curve != transition.xfade_curve)
+	(copied_graph.get_node("Idle") as AnimationNodeAnimation).play_mode = AnimationNodeAnimation.PLAY_MODE_BACKWARD
+	copied_graph.set_node_position("Idle", Vector2(80, 180))
+	copied_machine.get_transition(1).xfade_time = 0.25
+	copied_machine.get_transition(1).xfade_curve.set_point_value(1, 0.8)
+	copy.get_node("Model/BodyTree").set("parameters/Mixer/blend_amount", 0.63)
+	_check("editing duplicate graph leaves all source graph data unchanged", idle.play_mode == AnimationNodeAnimation.PLAY_MODE_FORWARD and graph.get_node_position("Idle") == Vector2(50, 140) and transition.xfade_time == 0.125 and transition.xfade_curve.get_point_position(1) == Vector2.ONE and is_equal_approx(float(body_tree.get("parameters/Mixer/blend_amount")), 0.37))
+	var output := output_dir + "/animation_graph_assembly.tscn"
+	var saved := AssemblyOperations.save_scene(assembly, output)
+	_check("explicit save preserves active graphs without additive setter errors", saved.ok)
+	_check("save leaves source graph references and activity untouched", body_tree.tree_root == graph and body_tree.active and graph.get_node("Idle") == idle and graph.get_meta("graph_aliases").transition == transition)
+	assembly.free()
+	if not saved.ok:
+		return ""
+	var imported := AssemblyOperations.create_part(output)
+	if _check("saved nested animation graphs can be imported again", imported.ok):
+		root.add_child(imported.part)
+		await process_frame
+		_check("imported animation graphs retain connections and aliases", _graph_structure_valid(_named_part(imported.part, "OriginalGraphPart")) and _graph_structure_valid(_named_part(imported.part, "CopiedGraphPart")))
+		imported.part.free()
+	await _cold_graphs(output)
+	return output
+
+
+func _add_graph_tree(model: Node3D, node_name: String, graph: AnimationRootNode, active: bool) -> AnimationTree:
+	var tree := AnimationTree.new()
+	tree.name = node_name
+	model.add_child(tree)
+	tree.anim_player = tree.get_path_to(model.get_node("AnimationPlayer"))
+	tree.tree_root = graph
+	tree.active = active
+	return tree
+
+
+func _graph_structure_valid(part: AssemblyPart) -> bool:
+	if part == null:
+		return false
+	var graph := part.get_node("Model/BodyTree").tree_root as AnimationNodeBlendTree
+	var machine := part.get_node("Model/LocalFaceTree").tree_root as AnimationNodeStateMachine
+	if graph == null or machine == null or not graph.has_node("Idle") or not graph.has_node("Nested") or not graph.has_node("Mixer"):
+		return false
+	var nested := graph.get_node("Nested") as AnimationNodeBlendTree
+	var space := machine.get_node("Run") as AnimationNodeBlendSpace1D
+	var aliases: Dictionary = graph.get_meta("graph_aliases", {})
+	return graph.resource_name == "Editable body graph" and graph.graph_offset == Vector2(18, -24) and graph.get_node_position("output") == Vector2(430, 180) and graph.get_node_position("Mixer") == Vector2(250, 150) and graph.get_node("Mixer").sync and _graph_connected(graph, "Mixer", 0, "Idle") and _graph_connected(graph, "Mixer", 1, "Nested") and _graph_connected(graph, "output", 0, "Mixer") and _graph_connected(nested, "output", 0, "SharedIdle") and nested.get_node("SharedIdle") == graph.get_node("Idle") and machine.get_node("Idle") == nested and space.get_blend_point_count() == 2 and space.get_blend_point_node(0) == graph.get_node("Idle") and space.min_space == -2.0 and space.max_space == 3.0 and machine.get_transition_count() == 3 and machine.get_transition(1) == machine.get_transition(2) and machine.allow_transition_to_self and part.get_node("Model/BodyTreeAlias").tree_root == graph and aliases.get("idle") == graph.get_node("Idle") and aliases.get("nested") == nested and aliases.get("transition") == machine.get_transition(1)
+
+
+func _graph_connected(graph: AnimationNodeBlendTree, node_name: StringName, input: int, source_node: StringName) -> bool:
+	var connections: Array = graph.get("node_connections")
+	for index in range(0, connections.size(), 3):
+		if connections[index] == node_name and connections[index + 1] == input and connections[index + 2] == source_node:
+			return true
+	return false
+
+
+func _cold_graphs(path: String) -> void:
+	var packed := ResourceLoader.load(path, "PackedScene", ResourceLoader.CACHE_MODE_IGNORE_DEEP) as PackedScene
+	if not _check("saved animation graph scene opens", packed != null):
+		return
+	var instance := packed.instantiate()
+	root.add_child(instance)
+	await process_frame
+	var original := instance.get_node("OriginalGraphPart") as AssemblyPart
+	var copy := instance.get_node("CopiedGraphPart") as AssemblyPart
+	_check("cold animation graphs retain nested structures and aliases", _graph_structure_valid(original) and _graph_structure_valid(copy))
+	var graph := original.get_node("Model/BodyTree").tree_root as AnimationNodeBlendTree
+	var copied_graph := copy.get_node("Model/BodyTree").tree_root as AnimationNodeBlendTree
+	var machine := original.get_node("Model/LocalFaceTree").tree_root as AnimationNodeStateMachine
+	var copied_machine := copy.get_node("Model/LocalFaceTree").tree_root as AnimationNodeStateMachine
+	_check("cold graphs keep edited copy data and independent resources", graph != copied_graph and graph.get_node("Idle") != copied_graph.get_node("Idle") and graph.get_node_position("Idle") == Vector2(50, 140) and copied_graph.get_node_position("Idle") == Vector2(80, 180) and (copied_graph.get_node("Idle") as AnimationNodeAnimation).play_mode == AnimationNodeAnimation.PLAY_MODE_BACKWARD and machine.get_transition(1).xfade_time == 0.125 and copied_machine.get_transition(1).xfade_time == 0.25 and copied_machine.get_transition(1).xfade_curve.get_point_position(1) == Vector2(1, 0.8))
+	_check("cold active trees resolve local players and retain per-tree parameters", original.get_node("Model/BodyTree").active and copy.get_node("Model/LocalFaceTree").active and original.get_node("Model/BodyTree").get_node_or_null(original.get_node("Model/BodyTree").anim_player) == original.get_node("Model/AnimationPlayer") and is_equal_approx(float(original.get_node("Model/BodyTree").get("parameters/Mixer/blend_amount")), 0.37) and is_equal_approx(float(copy.get_node("Model/BodyTree").get("parameters/Mixer/blend_amount")), 0.63))
+	var duplicate := AssemblyOperations.duplicate_part(copy)
+	if _check("cold graph duplicate retains complete aliases with independent roots", duplicate.ok and _graph_structure_valid(duplicate.part) and duplicate.part.get_node("Model/BodyTree").tree_root != copied_graph):
+		duplicate.part.free()
+	elif duplicate.ok:
+		duplicate.part.free()
+	instance.free()
 
 
 func _validate_loaded(instance: Node) -> void:

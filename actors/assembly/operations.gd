@@ -446,14 +446,17 @@ static func _clone_value(value: Variant, resources: Dictionary) -> Variant:
 		var id := resource.get_instance_id()
 		if resources.has(id):
 			return resources[id]
-		var copy := resource.duplicate(true)
+		# Storage setters for graphs/libraries can add nodes and connections. Start
+		# with a fresh instance and populate each property exactly once; rewriting a
+		# pre-populated duplicate invokes those additive setters a second time.
+		var definition: Script = resource.get_script()
+		var copy: Resource = definition.new() if definition != null else ClassDB.instantiate(resource.get_class())
 		resources[id] = copy
 		for property in resource.get_property_list():
 			if not (int(property.usage) & PROPERTY_USAGE_STORAGE) or property.name in [&"script", &"resource_path"]:
 				continue
 			var nested: Variant = resource.get(property.name)
-			if nested is Resource or nested is Array or nested is Dictionary:
-				copy.set(property.name, _clone_value(nested, resources))
+			copy.set(property.name, _clone_value(nested, resources))
 		copy.resource_local_to_scene = true
 		return copy
 	if value is Array:

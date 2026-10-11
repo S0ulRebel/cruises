@@ -62,8 +62,15 @@ func _ready() -> void:
 	# Its OWN 3D world. Without this the head is added to the room's world and stands
 	# in the middle of the floor as a severed head, lit by the room and casting a
 	# shadow - and the panel shows the room instead of the head.
+	# transparent_bg alone is not enough: a fresh World3D has no environment, so the
+	# project's default one draws its sky and the portrait sits on a grey-blue tile
+	# instead of on the parchment. The world has to arrive already carrying it -
+	# own_world_3d copies the environment ONCE, when the world is assigned, and never
+	# looks again.
+	var world := World3D.new()
+	world.environment = _portrait_environment()
 	_viewport.own_world_3d = true
-	_viewport.world_3d = World3D.new()
+	_viewport.world_3d = world
 	# Only redraw while someone is talking. A dialogue panel that re-renders a head
 	# every frame of a conversation nobody is having is pure waste.
 	_viewport.render_target_update_mode = SubViewport.UPDATE_DISABLED
@@ -74,6 +81,16 @@ func _ready() -> void:
 	_build_camera()
 	if not PORTRAIT_LIGHTING:
 		_build_lights()
+
+
+## Clear to nothing, and light the face only with the two lamps below.
+static func _portrait_environment() -> Environment:
+	var env := Environment.new()
+	env.background_mode = Environment.BG_CLEAR_COLOR
+	env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
+	env.ambient_light_color = Color(0.62, 0.60, 0.58)
+	env.ambient_light_energy = 0.45
+	return env
 
 
 func _build_camera() -> void:

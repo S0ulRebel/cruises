@@ -438,6 +438,29 @@ in exploration; the dialogue overlay may cover him. Keep him a scene character
 in a separate bowl/foreground prop. The room concept and carpet are an outline,
 not a final camera-aligned backdrop; simplify the carpet marks in final scenery.
 
+### 2026-10-11 — for everyone — the owner's target render for this room
+
+`docs/reference/room_target.png`, posted by the owner. This is what the cabin is
+meant to look like, and the assets for it are being built now. Read it before you
+pick a palette or a prop shape; it answers most of what the older brief left open.
+
+What it settles for the engine side:
+- Count Fingers' bowl is a FOREGROUND prop on its own pedestal at the left, big
+  enough to read, not a small bowl on the desk. `main.gd` currently puts it on the
+  desk at `(-3.3, 0.76, -1.2)`; that moves when the pedestal exists.
+- The room is enclosed — beamed ceiling, panelled walls, a porthole with weather
+  behind it, bookcase left, chest right. The grey boxes standing in for the chair
+  and the crate come out when their turnarounds land.
+- Lighting is warm and practical: lanterns, a picture light, the porthole. The
+  current single key light is a placeholder.
+
+The dialogue bar itself is DONE and in the engine — the owner supplied the frame art
+directly (`art/ui/dialogue_frame.png`). It holds the portrait and the text in one
+piece. Nothing further is needed from the art agent for the bar.
+
+---
+
+
 ---
 
 ### 2026-10-11 — for the engine side — reconstruct and place the pirate chest

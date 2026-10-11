@@ -21,7 +21,7 @@ const REVEAL_CPS := 42.0  ## Characters per second. Slow enough to read, fast en
 ## judging whether the timing of the jokes works without their hand on the space bar.
 @export var auto_advance_secs := 0.0
 
-var _box: PanelContainer
+var _box: NinePatchRect
 var _speaker_label: Label
 var _line_label: RichTextLabel
 var _action_label: Label
@@ -70,36 +70,87 @@ func _build() -> void:
 	spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	column.add_child(spacer)
 
-	# The portrait sits beside the box, not above it, so a tall face does not push the
-	# words off the bottom of the screen.
-	var speech_row := HBoxContainer.new()
-	speech_row.add_theme_constant_override("separation", 14)
-	speech_row.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	column.add_child(speech_row)
+	_build_box(column)
 
-	_portrait = Portrait.new()
-	_portrait.name = "Portrait"
-	speech_row.add_child(_portrait)
 
-	_box = PanelContainer.new()
-	var style := StyleBoxFlat.new()
-	style.bg_color = Color(0.04, 0.05, 0.07, 0.88)
-	style.border_color = Color(0.70, 0.58, 0.36, 0.9)
-	style.set_border_width_all(2)
-	style.set_corner_radius_all(10)
-	style.set_content_margin_all(26)
-	_box.add_theme_stylebox_override("panel", style)
+## The speech frame: one piece of art holding the portrait AND the words.
+##
+## The frame was two panels side by side until the art arrived. It is one, so the
+## portrait lives INSIDE it, on the parchment, with the text beside it - which is also
+## why the text is ink rather than white.
+##
+## Nine-sliced, so it stretches to any width without the rope or the brass corners
+## distorting. FRAME_BORDER is the painted border measured off the art rather than
+## guessed; the patch margin is larger than it because the corner bosses overhang.
+## The bar cut out of the art session's production master by
+## tools/trim_dialogue_frame.py. Derived rather than referenced: NinePatchRect
+## ignores both region_rect and an AtlasTexture region and nine-slices the WHOLE
+## source, which drew the top rail squashed and the bar 185 px tall instead of 330.
+const FRAME := "res://art/ui/dialogue_frame_bar.png"
+## The painted border, measured off the art itself: the parchment runs y 39..345 of
+## 387, so 43 px of rope and wood at the widest edge.
+const FRAME_BORDER := 43.0
+## How much of each edge the nine-slice keeps un-stretched. Bigger than the border
+## because the brass corner pieces reach further in than the rope does.
+const FRAME_PATCH := 96
+## How tall the bar is drawn. The art is 5.4:1, and at the width the margins leave on
+## a 1920 screen that is what it comes to; much taller and the rope stretches.
+const BAR_HEIGHT := 330.0
+
+func _build_box(column: VBoxContainer) -> void:
+	_box = NinePatchRect.new()
+	_box.texture = load(FRAME) if ResourceLoader.exists(FRAME) else null
+	_box.patch_margin_left = FRAME_PATCH
+	_box.patch_margin_right = FRAME_PATCH
+	_box.patch_margin_top = FRAME_PATCH
+	_box.patch_margin_bottom = FRAME_PATCH
 	_box.visible = false
 	_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	speech_row.add_child(_box)
+	# Hold the art's own proportions: the frame is 5.4 times as wide as it is tall and
+	# a bar stretched taller than that stops reading as one piece of wood.
+	_box.custom_minimum_size = Vector2(0, BAR_HEIGHT)
+	column.add_child(_box)
+
+	# Inset to the parchment, in the frame's own pixels scaled to however wide the bar
+	# ends up. A fixed inset would float off the parchment the moment the window
+	# changed size.
+	var inset := MarginContainer.new()
+	inset.set_anchors_preset(Control.PRESET_FULL_RECT)
+	inset.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var pad := int(FRAME_BORDER + 10.0)
+	inset.add_theme_constant_override("margin_left", pad)
+	inset.add_theme_constant_override("margin_right", pad)
+	inset.add_theme_constant_override("margin_top", pad)
+	inset.add_theme_constant_override("margin_bottom", pad)
+	_box.add_child(inset)
+
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation", 22)
+	row.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	inset.add_child(row)
+
+	# Sized to the parchment, not guessed: the bar is BAR_HEIGHT tall, the nine-slice
+	# draws FRAME_BORDER of painted wood at 1:1 top and bottom, and the inset adds its
+	# own padding. What is left is all the height the portrait may have, and anything
+	# larger pushes the head down over the rope.
+	_portrait = Portrait.new()
+	_portrait.name = "Portrait"
+	var face: float = BAR_HEIGHT - 2.0 * float(pad)
+	_portrait.panel_size = Vector2(face, face)
+	_portrait.framed = false
+	_portrait.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	row.add_child(_portrait)
 
 	var inner := VBoxContainer.new()
-	inner.add_theme_constant_override("separation", 8)
-	_box.add_child(inner)
+	inner.add_theme_constant_override("separation", 6)
+	inner.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	inner.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	row.add_child(inner)
 
 	_speaker_label = Label.new()
-	_speaker_label.add_theme_color_override("font_color", Color(0.93, 0.78, 0.45))
+	# Ink on parchment, not gold on black. The frame changed what reads.
+	_speaker_label.add_theme_color_override("font_color", Color("#6d3b1c"))
 	_speaker_label.add_theme_font_size_override("font_size", 26)
 	inner.add_child(_speaker_label)
 
@@ -108,7 +159,9 @@ func _build() -> void:
 	_line_label.fit_content = true
 	_line_label.scroll_active = false
 	_line_label.custom_minimum_size = Vector2(0, 96)
+	_line_label.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_line_label.add_theme_font_size_override("normal_font_size", 30)
+	_line_label.add_theme_color_override("default_color", Color("#2e2015"))
 	_line_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	inner.add_child(_line_label)
 

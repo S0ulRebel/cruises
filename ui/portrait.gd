@@ -22,6 +22,10 @@ const DIR := "res://art/portraits"
 const TalkingHeadScript := preload("res://ui/talking_head.gd")
 
 @export var panel_size := Vector2(300, 300)
+## Draw the portrait's own surround. False when it sits inside a frame that already
+## provides one - the dialogue bar is a single piece of art holding both the face and
+## the words, and a second border inside it reads as a mistake.
+@export var framed := true
 
 var _frame: PanelContainer
 var _still: TextureRect
@@ -52,7 +56,10 @@ func _build() -> void:
 	style.set_border_width_all(2)
 	style.set_corner_radius_all(10)
 	style.set_content_margin_all(6)
-	_frame.add_theme_stylebox_override("panel", style)
+	# Unframed means NO panel at all, not "no override": PanelContainer's default theme
+	# stylebox is a dark translucent slab, and over the parchment it measured
+	# (113, 102, 88) - the grey tile the head was sitting on.
+	_frame.add_theme_stylebox_override("panel", style if framed else StyleBoxEmpty.new())
 	_frame.visible = false
 	add_child(_frame)
 

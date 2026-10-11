@@ -196,6 +196,14 @@ func _enter_room() -> void:
 				await get_tree().process_frame
 				_hover_hotspot(crate)
 			await get_tree().create_timer(0.4).timeout
+		if "--bag" in args2:
+			# The inventory open, with its rendered icons in it. Its own flag because
+			# the icons are a separate render path from the portrait and have broken
+			# separately - a grey tile behind every item, from the same cause.
+			for item in ["compass", "rolled_charts", "brass_inkwell"]:
+				_inventory.add(item)
+			await _inventory.toggle()
+			await get_tree().create_timer(0.6).timeout
 		if "--talking" in OS.get_cmdline_user_args() + OS.get_cmdline_args():
 			# Through the REAL conversation, not a say() of our own. Calling say()
 			# directly bypasses the cast lookup, which is exactly where the portrait

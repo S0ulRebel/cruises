@@ -42,8 +42,12 @@ static func _render(path: String, host: Node) -> Texture2D:
 	viewport.transparent_bg = true
 	# Its own world, or the item appears in the room as well - see ui/talking_head.gd,
 	# where exactly that put a severed head on the floor.
+	# Complete before it is handed over, or the environment is ignored and the default
+	# sky fills the tile behind the item - see ui/talking_head.gd.
+	var world := World3D.new()
+	world.environment = load("res://ui/talking_head.gd")._portrait_environment()
 	viewport.own_world_3d = true
-	viewport.world_3d = World3D.new()
+	viewport.world_3d = world
 	viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
 	host.add_child(viewport)
 

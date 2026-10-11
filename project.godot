@@ -21,11 +21,6 @@ window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/stretch/mode="canvas_items"
 
-[rendering]
-
-renderer/rendering_method="gl_compatibility"
-renderer/rendering_method.mobile="gl_compatibility"
-
 [navigation]
 
 ; The navigation MAP and the baked navigation MESH must agree on cell size, or the
@@ -35,3 +30,8 @@ renderer/rendering_method.mobile="gl_compatibility"
 ; the map by default. Room3D._build_navigation uses the same numbers.
 3d/default_cell_size=0.1
 3d/default_cell_height=0.1
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"

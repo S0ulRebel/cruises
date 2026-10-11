@@ -7,7 +7,12 @@
     {
       "id": "floorboards",
       "asset": "art/materials/captains_cabin/floorboards/asset.json",
-      "albedo": "art/materials/captains_cabin/floorboards/albedo.png"
+      "albedo": "art/materials/captains_cabin/floorboards/albedo.png",
+      "normal_variants": {
+        "gentle": "art/materials/captains_cabin/floorboards/normal_gentle_opengl.png",
+        "stronger": "art/materials/captains_cabin/floorboards/normal_stronger_opengl.png"
+      },
+      "normal_metadata": "art/materials/captains_cabin/floorboards/normal_trials.json"
     },
     {
       "id": "wall_planks",
@@ -17,12 +22,22 @@
     {
       "id": "beam_wood",
       "asset": "art/materials/captains_cabin/beam_wood/asset.json",
-      "albedo": "art/materials/captains_cabin/beam_wood/albedo.png"
+      "albedo": "art/materials/captains_cabin/beam_wood/albedo.png",
+      "normal_variants": {
+        "gentle": "art/materials/captains_cabin/beam_wood/normal_gentle_opengl.png",
+        "stronger": "art/materials/captains_cabin/beam_wood/normal_stronger_opengl.png"
+      },
+      "normal_metadata": "art/materials/captains_cabin/beam_wood/normal_trials.json"
     },
     {
       "id": "carpet_burgundy",
       "asset": "art/materials/captains_cabin/carpet_burgundy/asset.json",
-      "albedo": "art/materials/captains_cabin/carpet_burgundy/albedo.png"
+      "albedo": "art/materials/captains_cabin/carpet_burgundy/albedo.png",
+      "normal_variants": {
+        "gentle": "art/materials/captains_cabin/carpet_burgundy/normal_gentle_opengl.png",
+        "stronger": "art/materials/captains_cabin/carpet_burgundy/normal_stronger_opengl.png"
+      },
+      "normal_metadata": "art/materials/captains_cabin/carpet_burgundy/normal_trials.json"
     }
   ],
   "parts": [
@@ -37,5 +52,6 @@
       "sheet": "art/props/wood_board/sheet.png"
     }
   ],
-  "status": "Source artwork delivered; no reconstructed mesh, UV packing, scene assignment or in-engine seam/lighting test performed."
+  "status": "Source artwork delivered; no reconstructed mesh, UV packing, scene assignment or in-engine seam/lighting test performed.",
+  "normal_map_documentation": "art/materials/captains_cabin/NORMAL_MAPS.md"
 }

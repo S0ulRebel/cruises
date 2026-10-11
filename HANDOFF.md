@@ -886,8 +886,10 @@ stretching one image across the room. Suggested spans and grain axes are in each
 sidecar and `docs/ART_SPEC.md` section2A. Carpet is the inner repeating field only;
 any gold border belongs on a separate finite edge strip.
 
-The textures are1254px square, colour-only, neutral painted cartoon finish; no
-normal, height or roughness maps are supplied. Simple2x2 repeats were inspected.
+The original textures are1254px square, neutral painted cartoon colour sources.
+Companion normal/height trials for boards, beam grain and carpet are now delivered
+in the task below; wall planks remain colour-only and roughness remains constant.
+Simple2x2 colour repeats were inspected.
 Opposite edge rows are approximately matched, not identical; numeric edge jumps
 are recorded. Check visible seams, repetition and brightness at the actual camera
 under the current toon lights before certifying the live material.
@@ -909,6 +911,25 @@ reconstruction. Keep width/thickness and grain density fixed when adapting lengt
 
 No reconstructed mesh, snap grid or room material assignment is claimed. Those
 checks remain Open. Do not rebuild the owner's scene as part of source delivery.
+
+---
+
+### 2026-10-11 — for the engine side — use the stylized cabin normal maps
+
+The owner approved committing the three trials for engine use. Start at
+`art/materials/captains_cabin/NORMAL_MAPS.md` and the kit index. `floorboards`,
+`beam_wood` and `carpet_burgundy` each have `normal_gentle_opengl.png`,
+`normal_stronger_opengl.png`, `height_source.png` and `normal_trials.json`.
+All six normals are actual normalized tangent-space OpenGL +Y data, not grayscale
+height images. Start with gentle. Import settings enable normal data and mipmaps;
+leave Y inversion off, enable sampler repeat and share colour/normal UV transforms.
+
+Assign/test through each material/prefab owner. Custom fake-light/toon shaders must
+use the perturbed normal in their light calculation. Check final mesh tangents,
+UV density, colour/relief alignment, seams and strength at the game camera. Source
+registration/repeats are approximate; CPU comparison previews are not scene renders.
+Wall planks have no normal trial. Scene assignment and final visual acceptance
+remain Open; delivery does not rebuild scenery or modify shared shaders.
 
 ---
 
@@ -1463,6 +1484,19 @@ matching and residual transitions are recorded; no pixel-exact seamless guarante
 or in-engine material test is claimed. Carpet has no outer border. User explicitly
 asked to retain textures while adding modeled-part references. Reconstruction,
 caps/joints, scene assignment and live seam/light checks remain Open above.
+
+---
+
+### 2026-10-11 — art side — stylized normal-map trials delivered
+
+Delivered six1254px normal maps (gentle/stronger for boards, beams and carpet),
+three unchanged generated height sources, full prompts/derivation sidecars and
+Godot import settings alongside the existing cabin albedos. Original colour PNGs
+are unchanged. Updated material/kit metadata and documented engine setup at
+`art/materials/captains_cabin/NORMAL_MAPS.md`. Normal-vector/data checks and scoped
+Godot4.7.2 import/load/material binding passed; evidence is `normal_validation.json`.
+Owner saw the lighting comparison and actual purple normal map and authorized
+commit/push for engine use. Live assignment, seams and toon-light acceptance remain Open.
 
 ---
 

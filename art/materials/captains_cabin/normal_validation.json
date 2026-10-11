@@ -1,0 +1,54 @@
+{
+  "date": "2026-10-11",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "scope": "Isolated Godot project mirroring the nine exact repository texture paths; generated imports copied unchanged.",
+  "checks": {
+    "normal_png_decode_size_rgb": "pass: 6",
+    "source_sha256_and_unchanged_albedo": "pass",
+    "normal_vectors_positive_z_and_near_unit": "pass: 6",
+    "analytic_gradient_x_y_convention": "pass during derivation",
+    "godot_import_errors": "none",
+    "godot_normal_texture_load_and_mipmaps": "pass: 6",
+    "godot_standard_material_normal_binding": "pass: 6",
+    "godot_height_texture_load": "pass: 3"
+  },
+  "normal_files": [
+    {
+      "path": "art/materials/captains_cabin/floorboards/normal_gentle_opengl.png",
+      "sha256": "98ba95c72cef1c924a07277ae60b435b18bbe3a7f795767db0ba9893338099a6",
+      "max_unit_length_error": 0.004732489585876465
+    },
+    {
+      "path": "art/materials/captains_cabin/floorboards/normal_stronger_opengl.png",
+      "sha256": "2b922cc21f73597e3b950fa112be4299069a9f152de48d96f560b88c3ef19d11",
+      "max_unit_length_error": 0.00529170036315918
+    },
+    {
+      "path": "art/materials/captains_cabin/beam_wood/normal_gentle_opengl.png",
+      "sha256": "43a9cf58e6546ba66f65c360b8ed561df4550d9f2f358bde637b888833b00755",
+      "max_unit_length_error": 0.004618287086486816
+    },
+    {
+      "path": "art/materials/captains_cabin/beam_wood/normal_stronger_opengl.png",
+      "sha256": "2febd94ac53f7eb43f3a2052f68ac02c0941039caf79f75e50d19e2440314778",
+      "max_unit_length_error": 0.00529170036315918
+    },
+    {
+      "path": "art/materials/captains_cabin/carpet_burgundy/normal_gentle_opengl.png",
+      "sha256": "3db6b51d1c7770e7921ffe18b1d884b40daceac270d25f0078014db90b691649",
+      "max_unit_length_error": 0.00436168909072876
+    },
+    {
+      "path": "art/materials/captains_cabin/carpet_burgundy/normal_stronger_opengl.png",
+      "sha256": "dc094a8a35204a173384769e3b3ff4234535c56e4fe659567f1d0c561b1f8b20",
+      "max_unit_length_error": 0.00480198860168457
+    }
+  ],
+  "game_scene_render_tested": false,
+  "pending": [
+    "Final mesh tangents/UVs",
+    "Colour/relief registration and repeat seams",
+    "Toon shader normal support",
+    "Scene assignment and game-camera strength selection"
+  ]
+}

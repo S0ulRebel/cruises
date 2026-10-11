@@ -351,6 +351,14 @@ directions, suggested tile span in metres and seam-review limits. Supply flat,
 neutral colour without room lighting. Normal, roughness and height maps are separate
 data; do not call painted grain a measured normal or displacement map.
 
+Companion stylized normal trials now exist for `floorboards`, `beam_wood` and
+`carpet_burgundy`: gentle/stronger OpenGL +Y normal PNGs, a separate artistic
+`height_source.png` and full `normal_trials.json` provenance. Engine setup and
+acceptance limits are in `art/materials/captains_cabin/NORMAL_MAPS.md`. These are
+linear normal data, not colour textures; keep normal Y inversion off and use the
+same UV mapping as the albedo. Scene/shader assignment and final visual acceptance
+belong to the material/prefab owner. Wall planks remain colour-only.
+
 Map UVs by material density, not by stretching one image across a room. For surface
 dimensions `S_u` and `S_v` metres and tile spans `T_u` and `T_v`, the UV extent is
 `(S_u / T_u, S_v / T_v)`. Enable repeat and mipmaps, and align wood grain with the

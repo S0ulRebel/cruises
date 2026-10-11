@@ -26,7 +26,7 @@ Captain's fitted frontal dialogue portrait and its editable assembly rotation ar
 recorded in `ui/HANDOFF.md` and `ui/portraits/captain_live/fit.json`; body work remains
 deferred. Portrait checks and external GPU capture commands are in `tests/README.md`.
 
-Character Workshop is implemented on `codex/character-workshop` and enabled in
+Character Workshop is integrated into `main` and `codex/character-workshop` and enabled in
 Godot's editor. Read `actors/assembly/README.md` for the workflow and
 `docs/CHARACTER_WORKSHOP_PLAN.md` for priorities, evidence and remaining acceptance.
 Freely named parts use native transforms/undo, scene-derived parent/bone targets,
@@ -43,6 +43,17 @@ The editable `head_swap_demo.tscn` proves fused-head removal and local speaking-
 preservation; its neck seam/material fit needs art review. Production garment poses,
 the replacement body and final owner usability acceptance remain open. Current
 game actors and the accepted dialogue portrait are not replaced by tool templates.
+
+Repository pull repair: the remote cabin normal-map delivery and local workshop
+history were merged without switching the owner's checkout. Local texture-import
+edits remain staged; whole-directory `art/` and `ui/` ignore entries were removed
+so new assets stay visible. Branch creation/use and checkout switching must be
+announced to the owner before acting; see `AGENTS.md`.
+Validation: all 21 checks, 125 native editor assertions, cold reopen routes and
+the engine-error rejection self-test pass with authored hashes unchanged.
+Evidence: `%TEMP%/cruises-checks-ff8993880e4449c8aea84fca57604f3f/`.
+The new viewport/layout concepts are awaiting owner approval; UI implementation
+must wait until a design is approved.
 
 ## The rule
 

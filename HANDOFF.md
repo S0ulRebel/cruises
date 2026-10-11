@@ -507,22 +507,36 @@ sidecars; see their Done entries. Their reconstruction and engine integration ta
 remain Open below. The porthole sheet supplies its metal surround; transparent glass
 and weather are separate engine components.
 
-**2 — the room stops looking like a box.**
+**2 — current owner scope: practical cabin fixtures.**
+
+The owner’s latest request narrows this pass to `wall_lantern`, empty `bookcase`,
+`desk_globe` and `painting_frame`, published one at a time. The lantern housing is
+now delivered; its separate engine glass/candle/light integration remains Open.
+The globe is promoted from the later dressing queue. `painting_frame` replaces the
+former complete `ship_painting` request for this pass: frame only, no artwork,
+canvas, backing, glass or picture light. Books remain separate from the shelving.
 
 | id | what |
 | --- | --- |
-| `wall_lantern` | brass wall lantern with a candle, as on the left wall and by the door |
-| `bookcase` | built-in shelf unit with books, left of the desk |
-| `ship_painting` | framed painting of a ship in heavy seas, gilt frame, with its own brass picture light over it |
-| `curtain_panel` | heavy red curtain panel, one side; the engine mirrors it for the other |
-| `potted_palm` | the brass pot and palm beside the window |
+| `bookcase` | empty walnut unit, three internal shelves making four bays, left of the desk; books and all dressing separate |
+| `desk_globe` | one small brass-mounted globe, separate from the bookcase |
+| `painting_frame` | empty landscape brass/gilt-and-wood frame; open aperture front/back, no artwork, canvas, backing, glass or light |
+
+**Deferred by the owner as too fancy for this pass:**
+
+| id | what |
+| --- | --- |
+| `curtain_panel` | heavy red curtain panel; deferred |
+| `potted_palm` | brass pot and palm; deferred |
+
+`picture_light` and `bookshelf_books` remain separate future work in the dressing
+queue below. This latest scope takes precedence over the broader earlier queue.
 
 **3 — dressing and inventory, once the above are in.**
 
 | id | what |
 | --- | --- |
 | `rolled_charts` | **REDO.** The owner discarded the first model — it came out a flat slab. Cause is in the sheet: the two end-on views were 107 px wide against an 814 px front, so there was nothing for Tripo to read the cylinder from. Give the ends their own full-width views |
-| `desk_globe` | small brass-mounted globe, as on the bookcase top left of the render. Asked for by name |
 | `picture_light` | the brass hooded light over the ship painting. Asked for by name |
 | `desk_lantern` | the glass-and-brass candle lantern standing on the desk, left of the render |
 | `rolled_parchment` | a single rolled parchment tied with cord. Asked for by name; distinct from `rolled_charts`, which is a bundle of three |
@@ -646,6 +660,22 @@ Add a separate transparent glass disk within the inner rim and weather behind it
 do not reconstruct an opaque center disk with Tripo. The guide aperture is about
 0.665 m, a proposed secondary measurement. Preserve the existing Porthole hotspot
 and approach. Metal reconstruction and glass/weather integration remain Open.
+
+---
+
+### 2026-10-11 — for the engine side — reconstruct and complete the wall lantern
+
+`art/props/wall_lantern/sheet.png` and `asset.json` deliver the opaque metal housing,
+rear wallplate, two brackets and empty candle holder. Reconstruct these connected
+parts while keeping the lifting eye and cage open. The center strip visible through
+the front is the rear plate, not a candle. Adopt the declared 0.25 × 0.40 × 0.25 m
+complete fixture target, adapted from the old hanging-lantern brief; no wall-mounted
+transform existed. Side outlines imply 0.25745 m depth at H0.40, about 2.98% above
+target, so check/correct mesh depth without rescaling individual source views.
+Add separate transparent panes, candle and wick, flame effect and actual warm light.
+The sidecar gives guide-only cage/holder fitting cues; verify clearances on the mesh.
+Keep it upright with front +Z and rear -Z toward its selected wall. Exact left-wall /
+door-area placement, component fitting and lighting remain engine work.
 
 ---
 
@@ -990,6 +1020,21 @@ object rectangle remains pixel-identical. Three full prompts, guide/reference
 hashes, the authoritative dimensions and the measured depth discrepancy are in the
 sidecar. Metal reconstruction and separate engine glass/weather remain Open.
 The furnishing and dressing queues remain unchanged.
+
+---
+
+### 2026-10-11 — art side — wall lantern housing sheet delivered
+
+Delivered `art/props/wall_lantern/sheet.png` and `asset.json`, and moved the lantern
+from the pending art table to Done. The sheet is metal housing/brackets/plate and
+empty holder only; engine glass, candle/wick/flame and light remain separate.
+Final 2800×700, native 700 px cells; source/final heights 565/564/564/564 px,
+shared final baseline y615 and empty gaps 342/337/342 px. Full PNG decode and IEND
+passed. Unchanged cutter, no resampling, all four source object rectangles remain
+pixel-identical. Full prompt, guide/reference hashes, size adaptation and measured
+width/depth differences are recorded. Reconstruction and mounting remain Open.
+The latest owner scope is also recorded above: empty bookcase, desk globe and empty
+painting frame next; curtains/palm deferred, books and picture light separate future work.
 
 ---
 

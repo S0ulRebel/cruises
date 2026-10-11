@@ -1,0 +1,520 @@
+{
+  "asset_id": "prop:wall_lantern",
+  "name": "Captain Livé’s wall lantern housing",
+  "role": "Scene 1 — practical brass wall fixture for the left wall and door area",
+  "asset_type": "prop_turnaround_sheet",
+  "files": {
+    "sheet": "sheet.png"
+  },
+  "dimensions_m": {
+    "width": 0.25,
+    "height": 0.4,
+    "depth": 0.25
+  },
+  "dimension_contract": "dimensions_m describes the complete upright opaque metal fixture including the lifting eye, bottom finial, rear wallplate and both brackets: 0.25W × 0.40H × 0.25D m. This deliberately adapts the original hanging-lantern dimensions in docs/CODEX_PROPS_BRIEF.md to a wall-mounted assembly; it is not an existing measured wall-lantern transform. Width is X, height Y and total wall-to-front projection Z. The guide uses a body center at Z=0.035 m and a rear plate extending to Z=-0.125 m. Respect this target during mesh fitting: measured source outlines imply front/back widths 0.24920/0.25035 m and side depth 0.25745 m at H=0.40 m, so the image is not exact CAD. Reconstruct the metal housing and empty holder only. Transparent panes, candle, wick, flame and actual warm light are separate engine components; final wall coordinates and rotation remain unassigned.",
+  "dimension_decision": "Adapt the original hanging-lantern0.25×0.40×0.25m target to a complete wall fixture including mounting bracket. This is a declared adaptation, not a prior measured wall-lantern transform.",
+  "source": {
+    "producer": "OpenAI imagegen via ChatGPT",
+    "mode": "built-in",
+    "model_identifier": "Not exposed by the built-in tool",
+    "date": "2026-10-11",
+    "repository_base_commit": "35e498fb02f0c7e847fdfccc95e848f62ca6293a",
+    "original_filename": "exec-2f07bd2e-6078-4c6d-b651-a4ea0fd88e8a.png",
+    "generated_source_sha256": "736289e9079bcee1b66b945022031de4f341f53c883846018f8756aa7e6eac27",
+    "sha256": "8e8ce72adb221d8ceb5857714a7be97f46bc9bc942a8dedc2d3ad783d2d0636c",
+    "references": [
+      {
+        "original_path": "/workspace/scratch/9d89bc03e38f/wall_lantern_geometry_guide.png",
+        "sha256": "eeaea249651313db4b01c19df0150a699732bc7952e674ff555423762e31c01b",
+        "original_filename": "wall_lantern_geometry_guide.png"
+      },
+      {
+        "original_path": "/workspace/scratch/9d89bc03e38f/cruises_git/art/props/captain_desk/sheet.png",
+        "sha256": "02300d11cad484407755dfea20b66770abc9e92e895095b834bb505477b4f69c",
+        "repository_path": "art/props/captain_desk/sheet.png"
+      }
+    ],
+    "generation_history": [
+      {
+        "pass": 1,
+        "stage": "measured_guide_cel_shaded",
+        "prompt": "Use case: stylized-concept.\nCreate the WALL LANTERN modeling sheet for Captain Livé's pirate cabin.\n\nImage 1 is the measured orthographic construction guide. PAINT ITS EXACT SHAPES: preserve its four complete matching-height silhouettes, placement, widths and baseline. Image 2 is an approved game prop, used only for the worn brass / bold cel-shaded finish. Do not borrow its shape.\n\nOne connected wall-mounted BRASS LANTERN HOUSING: sturdy faceted domed cap with a small integral lifting eye, four straight structural corner posts, broad lower tray, small bottom finial, integral empty candle holder, and a flat vertical rear mounting plate joined by two short sturdy brackets. The rear plate is visible through the empty front cage. It is not a candle. Side views show the real wall plate, two attached arms and narrower lamp body in front of it. No wall surface or hanging chain.\n\nFOUR views left to right: exact FRONT, LEFT SIDE, RIGHT SIDE, actual BACK. In left side view the back plate is image-left; the lantern projects image-right. Opposite side reverses that. Back shows the plain rear mounting plate with two fixing heads covering the center, and the lamp structure beyond it. Keep the guide's shape and all matching extrema. Complete size including bracket:0.25m wide,0.40m high,0.25m deep. One camera scale. Midheight level orthographic cameras, zero perspective or tilt. Top handle is a true open circular eye in front/back and a thin edge in profiles.\n\nFinished warm aged gold brass, amber-brown creases, broad pale gold bevel highlights, a few readable scratches and worn edges, small chunky rivets. Clean cartoony cel-shaded adventure-game style matching the approved desk. Practical nautical hardware, restrained ornament, no intricate scrollwork, skulls, jewels or modern electrical parts.\n\nThis is the opaque metal reconstruction component only. The game will add the candle, wick, transparent glass, flame and actual warm light separately. Keep the candle holder EMPTY. All cage openings and the lifting-eye hole remain flat WHITE BACKGROUND, never blue glass, opaque panels or glowing yellow fill. Do not add a wax candle, flame, smoke, glow, reflections across the openings, wall, room or other props.\n\nPreserve the guide's equal-height silhouettes EXACTLY, including the entire handle and bottom finial. Keep its positions and spacing. Paint outlines and bevels inside the measured shapes; do not enlarge any view. All four stand on one invisible baseline. White flat background and broad white gaps, no cast shadow, floor line, labels, dimensions, callouts, borders or text.",
+        "referenced_image_paths": [
+          "/workspace/scratch/9d89bc03e38f/wall_lantern_geometry_guide.png",
+          "/workspace/scratch/9d89bc03e38f/cruises_git/art/props/captain_desk/sheet.png"
+        ],
+        "transparent_background": false,
+        "source_path": "/workspace/scratch/9d89bc03e38f/generated_images/exec-2f07bd2e-6078-4c6d-b651-a4ea0fd88e8a.png",
+        "selected": true,
+        "original_filename": "exec-2f07bd2e-6078-4c6d-b651-a4ea0fd88e8a.png",
+        "output_sha256": "736289e9079bcee1b66b945022031de4f341f53c883846018f8756aa7e6eac27",
+        "referenced_images": [
+          {
+            "original_path": "/workspace/scratch/9d89bc03e38f/wall_lantern_geometry_guide.png",
+            "sha256": "eeaea249651313db4b01c19df0150a699732bc7952e674ff555423762e31c01b",
+            "original_filename": "wall_lantern_geometry_guide.png"
+          },
+          {
+            "original_path": "/workspace/scratch/9d89bc03e38f/cruises_git/art/props/captain_desk/sheet.png",
+            "sha256": "02300d11cad484407755dfea20b66770abc9e92e895095b834bb505477b4f69c",
+            "repository_path": "art/props/captain_desk/sheet.png"
+          }
+        ]
+      }
+    ],
+    "selected_pass": 1,
+    "selected_prompt": "Use case: stylized-concept.\nCreate the WALL LANTERN modeling sheet for Captain Livé's pirate cabin.\n\nImage 1 is the measured orthographic construction guide. PAINT ITS EXACT SHAPES: preserve its four complete matching-height silhouettes, placement, widths and baseline. Image 2 is an approved game prop, used only for the worn brass / bold cel-shaded finish. Do not borrow its shape.\n\nOne connected wall-mounted BRASS LANTERN HOUSING: sturdy faceted domed cap with a small integral lifting eye, four straight structural corner posts, broad lower tray, small bottom finial, integral empty candle holder, and a flat vertical rear mounting plate joined by two short sturdy brackets. The rear plate is visible through the empty front cage. It is not a candle. Side views show the real wall plate, two attached arms and narrower lamp body in front of it. No wall surface or hanging chain.\n\nFOUR views left to right: exact FRONT, LEFT SIDE, RIGHT SIDE, actual BACK. In left side view the back plate is image-left; the lantern projects image-right. Opposite side reverses that. Back shows the plain rear mounting plate with two fixing heads covering the center, and the lamp structure beyond it. Keep the guide's shape and all matching extrema. Complete size including bracket:0.25m wide,0.40m high,0.25m deep. One camera scale. Midheight level orthographic cameras, zero perspective or tilt. Top handle is a true open circular eye in front/back and a thin edge in profiles.\n\nFinished warm aged gold brass, amber-brown creases, broad pale gold bevel highlights, a few readable scratches and worn edges, small chunky rivets. Clean cartoony cel-shaded adventure-game style matching the approved desk. Practical nautical hardware, restrained ornament, no intricate scrollwork, skulls, jewels or modern electrical parts.\n\nThis is the opaque metal reconstruction component only. The game will add the candle, wick, transparent glass, flame and actual warm light separately. Keep the candle holder EMPTY. All cage openings and the lifting-eye hole remain flat WHITE BACKGROUND, never blue glass, opaque panels or glowing yellow fill. Do not add a wax candle, flame, smoke, glow, reflections across the openings, wall, room or other props.\n\nPreserve the guide's equal-height silhouettes EXACTLY, including the entire handle and bottom finial. Keep its positions and spacing. Paint outlines and bevels inside the measured shapes; do not enlarge any view. All four stand on one invisible baseline. White flat background and broad white gaps, no cast shadow, floor line, labels, dimensions, callouts, borders or text.",
+    "alignment_guide": {
+      "path": "/workspace/scratch/9d89bc03e38f/wall_lantern_geometry_guide.png",
+      "source_code": "/workspace/scratch/9d89bc03e38f/create_wall_lantern_guide.py",
+      "method": "New analytic front/opposing profile/back primitive diagram; no existing raster read or edited during construction.",
+      "canvas_px": [
+        2172,
+        724
+      ],
+      "centers_x_px": [
+        272,
+        814,
+        1358,
+        1900
+      ],
+      "pixels_per_metre": 1400.0,
+      "baseline_before_stroke_px": 642.0,
+      "dimensions_m": {
+        "width": 0.25,
+        "height": 0.4,
+        "depth": 0.25
+      },
+      "dimension_authority": "Adapted from original hanging-lantern brief; full wall mounting assembly was not previously measured.",
+      "body_center_z_m": 0.035,
+      "back_wall_plate_z_m": [
+        -0.125,
+        -0.111
+      ],
+      "wall_plate_width_m": 0.07,
+      "wall_plate_height_range_m": [
+        0.035,
+        0.35
+      ],
+      "cage_vertical_range_m": [
+        0.097,
+        0.286
+      ],
+      "candle_cup_top_m": 0.121,
+      "glass_route": "Separate engine panes; gaps remain empty in reconstruction artwork.",
+      "candle_route": "Engine adds wax candle and wick in the integral holder, flame and warm light separately.",
+      "views": [
+        {
+          "view": "front",
+          "bounds_px": [
+            96,
+            81,
+            448,
+            643
+          ],
+          "width_px": 352,
+          "height_px": 562,
+          "last_ink_y_px": 642
+        },
+        {
+          "view": "left",
+          "bounds_px": [
+            638,
+            81,
+            990,
+            643
+          ],
+          "width_px": 352,
+          "height_px": 562,
+          "last_ink_y_px": 642
+        },
+        {
+          "view": "right",
+          "bounds_px": [
+            1182,
+            81,
+            1534,
+            643
+          ],
+          "width_px": 352,
+          "height_px": 562,
+          "last_ink_y_px": 642
+        },
+        {
+          "view": "back",
+          "bounds_px": [
+            1724,
+            81,
+            2076,
+            643
+          ],
+          "width_px": 352,
+          "height_px": 562,
+          "last_ink_y_px": 642
+        }
+      ],
+      "height_spread_px": 0,
+      "baseline_spread_px": 0,
+      "sha256": "eeaea249651313db4b01c19df0150a699732bc7952e674ff555423762e31c01b",
+      "metadata_path": "/workspace/scratch/9d89bc03e38f/wall_lantern_geometry_guide.json",
+      "metadata_sha256": "cf74c7f3c4eacf926b8e29af09363eaa5a167470c7a4e5659fcedd02997e2c17",
+      "source_code_sha256": "703bb19791cd47d74ab57837f7158392b260e5f50b5ac7bea9d3a9ae93e64f73"
+    },
+    "assembly": {
+      "tool": "tools/crop_views.py",
+      "tool_modified": false,
+      "arguments": [
+        "--row",
+        "0",
+        "1",
+        "--names",
+        "front",
+        "left",
+        "right",
+        "back",
+        "--pad",
+        "0.12",
+        "--size",
+        "700",
+        "--dry-run",
+        "--preview",
+        "art/props/wall_lantern/sheet.png"
+      ],
+      "native_common_canvas_px": 700,
+      "method": "Unchanged cutter; translate native own-bounds crops into four common700px cells. No resampling, per-view scaling or raster retouching.",
+      "resampled": false,
+      "per_view_scaling": false,
+      "source_measurements": {
+        "image_size_px": [
+          2172,
+          724
+        ],
+        "background_rgb": [
+          254,
+          254,
+          254
+        ],
+        "views": [
+          {
+            "view": "front",
+            "bounds_px": [
+              94,
+              79,
+              446,
+              644
+            ],
+            "width_px": 352,
+            "height_px": 565,
+            "last_ink_y_px": 643,
+            "width_height_ratio": 0.623009,
+            "implied_envelope_m_at_0_40_height": 0.249204,
+            "difference_percent_from_nominal_envelope": -0.3186
+          },
+          {
+            "view": "left",
+            "bounds_px": [
+              629,
+              80,
+              992,
+              644
+            ],
+            "width_px": 363,
+            "height_px": 564,
+            "last_ink_y_px": 643,
+            "width_height_ratio": 0.643617,
+            "implied_envelope_m_at_0_40_height": 0.257447,
+            "difference_percent_from_nominal_envelope": 2.9787
+          },
+          {
+            "view": "right",
+            "bounds_px": [
+              1180,
+              80,
+              1543,
+              644
+            ],
+            "width_px": 363,
+            "height_px": 564,
+            "last_ink_y_px": 643,
+            "width_height_ratio": 0.643617,
+            "implied_envelope_m_at_0_40_height": 0.257447,
+            "difference_percent_from_nominal_envelope": 2.9787
+          },
+          {
+            "view": "back",
+            "bounds_px": [
+              1724,
+              80,
+              2077,
+              644
+            ],
+            "width_px": 353,
+            "height_px": 564,
+            "last_ink_y_px": 643,
+            "width_height_ratio": 0.625887,
+            "implied_envelope_m_at_0_40_height": 0.250355,
+            "difference_percent_from_nominal_envelope": 0.1418
+          }
+        ],
+        "clear_vertical_gaps_px": [
+          183,
+          188,
+          181
+        ]
+      },
+      "source_object_rectangles_pixel_identical_after_translation": [
+        true,
+        true,
+        true,
+        true
+      ]
+    }
+  },
+  "object_scope": {
+    "rule": "Model the object only, never a dressed arrangement.",
+    "contents": "One connected brass housing with faceted domed cap, lifting eye, four structural corner posts, lower tray, bottom finial, empty integral candle holder, two mounting brackets and rear wallplate.",
+    "excluded": [
+      "transparent glass",
+      "wax candle",
+      "wick",
+      "flame",
+      "smoke",
+      "light effects",
+      "wall",
+      "hanging chain",
+      "other props",
+      "scenery"
+    ]
+  },
+  "design": {
+    "structure": "A practical open brass cage, broad faceted upper cap and lower tray, small bottom finial, and a true circular lifting eye above the cap. Four posts project as overlapping pairs in the level elevations.",
+    "mount": "The rear wallplate connects to the housing through two substantial arms, the upper near-horizontal and the lower diagonal. Both opposite profiles show the connected bracket geometry.",
+    "front": "The central vertical brass strip visible behind the empty holder is the rear wallplate, not a candle or an opaque front pane. White background remains visible on both sides of it.",
+    "left": "Rear plate at image-left, lantern projects image-right.",
+    "right": "Rear plate at image-right, lantern projects image-left.",
+    "back": "Actual plain rear wallplate with two visible fixing heads; cage structure remains visible beyond the plate.",
+    "finish": "Warm aged gold brass, amber-brown recesses, broad pale bevel highlights, worn edges and a few readable scratches/rivets. Bold cel-shaded game-prop finish matched to captain_desk.",
+    "openings": "Empty white/background-tone cage openings in all four views; lifting-eye aperture in front and back, naturally edge-on in the profiles. The holder is empty and must remain a functional cup in the mesh."
+  },
+  "reconstruction_orientation": {
+    "fixed_object_pose": "Upright wall-mounted orientation; no wall included",
+    "axis_convention": "Up +Y, lateral width X, fixture front +Z and wall-facing rear -Z. Front camera +Z looks -Z; left camera -X looks +X; right camera +X looks -X; back camera -Z looks +Z.",
+    "dimensions_m": {
+      "width": 0.25,
+      "height": 0.4,
+      "depth": 0.25
+    },
+    "engine_rotation": "No pose correction needed to read the fixture upright. Align rear -Z toward the selected wall when placing; no final room yaw or position is specified."
+  },
+  "placement": {
+    "convention_status": "Proposed orientation and fitting contract only; no engine placement changed.",
+    "engine_model_path_target": "art/props/wall_lantern/wall_lantern.glb",
+    "origin": "Proposed Y=0 at the lowest finial; X centered on the housing. Use the guide’s Z offsets when relating the body to the wallplate.",
+    "target_location": "Left wall / by the door, as in docs/reference/room_target.png. Exact mounted coordinates remain engine work.",
+    "wall_contact_guide_z_m": -0.125,
+    "engine_components": {
+      "metal": "Reconstruct the connected housing, wallplate, brackets and empty candle holder from this sheet.",
+      "glass": "Add separate transparent panes between the structural posts; preserve clear sight of the later candle rather than baking opaque window colors into the metal texture.",
+      "candle": "Insert a separate wax candle and wick in the holder. Add the flame effect and actual warm light separately.",
+      "fit_cues_from_guide": {
+        "status": "Proposed analytic guide measurements, not measured generated mesh interiors. Verify fit after reconstruction.",
+        "body_center_z_m": 0.035,
+        "wall_plate_width_m": 0.07,
+        "wall_plate_height_range_m": [
+          0.035,
+          0.35
+        ],
+        "wall_plate_depth_range_m": [
+          -0.125,
+          -0.111
+        ],
+        "cage_vertical_range_m": [
+          0.097,
+          0.286
+        ],
+        "clear_between_posts_width_m": 0.166,
+        "clear_between_posts_depth_m": 0.132,
+        "holder_outer_body_width_m": 0.05,
+        "holder_outer_body_depth_m": 0.04,
+        "holder_rim_width_m": 0.06,
+        "holder_rim_depth_m": 0.05,
+        "holder_rim_top_y_m": 0.121,
+        "height_from_holder_rim_to_upper_cage_edge_m": 0.165
+      }
+    }
+  },
+  "framing": {
+    "view_order": [
+      "front",
+      "left",
+      "right",
+      "back"
+    ],
+    "projection": "Level orthographic front, opposite profiles and actual back",
+    "camera": "Horizontal optical axis at object midpoint, fixed orthographic scale, zero pitch/roll and no perspective.",
+    "fixed_object_pose": "Upright",
+    "image_size_px": [
+      2800,
+      700
+    ],
+    "cell_size_px": [
+      700,
+      700
+    ],
+    "background": "Plain opaque near-white",
+    "background_rgb": [
+      254,
+      254,
+      254
+    ],
+    "labels_in_turnaround_band": false,
+    "ground_line_drawn": false,
+    "ground_line_last_ink_y_px": 615,
+    "separation_px": [
+      342,
+      337,
+      342
+    ],
+    "scale": "Raw source heights are 565/564/564/564 px; the 1 px spread is within section 1A. The cutter translated native own-bounds crops only, with no resizing or height normalization."
+  },
+  "validation": {
+    "status": "Source/final PNG, framing and visual construction checked; reconstructed mesh, component fit and engine placement remain unverified.",
+    "method": "Read-only full-row NumPy/Pillow measurements using unchanged crop_views.py modal_colour, ink_mask and find_figures at default tolerance 18 and default gap detection. Bounds are [x0,y0,x1,y1], upper bounds exclusive. Both PNGs fully decoded before measurement.",
+    "foreground_threshold": "Sum of absolute RGB distance from modal background exceeds 54.",
+    "final_file_bytes": 764650,
+    "final_png_iend_present": true,
+    "source_png_iend_present": true,
+    "detected_views": 4,
+    "views": [
+      {
+        "view": "front",
+        "bounds_px": [
+          174,
+          51,
+          526,
+          616
+        ],
+        "width_px": 352,
+        "height_px": 565,
+        "last_ink_y_px": 615,
+        "width_height_ratio": 0.623009,
+        "implied_envelope_m_at_0_40_height": 0.249204,
+        "difference_percent_from_nominal_envelope": -0.3186
+      },
+      {
+        "view": "left",
+        "bounds_px": [
+          868,
+          52,
+          1231,
+          616
+        ],
+        "width_px": 363,
+        "height_px": 564,
+        "last_ink_y_px": 615,
+        "width_height_ratio": 0.643617,
+        "implied_envelope_m_at_0_40_height": 0.257447,
+        "difference_percent_from_nominal_envelope": 2.9787
+      },
+      {
+        "view": "right",
+        "bounds_px": [
+          1568,
+          52,
+          1931,
+          616
+        ],
+        "width_px": 363,
+        "height_px": 564,
+        "last_ink_y_px": 615,
+        "width_height_ratio": 0.643617,
+        "implied_envelope_m_at_0_40_height": 0.257447,
+        "difference_percent_from_nominal_envelope": 2.9787
+      },
+      {
+        "view": "back",
+        "bounds_px": [
+          2273,
+          52,
+          2626,
+          616
+        ],
+        "width_px": 353,
+        "height_px": 564,
+        "last_ink_y_px": 615,
+        "width_height_ratio": 0.625887,
+        "implied_envelope_m_at_0_40_height": 0.250355,
+        "difference_percent_from_nominal_envelope": 0.1418
+      }
+    ],
+    "height_spread_px": 1,
+    "ground_line_spread_px": 0,
+    "minimum_empty_band_px": 337,
+    "strict_one_pixel_height_check_passed": true,
+    "strict_one_pixel_baseline_check_passed": true,
+    "source_object_rectangles_pixel_identical": true,
+    "native_view_canvas_px": [
+      700,
+      700
+    ],
+    "view_canvas_after_2x_upscale_px": [
+      1400,
+      1400
+    ],
+    "upscaling_applied": false,
+    "target_width_height_ratio": 0.625,
+    "target_depth_height_ratio": 0.625,
+    "visual_review": {
+      "projection": "Level front/back and genuinely opposed profiles, with consistent cap, tray, finial, handle and rear mounting assembly.",
+      "structure": "Metal parts appear connected. Front/back distinguish the rear plate correctly, with fixing heads shown on the rear; the central front strip is not a wax candle.",
+      "openings": "The lifting eye visibly opens in front/back, with edge-on profiles. White/background-tone cage gaps are visible around the rear plate in front/back and as a large open rectangle in both profiles. Representative interior pixels stay below the default foreground threshold; subtle edge and source-color variation is not a modeled glass pane.",
+      "materials": "Broad cel-shaded worn brass and dark edge lines, with no pane fill, candle, flame, glow, floor shadow or labels."
+    },
+    "reconstruction_run": false,
+    "engine_import_run": false,
+    "limitations": [
+      "The overall size adapts an earlier hanging-lantern target to this new complete wall fixture; there is no prior wall-lantern scene transform to confirm.",
+      "Front/back width-to-height ratios are 0.623009/0.625887 and the profile ratios are 0.643617, versus nominal 0.625. At 0.40 m height, the front/back envelopes imply 0.24920/0.25035 m widths, while both profiles imply 0.25745 m depth, about 7.45 mm or 2.98% above target. Check/correct final mesh depth; do not independently resize reference views.",
+      "The cup’s interior depth, full cage topology and mounting strength cannot be verified from raster elevations; preserve real holder clearance and open panes during reconstruction.",
+      "Guide component dimensions are fitting cues, not measured output topology. Verify transparent panes, candle/wick/flame clearance and final wall contact before placing.",
+      "Brass form shading and highlights are baked into the source and must be reviewed under engine lighting."
+    ]
+  },
+  "pipeline": {
+    "status": "source_sheet_only",
+    "view_extraction": "delegated_to_claude_code",
+    "view_extraction_names": [
+      "front",
+      "left",
+      "right",
+      "back"
+    ],
+    "upload_view_mapping": {
+      "front": "front.png",
+      "left": "left.png",
+      "right": "right.png",
+      "back": "back.png"
+    },
+    "upload_note": "Assign each upload slot by its matching filename; do not infer slot order from sheet position.",
+    "three_d_generator_allowed": "Tripo only",
+    "forbidden_generators": [
+      "Hunyuan3D",
+      "HY-Motion"
+    ],
+    "nc_models_used": false,
+    "rigging_required": false,
+    "generated_3d_model": false,
+    "validated_in_engine": false,
+    "target_triangles": {
+      "minimum": 2500,
+      "maximum": 3500,
+      "source": "Proposed small-prop budget using the HANDOFF hand-held range; the compact wall fixture has no measured reconstruction yet."
+    },
+    "reconstruction_prompt_note": "Reconstruct only connected opaque brass cage/cap/tray/eye/finial/wallplate/brackets and the empty holder. Keep the eye and cage genuinely open. The center strip in front is the rear plate; do not turn it into a wax candle or fill the cage solid.",
+    "lighting_note": "Broad form shading, dark recesses and brass highlights are baked into the artwork. Use Tripo texture lighting removal and inspect with the separate engine flame and warm light.",
+    "recommended_crop_command": "python tools/crop_views.py art/props/wall_lantern/sheet.png --row 0 1 --names front left right back --pad 0.12 --size 700 --out art/props/wall_lantern/views",
+    "optional_2x_crop_command": "python tools/crop_views.py art/props/wall_lantern/sheet.png --row 0 1 --names front left right back --pad 0.12 --size 1400 --out art/props/wall_lantern/views",
+    "upscale_note": "Native common canvases are 700 px square. Uniform 2x extraction at 1400 px meets the minimum and adds no source detail; preserve automatic own-bounds gap detection.",
+    "next_step": "Reconstruct and inspect the metal fixture, fit separate glass and candle/flame/light components using verified clearances, then mount it at the selected cabin wall position."
+  }
+}

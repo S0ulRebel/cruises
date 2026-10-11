@@ -575,9 +575,11 @@ const COUNT_FINGERS := "res://art/characters/count_fingers/count_fingers_mesh.gl
 ## width and read as a speck. 30 cm puts him at 58%, which is where the owner's target
 ## render has him. He is a character with lines, not set dressing.
 const FISH_LENGTH := 0.27
-## Degrees about Y. His mesh swims along its own -X, so he needs turning to look out
-## of the glass at the room rather than presenting the camera with his flank.
-const FISH_FACING := -90.0
+## Measured in the ENGINE, not in Blender: his GLB drops in standing on his tail with
+## his nose along +Y, and -90 about X lays him level with it out towards the room.
+## Blender's importer turns the file to its own Z-up on the way in, so a profile that
+## looks perfectly level there says nothing about which way he lands in Godot.
+const FISH_REST := Vector3(-90.0, 90.0, 0.0)
 
 func _add_count_fingers(bowl: Node3D, radius: float) -> void:
 	if not ResourceLoader.exists(COUNT_FINGERS):
@@ -596,12 +598,17 @@ func _add_count_fingers(bowl: Node3D, radius: float) -> void:
 	swimmer.name = "CountFingers"
 	swimmer.set_script(load("res://actors/parts/fish.gd"))
 	# Below the waterline, off-centre, nose out of the glass towards the room.
-	swimmer.position = Vector3(0.0, radius * 0.56, 0.0)
+	swimmer.position = Vector3(0.0, radius * 0.52, 0.0)
 	swimmer.add_child(model)
-	model.position = -bounds.get_center() * model.scale.x
-	# Facing is the MODEL's, not the swimmer's: fish.gd overwrites the swimmer's
-	# rotation every frame to make him drift, so a turn applied there lasts one frame.
-	model.rotation_degrees.y = FISH_FACING
+	# Rotation and centring on the same node, worked out together: the offset has to be
+	# the centre AFTER the turn, or laying him flat swings him out through the glass.
+	# Facing is the MODEL's, not the swimmer's, because fish.gd overwrites the
+	# swimmer's rotation every frame to make him drift.
+	var rest := Basis.from_euler(Vector3(
+		deg_to_rad(FISH_REST.x), deg_to_rad(FISH_REST.y), deg_to_rad(FISH_REST.z)))
+	var fit: float = model.scale.x
+	model.transform = Transform3D(rest.scaled(Vector3.ONE * fit),
+		-(rest * bounds.get_center()) * fit)
 	bowl.add_child(swimmer)
 
 

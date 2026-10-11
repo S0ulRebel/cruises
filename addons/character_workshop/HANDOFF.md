@@ -5,6 +5,9 @@
 - Authored `dock.tscn`; native scene tree, Inspector, transform tools and UndoRedoManager.
 - Arbitrary file add/drop/adoption, independent duplication, hide/remove/replace, actual
   node/bone targets, whole local rigs, free detach and preserved world placement.
+- Native adoption initializes the core's imported-composition boundary once. Undo restores
+  original nested identities/group metadata; redo reuses the same initialized values.
+  Duplicates retain that authored nested composition and independently identify its parts.
 - Dependency graph includes external skins/provenance. Remove-all includes external
   parts; keep-free cannot orphan a donor. Reconnect validates existing rig correspondence.
 - Source-space face click/region/surface preview, reversible masks, faithful surface
@@ -19,7 +22,7 @@
 - Root core reference snapshots remain opaque and include mask correspondence; duplicates
   rebase after insertion. Carriers are retained only in the proper do/undo history direction.
 
-Native Godot 4.7.2 plugin-enabled fixture checks pass 96/96 with engine errors treated as failure;
+Native Godot 4.7.2 plugin-enabled fixture checks pass 109/109 with engine errors treated as failure;
 separate cold process checks saved mask, rig, materials, collision and clip independence.
 Logs are external under the agent's Temp diagnostic paths. Production source art, scenes,
 project settings and global docs are not part of this module commit. Imported resources

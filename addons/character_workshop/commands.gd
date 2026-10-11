@@ -372,9 +372,16 @@ func _adopt(node: Node3D, part: Node3D, state: Dictionary) -> void:
 	part.add_child(node)
 	node.name = "Model"
 	node.transform = Transform3D.IDENTITY
+	if not state.has("composition_after"):
+		state.composition_before = Ops.capture_source_composition(part)
+		Ops.initialize_source_composition(part)
+		state.composition_after = Ops.capture_source_composition(part)
+	else:
+		Ops.restore_source_composition(state.composition_after)
 	Ops.ensure_owned(part, scene_root)
 
 func _unadopt(node: Node3D, part: Node3D, state: Dictionary) -> void:
+	Ops.restore_source_composition(state.get("composition_before", []))
 	_remove(node)
 	_remove(part)
 	state.parent.add_child(node)

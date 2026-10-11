@@ -131,9 +131,52 @@ func _run() -> void:
 	expect(native.get_parent() == assembly and native.name == "NativeDraggedModel" and native.global_transform.is_equal_approx(world), "adoption undo")
 	history.redo()
 	expect(native.get_parent() == adopted.part, "adoption redo")
+	var native_composition := Assembly.new()
+	native_composition.name = "NativeManagedComposition"
+	assembly.add_child(native_composition)
+	native_composition.position = Vector3(-2, 0.3, 1)
+	var nested_body: Node3D = Ops.create_part(SOURCE).part
+	var nested_head: Node3D = Ops.create_part(SOURCE).part
+	native_composition.add_child(nested_body)
+	native_composition.add_child(nested_head)
+	nested_body.name = "ExistingBody"
+	nested_head.name = "ExistingHead"
+	Ops.ensure_owned(native_composition, assembly)
+	var nested_skeleton: Skeleton3D = nested_body.get_node("Model/Skeleton")
+	expect(Ops.attach(nested_head, nested_skeleton, 2, "Jaw", assembly).ok, "native composition includes managed local-rig attachment")
+	var original_nested_ids: Array = [nested_body.get("part_id"), nested_head.get("part_id")]
+	var original_body_group: Variant = nested_body.get_node("Model").get_meta(Ops.SOURCE_GROUP_META)
+	var original_head_group: Variant = nested_head.get_node("Model").get_meta(Ops.SOURCE_GROUP_META)
+	var original_nested_world := nested_head.global_transform
+	var adopted_composition: Dictionary = commands.adopt_selected(native_composition)
+	expect(adopted_composition.ok, "native managed assembly adoption")
+	var composition_part: Node3D = adopted_composition.part
+	var initialized_nested_ids: Array = [nested_body.get("part_id"), nested_head.get("part_id")]
+	expect(initialized_nested_ids[0] != original_nested_ids[0] and initialized_nested_ids[1] != original_nested_ids[1], "adoption regenerates nested managed identities")
+	expect(native_composition.get_meta(Ops.SOURCE_GROUP_META) == composition_part.get("part_id") and nested_body.get_meta(Ops.SOURCE_GROUP_META) == composition_part.get("part_id"), "adoption records the imported composition boundary")
+	expect(nested_head.global_transform.is_equal_approx(original_nested_world), "nested adoption preserves world placement and carrier")
+	var copied_composition: Dictionary = commands.duplicate_selected(composition_part)
+	expect(copied_composition.ok and Ops.collect_parts(copied_composition.part).size() == 3, "duplicate retains imported nested parts")
+	var copied_head: Node3D = copied_composition.part.find_child("ExistingHead", true, false) as Node3D
+	var copied_nested_ids: Array = [copied_composition.part.get_node("Model/ExistingBody").get("part_id"), copied_head.get("part_id")]
+	expect(copied_head.get_parent() is BoneAttachment3D and copied_head.get_node_or_null(copied_head.get("target_path")) == copied_composition.part.get_node("Model/ExistingBody/Model/Skeleton"), "duplicate retains source bone carrier and target")
+	expect(copied_nested_ids[0] != initialized_nested_ids[0] and copied_nested_ids[1] != initialized_nested_ids[1], "duplicated nested identities remain independent")
+	history.undo()
+	history.undo()
+	expect(native_composition.get_parent() == assembly and native_composition.name == "NativeManagedComposition", "nested adoption undo restores native hierarchy")
+	expect([nested_body.get("part_id"), nested_head.get("part_id")] == original_nested_ids, "nested adoption undo restores exact original identities")
+	expect(not native_composition.has_meta(Ops.SOURCE_GROUP_META) and not nested_body.has_meta(Ops.SOURCE_GROUP_META) and nested_body.get_node("Model").get_meta(Ops.SOURCE_GROUP_META) == original_body_group and nested_head.get_node("Model").get_meta(Ops.SOURCE_GROUP_META) == original_head_group, "nested adoption undo restores original composition metadata")
+	history.redo()
+	expect([nested_body.get("part_id"), nested_head.get("part_id")] == initialized_nested_ids and native_composition.get_meta(Ops.SOURCE_GROUP_META) == composition_part.get("part_id"), "nested adoption redo reuses initialized identities and group")
+	history.redo()
+	expect(Ops.collect_parts(copied_composition.part).size() == 3 and [copied_composition.part.get_node("Model/ExistingBody").get("part_id"), copied_head.get("part_id")] == copied_nested_ids, "composition duplicate redo reuses copied identities")
+	history.undo()
+	history.undo()
+	assembly.remove_child(native_composition)
 	var body_player: AnimationPlayer = body.get_node("Model/AnimationPlayer")
 	var borrowed := {"ok": true, "error": "", "player": body_player, "created": false, "library": body_player.get_animation_library("").duplicate(true), "model": body.get_node("Model")}
 	expect(commands.install_animation_library(borrowed).ok, "prepared borrowed library installation")
+	native_composition.free()
 	expect(body_player.has_animation("captain/talk"), "borrowed clip has explicit library name")
 	history.undo()
 	expect(not body_player.has_animation_library("captain"), "borrowed library undo")

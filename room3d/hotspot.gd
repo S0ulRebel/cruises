@@ -33,9 +33,36 @@ enum Verb { LOOK, USE, TALK }
 ## Picked up on USE rather than operated. The id it adds to the inventory.
 @export var gives_item := ""
 ## Refuses USE until this item is held. Empty means no requirement.
+##
+## The simple case: one lock, one key. For a hotspot where several items each do
+## something different, use `combinations` instead - this stays because most hotspots
+## are a lock or they are nothing, and making every one of them a table would be a
+## table of one row.
 @export var needs_item := ""
-## Said when USE is attempted without `needs_item`.
+## Said when USE is attempted without `needs_item`, or with an item no combination
+## covers. The generic "that is not going to work" is the least interesting line in an
+## adventure game, so it is worth writing one per hotspot.
 @export_multiline var refusal := ""
+
+## What specific items do to this thing: `{ item_id: { ... } }`.
+##
+## This is where a puzzle game lives. A crate is not a lock that opens for one key -
+## it is a thing you can prise with a rapier, bang with a ladle, or pour ink over, and
+## two of those should say something rather than nothing. A wrong answer that is
+## WRITTEN is a joke; a wrong answer that is silent is a bug the player blames
+## themselves for.
+##
+## Each entry may carry:
+##     say      what the character says. The whole point of the wrong answers.
+##     gives    an item id added to the inventory
+##     takes    an item id consumed - a key that stays in your pocket after it has
+##              opened the door is a key you will keep trying on other doors
+##     sets     a flag name, for the conversation and puzzle state to read
+##     solved   true if this is the intended answer, so the hotspot can change state
+##
+## Checked BEFORE needs_item, so a hotspot can have both: a lock, and something funny
+## to say to the people who try the wrong key.
+@export var combinations: Dictionary = {}
 ## A conversation file, for hotspots that are people.
 @export_file("*.json") var conversation := ""
 
@@ -43,6 +70,9 @@ signal looked(text: String)
 signal used(item_given: String)
 signal refused(text: String)
 signal talked(conversation_path: String)
+## A combination fired. Carries the whole entry, so the room can say the line, move
+## the items and set the flag without knowing what any particular puzzle means.
+signal combined(item_id: String, outcome: Dictionary)
 
 
 func _ready() -> void:
@@ -89,6 +119,9 @@ func resolve_approach(verb: Verb, from: Vector3) -> Dictionary:
 func resolve(held: String) -> Verb:
 	if not conversation.is_empty():
 		return Verb.TALK
+	# Holding something this thing has an answer for is a USE, even a funny one.
+	if not held.is_empty() and combinations.has(held):
+		return Verb.USE
 	if not gives_item.is_empty() or not needs_item.is_empty():
 		return Verb.USE if needs_item.is_empty() or needs_item == held else Verb.LOOK
 	return Verb.LOOK
@@ -107,6 +140,8 @@ func phrase(verb: Verb, held_name := "") -> String:
 		Verb.USE:
 			if not held_name.is_empty() and not needs_item.is_empty():
 				return "Use %s on %s" % [held_name, display_name]
+			if not held_name.is_empty():
+				return "Use %s on %s" % [held_name, display_name]
 			if not gives_item.is_empty():
 				return "Take %s" % display_name
 			return "Use %s" % display_name
@@ -123,6 +158,19 @@ func interact(verb: Verb, held: String) -> void:
 		Verb.TALK:
 			talked.emit(conversation)
 		Verb.USE:
+			# A written outcome for this exact item beats both the lock and the
+			# generic refusal, including when the outcome is "that did nothing, and
+			# here is a line about it".
+			if not held.is_empty() and combinations.has(held):
+				combined.emit(held, combinations[held])
+				return
+			# Something is being used ON this, and this had no answer for it. Say so.
+			# Without this a hotspot that has combinations but no needs_item swallows
+			# every unlisted item in silence, which reads as a broken click.
+			if not held.is_empty() and not combinations.is_empty():
+				refused.emit(refusal if not refusal.is_empty()
+					else "That is not going to work.")
+				return
 			if not needs_item.is_empty() and needs_item != held:
 				refused.emit(refusal if not refusal.is_empty()
 					else "That is not going to work.")

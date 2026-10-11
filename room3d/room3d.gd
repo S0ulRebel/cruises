@@ -162,18 +162,12 @@ func rebake_navigation() -> void:
 	# which looks like a broken click, not a timing problem.
 	var map := get_world_3d().navigation_map
 	if map.is_valid():
-		# What the server had reached BEFORE this bake. await_navigation waits for it
-		# to move on from here, rather than for some absolute count - otherwise a
-		# second bake returns instantly while the server is still serving the old mesh.
-		_baked_at_iteration = NavigationServer3D.map_get_iteration_id(map)
 		NavigationServer3D.map_force_update(map)
 	navigation_ready = false
 
 
 ## True once the navigation server can actually answer. See await_navigation().
 var navigation_ready := false
-## The server's iteration at the moment of the last bake. See rebake_navigation().
-var _baked_at_iteration := 0
 
 
 ## Wait until the walkable area is queryable.
@@ -189,14 +183,25 @@ func await_navigation() -> void:
 	var map := get_world_3d().navigation_map
 	if not map.is_valid():
 		return
-	# Two iterations past the bake: the first registers the region, the mesh arrives on
-	# the next. Measured - see navcheck.tscn, which fails on one.
-	var target := _baked_at_iteration + 2
+	# Ask the map a question we know the answer to, and wait until it gets it right.
+	#
+	# Counting sync iterations was the first attempt and it is not reliable: how many
+	# iterations a bake takes to land depends on what else changed that frame, and
+	# freeing a previous room shifts it. A behavioural check cannot be fooled by any
+	# of that - either the server can place a point on the floor or it cannot.
+	var probe := global_position + Vector3(0.0, 0.1, 0.0)
 	var waited := 0
-	while NavigationServer3D.map_get_iteration_id(map) < target and waited < 120:
+	navigation_ready = false
+	while waited < 240:
+		var landed := NavigationServer3D.map_get_closest_point(map, probe)
+		# The origin is what an unsynced map returns for everything, so a result near
+		# the probe means the mesh is really there - unless the probe IS the origin,
+		# which is why it is lifted off the floor.
+		if landed.distance_to(probe) < 1.0 and landed != Vector3.ZERO:
+			navigation_ready = true
+			break
 		await get_tree().physics_frame
 		waited += 1
-	navigation_ready = NavigationServer3D.map_get_iteration_id(map) >= target
 	if not navigation_ready:
 		push_warning("Room3D: navigation never synchronised; nobody will be able to walk.")
 

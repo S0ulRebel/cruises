@@ -60,6 +60,10 @@ var _inventory: Inventory
 var _pointer: Pointer
 var _hovered: Node = null
 var _busy := false  ## A cutscene or conversation is running; the room ignores clicks.
+## Puzzle state. Set by item combinations and by conversations, read by both. Flat
+## names rather than a tree, because a puzzle that needs a tree of state is a puzzle
+## nobody will solve.
+var _flags: Dictionary = {}
 var _auto := false
 
 
@@ -895,9 +899,19 @@ const HOTSPOTS := [
 	  "props": { "description": "Fog. The same fog as yesterday, and no closer to telling us where we are." } },
 	{ "label": "Desk", "at": Vector3(-3.6, 0.8, -1.4), "stand": Vector3(-3.6, 0, -0.3), "visual": "Desk",
 	  "props": { "description": "Charts, a compass, and a dried-out inkwell. He navigates by instinct and blames the charts." } },
-	{ "label": "Fishbowl", "at": Vector3(-3.3, 0.95, -1.2), "stand": Vector3(-3.0, 0, -0.3),
+	{ "label": "Fishbowl", "at": Vector3(-3.3, 0.95, -1.2), "stand": Vector3(-3.0, 0, -0.3), "visual": "Fishbowl",
 	  "props": { "description": "Count Fingers regards you the way a customs officer regards a crate.",
-	             "gives_item": "fishbowl" } },
+	             "gives_item": "fishbowl",
+	             "combinations": {
+	               "brass_inkwell": { "say": "He holds the inkwell over the bowl. Count Fingers does not blink, because he cannot, but the intent is there." },
+	               "compass": { "say": "The needle swings towards the fish and stays there. Livé decides not to think about that." },
+	             } } },
+	# Without this the crate cannot be opened: its answer is the rapier and nothing in
+	# the room handed one out. Caught by playcombo.gd, which walks the real data and
+	# refuses a combination keyed on an item the player can never be holding.
+	{ "label": "Rapier", "at": Vector3(-3.3, 0.86, -1.15), "stand": Vector3(-3.3, 0, -0.3),
+	  "props": { "description": "Thin, French, and considerably better travelled than most men. It is holding down a chart.",
+	             "gives_item": "rapier" } },
 	{ "label": "Compass", "at": Vector3(-3.9, 0.82, -1.25), "stand": Vector3(-3.9, 0, -0.3), "visual": "Compass",
 	  "props": { "description": "The needle swings, settles, and points at nothing in particular. Much like its owner.",
 	             "gives_item": "compass" } },
@@ -906,9 +920,14 @@ const HOTSPOTS := [
 	             "gives_item": "brass_inkwell" } },
 	{ "label": "Crate", "at": Vector3(3.9, 0.9, 1.9), "stand": Vector3(3.9, 0, 2.9), "visual": "Crate",
 	  "props": { "description": "Stencilled LE CHAOS NAVIGUE TOUJOURS PLUS LOIN. Nailed shut.",
-	             "needs_item": "rapier",
 	             "refusal": "It is nailed shut, and the captain is not going to use his fingers.",
-	             "gives_item": "key" } },
+	             "combinations": {
+	               "rapier": { "say": "The lid comes up with a noise like a small argument. Inside: a key, and three years of damp.",
+	                           "gives": "key", "sets": "crate_open", "solved": true },
+	               "compass": { "say": "He holds the compass to the crate. The needle, loyal to nothing, points at the crate." },
+	               "brass_inkwell": { "say": "He considers prising the lid with an inkwell, and his hand stops before his pride does." },
+	               "fishbowl": { "say": "Count Fingers regards the crate. The crate, being a crate, does not regard him back." },
+	             } } },
 ]
 
 
@@ -950,6 +969,8 @@ func _hotspot(label: String, at: Vector3, stand: Vector3, props: Dictionary,
 			_say_as_player("Taken: %s." % _inventory.display_name(item))
 		else:
 			_say_as_player("He already has it."))
+	spot.combined.connect(func(item: String, outcome: Dictionary) -> void:
+		_apply_outcome(spot, item, outcome))
 
 	spot.input_event.connect(
 		func(_c: Node, event: InputEvent, _p: Vector3, _n: Vector3, _s: int) -> void:
@@ -977,6 +998,34 @@ func _approach_hotspot(spot: Hotspot) -> void:
 	await _player.arrived
 	spot.interact(verb, _inventory.selection)
 	_busy = false
+
+
+## What using one item on one thing actually does. The hotspot decides WHETHER, the
+## room decides what happens - because moving items, setting flags and saying lines
+## are the room's business and a hotspot that did them would need to know about the
+## inventory, the caption and the flags.
+func _apply_outcome(spot: Hotspot, item: String, outcome: Dictionary) -> void:
+	# `takes` first: a key still in your pocket after it has opened the door is a key
+	# you will keep trying on every other door.
+	if outcome.has("takes"):
+		_inventory.remove(String(outcome["takes"]))
+	elif bool(outcome.get("solved", false)):
+		# The intended answer consumes the item it was solved with unless the data
+		# says otherwise, which is right far more often than not.
+		if outcome.get("keeps", false) == false:
+			_inventory.remove(item)
+	if outcome.has("gives"):
+		_inventory.add(String(outcome["gives"]))
+	if outcome.has("sets"):
+		_flags[String(outcome["sets"])] = true
+	if bool(outcome.get("solved", false)):
+		# Solved once. Clearing the combinations stops the same line firing twice and
+		# stops a consumed item being conjured back out of a crate already open.
+		spot.combinations = {}
+		spot.needs_item = ""
+		spot.gives_item = ""
+	if outcome.has("say"):
+		await _say_as_player(String(outcome["say"]))
 
 
 func _say_as_player(text: String) -> void:

@@ -26,6 +26,10 @@ enum Verb { LOOK, USE, TALK }
 @export var approaches: Dictionary = {}
 ## The fallback approach, used by any action without its own entry.
 @export var approach: Approach
+## Authored local references travel with a moved/rotated/duplicated prefab.
+@export var visual: Node3D
+@export var approach_marker: Marker3D
+@export var target_actor: Node3D
 ## Shown when the cursor is over it.
 @export var display_name := "thing"
 ## The response to LOOK. The bulk of an adventure game's writing lives in these.
@@ -95,12 +99,14 @@ func approach_for(verb: Verb) -> Approach:
 func resolve_approach(verb: Verb, from: Vector3) -> Dictionary:
 	var spec := approach_for(verb)
 	var standoff: float = spec.standoff if spec else 0.9
-	var at: Vector3 = spec.at if spec and spec.at != Vector3.ZERO 		else Approach.default_for(global_position, from, standoff)
+	var at: Vector3 = approach_marker.global_position if approach_marker else \
+		(to_global(spec.at) if spec and spec.at != Vector3.ZERO else \
+		Approach.default_for(global_position, from, standoff))
 
 	# Snap onto the walkable area. An authored point that drifted off the mesh, or a
 	# computed one inside a wall, would otherwise leave the character walking forever.
 	var map := get_world_3d().navigation_map
-	if map.is_valid():
+	if map.is_valid() and NavigationServer3D.map_get_iteration_id(map) > 0:
 		at = NavigationServer3D.map_get_closest_point(map, at)
 
 	var facing := NAN
@@ -110,7 +116,7 @@ func resolve_approach(verb: Verb, from: Vector3) -> Dictionary:
 		if toward.length() > 0.001:
 			facing = rad_to_deg(atan2(toward.x, toward.z))
 	elif spec.face == Approach.Face.EXPLICIT:
-		facing = spec.facing_degrees
+		facing = spec.facing_degrees + rad_to_deg(global_rotation.y)
 	return {"at": at, "facing": facing}
 
 

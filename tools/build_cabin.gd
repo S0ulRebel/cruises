@@ -26,11 +26,11 @@ const Room3D := preload("res://room3d/room3d.gd")
 const Mover := preload("res://actors/mover/mover.gd")
 const Animator := preload("res://actors/parts/animator.gd")
 const BorrowClips := preload("res://actors/parts/borrow_clips.gd")
-const Hotspot := preload("res://room3d/hotspot.gd")
-const Approach := preload("res://room3d/approach.gd")
+const Hotspot := preload("res://systems/interaction/hotspot.gd")
+const Approach := preload("res://systems/interaction/approach.gd")
 
 ## Where the finished room goes.
-const CABIN := "res://rooms/captains_cabin/captains_cabin.tscn"
+const CABIN := "res://locations/captains_cabin/captains_cabin.tscn"
 
 var _room: Room3D
 var _movers: Dictionary = {}

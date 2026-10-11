@@ -1,6 +1,6 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://room3d/room3d.gd" id="1_yd40d"]
+[ext_resource type="Script" path="res://locations/location.gd" id="1_yd40d"]
 [ext_resource type="PackedScene" path="res://props/captain_desk/captain_desk.tscn" id="2_7l27h"]
 [ext_resource type="Script" path="res://props/parts/unlit.gd" id="3_lhxqi"]
 [ext_resource type="PackedScene" path="res://props/captain_chair/captain_chair.tscn" id="4_e7pdq"]
@@ -13,8 +13,8 @@
 [ext_resource type="PackedScene" path="res://props/bowl_stand/bowl_stand.tscn" id="11_tgcne"]
 [ext_resource type="PackedScene" path="res://props/fishbowl/fishbowl.tscn" id="12_prnol"]
 [ext_resource type="Script" path="res://props/fishbowl/fishbowl.gd" id="13_rropf"]
-[ext_resource type="Script" path="res://room3d/hotspot.gd" id="14_va43j"]
-[ext_resource type="Script" path="res://room3d/approach.gd" id="15_ufmvm"]
+[ext_resource type="Script" path="res://systems/interaction/hotspot.gd" id="14_va43j"]
+[ext_resource type="Script" path="res://systems/interaction/approach.gd" id="15_ufmvm"]
 [ext_resource type="PackedScene" path="res://actors/captain_live/captain_live.tscn" id="16_83auf"]
 [ext_resource type="Script" path="res://actors/mover/mover.gd" id="17_twxhl"]
 [ext_resource type="PackedScene" path="res://actors/santi_wong/santi_wong.tscn" id="18_y4ssf"]
@@ -114,17 +114,21 @@ at = Vector3(3.9, 0, 2.9)
 [sub_resource type="BoxShape3D" id="BoxShape3D_7j3ve"]
 size = Vector3(0.9, 0.9, 0.9)
 
-[node name="CaptainQuarters" type="Node3D" unique_id=534964259]
+[node name="CaptainsCabin" type="Node3D" node_paths=PackedStringArray("camera", "player", "navigation_regions") unique_id=534964259]
 script = ExtResource("1_yd40d")
+camera = NodePath("Camera")
+player = NodePath("live")
+navigation_regions = [NodePath("Navigation")]
 
 [node name="Camera" type="Camera3D" parent="." unique_id=800241176]
 transform = Transform3D(1, 0, 0, 0, 0.9986295, 0.05233596, 0, -0.05233596, 0.9986295, 0, 1.15, 4.1)
 current = true
 fov = 62.0
 
-[node name="Floor" type="StaticBody3D" parent="." unique_id=1703781151]
+[node name="Floor" type="StaticBody3D" parent="." groups=["nav_source"] unique_id=1703781151]
+collision_layer = 2
 
-[node name="@CollisionShape3D@46" type="CollisionShape3D" parent="Floor" unique_id=2037270792]
+[node name="Collision" type="CollisionShape3D" parent="Floor" unique_id=2037270792]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 shape = SubResource("BoxShape3D_ujyaw")
 

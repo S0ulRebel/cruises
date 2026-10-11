@@ -9,6 +9,13 @@ extends CharacterBody3D
 ## today that is a capsule. A rigged Tripo model drops into the same slot.
 
 signal arrived
+signal movement_finished(success: bool, reason: String)
+@export var definition: CharacterDefinition
+@export var movement_timeout := 30.0
+@export var stuck_timeout := 2.0
+var _elapsed := 0.0
+var _stuck := 0.0
+var _last_position := Vector3.ZERO
 
 ## Metres per second. A walk, not a jog - adventure characters amble, and the player is
 ## reading dialogue most of the time anyway.
@@ -56,51 +63,42 @@ var _gait_target := 0.0
 
 func _ready() -> void:
 	_body = get_node_or_null("Body")
-	_build_agent()
-	if blocks_others:
-		_build_obstacle()
+	_agent = get_node_or_null("Agent") as NavigationAgent3D
+	if _agent and _agent.avoidance_enabled:
+		_agent.velocity_computed.connect(_on_safe_velocity)
 
 
 ## Pathfinding, rather than walking straight at the target and grinding along whatever
 ## is in the way. See Room3D._build_navigation for why a point-and-click wants this.
 func _build_agent() -> void:
-	_agent = NavigationAgent3D.new()
-	_agent.name = "Agent"
-	_agent.path_desired_distance = path_desired_distance
-	_agent.target_desired_distance = path_target_distance
-	_agent.radius = 0.26
-	_agent.height = character_height
-	# Avoidance off on purpose: it makes characters drift and jitter around each other
-	# even when nobody is moving. Standing in the way is handled by the obstacle below,
-	# which is a hole in the map rather than a steering force.
-	_agent.avoidance_enabled = false
-	add_child(_agent)
+	# Compatibility for old harnesses: binding never constructs a component.
+	_agent = get_node_or_null("Agent") as NavigationAgent3D
 
 
 ## This character, as something others have to walk around. Carved at runtime, so it
 ## follows him rather than needing the room re-baked every step.
 func _build_obstacle() -> void:
-	var obstacle := NavigationObstacle3D.new()
-	obstacle.name = "Obstacle"
-	obstacle.radius = obstacle_radius
-	obstacle.height = character_height
-	obstacle.affect_navigation_mesh = true
-	obstacle.carve_navigation_mesh = true
-	add_child(obstacle)
+	pass
 
 
 ## Walk to a point. `facing_degrees` is an optional heading to settle into on arrival -
 ## leave it out and he keeps whatever direction he was walking.
 func walk_to(point: Vector3, facing_degrees := NAN) -> void:
+	if _moving:
+		_finish_movement(false, "cancelled")
 	_target = point
 	_final_facing = facing_degrees
 	_moving = true
+	_elapsed = 0.0
+	_stuck = 0.0
+	_last_position = global_position
 	if _agent:
 		_agent.target_position = point
 
 
 func stop() -> void:
-	_moving = false
+	if _moving:
+		_finish_movement(false, "cancelled")
 	_play(STILL)
 	velocity = Vector3.ZERO
 
@@ -167,43 +165,55 @@ func _physics_process(delta: float) -> void:
 	if not _moving:
 		_play(STILL)
 		velocity = Vector3.ZERO
+		if _agent and _agent.avoidance_enabled:
+			_agent.velocity = Vector3.ZERO
 		move_and_slide()
 		return
 	_play(MOVING)
+	_elapsed += delta
+	_stuck = _stuck + delta if global_position.distance_to(_last_position) < 0.001 else 0.0
+	_last_position = global_position
+	if _elapsed > movement_timeout or _stuck > stuck_timeout:
+		_finish_movement(false, "stuck")
+		return
+	if _agent == null or NavigationServer3D.map_get_iteration_id(_agent.get_navigation_map()) == 0:
+		_finish_movement(false, "navigation_unavailable")
+		return
 
 	# Where to head NEXT, which is a corner of the path rather than the destination.
 	# Falling back to the straight line keeps this working in scenes with no navigation
 	# baked - the check harnesses, and any room not yet built.
-	var step := _target
-	if _agent and not _agent.is_navigation_finished():
-		step = _agent.get_next_path_position()
+	var step := _agent.get_next_path_position()
+	if not _agent.is_target_reachable():
+		_finish_movement(false, "unreachable")
+		return
 
 	var to_target := _target - global_position
 	to_target.y = 0.0
-	var reached := to_target.length() <= arrive_distance
-	if _agent:
-		reached = _agent.is_navigation_finished()
+	var reached := to_target.length() <= maxf(arrive_distance, _agent.target_desired_distance)
 
 	if reached:
-		_moving = false
-		_play(STILL)
-		velocity = Vector3.ZERO
-		move_and_slide()
 		_settle_facing()
-		arrived.emit()
+		_finish_movement(true, "arrived")
+		return
+	if _agent.is_navigation_finished():
+		_finish_movement(false, "path_exhausted")
 		return
 
 	var to_step := step - global_position
 	to_step.y = 0.0
 	var direction := to_step.normalized() if to_step.length() > 0.001 else Vector3.ZERO
 	velocity = direction * speed
-	move_and_slide()
+	if _agent.avoidance_enabled:
+		_agent.velocity = velocity
+	else:
+		move_and_slide()
 
 	# Turn to face where he is going, rather than snapping. A character who pivots
 	# instantly reads as a sprite being flipped, which is the thing 3D is here to avoid.
 	if _body and direction.length_squared() > 0.001:
 		var wanted := atan2(direction.x, direction.z)
-		_body.rotation.y = lerp_angle(_body.rotation.y, wanted, turn_speed * delta)
+		_body.rotation.y = lerp_angle(_body.rotation.y, wanted - global_rotation.y, turn_speed * delta)
 
 
 ## Turn to the heading the caller asked for on arrival, if it asked for one. This is
@@ -211,5 +221,20 @@ func _physics_process(delta: float) -> void:
 func _settle_facing() -> void:
 	if _body == null or is_nan(_final_facing):
 		return
-	_body.rotation.y = deg_to_rad(_final_facing)
+	_body.rotation.y = deg_to_rad(_final_facing) - global_rotation.y
 	_final_facing = NAN
+
+func _on_safe_velocity(safe_velocity: Vector3) -> void:
+	if _moving:
+		velocity = safe_velocity
+		move_and_slide()
+
+func _finish_movement(success: bool, reason: String) -> void:
+	_moving = false
+	velocity = Vector3.ZERO
+	if _agent and _agent.avoidance_enabled:
+		_agent.velocity = Vector3.ZERO
+	_play(STILL)
+	if success:
+		arrived.emit()
+	movement_finished.emit(success, reason)

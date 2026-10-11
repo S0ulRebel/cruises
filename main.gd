@@ -21,7 +21,7 @@ const Room3D := preload("res://room3d/room3d.gd")
 const Mover := preload("res://actors/mover/mover.gd")
 const BorrowClips := preload("res://actors/parts/borrow_clips.gd")
 const Animator := preload("res://actors/parts/animator.gd")
-const Hotspot := preload("res://room3d/hotspot.gd")
+const Hotspot := preload("res://systems/interaction/hotspot.gd")
 const Inventory := preload("res://ui/inventory.gd")
 const Pointer := preload("res://ui/pointer.gd")
 const Highlight := preload("res://ui/highlight/highlight.gd")
@@ -34,7 +34,7 @@ const Highlight := preload("res://ui/highlight/highlight.gd")
 
 ## The cabin, as authored. Built from the tables below only when this is missing or
 ## when --pack is regenerating it.
-const CABIN := "res://rooms/captains_cabin/captains_cabin.tscn"
+const CABIN := "res://locations/captains_cabin/captains_cabin.tscn"
 
 ## Who is in the room, from data/cast.json - the same list tools/build_cabin.gd
 ## places when a room is first built.

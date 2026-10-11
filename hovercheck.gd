@@ -7,7 +7,7 @@ extends SceneTree
 
 func _init() -> void:
 	var failures := 0
-	var Hotspot := load("res://room3d/hotspot.gd")
+	var Hotspot := load("res://systems/interaction/hotspot.gd")
 
 	var crate = Hotspot.new()
 	crate.display_name = "Crate"

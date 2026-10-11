@@ -1,7 +1,7 @@
 extends Node3D
 ## Exercises the hotspot verbs without a mouse: look, blocked use, successful use.
 
-const Hotspot := preload("res://room3d/hotspot.gd")
+const Hotspot := preload("res://systems/interaction/hotspot.gd")
 const Inventory := preload("res://ui/inventory.gd")
 
 func _ready() -> void:

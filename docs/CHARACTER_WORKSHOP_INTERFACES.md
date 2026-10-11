@@ -14,7 +14,8 @@ consumers. Read CHARACTER_WORKSHOP_PLAN.md and module AGENTS.md before editing.
 - Integration: actors/outfit/, actors/mover/, project.godot, export_presets.cfg,
   shared docs/check runner, templates and end-to-end validation.
 
-Every agent gets an isolated worktree/branch. Commit local handoffs with changes.
+Every editing agent gets an explicit file scope. Work on `main`; notify the owner
+before using another branch/worktree or switching. Commit local handoffs with changes.
 Do not edit another scope or source art. Normal loading/testing never saves over
 authored assets; explicit save tests use unique user:// or external project outputs.
 

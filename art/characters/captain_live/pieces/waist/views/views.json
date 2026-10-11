@@ -1,0 +1,82 @@
+{
+  "source_sheet": "art\\characters\\captain_live\\pieces\\waist\\sheet.png",
+  "source_size": [
+    1882,
+    836
+  ],
+  "box_px": 954,
+  "output_px": 1908,
+  "upscale_method": "LANCZOS",
+  "card_colour": [
+    254,
+    254,
+    254
+  ],
+  "note": "Each figure is cut to its own bounds and composited onto a shared square canvas at a shared foot line. Nothing from the surrounding sheet is included, and framing is identical by construction.",
+  "views": [
+    {
+      "name": "front_2x",
+      "figure_box": [
+        158,
+        33,
+        421,
+        793
+      ],
+      "figure_px": [
+        263,
+        760
+      ],
+      "canvas_px": 954,
+      "output_px": 1908,
+      "upscaled": true
+    },
+    {
+      "name": "left_2x",
+      "figure_box": [
+        612,
+        22,
+        866,
+        787
+      ],
+      "figure_px": [
+        254,
+        765
+      ],
+      "canvas_px": 954,
+      "output_px": 1908,
+      "upscaled": true
+    },
+    {
+      "name": "back_2x",
+      "figure_box": [
+        1060,
+        23,
+        1324,
+        793
+      ],
+      "figure_px": [
+        264,
+        770
+      ],
+      "canvas_px": 954,
+      "output_px": 1908,
+      "upscaled": true
+    },
+    {
+      "name": "right_2x",
+      "figure_box": [
+        1523,
+        22,
+        1775,
+        787
+      ],
+      "figure_px": [
+        252,
+        765
+      ],
+      "canvas_px": 954,
+      "output_px": 1908,
+      "upscaled": true
+    }
+  ]
+}

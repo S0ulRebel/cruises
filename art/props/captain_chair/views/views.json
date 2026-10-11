@@ -1,0 +1,82 @@
+{
+  "source_sheet": "art\\props\\captain_chair\\sheet.png",
+  "source_size": [
+    3392,
+    848
+  ],
+  "box_px": 848,
+  "output_px": 1696,
+  "upscale_method": "LANCZOS",
+  "card_colour": [
+    254,
+    254,
+    254
+  ],
+  "note": "Each figure is cut to its own bounds and composited onto a shared square canvas at a shared foot line. Nothing from the surrounding sheet is included, and framing is identical by construction.",
+  "views": [
+    {
+      "name": "front",
+      "figure_box": [
+        247,
+        64,
+        600,
+        747
+      ],
+      "figure_px": [
+        353,
+        683
+      ],
+      "canvas_px": 848,
+      "output_px": 1696,
+      "upscaled": true
+    },
+    {
+      "name": "left",
+      "figure_box": [
+        1089,
+        63,
+        1454,
+        747
+      ],
+      "figure_px": [
+        365,
+        684
+      ],
+      "canvas_px": 848,
+      "output_px": 1696,
+      "upscaled": true
+    },
+    {
+      "name": "right",
+      "figure_box": [
+        1938,
+        63,
+        2301,
+        747
+      ],
+      "figure_px": [
+        363,
+        684
+      ],
+      "canvas_px": 848,
+      "output_px": 1696,
+      "upscaled": true
+    },
+    {
+      "name": "back",
+      "figure_box": [
+        2790,
+        63,
+        3146,
+        747
+      ],
+      "figure_px": [
+        356,
+        684
+      ],
+      "canvas_px": 848,
+      "output_px": 1696,
+      "upscaled": true
+    }
+  ]
+}

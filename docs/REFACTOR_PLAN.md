@@ -2,8 +2,8 @@
 
 Created 2026-10-11. Status: structural migration complete and integrated into `main`.
 All 24 migration tasks passed their checks. Camera framing is also complete.
-The subsequently approved Character Workshop redesign is implemented on
-`codex/character-workshop`; see [its plan](CHARACTER_WORKSHOP_PLAN.md) for validation
+The subsequently approved Character Workshop redesign is implemented and integrated
+into `main`; see [its plan](CHARACTER_WORKSHOP_PLAN.md) for validation
 and the remaining neck/clothing/owner usability acceptance. Remaining art work is
 recorded below.
 
@@ -54,8 +54,9 @@ acceptance. Tasks 1–24 below describe the completed structural migration.
 The implementation covers foundations, direct assembly/attachments, mesh exclusion,
 clothing/animation fitting, and usability/integration checks. Current
 world actors and the accepted portrait stay in place; dense body repair remains a
-separate art task. Each editing agent receives an isolated worktree and file scope
-after the shared assembly contract is established.
+separate art task. Each editing agent receives an explicit file scope after the
+shared assembly contract is established. Current owner policy keeps work on `main`;
+notify the owner before creating or using another branch/worktree or switching.
 
 ## Rules for the migration
 

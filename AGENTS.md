@@ -9,8 +9,9 @@
   Locations may be indoors or outdoors. Files/folders use snake_case; nodes PascalCase.
 - Root integration owns `game/`, `locations/`, `project.godot`, shared interfaces in
   `systems/content/`, `systems/game_state/`, `systems/interaction/` and path migrations.
-- Work on the owner's current branch by default. Notify the owner before creating
-  or using another branch/worktree or switching the checkout; this also applies
+- Work on `main` and keep the checkout there unless the owner directs otherwise.
+  Notify the owner before creating or using another branch/worktree or switching
+  the checkout; this also applies
   to delegated agents. Never switch branches silently.
 - Assign each delegated edit an explicit file scope and follow the branch policy
   above. Coordinate shared API or another owner's scene changes before editing.

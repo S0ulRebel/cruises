@@ -1,0 +1,82 @@
+{
+  "source_sheet": "art\\props\\pirate_chest\\sheet.png",
+  "source_size": [
+    2176,
+    544
+  ],
+  "box_px": 544,
+  "output_px": 1088,
+  "upscale_method": "LANCZOS",
+  "card_colour": [
+    254,
+    254,
+    254
+  ],
+  "note": "Each figure is cut to its own bounds and composited onto a shared square canvas at a shared foot line. Nothing from the surrounding sheet is included, and framing is identical by construction.",
+  "views": [
+    {
+      "name": "front",
+      "figure_box": [
+        77,
+        62,
+        466,
+        436
+      ],
+      "figure_px": [
+        389,
+        374
+      ],
+      "canvas_px": 544,
+      "output_px": 1088,
+      "upscaled": true
+    },
+    {
+      "name": "left",
+      "figure_box": [
+        629,
+        62,
+        1003,
+        436
+      ],
+      "figure_px": [
+        374,
+        374
+      ],
+      "canvas_px": 544,
+      "output_px": 1088,
+      "upscaled": true
+    },
+    {
+      "name": "right",
+      "figure_box": [
+        1172,
+        62,
+        1547,
+        436
+      ],
+      "figure_px": [
+        375,
+        374
+      ],
+      "canvas_px": 544,
+      "output_px": 1088,
+      "upscaled": true
+    },
+    {
+      "name": "back",
+      "figure_box": [
+        1710,
+        62,
+        2097,
+        436
+      ],
+      "figure_px": [
+        387,
+        374
+      ],
+      "canvas_px": 544,
+      "output_px": 1088,
+      "upscaled": true
+    }
+  ]
+}

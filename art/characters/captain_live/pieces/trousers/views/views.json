@@ -1,0 +1,82 @@
+{
+  "source_sheet": "art\\characters\\captain_live\\pieces\\trousers\\sheet.png",
+  "source_size": [
+    1882,
+    836
+  ],
+  "box_px": 905,
+  "output_px": 1810,
+  "upscale_method": "LANCZOS",
+  "card_colour": [
+    254,
+    254,
+    254
+  ],
+  "note": "Each figure is cut to its own bounds and composited onto a shared square canvas at a shared foot line. Nothing from the surrounding sheet is included, and framing is identical by construction.",
+  "views": [
+    {
+      "name": "front_2x",
+      "figure_box": [
+        37,
+        54,
+        498,
+        775
+      ],
+      "figure_px": [
+        461,
+        721
+      ],
+      "canvas_px": 905,
+      "output_px": 1810,
+      "upscaled": true
+    },
+    {
+      "name": "left_2x",
+      "figure_box": [
+        498,
+        53,
+        959,
+        781
+      ],
+      "figure_px": [
+        461,
+        728
+      ],
+      "canvas_px": 905,
+      "output_px": 1810,
+      "upscaled": true
+    },
+    {
+      "name": "back_2x",
+      "figure_box": [
+        959,
+        50,
+        1420,
+        778
+      ],
+      "figure_px": [
+        461,
+        728
+      ],
+      "canvas_px": 905,
+      "output_px": 1810,
+      "upscaled": true
+    },
+    {
+      "name": "right_2x",
+      "figure_box": [
+        1420,
+        50,
+        1882,
+        780
+      ],
+      "figure_px": [
+        462,
+        730
+      ],
+      "canvas_px": 905,
+      "output_px": 1810,
+      "upscaled": true
+    }
+  ]
+}

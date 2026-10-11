@@ -14,7 +14,9 @@ have been retired. Normal startup/tests must not save scene/model resources.
 
 Detailed implementation handoffs belong in module directories. This file indexes
 integration status and preserves historical art decisions. Root integration owns
-shared paths and location composition; parallel editing uses assigned worktrees.
+shared paths and location composition; parallel editing uses assigned file scopes.
+Current owner policy keeps work on `main`, with notification before another branch
+or worktree is created/used or the checkout is switched.
 
 Module records: `actors/HANDOFF.md`, `props/HANDOFF.md`, `ui/HANDOFF.md` and
 `tests/HANDOFF.md`. `docs/migration/README.md` indexes commits, checks and preserved
@@ -54,6 +56,20 @@ the engine-error rejection self-test pass with authored hashes unchanged.
 Evidence: `%TEMP%/cruises-checks-ff8993880e4449c8aea84fca57604f3f/`.
 The new viewport/layout concepts are awaiting owner approval; UI implementation
 must wait until a design is approved.
+
+Owner-authorized follow-up: the checkout is now `main`. Both stashes contain the
+same three texture-import updates; these are versioned on `main` with their existing
+UIDs and sources. Neither stash contains unique missing code or art. The blanket
+art/UI ignores stay removed; stashes remain available as backups.
+Eleven existing Tripo input view sets are now versioned with their crop provenance
+and import settings (Captain pieces boots/coat/face/hair/hat/shirt/trousers/waist;
+props captain_chair/fishbowl/pirate_chest). `views.json` records the delivered sizes
+and crop bounds from tracked source sheets. Embedded texture copies and diagnostic
+head previews remain local; no source images were regenerated or replaced.
+Validation: all 44 manifest-selected Tripo views match their recorded square output
+dimensions (at least 1024 px) and tracked source sheets. Godot import plus authored
+scene/portrait checks pass with all newly versioned source hashes unchanged:
+`%TEMP%/cruises-checks-e79f24c2eee14f95993a98fe9421d7b1/`.
 
 ## The rule
 

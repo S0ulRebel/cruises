@@ -1,7 +1,7 @@
 # Character Workshop implementation plan
 
-Created and approved: 2026-10-11. Status: implemented on
-`codex/character-workshop`; integration checks passed; art/owner acceptance below.
+Created and approved: 2026-10-11. Status: implemented and integrated into
+`main`; integration checks passed; art/owner acceptance below.
 The earlier scene migration remains completed in [REFACTOR_PLAN.md](REFACTOR_PLAN.md).
 Open checkboxes identify remaining acceptance work, not missing tool foundations.
 
@@ -276,7 +276,8 @@ These module boundaries were established before delegated editing.
 - Validation owner: tests/ with explicit fixture/output ownership and no source saves.
   Character/portrait art and template placements retain their respective owners.
 
-Each editing agent receives a codex/ branch, isolated worktree and exact file scope.
+Each editing agent receives an exact file scope. Current owner policy keeps work
+on `main`; notify the owner before using another branch/worktree or switching.
 CW01–CW03 establish interfaces and safe state first. Independent editor, binding and
 mesh work can then proceed within assigned scopes; shared scenes and APIs have one
 owner. Record detailed handoffs locally and keep HANDOFF.md as the current index.

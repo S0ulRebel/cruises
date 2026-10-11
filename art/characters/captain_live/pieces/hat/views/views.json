@@ -1,0 +1,82 @@
+{
+  "source_sheet": "art\\characters\\captain_live\\pieces\\hat\\sheet.png",
+  "source_size": [
+    2172,
+    724
+  ],
+  "box_px": 644,
+  "output_px": 1288,
+  "upscale_method": "LANCZOS",
+  "card_colour": [
+    254,
+    254,
+    254
+  ],
+  "note": "Each figure is cut to its own bounds and composited onto a shared square canvas at a shared foot line. Nothing from the surrounding sheet is included, and framing is identical by construction.",
+  "views": [
+    {
+      "name": "front_2x",
+      "figure_box": [
+        24,
+        195,
+        536,
+        523
+      ],
+      "figure_px": [
+        512,
+        328
+      ],
+      "canvas_px": 644,
+      "output_px": 1288,
+      "upscaled": true
+    },
+    {
+      "name": "left_2x",
+      "figure_box": [
+        581,
+        199,
+        1056,
+        529
+      ],
+      "figure_px": [
+        475,
+        330
+      ],
+      "canvas_px": 644,
+      "output_px": 1288,
+      "upscaled": true
+    },
+    {
+      "name": "back_2x",
+      "figure_box": [
+        1113,
+        198,
+        1633,
+        527
+      ],
+      "figure_px": [
+        520,
+        329
+      ],
+      "canvas_px": 644,
+      "output_px": 1288,
+      "upscaled": true
+    },
+    {
+      "name": "right_2x",
+      "figure_box": [
+        1661,
+        199,
+        2134,
+        528
+      ],
+      "figure_px": [
+        473,
+        329
+      ],
+      "canvas_px": 644,
+      "output_px": 1288,
+      "upscaled": true
+    }
+  ]
+}

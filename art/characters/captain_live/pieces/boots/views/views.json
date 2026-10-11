@@ -1,0 +1,82 @@
+{
+  "source_sheet": "art\\characters\\captain_live\\pieces\\boots\\sheet.png",
+  "source_size": [
+    2172,
+    724
+  ],
+  "box_px": 673,
+  "output_px": 1346,
+  "upscale_method": "LANCZOS",
+  "card_colour": [
+    253,
+    253,
+    253
+  ],
+  "note": "Each figure is cut to its own bounds and composited onto a shared square canvas at a shared foot line. Nothing from the surrounding sheet is included, and framing is identical by construction.",
+  "views": [
+    {
+      "name": "front_2x",
+      "figure_box": [
+        0,
+        199,
+        543,
+        596
+      ],
+      "figure_px": [
+        543,
+        397
+      ],
+      "canvas_px": 673,
+      "output_px": 1346,
+      "upscaled": true
+    },
+    {
+      "name": "left_2x",
+      "figure_box": [
+        543,
+        195,
+        1086,
+        586
+      ],
+      "figure_px": [
+        543,
+        391
+      ],
+      "canvas_px": 673,
+      "output_px": 1346,
+      "upscaled": true
+    },
+    {
+      "name": "back_2x",
+      "figure_box": [
+        1086,
+        201,
+        1629,
+        593
+      ],
+      "figure_px": [
+        543,
+        392
+      ],
+      "canvas_px": 673,
+      "output_px": 1346,
+      "upscaled": true
+    },
+    {
+      "name": "right_2x",
+      "figure_box": [
+        1629,
+        195,
+        2172,
+        589
+      ],
+      "figure_px": [
+        543,
+        394
+      ],
+      "canvas_px": 673,
+      "output_px": 1346,
+      "upscaled": true
+    }
+  ]
+}

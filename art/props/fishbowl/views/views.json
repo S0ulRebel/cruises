@@ -1,0 +1,82 @@
+{
+  "source_sheet": "art\\props\\fishbowl\\sheet.png",
+  "source_size": [
+    2404,
+    601
+  ],
+  "box_px": 601,
+  "output_px": 1202,
+  "upscale_method": "LANCZOS",
+  "card_colour": [
+    254,
+    254,
+    254
+  ],
+  "note": "Each figure is cut to its own bounds and composited onto a shared square canvas at a shared foot line. Nothing from the surrounding sheet is included, and framing is identical by construction.",
+  "views": [
+    {
+      "name": "front",
+      "figure_box": [
+        58,
+        44,
+        543,
+        529
+      ],
+      "figure_px": [
+        485,
+        485
+      ],
+      "canvas_px": 601,
+      "output_px": 1202,
+      "upscaled": true
+    },
+    {
+      "name": "left",
+      "figure_box": [
+        688,
+        44,
+        1114,
+        529
+      ],
+      "figure_px": [
+        426,
+        485
+      ],
+      "canvas_px": 601,
+      "output_px": 1202,
+      "upscaled": true
+    },
+    {
+      "name": "right",
+      "figure_box": [
+        1289,
+        44,
+        1716,
+        529
+      ],
+      "figure_px": [
+        427,
+        485
+      ],
+      "canvas_px": 601,
+      "output_px": 1202,
+      "upscaled": true
+    },
+    {
+      "name": "back",
+      "figure_box": [
+        1861,
+        44,
+        2345,
+        529
+      ],
+      "figure_px": [
+        484,
+        485
+      ],
+      "canvas_px": 601,
+      "output_px": 1202,
+      "upscaled": true
+    }
+  ]
+}

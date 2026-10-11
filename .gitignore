@@ -19,3 +19,11 @@ views_check.png
 # Export and unique validation outputs.
 build/
 test_results/
+
+# Generated sidecars for historical scratch captures and documentation images.
+glbtest.png.import
+shot.png.import
+shot_live.png.import
+shot_ui.png.import
+walk_strip.png.import
+docs/migration/*.png.import

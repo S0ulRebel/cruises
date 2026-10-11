@@ -39,6 +39,23 @@ extracted JPEG. Removing only that imported `.scn`/`.md5` forced regeneration fr
 the versioned embedded-texture GLB; its dresser check then passed. Clean-checkout
 verification must confirm that no extracted preview or stale cache is required.
 
+## Final validation — 2026-10-11
+
+Root HEAD `1ac5738` passed all 12 checks, the deliberately false-pass runner probe,
+and exact authored source/asset/settings checks. Logs:
+`C:/Users/Nikola/AppData/Local/Temp/cruises-checks-edaf726e6e9a44048c254ea16e5b66ab/`.
+
+A managed worktree created from `8a4e804` had no `.godot` cache or local extracted
+previews. Its first import and full 12-check suite passed, including dresser/rig,
+navigation and baseline/outdoor composition. Logs:
+`C:/Users/Nikola/AppData/Local/Temp/cruises-checks-455162bee080468380f05633f847e5e1/`.
+The final test commit `61d663f` was then integrated there and its expanded
+hover/rollback/teardown and asset/settings hash checks passed after editor import.
+Logs: `C:/Users/Nikola/AppData/Local/Temp/cruises-checks-1cbcfded8ea74f0c8bfe70d21e39818d/`.
+
+Module editing worktrees are archived with recoverable snapshots after integration.
+Graphical evidence and prefab review records remain outside the archived checkouts.
+
 ## Remaining authoring decisions
 
 1. The preserved camera places the crate outside the view, partly crops the fishbowl,

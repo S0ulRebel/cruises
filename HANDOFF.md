@@ -6,8 +6,8 @@ and prop sheets, and the engine side, who puts them in the game.
 
 ## Current architecture — 2026-10-11
 
-Scene migration is integrated on `codex/modular-scenes`; final clean-checkout
-verification is in progress. Read `AGENTS.md` and
+Scene migration is complete on `codex/modular-scenes`, including clean-checkout
+and graphical verification. Read `AGENTS.md` and
 `docs/REFACTOR_PLAN.md`. Game owns startup wiring; named `locations/` own placement.
 Fixed objects and UI/audio use authored prefabs. Packing flags and batch builders
 have been retired. Normal startup/tests must not save scene/model resources.
@@ -833,6 +833,8 @@ triangles. The 2D redo is delivered; successful reconstruction is NOT yet verifi
 
 ---
 
+## Done
+
 ### 2026-10-11 — for the engine side — scene authoring and agent collaboration plan
 
 The owner requested a prioritized plan covering editable reusable scene objects,
@@ -849,15 +851,13 @@ playable place. Indoor and outdoor locations reuse the same authored components.
 Fixed content and default UI/audio are now reusable scenes. Both batch builders and
 custom game/packing switches are removed. Module agents used separate worktrees;
 integration includes navigation, movement/interaction completion, dialogue scrolling,
-portrait/item resources and isolated explicit outfit saves. Tasks 1–23 are complete;
-the plan keeps task 24 open for final clean-checkout and lifecycle verification.
+portrait/item resources and isolated explicit outfit saves. All 24 plan tasks passed
+their checks, including the strict 12-check suite, fresh import and renderer lifecycle.
 See `docs/migration/README.md` for evidence and remaining art/composition decisions.
 
 ---
 
-## Done
-
-### 2026-10-11 — for the art agent — the dialogue bar, with the portrait frame in it
+## 2026-10-11 — for the art agent — the dialogue bar, with the portrait frame in it
 
 We need the dialogue bar designed as artwork. It is placeholder rectangles today and
 it is the single most-looked-at thing in the game: it is on screen for most of the

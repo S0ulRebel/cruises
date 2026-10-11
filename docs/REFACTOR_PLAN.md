@@ -1,6 +1,7 @@
 # Scene Authoring and Agent Collaboration Plan
 
-Created 2026-10-11. Status: implementation integrated on `codex/modular-scenes`; final lifecycle checks and clean-checkout verification are in progress.
+Created 2026-10-11. Status: structural migration complete on `codex/modular-scenes`.
+All 24 tasks passed their checks. Remaining art/composition decisions are recorded below.
 
 The game must open with its default environment already visible in the editor.
 Every fixed object must be an editable, reusable Godot scene instance, with placement
@@ -197,7 +198,7 @@ cleanly when movement cannot complete.
   `--room3d` instructions, nonexistent tool links, and contradictory rig/scale/import
   statements. Update export rules so developer tools/tests are excluded while runtime
   resources remain included.
-- [ ] **24. Verify a clean checkout and the editing workflow.** Confirm required
+- [x] **24. Verify a clean checkout and the editing workflow.** Confirm required
   assets load from versioned files and imports regenerate correctly. Open Game and
   reusable scenes in the editor, run them, and verify no `ERROR` or `SCRIPT ERROR`
   output. Compare the default composition with the reference. Test a different outdoor
@@ -210,9 +211,9 @@ can construct indoor and outdoor locations by placing prefabs without changing p
 
 ## Implementation record
 
-Tasks 1–23 are integrated and verified by module and integration checks. Task 24
-remains open until the fresh worktree's import, complete strict suite and final
-lifecycle checks pass. Commits and visual evidence are indexed in
+Tasks 1–24 are integrated and verified by module and integration checks. A fresh
+worktree without an import cache passed import and all 12 checks; final hover and
+rollback coverage also passed with expanded asset/settings hashes. Commits and visual evidence are indexed in
 [the migration record](migration/README.md); module handoffs contain API details.
 
 - Priority 0: source assets, settings and UIDs versioned; baseline image/tree saved.

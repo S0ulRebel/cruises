@@ -10,10 +10,10 @@ headers and are not repeated here. This covers what is different in this game.
     skin_copy.gd     gives an unrigged piece the body's skin weights
     rig_space.gd     fit space: metres, T-pose, feet on the floor, Y up, facing +Z
 
-`dressercheck.tscn` proves all of it on a real rigged body. Run it before trusting a
+`tests/dressercheck.tscn` proves all of it on a real rigged body. Run it before trusting a
 change:
 
-    godot --headless --path . res://dressercheck.tscn
+    godot --headless --path . res://tests/dressercheck.tscn
 
 ## What changed in the port
 

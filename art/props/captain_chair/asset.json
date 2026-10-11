@@ -7,10 +7,10 @@
     "sheet": "sheet.png"
   },
   "dimensions_m": {
-    "width": 0.5,
-    "height": 1.0,
-    "depth": 0.5,
-    "note": "Original explicit owner brief is authoritative. The current main.gd chair placeholder is 1.9 m tall; that blockout discrepancy must be corrected during integration. Painted envelope ratios are measured below and are not exact dimensional blueprints."
+    "width": 0.62,
+    "height": 1.35,
+    "depth": 0.62,
+    "note": "1.0 m was the ORIGINAL owner brief, and the prompts and measurements recorded below were all written to chase that 0.5 x 1.0 x 0.5 m envelope. The delivered art is not that chair: it is a tall-backed buttoned-leather throne with a high scalloped crest, which at 1.00 m barely clears the 0.76 m desk and reads wrong behind it. During integration the owner inspected the delivered sheet, decided it is a throne, and corrected the real size to 0.62 W x 1.35 H x 0.62 D, ground to crest. 1.35 m supersedes the 1.0 m brief; the earlier 1.9 m main.gd blockout was never the art scale either. Painted envelope ratios are measured below against the old 0.5:1 target and are not exact dimensional blueprints."
   },
   "source": {
     "producer": "OpenAI image generation via ChatGPT",

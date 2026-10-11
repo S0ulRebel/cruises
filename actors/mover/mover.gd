@@ -1,3 +1,4 @@
+@tool
 extends CharacterBody3D
 ## Someone crossing a room, in three dimensions.
 ##
@@ -5,8 +6,7 @@ extends CharacterBody3D
 ## to be faked there. No depth sorting, no perspective scaling, no marker interpolation
 ## - a character two metres further back is simply two metres further back.
 ##
-## Knows nothing about what it is drawing. Whatever sits under `Body` is the art, and
-## today that is a capsule. A rigged Tripo model drops into the same slot.
+## Body, Agent, Obstacle and collision are authored children of the actor prefab.
 
 signal arrived
 signal movement_finished(success: bool, reason: String)
@@ -34,16 +34,6 @@ const MOVING := "walk"
 ## Long enough to hide the switch, short enough that a step does not start late.
 const BLEND := 0.18
 
-## How close to the destination counts as there, for the pathfinder. Separate from
-## arrive_distance, which is about the final step.
-@export var path_desired_distance := 0.35
-@export var path_target_distance := 0.35
-## Radius other characters path around. A character is an obstacle to everyone else,
-## which is how "you cannot walk through Santi" works without re-baking anything.
-@export var obstacle_radius := 0.45
-## Set false for anything that should not block others - a ghost, a fish in a bowl.
-@export var blocks_others := true
-
 var _target: Vector3
 var _moving := false
 var _agent: NavigationAgent3D
@@ -64,21 +54,16 @@ var _gait_target := 0.0
 func _ready() -> void:
 	_body = get_node_or_null("Body")
 	_agent = get_node_or_null("Agent") as NavigationAgent3D
+	if Engine.is_editor_hint(): return
 	if _agent and _agent.avoidance_enabled:
 		_agent.velocity_computed.connect(_on_safe_velocity)
+	if _agent == null: push_error("Mover requires its authored Agent child.")
 
-
-## Pathfinding, rather than walking straight at the target and grinding along whatever
-## is in the way. See Room3D._build_navigation for why a point-and-click wants this.
-func _build_agent() -> void:
-	# Compatibility for old harnesses: binding never constructs a component.
-	_agent = get_node_or_null("Agent") as NavigationAgent3D
-
-
-## This character, as something others have to walk around. Carved at runtime, so it
-## follows him rather than needing the room re-baked every step.
-func _build_obstacle() -> void:
-	pass
+func _get_configuration_warnings() -> PackedStringArray:
+	var warnings := PackedStringArray()
+	if get_node_or_null("Body") == null: warnings.append("Author a Body visual child.")
+	if get_node_or_null("Agent") == null: warnings.append("Author a NavigationAgent3D named Agent.")
+	return warnings
 
 
 ## Walk to a point. `facing_degrees` is an optional heading to settle into on arrival -
@@ -114,8 +99,8 @@ func _find_clips() -> void:
 	var players := _body.find_children("*", "AnimationPlayer", true, false)
 	if not players.is_empty():
 		_clips = players[0] as AnimationPlayer
-	# A character with hand poses is driven by the layered graph instead - main.gd
-	# builds it. Both are looked for: the cast is mixed while characters are still
+	# A character with hand poses may carry an authored layered graph.
+	# Both are looked for: the cast is mixed while characters are still
 	# coming through the pipeline one at a time.
 	var trees := _body.find_children("*", "AnimationTree", true, false)
 	if not trees.is_empty():
@@ -161,6 +146,7 @@ func _drive_gait(delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if Engine.is_editor_hint(): return
 	_drive_gait(delta)
 	if not _moving:
 		_play(STILL)
@@ -181,8 +167,7 @@ func _physics_process(delta: float) -> void:
 		return
 
 	# Where to head NEXT, which is a corner of the path rather than the destination.
-	# Falling back to the straight line keeps this working in scenes with no navigation
-	# baked - the check harnesses, and any room not yet built.
+	# Advance the authored agent's path. No straight-line fallback through obstacles.
 	var step := _agent.get_next_path_position()
 	if not _agent.is_target_reachable():
 		_finish_movement(false, "unreachable")

@@ -30,12 +30,12 @@
       "model": "res://art/characters/captain_live/pieces/hat/hat.glb",
       "scale": 1.0,
       "offset": [
-        0.0,
-        0.7,
-        0.0
+        0.035,
+        0.685,
+        0.01
       ],
       "rotation_degrees": [
-        0.0,
+        -8.0,
         0.0,
         0.0
       ],

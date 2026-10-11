@@ -1,0 +1,82 @@
+{
+  "source_sheet": "art\\props\\key\\sheet.png",
+  "source_size": [
+    3400,
+    850
+  ],
+  "box_px": 850,
+  "output_px": 1700,
+  "upscale_method": "LANCZOS",
+  "card_colour": [
+    254,
+    254,
+    254
+  ],
+  "note": "Each figure is cut to its own bounds and composited onto a shared square canvas at a shared foot line. Nothing from the surrounding sheet is included, and framing is identical by construction.",
+  "views": [
+    {
+      "name": "front",
+      "figure_box": [
+        269,
+        62,
+        580,
+        748
+      ],
+      "figure_px": [
+        311,
+        686
+      ],
+      "canvas_px": 850,
+      "output_px": 1700,
+      "upscaled": true
+    },
+    {
+      "name": "left",
+      "figure_box": [
+        1223,
+        62,
+        1327,
+        748
+      ],
+      "figure_px": [
+        104,
+        686
+      ],
+      "canvas_px": 850,
+      "output_px": 1700,
+      "upscaled": true
+    },
+    {
+      "name": "right",
+      "figure_box": [
+        2073,
+        62,
+        2177,
+        748
+      ],
+      "figure_px": [
+        104,
+        686
+      ],
+      "canvas_px": 850,
+      "output_px": 1700,
+      "upscaled": true
+    },
+    {
+      "name": "back",
+      "figure_box": [
+        2819,
+        62,
+        3130,
+        748
+      ],
+      "figure_px": [
+        311,
+        686
+      ],
+      "canvas_px": 850,
+      "output_px": 1700,
+      "upscaled": true
+    }
+  ]
+}

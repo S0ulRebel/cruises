@@ -1,0 +1,82 @@
+{
+  "source_sheet": "art\\props\\porthole\\sheet.png",
+  "source_size": [
+    2308,
+    577
+  ],
+  "box_px": 577,
+  "output_px": 1154,
+  "upscale_method": "LANCZOS",
+  "card_colour": [
+    254,
+    254,
+    254
+  ],
+  "note": "Each figure is cut to its own bounds and composited onto a shared square canvas at a shared foot line. Nothing from the surrounding sheet is included, and framing is identical by construction.",
+  "views": [
+    {
+      "name": "front",
+      "figure_box": [
+        56,
+        42,
+        521,
+        508
+      ],
+      "figure_px": [
+        465,
+        466
+      ],
+      "canvas_px": 577,
+      "output_px": 1154,
+      "upscaled": true
+    },
+    {
+      "name": "left",
+      "figure_box": [
+        842,
+        42,
+        888,
+        508
+      ],
+      "figure_px": [
+        46,
+        466
+      ],
+      "canvas_px": 577,
+      "output_px": 1154,
+      "upscaled": true
+    },
+    {
+      "name": "right",
+      "figure_box": [
+        1419,
+        42,
+        1465,
+        508
+      ],
+      "figure_px": [
+        46,
+        466
+      ],
+      "canvas_px": 577,
+      "output_px": 1154,
+      "upscaled": true
+    },
+    {
+      "name": "back",
+      "figure_box": [
+        1787,
+        43,
+        2252,
+        508
+      ],
+      "figure_px": [
+        465,
+        465
+      ],
+      "canvas_px": 577,
+      "output_px": 1154,
+      "upscaled": true
+    }
+  ]
+}

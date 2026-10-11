@@ -406,14 +406,21 @@ const FURNITURE := [
 	# tall, which is a wardrobe, not a chair.
 	{ "name": "chair", "at": Vector3(-3.6, 0.50, -2.1), "size": Vector3(0.5, 1.0, 0.5),
 	  "colour": "#3a2416", "model": "res://art/props/captain_chair/captain_chair.glb",
-	  "spin": Vector3(-90, 0, 0) },
-	# The art session built the chest to the crate's own 0.9 m cube, so it IS the crate.
+	  "spin": Vector3(-90, 180, 0) },
+	# The nailed supply crate - its own prop, not the brass skull chest. Both are 0.9 m
+	# cubes and for one commit the chest stood in for it; the owner kept them separate.
 	{ "name": "crate", "at": Vector3(3.9, 0.45, 1.9), "size": Vector3(0.9, 0.9, 0.9),
+	  "colour": "#4a2f16", "model": "res://art/props/supply_crate/supply_crate.glb",
+	  "spin": Vector3(0, 0, 0) },
+	# The skull chest, against the right wall, as in docs/reference/room_target.png.
+	{ "name": "chest", "at": Vector3(4.0, 0.45, -0.6), "size": Vector3(0.9, 0.9, 0.9),
 	  "colour": "#4a2f16", "model": "res://art/props/pirate_chest/pirate_chest.glb",
-	  "spin": Vector3(-90, 0, 0) },
-	# Set into the back wall, so it blocks nothing on the floor.
-	{ "name": "porthole", "at": Vector3(0.0, 1.55, -3.4), "size": Vector3(0.9, 0.9, 0.08),
-	  "colour": "#86a9c9", "solid": false },
+	  "spin": Vector3(90, 180, 0) },
+	# Set into the back wall, so it blocks nothing on the floor. The brass ring is the
+	# art; the weather behind it is still the flat blue the box used to be.
+	{ "name": "porthole", "at": Vector3(0.0, 1.55, -3.4), "size": Vector3(0.9, 0.9, 0.9),
+	  "colour": "#86a9c9", "solid": false,
+	  "model": "res://art/props/porthole/porthole.glb" },
 ]
 
 ## Small things standing on the furniture. Not FURNITURE, because they are not solid -
@@ -423,6 +430,9 @@ const DRESSING := [
 	  "model": "res://art/props/compass/compass.glb", "lie_flat": true },
 	{ "name": "brass_inkwell", "at": Vector3(-3.1, 0.80, -1.55), "size": Vector3(0.08, 0.07, 0.08),
 	  "model": "res://art/props/brass_inkwell/brass_inkwell.glb" },
+	# Lying on the desk holding down a chart, which is what its hotspot says it does.
+	{ "name": "rapier", "at": Vector3(-3.3, 0.79, -1.15), "size": Vector3(0.25, 0.14, 1.05),
+	  "model": "res://art/props/rapier/rapier.glb", "lie_flat": true },
 ]
 
 
@@ -601,10 +611,14 @@ func _add_prop(piece: Dictionary) -> void:
 	# is nothing in the mesh to detect that from - a 0.9 m cube has no up - so it is
 	# stated per piece rather than guessed.
 	if piece.has("spin"):
-		basis = Basis.from_euler(Vector3(
-			deg_to_rad(float(piece["spin"].x)),
-			deg_to_rad(float(piece["spin"].y)),
-			deg_to_rad(float(piece["spin"].z)))) * basis
+		# Applied as three separate turns, X then Y then Z, rather than one Euler:
+		# Basis.from_euler's own order put the crate back on its face when a Y turn
+		# was added to stand it up, and "stand it up, THEN turn it round" is the only
+		# order that means anything to whoever is placing a prop.
+		var spin: Vector3 = piece["spin"]
+		basis = Basis(Vector3.RIGHT, deg_to_rad(spin.x)) * basis
+		basis = Basis(Vector3.UP, deg_to_rad(spin.y)) * basis
+		basis = Basis(Vector3.BACK, deg_to_rad(spin.z)) * basis
 
 	var size: Vector3 = piece["size"]
 	var longest: float = maxf(local.size.x, maxf(local.size.y, local.size.z))
@@ -967,7 +981,7 @@ const HOTSPOTS := [
 	  "props": { "description": "Dry since the second week. He writes the log from memory, which is why it is a work of fiction.",
 	             "gives_item": "brass_inkwell" } },
 	{ "label": "Crate", "at": Vector3(3.9, 0.9, 1.9), "stand": Vector3(3.9, 0, 2.9), "visual": "Crate",
-	  "props": { "description": "Brass corners, iron bands, and somebody's skull painted on the front. Nailed shut.",
+	  "props": { "description": "Stencilled LE CHAOS NAVIGUE TOUJOURS PLUS LOIN. Nailed shut.",
 	             "refusal": "It is nailed shut, and the captain is not going to use his fingers.",
 	             "combinations": {
 	               "rapier": { "say": "The lid comes up with a noise like a small argument. Inside: a key, and three years of damp.",

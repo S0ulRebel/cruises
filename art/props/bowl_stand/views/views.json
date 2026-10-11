@@ -1,0 +1,82 @@
+{
+  "source_sheet": "art\\props\\bowl_stand\\sheet.png",
+  "source_size": [
+    2472,
+    618
+  ],
+  "box_px": 618,
+  "output_px": 1236,
+  "upscale_method": "LANCZOS",
+  "card_colour": [
+    254,
+    254,
+    254
+  ],
+  "note": "Each figure is cut to its own bounds and composited onto a shared square canvas at a shared foot line. Nothing from the surrounding sheet is included, and framing is identical by construction.",
+  "views": [
+    {
+      "name": "front",
+      "figure_box": [
+        76,
+        45,
+        542,
+        544
+      ],
+      "figure_px": [
+        466,
+        499
+      ],
+      "canvas_px": 618,
+      "output_px": 1236,
+      "upscaled": true
+    },
+    {
+      "name": "left",
+      "figure_box": [
+        694,
+        45,
+        1159,
+        544
+      ],
+      "figure_px": [
+        465,
+        499
+      ],
+      "canvas_px": 618,
+      "output_px": 1236,
+      "upscaled": true
+    },
+    {
+      "name": "right",
+      "figure_box": [
+        1312,
+        45,
+        1777,
+        544
+      ],
+      "figure_px": [
+        465,
+        499
+      ],
+      "canvas_px": 618,
+      "output_px": 1236,
+      "upscaled": true
+    },
+    {
+      "name": "back",
+      "figure_box": [
+        1930,
+        45,
+        2396,
+        544
+      ],
+      "figure_px": [
+        466,
+        499
+      ],
+      "canvas_px": 618,
+      "output_px": 1236,
+      "upscaled": true
+    }
+  ]
+}

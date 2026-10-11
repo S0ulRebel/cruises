@@ -1,0 +1,82 @@
+{
+  "source_sheet": "art\\props\\supply_crate\\sheet.png",
+  "source_size": [
+    2296,
+    574
+  ],
+  "box_px": 574,
+  "output_px": 1148,
+  "upscale_method": "LANCZOS",
+  "card_colour": [
+    254,
+    254,
+    254
+  ],
+  "note": "Each figure is cut to its own bounds and composited onto a shared square canvas at a shared foot line. Nothing from the surrounding sheet is included, and framing is identical by construction.",
+  "views": [
+    {
+      "name": "front",
+      "figure_box": [
+        55,
+        50,
+        518,
+        506
+      ],
+      "figure_px": [
+        463,
+        456
+      ],
+      "canvas_px": 574,
+      "output_px": 1148,
+      "upscaled": true
+    },
+    {
+      "name": "left",
+      "figure_box": [
+        629,
+        50,
+        1092,
+        506
+      ],
+      "figure_px": [
+        463,
+        456
+      ],
+      "canvas_px": 574,
+      "output_px": 1148,
+      "upscaled": true
+    },
+    {
+      "name": "right",
+      "figure_box": [
+        1203,
+        50,
+        1666,
+        506
+      ],
+      "figure_px": [
+        463,
+        456
+      ],
+      "canvas_px": 574,
+      "output_px": 1148,
+      "upscaled": true
+    },
+    {
+      "name": "back",
+      "figure_box": [
+        1777,
+        50,
+        2240,
+        506
+      ],
+      "figure_px": [
+        463,
+        456
+      ],
+      "canvas_px": 574,
+      "output_px": 1148,
+      "upscaled": true
+    }
+  ]
+}

@@ -440,6 +440,19 @@ not a final camera-aligned backdrop; simplify the carpet marks in final scenery.
 
 ---
 
+### 2026-10-11 — for the engine side — reconstruct and place the pirate chest
+
+`art/props/pirate_chest/sheet.png` and `asset.json` are ready for the closed chest.
+Extract the named front/left/right/back views using the sidecar command, reconstruct
+with Tripo, and replace `main.gd::FURNITURE`’s `crate` / `Crate` visual at the existing
+0.9 × 0.9 × 0.9 m target. Preserve the hotspot and puzzle state. The skull and crossed
+bones are flat paint, not a separate skull mesh. The sheet has no contents or open
+state; verify mesh proportions, rear hinges and de-lit materials before import.
+All view heights and baselines match exactly. Front/back hardware envelopes remain
+about 3.5–4.0% wider than their height; the sidecar records this source limitation.
+
+---
+
 ## Done
 
 ### 2026-10-11 — for the art agent — the dialogue bar, with the portrait frame in it
@@ -670,6 +683,18 @@ Fonts, helper assets and live text/portrait responsibilities remain unchanged.
 provenance. `reference/layout_concept.png` now shows the selected rope-edged option.
 Engine integration and runtime verification remain in the existing Open item;
 no engine code, animation or screenplay was changed.
+
+---
+
+### 2026-10-11 — art side — pirate skull chest sheet delivered
+
+Delivered `art/props/pirate_chest/sheet.png` and `asset.json`: one closed warm-wood
+chest, flat white skull/crossbones at the front, plain sides and two rear hinges.
+Four level orthographic views in a 2176×544 white sheet; every silhouette is 374 px
+high, all baselines are y435, and empty separators are 163/169/163 px. The unchanged
+cutter only translated native source crops; no resampling. Full prompts, source
+hashes and measured proportion limits are in the sidecar. Reconstruction and engine
+integration remain Open; no engine code was changed.
 
 ---
 

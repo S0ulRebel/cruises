@@ -1,0 +1,360 @@
+{
+  "asset_id": "prop:pirate_chest",
+  "name": "Pirate skull chest",
+  "role": "Scene 1 — Captain Livé’s quarters; replacement for the crate blockout",
+  "asset_type": "prop_turnaround_sheet",
+  "files": {
+    "sheet": "sheet.png"
+  },
+  "dimensions_m": {
+    "width": 0.9,
+    "height": 0.9,
+    "depth": 0.9,
+    "note": "Authoritative engine target for the complete closed chest. The painted outer hardware envelopes are not an exact dimensional blueprint; measured view ratios are recorded below."
+  },
+  "source": {
+    "producer": "OpenAI image generation via ChatGPT",
+    "mode": "built-in",
+    "model_identifier": "Not exposed by the built-in image generation tool",
+    "original_filename": "exec-35429948-75c5-488c-9ef1-a67501b78aec.png",
+    "generated_source_sha256": "5cd1a5a3d5719dc39f87f8143580b6b318700dfc6c35a1cf2ebdb1f3625175e1",
+    "sha256": "2bdf3c1beadb808c96d728c131a54a28ac516356de83805f6bb61e98d708e85b",
+    "repository_base_commit": "6ba868d8d1eb435ca5d682799cb9b0ea22aa9ae3",
+    "references": [
+      {
+        "role": "Approved cabin chest design: closed square dark wood chest, flat painted white skull and crossed bones",
+        "path": "art/ui/reference/room_composition_concept.png",
+        "commit": "6ba868d8d1eb435ca5d682799cb9b0ea22aa9ae3",
+        "sha256": "47438ed7de96189fb47bfabd0506242d442ef8ca1ddfeea7d3f40c00020dd44f"
+      },
+      {
+        "role": "Approved prop material, broad form shading and orthographic presentation",
+        "path": "art/props/captain_desk/sheet.png",
+        "commit": "6ba868d8d1eb435ca5d682799cb9b0ea22aa9ae3",
+        "sha256": "02300d11cad484407755dfea20b66770abc9e92e895095b834bb505477b4f69c"
+      },
+      {
+        "role": "Approved stylised character rendering world",
+        "path": "art/characters/captain_live/turnaround.png",
+        "commit": "6ba868d8d1eb435ca5d682799cb9b0ea22aa9ae3",
+        "sha256": "bcb66fe6213ab55672cb91328f22665a125511d211e3fded0397dd45ac1897fa"
+      }
+    ],
+    "generation_history": [
+      {
+        "pass": "initial_chest",
+        "filename": "exec-1afbbbed-8b57-4358-840f-6a3e5fcfec3e.png",
+        "prompt": "Use case: stylized-concept.\nAsset type: production four-view orthographic reconstruction sheet for a single static pirate sea chest, for Tripo and the existing cartoony adventure game.\n\nREFERENCE ROLES:\nImage 1 is the approved captain's cabin. Copy the dark wooden PIRATE CHEST WITH THE WHITE SKULL AND CROSSED BONES at the lower right as the object design reference. The room, other props and characters are not output.\nImage 2 is the approved bare desk sheet: match its chunky worn wood, warm brass fittings, broad readable cartoon form shading, plain white background and genuinely straight orthographic elevations.\nImage 3 is Captain Livé: match that stylised sculpted cartoon world, not a character to draw.\n\nOUTPUT one coherent sheet, exactly FOUR complete views in ONE horizontal row, left to right FRONT, LEFT SIDE, RIGHT SIDE, BACK. No written labels. Four equal framing cells with generous empty WHITE vertical bands between them. One unchanged chest rotated relative to four fixed-level cameras, not four designs.\n\nOBJECT: the approved cabin's closed, flat-lidded sea chest. Strong square box construction, dimensions WIDTH0.9m HEIGHT0.9m DEPTH0.9m inclusive of hardware. Therefore all four complete silhouettes are square-ish, same width and EXACTLY THE SAME HEIGHT. Closed flat shallow lid with a clear horizontal lid/body seam near the upper quarter; no arched treasure-chest lid. Deep warm walnut/mahogany horizontal planks; chunky blackened iron binding straps; large rounded golden-brass corner guards and readable rivets. Worn golden-brown chipped edges, broad scratches and old nailed construction, same rendering as the desk. FRONT: one large flat bone-white PAINTED skull and crossed bones centered on the wood between the two dark vertical straps. One simple brass hasp near the upper center, attached hardware only. Skull is a flat painted emblem, not a separate 3D skull ornament. LEFT AND RIGHT: corresponding unadorned square wood end panels, consistent metal edge straps and corner guards, no skulls on the sides. BACK: true rear panel, plain horizontal wood planks, matching binding straps and two sturdy visible brass/iron hinges along the lid seam, no skull and no front hasp. No carrying rings, padlock, ropes, dangling parts, treasure, coins, tools, bottles, other props or scenery. Chest shut and empty of any visible contents.\n\nSTRICT PROJECTION: true orthographic face elevations, camera at mid-height, horizontal optical axis, zero pitch, zero roll. FRONT shows only front face; LEFT and RIGHT each show their true end face, BACK shows actual back. Never three-quarter, perspective, from-above, top view or decorative angle. NO visible broad lid top plane: its thickness is a narrow level horizontal edge. All edges parallel, no vanishing points. Do not expose an adjacent broad face in any view. A softened bevel is fine.\n\nCOMMON SCALE: a single unchanged orthographic scale for every view. All four topmost lid edges at exactly the same pixel y; all four lowest brass/wood bottom edges at exactly the same pixel y; identical pixel heights within1px. Do not magnify any view. Complete silhouettes comfortably inside each cell, centered, no cropping or overlap. Aim for each square chest about seventy-five percent of its cell width; leave substantial vertical white bands between. Shared ground baseline is alignment only, NOT a drawn line.\n\nBackground opaque plain solid WHITE RGB255,255,255 across all corners and gaps. No ground shadows, gradient, paper texture, floor, borders or text anywhere. Soft neutral even sculpted form shading on the object only, simple saturated warm colors, broad rounded bevels, no photoreal micrograin, no moody cabin light or directional cast shadow. Keep hardware locations and overall silhouette consistent across all four views. Highest useful native resolution, ideally3840×1280 wide.",
+        "output_sha256": "8e92f2099e9584ea7f1db5ce4ff180aba029b6b1e23ed01005601cdcd6b30e5b",
+        "input": "References above"
+      },
+      {
+        "pass": "cube_and_level_projection_refinement",
+        "filename": "exec-d03cb11a-1e7c-45f0-8273-4086cbf2e5bf.png",
+        "prompt": "Use case: precise-object-edit.\nEdit this exact chest sheet. Preserve the skull painting, colors, wood finish, brass guards, iron straps, hasp, rear hinges, four-view order and isolated white background. Correct ONLY the camera/proportions and common scale.\n\nThis sea chest is a CUBE:0.9m width,0.9m height,0.9m depth. The current front and back are too wide, and the sides are also slightly wide. ALL FOUR front/left/right/back silhouettes must be the SAME SQUARE OUTER BOUNDS, width equal to height. All four have the SAME PIXEL HEIGHT and SAME PIXEL WIDTH, around390×390px on a2172px-wide source. Preserve exactly one common baseline and identical top level across the four. Keep four widely spaced complete cubes in one row. Do not turn it into a low rectangular trunk and do not enlarge just the end views. Adjust the construction to actual cube proportions consistently.\n\nRemove the camera's slight downward pitch. These are level orthographic elevations looking exactly horizontally into the middle of each face. NO broad top plane visible, only the front thickness of the flat closed lid and its narrow rounded edge. Top rim a level horizontal edge, no visible retreating plank surface or two-face perspective. Front shows only front with the flat painted white skull-and-crossbones; both side views show plain end panels; back shows plain rear with two hinges. Preserve the flat CLOSED lid and readable horizontal lid seam near the top quarter. No arched lid.\n\nKeep broad cartoony warm walnut wear, golden brass, black iron, no added props or text. Uniform solid white background, no shadows, gradient or ground line. Keep all four objects exactly aligned and the same height, tolerance1pixel.",
+        "output_sha256": "a57a989a6f00289c2afa0c6497ab2447983d3d88cf8a7caf898ac714f2636d98",
+        "input": "exec-1afbbbed-8b57-4358-840f-6a3e5fcfec3e.png"
+      },
+      {
+        "pass": "narrower_cubic_proportions",
+        "filename": "exec-35429948-75c5-488c-9ef1-a67501b78aec.png",
+        "prompt": "This is a precision proportion edit of the attached four-view chest sheet.\nMake the chests NARROWER. Current front/back are still visibly rectangular. The required chest has SQUARE faces, like a wooden packing CUBE, not a wide trunk.\n\nIn this2172×724 image, keep all four chest heights, top level and bottom level. Reduce the horizontal width of the FIRST and FOURTH chest by about18%, keeping their centers. Reduce the horizontal width of the SECOND and THIRD chest by about8%, keeping their centers. Aim for ALL FOUR chest outer rectangles to be390px wide and390px tall, not450px wide. Every face must be a TRUE SQUARE. Front, left, right and back must have the SAME width and height.\n\nPreserve the entire design: first face white painted skull and crossed bones, hasp and straps; second and third plain wood end faces; fourth plain rear with two brass hinges. Same worn warm walnut, chunky brass corners and black iron bands, no new designs. Only make the box cubic by narrowing its front/back and end faces appropriately. Common horizontal baseline and identical height within1pixel.\n\nLevel orthographic elevations, no top planes, perspective or angled edges. Flat pure white background, four widely separated objects in a single row, no labels, no shadows. Do not preserve the incorrect wide rectangular silhouette.",
+        "output_sha256": "5cd1a5a3d5719dc39f87f8143580b6b318700dfc6c35a1cf2ebdb1f3625175e1",
+        "input": "exec-d03cb11a-1e7c-45f0-8273-4086cbf2e5bf.png"
+      }
+    ],
+    "assembly": {
+      "tool": "tools/crop_views.py",
+      "tool_modified": false,
+      "arguments": [
+        "--row",
+        "0",
+        "1",
+        "--names",
+        "front",
+        "left",
+        "right",
+        "back",
+        "--pad",
+        "0.2",
+        "--size",
+        "544",
+        "--dry-run",
+        "--preview",
+        "art/props/pirate_chest/sheet.png"
+      ],
+      "method": "Unchanged repository cutter crops the four objects to their measured bounds and translates them onto equal 544 px square canvases with one baseline. Native common canvas equals output size; no resampling, per-view scaling or geometric edits. The final contact sheet is the four canvases in one horizontal row.",
+      "source_measurements": {
+        "image_size_px": [
+          2172,
+          724
+        ],
+        "background_rgb": [
+          254,
+          254,
+          254
+        ],
+        "views": [
+          {
+            "view": "front",
+            "bounds_px": [
+              136,
+              173,
+              525,
+              547
+            ],
+            "width_px": 389,
+            "height_px": 374,
+            "last_ink_y_px": 546,
+            "width_height_ratio": 1.040107
+          },
+          {
+            "view": "left",
+            "bounds_px": [
+              649,
+              173,
+              1023,
+              547
+            ],
+            "width_px": 374,
+            "height_px": 374,
+            "last_ink_y_px": 546,
+            "width_height_ratio": 1.0
+          },
+          {
+            "view": "right",
+            "bounds_px": [
+              1148,
+              173,
+              1523,
+              547
+            ],
+            "width_px": 375,
+            "height_px": 374,
+            "last_ink_y_px": 546,
+            "width_height_ratio": 1.002674
+          },
+          {
+            "view": "back",
+            "bounds_px": [
+              1648,
+              173,
+              2035,
+              547
+            ],
+            "width_px": 387,
+            "height_px": 374,
+            "last_ink_y_px": 546,
+            "width_height_ratio": 1.034759
+          }
+        ],
+        "clear_vertical_gaps_px": [
+          124,
+          125,
+          125
+        ]
+      },
+      "native_common_canvas_px": 544,
+      "resampled": false,
+      "source_object_rectangles_pixel_identical_after_translation": [
+        true,
+        true,
+        true,
+        true
+      ]
+    }
+  },
+  "object_scope": {
+    "rule": "Model the object only, never a dressed arrangement.",
+    "contents": "One closed chest with permanently attached fittings and a flat painted skull-and-crossbones emblem.",
+    "excluded": [
+      "loose skull or bones",
+      "treasure",
+      "coins",
+      "key",
+      "padlock",
+      "ropes",
+      "carrying rings",
+      "other props",
+      "scenery"
+    ],
+    "rigging_required": false
+  },
+  "design": {
+    "structure": "Near-cubic closed sea chest with a flat lid, horizontal wood planks, dark metal binding straps, chunky brass corner guards, rivets and a readable lid seam.",
+    "front": "One brass hasp and one flat bone-white painted skull with crossed bones; the emblem belongs to the texture, not separate skull geometry.",
+    "sides": "Plain opposite wooden end panels with consistent edge fittings and no skulls.",
+    "back": "True rear panel with two visible lid hinges; no front emblem or hasp.",
+    "finish": "Deep warm walnut/mahogany, broad lighter worn edges and chipped stain, blackened iron and warm golden brass; chunky cartoon game rendering.",
+    "state": "Closed; interior geometry and an opening state are not specified by this sheet.",
+    "through_holes": "No through-holes are required by this closed chest design."
+  },
+  "placement": {
+    "convention_status": "Engine slot documented; no placement code changed.",
+    "engine_visual_name": "Crate",
+    "engine_furniture_name": "crate",
+    "engine_source": "main.gd::FURNITURE",
+    "engine_center_m": [
+      3.9,
+      0.45,
+      1.9
+    ],
+    "proposed_origin": "Ground-level center of footprint",
+    "proposed_world_origin_m": [
+      3.9,
+      0,
+      1.9
+    ],
+    "dimension_rule": "Preserve the reconstructed proportions when uniformly fitting the target size. Do not independently stretch image views or model axes to conceal source-envelope differences."
+  },
+  "framing": {
+    "view_order": [
+      "front",
+      "left",
+      "right",
+      "back"
+    ],
+    "projection": "Level orthographic face elevations",
+    "camera": "Horizontal optical axis at object mid-height; no broad adjoining face or top plane. Rounded wood and hardware bevels remain visible.",
+    "fixed_object_pose": "Upright, lid closed",
+    "image_size_px": [
+      2176,
+      544
+    ],
+    "cell_size_px": [
+      544,
+      544
+    ],
+    "background": "Plain opaque near-white",
+    "background_rgb": [
+      254,
+      254,
+      254
+    ],
+    "labels_in_turnaround_band": false,
+    "ground_line_drawn": false,
+    "ground_line_last_ink_y_px": 435,
+    "scale": "All four source and final silhouettes are exactly 374 px high; no view scaling was applied.",
+    "separation_px": [
+      163,
+      169,
+      163
+    ]
+  },
+  "validation": {
+    "method": "Read-only NumPy/Pillow measurements using the unchanged repository cutter’s modal_colour, ink_mask and find_figures functions at tolerance 18, followed by visual review of the final sheet. Bounds are [x0,y0,x1,y1], with upper bounds exclusive.",
+    "foreground_threshold": "Sum of absolute RGB difference from modal (254,254,254) exceeds 54.",
+    "detected_views": 4,
+    "views": [
+      {
+        "view": "front",
+        "bounds_px": [
+          77,
+          62,
+          466,
+          436
+        ],
+        "width_px": 389,
+        "height_px": 374,
+        "last_ink_y_px": 435,
+        "width_height_ratio": 1.040107
+      },
+      {
+        "view": "left",
+        "bounds_px": [
+          629,
+          62,
+          1003,
+          436
+        ],
+        "width_px": 374,
+        "height_px": 374,
+        "last_ink_y_px": 435,
+        "width_height_ratio": 1.0
+      },
+      {
+        "view": "right",
+        "bounds_px": [
+          1172,
+          62,
+          1547,
+          436
+        ],
+        "width_px": 375,
+        "height_px": 374,
+        "last_ink_y_px": 435,
+        "width_height_ratio": 1.002674
+      },
+      {
+        "view": "back",
+        "bounds_px": [
+          1710,
+          62,
+          2097,
+          436
+        ],
+        "width_px": 387,
+        "height_px": 374,
+        "last_ink_y_px": 435,
+        "width_height_ratio": 1.034759
+      }
+    ],
+    "height_spread_px": 0,
+    "ground_line_spread_px": 0,
+    "minimum_empty_band_px": 163,
+    "strict_one_pixel_height_check_passed": true,
+    "strict_one_pixel_baseline_check_passed": true,
+    "native_view_canvas_px": [
+      544,
+      544
+    ],
+    "view_canvas_after_2x_upscale_px": [
+      1088,
+      1088
+    ],
+    "upscaling_applied": false,
+    "source_object_rectangles_pixel_identical": true,
+    "visual_review": {
+      "projection": "Front hasp/emblem, plain opposite sides and rear hinges are distinct face-on elevations. Only narrow rounded bevels are visible.",
+      "object_isolation": "Four complete chest silhouettes, clear background bands, no contents, props, labels or floor shadow.",
+      "design_consistency": "Closed warm wood chest and repeated brass/iron fittings; flat painted front skull, no skulls on the sides or back."
+    },
+    "limitations": [
+      "Outer front/back width-to-height ratios are 1.040107 and 1.034759, about 4.01% and 3.48% wider than a perfect square, including rounded hardware. Side ratios are 1.000000 and 1.002674. The 0.9 m cube target is authoritative, but the source silhouettes are not exact cube projections.",
+      "The sealed chest sheet does not demonstrate an interior cavity, separate movable lid or open state.",
+      "Tripo reconstruction, resulting mesh proportions, material de-lighting and engine import have not been run."
+    ]
+  },
+  "pipeline": {
+    "status": "source_sheet_only",
+    "view_extraction": "delegated_to_claude_code",
+    "view_extraction_names": [
+      "front",
+      "left",
+      "right",
+      "back"
+    ],
+    "upload_view_mapping": {
+      "front": "front.png",
+      "left": "left.png",
+      "right": "right.png",
+      "back": "back.png"
+    },
+    "upload_note": "Assign each crop to its named Tripo slot; the sheet display order is not the positional upload order.",
+    "three_d_generator_allowed": "Tripo only",
+    "forbidden_generators": [
+      "Hunyuan3D",
+      "HY-Motion"
+    ],
+    "nc_models_used": false,
+    "rigging_required": false,
+    "animation_required": false,
+    "generated_3d_model": false,
+    "validated_in_engine": false,
+    "lighting_note": "Broad form shading and brass highlights are baked into the source. Use reconstruction texture lighting removal and inspect under the room lights.",
+    "recommended_crop_command": "python tools/crop_views.py art/props/pirate_chest/sheet.png --row 0 1 --names front left right back --pad 0.2 --size 544 --out art/props/pirate_chest/views",
+    "upscale_note": "Use gap detection and pad 0.2 to retain the native 544 px common canvas. Then upscale every crop 2x to 1088 px, or use the optional command. The larger output meets the documented minimum but adds no source detail. Equal-cell --count 4 includes the existing cell margins in its width calculation and would add a second padding step, so it is intentionally omitted.",
+    "next_step": "Reconstruct the closed chest, verify proportions and flat skull texture, then replace the engine crate blockout while preserving its hotspot and puzzle state.",
+    "optional_2x_crop_command": "python tools/crop_views.py art/props/pirate_chest/sheet.png --row 0 1 --names front left right back --pad 0.2 --size 1088 --out art/props/pirate_chest/views"
+  }
+}

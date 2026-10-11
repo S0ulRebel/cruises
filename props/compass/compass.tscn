@@ -1,8 +1,10 @@
 [gd_scene format=3]
 
-[ext_resource type="PackedScene" path="res://art/props/compass/compass.glb" id="1_uu8fx"]
+[ext_resource type="Script" path="res://props/parts/unlit.gd" id="1_er5fn"]
+[ext_resource type="PackedScene" path="res://art/props/compass/compass.glb" id="2_rddbe"]
 
-[node name="Compass" type="Node3D" unique_id=1746008304]
+[node name="Compass" type="Node3D" unique_id=674718296]
+script = ExtResource("1_er5fn")
 
-[node name="Model" type="Node3D" parent="." unique_id=196400698 instance=ExtResource("1_uu8fx")]
+[node name="Model" type="Node3D" parent="." unique_id=196400698 instance=ExtResource("2_rddbe")]
 transform = Transform3D(0.09004397, 0, 0, 0, -3.935947e-09, 0.09004397, 0, -0.09004397, -3.935947e-09, 0, 0.017344903, 0.044956036)

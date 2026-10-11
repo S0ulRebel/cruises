@@ -1,15 +1,17 @@
 [gd_scene format=3]
 
-[ext_resource type="PackedScene" path="res://art/props/captain_chair/captain_chair.glb" id="1_12bay"]
+[ext_resource type="Script" path="res://props/parts/unlit.gd" id="1_3w1l2"]
+[ext_resource type="PackedScene" path="res://art/props/captain_chair/captain_chair.glb" id="2_a4c8m"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_3w1l2"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_26ynw"]
 size = Vector3(0.62, 1.35, 0.62)
 
-[node name="CaptainChair" type="StaticBody3D" unique_id=1211305612]
+[node name="CaptainChair" type="StaticBody3D" unique_id=1231876568]
+script = ExtResource("1_3w1l2")
 
-[node name="Model" type="Node3D" parent="." unique_id=1138104241 instance=ExtResource("1_12bay")]
+[node name="Model" type="Node3D" parent="." unique_id=1138104241 instance=ExtResource("2_a4c8m")]
 transform = Transform3D(1.3506595, 0, 0, 0, 1.3506595, 0, 0, 0, 1.3506595, 0, 0, 0)
 
-[node name="CaptainChairShape" type="CollisionShape3D" parent="." unique_id=1484323431]
+[node name="CaptainChairShape" type="CollisionShape3D" parent="." unique_id=1940848689]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.675, 0)
-shape = SubResource("BoxShape3D_3w1l2")
+shape = SubResource("BoxShape3D_26ynw")

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://actors/parts/fish.gd" id="1_y20x6"]
 [ext_resource type="PackedScene" path="res://art/characters/count_fingers/count_fingers_mesh.glb" id="2_rqixw"]
 
-[node name="CountFingers" type="Node3D" unique_id=336414135]
+[node name="CountFingers" type="Node3D" unique_id=2076905786]
 script = ExtResource("1_y20x6")
 
 [node name="Model" type="Node3D" parent="." unique_id=1358662519 instance=ExtResource("2_rqixw")]

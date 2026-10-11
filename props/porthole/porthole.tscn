@@ -1,8 +1,10 @@
 [gd_scene format=3]
 
-[ext_resource type="PackedScene" path="res://art/props/porthole/porthole.glb" id="1_5u137"]
+[ext_resource type="Script" path="res://props/parts/unlit.gd" id="1_d4hat"]
+[ext_resource type="PackedScene" path="res://art/props/porthole/porthole.glb" id="2_pe3it"]
 
-[node name="Porthole" type="Node3D" unique_id=916520355]
+[node name="Porthole" type="Node3D" unique_id=1603678830]
+script = ExtResource("1_d4hat")
 
-[node name="Model" type="Node3D" parent="." unique_id=456913590 instance=ExtResource("1_5u137")]
+[node name="Model" type="Node3D" parent="." unique_id=1429520323 instance=ExtResource("2_pe3it")]
 transform = Transform3D(0.9004396, 0, 0, 0, 0.9004396, 0, 0, 0, 0.9004396, 0, 0, 0)

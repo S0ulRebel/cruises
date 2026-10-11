@@ -155,6 +155,17 @@ func _pack_cast() -> void:
 		var folder := "res://actors/%s" % entry["assets"]
 		var out := "%s/%s.tscn" % [folder, entry["assets"]]
 
+		# Unlit, like every prop. A CHILD rather than a script on the root, because
+		# the root already has mover.gd - and setting the material directly does not
+		# survive packing: it lives on a node inside the imported .glb, which is not
+		# saved, and the character comes back a black silhouette.
+		if mover.get_node_or_null("Unlit") == null:
+			var flat := Node3D.new()
+			flat.name = "Unlit"
+			flat.set_script(load("res://props/parts/unlit.gd"))
+			flat.set("target", NodePath(".."))
+			mover.add_child(flat)
+
 		_claim(mover, mover)
 		var packed := PackedScene.new()
 		if packed.pack(mover) != OK:
@@ -585,7 +596,6 @@ func _attach_model(body: Node3D, path: String, yaw: float, who: String) -> void:
 	model.name = "Model"
 	model.rotation.y = deg_to_rad(yaw)
 	body.add_child(model)
-
 	# Stand it up if it arrived Z-up, measured rather than assumed so a model that is
 	# already upright is not tipped over.
 	var bounds := _visual_bounds(body)

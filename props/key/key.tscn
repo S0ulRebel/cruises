@@ -1,8 +1,10 @@
 [gd_scene format=3]
 
-[ext_resource type="PackedScene" path="res://art/props/key/key.glb" id="1_235a0"]
+[ext_resource type="Script" path="res://props/parts/unlit.gd" id="1_vr0ad"]
+[ext_resource type="PackedScene" path="res://art/props/key/key.glb" id="2_f2ui0"]
 
-[node name="Key" type="Node3D" unique_id=1202338638]
+[node name="Key" type="Node3D" unique_id=1645759618]
+script = ExtResource("1_vr0ad")
 
-[node name="Model" type="Node3D" parent="." unique_id=81354495 instance=ExtResource("1_235a0")]
+[node name="Model" type="Node3D" parent="." unique_id=49366291 instance=ExtResource("2_f2ui0")]
 transform = Transform3D(0.100048855, 0, 0, 0, 0.100048855, 0, 0, 0, 0.100048855, 0, 0, 0)

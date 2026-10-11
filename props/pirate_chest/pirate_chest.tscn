@@ -1,15 +1,17 @@
 [gd_scene format=3]
 
-[ext_resource type="PackedScene" path="res://art/props/pirate_chest/pirate_chest.glb" id="1_nu2lj"]
+[ext_resource type="Script" path="res://props/parts/unlit.gd" id="1_7bvxp"]
+[ext_resource type="PackedScene" path="res://art/props/pirate_chest/pirate_chest.glb" id="2_yn2cw"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_7bvxp"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_1otb1"]
 size = Vector3(0.9, 0.9, 0.9)
 
-[node name="PirateChest" type="StaticBody3D" unique_id=34327278]
+[node name="PirateChest" type="StaticBody3D" unique_id=1245247560]
+script = ExtResource("1_7bvxp")
 
-[node name="Model" type="Node3D" parent="." unique_id=2123350878 instance=ExtResource("1_nu2lj")]
+[node name="Model" type="Node3D" parent="." unique_id=2123350878 instance=ExtResource("2_yn2cw")]
 transform = Transform3D(-0.90043956, -7.871893e-08, 3.4409136e-15, 0, -3.9359463e-08, -0.90043956, 7.871893e-08, -0.90043956, 3.9359463e-08, 5.367038e-08, 0.4315339, 0.44560325)
 
-[node name="PirateChestShape" type="CollisionShape3D" parent="." unique_id=490352952]
+[node name="PirateChestShape" type="CollisionShape3D" parent="." unique_id=1172460188]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
-shape = SubResource("BoxShape3D_7bvxp")
+shape = SubResource("BoxShape3D_1otb1")

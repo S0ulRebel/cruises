@@ -1,8 +1,10 @@
 [gd_scene format=3]
 
-[ext_resource type="PackedScene" path="res://art/props/brass_inkwell/brass_inkwell.glb" id="1_35tpy"]
+[ext_resource type="Script" path="res://props/parts/unlit.gd" id="1_6brmq"]
+[ext_resource type="PackedScene" path="res://art/props/brass_inkwell/brass_inkwell.glb" id="2_jxegq"]
 
-[node name="BrassInkwell" type="Node3D" unique_id=164706456]
+[node name="BrassInkwell" type="Node3D" unique_id=1493920142]
+script = ExtResource("1_6brmq")
 
-[node name="Model" type="Node3D" parent="." unique_id=621325208 instance=ExtResource("1_35tpy")]
+[node name="Model" type="Node3D" parent="." unique_id=621325208 instance=ExtResource("2_jxegq")]
 transform = Transform3D(0.08003908, 0, 0, 0, 0.08003908, 0, 0, 0, 0.08003908, 0, 0, 0)

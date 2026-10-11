@@ -1,15 +1,17 @@
 [gd_scene format=3]
 
-[ext_resource type="PackedScene" path="res://art/props/captain_desk/captain_desk.glb" id="1_oqbjc"]
+[ext_resource type="Script" path="res://props/parts/unlit.gd" id="1_606oc"]
+[ext_resource type="PackedScene" path="res://art/props/captain_desk/captain_desk.glb" id="2_oqd7y"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_606oc"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_2v064"]
 size = Vector3(1.8, 0.76, 0.9)
 
-[node name="CaptainDesk" type="StaticBody3D" unique_id=1048235815]
+[node name="CaptainDesk" type="StaticBody3D" unique_id=351815366]
+script = ExtResource("1_606oc")
 
-[node name="Model" type="Node3D" parent="." unique_id=275931398 instance=ExtResource("1_oqbjc")]
+[node name="Model" type="Node3D" parent="." unique_id=275931398 instance=ExtResource("2_oqd7y")]
 transform = Transform3D(1.8008792, 0, 0, 0, 1.8008792, 0, 0, 0, 1.8008792, 0, 0, 0)
 
-[node name="CaptainDeskShape" type="CollisionShape3D" parent="." unique_id=523830141]
+[node name="CaptainDeskShape" type="CollisionShape3D" parent="." unique_id=1093820680]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.38, 0)
-shape = SubResource("BoxShape3D_606oc")
+shape = SubResource("BoxShape3D_2v064")

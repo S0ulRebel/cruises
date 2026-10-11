@@ -1,8 +1,10 @@
 [gd_scene format=3]
 
-[ext_resource type="PackedScene" path="res://art/props/rapier/rapier.glb" id="1_jal22"]
+[ext_resource type="Script" path="res://props/parts/unlit.gd" id="1_xi3cl"]
+[ext_resource type="PackedScene" path="res://art/props/rapier/rapier.glb" id="2_ixxp4"]
 
-[node name="Rapier" type="Node3D" unique_id=796437015]
+[node name="Rapier" type="Node3D" unique_id=1401042500]
+script = ExtResource("1_xi3cl")
 
-[node name="Model" type="Node3D" parent="." unique_id=1500500993 instance=ExtResource("1_jal22")]
+[node name="Model" type="Node3D" parent="." unique_id=803424789 instance=ExtResource("2_ixxp4")]
 transform = Transform3D(1.0505129, 0, 0, 0, -4.591938e-08, 1.0505129, 0, -1.0505129, -4.591938e-08, 0, 0.063348845, 0.525)

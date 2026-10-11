@@ -189,6 +189,11 @@ func _make(name: String, solid: bool, spin: Vector3) -> bool:
 		# What the walkable area is cut around - see room3d/room3d.gd.
 		root.add_to_group("nav_source")
 
+	# Unlit unless the prop has its own component below. The room has no lights at
+	# all, so a prop left on its imported PBR material renders as a black silhouette.
+	if not ResourceLoader.exists("res://props/%s/%s.gd" % [name, name]):
+		root.set_script(load("res://props/parts/unlit.gd"))
+
 	# A prop that has its own component wears it: props/<name>/<name>.gd. The fishbowl
 	# is the only one so far - it needs glass, which no generator can make.
 	var component := "res://props/%s/%s.gd" % [name, name]

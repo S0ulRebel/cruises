@@ -16,19 +16,19 @@ bottom_radius = 0.244
 height = 0.004
 radial_segments = 48
 
-[node name="Fishbowl" type="Node3D" unique_id=1057698671]
+[node name="Fishbowl" type="Node3D" unique_id=1755904177]
 script = ExtResource("1_bnhvk")
 glass = NodePath("Model")
 
 [node name="Model" type="Node3D" parent="." unique_id=363690441 instance=ExtResource("2_kjht3")]
 transform = Transform3D(0.520254, 0, 0, 0, -2.2741025e-08, 0.520254, 0, -0.520254, -2.2741025e-08, 0, 0.23967758, 0.26)
 
-[node name="Water" type="MeshInstance3D" parent="." unique_id=1353370401]
+[node name="Water" type="MeshInstance3D" parent="." unique_id=1825323673]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1508, 0)
 material_override = SubResource("StandardMaterial3D_xo1me")
 cast_shadow = 0
 mesh = SubResource("CylinderMesh_gjsqw")
 
-[node name="CountFingers" type="Node3D" parent="." unique_id=336414135 instance=ExtResource("3_boloa")]
+[node name="CountFingers" type="Node3D" parent="." unique_id=2076905786 instance=ExtResource("3_boloa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1352, 0)
 script = ExtResource("4_gvc2t")

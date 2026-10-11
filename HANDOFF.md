@@ -474,6 +474,72 @@ state; verify mesh proportions, rear hinges and de-lit materials before import.
 All view heights and baselines match exactly. Front/back hardware envelopes remain
 about 3.5–4.0% wider than their height; the sidecar records this source limitation.
 
+### 2026-10-11 — for the art agent — the prop queue for the captain's cabin
+
+The owner has put you on the **chest** (delivered, `art/props/pirate_chest/`) and the
+**captain's chair**. This is everything else the room needs, in the order the engine
+side wants it. Work down it; you do not need to ask before starting the next one.
+
+The reference for all of it is `docs/reference/room_target.png` — the owner's target
+render for this room. Match its palette and its level of detail.
+
+**Conventions, same as the props already delivered:**
+- One folder per prop, `art/props/<id>/`, with `sheet.png` and `asset.json`. The `<id>`
+  is lower_snake_case and is load-bearing for anything that goes in the inventory: the
+  engine loads `art/props/<id>/<id>.glb` and renders the inventory icon from the model
+  itself, so the id below is the folder name, exactly.
+- Four orthographic views, front / left / back / right, equal heights, flat background,
+  no props, no floor shadow — as in the chest and compass sheets.
+- Polycount, measured off what is already in the game and reading correctly at the room
+  camera: hand-held items **2,500–3,500 tris** (compass 2,746, inkwell 3,070), furniture
+  **6,000–8,000** (desk 6,051). Nothing needs more.
+- `asset.json` must carry `dimensions_m` and a `dimension_contract`. The engine scales
+  every prop from that sidecar, so a wrong number puts a teacup the size of a barrel on
+  the desk.
+
+**1 — blocking. These are grey boxes or missing items in the game right now.**
+
+| id | what | notes |
+| --- | --- | --- |
+| `captain_chair` | the chair behind the desk | assigned to you already; tall buttoned oxblood leather back, as in the render |
+| `supply_crate` | the nailed-shut crate | NOT the brass chest. Plain planks, rope-bound or nailed, stencilled `LE CHAOS NAVIGUE TOUJOURS PLUS LOIN` across the front. It must read as *nailed shut* — the puzzle is prising it open with a rapier |
+| `rapier` | thin French duelling rapier | inventory item. Swept brass hilt, worn grip. It is the crate's answer, so it must read as a lever as well as a sword |
+| `key` | small brass key | inventory item, comes out of the crate. Chunky and cartoony enough to read at 128 px in the bag |
+| `bowl_stand` | the pedestal the fishbowl sits on | in the render: a short turned wooden column with a brass collar, front left. The glass bowl itself is built from primitives in engine — glass is the one thing a generator is worst at — so this is the stand ONLY, with a flat top the bowl sits in |
+| `porthole` | brass porthole with its ring and dogs | currently a flat blue quad. Needs the brass ring and the glass; the weather behind it is the engine's problem |
+
+**2 — the room stops looking like a box.**
+
+| id | what |
+| --- | --- |
+| `wall_lantern` | brass wall lantern with a candle, as on the left wall and by the door |
+| `bookcase` | built-in shelf unit with books, left of the desk |
+| `ship_painting` | framed painting of a ship in heavy seas, gilt frame, with its own brass picture light over it |
+| `curtain_panel` | heavy red curtain panel, one side; the engine mirrors it for the other |
+| `potted_palm` | the brass pot and palm beside the window |
+
+**3 — dressing and inventory, once the above are in.**
+
+| id | what |
+| --- | --- |
+| `rolled_charts` | **REDO.** The owner discarded the first model — it came out a flat slab. Cause is in the sheet: the two end-on views were 107 px wide against an 814 px front, so there was nothing for Tripo to read the cylinder from. Give the ends their own full-width views |
+| `ladle` | Santi's galley ladle. Already referenced by the puzzle data |
+| `quill_stand` | quill in a stand, on the desk |
+| `ship_ledger` | the open log book on the desk |
+| `pewter_tankard` | the mug on the desk |
+| `rum_bottle` | dark glass bottle, as beside the chest in the render |
+
+**What happens when you deliver.** Push the sheet and `asset.json` and move the row to
+Done. The engine side picks it up from there: Tripo reconstruction, texturing,
+Blender fixes, scale from the sidecar, and into the room. You do not run any of that
+and you do not need to wait for it — keep going down the list.
+
+The chest's lid is already readable on all four views, so no lid work is needed on it;
+the engine side cuts and hinges the lid itself.
+
+---
+
+
 ---
 
 ## Done

@@ -447,7 +447,15 @@ func _add_furniture() -> void:
 				bool(piece.get("solid", true)), String(piece["name"]))
 	for piece in DRESSING:
 		_add_prop(piece)
-	_add_fishbowl(Vector3(-3.3, 0.76, -1.2))                                         # on the desk
+	_add_prop({ "name": "bowl_stand", "at": BOWL_AT + Vector3(0.0, BOWL_STAND_HEIGHT * 0.5, 0.0),
+		"size": Vector3(0.6, BOWL_STAND_HEIGHT, 0.6),
+		"model": "res://art/props/bowl_stand/bowl_stand.glb" })
+	_add_collision(BOWL_AT + Vector3(0.0, BOWL_STAND_HEIGHT * 0.5, 0.0),
+		Vector3(0.6, BOWL_STAND_HEIGHT, 0.6))
+	# Count Fingers comes off the desk and onto his own pedestal in the foreground,
+	# left, where the owner's target render puts him - near the camera, big enough that
+	# his face reads, and where the dialogue bar may cover him without losing anything.
+	_add_fishbowl(BOWL_AT + Vector3(0.0, BOWL_STAND_HEIGHT, 0.0))
 
 	# Everything solid is in, so the walkable area can be worked out. Bake once here
 	# rather than per prop: baking is not cheap and nothing walks before this point.
@@ -469,6 +477,10 @@ func _add_furniture() -> void:
 ## because the dish Tripo reconstructed is not axis aligned and a measured cut kept
 ## taking the bite out of the far side.
 const BOWL_MODEL := "res://art/props/fishbowl/fishbowl.glb"
+## Where Count Fingers lives, and how high his pedestal stands him. The bowl sits on
+## top of the stand, so one number moves both.
+const BOWL_AT := Vector3(-2.9, 0.0, 1.5)
+const BOWL_STAND_HEIGHT := 0.65
 
 func _add_fishbowl(at: Vector3) -> void:
 	# Bigger than a real bowl for a 7 cm fish, deliberately. At a true 17 cm the bowl

@@ -511,10 +511,15 @@ func _add_fishbowl(at: Vector3) -> void:
 	var model := load(BOWL_MODEL) as PackedScene if ResourceLoader.exists(BOWL_MODEL) else null
 	if model:
 		var mesh_root := model.instantiate() as Node3D
-		var box := _visual_bounds(mesh_root)
+		# Tripo read the bowl's mouth as a dish on the FRONT of a sphere, so the model
+		# arrives lying on its back. Stood up first, then measured: fitting it by an
+		# unrotated box sizes it by its depth and leaves it floating off the stand.
+		var upright := Basis.from_euler(Vector3(deg_to_rad(-90.0), 0.0, 0.0))
+		var box: AABB = Transform3D(upright, Vector3.ZERO) * _visual_bounds(mesh_root)
 		var fit: float = (RADIUS * 2.0) / maxf(box.size.y, 0.001)
-		mesh_root.scale = Vector3.ONE * fit
-		mesh_root.position.y = -box.position.y * fit
+		mesh_root.transform = Transform3D(upright.scaled(Vector3.ONE * fit),
+			Vector3(-box.get_center().x * fit, -box.position.y * fit,
+				-box.get_center().z * fit))
 		for node in mesh_root.find_children("*", "MeshInstance3D", true, false):
 			var vis := node as MeshInstance3D
 			vis.material_override = glass

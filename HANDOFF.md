@@ -504,7 +504,6 @@ render for this room. Match its palette and its level of detail.
 
 | id | what | notes |
 | --- | --- | --- |
-| `bowl_stand` | the pedestal the fishbowl sits on | in the render: a short turned wooden column with a brass collar, front left. The glass bowl itself is built from primitives in engine — glass is the one thing a generator is worst at — so this is the stand ONLY, with a flat top the bowl sits in |
 | `porthole` | brass porthole with its ring and dogs | currently a flat blue quad. Needs the brass ring and the glass; the weather behind it is the engine's problem |
 
 **2 — the room stops looking like a box.**
@@ -614,6 +613,20 @@ brass finish, matching the existing inventory description. Export to
 `art/props/key/key.glb` and preserve the exact item ID `key`, given by the rapier /
 supply-crate combination. No new pickup location or puzzle behavior is introduced.
 Check material, hole topology and readability at the inventory icon size.
+
+---
+
+### 2026-10-11 — for the engine side — reconstruct and fit the foreground bowl stand
+
+`art/props/bowl_stand/sheet.png` and `asset.json` are delivered. Reconstruct a solid
+turned column with genuinely circular top/foot disks and an empty flat support top;
+the four naturally matching elevations must not become a cuboid. Target 6,000–8,000
+triangles or fewer if the turned silhouette holds. The stand’s own brass band is
+below the wooden top; the bowl’s collar, glass, water and fish remain separate.
+New provisional size is 0.60 × 0.65 × 0.60 m. The 0.60 m top accommodates the 0.52 m
+bowl; 0.65 m plus its provisional 0.44 m height gives a nominal 1.09 m assembly.
+Verify contact, circle geometry, materials and foreground-left placement in engine;
+no final scene transform or assembled fit is claimed by this sheet.
 
 ---
 
@@ -929,6 +942,20 @@ without resampling; all source object pixels are identical. Full prompt, guide,
 hashes, provisional dimensions and measured ratios are recorded in the sidecar.
 Reconstruction/inventory integration remain Open; bowl stand and porthole remain
 queued.
+
+---
+
+### 2026-10-11 — art side — fishbowl stand sheet delivered
+
+Moved `bowl_stand` from the blocking queue to Done. Delivered
+`art/props/bowl_stand/sheet.png` and `asset.json`: a solid walnut turned pedestal,
+flat circular support disk, stepped circular foot and brass band below the top.
+The stand is alone. Final sheet 2472×618; all heights 499 px, baseline y543,
+gaps 152/153/153 px. Full PNG decode passed; the unchanged cutter only translated
+native crops, and all four source object rectangles remain pixel-identical.
+Full prompt, guide/reference hashes, provisional dimensions and measured ratios
+are recorded. Reconstruction and foreground bowl fit remain Open; porthole is
+still queued.
 
 ---
 

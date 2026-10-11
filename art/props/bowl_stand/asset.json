@@ -1,0 +1,511 @@
+{
+  "asset_id": "prop:bowl_stand",
+  "name": "Count Fingers’ bowl stand",
+  "role": "Scene 1 — separate foreground-left pedestal supporting Count Fingers’ bowl",
+  "asset_type": "prop_turnaround_sheet",
+  "files": {
+    "sheet": "sheet.png"
+  },
+  "dimensions_m": {
+    "width": 0.6,
+    "height": 0.65,
+    "depth": 0.6
+  },
+  "dimension_contract": "dimensions_m describes the complete upright stand alone, from floor to flat wooden support top: 0.60W × 0.65H × 0.60D m. These are chosen provisional new art dimensions; no prior numerical stand size existed in the inspected repository. The top and foot are circular disks within a 0.60 m diameter envelope, joined by a solid turned column. The 0.60 m support top accommodates the separate 0.52 m bowl; its 0.65 m height plus the bowl’s provisional 0.44 m height yields a nominal 1.09 m assembly when the bowl sits flush on top. That sum is not a verified engine placement. Uniformly fit the reconstructed stand and verify circular depth/width and the flat support surface; the four similar elevations do not describe a cuboid. The stand includes only its own brass band below the wooden top, not the separate bowl’s collar, glass, fish or water.",
+  "dimension_decision": "Provisional new art dimensions. No prior numeric stand dimensions exist in the inspected repository. A0.60m support disk accommodates the0.52m bowl diameter. Stand height0.65m plus the separate provisional0.44m bowl height gives a1.09m assembly height; final foreground placement/fit remain engine work.",
+  "source": {
+    "producer": "OpenAI imagegen via ChatGPT",
+    "mode": "built-in",
+    "model_identifier": "Not exposed by the built-in tool",
+    "date": "2026-10-11",
+    "repository_base_commit": "a11035631f4fdc02888b90550f4a3f6180bc3027",
+    "original_filename": "exec-a87017f3-7f52-4e4c-a9f0-31370eb97347.png",
+    "generated_source_sha256": "6e439274e4174022c1dc1d7c20bb029e4ce2a5b7ef656ec1e1b89dfdd1ada41d",
+    "sha256": "a2569e75fd461a4f263987ff0669b025fe022533dc356b530532f99861c18837",
+    "references": [
+      {
+        "original_path": "/workspace/scratch/9d89bc03e38f/bowl_stand_geometry_guide.png",
+        "sha256": "7a385dcf6c1d28710c969f0fe0bedfff235d1c9dcdbad8bd35e020fb884140b5",
+        "original_filename": "bowl_stand_geometry_guide.png"
+      },
+      {
+        "original_path": "/workspace/scratch/9d89bc03e38f/cruises_git/docs/reference/room_target.png",
+        "sha256": "a17f771d95d7aa37b8403b3b4cb918c7032737cdb031d62c893b424c878cebc3",
+        "repository_path": "docs/reference/room_target.png"
+      },
+      {
+        "original_path": "/workspace/scratch/9d89bc03e38f/cruises_git/art/props/captain_desk/sheet.png",
+        "sha256": "02300d11cad484407755dfea20b66770abc9e92e895095b834bb505477b4f69c",
+        "repository_path": "art/props/captain_desk/sheet.png"
+      }
+    ],
+    "generation_history": [
+      {
+        "pass": 1,
+        "stage": "measured_guide_cel_shaded",
+        "prompt": "Use case: stylized-concept.\nAsset: the FISHBOWL STAND, one separate wooden pedestal in a four-view modeling sheet for Captain Livé's pirate cabin.\n\nREFERENCE1 is a measured construction outline: preserve its four matching external silhouettes, widths, height, level top and shared ground line. REFERENCE2 is the approved room target; the stand belongs under the foreground-left fishbowl, and this image supplies palette and wear only. REFERENCE3 is the approved desk, supplying the stylized wood/brass finish. The final sheet contains ONLY THE STAND. Never include the fishbowl, fish, glass, water, gravel, plants, another prop, or scenery.\n\nDesign: one short, sturdy TURNED WOODEN PEDESTAL, upright. A broad circular flat wooden support disk on top, a chunky bulbous turned central column, and a broad stable stepped circular foot. Antique dark warm walnut with broad lighter brown worn/chipped edges, restrained plank/grain marks, a narrow riveted brass band immediately BELOW the top wooden lip. The brass band belongs to this stand; do not put another raised bowl ring or bowl-shaped socket ON the top. The top remains entirely empty and flat for the separate bowl to sit on. No four legs, no stool, no cabinet, no drawers. The column is rotationally symmetric, solid and connected. All decorative forms are broad enough to read at room scale.\n\nProposed complete target:0.60m wide x0.65m tall x0.60m deep. The top support disk and foot fit the same0.60m circular envelope. This supports the separate0.52m-diameter bowl; no bowl appears in this asset. Four width/height ratios all0.923. The template contains the exact silhouette at one shared scale; soften the lathed contours within its boundary, do not vary the proportions between views.\n\nFOUR fixed-pose strict ORTHOGRAPHIC views in one horizontal row, front / left / right / back. Camera is horizontal at the pedestal's midheight, with no pitch or perspective. The top disk is seen precisely edge-on: straight level upper edge, no visible oval top surface or look down onto it. At this exact elevation a turned stand naturally has the same outline in all four directions. Render wood grain and wear as coherent different sides of that one stand, not four redesigned columns. The complete height and ground line must match within1pixel, just like the measured guide.\nCartoony sculpted / cel-shaded rendering, dark warm wood and softly gleaming worn brass, like the approved desk. A few strong bevel highlights, broad simple dents, no gritty photographic detail. Neutral soft form illumination consistent across all four views. No warm lantern cast shadows or reflections from a room.\nPlain pure white background everywhere outside the stand. Clear vertical empty strips between all four views, whole objects with margins. No cast shadow, floor plane, labels, numbers, guide marks, text, borders or extra objects. Keep the measured guide's four common height envelopes.",
+        "referenced_image_paths": [
+          "/workspace/scratch/9d89bc03e38f/bowl_stand_geometry_guide.png",
+          "/workspace/scratch/9d89bc03e38f/cruises_git/docs/reference/room_target.png",
+          "/workspace/scratch/9d89bc03e38f/cruises_git/art/props/captain_desk/sheet.png"
+        ],
+        "transparent_background": false,
+        "source_path": "/workspace/scratch/9d89bc03e38f/generated_images/exec-a87017f3-7f52-4e4c-a9f0-31370eb97347.png",
+        "selected": true,
+        "original_filename": "exec-a87017f3-7f52-4e4c-a9f0-31370eb97347.png",
+        "output_sha256": "6e439274e4174022c1dc1d7c20bb029e4ce2a5b7ef656ec1e1b89dfdd1ada41d",
+        "referenced_images": [
+          {
+            "original_path": "/workspace/scratch/9d89bc03e38f/bowl_stand_geometry_guide.png",
+            "sha256": "7a385dcf6c1d28710c969f0fe0bedfff235d1c9dcdbad8bd35e020fb884140b5",
+            "original_filename": "bowl_stand_geometry_guide.png"
+          },
+          {
+            "original_path": "/workspace/scratch/9d89bc03e38f/cruises_git/docs/reference/room_target.png",
+            "sha256": "a17f771d95d7aa37b8403b3b4cb918c7032737cdb031d62c893b424c878cebc3",
+            "repository_path": "docs/reference/room_target.png"
+          },
+          {
+            "original_path": "/workspace/scratch/9d89bc03e38f/cruises_git/art/props/captain_desk/sheet.png",
+            "sha256": "02300d11cad484407755dfea20b66770abc9e92e895095b834bb505477b4f69c",
+            "repository_path": "art/props/captain_desk/sheet.png"
+          }
+        ]
+      }
+    ],
+    "selected_pass": 1,
+    "selected_prompt": "Use case: stylized-concept.\nAsset: the FISHBOWL STAND, one separate wooden pedestal in a four-view modeling sheet for Captain Livé's pirate cabin.\n\nREFERENCE1 is a measured construction outline: preserve its four matching external silhouettes, widths, height, level top and shared ground line. REFERENCE2 is the approved room target; the stand belongs under the foreground-left fishbowl, and this image supplies palette and wear only. REFERENCE3 is the approved desk, supplying the stylized wood/brass finish. The final sheet contains ONLY THE STAND. Never include the fishbowl, fish, glass, water, gravel, plants, another prop, or scenery.\n\nDesign: one short, sturdy TURNED WOODEN PEDESTAL, upright. A broad circular flat wooden support disk on top, a chunky bulbous turned central column, and a broad stable stepped circular foot. Antique dark warm walnut with broad lighter brown worn/chipped edges, restrained plank/grain marks, a narrow riveted brass band immediately BELOW the top wooden lip. The brass band belongs to this stand; do not put another raised bowl ring or bowl-shaped socket ON the top. The top remains entirely empty and flat for the separate bowl to sit on. No four legs, no stool, no cabinet, no drawers. The column is rotationally symmetric, solid and connected. All decorative forms are broad enough to read at room scale.\n\nProposed complete target:0.60m wide x0.65m tall x0.60m deep. The top support disk and foot fit the same0.60m circular envelope. This supports the separate0.52m-diameter bowl; no bowl appears in this asset. Four width/height ratios all0.923. The template contains the exact silhouette at one shared scale; soften the lathed contours within its boundary, do not vary the proportions between views.\n\nFOUR fixed-pose strict ORTHOGRAPHIC views in one horizontal row, front / left / right / back. Camera is horizontal at the pedestal's midheight, with no pitch or perspective. The top disk is seen precisely edge-on: straight level upper edge, no visible oval top surface or look down onto it. At this exact elevation a turned stand naturally has the same outline in all four directions. Render wood grain and wear as coherent different sides of that one stand, not four redesigned columns. The complete height and ground line must match within1pixel, just like the measured guide.\nCartoony sculpted / cel-shaded rendering, dark warm wood and softly gleaming worn brass, like the approved desk. A few strong bevel highlights, broad simple dents, no gritty photographic detail. Neutral soft form illumination consistent across all four views. No warm lantern cast shadows or reflections from a room.\nPlain pure white background everywhere outside the stand. Clear vertical empty strips between all four views, whole objects with margins. No cast shadow, floor plane, labels, numbers, guide marks, text, borders or extra objects. Keep the measured guide's four common height envelopes.",
+    "alignment_guide": {
+      "path": "/workspace/scratch/9d89bc03e38f/bowl_stand_geometry_guide.png",
+      "method": "New measured lathe-profile construction diagram drawn with matplotlib Agg, not an edit of generated art.",
+      "canvas": [
+        2172,
+        724
+      ],
+      "centers_x_px": [
+        272,
+        814,
+        1358,
+        1900
+      ],
+      "height_before_outline_px": 500,
+      "width_before_outline_px": 461.538,
+      "top_y_px": 112,
+      "bottom_y_px": 612,
+      "left_profile_points_px": [
+        [
+          -230.769,
+          112
+        ],
+        [
+          -230.769,
+          142
+        ],
+        [
+          -208,
+          155
+        ],
+        [
+          -208,
+          175
+        ],
+        [
+          -155,
+          181
+        ],
+        [
+          -155,
+          205
+        ],
+        [
+          -111,
+          217
+        ],
+        [
+          -105,
+          255
+        ],
+        [
+          -132,
+          278
+        ],
+        [
+          -143,
+          310
+        ],
+        [
+          -141,
+          339
+        ],
+        [
+          -117,
+          365
+        ],
+        [
+          -85,
+          390
+        ],
+        [
+          -77,
+          435
+        ],
+        [
+          -100,
+          465
+        ],
+        [
+          -141,
+          478
+        ],
+        [
+          -155,
+          493
+        ],
+        [
+          -155,
+          520
+        ],
+        [
+          -205,
+          535
+        ],
+        [
+          -220,
+          552
+        ],
+        [
+          -230.769,
+          575
+        ],
+        [
+          -230.769,
+          612
+        ]
+      ],
+      "purpose": "Four equal orthographic silhouettes for built-in imagegen, not delivered as artwork.",
+      "sha256": "7a385dcf6c1d28710c969f0fe0bedfff235d1c9dcdbad8bd35e020fb884140b5"
+    },
+    "assembly": {
+      "tool": "tools/crop_views.py",
+      "tool_modified": false,
+      "arguments": [
+        "--row",
+        "0",
+        "1",
+        "--names",
+        "front",
+        "left",
+        "right",
+        "back",
+        "--pad",
+        "0.12",
+        "--size",
+        "618",
+        "--dry-run",
+        "--preview",
+        "art/props/bowl_stand/sheet.png"
+      ],
+      "method": "Unchanged cutter; crop native own-bounds rectangles and translate onto four618px square cells with common baseline. No resampling, per-view scaling or raster retouching.",
+      "native_common_canvas_px": 618,
+      "resampled": false,
+      "per_view_scaling": false,
+      "source_measurements": {
+        "image_size_px": [
+          2172,
+          724
+        ],
+        "background_rgb": [
+          254,
+          254,
+          254
+        ],
+        "views": [
+          {
+            "view": "front",
+            "bounds_px": [
+              39,
+              112,
+              505,
+              611
+            ],
+            "width_px": 466,
+            "height_px": 499,
+            "last_ink_y_px": 610,
+            "width_height_ratio": 0.933868
+          },
+          {
+            "view": "left",
+            "bounds_px": [
+              582,
+              112,
+              1047,
+              611
+            ],
+            "width_px": 465,
+            "height_px": 499,
+            "last_ink_y_px": 610,
+            "width_height_ratio": 0.931864
+          },
+          {
+            "view": "right",
+            "bounds_px": [
+              1126,
+              112,
+              1591,
+              611
+            ],
+            "width_px": 465,
+            "height_px": 499,
+            "last_ink_y_px": 610,
+            "width_height_ratio": 0.931864
+          },
+          {
+            "view": "back",
+            "bounds_px": [
+              1668,
+              112,
+              2134,
+              611
+            ],
+            "width_px": 466,
+            "height_px": 499,
+            "last_ink_y_px": 610,
+            "width_height_ratio": 0.933868
+          }
+        ],
+        "clear_vertical_gaps_px": [
+          77,
+          79,
+          77
+        ]
+      },
+      "source_object_rectangles_pixel_identical_after_translation": [
+        true,
+        true,
+        true,
+        true
+      ]
+    }
+  },
+  "object_scope": {
+    "rule": "Model the object only, never a dressed arrangement.",
+    "contents": "One solid turned wooden pedestal with flat circular support top, stepped circular foot and attached brass band below the wooden lip.",
+    "excluded": [
+      "fishbowl",
+      "bowl base collar",
+      "glass",
+      "Count Fingers",
+      "water",
+      "gravel",
+      "plants",
+      "furniture dressing",
+      "other props",
+      "scenery"
+    ]
+  },
+  "design": {
+    "structure": "A short sturdy solid lathed column with a bulbous middle, narrow waists, broad stepped circular foot and broad circular top disk.",
+    "top": "Entirely empty flat wooden support surface, seen edge-on in these level elevations. No raised socket, bowl-shaped ring or added collar on top.",
+    "band": "The narrow riveted brass band directly below the top wooden lip belongs to the stand. It is separate from the bowl’s brass base collar.",
+    "all_views": "The same rotationally symmetric shape naturally projects to the same silhouette from front, left, right and back. Different wood grain and worn marks distinguish its surface sides.",
+    "finish": "Dark warm walnut with broad honey-brown chipped edges, readable turned facets and restrained grain; warm worn brass and small round rivets.",
+    "openings": "None. This stand is a solid connected pedestal, not four legs or a hollow cabinet."
+  },
+  "reconstruction_orientation": {
+    "fixed_object_pose": "Upright",
+    "axis_convention": "Turned axis +Y; horizontal XZ sections are circular. Front/left/right/back cameras rotate around that same axis.",
+    "dimensions_m": {
+      "width": 0.6,
+      "height": 0.65,
+      "depth": 0.6
+    },
+    "geometry_note": "Use actual circular top/foot disks and a lathed column; matching silhouettes do not imply square plan sections.",
+    "engine_rotation": "No special pose correction specified. Final yaw and placement remain engine work."
+  },
+  "placement": {
+    "convention_status": "Provisional fit and composition contract, no engine mesh or placement changed.",
+    "engine_model_path_target": "art/props/bowl_stand/bowl_stand.glb",
+    "origin": "Floor-level center of the circular foot",
+    "target_location": "Foreground left, under Count Fingers’ separately built glass bowl, per docs/reference/room_target.png.",
+    "support_top_local_y_m": 0.65,
+    "support_disk_diameter_m": 0.6,
+    "separate_bowl_maximum_diameter_m": 0.52,
+    "separate_bowl_provisional_height_m": 0.44,
+    "nominal_combined_height_m": 1.09,
+    "combined_height_note": "Arithmetic sum assuming flush contact on a common floor plane; not verified assembly bounds.",
+    "fit_note": "Author the bowl/stand contact and final foreground position in engine. Keep water and fish separate, and do not duplicate the bowl collar on the support top."
+  },
+  "framing": {
+    "view_order": [
+      "front",
+      "left",
+      "right",
+      "back"
+    ],
+    "projection": "Level orthographic elevations around the turned axis",
+    "camera": "Horizontal optical axis at stand midpoint, fixed scale and zero pitch/roll. The top disk is edge-on, not an ellipse viewed from above.",
+    "fixed_object_pose": "Upright",
+    "image_size_px": [
+      2472,
+      618
+    ],
+    "cell_size_px": [
+      618,
+      618
+    ],
+    "background": "Plain opaque near-white",
+    "background_rgb": [
+      254,
+      254,
+      254
+    ],
+    "labels_in_turnaround_band": false,
+    "ground_line_drawn": false,
+    "ground_line_last_ink_y_px": 543,
+    "separation_px": [
+      152,
+      153,
+      153
+    ],
+    "scale": "All four raw-source and final silhouettes are exactly 499 px high. Native own-bounds crops were translated only; no view was scaled."
+  },
+  "validation": {
+    "status": "Complete source/final PNG and framing checked; reconstructed circular geometry and engine fit remain unverified",
+    "method": "Read-only full-row NumPy/Pillow measurements using unchanged crop_views.py modal_colour, ink_mask and find_figures at default tolerance 18 and default gap detection. Bounds are [x0,y0,x1,y1], upper bounds exclusive. Full final PNG decoded before measurement.",
+    "detected_views": 4,
+    "views": [
+      {
+        "view": "front",
+        "bounds_px": [
+          76,
+          45,
+          542,
+          544
+        ],
+        "width_px": 466,
+        "height_px": 499,
+        "last_ink_y_px": 543,
+        "width_height_ratio": 0.933868
+      },
+      {
+        "view": "left",
+        "bounds_px": [
+          694,
+          45,
+          1159,
+          544
+        ],
+        "width_px": 465,
+        "height_px": 499,
+        "last_ink_y_px": 543,
+        "width_height_ratio": 0.931864
+      },
+      {
+        "view": "right",
+        "bounds_px": [
+          1312,
+          45,
+          1777,
+          544
+        ],
+        "width_px": 465,
+        "height_px": 499,
+        "last_ink_y_px": 543,
+        "width_height_ratio": 0.931864
+      },
+      {
+        "view": "back",
+        "bounds_px": [
+          1930,
+          45,
+          2396,
+          544
+        ],
+        "width_px": 466,
+        "height_px": 499,
+        "last_ink_y_px": 543,
+        "width_height_ratio": 0.933868
+      }
+    ],
+    "height_spread_px": 0,
+    "ground_line_spread_px": 0,
+    "minimum_empty_band_px": 152,
+    "strict_one_pixel_height_check_passed": true,
+    "strict_one_pixel_baseline_check_passed": true,
+    "source_object_rectangles_pixel_identical": true,
+    "native_view_canvas_px": [
+      618,
+      618
+    ],
+    "view_canvas_after_2x_upscale_px": [
+      1236,
+      1236
+    ],
+    "upscaling_applied": false,
+    "target_width_height_ratio": 0.923076923076923,
+    "visual_review": {
+      "projection": "The top is level and edge-on in every view; front, opposite sides and back share the expected turned outline.",
+      "structure": "Connected broad top, bulbous turned column and stable stepped foot, with no detached or extra parts.",
+      "materials": "Warm dark wood and restrained brass below the top; the supporting surface remains empty.",
+      "isolation": "Stand only: no bowl, glass, fish, water, raised bowl collar, floor shadow or sheet text."
+    },
+    "reconstruction_run": false,
+    "engine_import_run": false,
+    "limitations": [
+      "The proposed stand size and combined 1.09 m bowl/stand height are new art targets, not measured existing scene geometry.",
+      "Rotational symmetry and a flat load-bearing top are the required construction, but these elevations alone do not verify the generated mesh’s circular cross-sections or bowl fit.",
+      "Measured width/height ratios are 0.933868/0.931864/0.931864/0.933868, versus the nominal 0.923077. The drawn envelopes are about 0.95–1.17% broader than the target ratio. All heights and baselines match exactly, but verify the reconstructed circular width/depth against dimensions_m rather than treating painted outlines as exact CAD."
+    ],
+    "foreground_threshold": "Sum of absolute RGB distance from modal background exceeds 54.",
+    "implied_diameter_m_at_0_65_height": [
+      0.607014,
+      0.605711,
+      0.605711,
+      0.607014
+    ],
+    "width_excess_percent_vs_target": [
+      1.169,
+      0.9519,
+      0.9519,
+      1.169
+    ]
+  },
+  "pipeline": {
+    "status": "source_sheet_only",
+    "view_extraction": "delegated_to_claude_code",
+    "view_extraction_names": [
+      "front",
+      "left",
+      "right",
+      "back"
+    ],
+    "upload_view_mapping": {
+      "front": "front.png",
+      "left": "left.png",
+      "right": "right.png",
+      "back": "back.png"
+    },
+    "upload_note": "Assign each view by filename; sheet display order is not positional upload order.",
+    "three_d_generator_allowed": "Tripo only",
+    "forbidden_generators": [
+      "Hunyuan3D",
+      "HY-Motion"
+    ],
+    "nc_models_used": false,
+    "rigging_required": false,
+    "generated_3d_model": false,
+    "validated_in_engine": false,
+    "target_triangles": {
+      "minimum": 6000,
+      "maximum": 8000,
+      "allow_fewer_if_silhouette_preserved": true,
+      "source": "HANDOFF.md furniture budget; fewer triangles are acceptable for a simple lathed solid if the silhouette is retained, not a measured mesh"
+    },
+    "reconstruction_prompt_note": "Solid rotationally symmetric turned walnut pedestal, circular flat support disk and stepped circular foot, narrow brass band below the wooden top; no cuboid, stool legs, hollow body or bowl socket.",
+    "lighting_note": "Broad wood form shading and brass highlights are baked into the source. Use Tripo texture lighting removal and inspect under room lighting.",
+    "recommended_crop_command": "python tools/crop_views.py art/props/bowl_stand/sheet.png --row 0 1 --names front left right back --pad 0.12 --size 618 --out art/props/bowl_stand/views",
+    "optional_2x_crop_command": "python tools/crop_views.py art/props/bowl_stand/sheet.png --row 0 1 --names front left right back --pad 0.12 --size 1236 --out art/props/bowl_stand/views",
+    "upscale_note": "Native common canvases are 618 px square. Uniform 2x output at 1236 px meets the minimum but adds no source detail; retain gap detection to avoid padding existing cell margins again.",
+    "next_step": "Reconstruct a true lathed circular pedestal, verify the empty flat support disk, and fit the separate bowl in the foreground-left scene position."
+  }
+}

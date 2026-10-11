@@ -275,9 +275,14 @@ func _start_sound() -> void:
 ## A const so the navigation check can build the same room the game does - a check
 ## against a hand-copied layout stops testing the game the moment either drifts.
 ## `solid` false is scenery: it is drawn, but nothing is cut out of the floor for it.
+## A piece with a `model` is real art and the box is only its collision; one without is
+## still a grey box standing in until its turnaround exists. `size` is the true size in
+## metres either way - Tripo normalises everything it generates to roughly 1.0, so a
+## desk and an inkwell come back the same size and the sidecar's dimensions_m is what
+## makes one furniture and the other something you could lose in a pocket.
 const FURNITURE := [
 	{ "name": "desk", "at": Vector3(-3.6, 0.38, -1.4), "size": Vector3(1.8, 0.76, 0.9),
-	  "colour": "#4a2f16" },
+	  "colour": "#4a2f16", "model": "res://art/props/captain_desk/captain_desk.glb" },
 	{ "name": "chair", "at": Vector3(-3.6, 0.95, -2.1), "size": Vector3(0.5, 1.9, 0.5),
 	  "colour": "#3a2416" },
 	{ "name": "crate", "at": Vector3(3.9, 0.45, 1.9), "size": Vector3(0.9, 0.9, 0.9),
@@ -287,12 +292,27 @@ const FURNITURE := [
 	  "colour": "#86a9c9", "solid": false },
 ]
 
+## Small things standing on the furniture. Not FURNITURE, because they are not solid -
+## you walk up to the desk, not around a compass - and because they are picked up.
+const DRESSING := [
+	{ "name": "compass", "at": Vector3(-3.9, 0.78, -1.25), "size": Vector3(0.09, 0.03, 0.09),
+	  "model": "res://art/props/compass/compass.glb", "lie_flat": true },
+	{ "name": "brass_inkwell", "at": Vector3(-3.1, 0.80, -1.55), "size": Vector3(0.08, 0.07, 0.08),
+	  "model": "res://art/props/brass_inkwell/brass_inkwell.glb" },
+]
+
 
 ## Awaits the navigation sync at the end, so callers must await it too.
 func _add_furniture() -> void:
 	for piece in FURNITURE:
-		_add_box(piece["at"], piece["size"], Color(String(piece["colour"])),
-			bool(piece.get("solid", true)))
+		if piece.has("model"):
+			_add_prop(piece)
+			_add_collision(piece["at"], piece["size"])
+		else:
+			_add_box(piece["at"], piece["size"], Color(String(piece["colour"])),
+				bool(piece.get("solid", true)))
+	for piece in DRESSING:
+		_add_prop(piece)
 	_add_fishbowl(Vector3(-3.3, 0.76, -1.2))                                         # on the desk
 
 	# Everything solid is in, so the walkable area can be worked out. Bake once here
@@ -398,6 +418,64 @@ func _add_count_fingers(bowl: Node3D, radius: float) -> void:
 	swimmer.add_child(model)
 	model.position = -bounds.get_center() * model.scale.x
 	bowl.add_child(swimmer)
+
+
+## A generated prop, scaled to its real size and stood on the floor.
+##
+## Tripo normalises everything to roughly 1.0 on its longest axis, so the model's own
+## size means nothing - `size` from the sidecar is what makes a desk 1.8 m and an
+## inkwell 8 cm. Scaled uniformly by the longest axis rather than stretched to fit the
+## box, because a prop squashed to match a guessed depth looks wrong in a way nobody
+## can point at.
+func _add_prop(piece: Dictionary) -> void:
+	var scene: PackedScene = load(String(piece["model"]))
+	if scene == null:
+		push_warning("%s: no model at %s" % [piece["name"], piece["model"]])
+		return
+	var model := scene.instantiate() as Node3D
+	model.name = String(piece["name"]).capitalize()
+	_room.add_child(model)
+
+	# _visual_bounds measures in the model's OWN space, before its transform - so the
+	# scale and rotation have to be applied to the box by hand rather than measured
+	# again afterwards.
+	var local := _visual_bounds(model)
+	if local.size.x <= 0.0:
+		push_warning("%s: model has no visible mesh" % piece["name"])
+		return
+
+	# Some props are modelled standing on edge so that all four views could show the
+	# face of them - the compass is a disc photographed head-on. Lay it down first.
+	var basis := Basis.IDENTITY
+	if bool(piece.get("lie_flat", false)):
+		basis = Basis.from_euler(Vector3(deg_to_rad(-90.0), 0.0, 0.0))
+
+	var size: Vector3 = piece["size"]
+	var longest: float = maxf(local.size.x, maxf(local.size.y, local.size.z))
+	var wanted: float = maxf(size.x, maxf(size.y, size.z))
+	var factor: float = wanted / maxf(longest, 0.0001)
+	basis = basis.scaled(Vector3.ONE * factor)
+
+	# Where the model's own box ends up once rotated and scaled, so it can be moved to
+	# sit centred on the spot the data gives.
+	var placed: AABB = Transform3D(basis, Vector3.ZERO) * local
+	model.transform = Transform3D(basis, Vector3(piece["at"]) - placed.get_center())
+
+
+## The collision for a prop whose art has arrived. Separate from the mesh, because a
+## generated model's own shape is far more detail than a walkable area needs and the
+## box is what the navigation bake reads.
+func _add_collision(at: Vector3, size: Vector3) -> void:
+	var body := StaticBody3D.new()
+	body.name = "Solid"
+	body.position = at
+	var shape := CollisionShape3D.new()
+	var collider := BoxShape3D.new()
+	collider.size = size
+	shape.shape = collider
+	body.add_child(shape)
+	body.add_to_group(Room3D.NAV_SOURCE)
+	_room.add_child(body)
 
 
 ## A piece of furniture: a visual box and a solid body the same size.
@@ -714,6 +792,12 @@ const HOTSPOTS := [
 	{ "label": "Fishbowl", "at": Vector3(-3.3, 0.95, -1.2), "stand": Vector3(-3.0, 0, -0.3),
 	  "props": { "description": "Count Fingers regards you the way a customs officer regards a crate.",
 	             "gives_item": "fishbowl" } },
+	{ "label": "Compass", "at": Vector3(-3.9, 0.82, -1.25), "stand": Vector3(-3.9, 0, -0.3),
+	  "props": { "description": "The needle swings, settles, and points at nothing in particular. Much like its owner.",
+	             "gives_item": "compass" } },
+	{ "label": "Inkwell", "at": Vector3(-3.1, 0.84, -1.55), "stand": Vector3(-3.1, 0, -0.3),
+	  "props": { "description": "Dry since the second week. He writes the log from memory, which is why it is a work of fiction.",
+	             "gives_item": "brass_inkwell" } },
 	{ "label": "Crate", "at": Vector3(3.9, 0.9, 1.9), "stand": Vector3(3.9, 0, 2.9),
 	  "props": { "description": "Stencilled LE CHAOS NAVIGUE TOUJOURS PLUS LOIN. Nailed shut.",
 	             "needs_item": "rapier",

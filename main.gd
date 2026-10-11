@@ -31,6 +31,10 @@ const Pointer := preload("res://ui/pointer.gd")
 ## Turn it off to see the game as a player meets it.
 @export var skip_cold_open := true
 
+## The cabin, as authored. Built from the tables below only when this is missing or
+## when --pack is regenerating it.
+const CABIN := "res://rooms/captains_cabin/captains_cabin.tscn"
+
 ## Who is in the first room, and where. Heights are from the character sheets.
 ##
 ## Scene 1 of the cold open: Livé in his quarters with Count Fingers, and Santi comes
@@ -151,22 +155,11 @@ func _enter_room() -> void:
 	# Stage directions are a cutscene device. In the room, the picture shows you.
 	_caption.show_actions = false
 
-	_room = Room3D.new()
-	_room.name = "CaptainQuarters"
-	add_child(_room)
-	await _add_furniture()
-
-	for entry in CAST:
-		var mover := _build_mover(entry)
-		_room.add_child(mover)
-		mover.global_position = entry["at"]
-		_movers[entry["id"]] = mover
-		if entry["id"] == "live":
-			_player = mover
-		if entry.has("talk"):
-			_add_talk_trigger(mover, entry)
-
-	_add_hotspots()
+	var packing := "--pack" in OS.get_cmdline_user_args() + OS.get_cmdline_args()
+	if ResourceLoader.exists(CABIN) and not packing:
+		await _open_room()
+	else:
+		await _build_room()
 
 	# One-off: write the room out as an authored scene, so every prop and character
 	# becomes a node the owner can drag in the editor. See CONVENTIONS.md Part 0 -
@@ -235,6 +228,64 @@ func _enter_room() -> void:
 		await _save_shot()
 
 
+## The cabin as the owner authored it: every prop and character already placed, with
+## the transforms he dragged them to. Nothing here decides where anything goes.
+##
+## What the scene cannot carry is the wiring. Signal connections in this project are
+## lambdas, and a lambda has no resource path, so none of them survive into a .tscn -
+## the nodes come back and every connection has to be made again here.
+func _open_room() -> void:
+	_room = (load(CABIN) as PackedScene).instantiate() as Room3D
+	add_child(_room)
+
+	for entry in CAST:
+		var mover := _room.get_node_or_null(NodePath(String(entry["id"]))) as Mover
+		if mover == null:
+			push_error("%s: not in %s" % [entry["id"], CABIN])
+			continue
+		_movers[entry["id"]] = mover
+		if entry["id"] == "live":
+			_player = mover
+		if entry.has("talk"):
+			var area := mover.get_node_or_null("Clickable") as Area3D
+			if area:
+				_wire_talk(mover, area, entry)
+			else:
+				_add_talk_trigger(mover, entry)
+
+	for node in _room.find_children("*", "Area3D", true, false):
+		if node is Hotspot:
+			_wire_hotspot(node as Hotspot)
+
+	# The navigation mesh is baked, not saved: it is cut around the solid bodies and
+	# those are exactly what the owner moves. Baking on load means dragging the crate
+	# changes where he can walk, with no extra step to remember.
+	_room.rebake_navigation()
+	await _room.await_navigation()
+
+
+## Build the cabin from the data tables instead of opening the scene. Kept for one
+## job: regenerating the scene after the tables change, with `--pack`. The game does
+## not take this path.
+func _build_room() -> void:
+	_room = Room3D.new()
+	_room.name = "CaptainQuarters"
+	add_child(_room)
+	await _add_furniture()
+
+	for entry in CAST:
+		var mover := _build_mover(entry)
+		_room.add_child(mover)
+		mover.global_position = entry["at"]
+		_movers[entry["id"]] = mover
+		if entry["id"] == "live":
+			_player = mover
+		if entry.has("talk"):
+			_add_talk_trigger(mover, entry)
+
+	_add_hotspots()
+
+
 ## Save the built room as rooms/captains_cabin/captains_cabin.tscn.
 ##
 ## PackedScene only keeps nodes whose `owner` is the scene root, and nothing built in
@@ -242,18 +293,17 @@ func _enter_room() -> void:
 ##
 ##     godot --path . -- --pack
 func _pack_room() -> void:
-	const OUT := "res://rooms/captains_cabin/captains_cabin.tscn"
 	_claim(_room, _room)
 	var packed := PackedScene.new()
 	var err := packed.pack(_room)
 	if err != OK:
 		push_error("pack_room: could not pack (%d)" % err)
 		return
-	err = ResourceSaver.save(packed, OUT)
+	err = ResourceSaver.save(packed, CABIN)
 	if err != OK:
-		push_error("pack_room: could not save %s (%d)" % [OUT, err])
+		push_error("pack_room: could not save %s (%d)" % [CABIN, err])
 		return
-	print("packed %d nodes to %s" % [_count(_room), OUT])
+	print("packed %d nodes to %s" % [_count(_room), CABIN])
 
 
 ## Claim the nodes we built, and STOP at anything that is an instance of another
@@ -372,7 +422,12 @@ func _add_talk_trigger(mover: Mover, entry: Dictionary) -> void:
 	area.add_child(shape)
 	area.input_ray_pickable = true
 	mover.add_child(area)
+	_wire_talk(mover, area, entry)
 
+
+## Connect a character's click area. Split from building it for the same reason as
+## _wire_hotspot: the area is in the authored scene, its signals cannot be.
+func _wire_talk(mover: Mover, area: Area3D, entry: Dictionary) -> void:
 	var conversation := String(entry["talk"])
 	area.input_event.connect(
 		func(_c: Node, event: InputEvent, _p: Vector3, _n: Vector3, _s: int) -> void:
@@ -545,6 +600,7 @@ func _add_fishbowl(at: Vector3) -> void:
 	var bowl := Node3D.new()
 	bowl.name = "Fishbowl"
 	bowl.position = at
+	bowl.set_script(load("res://props/fishbowl/fishbowl.gd"))
 	_room.add_child(bowl)
 
 	var glass := StandardMaterial3D.new()
@@ -573,11 +629,8 @@ func _add_fishbowl(at: Vector3) -> void:
 		mesh_root.transform = Transform3D(upright.scaled(Vector3.ONE * fit),
 			Vector3(-box.get_center().x * fit, -box.position.y * fit,
 				-box.get_center().z * fit))
-		for node in mesh_root.find_children("*", "MeshInstance3D", true, false):
-			var vis := node as MeshInstance3D
-			vis.material_override = glass
-			vis.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		bowl.add_child(mesh_root)
+		bowl.set("glass", bowl.get_path_to(mesh_root))
 	else:
 		for radius in [RADIUS, RADIUS - WALL]:
 			var shell := SphereMesh.new()
@@ -1110,8 +1163,16 @@ func _hotspot(label: String, at: Vector3, stand: Vector3, props: Dictionary,
 	box.size = Vector3(0.9, 0.9, 0.9)
 	shape.shape = box
 	spot.add_child(shape)
+	if not visual.is_empty():
+		spot.set_meta("visual", visual)
 	_room.add_child(spot)
+	_wire_hotspot(spot)
 
+
+## Connect a hotspot to the game. Separate from building it because the hotspots now
+## come out of the authored scene, and a lambda cannot be saved in a .tscn - the nodes
+## survive the round trip and every connection in here does not.
+func _wire_hotspot(spot: Hotspot) -> void:
 	spot.looked.connect(func(text: String) -> void: _say_as_player(text))
 	spot.refused.connect(func(text: String) -> void: _say_as_player(text))
 	spot.talked.connect(func(path: String) -> void: _run_dialogue(path))
@@ -1129,8 +1190,6 @@ func _hotspot(label: String, at: Vector3, stand: Vector3, props: Dictionary,
 			if click and click.pressed and click.button_index == MOUSE_BUTTON_LEFT and not _busy:
 				get_viewport().set_input_as_handled()
 				_approach_hotspot(spot))
-	if not visual.is_empty():
-		spot.set_meta("visual", visual)
 	spot.mouse_entered.connect(_hover_hotspot.bind(spot))
 	spot.mouse_exited.connect(_unhover.bind(spot))
 

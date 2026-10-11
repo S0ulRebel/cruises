@@ -1,0 +1,418 @@
+{
+  "asset_id": "prop:rapier",
+  "name": "Captain Livé’s rapier",
+  "role": "Scene 1 — standalone inventory pickup and the supply-crate puzzle’s answer",
+  "asset_type": "prop_turnaround_sheet",
+  "files": {
+    "sheet": "sheet.png"
+  },
+  "dimensions_m": {
+    "width": 0.25,
+    "height": 1.05,
+    "depth": 0.14
+  },
+  "dimension_contract": "dimensions_m describes the complete upright rapier, point up and pommel down, including its open brass guard: 0.25W × 1.05H × 0.14D m. These are chosen provisional art dimensions, not measurements or numerical instructions inherited from the owner or engine. The initial guide/prompt proposed 0.20 × 1.05 × 0.12 m; the selected stylized guard is broader, so the final art target retains the 1.05 m length and allows 0.25 m width and 0.14 m depth. The original narrower guide and prompt are preserved in provenance. Uniformly fit the mesh to the 1.05 m total length and inspect the guard and hand clearance; do not independently stretch axes or source views. Engine placement may lay or angle the sword differently, so rotate it before measuring world-space bounds. The illustration is not exact CAD.",
+  "dimension_decision": "No owner or engine numerical rapier dimensions existed. The initial prompt/guide proposed0.20×1.05×0.12m. The finished stylized guard is broader; choose0.25×1.05×0.14m as the final provisional upright art target, retaining a1.05m total length and clear hand/guard separation. This is an art choice, not an engine measurement.",
+  "source": {
+    "producer": "OpenAI imagegen via ChatGPT",
+    "mode": "built-in",
+    "model_identifier": "Not exposed by the built-in tool",
+    "date": "2026-10-11",
+    "repository_base_commit": "6db90f35ee99ce60caccc94378be0c2c50094ba2",
+    "original_filename": "exec-d6337615-66d1-4376-a39b-98f54150f240.png",
+    "generated_source_sha256": "50cdeb0bd46d42d42b4c23ba5b8213bff4fcc12f8751b5b7da40c016f5b1bfcf",
+    "sha256": "ac500b6b3fd7e663feae57afcf7c3b470dfc3d5ea533c8409b0517987a2efc51",
+    "references": [
+      {
+        "original_path": "/workspace/scratch/9d89bc03e38f/rapier_geometry_guide.png",
+        "sha256": "b369c36b5b5bb349436251be6741137edae3cdeba5c23774e5a99da4f1f8ef7e",
+        "original_filename": "rapier_geometry_guide.png"
+      },
+      {
+        "original_path": "/workspace/scratch/9d89bc03e38f/cruises_git/art/props/captain_desk/sheet.png",
+        "sha256": "02300d11cad484407755dfea20b66770abc9e92e895095b834bb505477b4f69c",
+        "repository_path": "art/props/captain_desk/sheet.png"
+      }
+    ],
+    "generation_history": [
+      {
+        "pass": 1,
+        "stage": "measured_guide_cel_shaded",
+        "prompt": "Use case: stylized-concept.\nAsset: one French duelling RAPIER, production four-view modeling sheet for the stylized pirate adventure game.\n\nREFERENCE1 is the measured construction guide. Preserve its exact blade-tip heights, pommel-bottom heights, equal total lengths, positions and narrow width proportions. All four tips must terminate on exactly the same pixel row and all four pommels on exactly the same pixel row. Its broad faces appear in views1 and4; its very thin blade edges in views2 and3. The narrower profile guards must remain narrower. REFERENCE2 is the approved desk, only a reference for the game's worn warm brass, readable broad forms and clean cel shading.\n\nRender this as a slender elegant rapier, LONG STRAIGHT THIN SILVER STEEL BLADE, swept warm-brass open guard, dark brown worn leather-wrapped grip, simple rounded brass pommel. Preserve the long taper and stiffness of the blade; slight broadening at the ricasso is fine. No enormous fantasy blade or cutlass. Use a few substantial clean curving brass guard bars with large WHITE OPEN GAPS between them and the grip. They protect the grip, sweeping from the crossguard to the pommel. Each bar connects structurally at both ends. The blade, guard, grip and pommel are one physically connected sword. Let the guard feel subtly handmade and piratical while staying inside the guide's envelope. No extra detached rings, spikes or hanging pieces.\n\nFixed pose: sword vertical, POINT UP, pommel down, one straight longitudinal axis. Front broad blade face in the XY plane, depth alongZ. Proposed overall size0.20m width x1.05m length/height x0.12m depth, including hilt. The blade occupies about0.80m of the length and hilt/pommel0.25m. The blade base is about3cm wide and about8mm thick. Maintain the same scale for every view.\nFOUR views left to right: FRONT broad face; LEFT narrow edge; RIGHT opposite narrow edge; BACK true opposite broad face. Cameras exactly orthographic at the sword midpoint, no tilt or perspective, no three-quarter blade faces in the edge views. Side views show the blade's real edge thickness, never widened to match the broad front.\nNo layout labels or text. Four whole swords clearly separated, ample pure white background, same top and bottom rows. Do not crop the needle tips or pommels. No cast shadows or ground plane.\nStyle is clean sculpted cartoon / restrained cel shading, like a Monkey Island pirate game. Warm lightly worn brass, brown leather with broad wraps, cool silver blade with a simple readable central ridge, subdued highlights, no photoreal reflections or grain. Do not copy wood grain onto the leather or steel.\nObject only: no sheath, belt, hand, character, chart, crate, pedestal, display hook or accessories. It will become one standalone inventory mesh. The hollow guard openings must show clean white background in front and back (and wherever genuinely visible in the profiles). Keep the guide's shared900px sword height precisely.",
+        "referenced_image_paths": [
+          "/workspace/scratch/9d89bc03e38f/rapier_geometry_guide.png",
+          "/workspace/scratch/9d89bc03e38f/cruises_git/art/props/captain_desk/sheet.png"
+        ],
+        "transparent_background": false,
+        "source_path": "/workspace/scratch/9d89bc03e38f/generated_images/exec-d6337615-66d1-4376-a39b-98f54150f240.png",
+        "selected": true,
+        "original_filename": "exec-d6337615-66d1-4376-a39b-98f54150f240.png",
+        "output_sha256": "50cdeb0bd46d42d42b4c23ba5b8213bff4fcc12f8751b5b7da40c016f5b1bfcf",
+        "referenced_images": [
+          {
+            "original_path": "/workspace/scratch/9d89bc03e38f/rapier_geometry_guide.png",
+            "sha256": "b369c36b5b5bb349436251be6741137edae3cdeba5c23774e5a99da4f1f8ef7e",
+            "original_filename": "rapier_geometry_guide.png"
+          },
+          {
+            "original_path": "/workspace/scratch/9d89bc03e38f/cruises_git/art/props/captain_desk/sheet.png",
+            "sha256": "02300d11cad484407755dfea20b66770abc9e92e895095b834bb505477b4f69c",
+            "repository_path": "art/props/captain_desk/sheet.png"
+          }
+        ]
+      }
+    ],
+    "selected_pass": 1,
+    "selected_prompt": "Use case: stylized-concept.\nAsset: one French duelling RAPIER, production four-view modeling sheet for the stylized pirate adventure game.\n\nREFERENCE1 is the measured construction guide. Preserve its exact blade-tip heights, pommel-bottom heights, equal total lengths, positions and narrow width proportions. All four tips must terminate on exactly the same pixel row and all four pommels on exactly the same pixel row. Its broad faces appear in views1 and4; its very thin blade edges in views2 and3. The narrower profile guards must remain narrower. REFERENCE2 is the approved desk, only a reference for the game's worn warm brass, readable broad forms and clean cel shading.\n\nRender this as a slender elegant rapier, LONG STRAIGHT THIN SILVER STEEL BLADE, swept warm-brass open guard, dark brown worn leather-wrapped grip, simple rounded brass pommel. Preserve the long taper and stiffness of the blade; slight broadening at the ricasso is fine. No enormous fantasy blade or cutlass. Use a few substantial clean curving brass guard bars with large WHITE OPEN GAPS between them and the grip. They protect the grip, sweeping from the crossguard to the pommel. Each bar connects structurally at both ends. The blade, guard, grip and pommel are one physically connected sword. Let the guard feel subtly handmade and piratical while staying inside the guide's envelope. No extra detached rings, spikes or hanging pieces.\n\nFixed pose: sword vertical, POINT UP, pommel down, one straight longitudinal axis. Front broad blade face in the XY plane, depth alongZ. Proposed overall size0.20m width x1.05m length/height x0.12m depth, including hilt. The blade occupies about0.80m of the length and hilt/pommel0.25m. The blade base is about3cm wide and about8mm thick. Maintain the same scale for every view.\nFOUR views left to right: FRONT broad face; LEFT narrow edge; RIGHT opposite narrow edge; BACK true opposite broad face. Cameras exactly orthographic at the sword midpoint, no tilt or perspective, no three-quarter blade faces in the edge views. Side views show the blade's real edge thickness, never widened to match the broad front.\nNo layout labels or text. Four whole swords clearly separated, ample pure white background, same top and bottom rows. Do not crop the needle tips or pommels. No cast shadows or ground plane.\nStyle is clean sculpted cartoon / restrained cel shading, like a Monkey Island pirate game. Warm lightly worn brass, brown leather with broad wraps, cool silver blade with a simple readable central ridge, subdued highlights, no photoreal reflections or grain. Do not copy wood grain onto the leather or steel.\nObject only: no sheath, belt, hand, character, chart, crate, pedestal, display hook or accessories. It will become one standalone inventory mesh. The hollow guard openings must show clean white background in front and back (and wherever genuinely visible in the profiles). Keep the guide's shared900px sword height precisely.",
+    "alignment_guide": {
+      "path": "/workspace/scratch/9d89bc03e38f/rapier_geometry_guide.png",
+      "creation_code": "/workspace/scratch/9d89bc03e38f/create_rapier_geometry_guide.py",
+      "method": "New precise orthographic construction diagram drawn with matplotlib Agg, not an edit or manipulation of generated art.",
+      "canvas": [
+        1800,
+        1200
+      ],
+      "centers_x_px": [
+        225,
+        675,
+        1125,
+        1575
+      ],
+      "height_before_outline_px": 900,
+      "top_y_px": 100,
+      "bottom_y_px": 1000,
+      "front_guard_width_px": 171.4286,
+      "profile_guard_width_px": 102.8571,
+      "purpose": "Shared fixed-pose geometry input for built-in imagegen; not final artwork.",
+      "sha256": "b369c36b5b5bb349436251be6741137edae3cdeba5c23774e5a99da4f1f8ef7e",
+      "creation_code_sha256": "5e9868361c8fe932cad91c15647c40a417ce33ae8a83a0dcd401b5c6e855ca37"
+    },
+    "assembly": {
+      "tool": "tools/crop_views.py",
+      "tool_modified": false,
+      "arguments": [
+        "--row",
+        "0",
+        "1",
+        "--min-gap",
+        "80",
+        "--names",
+        "front",
+        "left",
+        "right",
+        "back",
+        "--pad",
+        "0.12",
+        "--size",
+        "1041",
+        "--dry-run",
+        "--preview",
+        "art/props/rapier/sheet.png"
+      ],
+      "method": "Unchanged cutter with80px minimum gap to bridge low-occupancy columns within the open guard and separate only the real gaps between swords. Four measured own-bounds crops translated onto native1041px square cells. No resampling or image retouching.",
+      "gap_selection_note": "Default gap setting found8spans by splitting the open front/back guard. Equal-cell mode independently confirmed four840px tall complete swords. min-gap80 returns the exact four true ink bounds and preserves all source pixels.",
+      "native_common_canvas_px": 1041,
+      "resampled": false,
+      "per_view_scaling": false,
+      "source_measurements": {
+        "image_size_px": [
+          1536,
+          1024
+        ],
+        "background_rgb": [
+          254,
+          254,
+          254
+        ],
+        "views": [
+          {
+            "view": "front",
+            "bounds_px": [
+              90,
+              60,
+              293,
+              900
+            ],
+            "width_px": 203,
+            "height_px": 840,
+            "last_ink_y_px": 899,
+            "width_height_ratio": 0.241667
+          },
+          {
+            "view": "left",
+            "bounds_px": [
+              522,
+              60,
+              631,
+              900
+            ],
+            "width_px": 109,
+            "height_px": 840,
+            "last_ink_y_px": 899,
+            "width_height_ratio": 0.129762
+          },
+          {
+            "view": "right",
+            "bounds_px": [
+              906,
+              60,
+              1014,
+              900
+            ],
+            "width_px": 108,
+            "height_px": 840,
+            "last_ink_y_px": 899,
+            "width_height_ratio": 0.128571
+          },
+          {
+            "view": "back",
+            "bounds_px": [
+              1244,
+              60,
+              1446,
+              900
+            ],
+            "width_px": 202,
+            "height_px": 840,
+            "last_ink_y_px": 899,
+            "width_height_ratio": 0.240476
+          }
+        ],
+        "clear_vertical_gaps_px": [
+          229,
+          275,
+          230
+        ]
+      },
+      "source_object_rectangles_pixel_identical_after_translation": [
+        true,
+        true,
+        true,
+        true
+      ]
+    }
+  },
+  "object_scope": {
+    "rule": "Model the object only, never a dressed arrangement.",
+    "contents": "One connected rapier: steel blade, open brass guard, wrapped grip and pommel.",
+    "excluded": [
+      "scabbard",
+      "belt",
+      "hand",
+      "character",
+      "chart",
+      "crate",
+      "display stand",
+      "loose rings",
+      "other props",
+      "scenery"
+    ]
+  },
+  "design": {
+    "structure": "Long straight tapered steel blade with a central ridge, broad-face front/back and thin edge profiles; brass crossguard, substantial open curved guard bars, brown wrapped grip and rounded brass pommel.",
+    "front": "Broad blade face and wide open guard, with clear white background openings on both sides of the grip.",
+    "left": "Narrow blade edge and depth profile of the guard; same grip/pommel assembly.",
+    "right": "Opposite narrow blade edge and guard profile.",
+    "back": "Opposite broad blade face and wide guard, again exposing background through the guard openings.",
+    "guard_connectivity": "Bars visibly meet the crossguard above and the pommel collar below. This visual source check is not a generated mesh connectivity test.",
+    "finish": "Matte silver-gray blade with restrained broad highlights, warm lightly worn brass, dark brown leather grip with large readable diagonal wraps; clean cartoon form shading.",
+    "openings": "Genuine guard spaces depicted as background in both front and back. Preserve them as geometry rather than filling them with a solid hand guard.",
+    "fixed_pose": "Point up, pommel down, straight common longitudinal axis in all four views."
+  },
+  "reconstruction_orientation": {
+    "fixed_object_pose": "Upright, tip +Y, pommel at the bottom",
+    "axis_convention": "Broad blade face lies in XY; thickness/depth along Z. Front normal +Z.",
+    "dimensions_m": {
+      "width": 0.25,
+      "height": 1.05,
+      "depth": 0.14
+    },
+    "engine_placement_rotation": "Not supplied or applied. The engine chooses a resting/held orientation after reconstruction and confirms its world-space bounds."
+  },
+  "placement": {
+    "convention_status": "Existing pickup hotspot documented; no model was placed or fitted.",
+    "engine_item_id": "rapier",
+    "engine_model_path_target": "art/props/rapier/rapier.glb",
+    "engine_source": "main.gd::HOTSPOTS Rapier",
+    "existing_hotspot_position_m": [
+      -3.3,
+      0.86,
+      -1.15
+    ],
+    "existing_approach_position_m": [
+      -3.3,
+      0,
+      -0.3
+    ],
+    "scene_orientation": "Engine to author; the point-up sheet pose is not an instruction to stand the sword upright on the desk.",
+    "attachment_anchor": "Measure the grip center after reconstruction for a held-item attachment; no hand fit has been verified.",
+    "interaction_contract": "Preserve the Rapier pickup and rapier inventory ID. Using rapier on the supply crate gives key and sets crate_open."
+  },
+  "framing": {
+    "view_order": [
+      "front",
+      "left",
+      "right",
+      "back"
+    ],
+    "projection": "Level orthographic broad front, thin left edge, opposite right edge and broad back",
+    "camera": "Horizontal optical axis at object midpoint, fixed orthographic scale, zero pitch/roll. Side blades remain narrow.",
+    "fixed_object_pose": "Point up, pommel down",
+    "image_size_px": [
+      4164,
+      1041
+    ],
+    "cell_size_px": [
+      1041,
+      1041
+    ],
+    "background": "Plain opaque near-white",
+    "background_rgb": [
+      254,
+      254,
+      254
+    ],
+    "labels_in_turnaround_band": false,
+    "ground_line_drawn": false,
+    "ground_line_last_ink_y_px": 916,
+    "separation_px": [
+      885,
+      932,
+      886
+    ],
+    "scale": "All four source and final swords are exactly 840 px tall; no per-view scaling."
+  },
+  "validation": {
+    "status": "Source presentation and framing measured; mesh reconstruction and hand/engine fit pending",
+    "method": "Read-only full-row NumPy/Pillow bounds using unchanged crop_views.py modal_colour, ink_mask and find_figures at tolerance 18 with min-gap 80. Bounds are [x0,y0,x1,y1], upper bounds exclusive.",
+    "foreground_threshold": "Sum of absolute RGB difference from modal background exceeds 54.",
+    "gap_detection_note": "Default gaps split the open guard into extra spans. Existing min-gap 80 joins only the internal low-occupancy guard columns; the actual gaps between source swords are 229/275/230 px. No hand cropping or cutter changes.",
+    "detected_views": 4,
+    "views": [
+      {
+        "view": "front",
+        "bounds_px": [
+          419,
+          77,
+          622,
+          917
+        ],
+        "width_px": 203,
+        "height_px": 840,
+        "last_ink_y_px": 916,
+        "width_height_ratio": 0.241667
+      },
+      {
+        "view": "left",
+        "bounds_px": [
+          1507,
+          77,
+          1616,
+          917
+        ],
+        "width_px": 109,
+        "height_px": 840,
+        "last_ink_y_px": 916,
+        "width_height_ratio": 0.129762
+      },
+      {
+        "view": "right",
+        "bounds_px": [
+          2548,
+          77,
+          2656,
+          917
+        ],
+        "width_px": 108,
+        "height_px": 840,
+        "last_ink_y_px": 916,
+        "width_height_ratio": 0.128571
+      },
+      {
+        "view": "back",
+        "bounds_px": [
+          3542,
+          77,
+          3744,
+          917
+        ],
+        "width_px": 202,
+        "height_px": 840,
+        "last_ink_y_px": 916,
+        "width_height_ratio": 0.240476
+      }
+    ],
+    "height_spread_px": 0,
+    "ground_line_spread_px": 0,
+    "minimum_empty_band_px": 885,
+    "strict_one_pixel_height_check_passed": true,
+    "strict_one_pixel_baseline_check_passed": true,
+    "source_object_rectangles_pixel_identical": true,
+    "native_view_canvas_px": [
+      1041,
+      1041
+    ],
+    "view_canvas_after_2x_upscale_px": [
+      2082,
+      2082
+    ],
+    "upscaling_applied": false,
+    "target_front_back_width_height_ratio": 0.238095,
+    "target_profile_width_height_ratio": 0.133333,
+    "implied_width_or_depth_m_at_1_05_height": [
+      0.25375,
+      0.13625,
+      0.135,
+      0.2525
+    ],
+    "visual_review": {
+      "projection": "Broad opposing blade faces and narrow opposing edge views; straight sword axes and full needle tips/pommels.",
+      "openings": "Clear background holes around the grip in both front and back; no opaque fill.",
+      "connectivity": "Guard bars meet their upper crossguard and lower collar; blade, grip and pommel read as one assembly.",
+      "isolation": "One sword per view, clear separators, no hands, stand, labels or cast shadows."
+    },
+    "reconstruction_run": false,
+    "engine_import_run": false,
+    "limitations": [
+      "At the retained 1.05 m length, measured front/back guard envelopes imply widths 0.25375/0.25250 m and the opposite profiles imply depths 0.13625/0.13500 m. The chosen 0.25 × 1.05 × 0.14 m art target is close but not an exact match to these painted bounds.",
+      "The initial guide and prompt used a narrower 0.20 m guard width and 0.12 m depth. The final provisional dimensions intentionally reflect the selected broader stylized guard; they are not claimed as prior owner dimensions.",
+      "Visible source openings/connectivity do not verify the reconstructed guard topology, blade thickness, grip fit or engine placement."
+    ]
+  },
+  "pipeline": {
+    "status": "source_sheet_only",
+    "view_extraction": "delegated_to_claude_code",
+    "view_extraction_names": [
+      "front",
+      "left",
+      "right",
+      "back"
+    ],
+    "upload_view_mapping": {
+      "front": "front.png",
+      "left": "left.png",
+      "right": "right.png",
+      "back": "back.png"
+    },
+    "upload_note": "Assign images to named Tripo slots; sheet display order is not positional upload order.",
+    "three_d_generator_allowed": "Tripo only",
+    "forbidden_generators": [
+      "Hunyuan3D",
+      "HY-Motion"
+    ],
+    "nc_models_used": false,
+    "rigging_required": false,
+    "generated_3d_model": false,
+    "validated_in_engine": false,
+    "target_triangles": {
+      "minimum": 2500,
+      "maximum": 3500,
+      "source": "HANDOFF.md engine prop queue dated 2026-10-11; handheld reconstruction budget, not a measured mesh"
+    },
+    "lighting_note": "Broad blade ridge, brass and grip form shading are baked into the illustration. Use Tripo texture lighting removal and inspect materials under the room lights.",
+    "recommended_crop_command": "python tools/crop_views.py art/props/rapier/sheet.png --row 0 1 --min-gap 80 --names front left right back --pad 0.12 --size 1041 --out art/props/rapier/views",
+    "optional_2x_crop_command": "python tools/crop_views.py art/props/rapier/sheet.png --row 0 1 --min-gap 80 --names front left right back --pad 0.12 --size 2082 --out art/props/rapier/views",
+    "upscale_note": "Native common canvases are 1041 px square, already above 1024. If following the documented 2x stage, export all four at 2082 px; it adds no source detail. Keep min-gap 80 so guard openings are not mistaken for view gaps.",
+    "next_step": "Reconstruct the single rapier, verify thin blade and open connected guard, then fit the pickup/held orientation and preserve the existing rapier-to-supply-crate puzzle."
+  }
+}

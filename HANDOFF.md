@@ -504,7 +504,6 @@ render for this room. Match its palette and its level of detail.
 
 | id | what | notes |
 | --- | --- | --- |
-| `rapier` | thin French duelling rapier | inventory item. Swept brass hilt, worn grip. It is the crate's answer, so it must read as a lever as well as a sword |
 | `key` | small brass key | inventory item, comes out of the crate. Chunky and cartoony enough to read at 128 px in the bag |
 | `bowl_stand` | the pedestal the fishbowl sits on | in the render: a short turned wooden column with a brass collar, front left. The glass bowl itself is built from primitives in engine — glass is the one thing a generator is worst at — so this is the stand ONLY, with a flat top the bowl sits in |
 | `porthole` | brass porthole with its ring and dogs | currently a flat blue quad. Needs the brass ring and the glass; the weather behind it is the engine's problem |
@@ -589,6 +588,20 @@ paint. Replace `main.gd::FURNITURE`’s `crate` / `Crate` visual at its current 
 Check the nailed lid seam, lettering/material, bounds and any opening/interior work
 in the model; the sheet shows the closed state only. All source heights and final
 baselines match exactly; the common painted envelope is 1.54% wider than a square.
+
+---
+
+### 2026-10-11 — for the engine side — reconstruct and integrate the rapier pickup
+
+`art/props/rapier/sheet.png` and `asset.json` are delivered. Use the sidecar’s
+`--min-gap 80` extraction command so the open guard is kept in each whole sword view.
+Target 2,500–3,500 triangles; verify a connected guard with real openings, blade
+thickness and grip clearance. The selected provisional upright art target is
+0.25 × 1.05 × 0.14 m; no earlier owner/engine numeric dimensions existed. The initial
+narrower guide is preserved in provenance. Choose the scene/held rotation and grip
+anchor in engine; the point-up sheet pose is not an already fitted desk placement.
+Keep the `rapier` pickup/item ID and the supply-crate combination that gives `key`
+and sets `crate_open`. Model target: `art/props/rapier/rapier.glb`.
 
 ---
 
@@ -877,6 +890,20 @@ baseline y505, separators 111/111/111 px. Native source crops were translated on
 all four object rectangles remain pixel-identical. Full prompt, references, hashes
 and measured proportion limits are in the sidecar. Reconstruction and puzzle
 integration remain Open. Rapier, key, bowl stand and porthole remain queued.
+
+---
+
+### 2026-10-11 — art side — rapier sheet delivered
+
+Moved `rapier` from the blocking queue to Done. Delivered `art/props/rapier/sheet.png`
+and `asset.json`: silver blade, open brass guard and pommel, worn brown grip, point up
+in four orthographic views. The final sheet is 4164×1041; every sword is 840 px high,
+all baselines are y916, and separators are 885/932/886 px. Native own-bounds crops
+were translated only, using the unchanged cutter’s `--min-gap 80` to bridge internal
+guard gaps. All source object pixels are unchanged. Background is visible through
+the guard in front and back. Full prompt, hashes, initial/final dimensional choices
+and measured envelopes are in the sidecar. Engine reconstruction/pickup fit remain
+Open; key, bowl stand and porthole remain queued.
 
 ---
 

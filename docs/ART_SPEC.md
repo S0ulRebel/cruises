@@ -195,7 +195,9 @@ A rigged **GLB**, Mixamo-compatible skeleton, under ~50k triangles.
   So a character occupies between 23% and 36% of screen height. Texture detail finer
   than that is invisible — 2048² is generous, and 1024² is honestly enough for anyone
   who is not Livé. These are historical blockout-camera measurements. The current
-  authored cabin camera is at (0, 1.15, 4.1), pitch -3 degrees, FOV 62 degrees.
+  authored cabin camera is at (0, 3.4, 6.2), pitch -17 degrees, FOV 62 degrees.
+  This framing follow-up keeps every prop visible and preserves object placement;
+  the original camera is recorded in docs/migration/baseline_layout.json.
   Use a dedicated render harness to re-measure after changing the camera.
 - Textures no larger than 2048 × 2048, one material per character where possible.
 

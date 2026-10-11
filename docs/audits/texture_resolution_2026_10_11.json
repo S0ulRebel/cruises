@@ -2,10 +2,10 @@
   "root": "res://",
   "summary": {
     "tracked": {
-      "count": 172,
+      "count": 183,
       "by_kind": {
         "embedded": 33,
-        "standalone": 137,
+        "standalone": 148,
         "fbx_embedded": 2
       },
       "by_dimensions": {
@@ -13,12 +13,12 @@
         "512x512": 5,
         "1448x1086": 8,
         "8192x8192": 19,
-        "1881x836": 1,
+        "1881x836": 2,
         "4096x1024": 3,
-        "1882x836": 5,
+        "1882x836": 6,
         "959x959": 4,
         "2048x2048": 18,
-        "2172x724": 9,
+        "2172x724": 18,
         "2171x724": 1,
         "900x900": 1,
         "801x801": 4,
@@ -58,7 +58,7 @@
       },
       "by_category": {
         "animation_donor": 3,
-        "design_views_sheets": 101,
+        "design_views_sheets": 112,
         "character_source_or_duplicate": 28,
         "game_dependency": 18,
         "diagnostic_reference": 7,
@@ -3326,6 +3326,149 @@
       "format": "PNG",
       "sha256": "d9c4bb9a9c8ad5bd7022104edff16c89d970d0a5654fc9d32031205d5bd301e1",
       "byte_length": 583287
+    },
+    {
+      "path": "art/characters/santi_wong/pieces/accessory/sheet.png",
+      "tracked": true,
+      "kind": "standalone",
+      "category": "design_views_sheets",
+      "width": 2172,
+      "height": 724,
+      "format": "PNG",
+      "sha256": "66bcebcc777c427316b082805c59b2606ffbf05a01c46f4440b9c69498ed5708",
+      "byte_length": 1146996,
+      "source_commit": "f8e93919fd196eededba562069a4cf1cde26712c",
+      "runtime_material_texture": false
+    },
+    {
+      "path": "art/characters/santi_wong/pieces/body/sheet.png",
+      "tracked": true,
+      "kind": "standalone",
+      "category": "design_views_sheets",
+      "width": 2172,
+      "height": 724,
+      "format": "PNG",
+      "sha256": "969ff4280086eef1fc5cdf491782ae5b4380adc95ed36365dfe731216bba23b8",
+      "byte_length": 1253274,
+      "source_commit": "f8e93919fd196eededba562069a4cf1cde26712c",
+      "runtime_material_texture": false
+    },
+    {
+      "path": "art/characters/santi_wong/pieces/boots/sheet.png",
+      "tracked": true,
+      "kind": "standalone",
+      "category": "design_views_sheets",
+      "width": 2172,
+      "height": 724,
+      "format": "PNG",
+      "sha256": "af54db9ef73589ffa069a01ed93a12af8d9a686b74af9b6aa462853b22fde736",
+      "byte_length": 1335419,
+      "source_commit": "f8e93919fd196eededba562069a4cf1cde26712c",
+      "runtime_material_texture": false
+    },
+    {
+      "path": "art/characters/santi_wong/pieces/coat/sheet.png",
+      "tracked": true,
+      "kind": "standalone",
+      "category": "design_views_sheets",
+      "width": 2172,
+      "height": 724,
+      "format": "PNG",
+      "sha256": "d59bfd89a09d0fc9beb645308e3f6929ef9f99b79c6bbf8e30f043ee9168cb1b",
+      "byte_length": 1386091,
+      "source_commit": "f8e93919fd196eededba562069a4cf1cde26712c",
+      "runtime_material_texture": false
+    },
+    {
+      "path": "art/characters/santi_wong/pieces/face/sheet.png",
+      "tracked": true,
+      "kind": "standalone",
+      "category": "design_views_sheets",
+      "width": 1882,
+      "height": 836,
+      "format": "PNG",
+      "sha256": "50740abaf7646f221d59db62523c01b279c841f944eb025c53ad29a291e30d25",
+      "byte_length": 1099877,
+      "source_commit": "f8e93919fd196eededba562069a4cf1cde26712c",
+      "runtime_material_texture": false
+    },
+    {
+      "path": "art/characters/santi_wong/pieces/hair/sheet.png",
+      "tracked": true,
+      "kind": "standalone",
+      "category": "design_views_sheets",
+      "width": 2172,
+      "height": 724,
+      "format": "PNG",
+      "sha256": "006978e425e7324a32092278e41bec4a2c12075b11df3378d76a82bb426d781e",
+      "byte_length": 1389667,
+      "source_commit": "f8e93919fd196eededba562069a4cf1cde26712c",
+      "runtime_material_texture": false
+    },
+    {
+      "path": "art/characters/santi_wong/pieces/hat/sheet.png",
+      "tracked": true,
+      "kind": "standalone",
+      "category": "design_views_sheets",
+      "width": 2172,
+      "height": 724,
+      "format": "PNG",
+      "sha256": "dc6a3eb030c64c99925dd12094c9b9566f56b2d78c8dc77f5d96e174a42b5587",
+      "byte_length": 1296339,
+      "source_commit": "f8e93919fd196eededba562069a4cf1cde26712c",
+      "runtime_material_texture": false
+    },
+    {
+      "path": "art/characters/santi_wong/pieces/head/sheet.png",
+      "tracked": true,
+      "kind": "standalone",
+      "category": "design_views_sheets",
+      "width": 1881,
+      "height": 836,
+      "format": "PNG",
+      "sha256": "e550f9e9700bbf780052cc05a2e8b10b9bb3aca64dda3a1711ff46b16dd3d0a6",
+      "byte_length": 1406275,
+      "source_commit": "f8e93919fd196eededba562069a4cf1cde26712c",
+      "runtime_material_texture": false
+    },
+    {
+      "path": "art/characters/santi_wong/pieces/shirt/sheet.png",
+      "tracked": true,
+      "kind": "standalone",
+      "category": "design_views_sheets",
+      "width": 2172,
+      "height": 724,
+      "format": "PNG",
+      "sha256": "16c1ac0c0c3eabe9d4afd308cf13f6a5f6dae91fbad9c3caf3371727946382ff",
+      "byte_length": 1249075,
+      "source_commit": "f8e93919fd196eededba562069a4cf1cde26712c",
+      "runtime_material_texture": false
+    },
+    {
+      "path": "art/characters/santi_wong/pieces/trousers/sheet.png",
+      "tracked": true,
+      "kind": "standalone",
+      "category": "design_views_sheets",
+      "width": 2172,
+      "height": 724,
+      "format": "PNG",
+      "sha256": "396dc2ff9ab06901e1a0f143b99e6a570e983a64097877e9e9ba6f8e301dec1c",
+      "byte_length": 1352281,
+      "source_commit": "f8e93919fd196eededba562069a4cf1cde26712c",
+      "runtime_material_texture": false
+    },
+    {
+      "path": "art/characters/santi_wong/pieces/waist/sheet.png",
+      "tracked": true,
+      "kind": "standalone",
+      "category": "design_views_sheets",
+      "width": 2172,
+      "height": 724,
+      "format": "PNG",
+      "sha256": "f921f0951474930dfe17b854653581e33c5898bbd7de217e96302c9c2c56fdcb",
+      "byte_length": 1227250,
+      "source_commit": "f8e93919fd196eededba562069a4cf1cde26712c",
+      "runtime_material_texture": false
     }
   ],
   "models": [
@@ -8943,6 +9086,94 @@
         "process/size_limit": "0",
         "detect_3d/compress_to": "1"
       }
+    },
+    {
+      "path": "art/characters/santi_wong/pieces/accessory/sheet.png.import",
+      "tracked": true,
+      "settings": {
+        "process/size_limit": 0
+      },
+      "delta_note": "New reference sheet; import size cap verified after merge."
+    },
+    {
+      "path": "art/characters/santi_wong/pieces/body/sheet.png.import",
+      "tracked": true,
+      "settings": {
+        "process/size_limit": 0
+      },
+      "delta_note": "New reference sheet; import size cap verified after merge."
+    },
+    {
+      "path": "art/characters/santi_wong/pieces/boots/sheet.png.import",
+      "tracked": true,
+      "settings": {
+        "process/size_limit": 0
+      },
+      "delta_note": "New reference sheet; import size cap verified after merge."
+    },
+    {
+      "path": "art/characters/santi_wong/pieces/coat/sheet.png.import",
+      "tracked": true,
+      "settings": {
+        "process/size_limit": 0
+      },
+      "delta_note": "New reference sheet; import size cap verified after merge."
+    },
+    {
+      "path": "art/characters/santi_wong/pieces/face/sheet.png.import",
+      "tracked": true,
+      "settings": {
+        "process/size_limit": 0
+      },
+      "delta_note": "New reference sheet; import size cap verified after merge."
+    },
+    {
+      "path": "art/characters/santi_wong/pieces/hair/sheet.png.import",
+      "tracked": true,
+      "settings": {
+        "process/size_limit": 0
+      },
+      "delta_note": "New reference sheet; import size cap verified after merge."
+    },
+    {
+      "path": "art/characters/santi_wong/pieces/hat/sheet.png.import",
+      "tracked": true,
+      "settings": {
+        "process/size_limit": 0
+      },
+      "delta_note": "New reference sheet; import size cap verified after merge."
+    },
+    {
+      "path": "art/characters/santi_wong/pieces/head/sheet.png.import",
+      "tracked": true,
+      "settings": {
+        "process/size_limit": 0
+      },
+      "delta_note": "New reference sheet; import size cap verified after merge."
+    },
+    {
+      "path": "art/characters/santi_wong/pieces/shirt/sheet.png.import",
+      "tracked": true,
+      "settings": {
+        "process/size_limit": 0
+      },
+      "delta_note": "New reference sheet; import size cap verified after merge."
+    },
+    {
+      "path": "art/characters/santi_wong/pieces/trousers/sheet.png.import",
+      "tracked": true,
+      "settings": {
+        "process/size_limit": 0
+      },
+      "delta_note": "New reference sheet; import size cap verified after merge."
+    },
+    {
+      "path": "art/characters/santi_wong/pieces/waist/sheet.png.import",
+      "tracked": true,
+      "settings": {
+        "process/size_limit": 0
+      },
+      "delta_note": "New reference sheet; import size cap verified after merge."
     }
   ],
   "errors": [],
@@ -11439,5 +11670,6 @@
   ],
   "audit_date": "2026-10-11",
   "audited_commit": "aeb6253",
-  "scope_note": "Asset inventory from the current checkout; root scratch/recording image and import entries excluded from this saved report."
+  "scope_note": "Asset inventory from the current checkout; root scratch/recording image and import entries excluded from this saved report. Includes the 11 Santi reference sheets merged from f8e9391; model/dependency counts unchanged.",
+  "delta_source_commit": "f8e93919fd196eededba562069a4cf1cde26712c"
 }

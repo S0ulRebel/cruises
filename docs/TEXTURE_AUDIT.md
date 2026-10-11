@@ -19,11 +19,14 @@ in [texture_resolution_2026_10_11.json](audits/texture_resolution_2026_10_11.jso
 - All 15 binary FBXs were inspected. Two character Mixamo donors embed 512×512
   images, matching the documented upload workflow; 13 animation files have no
   image/texture records. No formats or images remain uninspected.
-- Standalone inspection covered 134 tracked art rasters and three documentation
+- Standalone inspection covered 145 tracked art rasters and three documentation
   images, plus 108 untracked art rasters: 28 extracted/source JPGs, 76 cropped
   views and four facial diagnostics. Twenty-six JPGs duplicate GLB images exactly;
   two are alternate 2K bowl-stand/chair exports. Caches, build/test output and
   1,265 root recording/scratch images were excluded from asset totals.
+  The final count includes 11 Santi source sheets added by remote commit f8e9391:
+  nine at 2172×724, face at 1882×836 and head at 1881×836. They add reference art,
+  with no change to model texture counts or the current Game dependency tree.
 - Referenced UI images use their authored atlas dimensions: controls 1536×1024;
   dialogue frame, ribbon and response highlight 2172×724 each. Reference artwork,
   UI and vector fonts have independent dimensions and purposes.

@@ -58,14 +58,17 @@ Graphical evidence and prefab review records remain outside the archived checkou
 
 ## Remaining authoring decisions
 
-1. The preserved camera places the crate outside the view, partly crops the fishbowl,
-   and the Captain initially occludes the inkwell. Adjust the camera or the saved
-   location instance positions when choosing a new composition; no runtime script
-   controls these transforms. These were present in the baseline.
-2. Delivered modular body and coat GLBs have no joints. Bind and fit them to the
+The subsequent camera-only follow-up is complete: the authored camera is at
+(0, 3.4, 6.2), pitch -17 degrees and FOV 62. All props are fully in frame and their
+visual-centre clicks reach the correct hotspot. All 17 noncamera baseline transforms
+remain unchanged. The original camera/baseline remains recorded; current framing
+and picking checks cover this deliberate improvement. See
+`locations/captains_cabin/HANDOFF.md` for measurements and graphical evidence.
+
+1. Delivered modular body and coat GLBs have no joints. Bind and fit them to the
    measured donor before replacing the current animated world Captain. The workshop
    now supports isolated explicit outfit and assembled-scene outputs; this art
    acceptance work remains described in `docs/RIGGING.md` and `actors/HANDOFF.md`.
-3. Moving static furniture requires an explicit editor navigation bake and save.
+2. Moving static furniture requires an explicit editor navigation bake and save.
    Locations without navigation regions are deliberately nonwalkable; supplied
    regions must have usable baked geometry.

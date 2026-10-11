@@ -524,15 +524,14 @@ the shelving.
 | `curtain_panel` | heavy red curtain panel; deferred |
 | `potted_palm` | brass pot and palm; deferred |
 
-`picture_light` and `bookshelf_books` remain separate future work in the dressing
-queue below. This latest scope takes precedence over the broader earlier queue.
+`picture_light` has now been delivered as a separate prop; `bookshelf_books` remains
+future work in the dressing queue below. See the picture-light Done entry.
 
 **3 — dressing and inventory, once the above are in.**
 
 | id | what |
 | --- | --- |
 | `rolled_charts` | **REDO.** The owner discarded the first model — it came out a flat slab. Cause is in the sheet: the two end-on views were 107 px wide against an 814 px front, so there was nothing for Tripo to read the cylinder from. Give the ends their own full-width views |
-| `picture_light` | the brass hooded light over the ship painting. Asked for by name |
 | `desk_lantern` | the glass-and-brass candle lantern standing on the desk, left of the render |
 | `rolled_parchment` | a single rolled parchment tied with cord. Asked for by name; distinct from `rolled_charts`, which is a bundle of three |
 | `loose_map` | an unrolled map lying flat, curled at the corners. Asked for by name |
@@ -734,6 +733,22 @@ from that measured aperture rather than assuming the guide dimensions survived.
 The frame is upright in XY with front +Z. No exact wall transform or image-plane Z
 offset is supplied. Reconstruction, final material lighting and engine placement
 remain untested by this art delivery.
+
+---
+
+### 2026-10-11 — for the engine side — reconstruct and place the picture light
+
+`art/props/picture_light/sheet.png` and `asset.json` supply the connected brass
+hood, closed endcaps, central bent arm and rear mounting plate. The front shows a
+blind reflector recess; the back is the actual exterior hood and plate rear.
+Use the sidecar's named front/left/right/back extraction command and uniform 2x
+output at 1630 px. The final provisional complete target is **0.40 × 0.17 × 0.19 m**;
+the original 0.40 × 0.18 × 0.18 m guide and sizing revision are preserved in provenance.
+At H0.17, painted widths imply 0.40825/0.40676 m and profiles 0.19040/0.19164 m.
+Verify bounds, connected geometry and the shallow hood cavity. Rear fasteners are
+proud of the plate, so inspect wall seating rather than assuming a flush contact.
+Fit above the separate painting frame; the emitter and actual warm light remain
+engine components. No exact placement or illumination has been tested by this sheet.
 
 ---
 
@@ -1139,6 +1154,21 @@ The exact full prompt was lost from transient state; it is explicitly null, with
 the retained opening and a labeled instruction summary instead of invented text.
 All four requested art sources are delivered. Reconstruction and changeable-image
 fit remain Open; curtains/palm stay deferred and later dressing remains queued.
+
+---
+
+### 2026-10-11 — art side — separate picture-light sheet delivered
+
+Delivered `art/props/picture_light/sheet.png` and `asset.json`; moved only the
+picture light from the dressing art queue. One connected practical brass fixture,
+with an empty blind hood recess, true opposing profiles and actual rear mounting
+plate. Final 3260×815; heights 274/275/275/275 px, shared baseline y717, clear uniform
+gaps 332/506/331 px. Full PNG decode and IEND passed. The unchanged cutter translated
+native own-bounds rectangles only; every rectangle remains pixel-identical.
+All three prompts, guide source/geometry, reference hashes, proportional limits,
+and the final provisional 0.40 × 0.17 × 0.19 m dimensions are in the sidecar.
+Reconstruction, wall seating and actual lighting remain Open. Other queued props
+and the owner's deferred curtains/palm are unchanged.
 
 ---
 

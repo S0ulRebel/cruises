@@ -1,0 +1,715 @@
+{
+  "asset_id": "prop:picture_light",
+  "name": "Captain Livé’s picture light",
+  "role": "Scene 1 — Captain Livé’s quarters; separate practical light above the painting frame",
+  "asset_type": "prop_turnaround_sheet",
+  "files": {
+    "sheet": "sheet.png"
+  },
+  "dimensions_m": {
+    "width": 0.4,
+    "height": 0.17,
+    "depth": 0.19
+  },
+  "dimension_contract": "Provisional new art target for the complete connected opaque fixture: 0.40W × 0.17H × 0.19D m, including hood endcaps, shallow fastener projections, central support arm and rear mounting plate. X is lateral width, Y is height and Z is total rear-to-front projection. No authoritative picture-light dimensions or measured engine transform existed in the current handoff. A 0.40 m shade is 28.6% of the separate painting frame’s provisional 1.40 m width, chosen against docs/reference/room_target.png. The initial geometric guide and first prompt proposed 0.40 × 0.18 × 0.18 m; the final provisional height/depth were deliberately revised to 0.17/0.19 m to follow the selected art’s compact silhouette. This is a new art sizing decision, not a change to an existing engine contract. Verify mesh proportions and frame/wall clearances after reconstruction; do not independently resize reference views. The rear fasteners stand proud of the plate, so a perfectly flush wall seat has not been demonstrated.",
+  "view_order": [
+    "front",
+    "left",
+    "right",
+    "back"
+  ],
+  "reconstruction_orientation": {
+    "fixed_object_pose": "Upright assembled wall fixture, hood opening aimed down and slightly toward the room so its recess can be read; only the viewing direction changes.",
+    "axis_convention": "Right-handed: +Y up, +X to the right in the front view, +Z room-facing. The wall-facing rear points -Z.",
+    "dimensions_m": {
+      "width": 0.4,
+      "height": 0.17,
+      "depth": 0.19
+    },
+    "camera_positions": {
+      "front": "+Z looking -Z",
+      "left": "-X looking +X",
+      "right": "+X looking -X",
+      "back": "-Z looking +Z"
+    },
+    "engine_rotation": "No reconstruction-to-resting pose correction is intended once exporter axes match this convention. Align the rear plate with the chosen wall. Final room placement, mounting height and light aim are not assigned by the source sheet.",
+    "origin_recommendation": "Use the center of the rear wall-contact surface for wall mounting, after inspecting imported bounds."
+  },
+  "source": {
+    "producer": "OpenAI image generation via ChatGPT",
+    "tool": "image_gen.imagegen",
+    "model_identifier": "Not exposed by the built-in image generation tool",
+    "repository_base_commit": "1be6c03a5be38cc54351f6fd27b4ec3f7befbc4f",
+    "generation_history": [
+      {
+        "pass": "brass_fixture_from_geometry_guide",
+        "prompt": "Use case: precise-object-edit / stylized-concept.\nAsset type: production prop turnaround for the Cruises pirate adventure game.\n\nEdit Image 1, the exact geometric construction guide, into a finished stylised game-art modeling sheet. Preserve its camera projections, silhouettes, object scale, alignment, attachment topology and four-view layout. Image 2 is the owner's cabin target: match the SMALL HORIZONTAL BRASS PICTURE LIGHT centered above the framed ship painting, and its warm aged-brass palette. Image 3 is the approved Captain Livé turnaround: use its sculpted cartoon rendering quality and clear readable forms, not its character or blue background.\n\nONE OBJECT: picture_light, a modest practical brass painting light. One long horizontal rounded trough hood with closed end caps, one stout central bent support arm, one vertical wall-mounting plate. The metal shade has a shallow, genuinely recessed open underside angled a little down and toward the room, as in the guide. The front reveals the empty recessed reflector opening, not a glowing strip or solid painted face. Keep a readable curved metal interior and its rim. The back shows the REAL BACK: flat wall-facing rear of the mounting plate and the outside of the hood. All three main parts must be physically connected. This is the fixture's opaque metal assembly only.\n\nEXACT GEOMETRY: the complete fixture is 0.40 m wide, 0.18 m high, 0.18 m deep including hood, endcaps, support and mounting plate. Match the guide's same-shape repeated projections. Front and back widths approximately 2.222 times their heights; both side profiles approximately as wide as their heights. The side views are genuinely narrow, about 45% the width of the broad views. Keep the same shade, plate, mounting height, arm bends, thickness and finish in every view. Do not independently enlarge a narrow profile.\n\nCAMERAS: exactly FOUR whole-object ORTHOGRAPHIC elevations in one horizontal row, in left-to-right order FRONT, LEFT SIDE, RIGHT SIDE, BACK. +Y is up and +Z is the room-facing front. All cameras are level at the fixture's midheight: no tilt, perspective or three-quarter view. Left and right are actual opposite profiles of the same fixed object, not two differently assembled lamps. The fourth view must be the actual rear, not a repeated front. Rotate only the viewing direction; do not move the arm or shade between views.\n\nFRAMING IS A HARD REQUIREMENT: all four complete fixture silhouettes have exactly the SAME PIXEL HEIGHT, including the entire wallplate, and sit on the SAME invisible baseline, within 1 pixel. Topmost points also align. Use one orthographic scale. Keep the guide's empty vertical separators, all object parts in frame and ample margins. No extra close-ups. Never stretch one view to fill its cell.\n\nART FINISH: polished cartoon pirate-adventure art, chunky softened metal edges, warm brass and amber gold with brown recessed shade, restrained broad worn edges and a few shallow dents. Broad clean readable color masses and soft even sculptural form shading consistent across all views. Match the cabin and character's stylised art; avoid photorealism, detailed noisy surface grain, intricate engravings and harsh mirror reflections. Use only light unobtrusive edge lines, not the diagram guide's heavy outlines. Keep the lamp practical and restrained; no added skulls, scrollwork or decorative chains.\n\nBACKGROUND: absolutely uniform opaque white RGB 255,255,255 throughout corners, margins and gaps. No floor, shadows, backdrop, gradients, texture, borders, divider lines, lettering, dimensions, labels, callouts or watermark.\n\nDo not include the painting or its frame, any wall, other prop, bulb, flame, candle, glass panel, wires, electrical switch, emitted light, bloom or surrounding glow. Actual illumination is added later in the engine. The shade is a blind recessed cavity with a closed back and ends, not a through-hole. Keep the exact full fixture's structural geometry, and generate only this one coherent four-view sheet. Wide landscape canvas matching the guide, maximum available native resolution.",
+        "filename": "exec-a62f71c8-3707-4fe7-9c8b-8df413fb3426.png",
+        "selected": false,
+        "result_note": "Coherent fixture; source heights 275/277/277/275 px exceeded the 1 px spread contract.",
+        "output_sha256": "5475e0c73b9e0d247ed8f4adbb7ef26f40f905762f8425cd42ec8415047e6e26",
+        "output_size_px": [
+          2172,
+          724
+        ],
+        "measured_heights_px": [
+          275,
+          277,
+          277,
+          275
+        ],
+        "measured_baseline_spread_px": 2
+      },
+      {
+        "pass": "height_and_proportion_correction",
+        "prompt": "Edit this existing brass picture-light sheet with ONE precise geometric/framing correction. Retain the same lamp design, materials, worn brass, hood end rings, shallow fasteners, central bent arm, rear plate and the actual front/left/right/back views. Do not redesign it.\n\nAt this source's 2172x724 canvas, the four whole-fixture silhouettes currently measure:\nfront 652 wide x275 high; left 303x277; right304x277; back651x275.\nThe intended complete physical object is 0.40W x0.18H x0.18D metres.\nTherefore KEEP front/back overall widths about652 pixels, but make ALL FOUR complete fixtures exactly294 pixels high, and make BOTH genuine side-profile widths294 pixels. This corrects the common physical proportions. Every side outline must match the same increased mounting/arm height, and the tube keeps the same design. The side views stay narrow: 45% of the front width. Do not magnify individual views to fill the available white space.\n\nALL FOUR topmost plate points on one common horizontal level, y192; ALL FOUR bottommost hood points on one common invisible baseline, y485, for294 pixels of occupied height in EACH view. Exact same source pixel height with at most1pixel rounding. Same orientation of the unchanged assembly throughout. Make the plate and central support tall enough for that total height without changing the recognisable hood. Do not crop any feature. Keep front/back broad projection width matched to within1pixel. Left and right profile widths also matched. Keep the four clear empty gaps.\n\nCRITICAL: preserve true level orthographic elevations, no perspective and no camera tilt. First view FRONT with the open blind hood interior, second LEFT profile, third RIGHT profile, fourth true BACK with outside hood and wallplate rear. The side views are opposing profiles, not three-quarter views. Keep a single physically connected central bent arm, and closed endcaps. No bulbs or glowing strip. Do not fill the genuine shallow hood recess with a flat front plate.\n\nCLEAN BACKGROUND: completely solid pure white RGB255,255,255, zero noise/texture/gradient everywhere outside the object silhouettes, including corners and gaps. No floor, shadows, light bloom, text, labels, drawn baselines or borders. Retain the same soft cartoony brass shading and consistent material finish; actual illumination is a later engine component.\n\nThis is the same ONE prop shown at one camera scale in four views. Only correct these common proportions, shared294pixel silhouette height, shared baseline, and flat white background. Preserve the existing wide single-row canvas and the design.",
+        "filename": "exec-86a32951-3dc5-444a-9a29-c41135860117.png",
+        "selected": false,
+        "result_note": "Height alignment passed but the fixture became much taller than requested; corrected in the next pass.",
+        "output_sha256": "558614489c7b56c6e0081d19600aea967c6244cfe53ac7cd0e7524405c859abf",
+        "output_size_px": [
+          2172,
+          724
+        ],
+        "measured_heights_px": [
+          369,
+          368,
+          368,
+          369
+        ],
+        "measured_baseline_spread_px": 0
+      },
+      {
+        "pass": "compact_common_proportions",
+        "prompt": "Edit the attached picture-light turnaround. Make ONLY this one proportional correction to ALL FOUR views of the same fixture: reduce the complete fixture's VERTICAL HEIGHT by about20 percent, retaining every view's current horizontal width and its placement. All four complete fixtures should be the same height, within1pixel, with their bottoms exactly aligned. The previous pass over-lengthened the wallplate and arm: bring back a compact practical light above a painting.\n\nThe current complete front silhouette is662pixels wide and369pixels tall. The target is662pixels wide and298pixels tall (width-to-height2.222). Both side profiles remain311-312pixels wide, but must have the same298pixel total height as the front/back. All four are at ONE SCALE. Apply one common vertical proportion change to the entire fixture design in every elevation. Preserve the hood's blind interior, closed endcaps, rounded brass rim, the bent center support and mounting plate. Keep all attachments in physically matching positions in front/left/right/back. Do not magnify a side view independently.\n\nKeep strict level orthographic projection, unchanged front/left/right/back order and clear white gaps. Same worn golden brass style, true front opening and true rear outer hood. Same single connected fixture only. No added parts, no camera tilt, no text, floor, shadow, glow, bulb, cable, background texture or other objects. Pure uniform opaque white background. All four top points align and all four lowest points align; no cropping. Compact fixture proportions are the only design correction.",
+        "filename": "exec-7abbc0eb-a516-4c9d-86e9-abfdc3b3463b.png",
+        "selected": true,
+        "result_note": "Selected source: consistent fixture, source heights 274/275/275/275 px and source baseline spread 1 px; native cutter assembly aligns the final baseline without resizing.",
+        "output_sha256": "2f31e3a382733bd82f4d5c99ac324fa47b0a76066a07df8003ecf607fa293dc5",
+        "output_size_px": [
+          2172,
+          724
+        ],
+        "measured_heights_px": [
+          274,
+          275,
+          275,
+          275
+        ],
+        "measured_baseline_spread_px": 1
+      }
+    ],
+    "original_filename": "exec-7abbc0eb-a516-4c9d-86e9-abfdc3b3463b.png",
+    "generated_source_sha256": "2f31e3a382733bd82f4d5c99ac324fa47b0a76066a07df8003ecf607fa293dc5",
+    "sha256": "d7b1a4c27f3290dc176dfdd1aa3a032bfe21f936f2fdda24e9666d2db4e424b2",
+    "references": [
+      {
+        "path": "docs/reference/room_target.png",
+        "role": "Owner target for the brass picture light above the painting, cabin palette and modest practical design",
+        "commit": "1be6c03a5be38cc54351f6fd27b4ec3f7befbc4f",
+        "sha256": "a17f771d95d7aa37b8403b3b4cb918c7032737cdb031d62c893b424c878cebc3"
+      },
+      {
+        "path": "art/characters/captain_live/turnaround.png",
+        "role": "Approved stylised rendering and coherent four-view framing; no character copied",
+        "commit": "1be6c03a5be38cc54351f6fd27b4ec3f7befbc4f",
+        "sha256": "bcb66fe6213ab55672cb91328f22665a125511d211e3fded0397dd45ac1897fa"
+      },
+      {
+        "path": "art/characters/santi_wong/turnaround.png",
+        "role": "Approved framing inspected; not an imagegen input",
+        "commit": "1be6c03a5be38cc54351f6fd27b4ec3f7befbc4f",
+        "sha256": "4ef6ba4568a6f98f86a49560445a4d0c3737e053e97886ee13c410df942fd84e"
+      }
+    ],
+    "construction_guide": {
+      "role": "Original deterministic geometric guide, edited into artwork by imagegen. Not the delivered sheet.",
+      "png_sha256": "8634a5afd9bb1bf7d0cd5157d74025182f8753f436b6e549493c5c686fa5936c",
+      "svg_sha256": "e4a71426974ddace64a60a03d6164d5548e321dfb30bfa8e4f078c222e2f8c5e",
+      "generator_source_sha256": "46e15e1c5f6925a63538db043d52d0c057320cc5cc5bd01fd5a2ef35ba2139f8",
+      "generator_language": "Python; standard library geometry projected into SVG, rasterized by CairoSVG",
+      "generator_source": "\"\"\"Deterministic geometric guide for one picture_light; no existing image input.\"\"\"\nfrom __future__ import annotations\n\nimport json\nimport math\nimport subprocess\nfrom pathlib import Path\n\nimport numpy as np\n\nHERE = Path(__file__).resolve().parent\nW, H = 3200, 760\nSCALE = 2200.0  # pixels per metre, identical for every elevation\nBASELINE = 578.0\nCENTERS = [548.0, 1330.0, 1870.0, 2652.0]\nFACES = []\n\n\ndef face(points, colour, component):\n    FACES.append((np.asarray(points, dtype=float), colour, component))\n\n\ndef tint(hexcolour, k):\n    rgb = [int(hexcolour[i : i + 2], 16) for i in (1, 3, 5)]\n    return '#' + ''.join(f'{max(0, min(255, round(v*k))):02x}' for v in rgb)\n\n\ndef capsule_outline(width, ymin, ymax, n=32):\n    r = width / 2\n    points = []\n    # Clockwise in XY. Explicit cardinal extrema preserve exact measurements.\n    for a in np.linspace(0, math.pi, n + 1):\n        points.append((r * math.cos(a), ymax-r+r*math.sin(a)))\n    for a in np.linspace(math.pi, 2*math.pi, n + 1):\n        points.append((r * math.cos(a), ymin+r+r*math.sin(a)))\n    return points\n\n\ndef extrude_plate():\n    outline = capsule_outline(.07, .03, .18)\n    face([(x, y, .012) for x, y in outline], '#c7b17c', 'plate_front')\n    face([(x, y, .0) for x, y in reversed(outline)], '#ac9565', 'plate_back')\n    for i, (x, y) in enumerate(outline):\n        xx, yy = outline[(i+1) % len(outline)]\n        face([(x,y,0), (xx,yy,0), (xx,yy,.012), (x,y,.012)],\n             '#8d794f', 'plate_edge')\n\n\ndef create_arm():\n    # One uninterrupted stout arm. It exits the wallplate horizontally,\n    # rounds through a quarter-turn, and enters the top of the lamp cowl.\n    path = [(0,.132,.008), (0,.132,.055), (0,.132,.095)]\n    for t in np.linspace(0, math.pi/2, 13)[1:]:\n        path.append((0, .132-.033*(1-math.cos(t)), .095+.033*math.sin(t)))\n    path.extend([(0,.085,.128), (0,.071,.128)])\n    path = np.array(path)\n    radius = .011\n    rings = []\n    for i, p in enumerate(path):\n        tangent = path[min(i+1,len(path)-1)]-path[max(0,i-1)]\n        tangent /= np.linalg.norm(tangent)\n        v = np.cross(tangent, [1,0,0])\n        v /= np.linalg.norm(v)\n        ring = []\n        for a in np.linspace(0, 2*math.pi, 20, endpoint=False):\n            ring.append(p + radius*(math.cos(a)*np.array([1,0,0])+math.sin(a)*v))\n        rings.append(ring)\n    for i in range(len(rings)-1):\n        for j in range(20):\n            k = (j+1) % 20\n            material = tint('#bda36e', .90+.10*math.sin(j*2*math.pi/20))\n            face([rings[i][j],rings[i][k],rings[i+1][k],rings[i+1][j]], material, 'arm')\n    face(rings[0], '#a78e5e', 'arm_end')\n    face(list(reversed(rings[-1])), '#a78e5e', 'arm_end')\n\n\ndef create_hood():\n    # Half-cylinder/trough axis X. Opening normal is 30 degrees toward the\n    # room from vertically down. The level front camera therefore sees the\n    # real shallow recess; closed end plates are visible in side elevations.\n    radius, inner = .050, .044\n    cy = .025\n    cz = .180-radius*math.sin(math.radians(60))\n    angles = np.linspace(math.radians(-120), math.radians(60), 49)\n    outer = [(cy+radius*math.cos(a), cz+radius*math.sin(a)) for a in angles]\n    inside = [(cy+inner*math.cos(a), cz+inner*math.sin(a)) for a in angles]\n    for i in range(len(angles)-1):\n        y,z = outer[i]; yy,zz = outer[i+1]\n        a=(angles[i]+angles[i+1])*.5\n        face([(-.2,y,z),(.2,y,z),(.2,yy,zz),(-.2,yy,zz)],\n             tint('#c7b17c', .84+.16*max(0,math.cos(a))), 'hood_outside')\n        y,z=inside[i]; yy,zz=inside[i+1]\n        face([(-.192,y,z),(-.192,yy,zz),(.192,yy,zz),(.192,y,z)],\n             tint('#96825b', .80+.18*max(0,math.cos(a))), 'hood_recess')\n    # Thick long lips join inner and outer surfaces at both opening edges.\n    for i in [0,-1]:\n        y,z=outer[i]; yy,zz=inside[i]\n        face([(-.2,y,z),(.2,y,z),(.192,yy,zz),(-.192,yy,zz)],\n             '#d4be87', 'hood_lip')\n    # Fully closed end caps, not holes. The exact straight diameter edge\n    # bounds the open underside and is preserved in both opposing profiles.\n    for x, inner_x in [(-.2,-.192),(.2,.192)]:\n        face([(x,y,z) for y,z in outer], '#b5a073', 'hood_endcap')\n        face([(inner_x,y,z) for y,z in reversed(inside)], '#8e7955', 'hood_inner_end')\n        for i in range(len(angles)-1):\n            y,z=outer[i]; yy,zz=outer[i+1]\n            yi,zi=inside[i]; yii,zii=inside[i+1]\n            face([(x,y,z),(x,yy,zz),(inner_x,yii,zii),(inner_x,yi,zi)],\n                 '#b5a073','hood_end_thickness')\n\n\nextrude_plate()\ncreate_arm()\ncreate_hood()\n\nVIEWS = [\n    ('front', (1,0,0), (0,0,1), 0),\n    ('left', (0,0,1), (-1,0,0), .09),\n    ('right', (0,0,-1), (1,0,0), -.09),\n    ('back', (-1,0,0), (0,0,-1), 0),\n]\n\nsvg = [f'<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"{W}\" height=\"{H}\" viewBox=\"0 0 {W} {H}\">',\n       '<rect width=\"100%\" height=\"100%\" fill=\"#ffffff\"/>']\nmeasurements=[]\nfor idx, (name, right, towards_camera, center_u) in enumerate(VIEWS):\n    right=np.array(right); towards_camera=np.array(towards_camera)\n    projected=[]\n    extrema=[]\n    for points, colour, component in FACES:\n        uv=np.column_stack((CENTERS[idx]+SCALE*(points @ right-center_u), BASELINE-SCALE*points[:,1]))\n        extrema.extend(uv.tolist())\n        # Discard exact edge-on polygons. The remaining physically complete\n        # faces are painter-sorted by orthographic camera depth.\n        twice_area=sum(uv[i,0]*uv[(i+1)%len(uv),1]-uv[(i+1)%len(uv),0]*uv[i,1] for i in range(len(uv)))\n        if abs(twice_area)<.02:\n            continue\n        projected.append((float(np.mean(points @ towards_camera)), uv, colour, component))\n    projected.sort(key=lambda p:p[0])\n    svg.append(f'<g id=\"{name}\" stroke-linejoin=\"round\">')\n    for depth, uv, colour, component in projected:\n        coords=' '.join(f'{u:.3f},{v:.3f}' for u,v in uv)\n        # Hairline same-color strokes eliminate raster seams without adding\n        # false construction contours to the cylindrical surfaces.\n        svg.append(f'<polygon points=\"{coords}\" fill=\"{colour}\" stroke=\"{colour}\" stroke-width=\"0.45\"/>')\n    svg.append('</g>')\n    pts=np.array(extrema)\n    bounds=[float(pts[:,0].min()),float(pts[:,1].min()),float(pts[:,0].max()),float(pts[:,1].max())]\n    measurements.append({'view':name,'geometry_bounds_px':bounds,\n                         'geometry_width_px':bounds[2]-bounds[0],\n                         'geometry_height_px':bounds[3]-bounds[1],\n                         'geometry_baseline_px':bounds[3]})\nsvg.append('</svg>')\nsvg_path=HERE/'guide.svg'\nsvg_path.write_text('\\n'.join(svg),encoding='utf-8')\nsubprocess.run(['inkscape',str(svg_path),'--export-type=png',f'--export-filename={HERE / \"guide.png\"}',\n                f'--export-width={W}',f'--export-height={H}'], check=True, capture_output=True)\n\nmetadata={\n 'asset_id':'prop:picture_light',\n 'purpose':'Deterministic original geometric guide for imagegen, not final art',\n 'dimensions_m':{'width':.4,'height':.18,'depth':.18},\n 'dimension_authority':'Provisional new art dimensions, chosen from target composition; not a measured engine transform.',\n 'source_images_read':[],\n 'canvas_px':[W,H],\n 'pixels_per_metre':SCALE,\n 'view_order':[v[0] for v in VIEWS],\n 'axis_convention':'+Y up; +Z faces room; back wall plane Z=0; front camera +Z; left camera -X; right camera +X; back camera -Z.',\n 'hood':{'width_m':.4,'height_m':.075,'depth_m':.05*(1+math.sin(math.radians(60))),\n         'outer_radius_m':.05,'inner_radius_m':.044,'end_cap_thickness_m':.008,\n         'opening_normal':[0,-math.cos(math.radians(30)),math.sin(math.radians(30))],\n         'opening_description':'30 degrees toward room from straight down; blind trough with closed endcaps, no through-hole.'},\n 'wallplate':{'width_m':.07,'height_m':.15,'depth_m':.012,'y_range_m':[.03,.18],'z_range_m':[0,.012]},\n 'arm':{'diameter_m':.022,'construction':'Single uninterrupted bent round arm from plate to upper hood.'},\n 'views':measurements,\n 'excludes':['lamp','bulb','emission','cable','painting','frame','wall','text','cast shadow'],\n}\n(HERE/'guide_geometry.json').write_text(json.dumps(metadata,indent=2)+'\\n')\nprint(json.dumps(metadata,indent=2))\n",
+      "geometry": {
+        "asset_id": "prop:picture_light",
+        "purpose": "Deterministic original geometric guide for imagegen, not final art",
+        "dimensions_m": {
+          "width": 0.4,
+          "height": 0.18,
+          "depth": 0.18
+        },
+        "dimension_authority": "Provisional new art dimensions, chosen from target composition; not a measured engine transform.",
+        "source_images_read": [],
+        "canvas_px": [
+          3200,
+          760
+        ],
+        "pixels_per_metre": 2200.0,
+        "view_order": [
+          "front",
+          "left",
+          "right",
+          "back"
+        ],
+        "axis_convention": "+Y up; +Z faces room; back wall plane Z=0; front camera +Z; left camera -X; right camera +X; back camera -Z.",
+        "hood": {
+          "width_m": 0.4,
+          "height_m": 0.075,
+          "depth_m": 0.09330127018922194,
+          "outer_radius_m": 0.05,
+          "inner_radius_m": 0.044,
+          "end_cap_thickness_m": 0.008,
+          "opening_normal": [
+            0,
+            -0.8660254037844387,
+            0.49999999999999994
+          ],
+          "opening_description": "30 degrees toward room from straight down; blind trough with closed endcaps, no through-hole."
+        },
+        "wallplate": {
+          "width_m": 0.07,
+          "height_m": 0.15,
+          "depth_m": 0.012,
+          "y_range_m": [
+            0.03,
+            0.18
+          ],
+          "z_range_m": [
+            0,
+            0.012
+          ]
+        },
+        "arm": {
+          "diameter_m": 0.022,
+          "construction": "Single uninterrupted bent round arm from plate to upper hood."
+        },
+        "views": [
+          {
+            "view": "front",
+            "geometry_bounds_px": [
+              108.0,
+              182.0,
+              988.0,
+              578.0
+            ],
+            "geometry_width_px": 880.0,
+            "geometry_height_px": 396.0,
+            "geometry_baseline_px": 578.0
+          },
+          {
+            "view": "left",
+            "geometry_bounds_px": [
+              1132.0,
+              182.0,
+              1528.0,
+              578.0
+            ],
+            "geometry_width_px": 396.0,
+            "geometry_height_px": 396.0,
+            "geometry_baseline_px": 578.0
+          },
+          {
+            "view": "right",
+            "geometry_bounds_px": [
+              1672.0,
+              182.0,
+              2068.0,
+              578.0
+            ],
+            "geometry_width_px": 396.0,
+            "geometry_height_px": 396.0,
+            "geometry_baseline_px": 578.0
+          },
+          {
+            "view": "back",
+            "geometry_bounds_px": [
+              2212.0,
+              182.0,
+              3092.0,
+              578.0
+            ],
+            "geometry_width_px": 880.0,
+            "geometry_height_px": 396.0,
+            "geometry_baseline_px": 578.0
+          }
+        ],
+        "excludes": [
+          "lamp",
+          "bulb",
+          "emission",
+          "cable",
+          "painting",
+          "frame",
+          "wall",
+          "text",
+          "cast shadow"
+        ]
+      }
+    },
+    "assembly": {
+      "tool": "tools/crop_views.py",
+      "tool_sha256": "d288d0630d4bb5b1cf50daea4b2e73d1e283ddde66627e4afab9eb2deed0b309",
+      "arguments": [
+        "<selected-generated-source.png>",
+        "--row",
+        "0",
+        "1",
+        "--names",
+        "front",
+        "left",
+        "right",
+        "back",
+        "--pad",
+        "0.12",
+        "--size",
+        "815",
+        "--dry-run",
+        "--preview",
+        "art/props/picture_light/sheet.png",
+        "--out",
+        "<temporary-preview-directory>"
+      ],
+      "method": "Unmodified repository cutter, native 815 px square canvases. Own-bounds source rectangles translated only; no resampling, independent resizing, repainting or object-pixel edits. The preview strip is the delivered sheet, matching earlier prop deliveries.",
+      "source_measurements": {
+        "sha256": "2f31e3a382733bd82f4d5c99ac324fa47b0a76066a07df8003ecf607fa293dc5",
+        "png_decode_verified": true,
+        "png_iend_present": true,
+        "image_size_px": [
+          2172,
+          724
+        ],
+        "mode": "RGB",
+        "background_rgb": [
+          254,
+          254,
+          254
+        ],
+        "corners_rgb": [
+          [
+            253,
+            255,
+            254
+          ],
+          [
+            254,
+            254,
+            255
+          ],
+          [
+            253,
+            253,
+            253
+          ],
+          [
+            254,
+            253,
+            254
+          ]
+        ],
+        "measurement_method": "Unmodified tools/crop_views.py ink_mask tolerance18 and find_figures, full image; no resampling",
+        "view_count": 4,
+        "views": [
+          {
+            "view": "front",
+            "bounds_px": [
+              43,
+              229,
+              701,
+              503
+            ],
+            "width_px": 658,
+            "height_px": 274,
+            "last_ink_y_px": 502
+          },
+          {
+            "view": "left",
+            "bounds_px": [
+              733,
+              229,
+              1041,
+              504
+            ],
+            "width_px": 308,
+            "height_px": 275,
+            "last_ink_y_px": 503
+          },
+          {
+            "view": "right",
+            "bounds_px": [
+              1132,
+              229,
+              1442,
+              504
+            ],
+            "width_px": 310,
+            "height_px": 275,
+            "last_ink_y_px": 503
+          },
+          {
+            "view": "back",
+            "bounds_px": [
+              1472,
+              229,
+              2130,
+              504
+            ],
+            "width_px": 658,
+            "height_px": 275,
+            "last_ink_y_px": 503
+          }
+        ],
+        "height_spread_px": 1,
+        "baseline_spread_px": 1,
+        "gaps": [
+          {
+            "empty_columns": 32,
+            "rgb_min": [
+              247,
+              245,
+              245
+            ],
+            "rgb_max": [
+              255,
+              255,
+              255
+            ],
+            "foreground_pixels": 0
+          },
+          {
+            "empty_columns": 91,
+            "rgb_min": [
+              246,
+              246,
+              244
+            ],
+            "rgb_max": [
+              255,
+              255,
+              255
+            ],
+            "foreground_pixels": 0
+          },
+          {
+            "empty_columns": 30,
+            "rgb_min": [
+              247,
+              246,
+              245
+            ],
+            "rgb_max": [
+              255,
+              255,
+              255
+            ],
+            "foreground_pixels": 0
+          }
+        ],
+        "native_common_canvas_px": 815,
+        "foreground_touches_canvas_edge": false
+      },
+      "pixel_identity_checks": [
+        {
+          "view": "front",
+          "source_bounds_px": [
+            43,
+            229,
+            701,
+            503
+          ],
+          "final_bounds_px": [
+            78,
+            444,
+            736,
+            718
+          ],
+          "rectangle_pixels_identical": true
+        },
+        {
+          "view": "left",
+          "source_bounds_px": [
+            733,
+            229,
+            1041,
+            504
+          ],
+          "final_bounds_px": [
+            1068,
+            443,
+            1376,
+            718
+          ],
+          "rectangle_pixels_identical": true
+        },
+        {
+          "view": "right",
+          "source_bounds_px": [
+            1132,
+            229,
+            1442,
+            504
+          ],
+          "final_bounds_px": [
+            1882,
+            443,
+            2192,
+            718
+          ],
+          "rectangle_pixels_identical": true
+        },
+        {
+          "view": "back",
+          "source_bounds_px": [
+            1472,
+            229,
+            2130,
+            504
+          ],
+          "final_bounds_px": [
+            2523,
+            443,
+            3181,
+            718
+          ],
+          "rectangle_pixels_identical": true
+        }
+      ],
+      "native_common_canvas_px": 815,
+      "resampled": false
+    }
+  },
+  "pipeline": {
+    "status": "source_sheet_only",
+    "view_extraction": "delegated_to_claude_code",
+    "view_extraction_names": [
+      "front",
+      "left",
+      "right",
+      "back"
+    ],
+    "upload_view_mapping": {
+      "front": "front.png",
+      "left": "left.png",
+      "right": "right.png",
+      "back": "back.png"
+    },
+    "upload_note": "Assign Tripo's slots by matching filename. Sheet display order is front/left/right/back; do not treat that as positional upload order.",
+    "three_d_generator_allowed": "Tripo only",
+    "forbidden_generators": [
+      "Hunyuan3D",
+      "HY-Motion"
+    ],
+    "nc_models_used": false,
+    "rigging_required": false,
+    "generated_3d_model": false,
+    "validated_in_engine": false,
+    "target_triangles": {
+      "maximum": 3500,
+      "source": "Provisional compact-fixture budget drawn from the handoff's 2,500–3,500 triangle small-prop range; fewer triangles are appropriate if the silhouette and recessed hood remain readable."
+    },
+    "reconstruction_scope": "Connected opaque brass hood, endcaps, support arm and wallplate only. Preserve the genuine shallow hood cavity and closed endcaps. No wall, painting frame, artwork, lamp element, glass, wires or emitted light.",
+    "lighting_note": "The source has illustrative brass form shading and worn-edge highlights. Use Tripo texture lighting removal and inspect under engine illumination. The actual warm light and any separately fitted emitter are engine components.",
+    "next_step": "Extract the named views, reconstruct the metal fixture, inspect the rear mounting surface, hood cavity and proportions, then fit above the separate painting frame and add actual illumination.",
+    "native_crop_command": "python tools/crop_views.py art/props/picture_light/sheet.png --row 0 1 --names front left right back --pad 0.12 --size 815 --out art/props/picture_light/views",
+    "recommended_2x_crop_command": "python tools/crop_views.py art/props/picture_light/sheet.png --row 0 1 --names front left right back --pad 0.12 --size 1630 --out art/props/picture_light/views",
+    "upscale_note": "Native common canvas815px; the same uniform2x extraction at1630px meets the1024px minimum. Upscaling adds no source detail. The source sheet itself was assembled without resampling."
+  },
+  "review_status": "Delivered source for owner review; reconstruction and engine fit remain unverified.",
+  "sheet_validation": {
+    "sha256": "d7b1a4c27f3290dc176dfdd1aa3a032bfe21f936f2fdda24e9666d2db4e424b2",
+    "png_decode_verified": true,
+    "png_iend_present": true,
+    "image_size_px": [
+      3260,
+      815
+    ],
+    "mode": "RGB",
+    "background_rgb": [
+      254,
+      254,
+      254
+    ],
+    "corners_rgb": [
+      [
+        254,
+        254,
+        254
+      ],
+      [
+        254,
+        254,
+        254
+      ],
+      [
+        254,
+        254,
+        254
+      ],
+      [
+        254,
+        254,
+        254
+      ]
+    ],
+    "measurement_method": "Unmodified tools/crop_views.py ink_mask tolerance18 and find_figures, full image; no resampling",
+    "view_count": 4,
+    "views": [
+      {
+        "view": "front",
+        "bounds_px": [
+          78,
+          444,
+          736,
+          718
+        ],
+        "width_px": 658,
+        "height_px": 274,
+        "last_ink_y_px": 717
+      },
+      {
+        "view": "left",
+        "bounds_px": [
+          1068,
+          443,
+          1376,
+          718
+        ],
+        "width_px": 308,
+        "height_px": 275,
+        "last_ink_y_px": 717
+      },
+      {
+        "view": "right",
+        "bounds_px": [
+          1882,
+          443,
+          2192,
+          718
+        ],
+        "width_px": 310,
+        "height_px": 275,
+        "last_ink_y_px": 717
+      },
+      {
+        "view": "back",
+        "bounds_px": [
+          2523,
+          443,
+          3181,
+          718
+        ],
+        "width_px": 658,
+        "height_px": 275,
+        "last_ink_y_px": 717
+      }
+    ],
+    "height_spread_px": 1,
+    "baseline_spread_px": 0,
+    "gaps": [
+      {
+        "empty_columns": 332,
+        "rgb_min": [
+          254,
+          254,
+          254
+        ],
+        "rgb_max": [
+          254,
+          254,
+          254
+        ],
+        "foreground_pixels": 0
+      },
+      {
+        "empty_columns": 506,
+        "rgb_min": [
+          254,
+          254,
+          254
+        ],
+        "rgb_max": [
+          254,
+          254,
+          254
+        ],
+        "foreground_pixels": 0
+      },
+      {
+        "empty_columns": 331,
+        "rgb_min": [
+          254,
+          254,
+          254
+        ],
+        "rgb_max": [
+          254,
+          254,
+          254
+        ],
+        "foreground_pixels": 0
+      }
+    ],
+    "native_common_canvas_px": 815,
+    "foreground_touches_canvas_edge": false,
+    "visual_checks": {
+      "one_connected_fixture": true,
+      "strict_level_orthographic_elevations": true,
+      "genuine_opposing_profiles": true,
+      "true_rear_shown": true,
+      "blind_hood_recess_visible": true,
+      "closed_endcaps": true,
+      "no_scenery_or_other_props": true,
+      "no_cast_shadow_or_emission": true,
+      "no_labels_or_borders": true,
+      "review_method": "Direct inspection of guide, source and final sheet; independent visual review of selected source. These are illustration checks, not mesh topology verification."
+    },
+    "background_note": "Native assembly card, all four corners and all three entire vertical separator bands are uniform RGB 254/254/254 (one level below pure white). Generated source pixels within each own-bounds rectangle remain unchanged, including minor raster background noise immediately around its silhouette. No drawn floor or gradient is introduced."
+  },
+  "dimension_evidence": {
+    "status": "Provisional art target, not measured engine bounds",
+    "initial_guide_dimensions_m": {
+      "width": 0.4,
+      "height": 0.18,
+      "depth": 0.18
+    },
+    "final_target_dimensions_m": {
+      "width": 0.4,
+      "height": 0.17,
+      "depth": 0.19
+    },
+    "reason_for_revision": "Keeper proportions are compact; choose a nominal 17 cm height and 19 cm depth while retaining the 40 cm hood width rather than stretching the generated views. Exact image measurements and initial request are preserved.",
+    "source_ratios_at_target_height": [
+      {
+        "view": "front",
+        "width_over_height": 2.40146,
+        "implied_width_or_depth_at_target_height_m": 0.408248,
+        "target_width_or_depth_m": 0.4,
+        "difference_percent": 2.062
+      },
+      {
+        "view": "left",
+        "width_over_height": 1.12,
+        "implied_width_or_depth_at_target_height_m": 0.1904,
+        "target_width_or_depth_m": 0.19,
+        "difference_percent": 0.211
+      },
+      {
+        "view": "right",
+        "width_over_height": 1.127273,
+        "implied_width_or_depth_at_target_height_m": 0.191636,
+        "target_width_or_depth_m": 0.19,
+        "difference_percent": 0.861
+      },
+      {
+        "view": "back",
+        "width_over_height": 2.392727,
+        "implied_width_or_depth_at_target_height_m": 0.406764,
+        "target_width_or_depth_m": 0.4,
+        "difference_percent": 1.691
+      }
+    ],
+    "engine_checks": [
+      "Verify connected hood/arm/plate mesh and genuine blind reflector cavity.",
+      "Rear domed fasteners project beyond the mounting plate; inspect wall seating/clearance before placement.",
+      "Fit the fixture above the separate 1.40 m painting frame and aim the actual warm light at the replaceable artwork."
+    ]
+  }
+}

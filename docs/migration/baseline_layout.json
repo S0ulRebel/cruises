@@ -1,0 +1,936 @@
+{
+	"runtime": [
+		{
+			"class": "Node3D",
+			"path": "/Main",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/Main/Caption/@MarginContainer@2/@VBoxContainer@3/@NinePatchRect@6/@MarginContainer@7/@HBoxContainer@8/Portrait/@PanelContainer@9/@Control@10/@SubViewportContainer@15/@SubViewport@16/@Node3D@17",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "Camera3D",
+			"path": "/Main/Caption/@MarginContainer@2/@VBoxContainer@3/@NinePatchRect@6/@MarginContainer@7/@HBoxContainer@8/Portrait/@PanelContainer@9/@Control@10/@SubViewportContainer@15/@SubViewport@16/@Node3D@17/@Camera3D@18",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "DirectionalLight3D",
+			"path": "/Main/Caption/@MarginContainer@2/@VBoxContainer@3/@NinePatchRect@6/@MarginContainer@7/@HBoxContainer@8/Portrait/@PanelContainer@9/@Control@10/@SubViewportContainer@15/@SubViewport@16/@Node3D@17/@DirectionalLight3D@19",
+			"transform": "[X: (0.882948, 0.0, -0.469472), Y: (-0.145075, 0.951057, -0.272846), Z: (0.446494, 0.309017, 0.839733), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "DirectionalLight3D",
+			"path": "/Main/Caption/@MarginContainer@2/@VBoxContainer@3/@NinePatchRect@6/@MarginContainer@7/@HBoxContainer@8/Portrait/@PanelContainer@9/@Control@10/@SubViewportContainer@15/@SubViewport@16/@Node3D@17/@DirectionalLight3D@20",
+			"transform": "[X: (-0.5, 0.0, 0.866025), Y: (0.075479, 0.996195, 0.043578), Z: (-0.86273, 0.087156, -0.498097), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/Main/CaptainQuarters",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "Camera3D",
+			"path": "/Main/CaptainQuarters/Camera",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 0.99863, -0.052336), Z: (0.0, 0.052336, 0.99863), O: (0.0, 1.15, 4.1)]"
+		},
+		{
+			"class": "StaticBody3D",
+			"path": "/Main/CaptainQuarters/Floor",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "CollisionShape3D",
+			"path": "/Main/CaptainQuarters/Floor/@CollisionShape3D@46",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, -0.1, 0.0)]"
+		},
+		{
+			"class": "MeshInstance3D",
+			"path": "/Main/CaptainQuarters/Floor/FloorVisual",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "MeshInstance3D",
+			"path": "/Main/CaptainQuarters/Backdrop",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 2.3, -3.5)]"
+		},
+		{
+			"class": "MeshInstance3D",
+			"path": "/Main/CaptainQuarters/WallLeft",
+			"transform": "[X: (-0.0, 0.0, -1.0), Y: (0.0, 1.0, 0.0), Z: (1.0, 0.0, -0.0), O: (-6.0, 2.3, 0.0)]"
+		},
+		{
+			"class": "MeshInstance3D",
+			"path": "/Main/CaptainQuarters/WallRight",
+			"transform": "[X: (-0.0, 0.0, 1.0), Y: (0.0, 1.0, 0.0), Z: (-1.0, 0.0, -0.0), O: (6.0, 2.3, 0.0)]"
+		},
+		{
+			"class": "MeshInstance3D",
+			"path": "/Main/CaptainQuarters/Ceiling",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, -1.0, -0.0), Z: (0.0, 0.0, -1.0), O: (0.0, 4.6, 0.0)]"
+		},
+		{
+			"class": "NavigationRegion3D",
+			"path": "/Main/CaptainQuarters/Navigation",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "StaticBody3D",
+			"path": "/Main/CaptainQuarters/Desk",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (-3.6, 0.0, -1.4)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/Main/CaptainQuarters/Desk/Model",
+			"transform": "[X: (1.800879, 0.0, 0.0), Y: (0.0, 1.800879, 0.0), Z: (0.0, 0.0, 1.800879), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "MeshInstance3D",
+			"path": "/Main/CaptainQuarters/Desk/Model/tripo_node_2fa6f40f-9ee6-47e6-91fe-08d1cecf76dc",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "CollisionShape3D",
+			"path": "/Main/CaptainQuarters/Desk/CaptainDeskShape",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.38, 0.0)]"
+		},
+		{
+			"class": "StaticBody3D",
+			"path": "/Main/CaptainQuarters/Chair",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (-3.6, 0.0, -2.15)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/Main/CaptainQuarters/Chair/Model",
+			"transform": "[X: (1.350659, 0.0, 0.0), Y: (0.0, 1.350659, 0.0), Z: (0.0, 0.0, 1.350659), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/Main/CaptainQuarters/Chair/Model/RootNode",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "MeshInstance3D",
+			"path": "/Main/CaptainQuarters/Chair/Model/RootNode/tripo_840e58da_ec96_465d_a744_dc638db892be",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "CollisionShape3D",
+			"path": "/Main/CaptainQuarters/Chair/CaptainChairShape",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.675, 0.0)]"
+		},
+		{
+			"class": "StaticBody3D",
+			"path": "/Main/CaptainQuarters/Crate",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (3.9, 0.0, 1.9)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/Main/CaptainQuarters/Crate/Model",
+			"transform": "[X: (0.90044, 0.0, 0.0), Y: (0.0, 0.90044, 0.0), Z: (0.0, 0.0, 0.90044), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "MeshInstance3D",
+			"path": "/Main/CaptainQuarters/Crate/Model/tripo_node_05332709-d64a-4f07-9892-474326aa3487",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "CollisionShape3D",
+			"path": "/Main/CaptainQuarters/Crate/SupplyCrateShape",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.45, 0.0)]"
+		},
+		{
+			"class": "StaticBody3D",
+			"path": "/Main/CaptainQuarters/Chest",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (4.0, 0.0, -0.6)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/Main/CaptainQuarters/Chest/Model",
+			"transform": "[X: (-0.90044, 0.0, 0.0), Y: (-0.0, -0.0, -0.90044), Z: (0.0, -0.90044, 0.0), O: (0.0, 0.431534, 0.445603)]"
+		},
+		{
+			"class": "MeshInstance3D",
+			"path": "/Main/CaptainQuarters/Chest/Model/tripo_node_642bf963-f633-4ac9-b4ea-b1451e1d8034",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "CollisionShape3D",
+			"path": "/Main/CaptainQuarters/Chest/PirateChestShape",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.45, 0.0)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/Main/CaptainQuarters/Porthole",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 1.1, -3.4)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/Main/CaptainQuarters/Porthole/Model",
+			"transform": "[X: (0.90044, 0.0, 0.0), Y: (0.0, 0.90044, 0.0), Z: (0.0, 0.0, 0.90044), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "MeshInstance3D",
+			"path": "/Main/CaptainQuarters/Porthole/Model/tripo_node_74a7d4f5-624d-4ad0-9124-5982fd9b2c04",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/Main/CaptainQuarters/Compass",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (-3.9, 0.765, -1.25)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/Main/CaptainQuarters/Compass/Model",
+			"transform": "[X: (0.090044, 0.0, 0.0), Y: (0.0, -0.0, -0.090044), Z: (0.0, 0.090044, -0.0), O: (0.0, 0.017345, 0.044956)]"
+		},
+		{
+			"class": "MeshInstance3D",
+			"path": "/Main/CaptainQuarters/Compass/Model/tripo_node_7268ea16-9f30-41e4-a862-fb366fae308e",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/Main/CaptainQuarters/BrassInkwell",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (-3.1, 0.765, -1.55)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/Main/CaptainQuarters/BrassInkwell/Model",
+			"transform": "[X: (0.080039, 0.0, 0.0), Y: (0.0, 0.080039, 0.0), Z: (0.0, 0.0, 0.080039), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "MeshInstance3D",
+			"path": "/Main/CaptainQuarters/BrassInkwell/Model/tripo_node_bc68a720-4815-40d7-a80b-e54863fc4794",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/Main/CaptainQuarters/Rapier",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (-3.3, 0.72, -1.15)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/Main/CaptainQuarters/Rapier/Model",
+			"transform": "[X: (1.050513, 0.0, 0.0), Y: (0.0, -0.0, -1.050513), Z: (0.0, 1.050513, -0.0), O: (0.0, 0.063349, 0.525)]"
+		},
+		{
+			"class": "MeshInstance3D",
+			"path": "/Main/CaptainQuarters/Rapier/Model/tripo_node_43bbae3e-227e-405e-b827-8e2eafb85e0a",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "StaticBody3D",
+			"path": "/Main/CaptainQuarters/BowlStand",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (-2.9, 0.0, 1.5)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/Main/CaptainQuarters/BowlStand/Model",
+			"transform": "[X: (0.650317, 0.0, 0.0), Y: (0.0, 0.650317, 0.0), Z: (0.0, 0.0, 0.650317), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "MeshInstance3D",
+			"path": "/Main/CaptainQuarters/BowlStand/Model/tripo_node_fe28c26f-91bb-4a17-ac00-e8c8f666ef9b",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "CollisionShape3D",
+			"path": "/Main/CaptainQuarters/BowlStand/BowlStandShape",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.325, 0.0)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/Main/CaptainQuarters/Fishbowl",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (-2.9, 0.65, 1.5)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/Main/CaptainQuarters/Fishbowl/Model",
+			"transform": "[X: (0.520254, 0.0, 0.0), Y: (0.0, -0.0, -0.520254), Z: (0.0, 0.520254, -0.0), O: (0.0, 0.239678, 0.26)]"
+		},
+		{
+			"class": "MeshInstance3D",
+			"path": "/Main/CaptainQuarters/Fishbowl/Model/tripo_node_7d82a75b-3d0c-4b89-bf66-cdb496451d11",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "MeshInstance3D",
+			"path": "/Main/CaptainQuarters/Fishbowl/Water",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.1508, 0.0)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/Main/CaptainQuarters/Fishbowl/CountFingers",
+			"transform": "[X: (0.985528, 0.036805, -0.165469), Y: (-0.017082, 0.992739, 0.119072), Z: (0.16865, -0.114523, 0.979), O: (0.008097, 0.144146, 0.010034)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/Main/CaptainQuarters/Fishbowl/CountFingers/Model",
+			"transform": "[X: (-0.0, 0.0, -0.270264), Y: (-0.270264, -0.0, 0.0), Z: (-0.0, 0.270264, 0.0), O: (0.113121, 0.099281, -0.043688)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/Main/CaptainQuarters/Fishbowl/CountFingers/Model/RootNode",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "MeshInstance3D",
+			"path": "/Main/CaptainQuarters/Fishbowl/CountFingers/Model/tripo_4b685c14_82c7_4f62_9fd1_048df7e0adac",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "Area3D",
+			"path": "/Main/CaptainQuarters/@Area3D@53",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 1.55, -3.3)]"
+		},
+		{
+			"class": "CollisionShape3D",
+			"path": "/Main/CaptainQuarters/@Area3D@53/@CollisionShape3D@52",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "Area3D",
+			"path": "/Main/CaptainQuarters/@Area3D@55",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (-3.6, 0.8, -1.4)]"
+		},
+		{
+			"class": "CollisionShape3D",
+			"path": "/Main/CaptainQuarters/@Area3D@55/@CollisionShape3D@54",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "Area3D",
+			"path": "/Main/CaptainQuarters/@Area3D@57",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (-3.3, 0.95, -1.2)]"
+		},
+		{
+			"class": "CollisionShape3D",
+			"path": "/Main/CaptainQuarters/@Area3D@57/@CollisionShape3D@56",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "Area3D",
+			"path": "/Main/CaptainQuarters/@Area3D@59",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (-3.3, 0.86, -1.15)]"
+		},
+		{
+			"class": "CollisionShape3D",
+			"path": "/Main/CaptainQuarters/@Area3D@59/@CollisionShape3D@58",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "Area3D",
+			"path": "/Main/CaptainQuarters/@Area3D@61",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (-3.9, 0.82, -1.25)]"
+		},
+		{
+			"class": "CollisionShape3D",
+			"path": "/Main/CaptainQuarters/@Area3D@61/@CollisionShape3D@60",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "Area3D",
+			"path": "/Main/CaptainQuarters/Inkwell",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (-3.1, 0.84, -1.55)]"
+		},
+		{
+			"class": "CollisionShape3D",
+			"path": "/Main/CaptainQuarters/Inkwell/@CollisionShape3D@62",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "Area3D",
+			"path": "/Main/CaptainQuarters/@Area3D@64",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (3.9, 0.9, 1.9)]"
+		},
+		{
+			"class": "CollisionShape3D",
+			"path": "/Main/CaptainQuarters/@Area3D@64/@CollisionShape3D@63",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "CharacterBody3D",
+			"path": "/Main/CaptainQuarters/live",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (-1.4, 0.0, 1.2)]"
+		},
+		{
+			"class": "CollisionShape3D",
+			"path": "/Main/CaptainQuarters/live/@CollisionShape3D@47",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.95, 0.0)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/Main/CaptainQuarters/live/Body",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/Main/CaptainQuarters/live/Body/Model",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/Main/CaptainQuarters/live/Body/Model/Armature",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "Skeleton3D",
+			"path": "/Main/CaptainQuarters/live/Body/Model/Armature/Skeleton3D",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "MeshInstance3D",
+			"path": "/Main/CaptainQuarters/live/Body/Model/Armature/Skeleton3D/tripo_node_3b643bef",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "NavigationObstacle3D",
+			"path": "/Main/CaptainQuarters/live/Obstacle",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/Main/CaptainQuarters/live/Unlit",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "NavigationObstacle3D",
+			"path": "/Main/CaptainQuarters/live/@NavigationObstacle3D@48",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "CharacterBody3D",
+			"path": "/Main/CaptainQuarters/santi",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (2.2, 0.0, 0.2)]"
+		},
+		{
+			"class": "CollisionShape3D",
+			"path": "/Main/CaptainQuarters/santi/@CollisionShape3D@49",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.85, 0.0)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/Main/CaptainQuarters/santi/Body",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/Main/CaptainQuarters/santi/Body/Model",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, -0.0, 0.0)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/Main/CaptainQuarters/santi/Body/Model/Armature",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "Skeleton3D",
+			"path": "/Main/CaptainQuarters/santi/Body/Model/Armature/Skeleton3D",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "MeshInstance3D",
+			"path": "/Main/CaptainQuarters/santi/Body/Model/Armature/Skeleton3D/tripo_node_a46ae75a",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "NavigationObstacle3D",
+			"path": "/Main/CaptainQuarters/santi/Obstacle",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "Area3D",
+			"path": "/Main/CaptainQuarters/santi/Clickable",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "CollisionShape3D",
+			"path": "/Main/CaptainQuarters/santi/Clickable/@CollisionShape3D@51",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.85, 0.0)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/Main/CaptainQuarters/santi/Unlit",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "NavigationObstacle3D",
+			"path": "/Main/CaptainQuarters/santi/@NavigationObstacle3D@50",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "Camera3D",
+			"path": "/Main/CaptainQuarters/@Camera3D@51",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 0.99863, -0.052336), Z: (0.0, 0.052336, 0.99863), O: (0.0, 1.15, 4.1)]"
+		},
+		{
+			"class": "StaticBody3D",
+			"path": "/Main/CaptainQuarters/@StaticBody3D@52",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "CollisionShape3D",
+			"path": "/Main/CaptainQuarters/@StaticBody3D@52/@CollisionShape3D@53",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, -0.1, 0.0)]"
+		},
+		{
+			"class": "MeshInstance3D",
+			"path": "/Main/CaptainQuarters/@StaticBody3D@52/FloorVisual",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "MeshInstance3D",
+			"path": "/Main/CaptainQuarters/@MeshInstance3D@54",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 2.3, -3.5)]"
+		},
+		{
+			"class": "MeshInstance3D",
+			"path": "/Main/CaptainQuarters/@MeshInstance3D@55",
+			"transform": "[X: (-0.0, 0.0, -1.0), Y: (0.0, 1.0, 0.0), Z: (1.0, 0.0, -0.0), O: (-6.0, 2.3, 0.0)]"
+		},
+		{
+			"class": "MeshInstance3D",
+			"path": "/Main/CaptainQuarters/@MeshInstance3D@56",
+			"transform": "[X: (-0.0, 0.0, 1.0), Y: (0.0, 1.0, 0.0), Z: (-1.0, 0.0, -0.0), O: (6.0, 2.3, 0.0)]"
+		},
+		{
+			"class": "MeshInstance3D",
+			"path": "/Main/CaptainQuarters/@MeshInstance3D@57",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, -1.0, -0.0), Z: (0.0, 0.0, -1.0), O: (0.0, 4.6, 0.0)]"
+		},
+		{
+			"class": "NavigationRegion3D",
+			"path": "/Main/CaptainQuarters/@NavigationRegion3D@58",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		}
+	],
+	"saved": [
+		{
+			"class": "Node3D",
+			"path": "/CaptainQuarters",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "Camera3D",
+			"path": "/CaptainQuarters/Camera",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 0.99863, -0.052336), Z: (0.0, 0.052336, 0.99863), O: (0.0, 1.15, 4.1)]"
+		},
+		{
+			"class": "StaticBody3D",
+			"path": "/CaptainQuarters/Floor",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "CollisionShape3D",
+			"path": "/CaptainQuarters/Floor/@CollisionShape3D@46",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, -0.1, 0.0)]"
+		},
+		{
+			"class": "MeshInstance3D",
+			"path": "/CaptainQuarters/Floor/FloorVisual",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "MeshInstance3D",
+			"path": "/CaptainQuarters/Backdrop",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 2.3, -3.5)]"
+		},
+		{
+			"class": "MeshInstance3D",
+			"path": "/CaptainQuarters/WallLeft",
+			"transform": "[X: (-0.0, 0.0, -1.0), Y: (0.0, 1.0, 0.0), Z: (1.0, 0.0, -0.0), O: (-6.0, 2.3, 0.0)]"
+		},
+		{
+			"class": "MeshInstance3D",
+			"path": "/CaptainQuarters/WallRight",
+			"transform": "[X: (-0.0, 0.0, 1.0), Y: (0.0, 1.0, 0.0), Z: (-1.0, 0.0, -0.0), O: (6.0, 2.3, 0.0)]"
+		},
+		{
+			"class": "MeshInstance3D",
+			"path": "/CaptainQuarters/Ceiling",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, -1.0, -0.0), Z: (0.0, 0.0, -1.0), O: (0.0, 4.6, 0.0)]"
+		},
+		{
+			"class": "NavigationRegion3D",
+			"path": "/CaptainQuarters/Navigation",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "StaticBody3D",
+			"path": "/CaptainQuarters/Desk",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (-3.6, 0.0, -1.4)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/CaptainQuarters/Desk/Model",
+			"transform": "[X: (1.800879, 0.0, 0.0), Y: (0.0, 1.800879, 0.0), Z: (0.0, 0.0, 1.800879), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "MeshInstance3D",
+			"path": "/CaptainQuarters/Desk/Model/tripo_node_2fa6f40f-9ee6-47e6-91fe-08d1cecf76dc",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "CollisionShape3D",
+			"path": "/CaptainQuarters/Desk/CaptainDeskShape",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.38, 0.0)]"
+		},
+		{
+			"class": "StaticBody3D",
+			"path": "/CaptainQuarters/Chair",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (-3.6, 0.0, -2.15)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/CaptainQuarters/Chair/Model",
+			"transform": "[X: (1.350659, 0.0, 0.0), Y: (0.0, 1.350659, 0.0), Z: (0.0, 0.0, 1.350659), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/CaptainQuarters/Chair/Model/RootNode",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "MeshInstance3D",
+			"path": "/CaptainQuarters/Chair/Model/RootNode/tripo_840e58da_ec96_465d_a744_dc638db892be",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "CollisionShape3D",
+			"path": "/CaptainQuarters/Chair/CaptainChairShape",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.675, 0.0)]"
+		},
+		{
+			"class": "StaticBody3D",
+			"path": "/CaptainQuarters/Crate",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (3.9, 0.0, 1.9)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/CaptainQuarters/Crate/Model",
+			"transform": "[X: (0.90044, 0.0, 0.0), Y: (0.0, 0.90044, 0.0), Z: (0.0, 0.0, 0.90044), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "MeshInstance3D",
+			"path": "/CaptainQuarters/Crate/Model/tripo_node_05332709-d64a-4f07-9892-474326aa3487",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "CollisionShape3D",
+			"path": "/CaptainQuarters/Crate/SupplyCrateShape",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.45, 0.0)]"
+		},
+		{
+			"class": "StaticBody3D",
+			"path": "/CaptainQuarters/Chest",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (4.0, 0.0, -0.6)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/CaptainQuarters/Chest/Model",
+			"transform": "[X: (-0.90044, 0.0, 0.0), Y: (-0.0, -0.0, -0.90044), Z: (0.0, -0.90044, 0.0), O: (0.0, 0.431534, 0.445603)]"
+		},
+		{
+			"class": "MeshInstance3D",
+			"path": "/CaptainQuarters/Chest/Model/tripo_node_642bf963-f633-4ac9-b4ea-b1451e1d8034",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "CollisionShape3D",
+			"path": "/CaptainQuarters/Chest/PirateChestShape",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.45, 0.0)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/CaptainQuarters/Porthole",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 1.1, -3.4)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/CaptainQuarters/Porthole/Model",
+			"transform": "[X: (0.90044, 0.0, 0.0), Y: (0.0, 0.90044, 0.0), Z: (0.0, 0.0, 0.90044), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "MeshInstance3D",
+			"path": "/CaptainQuarters/Porthole/Model/tripo_node_74a7d4f5-624d-4ad0-9124-5982fd9b2c04",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/CaptainQuarters/Compass",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (-3.9, 0.765, -1.25)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/CaptainQuarters/Compass/Model",
+			"transform": "[X: (0.090044, 0.0, 0.0), Y: (0.0, -0.0, -0.090044), Z: (0.0, 0.090044, -0.0), O: (0.0, 0.017345, 0.044956)]"
+		},
+		{
+			"class": "MeshInstance3D",
+			"path": "/CaptainQuarters/Compass/Model/tripo_node_7268ea16-9f30-41e4-a862-fb366fae308e",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/CaptainQuarters/BrassInkwell",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (-3.1, 0.765, -1.55)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/CaptainQuarters/BrassInkwell/Model",
+			"transform": "[X: (0.080039, 0.0, 0.0), Y: (0.0, 0.080039, 0.0), Z: (0.0, 0.0, 0.080039), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "MeshInstance3D",
+			"path": "/CaptainQuarters/BrassInkwell/Model/tripo_node_bc68a720-4815-40d7-a80b-e54863fc4794",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/CaptainQuarters/Rapier",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (-3.3, 0.72, -1.15)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/CaptainQuarters/Rapier/Model",
+			"transform": "[X: (1.050513, 0.0, 0.0), Y: (0.0, -0.0, -1.050513), Z: (0.0, 1.050513, -0.0), O: (0.0, 0.063349, 0.525)]"
+		},
+		{
+			"class": "MeshInstance3D",
+			"path": "/CaptainQuarters/Rapier/Model/tripo_node_43bbae3e-227e-405e-b827-8e2eafb85e0a",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "StaticBody3D",
+			"path": "/CaptainQuarters/BowlStand",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (-2.9, 0.0, 1.5)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/CaptainQuarters/BowlStand/Model",
+			"transform": "[X: (0.650317, 0.0, 0.0), Y: (0.0, 0.650317, 0.0), Z: (0.0, 0.0, 0.650317), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "MeshInstance3D",
+			"path": "/CaptainQuarters/BowlStand/Model/tripo_node_fe28c26f-91bb-4a17-ac00-e8c8f666ef9b",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "CollisionShape3D",
+			"path": "/CaptainQuarters/BowlStand/BowlStandShape",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.325, 0.0)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/CaptainQuarters/Fishbowl",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (-2.9, 0.65, 1.5)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/CaptainQuarters/Fishbowl/Model",
+			"transform": "[X: (0.520254, 0.0, 0.0), Y: (0.0, -0.0, -0.520254), Z: (0.0, 0.520254, -0.0), O: (0.0, 0.239678, 0.26)]"
+		},
+		{
+			"class": "MeshInstance3D",
+			"path": "/CaptainQuarters/Fishbowl/Model/tripo_node_7d82a75b-3d0c-4b89-bf66-cdb496451d11",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "MeshInstance3D",
+			"path": "/CaptainQuarters/Fishbowl/Water",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.1508, 0.0)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/CaptainQuarters/Fishbowl/CountFingers",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.1352, 0.0)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/CaptainQuarters/Fishbowl/CountFingers/Model",
+			"transform": "[X: (-0.0, 0.0, -0.270264), Y: (-0.270264, -0.0, 0.0), Z: (-0.0, 0.270264, 0.0), O: (0.113121, 0.099281, -0.043688)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/CaptainQuarters/Fishbowl/CountFingers/Model/RootNode",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "MeshInstance3D",
+			"path": "/CaptainQuarters/Fishbowl/CountFingers/Model/tripo_4b685c14_82c7_4f62_9fd1_048df7e0adac",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "Area3D",
+			"path": "/CaptainQuarters/@Area3D@53",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 1.55, -3.3)]"
+		},
+		{
+			"class": "CollisionShape3D",
+			"path": "/CaptainQuarters/@Area3D@53/@CollisionShape3D@52",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "Area3D",
+			"path": "/CaptainQuarters/@Area3D@55",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (-3.6, 0.8, -1.4)]"
+		},
+		{
+			"class": "CollisionShape3D",
+			"path": "/CaptainQuarters/@Area3D@55/@CollisionShape3D@54",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "Area3D",
+			"path": "/CaptainQuarters/@Area3D@57",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (-3.3, 0.95, -1.2)]"
+		},
+		{
+			"class": "CollisionShape3D",
+			"path": "/CaptainQuarters/@Area3D@57/@CollisionShape3D@56",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "Area3D",
+			"path": "/CaptainQuarters/@Area3D@59",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (-3.3, 0.86, -1.15)]"
+		},
+		{
+			"class": "CollisionShape3D",
+			"path": "/CaptainQuarters/@Area3D@59/@CollisionShape3D@58",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "Area3D",
+			"path": "/CaptainQuarters/@Area3D@61",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (-3.9, 0.82, -1.25)]"
+		},
+		{
+			"class": "CollisionShape3D",
+			"path": "/CaptainQuarters/@Area3D@61/@CollisionShape3D@60",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "Area3D",
+			"path": "/CaptainQuarters/Inkwell",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (-3.1, 0.84, -1.55)]"
+		},
+		{
+			"class": "CollisionShape3D",
+			"path": "/CaptainQuarters/Inkwell/@CollisionShape3D@62",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "Area3D",
+			"path": "/CaptainQuarters/@Area3D@64",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (3.9, 0.9, 1.9)]"
+		},
+		{
+			"class": "CollisionShape3D",
+			"path": "/CaptainQuarters/@Area3D@64/@CollisionShape3D@63",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "CharacterBody3D",
+			"path": "/CaptainQuarters/live",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (-1.4, 0.0, 1.2)]"
+		},
+		{
+			"class": "CollisionShape3D",
+			"path": "/CaptainQuarters/live/@CollisionShape3D@47",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.95, 0.0)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/CaptainQuarters/live/Body",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/CaptainQuarters/live/Body/Model",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/CaptainQuarters/live/Body/Model/Armature",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "Skeleton3D",
+			"path": "/CaptainQuarters/live/Body/Model/Armature/Skeleton3D",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "MeshInstance3D",
+			"path": "/CaptainQuarters/live/Body/Model/Armature/Skeleton3D/tripo_node_3b643bef",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "NavigationObstacle3D",
+			"path": "/CaptainQuarters/live/Obstacle",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/CaptainQuarters/live/Unlit",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "CharacterBody3D",
+			"path": "/CaptainQuarters/santi",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (2.2, 0.0, 0.2)]"
+		},
+		{
+			"class": "CollisionShape3D",
+			"path": "/CaptainQuarters/santi/@CollisionShape3D@49",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.85, 0.0)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/CaptainQuarters/santi/Body",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/CaptainQuarters/santi/Body/Model",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, -0.0, 0.0)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/CaptainQuarters/santi/Body/Model/Armature",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "Skeleton3D",
+			"path": "/CaptainQuarters/santi/Body/Model/Armature/Skeleton3D",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "MeshInstance3D",
+			"path": "/CaptainQuarters/santi/Body/Model/Armature/Skeleton3D/tripo_node_a46ae75a",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "NavigationObstacle3D",
+			"path": "/CaptainQuarters/santi/Obstacle",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "Area3D",
+			"path": "/CaptainQuarters/santi/Clickable",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		},
+		{
+			"class": "CollisionShape3D",
+			"path": "/CaptainQuarters/santi/Clickable/@CollisionShape3D@51",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.85, 0.0)]"
+		},
+		{
+			"class": "Node3D",
+			"path": "/CaptainQuarters/santi/Unlit",
+			"transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]"
+		}
+	]
+}

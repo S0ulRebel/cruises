@@ -3,7 +3,11 @@
   "name": "Burgundy carpet field",
   "asset_type": "surface_albedo_texture",
   "files": {
-    "albedo": "albedo.png"
+    "albedo": "albedo.png",
+    "height_source": "height_source.png",
+    "normal_gentle": "normal_gentle_opengl.png",
+    "normal_stronger": "normal_stronger_opengl.png",
+    "normal_trials_metadata": "normal_trials.json"
   },
   "image_size_px": [
     1254,
@@ -12,10 +16,10 @@
   "colour_space": "sRGB colour; not linear data",
   "channels": {
     "albedo": "Provided",
-    "normal": "Not generated",
+    "normal": "Provided: gentle and stronger tangent-space OpenGL +Y maps; see normal_trials.json",
     "roughness": "Not generated; use constant matte material",
     "metallic": "0; nonmetal",
-    "height": "Not generated"
+    "height": "Provided: artistic grayscale height_source.png; not measured displacement"
   },
   "source": {
     "producer": "OpenAI built-in image_gen",
@@ -85,5 +89,10 @@
   "pipeline": {
     "scene_assigned": false,
     "engine_render_verified": false
+  },
+  "normal_map_delivery": {
+    "default_variant": "gentle",
+    "documentation": "../NORMAL_MAPS.md",
+    "metadata": "normal_trials.json"
   }
 }

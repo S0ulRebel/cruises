@@ -1,0 +1,74 @@
+{
+  "id": "beam_wood",
+  "status": "Owner-approved source delivery; engine scene assignment pending",
+  "image_size_px": [
+    1254,
+    1254
+  ],
+  "source": {
+    "tool": "OpenAI built-in image_gen",
+    "prompt": "Edit the supplied surface texture into a GRAYSCALE HEIGHT DATA MAP for deriving a stylized tangent-space normal map. Keep the exact square framing, UV placement, orientation and locations of every main feature. Output ONLY one edge-to-edge square grayscale map; no labels, border, object, purple normal colours, rendered lighting, directional shading, shadows or highlights. Pixel brightness means physical surface height: midgray flat surface, darker recesses, lighter raised zones. Do NOT simply desaturate the colour image: discard painted colour strokes and colour variation which aren't actual relief. Make large simplified sculpted cartoon features, broad smooth bevel transitions, clean flat areas, restrained shallow height range, NO tiny noisy pores, realistic scratches, fibers or granular speckle. Preserve existing motifs rather than redesigning. Try to maintain continuous repeating edges. No edge fade or vignette. This is technical relief artwork matching the already-inspected cartoon pirate cabin and chunky hand-hewn wood, not realistic material. No plank joints: one continuous vertical wood grain surface. Follow the existing long flowing vertical grain and knot locations, simplifying into broad smooth carved troughs and a few gently sloping hand-hewn planes. Mediumgray flats, slightly darker broad troughs, raised facet tops lightergray. Much less fine detail than reference, no deep bark, no edges of a whole beam, no silhouette. Internal surface relief only.",
+    "input_albedo_sha256": "aec4e11e512c4ee6802f874a2c9275c6e8360abf00082f3edf12fa9d42cdbdd3",
+    "generated_height_sha256": "544830b13497a5dace1aa0108db36d3f4347219173ac7c55a2e6498d3c286170",
+    "generated_filename": "exec-b65e72af-fa06-4f39-912b-896370ab3478.png",
+    "input_albedo_path": "art/materials/captains_cabin/beam_wood/albedo.png",
+    "style_references_inspected": [
+      {
+        "path": "docs\\reference\\room_target.png",
+        "sha256": "a17f771d95d7aa37b8403b3b4cb918c7032737cdb031d62c893b424c878cebc3"
+      },
+      {
+        "path": "art\\props\\wood_board\\sheet.png",
+        "sha256": "8ca6ed72b0f34d4c55771a88a67bc9cbbab272ab0831860c8765cbad372d1a8e"
+      }
+    ]
+  },
+  "derivation": {
+    "method": "Periodic Gaussian-filtered height gradient; normalized tangent vectors; RGB8 encoding",
+    "gaussian_sigma_px": 4.0,
+    "normal_rgb_is_linear_data": true,
+    "convention": "OpenGL +Y, U right / tangent Y up, image rows down",
+    "slope_cap_stronger": 0.85,
+    "height_is_artistic_not_measured_displacement": true
+  },
+  "variants": [
+    {
+      "name": "gentle",
+      "file": "normal_gentle_opengl.png",
+      "height_gradient_multiplier": 10.235448039582586,
+      "normal_tilt_degrees_p99": 10.664351463317871,
+      "normal_tilt_degrees_max": 14.78520393371582,
+      "quantized_unit_length_max_error": 0.004618287086486816,
+      "sha256": "43a9cf58e6546ba66f65c360b8ed561df4550d9f2f358bde637b888833b00755"
+    },
+    {
+      "name": "stronger",
+      "file": "normal_stronger_opengl.png",
+      "height_gradient_multiplier": 22.745440087961303,
+      "normal_tilt_degrees_p99": 22.845598220825195,
+      "normal_tilt_degrees_max": 30.560699462890625,
+      "quantized_unit_length_max_error": 0.00529170036315918,
+      "sha256": "2febd94ac53f7eb43f3a2052f68ac02c0941039caf79f75e50d19e2440314778"
+    }
+  ],
+  "limits": [
+    "Generated relief follows the source features visually; exact pixel registration is not guaranteed.",
+    "Source colour and height edge patterns are approximate repeats; periodic filtering and derivatives do not prove motif continuity.",
+    "Height image can contain unintended tonal relief; inspect on final UVs before adoption.",
+    "Preview uses matte CPU Lambert lighting, not a Godot scene render.",
+    "No geometry silhouette changes, scene assignment or custom shader integration."
+  ],
+  "files": {
+    "albedo": "albedo.png",
+    "height_source": "height_source.png",
+    "normal_gentle": "normal_gentle_opengl.png",
+    "normal_stronger": "normal_stronger_opengl.png"
+  },
+  "pipeline": {
+    "owner_approved_source_delivery": true,
+    "scene_assigned": false,
+    "engine_visual_verified": false,
+    "godot_import_load_material_binding_verified": true,
+    "validation_evidence": "../normal_validation.json"
+  }
+}

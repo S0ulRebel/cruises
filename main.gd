@@ -104,6 +104,9 @@ func _ready() -> void:
 	add_child(_dialogue)
 	_dialogue.setup(_caption, _choices)
 	_dialogue.set_cast(_cast)
+	# One flag store for the whole game. Prising the crate open and asking Santi about
+	# the captive now write to the same place.
+	_dialogue.use_flags(_flags)
 	_dialogue.verbose = _auto
 
 	_pointer = Pointer.new()

@@ -32,7 +32,12 @@ signal finished
 
 const MAX_STEPS := 500  ## A cycle of gotos with no lines would otherwise hang the game.
 
-var flags := {}  ## Survives between conversations. Save/load will own this later.
+## Survives between conversations, and SHARED with the room: prising the crate open
+## and asking Santi about the captive write to the same place, so a puzzle can change
+## what a person says and a conversation can unlock a door. Two separate stores was
+## the state of this until flags were wired up, and it meant neither could see the
+## other. Save/load will own this later.
+var flags := {}
 ## Print a transcript as it plays. A branching conversation is hard to check by walking
 ## it by hand - most of the work is confirming that a branch you cannot currently see is
 ## still reachable from somewhere.
@@ -52,6 +57,12 @@ func setup(caption: Node, choices: Node) -> void:
 
 func set_cast(cast: Dictionary) -> void:
 	_cast = cast
+
+
+## Hand the dialogue the room's flag store so the two share one. Passed by reference -
+## a Dictionary in GDScript is shared, not copied - which is the whole point.
+func use_flags(store: Dictionary) -> void:
+	flags = store
 
 
 func load_conversation(path: String) -> bool:
@@ -84,6 +95,12 @@ func play() -> void:
 			if typeof(line_variant) != TYPE_DICTIONARY:
 				continue
 			var line: Dictionary = line_variant
+			# Lines take `if` and `unless` as well as choices do. A conversation that
+			# can only branch at a menu has to send the player through a menu to
+			# acknowledge anything, which is the difference between a character who
+			# notices you are carrying their compass and one who waits to be asked.
+			if not _conditions_met(line):
+				continue
 			var who := String(line.get("who", ""))
 			var person: Dictionary = _cast.get(who, {})
 			if verbose:
@@ -109,7 +126,7 @@ func play() -> void:
 			for i in offered.size():
 				print("     %d. %s" % [i + 1, offered[i].get("text", "...")])
 		if offered.is_empty():
-			at = String(node.get("goto", ""))
+			at = _next_node(node)
 			continue
 
 		_caption.hide_box()
@@ -146,6 +163,22 @@ func play() -> void:
 
 
 ## Choices the player can see right now: not used up, and their flag conditions met.
+## Where a node goes when it has nothing to ask. `goto` is the plain answer; `branch`
+## is a list tried in order, first one whose conditions are met wins, so a node can
+## send the player somewhere different once they have opened the crate without
+## needing a choice menu to do it.
+##
+##     "branch": [ { "if": ["crate_open"], "goto": "after" }, { "goto": "before" } ]
+func _next_node(node: Dictionary) -> String:
+	for option_variant in node.get("branch", []):
+		if typeof(option_variant) != TYPE_DICTIONARY:
+			continue
+		var option: Dictionary = option_variant
+		if _conditions_met(option):
+			return String(option.get("goto", ""))
+	return String(node.get("goto", ""))
+
+
 func _visible_choices(convo_id: String, node_id: String, node: Dictionary) -> Array:
 	var out: Array = []
 	var raw: Array = node.get("choices", [])
@@ -162,11 +195,13 @@ func _visible_choices(convo_id: String, node_id: String, node: Dictionary) -> Ar
 	return out
 
 
-func _conditions_met(choice: Dictionary) -> bool:
-	for flag in choice.get("if", []):
+## Whether a line, choice or branch may be used, given what has happened so far.
+## `if` needs every flag present; `unless` needs every flag absent.
+func _conditions_met(entry: Dictionary) -> bool:
+	for flag in entry.get("if", []):
 		if not flags.has(String(flag)):
 			return false
-	for flag in choice.get("unless", []):
+	for flag in entry.get("unless", []):
 		if flags.has(String(flag)):
 			return false
 	return true

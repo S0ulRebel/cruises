@@ -3,10 +3,18 @@
   "note": "Worked example. Every feature the format has is used at least once here, so this file doubles as the reference for writing the rest.",
   "player": "live",
   "start": "root",
-
   "nodes": {
     "root": {
       "choices": [
+        {
+          "text": "(Show him the key.)",
+          "say": "There was a key in that crate, Santi. A clean one.",
+          "goto": "captive",
+          "once": true,
+          "if": [
+            "crate_open"
+          ]
+        },
         {
           "text": "About this captive of yours.",
           "say": "Santi. The fat one in the hold. He has opinions.",
@@ -24,42 +32,84 @@
           "say": "Your grandmother. Sporca. Was she a cook or a punishment?",
           "goto": "nonna",
           "once": true,
-          "if": ["heard_recipe"]
+          "if": [
+            "heard_recipe"
+          ]
         },
         {
           "text": "Carry on.",
           "exit": true
         }
+      ],
+      "lines": [
+        {
+          "who": "santi",
+          "text": "Captain. You are holding a crowbar's worth of rapier and a face like a man who has opened something.",
+          "if": [
+            "crate_open"
+          ]
+        }
       ]
     },
-
     "captive": {
       "lines": [
-        { "who": "santi", "text": "Opinions! A man eats for free and reviews the galley." },
-        { "who": "santi", "text": "He says my rat's tail is the worst he has tasted. Of all the galleys. He has a list, Captain. He keeps a list." },
-        { "who": "live", "text": "A critic. How novel. Most of my prisoners only scream." }
+        {
+          "who": "santi",
+          "text": "Opinions! A man eats for free and reviews the galley."
+        },
+        {
+          "who": "santi",
+          "text": "He says my rat's tail is the worst he has tasted. Of all the galleys. He has a list, Captain. He keeps a list."
+        },
+        {
+          "who": "live",
+          "text": "A critic. How novel. Most of my prisoners only scream."
+        }
       ],
-      "set": ["heard_recipe"],
+      "set": [
+        "heard_recipe"
+      ],
       "goto": "root"
     },
-
     "pot": {
       "lines": [
-        { "who": "santi", "text": "Today? Today it is soup." },
-        { "who": "live", "text": "And yesterday?" },
-        { "who": "santi", "text": "Yesterday it was also soup. Same soup, different scum." }
+        {
+          "who": "santi",
+          "text": "Today? Today it is soup."
+        },
+        {
+          "who": "live",
+          "text": "And yesterday?"
+        },
+        {
+          "who": "santi",
+          "text": "Yesterday it was also soup. Same soup, different scum."
+        }
       ],
       "goto": "root"
     },
-
     "nonna": {
       "lines": [
-        { "who": "santi", "text": "My nonna Sporca fed nine children and two husbands on one goat." },
-        { "who": "santi", "text": "The second husband asked what happened to the goat." },
-        { "who": "live", "text": "..." },
-        { "who": "santi", "text": "He also asked what happened to the first husband." }
+        {
+          "who": "santi",
+          "text": "My nonna Sporca fed nine children and two husbands on one goat."
+        },
+        {
+          "who": "santi",
+          "text": "The second husband asked what happened to the goat."
+        },
+        {
+          "who": "live",
+          "text": "..."
+        },
+        {
+          "who": "santi",
+          "text": "He also asked what happened to the first husband."
+        }
       ],
-      "set": ["knows_about_nonna"],
+      "set": [
+        "knows_about_nonna"
+      ],
       "goto": "root"
     }
   }

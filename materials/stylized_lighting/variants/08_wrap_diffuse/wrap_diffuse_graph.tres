@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" format=3]
+
+[ext_resource type="Shader" path="res://materials/stylized_lighting/variants/08_wrap_diffuse/wrap_diffuse_graph_shader.tres" id="1_vqgbp"]
+
+[resource]
+resource_local_to_scene = true
+resource_name = "08 Wrap Diffuse graph"
+render_priority = 0
+shader = ExtResource("1_vqgbp")

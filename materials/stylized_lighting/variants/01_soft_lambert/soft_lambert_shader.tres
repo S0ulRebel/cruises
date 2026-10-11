@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" format=3]
+
+[ext_resource type="Shader" path="res://materials/stylized_lighting/variants/01_soft_lambert/soft_lambert_shader.gdshader" id="1_my867"]
+
+[resource]
+resource_local_to_scene = true
+resource_name = "01_soft_lambert shader"
+render_priority = 0
+shader = ExtResource("1_my867")

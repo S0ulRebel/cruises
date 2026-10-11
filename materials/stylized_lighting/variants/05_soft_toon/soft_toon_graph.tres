@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" format=3]
+
+[ext_resource type="Shader" path="res://materials/stylized_lighting/variants/05_soft_toon/soft_toon_graph_shader.tres" id="1_tcung"]
+
+[resource]
+resource_local_to_scene = true
+resource_name = "05 Soft Toon graph"
+render_priority = 0
+shader = ExtResource("1_tcung")

@@ -1,0 +1,17 @@
+[gd_resource type="ShaderMaterial" format=3]
+
+[ext_resource type="Shader" path="res://materials/stylized_lighting/variants/06_texture_ramp/texture_ramp_graph_shader.tres" id="1_ji4ah"]
+
+[sub_resource type="Gradient" id="Gradient_o3k4d"]
+offsets = PackedFloat32Array(0, 0.38, 0.48, 0.68, 1)
+colors = PackedColorArray(0.03, 0.03, 0.03, 1, 0.08, 0.08, 0.08, 1, 0.42, 0.42, 0.42, 1, 0.8, 0.8, 0.8, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_s2qt7"]
+gradient = SubResource("Gradient_o3k4d")
+
+[resource]
+resource_local_to_scene = true
+resource_name = "06 Texture Ramp graph"
+render_priority = 0
+shader = ExtResource("1_ji4ah")
+shader_parameter/shading_ramp = SubResource("GradientTexture1D_s2qt7")

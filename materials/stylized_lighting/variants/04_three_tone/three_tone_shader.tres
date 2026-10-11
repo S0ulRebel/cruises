@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" format=3]
+
+[ext_resource type="Shader" path="res://materials/stylized_lighting/variants/04_three_tone/three_tone_shader.gdshader" id="1_0g2t6"]
+
+[resource]
+resource_local_to_scene = true
+resource_name = "04_three_tone shader"
+render_priority = 0
+shader = ExtResource("1_0g2t6")

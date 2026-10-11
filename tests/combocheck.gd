@@ -56,6 +56,7 @@ func _init() -> void:
 	failures += _check("the right item carries what it gives and what it sets",
 		fired["outcome"].get("gives") == "key" and fired["outcome"].get("sets") == "crate_open")
 
+	crate.free()
 	print("\n%s" % ("ALL CHECKS PASSED" if failures == 0 else "%d CHECK(S) FAILED" % failures))
 	quit(1 if failures > 0 else 0)
 

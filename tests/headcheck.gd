@@ -10,6 +10,7 @@ extends Node
 const LINE := "You took the compass, and I want it back now."
 const WHO := "captain_live"
 const FRAMES := 6
+const ArtOutput := preload("res://tests/art_output.gd")
 
 var _head: TalkingHead
 var _failures := 0
@@ -20,9 +21,15 @@ func _ready() -> void:
 	panel.size = Vector2(300, 300)
 	add_child(panel)
 
-	_head = TalkingHead.new()
+	_head = (load("res://ui/talking_head.tscn") as PackedScene).instantiate() as TalkingHead
 	panel.add_child(_head)
 	await get_tree().process_frame
+	var definition := CharacterDefinition.new()
+	definition.content_id = "live"
+	definition.asset_id = WHO
+	definition.display_name = "Captain Live"
+	definition.portrait_scene = load("res://ui/portraits/captain_live.tscn") as PackedScene
+	_head.set_characters([definition])
 
 	var loaded := _head.show_character(WHO)
 	_check("the head piece loads", loaded)
@@ -42,8 +49,7 @@ func _ready() -> void:
 
 	# Walk the line and save frames spread across it, so the shapes can be judged by
 	# eye rather than trusted because the weights were set.
-	var dir := "user://headcheck"
-	DirAccess.make_dir_recursive_absolute(dir)
+	var dir := ArtOutput.new_run("headcheck")
 	var widest := 0.0
 	for i in FRAMES:
 		var t: float = length * float(i) / float(FRAMES - 1)
@@ -52,10 +58,10 @@ func _ready() -> void:
 		_head.apply(pose, WHO)
 		await RenderingServer.frame_post_draw
 		await RenderingServer.frame_post_draw
-		var viewport := _head.get_child(0) as SubViewport
+		var viewport := _head.get_node("Viewport") as SubViewport
 		var image: Image = viewport.get_texture().get_image()
 		var path := "%s/frame_%d.png" % [dir, i]
-		image.save_png(path)
+		_check("frame saved", image.save_png(path) == OK)
 		var filled := _coverage(image)
 		print("  t %.2f s  jaw %.2f wide %.2f round %.2f pressed %.2f  -> %.1f%% of the panel drawn"
 			% [t, pose["jaw"], pose["wide"], pose["round"], pose["pressed"], filled * 100.0])
@@ -72,9 +78,9 @@ func _ready() -> void:
 		_head.apply({ "jaw": 0.0, "wide": 0.0, "round": 0.0, "pressed": pressed }, WHO)
 		await RenderingServer.frame_post_draw
 		await RenderingServer.frame_post_draw
-		var vp := _head.get_child(0) as SubViewport
+		var vp := _head.get_node("Viewport") as SubViewport
 		var img: Image = vp.get_texture().get_image()
-		img.save_png("%s/closed_%d.png" % [dir, int(pressed * 100)])
+		_check("closed-mouth frame saved", img.save_png("%s/closed_%d.png" % [dir, int(pressed * 100)]) == OK)
 	print("  closed-mouth frames written at pressed 0.35, 0.70 and 1.00")
 	print("  frames written to %s" % ProjectSettings.globalize_path(dir))
 	print("\n%s" % ("ALL CHECKS PASSED" if _failures == 0 else "%d CHECK(S) FAILED" % _failures))

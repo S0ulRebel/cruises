@@ -1,4 +1,5 @@
 extends Node3D
+const ArtOutput := preload("res://tests/art_output.gd")
 ## Loads one glTF on its own with nothing else in the scene. If a character looks
 ## wrong in the room, this says whether the room is at fault or the file is.
 
@@ -17,7 +18,7 @@ func _ready() -> void:
 	fill.light_energy = 0.4
 	add_child(fill)
 
-	var scene: PackedScene = load("res://art/characters/captain_live/captain_live_static.glb")
+	var scene: PackedScene = load("res://art/characters/captain_live/captain_live_hands.glb")
 	var model := scene.instantiate() as Node3D
 	add_child(model)
 
@@ -26,9 +27,14 @@ func _ready() -> void:
 
 	for i in 8:
 		await RenderingServer.frame_post_draw
-	get_viewport().get_texture().get_image().save_png("res://glbtest_static.png")
-	print("saved glbtest_static.png")
-	get_tree().quit()
+	var output := ArtOutput.new_run("glbtest").path_join("captain_live.png")
+	var saved := get_viewport().get_texture().get_image().save_png(output) == OK
+	var rigged := not model.find_children("*", "Skeleton3D", true, false).is_empty()
+	var visible_model := not model.find_children("*", "MeshInstance3D", true, false).is_empty()
+	print("saved " + output)
+	var ok := saved and rigged and visible_model
+	print("ALL CHECKS PASSED" if ok else "FAIL model has no rig, mesh or saved frame")
+	get_tree().quit(0 if ok else 1)
 
 
 func _describe(node: Node, depth: int) -> void:

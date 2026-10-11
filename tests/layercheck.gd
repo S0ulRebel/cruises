@@ -33,4 +33,6 @@ func _ready() -> void:
 	var arm := NodePath("%s:mixamorig_RightArm" % path)
 	print("\ngesture_right drives RightArm:   %s  (must be true)" % right.is_path_filtered(arm))
 	print("gesture_right drives RightUpLeg: %s  (must be false)" % right.is_path_filtered(leg))
-	get_tree().quit()
+	var ok := right.is_path_filtered(arm) and not right.is_path_filtered(leg)
+	print("ALL CHECKS PASSED" if ok else "FAIL layer filter covers the wrong bones")
+	get_tree().quit(0 if ok else 1)

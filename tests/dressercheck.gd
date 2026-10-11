@@ -77,6 +77,16 @@ func _check_non_human(_unused: Dresser, hat: OutfitPiece) -> void:
 	print("  after declaring head=skull, it resolves to '%s'" % dresser.bone_for(hat))
 	_check("a declared role resolves on a skeleton with no Mixamo names",
 		dresser.bone_for(hat) == "skull")
+	hat.model = "res://actors/outfit/placeholders/hat_placeholder.tscn"
+	hat.position = Vector3(0, 0.8, 0)
+	if _check("role-based pinned piece can be worn", dresser.wear(hat)):
+		var holder := dresser.node_for("hat")
+		var socket := holder.get_parent() as BoneAttachment3D
+		_check("attachment uses the resolved role bone", socket != null and socket.bone_name == "skull")
+		var original_id := holder.get_instance_id()
+		hat.position.y += 0.1
+		dresser.refit("hat")
+		_check("refit preserves the role socket and holder", dresser.node_for("hat").get_instance_id() == original_id)
 
 
 func _check_conflicts() -> void:
@@ -102,7 +112,8 @@ func _check_slots() -> void:
 	_check("a stray file is ignored", OutfitPiece.slot_of("res://x/notaslot_x.glb") == "")
 
 
-func _check(what: String, ok: bool) -> void:
+func _check(what: String, ok: bool) -> bool:
 	if not ok:
 		_failures += 1
 	print("%s  %s" % ["ok  " if ok else "FAIL", what])
+	return ok

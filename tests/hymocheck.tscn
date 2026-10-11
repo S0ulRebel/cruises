@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://hymocheck.gd" id="1_h"]
+[ext_resource type="Script" path="res://tests/hymocheck.gd" id="1_h"]
 
 [node name="HyMoCheck" type="Node3D"]
 script = ExtResource("1_h")

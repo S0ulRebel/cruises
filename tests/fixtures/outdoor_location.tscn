@@ -1,0 +1,71 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://locations/location.gd" id="1_location"]
+[ext_resource type="PackedScene" path="res://props/supply_crate/supply_crate.tscn" id="2_crate"]
+[ext_resource type="PackedScene" path="res://actors/captain_live/captain_live.tscn" id="3_captain"]
+[ext_resource type="PackedScene" path="res://actors/santi_wong/santi_wong.tscn" id="4_santi"]
+[ext_resource type="NavigationMesh" path="res://tests/fixtures/outdoor_navigation.tres" id="5_navigation"]
+
+[sub_resource type="StandardMaterial3D" id="GroundMaterial"]
+albedo_color = Color(0.45, 0.56, 0.3, 1)
+
+[sub_resource type="BoxMesh" id="GroundMesh"]
+material = SubResource("GroundMaterial")
+size = Vector3(12, 0.2, 8)
+
+[sub_resource type="BoxShape3D" id="GroundShape"]
+size = Vector3(12, 0.2, 8)
+
+[sub_resource type="Environment" id="Daylight"]
+background_mode = 1
+background_color = Color(0.45, 0.66, 0.82, 1)
+ambient_light_source = 3
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.7
+
+[node name="OutdoorLocation" type="Node3D" node_paths=PackedStringArray("camera", "player", "navigation_regions")]
+script = ExtResource("1_location")
+camera = NodePath("Camera")
+player = NodePath("Captain")
+navigation_regions = Array[NodePath]([NodePath("Navigation")])
+
+[node name="Camera" type="Camera3D" parent="."]
+position = Vector3(0, 6, 9)
+rotation_degrees = Vector3(-35, 0, 0)
+current = true
+
+[node name="Environment" type="WorldEnvironment" parent="."]
+environment = SubResource("Daylight")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-55, -30, 0)
+
+[node name="Ground" type="StaticBody3D" parent="." groups=["outdoor_check_nav_source"]]
+collision_layer = 2
+
+[node name="Collision" type="CollisionShape3D" parent="Ground"]
+position = Vector3(0, -0.1, 0)
+shape = SubResource("GroundShape")
+
+[node name="Visual" type="MeshInstance3D" parent="Ground"]
+position = Vector3(0, -0.1, 0)
+mesh = SubResource("GroundMesh")
+
+[node name="Navigation" type="NavigationRegion3D" parent="."]
+navigation_mesh = ExtResource("5_navigation")
+
+[node name="CrateOne" parent="." groups=["outdoor_check_nav_source"] instance=ExtResource("2_crate")]
+position = Vector3(0, 0, 0)
+rotation_degrees = Vector3(0, 45, 0)
+
+[node name="CrateTwo" parent="." groups=["outdoor_check_nav_source"] instance=ExtResource("2_crate")]
+position = Vector3(3, 0, -2)
+rotation_degrees = Vector3(0, -65, 0)
+
+[node name="Captain" parent="." instance=ExtResource("3_captain")]
+position = Vector3(-4, 0, 2)
+rotation_degrees = Vector3(0, 25, 0)
+
+[node name="Santi" parent="." instance=ExtResource("4_santi")]
+position = Vector3(4, 0, 2)
+rotation_degrees = Vector3(0, -25, 0)

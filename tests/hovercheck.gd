@@ -39,6 +39,8 @@ func _init() -> void:
 		scenery.phrase(scenery.resolve("")) == "Look at Porthole",
 		scenery.phrase(scenery.resolve("")))
 
+	for node in [crate, bowl, person, scenery]:
+		node.free()
 	print("\n%s" % ("ALL CHECKS PASSED" if failures == 0 else "%d CHECK(S) FAILED" % failures))
 	quit(1 if failures > 0 else 0)
 

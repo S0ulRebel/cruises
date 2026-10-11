@@ -1,0 +1,13 @@
+{
+  "id": "choice_clear_check",
+  "start": "root",
+  "nodes": {
+    "root": {
+      "choices": [{"text": "Replace the flag", "set": ["new_flag"], "clear": ["old_flag"], "goto": "after"}]
+    },
+    "after": {
+      "lines": [{"who": "live", "text": "The cleared flag is gone", "unless": ["old_flag"], "if": ["new_flag"]}],
+      "exit": true
+    }
+  }
+}

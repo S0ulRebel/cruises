@@ -12,4 +12,7 @@ func _ready() -> void:
 		print("bones=%d first: %s" % [s.get_bone_count(), ", ".join(names)])
 	if not ap.is_empty():
 		print("clips: %s" % ", ".join((ap[0] as AnimationPlayer).get_animation_list()))
-	get_tree().quit()
+	var ok := not sk.is_empty() and not ap.is_empty()
+	if ok: ok = not (ap[0] as AnimationPlayer).get_animation_list().is_empty()
+	print("ALL CHECKS PASSED" if ok else "FAIL imported animation is missing a rig or clips")
+	get_tree().quit(0 if ok else 1)

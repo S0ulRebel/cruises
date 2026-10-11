@@ -12,6 +12,7 @@ extends Node3D
 const Animator := preload("res://actors/parts/animator.gd")
 const MODEL := "res://art/characters/captain_live/captain_live_hands.glb"
 const POSES := ["hand_relaxed", "hand_open_palm", "hand_point", "hand_grip", "hand_fist"]
+const ArtOutput := preload("res://tests/art_output.gd")
 
 var _skeleton: Skeleton3D
 var _tree: AnimationTree
@@ -20,14 +21,19 @@ var _camera: Camera3D
 var _lamp: OmniLight3D
 var _index := 0
 var _settle := 0
+var _capturing := false
+var _failures := 0
+var _output := ""
 
 
 func _ready() -> void:
+	_output = ArtOutput.new_run("handcheck")
 	var model := (load(MODEL) as PackedScene).instantiate()
 	add_child(model)
 	_skeleton = model.find_children("*", "Skeleton3D", true, false)[0] as Skeleton3D
 	var player := model.find_children("*", "AnimationPlayer", true, false)[0] as AnimationPlayer
 	for name in POSES:
+		_check("pose clip exists: " + name, player.has_animation(name))
 		if player.has_animation(name):
 			player.get_animation(name).loop_mode = Animation.LOOP_LINEAR
 
@@ -61,6 +67,7 @@ func _ready() -> void:
 	# drives is written and read back here rather than assumed to exist.
 	_tree.set("parameters/locomotion/blend_position", 1.0)
 	print("gait dial reads back %s (must be 1)" % _tree.get("parameters/locomotion/blend_position"))
+	_check("gait parameter writes through", _tree.get("parameters/locomotion/blend_position") == 1.0)
 	_tree.set("parameters/locomotion/blend_position", 0.0)
 
 	_apply()
@@ -92,14 +99,18 @@ func _hand_centre(fallback: Vector3) -> Vector3:
 func _process(_delta: float) -> void:
 	# _process keeps firing across the await, so the frame after the last pose comes
 	# back with the index already past the end. Guarded, not caught.
-	if _index >= POSES.size():
+	if _capturing or _index >= POSES.size():
 		return
 	_settle += 1
 	if _settle < 6:
 		return
+	_capturing = true
 
 	var hand := _skeleton.find_bone("mixamorig_RightHand")
 	var hips := _skeleton.find_bone("mixamorig_Hips")
+	if not _check("hand and hips bones exist", hand >= 0 and hips >= 0):
+		get_tree().quit(1)
+		return
 	var wrist := _skeleton.global_transform * _skeleton.get_bone_global_pose(hand).origin
 	var pelvis := _skeleton.global_transform * _skeleton.get_bone_global_pose(hips).origin
 	# Aim at the middle of the fingers, not the wrist. The wrist is the top of the
@@ -135,10 +146,18 @@ func _process(_delta: float) -> void:
 
 	await RenderingServer.frame_post_draw
 	var shot := get_viewport().get_texture().get_image()
-	shot.save_png("res://handshot_%s.png" % POSES[_index])
+	_check("pose image saved", shot.save_png(_output.path_join("%s.png" % POSES[_index])) == OK)
 
 	_index += 1
 	if _index >= POSES.size():
-		get_tree().quit()
+		print("frames written to " + _output)
+		print("ALL CHECKS PASSED" if _failures == 0 else "%d CHECK(S) FAILED" % _failures)
+		get_tree().quit(0 if _failures == 0 else 1)
 		return
+	_capturing = false
 	_apply()
+
+func _check(label: String, ok: bool) -> bool:
+	if not ok: _failures += 1
+	print(("ok " if ok else "FAIL ") + label)
+	return ok

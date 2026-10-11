@@ -1,0 +1,104 @@
+#requires -Version 7.0
+[CmdletBinding()]
+param(
+    [string]$Godot = 'D:\Godot\Godot_v4.7.2-stable_win64_console.exe',
+    [string[]]$Checks = @('combocheck', 'hovercheck', 'speechcheck', 'dressercheck', 'layercheck', 'state_dialogue_check', 'interaction_check', 'movement_check', 'flagcheck', 'playcombo', 'navcheck', 'authored_scene_check'),
+    [int]$TimeoutSeconds = 45,
+    [int]$ImportTimeoutSeconds = 300,
+    [switch]$SkipImport,
+    [switch]$ProbeFailure,
+    [switch]$RunnerSelfTest
+)
+$ErrorActionPreference = 'Stop'
+$projectPath = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
+$runPath = Join-Path ([IO.Path]::GetTempPath()) ('cruises-checks-' + [guid]::NewGuid().ToString('N'))
+[IO.Directory]::CreateDirectory($runPath) | Out-Null
+Write-Host "Check logs: $runPath"
+if (-not (Test-Path -LiteralPath $Godot -PathType Leaf)) { throw "Godot executable not found: $Godot" }
+
+function Invoke-GodotCheck([string]$Name, [string[]]$LaunchArguments, [bool]$RequireMarker = $true, [int]$DeadlineSeconds = $TimeoutSeconds) {
+    $startInfo = [Diagnostics.ProcessStartInfo]::new()
+    $startInfo.FileName = $Godot
+    $startInfo.WorkingDirectory = $projectPath
+    $startInfo.UseShellExecute = $false
+    $startInfo.CreateNoWindow = $true
+    $startInfo.RedirectStandardOutput = $true
+    $startInfo.RedirectStandardError = $true
+    foreach ($argument in $LaunchArguments) { $startInfo.ArgumentList.Add($argument) }
+    $process = [Diagnostics.Process]::new()
+    $process.StartInfo = $startInfo
+    $process.Start() | Out-Null
+    $stdout = $process.StandardOutput.ReadToEndAsync()
+    $stderr = $process.StandardError.ReadToEndAsync()
+    $deadline = [DateTime]::UtcNow.AddSeconds($DeadlineSeconds)
+    $timedOut = $false
+    while (-not $process.WaitForExit(500)) {
+        if ([DateTime]::UtcNow -ge $deadline) {
+            $process.Kill($true)
+            $process.WaitForExit()
+            $timedOut = $true
+            break
+        }
+    }
+    $output = $stdout.GetAwaiter().GetResult() + $stderr.GetAwaiter().GetResult()
+    [IO.File]::WriteAllText((Join-Path $runPath ($Name + '.log')), $output)
+    $engineError = $output -match '(?m)^\s*(?:SCRIPT ERROR|ERROR):'
+    $reportedFailure = $output -match '(?m)^\s*(?:FAIL\b|CHECKS FAILED|[1-9][0-9]* CHECK\(S\) FAILED)'
+    $hasMarker = $output -match '(?m)^\s*(?:ALL CHECKS PASSED|CHECKS PASSED:)'
+    $ok = -not $timedOut -and $process.ExitCode -eq 0 -and -not $engineError -and -not $reportedFailure -and (-not $RequireMarker -or $hasMarker)
+    $exitCode = $process.ExitCode
+    $process.Dispose()
+    [pscustomobject]@{ Name=$Name; Passed=$ok; EngineError=$engineError; TimedOut=$timedOut; ExitCode=$exitCode; HasMarker=$hasMarker; Output=$output }
+}
+
+function Get-AuthoredHashes {
+    $hashes = @{}
+    foreach ($path in (& git -C $projectPath ls-files)) {
+        if ($path -match '\.(?:tscn|tres|glb|gd|json|godot)$') {
+            $absolutePath = Join-Path $projectPath $path
+            if (Test-Path -LiteralPath $absolutePath -PathType Leaf) {
+                $hashes[$path] = (Get-FileHash -LiteralPath $absolutePath -Algorithm SHA256).Hash
+            }
+        }
+    }
+    return $hashes
+}
+
+if ($ProbeFailure) {
+    $probe = Invoke-GodotCheck 'failure-probe' @('--headless','--path',$projectPath,'--script','res://tests/fixtures/runner_failure_probe.gd')
+    Write-Host $probe.Output
+    exit $(if ($probe.Passed) { 0 } else { 1 })
+}
+$before = Get-AuthoredHashes
+if (-not $SkipImport) {
+    $import = Invoke-GodotCheck 'import' @('--headless','--path',$projectPath,'--editor','--import','--quit') $false $ImportTimeoutSeconds
+    if (-not $import.Passed) { Write-Host $import.Output; throw 'Godot import failed; see import.log.' }
+}
+$failures = 0
+if ($RunnerSelfTest) {
+    $probe = Invoke-GodotCheck 'failure-probe' @('--headless','--path',$projectPath,'--script','res://tests/fixtures/runner_failure_probe.gd')
+    if ($probe.Passed -or -not $probe.EngineError -or $probe.ExitCode -ne 0 -or -not $probe.HasMarker) {
+        throw 'Runner failed to reject an engine error paired with successful exit/pass marker.'
+    }
+    Write-Host 'PASS runner rejects deliberate engine-error false-pass'
+}
+foreach ($name in $Checks) {
+    if ($name -notmatch '^[a-z0-9_]+$') { throw "Invalid check name: $name" }
+    $scenePath = Join-Path $PSScriptRoot ($name + '.tscn')
+    $launch = @('--headless','--path',$projectPath)
+    if (Test-Path -LiteralPath $scenePath) { $launch += 'res://tests/' + $name + '.tscn' }
+    else { $launch += @('--script', "res://tests/$name.gd") }
+    $result = Invoke-GodotCheck $name $launch
+    if ($result.Passed) { Write-Host "PASS $name" }
+    else { $failures += 1; Write-Host "FAIL $name (exit=$($result.ExitCode), timeout=$($result.TimedOut), engineError=$($result.EngineError), marker=$($result.HasMarker))"; Write-Host $result.Output }
+}
+$after = Get-AuthoredHashes
+foreach ($path in $before.Keys) {
+    if (-not $after.ContainsKey($path) -or $before[$path] -ne $after[$path]) {
+        $failures += 1
+        Write-Host "FAIL authored source changed: $path"
+    }
+}
+if ($failures -gt 0) { Write-Host "CHECKS FAILED: $failures (logs: $runPath)"; exit 1 }
+Write-Host "CHECKS PASSED: $($Checks.Count) checks; authored source unchanged (logs: $runPath)"
+exit 0

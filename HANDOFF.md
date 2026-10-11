@@ -523,11 +523,21 @@ render for this room. Match its palette and its level of detail.
 | id | what |
 | --- | --- |
 | `rolled_charts` | **REDO.** The owner discarded the first model — it came out a flat slab. Cause is in the sheet: the two end-on views were 107 px wide against an 814 px front, so there was nothing for Tripo to read the cylinder from. Give the ends their own full-width views |
+| `desk_globe` | small brass-mounted globe, as on the bookcase top left of the render. Asked for by name |
+| `picture_light` | the brass hooded light over the ship painting. Asked for by name |
+| `desk_lantern` | the glass-and-brass candle lantern standing on the desk, left of the render |
+| `rolled_parchment` | a single rolled parchment tied with cord. Asked for by name; distinct from `rolled_charts`, which is a bundle of three |
+| `loose_map` | an unrolled map lying flat, curled at the corners. Asked for by name |
+| `bookshelf_books` | a run of books for the shelves, as one piece. Asked for by name. Separate from `bookcase` so the shelves can be dressed without regenerating the unit |
 | `ladle` | Santi's galley ladle. Already referenced by the puzzle data |
 | `quill_stand` | quill in a stand, on the desk |
 | `ship_ledger` | the open log book on the desk |
 | `pewter_tankard` | the mug on the desk |
 | `rum_bottle` | dark glass bottle, as beside the chest in the render |
+
+The owner's words on this list: *"You have the whole night, just play around."* Nothing
+below row 1 needs approval before you make it. If you see something in the render that
+is not on this list and the room wants it, add the row yourself and make it.
 
 **What happens when you deliver.** Push the sheet and `asset.json` and move the row to
 Done. The engine side picks it up from there: Tripo reconstruction, texturing,

@@ -1,0 +1,28 @@
+[gd_scene format=3]
+[ext_resource type="Script" path="res://ui/icon_renderer/icon_renderer.gd" id="script"]
+[sub_resource type="Environment" id="Environment"]
+background_mode = 0
+ambient_light_source = 2
+ambient_light_color = Color(0.62, 0.60, 0.58, 1)
+ambient_light_energy = 0.45
+[sub_resource type="World3D" id="World"]
+environment = SubResource("Environment")
+[node name="IconRenderer" type="Node"]
+script = ExtResource("script")
+[node name="Viewport" type="SubViewport" parent="."]
+transparent_bg = true
+own_world_3d = true
+world_3d = SubResource("World")
+size = Vector2i(128, 128)
+render_target_update_mode = 0
+[node name="Content" type="Node3D" parent="Viewport"]
+[node name="Camera" type="Camera3D" parent="Viewport"]
+position = Vector3(0.75, 0.55, 1)
+fov = 32.0
+current = true
+[node name="KeyLight" type="DirectionalLight3D" parent="Viewport"]
+rotation = Vector3(-0.610865, 0.610865, 0)
+light_energy = 1.6
+[node name="FillLight" type="DirectionalLight3D" parent="Viewport"]
+rotation = Vector3(-0.174533, -2.268928, 0)
+light_energy = 0.6

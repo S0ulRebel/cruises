@@ -87,7 +87,7 @@ func play() -> void:
 			"location":
 				var id := String(beat.get("id", ""))
 				var places: Dictionary = _screenplay.get("locations", {})
-				_stage.set_location(places.get(id, {}))
+				_stage.set_location(places.get(id, {}), id)
 				_caption.hide_box()
 				_caption.clear_action()
 

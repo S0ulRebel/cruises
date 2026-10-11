@@ -1,102 +1,88 @@
 extends CanvasLayer
-## The list of things the player could say.
-##
-## Numbered, clickable, and keyboard-driven, because in a conversation-heavy game the
-## player is choosing hundreds of times and reaching for the mouse each time is friction
-## the jokes have to overcome.
-
+## Variable response rows in a fixed authored ledger.
 signal picked(index: int)
-
-## Seconds before an unattended run picks the first option. Zero waits for a human.
-## With `once` on the content branches, picking the first available each time walks the
-## whole conversation and then falls out of the exit - a free coverage check.
 @export var auto_pick_secs := 0.0
-
-var _panel: PanelContainer
-var _list: VBoxContainer
+const ROW := preload("res://ui/choice_row/choice_row.tscn")
+@onready var _panel: Control = $Root/DialoguePanel
+@onready var _scroll: ScrollContainer = $Root/DialoguePanel/Responses
+@onready var _list: VBoxContainer = $Root/DialoguePanel/Responses/List
+@onready var _portrait: Portrait = $Root/DialoguePanel/Portrait
 var _count := 0
-
+var _generation := 0
+var _waiting := false
+var _player: Dictionary = {}
 
 func _ready() -> void:
-	layer = 11
-	_build()
+	$Root/DialoguePanel/Speech.hide()
+	$Root/DialoguePanel/Continue.hide()
+	$Root/DialoguePanel/Footer.text = "Choose a response · arrows and Enter, or number keys"
+	$Root/DialoguePanel/ScrollUp.pressed.connect(_scroll_by.bind(-36))
+	$Root/DialoguePanel/ScrollDown.pressed.connect(_scroll_by.bind(36))
 
+func set_characters(characters: Array[CharacterDefinition]) -> void:
+	_portrait.set_characters(characters)
 
-func _build() -> void:
-	var root := MarginContainer.new()
-	root.set_anchors_preset(Control.PRESET_FULL_RECT)
-	# A full-screen Control swallows every mouse event by default, which is how the
-	# room ended up ignoring clicks entirely. Only the buttons want the mouse.
-	root.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	root.add_theme_constant_override("margin_left", 80)
-	root.add_theme_constant_override("margin_right", 80)
-	root.add_theme_constant_override("margin_bottom", 60)
-	add_child(root)
+func set_player(person: Dictionary) -> void:
+	_player = person
 
-	var column := VBoxContainer.new()
-	column.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	root.add_child(column)
-	var spacer := Control.new()
-	spacer.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	column.add_child(spacer)
-
-	_panel = PanelContainer.new()
-	var style := StyleBoxFlat.new()
-	style.bg_color = Color(0.04, 0.05, 0.07, 0.88)
-	style.border_color = Color(0.70, 0.58, 0.36, 0.9)
-	style.set_border_width_all(2)
-	style.set_corner_radius_all(10)
-	style.set_content_margin_all(20)
-	_panel.add_theme_stylebox_override("panel", style)
-	_panel.visible = false
-	_panel.mouse_filter = Control.MOUSE_FILTER_PASS
-	column.add_child(_panel)
-
-	_list = VBoxContainer.new()
-	_list.add_theme_constant_override("separation", 6)
-	_panel.add_child(_list)
-
-
-## Show the options and wait. Returns the index of the one chosen.
 func ask(options: Array) -> int:
-	for child in _list.get_children():
-		child.queue_free()
-
+	dismiss()
+	_generation += 1
+	var token := _generation
 	_count = options.size()
+	if _count == 0:
+		return -1
 	for i in _count:
-		var button := Button.new()
-		button.text = "%d.  %s" % [i + 1, options[i]]
-		button.alignment = HORIZONTAL_ALIGNMENT_LEFT
-		button.flat = true
-		button.add_theme_font_size_override("font_size", 28)
-		button.focus_mode = Control.FOCUS_NONE
-		button.pressed.connect(func() -> void: picked.emit(i))
-		_list.add_child(button)
-
-	_panel.visible = true
+		var row := ROW.instantiate() as Button
+		_list.add_child(row)
+		row.call("configure", i, String(options[i]))
+		row.pressed.connect(_choose.bind(i))
+		row.focus_entered.connect(_focus_row.bind(row))
+	_panel.show()
+	$Root/DialoguePanel/Speaker.text = "Your response"
+	var player_colour: Color = _player.get("colour", Color.WHITE) if _player.get("colour") is Color else Color(String(_player.get("colour", "#ffffff")))
+	_portrait.speak(String(_player.get("assets", "")), String(_player.get("name", "")), player_colour)
+	_portrait.settle()
+	_scroll.scroll_vertical = 0
+	_waiting = true
+	_list.get_child(0).grab_focus.call_deferred()
 	if auto_pick_secs > 0.0:
-		get_tree().create_timer(auto_pick_secs).timeout.connect(
-			func() -> void:
-				if _panel.visible:
-					picked.emit(0), CONNECT_ONE_SHOT)
+		get_tree().create_timer(auto_pick_secs).timeout.connect(func() -> void:
+			if token == _generation and _waiting:
+				_choose(0), CONNECT_ONE_SHOT)
 	var chosen: int = await picked
-	_panel.visible = false
+	dismiss()
 	return chosen
 
+func _choose(index: int) -> void:
+	if not _waiting or index < 0 or index >= _count:
+		return
+	_waiting = false
+	picked.emit(index)
+
+func _focus_row(row: Control) -> void:
+	_scroll.ensure_control_visible(row)
+
+func _scroll_by(amount: int) -> void:
+	_scroll.scroll_vertical += amount
 
 func dismiss() -> void:
-	_panel.visible = false
+	_generation += 1
+	_waiting = false
+	_panel.hide()
+	_portrait.dismiss()
 	_count = 0
-
+	for child in _list.get_children():
+		_list.remove_child(child)
+		child.queue_free()
 
 func _unhandled_key_input(event: InputEvent) -> void:
-	if _count == 0 or not _panel.visible:
+	if not _waiting:
 		return
 	var key := event as InputEventKey
 	if key == null or not key.pressed or key.echo:
 		return
 	var number := key.keycode - KEY_1
-	if number >= 0 and number < _count:
-		picked.emit(number)
+	if number >= 0 and number < mini(_count, 9):
+		_choose(number)
 		get_viewport().set_input_as_handled()

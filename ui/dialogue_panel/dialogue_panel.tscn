@@ -1,0 +1,194 @@
+[gd_scene format=3]
+[ext_resource type="Texture2D" path="res://art/ui/dialogue_frame.png" id="frame"]
+[ext_resource type="Texture2D" path="res://art/ui/speaker_ribbon.png" id="ribbon"]
+[ext_resource type="Texture2D" path="res://art/ui/controls_atlas.png" id="controls"]
+[ext_resource type="FontFile" path="res://art/ui/fonts/grenze/Grenze-SemiBold.ttf" id="name_font"]
+[ext_resource type="FontFile" path="res://art/ui/fonts/source_sans_3/SourceSans3-Regular.ttf" id="text_font"]
+[ext_resource type="PackedScene" path="res://ui/portrait.tscn" id="portrait"]
+[sub_resource type="AtlasTexture" id="Left"]
+atlas = ExtResource("frame")
+region = Rect2(39, 176, 129, 387)
+[sub_resource type="AtlasTexture" id="Middle"]
+atlas = ExtResource("frame")
+region = Rect2(168, 176, 1836, 387)
+[sub_resource type="AtlasTexture" id="Right"]
+atlas = ExtResource("frame")
+region = Rect2(2004, 176, 129, 387)
+[sub_resource type="AtlasTexture" id="Ribbon"]
+atlas = ExtResource("ribbon")
+region = Rect2(20, 211, 2132, 288)
+[sub_resource type="AtlasTexture" id="Up"]
+atlas = ExtResource("controls")
+region = Rect2(100, 145, 313, 215)
+[sub_resource type="AtlasTexture" id="Down"]
+atlas = ExtResource("controls")
+region = Rect2(611, 144, 316, 215)
+[sub_resource type="AtlasTexture" id="Chevron"]
+atlas = ExtResource("controls")
+region = Rect2(1181, 84, 238, 329)
+[sub_resource type="StyleBoxEmpty" id="Empty"]
+[node name="DialoguePanel" type="Control"]
+custom_minimum_size = Vector2(1760, 300)
+offset_right = 1760.0
+offset_bottom = 300.0
+mouse_filter = 2
+[node name="FrameLeft" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 100.0
+offset_bottom = 300.0
+mouse_filter = 2
+texture = SubResource("Left")
+expand_mode = 1
+stretch_mode = 0
+[node name="FrameMiddle" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 0.0
+offset_right = 1660.0
+offset_bottom = 300.0
+mouse_filter = 2
+texture = SubResource("Middle")
+expand_mode = 1
+stretch_mode = 0
+[node name="FrameRight" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 1660.0
+offset_top = 0.0
+offset_right = 1760.0
+offset_bottom = 300.0
+mouse_filter = 2
+texture = SubResource("Right")
+expand_mode = 1
+stretch_mode = 0
+[node name="Portrait" parent="." instance=ExtResource("portrait")]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 36.0
+offset_right = 288.0
+offset_bottom = 260.0
+mouse_filter = 2
+
+[node name="Ribbon" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 338.0
+offset_top = 0.0
+offset_right = 758.0
+offset_bottom = 40.0
+mouse_filter = 2
+texture = SubResource("Ribbon")
+expand_mode = 1
+[node name="Speaker" type="Label" parent="."]
+layout_mode = 0
+offset_left = 381.0
+offset_top = 0.0
+offset_right = 723.0
+offset_bottom = 40.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 0.94, 0.79, 1)
+theme_override_fonts/font = ExtResource("name_font")
+theme_override_font_sizes/font_size = 36
+vertical_alignment = 1
+text_overrun_behavior = 3
+[node name="Speech" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 338.0
+offset_top = 44.0
+offset_right = 1720.0
+offset_bottom = 232.0
+mouse_filter = 0
+theme_override_colors/default_color = Color(0.196, 0.098, 0.055, 1)
+theme_override_fonts/normal_font = ExtResource("text_font")
+theme_override_font_sizes/normal_font_size = 32
+theme_override_constants/line_separation = -3
+bbcode_enabled = false
+fit_content = false
+scroll_active = true
+scroll_following = false
+[node name="Responses" type="ScrollContainer" parent="."]
+layout_mode = 0
+offset_left = 338.0
+offset_top = 44.0
+offset_right = 1720.0
+offset_bottom = 232.0
+mouse_filter = 0
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 1
+[node name="List" type="VBoxContainer" parent="Responses"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_constants/separation = 4
+[node name="Footer" type="Label" parent="."]
+layout_mode = 0
+offset_left = 338.0
+offset_top = 236.0
+offset_right = 1668.0
+offset_bottom = 264.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.384, 0.251, 0.165, 1)
+theme_override_fonts/font = ExtResource("text_font")
+theme_override_font_sizes/font_size = 24
+text = "Continue Ã‚· Space or Enter"
+[node name="ScrollUp" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1700.0
+offset_top = 40.0
+offset_right = 1724.0
+offset_bottom = 64.0
+mouse_filter = 0
+focus_mode = 0
+theme_override_styles/normal = SubResource("Empty")
+theme_override_styles/hover = SubResource("Empty")
+theme_override_styles/pressed = SubResource("Empty")
+[node name="Icon" type="TextureRect" parent="ScrollUp"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 6.0
+offset_right = 20.0
+offset_bottom = 18.0
+mouse_filter = 2
+texture = SubResource("Up")
+expand_mode = 1
+[node name="ScrollDown" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1700.0
+offset_top = 210.0
+offset_right = 1724.0
+offset_bottom = 234.0
+mouse_filter = 0
+focus_mode = 0
+theme_override_styles/normal = SubResource("Empty")
+theme_override_styles/hover = SubResource("Empty")
+theme_override_styles/pressed = SubResource("Empty")
+[node name="Icon" type="TextureRect" parent="ScrollDown"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 6.0
+offset_right = 20.0
+offset_bottom = 18.0
+mouse_filter = 2
+texture = SubResource("Down")
+expand_mode = 1
+[node name="Continue" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1698.0
+offset_top = 234.0
+offset_right = 1728.0
+offset_bottom = 264.0
+mouse_filter = 0
+focus_mode = 2
+theme_override_styles/normal = SubResource("Empty")
+theme_override_styles/hover = SubResource("Empty")
+theme_override_styles/pressed = SubResource("Empty")
+tooltip_text = "Continue"
+[node name="Icon" type="TextureRect" parent="Continue"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 3.0
+offset_right = 24.0
+offset_bottom = 27.0
+mouse_filter = 2
+texture = SubResource("Chevron")
+expand_mode = 1

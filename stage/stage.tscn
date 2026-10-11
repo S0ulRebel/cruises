@@ -1,0 +1,10 @@
+[gd_scene format=3]
+[ext_resource type="Script" path="res://stage/stage.gd" id="script"]
+[ext_resource type="PackedScene" path="res://stage/pirate_quarters.tscn" id="pirate"]
+[ext_resource type="PackedScene" path="res://stage/cruise_office.tscn" id="cruise"]
+[node name="ColdOpenStage" type="Node2D"]
+script = ExtResource("script")
+[node name="Locations" type="Node2D" parent="."]
+[node name="PirateQuarters" parent="Locations" instance=ExtResource("pirate")]
+[node name="CruiseOffice" parent="Locations" instance=ExtResource("cruise")]
+visible = false

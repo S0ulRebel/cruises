@@ -1,0 +1,106 @@
+[gd_scene format=3]
+[ext_resource type="Script" path="res://stage/location_stage.gd" id="script"]
+[ext_resource type="PackedScene" path="res://stage/figure.tscn" id="figure"]
+[sub_resource type="Animation" id="Two"]
+resource_name = "two"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Actors/Live:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {"times": PackedFloat32Array(0), "transitions": PackedFloat32Array(1), "update": 1, "values": [Vector2(640, 777.6)]}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Actors/Count:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {"times": PackedFloat32Array(0), "transitions": PackedFloat32Array(1), "update": 1, "values": [Vector2(1280, 777.6)]}
+[sub_resource type="Animation" id="Three"]
+resource_name = "three"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Actors/Live:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {"times": PackedFloat32Array(0), "transitions": PackedFloat32Array(1), "update": 1, "values": [Vector2(480, 777.6)]}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Actors/Count:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {"times": PackedFloat32Array(0), "transitions": PackedFloat32Array(1), "update": 1, "values": [Vector2(960, 777.6)]}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Actors/Santi:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {"times": PackedFloat32Array(0), "transitions": PackedFloat32Array(1), "update": 1, "values": [Vector2(1440, 777.6)]}
+[sub_resource type="AnimationLibrary" id="Layouts"]
+_data = {"two": SubResource("Two"), "three": SubResource("Three")}
+[node name="pirate_quarters" type="Node2D"]
+script = ExtResource("script")
+location_id = "pirate_quarters"
+display_name = "Captain Livé's Quarters"
+[node name="Sky" type="ColorRect" parent="."]
+offset_left = -40.0
+offset_top = -40.0
+offset_right = 1960.0
+offset_bottom = 1120.0
+mouse_filter = 2
+color = Color(0.22745098039215686, 0.1411764705882353, 0.08627450980392157, 1)
+[node name="Floor" type="ColorRect" parent="."]
+offset_left = -40.0
+offset_top = 777.6
+offset_right = 1960.0
+offset_bottom = 1120.0
+mouse_filter = 2
+color = Color(0.11372549019607843, 0.06666666666666667, 0.03529411764705882, 1)
+[node name="Actors" type="Node2D" parent="."]
+[node name="Live" parent="Actors" instance=ExtResource("figure")]
+position = Vector2(640, 777.6)
+actor_id = "live"
+visible = true
+[node name="Body" parent="Actors/Live" index="0"]
+color = Color(0.10980392156862745, 0.10196078431372549, 0.12156862745098039, 1)
+[node name="Border" parent="Actors/Live" index="1"]
+default_color = Color(0.7058823529411765, 0.1450980392156863, 0.16470588235294117, 1)
+[node name="Accent" parent="Actors/Live" index="2"]
+color = Color(0.7058823529411765, 0.1450980392156863, 0.16470588235294117, 1)
+[node name="Name" parent="Actors/Live" index="3"]
+text = "Captain Livé"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+[node name="Count" parent="Actors" instance=ExtResource("figure")]
+position = Vector2(1280, 777.6)
+actor_id = "count"
+visible = true
+[node name="Body" parent="Actors/Count" index="0"]
+color = Color(0.9098039215686274, 0.4392156862745098, 0.16470588235294117, 1)
+[node name="Border" parent="Actors/Count" index="1"]
+default_color = Color(0.16862745098039217, 0.16862745098039217, 0.16862745098039217, 1)
+[node name="Accent" parent="Actors/Count" index="2"]
+color = Color(0.16862745098039217, 0.16862745098039217, 0.16862745098039217, 1)
+[node name="Name" parent="Actors/Count" index="3"]
+text = "Count Fingers"
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+[node name="Santi" parent="Actors" instance=ExtResource("figure")]
+position = Vector2(1440, 777.6)
+actor_id = "santi"
+visible = false
+[node name="Body" parent="Actors/Santi" index="0"]
+color = Color(0.9372549019607843, 0.9019607843137255, 0.8470588235294118, 1)
+[node name="Border" parent="Actors/Santi" index="1"]
+default_color = Color(0.7058823529411765, 0.1450980392156863, 0.16470588235294117, 1)
+[node name="Accent" parent="Actors/Santi" index="2"]
+color = Color(0.7058823529411765, 0.1450980392156863, 0.16470588235294117, 1)
+[node name="Name" parent="Actors/Santi" index="3"]
+text = "Santi Wong"
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+[node name="Layouts" type="AnimationPlayer" parent="."]
+libraries = {&"": SubResource("Layouts")}

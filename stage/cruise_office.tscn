@@ -1,0 +1,48 @@
+[gd_scene format=3]
+[ext_resource type="Script" path="res://stage/location_stage.gd" id="script"]
+[ext_resource type="PackedScene" path="res://stage/figure.tscn" id="figure"]
+[node name="cruise_office" type="Node2D"]
+script = ExtResource("script")
+location_id = "cruise_office"
+display_name = "Captain Choi's Office"
+[node name="Sky" type="ColorRect" parent="."]
+offset_left = -40.0
+offset_top = -40.0
+offset_right = 1960.0
+offset_bottom = 1120.0
+mouse_filter = 2
+color = Color(0.10588235294117647, 0.22745098039215686, 0.38823529411764707, 1)
+[node name="Floor" type="ColorRect" parent="."]
+offset_left = -40.0
+offset_top = 777.6
+offset_right = 1960.0
+offset_bottom = 1120.0
+mouse_filter = 2
+color = Color(0.050980392156862744, 0.10980392156862745, 0.1843137254901961, 1)
+[node name="Actors" type="Node2D" parent="."]
+[node name="Choi" parent="Actors" instance=ExtResource("figure")]
+position = Vector2(640, 777.6)
+actor_id = "choi"
+visible = true
+[node name="Body" parent="Actors/Choi" index="0"]
+color = Color(0.9490196078431372, 0.9568627450980393, 0.9686274509803922, 1)
+[node name="Border" parent="Actors/Choi" index="1"]
+default_color = Color(0.10588235294117647, 0.22745098039215686, 0.38823529411764707, 1)
+[node name="Accent" parent="Actors/Choi" index="2"]
+color = Color(0.10588235294117647, 0.22745098039215686, 0.38823529411764707, 1)
+[node name="Name" parent="Actors/Choi" index="3"]
+text = "Captain Choi"
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+[node name="Cook" parent="Actors" instance=ExtResource("figure")]
+position = Vector2(1280, 777.6)
+actor_id = "cruise_cook"
+visible = true
+[node name="Body" parent="Actors/Cook" index="0"]
+color = Color(1, 1, 1, 1)
+[node name="Border" parent="Actors/Cook" index="1"]
+default_color = Color(0.10588235294117647, 0.22745098039215686, 0.38823529411764707, 1)
+[node name="Accent" parent="Actors/Cook" index="2"]
+color = Color(0.10588235294117647, 0.22745098039215686, 0.38823529411764707, 1)
+[node name="Name" parent="Actors/Cook" index="3"]
+text = "Ship's Cook"
+theme_override_colors/font_color = Color(0, 0, 0, 1)

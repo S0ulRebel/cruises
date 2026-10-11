@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "date": "2026-10-11",
-  "status": "five_visual_options_for_owner_selection",
-  "selected_variant": null,
+  "status": "option_3_selected_by_owner",
+  "selected_variant": 3,
   "purpose": "Compare outer-frame treatments after the owner requested removing the vertical divider and raising Your response. These are full-screen concept previews, not engine textures.",
   "generator": "OpenAI built-in image generation via ChatGPT",
   "mode": "built-in",
@@ -16,7 +16,7 @@
     "Your response ribbon raised onto the upper rail.",
     "Same cabin composition, characters, multiline choices, selected second row and scrollbar."
   ],
-  "production_note": "After an option is selected, supply one continuous background plus an outer frame; composite the animated portrait over the panel. The previous aperture/divider-based production master and its geometry need replacement. No runtime implementation is included in this set.",
+  "production_note": "Owner selected option3. Final blank artwork is ../../dialogue_frame.png; ../../dialogue.json defines the current layout. One continuous backing/outer frame; animated portrait over parchment. The old divider/aperture layout is superseded.",
   "copy_note": "Preview response wording is layout content, not new screenplay.",
   "native_rasters_unchanged": true,
   "variants": [
@@ -90,5 +90,6 @@
       ],
       "sha256": "01f810f956bbc7e33658c6fe4893b5bf81e4068c36451727c37455d0c26b5435"
     }
-  ]
+  ],
+  "selection_date": "2026-10-11"
 }

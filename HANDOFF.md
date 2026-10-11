@@ -405,39 +405,29 @@ tuning the rest pose by eye at panel size to see whether that reads as a parting
 
 ### 2026-10-11 — for the engine side — integrate Captain’s Ledger dialogue UI
 
-**Latest owner direction — five previews awaiting selection:** remove the vertical
-portrait/text divider entirely and raise `Your response` onto the top rail. The
-portrait now shares one continuous parchment background with the response list.
-See `art/ui/reference/no_divider_variations/README.md` and its five numbered PNGs:
-walnut/brass, fine brass inlay, rope edge, oxblood leather and carved walnut.
-No option has been selected yet. The source/geometry below describes the previous
-delivery; its divider and portrait aperture are superseded. Produce the selected
-continuous background/outer frame before binding final art. Scrolling, focus and
-input work can continue independently. No engine changes accompany these previews.
+**Selected and delivered — variation 3, rope-edged walnut:** use the new blank
+`art/ui/dialogue_frame.png` and `art/ui/dialogue.json`. The frame has one continuous
+parchment interior, rope/walnut perimeter and four outer brass corners. The portrait
+renders over the shared paper with no internal divider, aperture or separate backing.
+The approved preview is `art/ui/reference/no_divider_variations/03_rope_edge.png`,
+also copied to `art/ui/reference/layout_concept.png`.
 
-**Previous delivered source, retained until replacement:**
-
-Use the corrected `art/ui/integrated_frame.png` and `art/ui/dialogue.json`.
-The current bar is one continuous frame with a straight wooden divider meeting both
-rails in clean wood T-junctions. Only its four outer corners have brass fittings: `(80,720,1760,300)` at 1920×1080. Draw the three adjacent atlas
-regions from that same source into widths 375/1235/150px. Caps keep their proportions;
-only the middle stretches horizontally. `dialogue_frame.png` and
+At 1920×1080, the whole bar remains `(80,720,1760,300)`. Draw three adjacent regions
+of the same source into widths 100/1560/100px, preserving both outer caps. The live
+portrait occupies `(144,756,224,224)`. The ribbon sits on the top rail at y720–760;
+content scrolls within y764–952 and the footer occupies y956–984. Four complete
+speech lines or four single-line response rows fit at the supplied font sizes.
+Keep the portrait visible during responses. `integrated_frame.png` and
 `portrait_frame.png` are preserved legacy sources and must not be rendered.
 
-Read `art/ui/ENGINE_INTEGRATION.md` for exact source/destination rectangles,
-portrait masking and input work. The live-face safe rectangle is
-`(142,764,212,212)`. Keep the portrait visible in the response state. The label now
-sits wholly inside parchment at y756–796, content scrolls within y800–956, and the
-footer occupies y960–988. Default typography fits three complete speech lines or
-three single-line response rows; longer content scrolls without enlarging the bar.
-
-Implement bounded scrolling, visible keyboard focus and explicit confirm/continue
-controls. The current caption handler accepts any key/mouse press, so **consume
-wheel/navigation/scrollbar events before they can advance dialogue**. Choice buttons
-currently use `FOCUS_NONE`. Verify the slice joins, portrait aperture, long text and
-these behaviors in Godot; the art delivery does not implement them. Mockup copy is
-layout content, not new screenplay or canon. No animation change is part of this
-frame correction.
+Read `art/ui/ENGINE_INTEGRATION.md` for the exact source rectangles, layers and
+remaining input work. Implement bounded scrolling, visible keyboard focus and
+explicit confirm/continue controls. The audited caption handler accepts any
+key/mouse press, so **consume wheel/navigation/scrollbar events before they can
+advance dialogue**. Choice buttons currently use `FOCUS_NONE`. Verify frame joins,
+the live portrait, long text and input in Godot; engine integration remains open.
+Mockup copy is layout content, not new screenplay or canon. No engine code or
+animation was changed by this art delivery.
 
 **Scene direction agreed with the owner:** retain the warm dark wood/brass/red
 palette and overall cabin layout, remove modern visible fittings (AC, sockets,
@@ -659,6 +649,27 @@ text/portrait responsibilities are retained. The confirmed safe face rectangle i
 checks; `reference/layout_concept.png` shows the corrected composition. Engine
 integration and runtime verification remain in the existing Open item. No engine
 code, animation or screenplay was changed.
+
+---
+
+### 2026-10-11 — art side — selected rope-edged dialogue frame delivered
+
+The owner selected **variation 3** from the five divider-free previews. Delivered
+the final blank `art/ui/dialogue_frame.png`: 2172×724 RGBA, continuous parchment,
+rope/walnut perimeter and four outer brass corners. It replaces the divider and
+portrait-aperture construction above; `integrated_frame.png` and
+`portrait_frame.png` are preserved unused.
+
+Updated `art/ui/dialogue.json`, `README.md` and `ENGINE_INTEGRATION.md` for the
+`(80,720,1760,300)` bar with 100/1560/100px sections of the same source. The portrait
+renders over the shared paper at `(144,756,224,224)`. The raised title at y720 and
+188px scrolling viewport recover four full speech lines or four single-line choices.
+Fonts, helper assets and live text/portrait responsibilities remain unchanged.
+
+`source_validation.json` and `generation.json` record the final source checks and
+provenance. `reference/layout_concept.png` now shows the selected rope-edged option.
+Engine integration and runtime verification remain in the existing Open item;
+no engine code, animation or screenplay was changed.
 
 ---
 

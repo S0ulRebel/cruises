@@ -1,81 +1,56 @@
 # Captain’s Ledger UI art
 
-## Current review — five versions without the divider
+## Selected design — rope-edged walnut
 
-The owner’s latest direction removes the internal divider and separate portrait
-backing, and raises **Your response** onto the upper rail. Five numbered previews
-are in [reference/no_divider_variations/README.md](reference/no_divider_variations/README.md).
-An option has not yet been selected. The earlier production package documented
-below is retained; its divider/aperture construction needs replacement after the
-frame choice. Scrolling and input work can continue independently.
+The owner selected **variation 3**, shown in
+`reference/no_divider_variations/03_rope_edge.png` and the canonical
+`reference/layout_concept.png`. The blank production frame is delivered;
+**engine integration and runtime verification remain pending**.
 
-## Previous production package
+The design uses one continuous parchment field inside a rope/walnut perimeter,
+with brass at the four outer corners. The live portrait sits directly over the
+shared paper. There is no internal divider, portrait aperture or separate backing.
+The name/response ribbon sits on the upper rail.
 
-The previous delivery uses **one continuous walnut/brass frame with one shared divider**.
-The owner requested this correction because the earlier independent portrait and
-speech frames had mismatched joins. That correction removed both rejected internal metal connectors: a straight
-wood divider meets both rails in clean T-junctions. Brass remains only at the four
-outer corners. Engine integration is still pending.
+## Layout and active artwork
 
-## Start here
-
-`dialogue.json` is the current layout and asset contract. At the 1920×1080 logical
-resolution, the whole bar is `(80,720,1760,300)`: top 720, bottom 1020. Render three
-adjacent regions of **the same `integrated_frame.png`**, with destination widths
-375, 1235 and 150px. Scale the left assembly and right cap uniformly by 75/97; stretch
-only the middle region horizontally. Source and destination rectangles are explicit
-in the manifest. This preserves the plain wooden divider and outer brass corners.
-
-There is no gap or second frame underneath the shared divider. The old
-`dialogue_frame.png` and `portrait_frame.png` remain in the repository as **legacy,
-unused sources**; their old rendering geometry has been removed from the active
-contract.
-
-The label ribbon now sits wholly inside the parchment at y756–796. Speech and
-responses use a bounded 156px-high viewport at y800–956; the footer occupies
-960–988. At the default sizes, three complete speech lines or three single-line
-responses fit. More content scrolls instead of enlarging the 300px bar.
-
-## Active artwork
+`dialogue.json` is the exact asset and layout contract for the 1920×1080 logical
+canvas. The whole bar is **`(80,720,1760,300)`**. Draw three adjacent regions of
+one `dialogue_frame.png` into widths **100/1560/100px**. The outer caps retain their
+proportions; only the middle stretches horizontally. Source regions and draw sizes
+are explicit in the manifest and `ENGINE_INTEGRATION.md`.
 
 | File | Purpose |
 | --- | --- |
-| `integrated_frame.png` | Continuous rails, one shared divider, transparent portrait aperture and parchment field. |
-| `speaker_ribbon.png` | Blank red ribbon for a dynamic name or response-state label. |
-| `response_highlight.png` | Blank red/gold selection background for single or wrapped rows. |
-| `controls_atlas.png` | Up/down arrows, right chevron, thumb, track and blank number medallion. |
+| `dialogue_frame.png` | Blank continuous parchment with rope/walnut perimeter and four brass corners. |
+| `speaker_ribbon.png` | Blank red ribbon for a live speaker name or response label. |
+| `response_highlight.png` | Blank selection background for single or wrapped rows. |
+| `controls_atlas.png` | Scroll arrows, chevron, thumb, track and blank number medallion. |
 
-These are unchanged native RGBA PNGs. Use the measured source regions, not the full
-canvases or independently cropped/resampled copies. The ribbon, highlight and
-controls retain their own stretch or atlas metadata. Keep all live text and hit
-targets separate from the visual source layers.
+These are native RGBA source PNGs. Use their atlas metadata; do not stretch their
+full canvases into the runtime rectangles. `integrated_frame.png` and
+`portrait_frame.png` are preserved **legacy, unused** sources.
 
-## Portrait and typography
+The ribbon occupies y720–760, the bounded text viewport y764–952, and the footer
+y956–984. The 188px viewport fits four complete speech lines or four single-line
+response rows; longer or wrapped content scrolls without enlarging the 300px bar.
+The transparent live portrait renders **over** the paper at `(144,756,224,224)`.
+It has no additional background, frame or aperture mask.
 
-The live portrait belongs behind the master’s transparent opening. Its safe face
-rectangle is **`(142,764,212,212)`** on screen. A larger viewport may fill the curved
-opening when masked/clipped to it; keep the eyes, mouth and moving chin in that
-safe area. A muted red backing remains a separate engine element.
+## Live text and integration
 
-The supplied fonts remain Grenze SemiBold 36px for names, Source Sans 3 Regular 32px
+Supplied fonts remain Grenze SemiBold 36px for names, Source Sans 3 Regular 32px
 for speech, Source Sans 3 Semibold 30px for choices, and Regular 24px for the footer.
-Original licences, pinned provenance and fallback information are under `fonts/`
-and in the manifest. Names, dialogue, numbers, hints and portraits remain dynamic.
-Mockup lettering and responses are illustrative, not new screenplay or canon.
+Licences, provenance and fallback information are in `fonts/` and the manifest.
+Names, dialogue, numbers, hints and portraits remain dynamic. Mockup copy is
+layout content, not new screenplay or canon.
 
-## Verification and integration
+`source_validation.json` records image checks; `generation.json` records provenance.
+The frame exterior is transparent, the paper has no transparent portrait hole,
+and the broad paper sample has median alpha 253/255.
 
-`source_validation.json` records the native-image and alpha checks;
-`generation.json` records provenance. The master’s safe portrait sample contains
-only alpha 0–1, with 99.972332% exactly zero. Parchment is almost opaque, median alpha 253.
-The source PNG is not flattened or repainted to change those values.
-
-`ENGINE_INTEGRATION.md` gives the current mapping and remaining engine work. Verify
-slice joins, scrolling, keyboard focus, long text and portrait states in Godot.
-Scroll-wheel/navigation input must not advance dialogue. No engine code, animation
-or screenplay was changed by this art correction.
-
-`reference/layout_concept.png` illustrates the unified frame and internal label;
-the manifest supplies exact runtime dimensions. Reference room images remain
-composition guides, not camera-matched production backdrops. The earlier caveat
-about simplifying the carpet markings still applies.
+Follow `ENGINE_INTEGRATION.md` for layer order, bounded scrolling and focus.
+Scroll-wheel/navigation input must not advance dialogue. No engine code,
+animation or screenplay was changed by this art delivery. Room reference images
+remain composition guides, not final camera-matched backdrops; simplify the carpet
+markings in final scenery.

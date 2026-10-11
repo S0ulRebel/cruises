@@ -5,8 +5,8 @@
   "date": "2026-10-11",
   "status": "source_art_delivered; engine_integration_pending",
   "approval": {
-    "direction": "User selected the second response/ledger preview.",
-    "latest_correction": "The previous internal-connector attempt was rejected. The current source has a straight wooden divider meeting both rails with clean wooden T-junctions; brass remains only on the four outer corners. The label stays entirely inside parchment and the bar remains 300px high.",
+    "direction": "User selected variation 3: rope-edged walnut, from the five divider-free previews.",
+    "latest_correction": "Final blank production frame has one continuous parchment interior, rope/walnut perimeter and four outer brass corners. There is no divider, portrait aperture or separate portrait backing. The live portrait renders over shared paper; the title is raised onto the top rail.",
     "scene_status": "Composition and colours accepted as a guide; carpet markings need simplification. Room image is not a final camera-matched backdrop."
   },
   "design_canvas_px": [
@@ -21,72 +21,72 @@
       1760,
       300
     ],
-    "frame_asset": "integrated_frame",
-    "frame_rendering": "Three adjacent horizontal slices of one unchanged texture; fixed left assembly with plain wood divider, fixed right cap, and middle stretched only horizontally. No independent frame layers or internal metal connectors.",
+    "frame_asset": "dialogue_frame",
+    "frame_rendering": "Three adjacent horizontal slices of one unchanged texture; two fixed outer caps and a middle stretched horizontally. One continuous parchment field, with no internal divider or portrait aperture.",
     "visible_frame_height_px": 300,
-    "alignment": "One continuous bar, top 720 and bottom 1020; label and ornaments remain inside.",
+    "alignment": "One continuous bar, top 720 and bottom 1020. The ribbon sits on the upper rail.",
     "parchment_safe_vertical_range_px": [
-      752,
-      988
+      753.33,
+      984.34
     ],
     "name_ribbon_rect_px": [
       418,
-      756,
+      720,
       420,
       40
     ],
     "name_safe_area_px": [
       461,
-      756,
+      720,
       342,
       40
     ],
     "name_ribbon_max_width_px": 1382,
     "scroll_region_px": [
       418,
-      800,
+      764,
       1382,
-      156
+      188
     ],
     "content_viewport_px": [
       418,
-      800,
+      764,
       1350,
-      156
+      188
     ],
     "scrollbar_region_px": [
       1784,
-      800,
+      764,
       16,
-      156
+      188
     ],
     "scroll_track_rect_px": [
       1784,
-      824,
+      788,
       16,
-      108
+      140
     ],
     "scroll_up_draw_rect_px": [
       1784,
-      802,
+      766,
       16,
       12
     ],
     "scroll_down_draw_rect_px": [
       1784,
-      942,
+      938,
       16,
       12
     ],
     "footer_rect_px": [
       418,
-      960,
+      956,
       1382,
       28
     ],
     "continue_draw_rect_px": [
       1782,
-      962,
+      958,
       18,
       24
     ],
@@ -94,29 +94,27 @@
       24,
       24
     ],
-    "portrait_opening_local_approx_px": [
-      41.75258,
-      32.47423,
-      249.74227,
-      231.95876
+    "portrait_viewport_local_rect_px": [
+      64,
+      36,
+      224,
+      224
     ],
-    "portrait_face_safe_local_rect_px": [
-      62,
-      44,
-      212,
-      212
+    "portrait_viewport_screen_rect_px": [
+      144,
+      756,
+      224,
+      224
     ],
-    "portrait_face_safe_screen_rect_px": [
-      142,
-      764,
-      212,
-      212
+    "portrait_note": "Render the transparent live head over the shared parchment within this viewport. No separate backing colour, portrait frame or aperture mask. Keep the face and animated features within the viewport.",
+    "layer_order": [
+      "shared dialogue_frame and parchment",
+      "transparent live portrait",
+      "ribbon, response highlights and control sprites",
+      "dynamic text and focus"
     ],
-    "portrait_note": "Local coordinates are relative to the unified bar at 80,720. Draw the live SubViewport beneath integrated_frame.png; the opening is curved. Keep eyes, mouth and moving chin inside the safe rectangle.",
-    "portrait_backing_colour": "#421617",
-    "portrait_live_viewport_note": "A larger viewport may fill the opening if clipped/masked to its curved boundary. Keep the portrait backing separate; no character or backing is baked into the master PNG.",
-    "sizing_rule": "Long speech and wrapped responses scroll within 156px. Content never enlarges the 300px bar. Use the supplied adjacent source/destination rectangles; do not stretch the full PNG into the bar.",
-    "responsive_rule": "Scale the logical canvas uniformly. If adapting width at 300px height, keep the left 375px and right 150px sections fixed and stretch only the middle span."
+    "sizing_rule": "Long speech and wrapped responses scroll within 188px. Content never enlarges the 300px bar. Use the adjacent source/destination rectangles; do not stretch the full PNG into the bar.",
+    "responsive_rule": "Scale the logical canvas uniformly. If adapting width at 300px height, keep both outer 100px caps fixed and resize only the middle span."
   },
   "typography": {
     "name": {
@@ -153,7 +151,7 @@
       "portrait": "current speaker",
       "label": "speaker name",
       "scrolls": "speech text only",
-      "visible_full_lines_at_default_size": 3,
+      "visible_full_lines_at_default_size": 4,
       "start_position": "top",
       "auto_follow": "Only while the reader is already at the bottom. Preserve manual scroll-back.",
       "continue": "First activation finishes typewriter reveal; next advances. Scroll actions are never advance actions."
@@ -164,28 +162,28 @@
       "scrolls": "response list only",
       "single_line_row_min_height_px": 44,
       "row_gap_px": 4,
-      "visible_single_line_rows": 3,
-      "wrapped_rows": "Grow to fit text; fewer rows are visible when wrapping. Three 44px single-line rows plus two 4px gaps occupy 140px of the 156px viewport. Panel remains 300px high.",
+      "visible_single_line_rows": 4,
+      "wrapped_rows": "Grow to fit text; fewer rows are visible when wrapping. Four 44px single-line rows plus three 4px gaps exactly fill the 188px viewport. Panel remains 300px high.",
       "focus": "Selected background plus brass outline and chevron; keep live numbers.",
       "activation": "Mouse click or explicit confirm action, not scroll wheel or focus navigation."
     }
   },
   "assets": {
-    "integrated_frame": {
-      "file": "integrated_frame.png",
+    "dialogue_frame": {
+      "file": "dialogue_frame.png",
       "source_size_px": [
-        1644,
-        957
+        2172,
+        724
       ],
       "mode": "RGBA",
-      "sha256": "ef89a1f7fcf2af7544f17e18fc9988abd60eaf8bc967abb3a5674a178c9db6f1",
+      "sha256": "48b3f29bbf245c201d427bfc9a72181605abc2c5f8439cb07222b6e48152d646",
       "native_raster_unchanged": true,
-      "background": "Transparent exterior and portrait aperture; parchment is almost opaque, median alpha 253/255.",
+      "background": "Transparent exterior. The continuous parchment interior has no transparent portrait hole; broad paper sample alpha 252..254, median 253/255.",
       "atlas_region_px": [
-        18,
-        275,
-        1608,
-        388
+        39,
+        176,
+        2094,
+        387
       ],
       "render_strategy": "horizontal_three_slice",
       "target_rect_px": [
@@ -195,79 +193,73 @@
         300
       ],
       "cap_uniform_scale_ratio": [
-        75,
-        97
+        100,
+        129
       ],
-      "cap_uniform_scale": 0.7731958762886598,
+      "cap_uniform_scale": 0.7751937984496124,
       "slices": [
         {
-          "id": "left_assembly",
+          "id": "left_cap",
           "source_region_px": [
-            18,
-            275,
-            485,
-            388
+            39,
+            176,
+            129,
+            387
           ],
           "destination_rect_px": [
             80,
             720,
-            375,
+            100,
             300
           ],
           "scale_xy": [
-            0.7731958762886598,
-            0.7731958762886598
+            0.7751937984496124,
+            0.7751937984496124
           ],
-          "behavior": "Fixed proportions; includes portrait aperture, entire straight wooden divider and both clean wood T-junctions."
+          "behavior": "Fixed proportions; preserves the left rope/walnut edge and outer brass corners."
         },
         {
           "id": "middle_span",
           "source_region_px": [
-            503,
-            275,
-            929,
-            388
+            168,
+            176,
+            1836,
+            387
           ],
           "destination_rect_px": [
-            455,
+            180,
             720,
-            1235,
+            1560,
             300
           ],
           "scale_xy": [
-            1.3293864370290636,
-            0.7731958762886598
+            0.8496732026143791,
+            0.7751937984496124
           ],
-          "behavior": "Stretch horizontally only; cuts are in quiet rails/parchment beyond the divider and outer corner ornaments."
+          "behavior": "Stretch horizontally only through the long rails and continuous paper. Modest horizontal extension is acceptable at the design width; no tiling algorithm is required."
         },
         {
           "id": "right_cap",
           "source_region_px": [
-            1432,
-            275,
-            194,
-            388
+            2004,
+            176,
+            129,
+            387
           ],
           "destination_rect_px": [
-            1690,
+            1740,
             720,
-            150,
+            100,
             300
           ],
           "scale_xy": [
-            0.7731958762886598,
-            0.7731958762886598
+            0.7751937984496124,
+            0.7751937984496124
           ],
-          "behavior": "Fixed proportions; includes complete right outer brass corners."
+          "behavior": "Fixed proportions; preserves the right rope/walnut edge and outer brass corners."
         }
       ],
-      "runtime_method": "Draw these three atlas regions into adjacent destination rectangles in one fixed Control host. All use the same source texture and meet exactly at x455 and x1690. Keep live text, portrait and controls separate. Preserve source alpha and the parchment field; do not overlay legacy frames or divider hardware.",
-      "portrait_hole_source_rect_px": [
-        72,
-        317,
-        323,
-        300
-      ]
+      "runtime_method": "Draw the three atlas regions into adjacent destination rectangles in one fixed Control host; all use the same source and meet at x180 and x1740. Draw the transparent live portrait over shared parchment. Keep live text, ribbon, highlights and controls separate. Preserve source alpha and do not overlay legacy frames."
     },
     "speaker_ribbon": {
       "file": "speaker_ribbon.png",
@@ -414,7 +406,7 @@
           ],
           "nominal_draw_size_px": [
             16,
-            108
+            140
           ],
           "nine_slice": {
             "source_margins_ltrb_px": [
@@ -450,16 +442,16 @@
   },
   "references": {
     "layout_concept": "reference/layout_concept.png",
-    "selected_direction": "reference/selected_response_concept.png",
+    "selected_direction": "reference/no_divider_variations/03_rope_edge.png",
     "room_composition": "reference/room_composition_concept.png",
-    "note": "Concept images are 1672x941 illustrations. layout_concept.png shows the corrected unified frame and internal label. Exact runtime dimensions come from this manifest. Preview dialogue/response copy is layout content, not additional authored game dialogue."
+    "note": "The selected 1672x941 preview is variation 3, rope-edged walnut. layout_concept.png is the canonical copy. Exact runtime dimensions come from this manifest. Preview dialogue/response copy is layout content, not additional authored game dialogue."
   },
   "validation": {
-    "source_assets": "The active master is 1644x957 RGBA with a plain wooden divider, clean wood T-junctions, four outer brass corners and a transparent portrait opening. The master and existing helper PNGs remain unchanged native source files.",
-    "integrated_frame_geometry": "The three source regions exactly cover [18,275,1608,388]; destination widths 375+1235+150=1760, all at y720/height 300. Outer brass fittings and the plain wooden divider remain in the fixed caps.",
-    "portrait_safe_area": "Screen [142,764,212,212] corresponds to sampled native bounds [98,331,373,607] with exclusive ends. Alpha 0..1; 99.972332% exactly 0; no opaque pixels.",
-    "alpha": "Measured portrait hole: 95895 pixels, mean alpha 0.15438761145/255, 93.733771% zero. Broad parchment sample alpha 252..254, median 253; center RGBA [245,225,192,253].",
-    "native_rasters": "All PNG files are byte-for-byte generated outputs; runtime source rectangles and draw sizes are metadata. Legacy standalone frames are preserved but unused.",
+    "source_assets": "The active master is 2172x724 RGBA: rope/walnut perimeter, four outer brass corners and one continuous blank parchment interior. No internal divider, portrait aperture or baked text/portrait. Existing helper PNGs are retained.",
+    "frame_geometry": "Source regions exactly cover [39,176,2094,387]. Destination widths 100+1560+100=1760, all at y720/height 300. Outer corner fittings remain in the uniformly scaled caps.",
+    "portrait_rendering": "Screen [144,756,224,224] is a transparent live viewport drawn over shared paper, without an aperture mask or backing colour.",
+    "alpha": "All four canvas corners have alpha 0. The interior has no transparent holes. Broad paper sample alpha 252..254, median 253; center RGBA [247,226,196,253].",
+    "native_rasters": "All PNG files are unchanged native source outputs; source rectangles and draw sizes are runtime metadata. Legacy integrated and portrait frames are preserved but unused.",
     "details": "source_validation.json",
     "engine": "Not imported or tested in Godot in this art session. Integration ownership remains with the engine side."
   },
@@ -470,19 +462,19 @@
     "https://docs.godotengine.org/en/stable/classes/class_control.html#class-control-property-scale"
   ],
   "legacy_assets": {
-    "dialogue_frame": {
-      "file": "dialogue_frame.png",
+    "integrated_frame": {
+      "file": "integrated_frame.png",
       "source_size_px": [
-        2172,
-        724
+        1644,
+        957
       ],
       "mode": "RGBA",
-      "sha256": "622a0488b70b8a81ddc8fa1ff36e15f8b33532dea31ac58e8bb64c6079d551ad",
+      "sha256": "ef89a1f7fcf2af7544f17e18fc9988abd60eaf8bc967abb3a5674a178c9db6f1",
       "native_raster_unchanged": true,
       "status": "legacy_unused",
       "runtime_use": false,
-      "superseded_by": "integrated_frame",
-      "note": "Preserved source history only. Do not render alongside the integrated frame."
+      "superseded_by": "dialogue_frame",
+      "note": "Previous divided frame and portrait aperture, preserved as source history only. Do not render with the selected rope-edged frame."
     },
     "portrait_frame": {
       "file": "portrait_frame.png",
@@ -495,8 +487,8 @@
       "native_raster_unchanged": true,
       "status": "legacy_unused",
       "runtime_use": false,
-      "superseded_by": "integrated_frame",
-      "note": "Preserved source history only. Do not render alongside the integrated frame."
+      "superseded_by": "dialogue_frame",
+      "note": "Preserved source history only. The selected design uses an unframed portrait over shared paper."
     }
   }
 }

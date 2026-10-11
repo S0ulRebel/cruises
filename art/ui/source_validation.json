@@ -6,25 +6,41 @@
         724
       ],
       "mode": "RGBA",
-      "corner_alpha": 0,
-      "center_alpha": 253,
-      "fully_transparent_pixel_fraction": 0.306231,
-      "has_true_transparency": true,
-      "has_visible_art": true,
-      "status": "legacy; not rendered in the integrated layout"
-    },
-    "portrait_frame": {
-      "size_px": [
-        1254,
-        1254
+      "sha256": "48b3f29bbf245c201d427bfc9a72181605abc2c5f8439cb07222b6e48152d646",
+      "native_raster_unchanged": true,
+      "atlas_region_px": [
+        39,
+        176,
+        2094,
+        387
       ],
-      "mode": "RGBA",
-      "corner_alpha": 0,
-      "center_alpha": 0,
-      "fully_transparent_pixel_fraction": 0.674181,
-      "has_true_transparency": true,
-      "has_visible_art": true,
-      "status": "legacy; not rendered in the integrated layout"
+      "canvas_corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "centre_rgba": [
+        247,
+        226,
+        196,
+        253
+      ],
+      "parchment_sample_rect_px": [
+        353,
+        272,
+        1465,
+        194
+      ],
+      "parchment_sample_alpha_min_max_median": [
+        252,
+        254,
+        253.0
+      ],
+      "fully_transparent_pixel_fraction": 0.47589613666656494,
+      "interior_transparent_holes": [],
+      "has_true_transparency_outside": true,
+      "portrait_aperture": false
     },
     "speaker_ribbon": {
       "size_px": [
@@ -61,7 +77,69 @@
       "fully_transparent_pixel_fraction": 0.80835,
       "has_true_transparency": true,
       "has_visible_art": true
-    },
+    }
+  },
+  "layout_assertions": {
+    "combined_frame_screen_xywh_px": [
+      80,
+      720,
+      1760,
+      300
+    ],
+    "same_top": 720,
+    "same_bottom": 1020,
+    "shared_divider": false,
+    "source_slices_tile_region": true,
+    "destination_slices_tile_combined_frame": true,
+    "fixed_caps_uniform_scale": 0.7751937984496124,
+    "name_ribbon_screen_xywh_px": [
+      418,
+      720,
+      420,
+      40
+    ],
+    "content_viewport_screen_xywh_px": [
+      418,
+      764,
+      1350,
+      188
+    ],
+    "footer_screen_xywh_px": [
+      418,
+      956,
+      1382,
+      28
+    ],
+    "four_single_line_response_rows_with_gaps_px": 188
+  },
+  "scope": "Native image/alpha inspection and source/layout metadata. No Godot runtime implementation or input-test claim.",
+  "revision": "selected_option_3_rope_frame",
+  "active_assets": [
+    "dialogue_frame",
+    "speaker_ribbon",
+    "response_highlight",
+    "controls_atlas"
+  ],
+  "legacy_portrait_aperture_measurement": {
+    "alpha_threshold": 16,
+    "enclosed_hole_source_ltrb_px": [
+      177,
+      195,
+      1075,
+      1042
+    ],
+    "hole_pixels": 748464,
+    "fully_zero_alpha_fraction": 0.9683618718,
+    "mean_alpha_0_to_255": 0.0518875991,
+    "note": "True transparent centre; faint alpha1–16 raster fringe/speckles remain. The mean opacity over the hole is about0.0204%. No portrait or opaque backing is present. Native alpha was preserved."
+  },
+  "visual_review": {
+    "frame": "One rope-edged walnut perimeter with four outer brass corners, following the owner-selected preview.",
+    "interior": "Continuous blank parchment from left to right; no divider, aperture, portrait backing, text or controls baked into the panel.",
+    "preview": "reference/layout_concept.png is an unchanged copy of the selected03_rope_edge.png preview.",
+    "layering": "The animated portrait renders over the same parchment as the text; helpers and fonts remain separate."
+  },
+  "legacy_assets": {
     "integrated_frame": {
       "size_px": [
         1644,
@@ -101,47 +179,24 @@
         252,
         254,
         253.0
-      ]
+      ],
+      "status": "legacy_unused"
+    },
+    "portrait_frame": {
+      "size_px": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "corner_alpha": 0,
+      "center_alpha": 0,
+      "fully_transparent_pixel_fraction": 0.674181,
+      "has_true_transparency": true,
+      "has_visible_art": true,
+      "status": "legacy_unused"
     }
   },
-  "layout_assertions": {
-    "combined_frame_screen_xywh_px": [
-      80,
-      720,
-      1760,
-      300
-    ],
-    "equal_height": 300,
-    "same_top": 720,
-    "same_bottom": 1020,
-    "inter_panel_gap": 0,
-    "shared_divider": true,
-    "source_slices_tile_region": true,
-    "destination_slices_tile_combined_frame": true,
-    "fixed_caps_uniform_scale": 0.7731958762886598
-  },
-  "scope": "Read-only source image inspection, alpha measurements and manifest geometry; engine runtime integration remains pending.",
-  "revision": "integrated_frame_clean_wooden_join",
-  "active_assets": [
-    "integrated_frame",
-    "speaker_ribbon",
-    "response_highlight",
-    "controls_atlas"
-  ],
-  "legacy_portrait_aperture_measurement": {
-    "alpha_threshold": 16,
-    "enclosed_hole_source_ltrb_px": [
-      177,
-      195,
-      1075,
-      1042
-    ],
-    "hole_pixels": 748464,
-    "fully_zero_alpha_fraction": 0.9683618718,
-    "mean_alpha_0_to_255": 0.0518875991,
-    "note": "True transparent centre; faint alpha1–16 raster fringe/speckles remain. The mean opacity over the hole is about0.0204%. No portrait or opaque backing is present. Native alpha was preserved."
-  },
-  "portrait_aperture_measurement": {
+  "legacy_integrated_aperture_measurement": {
     "asset": "integrated_frame.png",
     "alpha_threshold": 16,
     "enclosed_hole_source_xywh_px": [
@@ -172,10 +227,15 @@
     "safe_face_fully_zero_alpha_fraction": 0.9997233201581027,
     "note": "The aperture is genuinely transparent with faint generated alpha fringe. The safe face sample is 99.9723% alpha0, with the rest alpha1. Preserve native alpha and render the live portrait behind this opening."
   },
-  "visual_review": {
-    "shared_join": "Both internal brass connectors have been removed. The one straight wooden divider reaches directly into both horizontal rails with simple rectangular construction.",
-    "outer_rails": "Continuous top and bottom walnut rails; brass fittings remain only on the four outside corners.",
-    "portrait_and_text": "Empty portrait aperture and blank parchment source; live content remains separate.",
-    "preview": "Updated reference/layout_concept.png shows this plain wooden join, inset response label and existing room, characters and response controls."
+  "portrait_rendering": {
+    "mode": "transparent live portrait over shared parchment",
+    "screen_rect_px": [
+      144,
+      756,
+      224,
+      224
+    ],
+    "separate_backing": false,
+    "aperture_mask": false
   }
 }

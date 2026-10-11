@@ -1,80 +1,60 @@
 # Captain’s Ledger — engine integration
 
-> **Owner review update, 11 October 2026:** the next frame has no internal divider
-> or portrait aperture. Five previews are under `reference/no_divider_variations/`;
-> selection is pending. The geometry below describes the previous delivered art.
-> Replace that art mapping after selection; scrolling, focus and input work remain
-> applicable. The new portrait will sit over a continuous panel background.
+11 October 2026. The owner selected **variation 3: rope-edged walnut**. Final blank
+source art is delivered; engine integration and Godot runtime verification remain
+pending. The UI source audit was performed at
+`6a93595a15d50cb5f2b4f94cb035acdf52f1c50b`.
 
-11 October 2026. The current source uses **one continuous frame and a plain wooden
-divider**, replacing the two independently rendered frames. This document and
-`dialogue.json` describe art integration; Godot runtime verification remains open.
-The UI source audit was performed at `6a93595a15d50cb5f2b4f94cb035acdf52f1c50b`.
+## Frame and layer order
 
-## Render one source in three sections
+All rectangles are `(x,y,width,height)` on the 1920×1080 logical canvas unless
+marked native source. Right and bottom are exclusive. The whole bar is
+**`(80,720,1760,300)`**.
 
-The logical canvas is 1920×1080. All rectangles below are `(x,y,width,height)`;
-right and bottom are exclusive. The whole bar is **`(80,720,1760,300)`**.
-
-`integrated_frame.png` is the unchanged 1644×957 RGBA master. Its visible source
-region is `(18,275,1608,388)`. Draw these adjacent regions from that same texture:
+`dialogue_frame.png` is the unchanged 2172×724 RGBA production master. Its atlas
+region is `(39,176,2094,387)`. Draw these three adjacent regions of the same texture:
 
 | Section | Native source rectangle | Screen rectangle |
 | --- | --- | --- |
-| Left assembly | `(18,275,485,388)` | `(80,720,375,300)` |
-| Middle span | `(503,275,929,388)` | `(455,720,1235,300)` |
-| Right cap | `(1432,275,194,388)` | `(1690,720,150,300)` |
+| Left cap | `(39,176,129,387)` | `(80,720,100,300)` |
+| Middle span | `(168,176,1836,387)` | `(180,720,1560,300)` |
+| Right cap | `(2004,176,129,387)` | `(1740,720,100,300)` |
 
-The caps use uniform scale **75/97** in both axes. The middle uses that same
-vertical scale and stretches only horizontally. Cuts fall beyond complete
-fittings in quiet rails/parchment. Regions meet exactly at screen x455 and x1690;
-The divider meets the upper/lower rails directly in wood; there are no internal
-metal connectors. Brass remains only at the four outer corners.
-Do not render `dialogue_frame.png` or `portrait_frame.png`: both are legacy/unused.
+Both caps use uniform scale **100/129**. The middle uses the same vertical scale
+and horizontal scale 1560/1836. This preserves the outer fittings while applying
+modest horizontal extension to the long rails. Sections meet at x180 and x1740;
+no tiling algorithm is required. At other widths, keep both 100px caps fixed and
+resize the middle. Scale the logical canvas uniformly for other display sizes.
 
-Use one fixed, unscaled host for layout and hit targets, with the three visual
-regions and the live portrait/text layers inside it. Preserve alpha, including the
-parchment field. Keep all ornaments within y720–1020. A minimum height alone is
-insufficient if content can still force a container taller; bound the text region.
-For width adaptation at 300px height, preserve the 375px left and 150px right sections
-and resize only the middle. Check the two joins with the engine’s texture filtering.
+Use one fixed, unscaled host for layout and hit targets. Draw the shared frame and
+parchment first, then the transparent live portrait, then ribbon/highlight/control
+sprites and live text/focus. The portrait rectangle is **`(144,756,224,224)`**.
+Render the head over the paper without a backing colour, separate frame or aperture
+mask. Clip only the portrait viewport and scrolling content to their own bounds.
+Keep `integrated_frame.png` and `portrait_frame.png` unused.
 
-## Portrait aperture
+The paper has no transparent portrait hole; its sampled alpha is 252–254, median
+253. Preserve source alpha. Exact measurements and hashes are in
+`source_validation.json` and `dialogue.json`.
 
-The native opening is approximately `(72,317,323,300)`. Mapped into the bar, its
-bounding rectangle is `(41.75,32.47,249.74,231.96)`; its corners are curved.
-The safe live-face rectangle is **`(62,44,212,212)` relative to the whole bar**, or
-**`(142,764,212,212)` on screen**. Keep the eyes, mouth and moving chin inside it.
-A larger viewport may fill the opening if clipped/masked to that curved aperture.
-Render the portrait backing separately; no face or backing is baked into the frame.
+## Title, content and controls
 
-The confirmed safe sample has alpha 0–1 and 99.972332% exactly zero. The full measured
-hole has mean alpha 0.15438761145/255, with 93.733771% exactly zero. A broad parchment sample has
-alpha 252–254, median 253; its center is RGBA `(245,225,192,253)`. These are native
-source measurements, not a claim of perfectly binary alpha. Details are in
-`source_validation.json`.
-
-## Label, text and controls inside the parchment
-
-The usable parchment height is approximately y752–988. The ribbon now sits below
-the upper rail, including its tails. Keep the fonts and existing control assets;
-the smaller content height is handled by scrolling.
+The title is raised onto the top rail. Content and footer stay within the measured
+paper inset, approximately y753.33–984.34 in the middle of the panel.
 
 | Element | Screen rectangle |
 | --- | --- |
-| Name/state ribbon | `(418,756,420,40)` |
-| Name text safe area | `(461,756,342,40)` |
-| Speech/response scroll region | `(418,800,1382,156)` |
-| Content, reserving scrollbar space | `(418,800,1350,156)` |
-| Scrollbar region | `(1784,800,16,156)` |
-| Up arrow / track / down arrow | `(1784,802,16,12)` / `(1784,824,16,108)` / `(1784,942,16,12)` |
-| Footer | `(418,960,1382,28)` |
-| Continue chevron | `(1782,962,18,24)` |
+| Name/state ribbon | `(418,720,420,40)` |
+| Name text safe area | `(461,720,342,40)` |
+| Speech/response scroll region | `(418,764,1382,188)` |
+| Content, reserving scrollbar space | `(418,764,1350,188)` |
+| Scrollbar region | `(1784,764,16,188)` |
+| Up arrow / track / down arrow | `(1784,766,16,12)` / `(1784,788,16,140)` / `(1784,938,16,12)` |
+| Footer | `(418,956,1382,28)` |
+| Continue chevron | `(1782,958,18,24)` |
 
-Move the right controls 16px inward from the previous contract to clear the thicker
-right cap. Keep at least 24×24px hit targets around scroll buttons; those hit areas
-must not activate dialogue. The ribbon may widen up to 1382px while remaining inside
-the parchment.
+Keep at least 24×24px hit targets around scroll buttons. Those hit areas must not
+advance dialogue. The ribbon may widen up to 1382px for longer names/localisation.
 
 | Role | Supplied font | Size / line advance |
 | --- | --- | --- |
@@ -83,34 +63,32 @@ the parchment.
 | Response | Source Sans 3 Semibold | 30/36px |
 | Footer | Source Sans 3 Regular | 24/28px |
 
-The 156px content viewport holds **three complete speech lines**, or three 44px
-single-line response rows plus two 4px gaps (140px). Wrapped choices grow their own
-rows; fewer complete rows are then visible. Additional content scrolls. Keep text
-readable rather than shrinking it to reproduce the old four-row preview.
+The 188px viewport holds **four complete speech lines**, or exactly four 44px
+single-line response rows plus three 4px gaps. Wrapped choices grow their rows;
+fewer complete rows are then visible. Additional content scrolls. A minimum height
+alone is insufficient: prevent content from making the 300px bar taller.
 
 ## Behavior and remaining engine changes
 
-Speech shows the current speaker. Responses replace the passage with choices and
-show the responding player portrait. The portrait, label and footer stay fixed;
-only the passage/list scrolls. Start each new passage at the top. During typewriter
-reveal, follow the newest line only while the reader is at the bottom; preserve
-manual scroll-back. Names, dialogue, numbers and hints remain live text.
+Speech shows the current speaker; responses show the responding player portrait.
+The portrait, label and footer stay fixed while only the passage/list scrolls.
+Start each new passage at the top. During typewriter reveal, follow the newest
+line only while the reader is at the bottom; preserve manual scroll-back. Names,
+dialogue, numbers and hints remain live text.
 
-**Wheel, scrollbar dragging and navigation must never advance dialogue.** Use
-explicit Continue/confirm actions, consume scrolling events, and provide visible
-keyboard focus as well as numbered choice shortcuts. First Continue may finish
-reveal; the next advances. Keep decorative/full-screen controls mouse-ignoring.
+**Wheel, scrollbar dragging and navigation must never advance dialogue.** Consume
+scrolling events and use explicit Continue/confirm actions. Provide visible
+keyboard focus and numbered choice shortcuts. First Continue may finish reveal;
+the next advances. Decorative/full-screen controls remain mouse-ignoring.
 
 The audited `ui/caption.gd` uses content-driven height, `fit_content = true`,
-`scroll_active = false`, and accepts any key/mouse-button press for advancement.
-It needs bounded scrolling and explicit activation. `ui/choices.gd` currently
-builds an unbounded list with `FOCUS_NONE`; add focus/navigation and scrolling.
-`ui/portrait.gd` must use the new aperture instead of its old generic frame/inset.
+`scroll_active = false`, and any key/mouse-button press for advancement. It needs
+bounded scrolling and explicit activation. `ui/choices.gd` builds an unbounded list
+with `FOCUS_NONE`; add focus/navigation and scrolling. `ui/portrait.gd` should render
+its transparent live head over the shared paper without its old frame/backing.
 `dialogue/dialogue.gd` dismisses the portrait before choices; retain the appropriate
-portrait for the approved response state. Animation/lighting remain with their
-existing owner.
+portrait for the selected response state. Animation remains with its existing owner.
 
 **Mockup copy is not new screenplay or canon.** Do not change story flags or add
-responses to reproduce a concept image. Test overflow with temporary fixtures.
-Verify the integrated frame, masking, long text and input in Godot before marking
-this handoff complete.
+responses to reproduce the preview. Verify the frame joins, live portrait, overflow
+and input in Godot before marking this handoff complete.

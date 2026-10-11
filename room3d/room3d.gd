@@ -147,13 +147,13 @@ func _build_shell() -> void:
 	# A shade off the backdrop so the corners read. Flat colour either way; the point
 	# is that the eye can see where one plane stops and the next begins.
 	var walls := StandardMaterial3D.new()
-	walls.albedo_color = Color("#4a2f1c")
+	walls.albedo_color = Color("#7a5636")
 	walls.roughness = 0.95
 
 	var ceiling_material := StandardMaterial3D.new()
 	# Darker than the walls. A ceiling the same value as the walls flattens the box;
 	# in the target render it is the darkest surface because nothing lights it.
-	ceiling_material.albedo_color = Color("#2a1b10")
+	ceiling_material.albedo_color = Color("#5a4028")
 	ceiling_material.roughness = 1.0
 
 	for side in [-1.0, 1.0]:
@@ -276,23 +276,80 @@ func await_navigation() -> void:
 		push_warning("Room3D: navigation never synchronised; nobody will be able to walk.")
 
 
+## The light the whole room is dialled by. Every one of these is an @export, so the
+## owner turns them in the inspector and sees the room change, rather than asking for
+## a number to be edited and a screenshot to be rendered.
+##
+## The shape is the stylised recipe, not the physical one: ONE key, no specular, and a
+## flat coloured ambient standing in for bounce. Two shadow-casting directionals render
+## as separate additive passes in the Compatibility renderer, so each one fills in the
+## other's shadows and the picture flattens - which is what the second light here was
+## doing.
+@export_group("Light")
+@export var key_colour := Color("#ffd2a0")
+@export_range(0.0, 3.0) var key_energy := 0.80
+@export var key_angle := Vector3(-42.0, 38.0, 0.0)
+## The colour everything in shadow goes. In a stylised picture this is a CHOICE - the
+## shadows are blue because someone decided they are - and it is the second half of
+## the look after the key colour.
+@export var shadow_colour := Color("#4a5c80")
+@export_range(0.0, 2.0) var shadow_strength := 1.1
+## How hard the picture is pushed. Saturation lifts the cartoon colours; contrast
+## widens the gap between the lit and the shadowed side.
+@export_group("Grade")
+@export_range(0.0, 3.0) var saturation := 1.08
+@export_range(0.0, 3.0) var contrast := 1.0
+@export_range(0.0, 3.0) var brightness := 1.0
+# Measured, not guessed: at key 1.25 / saturation 1.25 / contrast 1.10 the reds
+# clipped flat and the unlit wall went to pure black. The Compatibility renderer is
+# RGBA8 LDR, so there is no headroom above 1.0 to roll back - whatever clips is
+# gone. Ambient carries the shadow side instead of contrast pulling it down.
+
+
 func _build_light() -> void:
-	# One key light per room, matching the direction recorded in the room's palette.
-	# Characters are lit by this; the backdrop is not, because it is already painted.
+	# One key. Specular off: a stylised surface shows its colour and its terminator,
+	# not where a lamp is reflected in it.
 	key_light = DirectionalLight3D.new()
 	key_light.name = "KeyLight"
-	key_light.rotation_degrees = Vector3(-42.0, 38.0, 0.0)
-	key_light.light_energy = 1.1
-	key_light.light_color = Color("#ffd9a8")
+	key_light.rotation_degrees = key_angle
+	key_light.light_energy = key_energy
+	key_light.light_color = key_colour
+	key_light.light_specular = 0.0
 	key_light.shadow_enabled = true
 	add_child(key_light)
 
-	var fill := DirectionalLight3D.new()
-	fill.name = "Fill"
-	fill.rotation_degrees = Vector3(-18.0, -130.0, 0.0)
-	fill.light_energy = 0.35
-	fill.light_color = Color("#8fb3d9")
-	add_child(fill)
+	_build_environment()
+
+
+## The half of the look that is not the key light.
+##
+## There was no WorldEnvironment in this room at all, which is most of why it read as
+## physical: no ambient but the engine default, no tonemap, no grade. Flat coloured
+## ambient rather than a sky, because a sky is a photograph of somewhere and this is a
+## cabin below decks - the ambient IS the shadow colour, which is what lets the shadow
+## side be a deliberate blue instead of whatever is left over.
+func _build_environment() -> void:
+	var env := Environment.new()
+	env.background_mode = Environment.BG_COLOR
+	env.background_color = Color("#1a1208")
+	env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
+	env.ambient_light_color = shadow_colour
+	env.ambient_light_energy = shadow_strength
+	# sky_contribution defaults to 1.0 - "take ambient entirely from the sky" - and
+	# choosing AMBIENT_SOURCE_COLOR does not override it on its own.
+	env.ambient_light_sky_contribution = 0.0
+	# Linear, not Filmic or ACES: those roll the highlights off to look like film, and
+	# a cartoon wants its brights flat and its colours where they were put.
+	env.tonemap_mode = Environment.TONE_MAPPER_LINEAR
+	env.adjustment_enabled = true
+	env.adjustment_saturation = saturation
+	env.adjustment_contrast = contrast
+	env.adjustment_brightness = brightness
+
+	var world := WorldEnvironment.new()
+	world.name = "Lighting"
+	world.environment = env
+	add_child(world)
 
 
 ## Set the key light to match what the room's painting shows. Called with the values

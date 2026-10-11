@@ -1,0 +1,107 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://actors/assembly/assembly.gd" id="assembly"]
+[ext_resource type="Script" path="res://actors/assembly/part.gd" id="part"]
+[ext_resource type="PackedScene" path="res://art/characters/captain_live/pieces/head/head_face.glb" id="head"]
+[ext_resource type="PackedScene" path="res://art/characters/captain_live/pieces/hair/hair.glb" id="hair"]
+[ext_resource type="PackedScene" path="res://art/characters/captain_live/pieces/hat/hat.glb" id="hat"]
+[ext_resource type="PackedScene" path="res://ui/portraits/captain_live/moustache.glb" id="moustache"]
+[ext_resource type="PackedScene" path="res://ui/portraits/captain_live/chin_tuft.glb" id="chin"]
+
+[ext_resource type="PackedScene" path="res://art/models/characters/body_zombie.glb" id="body"]
+[ext_resource type="ArrayMesh" path="res://actors/assembly/templates/head_swap_demo/zombie_body_without_head.res" id="body_mesh"]
+[ext_resource type="Resource" path="res://actors/assembly/templates/head_swap_demo/zombie_head_mask.tres" id="mask"]
+
+[node name="HeadSwapDemo" type="Node3D"]
+script = ExtResource("assembly")
+assembly_id = "head_swap_demo"
+author_notes = "Editable head-swap starter: Zombie donor, reversible skull/jaw exclusion, Captain speaking head and accessories. Neck overlap is demonstrated; final neck topology and matching body art still require art review."
+
+[node name="Body" type="Node3D" parent="."]
+script = ExtResource("part")
+part_id = "head_swap_demo_body"
+source_path = "res://art/models/characters/body_zombie.glb"
+geometry_masks = Array[Resource]([ExtResource("mask")])
+
+[node name="Model" parent="Body" instance=ExtResource("body")]
+
+[node name="tripo_773e072a_907b_4b78_8a25_c990b4c199dd" parent="Body/Model/RootNode/Armature/Skeleton3D" index="0"]
+mesh = ExtResource("body_mesh")
+
+[node name="ReplacementHeadAttachment" type="BoneAttachment3D" parent="Body/Model/RootNode/Armature/Skeleton3D"]
+bone_name = "mixamorig_Head"
+bone_idx = 32
+metadata/assembly_bone_carrier = true
+
+[node name="SpeakingHead" type="Node3D" parent="Body/Model/RootNode/Armature/Skeleton3D/ReplacementHeadAttachment"]
+script = ExtResource("part")
+part_id = "head_swap_demo_head"
+source_path = "res://art/characters/captain_live/pieces/head/head_face.glb"
+attachment_mode = 2
+target_path = NodePath("../..")
+bone_name = "mixamorig_Head"
+transform = Transform3D(-0.12943666, -0.12938729, 0.23770805, 0, 0.26349518, 0.14342357, -0.27064025, 0.06188088, -0.11368647, 0.005838454, -0.0135320425, -0.0027922988)
+
+[node name="Model" parent="Body/Model/RootNode/Armature/Skeleton3D/ReplacementHeadAttachment/SpeakingHead" instance=ExtResource("head")]
+position = Vector3(0, -0.3, 0)
+
+[node name="HeadSocket" type="BoneAttachment3D" parent="Body/Model/RootNode/Armature/Skeleton3D/ReplacementHeadAttachment/SpeakingHead/Model/head_rig/Skeleton3D"]
+bone_name = "Head"
+bone_idx = 0
+
+[node name="Hair" type="Node3D" parent="Body/Model/RootNode/Armature/Skeleton3D/ReplacementHeadAttachment/SpeakingHead/Model/head_rig/Skeleton3D/HeadSocket"]
+script = ExtResource("part")
+part_id = "head_swap_demo_hair"
+source_path = "res://art/characters/captain_live/pieces/hair/hair.glb"
+attachment_mode = 2
+target_path = NodePath("../..")
+bone_name = "Head"
+position = Vector3(0, -0.03, -0.145)
+scale = Vector3(0.85, 0.85, 0.85)
+
+[node name="Model" parent="Body/Model/RootNode/Armature/Skeleton3D/ReplacementHeadAttachment/SpeakingHead/Model/head_rig/Skeleton3D/HeadSocket/Hair" instance=ExtResource("hair")]
+
+[node name="Hat" type="Node3D" parent="Body/Model/RootNode/Armature/Skeleton3D/ReplacementHeadAttachment/SpeakingHead/Model/head_rig/Skeleton3D/HeadSocket"]
+script = ExtResource("part")
+part_id = "head_swap_demo_hat"
+source_path = "res://art/characters/captain_live/pieces/hat/hat.glb"
+attachment_mode = 2
+target_path = NodePath("../..")
+bone_name = "Head"
+position = Vector3(0.075, 0.37, -0.08)
+scale = Vector3(1.5, 1.5, 1.5)
+
+[node name="Model" parent="Body/Model/RootNode/Armature/Skeleton3D/ReplacementHeadAttachment/SpeakingHead/Model/head_rig/Skeleton3D/HeadSocket/Hat" instance=ExtResource("hat")]
+
+[node name="Moustache" type="Node3D" parent="Body/Model/RootNode/Armature/Skeleton3D/ReplacementHeadAttachment/SpeakingHead/Model/head_rig/Skeleton3D/HeadSocket"]
+script = ExtResource("part")
+part_id = "head_swap_demo_moustache"
+source_path = "res://ui/portraits/captain_live/moustache.glb"
+attachment_mode = 2
+target_path = NodePath("../..")
+bone_name = "Head"
+position = Vector3(0, -0.051, 0.156)
+scale = Vector3(0.35, 0.35, 0.35)
+
+[node name="Model" parent="Body/Model/RootNode/Armature/Skeleton3D/ReplacementHeadAttachment/SpeakingHead/Model/head_rig/Skeleton3D/HeadSocket/Moustache" instance=ExtResource("moustache")]
+
+[node name="JawSocket" type="BoneAttachment3D" parent="Body/Model/RootNode/Armature/Skeleton3D/ReplacementHeadAttachment/SpeakingHead/Model/head_rig/Skeleton3D"]
+bone_name = "Jaw"
+bone_idx = 1
+
+[node name="ChinTuft" type="Node3D" parent="Body/Model/RootNode/Armature/Skeleton3D/ReplacementHeadAttachment/SpeakingHead/Model/head_rig/Skeleton3D/JawSocket"]
+script = ExtResource("part")
+part_id = "head_swap_demo_chin"
+source_path = "res://ui/portraits/captain_live/chin_tuft.glb"
+attachment_mode = 2
+target_path = NodePath("../..")
+bone_name = "Jaw"
+position = Vector3(0, 0.444952, 0.01637)
+rotation = Vector3(-2.495009, 0, 0)
+scale = Vector3(0.35, 0.35, 0.35)
+
+[node name="Model" parent="Body/Model/RootNode/Armature/Skeleton3D/ReplacementHeadAttachment/SpeakingHead/Model/head_rig/Skeleton3D/JawSocket/ChinTuft" instance=ExtResource("chin")]
+
+[editable path="Body/Model/RootNode/Armature/Skeleton3D/ReplacementHeadAttachment/SpeakingHead/Model"]
+
+[editable path="Body/Model"]

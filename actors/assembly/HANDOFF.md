@@ -7,7 +7,7 @@ published API. Complete imported hierarchy/local rigs are retained; static assem
 works without a skeleton. Source assets and accepted actors/portrait remain intact.
 Authoring only creates parts/carriers; ordinary startup loads authored scene content.
 
-Validation: 64 authoring checks and 12 separate cold-reopen checks pass under Godot
+Validation: 67 authoring checks and 12 separate cold-reopen checks pass under Godot
 4.7.2. The real `head_face.glb` retains 2 local bones and 3 blend shapes, including a
 dependent arbitrary root-mesh part attached to local Jaw. Rotated/nonuniform parents,
 top-level parts, animated detach, snapshots, external resource aliases, clip-loop
@@ -42,3 +42,5 @@ at a different hierarchy depth retain the actual donor; copied local rigs point 
 the copy's skeleton. Checks include both skins/provenance after cold saving/reopening.
 Unresolved skin/donor paths fail explicit saves. Native editor rename/reparent metadata
 tracking remains an editor integration concern, not an automatic runtime repair.
+Mask `source_node_path` now participates in the same snapshot/rebase system;
+duplicates map the reference to their own independent mask Resource and model mesh.

@@ -251,6 +251,11 @@ func _bound_reference_checks(assembly: CharacterAssembly) -> void:
 	part.target_path = part.get_path_to(skeleton)
 	part.binding_data = Resource.new()
 	part.binding_data.set_meta("donor_path", part.get_path_to(skeleton))
+	var mask := MeshExclusionMask.new()
+	mask.source_mesh = weighted
+	mask.topology_fingerprint = MeshExclusionOperations.fingerprint(weighted)
+	mask.source_node_path = part.get_path_to(mesh)
+	part.geometry_masks.append(mask)
 	AssemblyOperations.ensure_owned(assembly, assembly)
 	var duplicate := AssemblyOperations.duplicate_part(part)
 	var copy: AssemblyPart = duplicate.part
@@ -262,6 +267,14 @@ func _bound_reference_checks(assembly: CharacterAssembly) -> void:
 	var copied_mesh := copy.get_node("Model") as MeshInstance3D
 	_check("bound duplicate keeps independent skin and original donor at different hierarchy depth", copy.attachment_mode == AssemblyPart.AttachmentMode.SKINNED and copied_mesh.skin != mesh.skin and copied_mesh.get_node_or_null(copied_mesh.skeleton) == skeleton)
 	_check("bound duplicate provenance and metadata target are rebased after insertion", copy.get_node_or_null(copy.target_path) == skeleton and copy.get_node_or_null(copy.binding_data.get_meta("donor_path")) == skeleton)
+	_check("duplicate mask references cloned mesh through independent resource", copy.geometry_masks[0] != mask and copy.get_node_or_null(copy.geometry_masks[0].source_node_path) == copied_mesh)
+	var references := AssemblyOperations.capture_references(assembly)
+	mesh.name = "RenamedModel"
+	AssemblyOperations.rebase_references(references)
+	_check("explicit native mesh rename rebases retained mask source path", part.get_node_or_null(mask.source_node_path) == mesh and mask.source_node_path == NodePath("RenamedModel"))
+	mesh.name = "Model"
+	AssemblyOperations.restore_references(references)
+	_check("native mesh rename undo restores exact mask source path", mask.source_node_path == NodePath("Model") and part.get_node_or_null(mask.source_node_path) == mesh)
 	var old_mesh_path := mesh.skeleton
 	var old_donor_path: NodePath = part.binding_data.get_meta("donor_path")
 	var moved := AssemblyOperations.attach(part, assembly, AssemblyPart.AttachmentMode.FREE, "", assembly)

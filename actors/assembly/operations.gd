@@ -276,6 +276,14 @@ static func capture_references(root: Node) -> Array[Dictionary]:
 		if part.binding_data != null and part.binding_data.has_meta("donor_path"):
 			var path := NodePath(part.binding_data.get_meta("donor_path"))
 			result.append(_reference(part, part.binding_data, &"donor_path", path, true))
+		for index in part.geometry_masks.size():
+			var mask := part.geometry_masks[index]
+			if mask != null and _has_property(mask, &"source_node_path"):
+				var path := NodePath(mask.get("source_node_path"))
+				if not path.is_empty():
+					var reference := _reference(part, mask, &"source_node_path", path, false)
+					reference["mask_index"] = index
+					result.append(reference)
 	if root is MeshInstance3D:
 		var mesh := root as MeshInstance3D
 		if not mesh.skeleton.is_empty() and (mesh.skin != null or mesh.get_node_or_null(mesh.skeleton) is Skeleton3D):
@@ -335,7 +343,15 @@ static func _duplicate_references(source: AssemblyPart, copy: AssemblyPart) -> A
 		var object: Object = base
 		if bool(state.metadata):
 			object = (base as AssemblyPart).binding_data
-		result.append({"base": base, "object": object, "key": state.key, "value": state.value, "metadata": state.metadata, "target": target})
+		elif state.has("mask_index"):
+			var index := int(state.mask_index)
+			if not base is AssemblyPart or index >= (base as AssemblyPart).geometry_masks.size():
+				continue
+			object = (base as AssemblyPart).geometry_masks[index]
+		var reference := {"base": base, "object": object, "key": state.key, "value": state.value, "metadata": state.metadata, "target": target}
+		if state.has("mask_index"):
+			reference["mask_index"] = state.mask_index
+		result.append(reference)
 	return result
 
 
@@ -353,6 +369,13 @@ static func _root_node(node: Node) -> Node:
 	while current.get_parent() != null:
 		current = current.get_parent()
 	return current
+
+
+static func _has_property(object: Object, name: StringName) -> bool:
+	for property in object.get_property_list():
+		if property.name == name:
+			return true
+	return false
 
 
 static func _expand_node(node: Node, resources: Dictionary) -> void:

@@ -71,7 +71,7 @@ Callers must not free referenced parents/parts while their undo action is availa
 
 `reference_states` captures the edited scene's target objects and exact relative paths
 for `AssemblyPart.target_path`, `MeshInstance3D.skeleton`, and binding `donor_path`
-metadata. Attach resolves them before movement and rebases them afterward; restore
+metadata, plus each geometry mask's `source_node_path` relative to its part. Attach resolves them before movement and rebases them afterward; restore
 undoes the path changes, including incoming references when a donor part moves.
 Local skeleton references inside a part remain local. Save rejects unresolved skins
 or donor provenance instead of silently exporting a broken character.

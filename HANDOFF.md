@@ -484,6 +484,8 @@ side wants it. Work down it; you do not need to ask before starting the next one
 The reference for all of it is `docs/reference/room_target.png` — the owner's target
 render for this room. Match its palette and its level of detail.
 
+**2026-10-11 — owner requirement for every new asset:** Before generating, visually inspect `docs/reference/room_target.png`, the established character artwork and recent delivered prop sheets (including candle, desk lantern and desk globe). Match their simplified cartoon painted finish, broad colour shapes and restrained wear. Do this for every asset, not just the first asset of a session; record the inspected references in its sidecar.
+
 **Conventions, same as the props already delivered:**
 - One folder per prop, `art/props/<id>/`, with `sheet.png` and `asset.json`. The `<id>`
   is lower_snake_case and is load-bearing for anything that goes in the inventory: the
@@ -531,7 +533,6 @@ future work in the dressing queue below. See the picture-light Done entry.
 
 | id | what |
 | --- | --- |
-| `rolled_charts` | **REDO.** The owner discarded the first model — it came out a flat slab. Cause is in the sheet: the two end-on views were 107 px wide against an 814 px front, so there was nothing for Tripo to read the cylinder from. Give the ends their own full-width views |
 | `rolled_parchment` | a single rolled parchment tied with cord. Asked for by name; distinct from `rolled_charts`, which is a bundle of three |
 | `loose_map` | an unrolled map lying flat, curled at the corners. Asked for by name |
 | `bookshelf_books` | a run of books for the shelves, as one piece. Asked for by name. Separate from `bookcase` so the shelves can be dressed without regenerating the unit |
@@ -797,6 +798,20 @@ candle's wick tip at lantern Y0.129m, 0.101m below the guide hood. The revised �
 stem gives 1.5mm nominal radial clearance. The existing holder's actual cavity is
 unverified: check/form the bore and seat, then check door, glass
 and roof clearance before making a final socket. Recheck other holders separately.
+
+---
+
+### 2026-10-11 — for the engine side — reconstruct the revised three-roll charts
+
+`art/props/rolled_charts/sheet.png` and `asset.json` replace the rejected slab source;
+`views/` is refreshed at 1210 px square. Three rolls now match the latest queue;
+the former source sidecar had four. Use Tripo and assign named front/left/right/back
+slots explicitly. The object is fixed at 45-degree horizontal yaw, so level cardinal
+views all expose layered roll ends at one scale; no end view was magnified.
+Undo the yaw to long-axis +X before measuring the retained 0.60 × 0.08 × 0.08 m
+engine envelope. Check real cylindrical volumes, three hollow bores, connectivity,
+de-lit materials and the recorded 4–6% painted proportion deviation. Target 2,500–3,500
+triangles. The 2D redo is delivered; successful reconstruction is NOT yet verified.
 
 ---
 
@@ -1250,6 +1265,23 @@ all four rectangles retain identical source pixels with no resampling. The sidec
 records the full imagegen prompt, guide source/geometry, reference hashes, measured
 proportions and provisional lantern-fit cues. Reconstruction, material review and
 the standalone prefab/optional effects remain Open above.
+
+---
+
+### 2026-10-11 — art side — rolled charts redo delivered
+
+Moved the requested redo from the art queue to Done. Delivered
+`art/props/rolled_charts/sheet.png`, `asset.json` and refreshed `views/`: three
+long cylindrical parchment rolls with layered recessed ends in every elevation,
+simplified cartoon painted finish matched against established props. This replaces
+the first rejected flat-slab source. Fixed diagonal reconstruction yaw exposes the
+ends while preserving level front/left/right/back cameras and one shared scale.
+Final sheet 2420 × 605 px; native heights 79/80/79/79 px, baseline 532 px for all four,
+clear separator bands 122/123/122 px. Unchanged cutter translates native pixels only;
+view crops use one common 2x upscale. Full prompts, reference hashes, dimension
+contract and measured limitations are in the sidecar. Reconstruction remains Open.
+The owner also requires inspecting other artwork before EVERY new asset; recorded
+in the art conventions above. Show this prop to the owner before starting the next.
 
 ---
 

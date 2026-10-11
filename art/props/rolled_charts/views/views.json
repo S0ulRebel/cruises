@@ -1,11 +1,11 @@
 {
   "source_sheet": "art\\props\\rolled_charts\\sheet.png",
   "source_size": [
-    4036,
-    1009
+    2420,
+    605
   ],
-  "box_px": 1009,
-  "output_px": 1024,
+  "box_px": 605,
+  "output_px": 1210,
   "upscale_method": "LANCZOS",
   "card_colour": [
     253,
@@ -17,65 +17,65 @@
     {
       "name": "front",
       "figure_box": [
-        98,
-        779,
-        911,
-        888
+        61,
+        454,
+        543,
+        533
       ],
       "figure_px": [
-        813,
-        109
+        482,
+        79
       ],
-      "canvas_px": 1009,
-      "output_px": 1024,
+      "canvas_px": 605,
+      "output_px": 1210,
       "upscaled": true
     },
     {
       "name": "left",
       "figure_box": [
-        1460,
-        779,
-        1567,
-        888
+        665,
+        453,
+        1150,
+        533
       ],
       "figure_px": [
-        107,
-        109
+        485,
+        80
       ],
-      "canvas_px": 1009,
-      "output_px": 1024,
-      "upscaled": true
-    },
-    {
-      "name": "back",
-      "figure_box": [
-        2469,
-        779,
-        2575,
-        888
-      ],
-      "figure_px": [
-        106,
-        109
-      ],
-      "canvas_px": 1009,
-      "output_px": 1024,
+      "canvas_px": 605,
+      "output_px": 1210,
       "upscaled": true
     },
     {
       "name": "right",
       "figure_box": [
-        3124,
-        779,
-        3938,
-        888
+        1273,
+        454,
+        1751,
+        533
       ],
       "figure_px": [
-        814,
-        109
+        478,
+        79
       ],
-      "canvas_px": 1009,
-      "output_px": 1024,
+      "canvas_px": 605,
+      "output_px": 1210,
+      "upscaled": true
+    },
+    {
+      "name": "back",
+      "figure_box": [
+        1873,
+        454,
+        2361,
+        533
+      ],
+      "figure_px": [
+        488,
+        79
+      ],
+      "canvas_px": 605,
+      "output_px": 1210,
       "upscaled": true
     }
   ]

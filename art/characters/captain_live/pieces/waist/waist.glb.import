@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://btu8y5yqnxdhp"
-path="res://.godot/imported/feather.glb-05d5bb41546e25971b1749316b3274ba.scn"
+uid="uid://dq058q0fjp4wg"
+path="res://.godot/imported/waist.glb-75084877e55e2f2de6276ed09258c7ad.scn"
 
 [deps]
 
-source_file="res://art/characters/captain_live/pieces/hat/feather.glb"
-dest_files=["res://.godot/imported/feather.glb-05d5bb41546e25971b1749316b3274ba.scn"]
+source_file="res://art/characters/captain_live/pieces/waist/waist.glb"
+dest_files=["res://.godot/imported/waist.glb-75084877e55e2f2de6276ed09258c7ad.scn"]
 
 [params]
 

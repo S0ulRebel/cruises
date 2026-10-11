@@ -1,22 +1,23 @@
 {
   "_note": [
-    "Where a borrowed piece sits on a character's portrait head.",
-    "The hat was lifted out of the full captain (tools/extract_shells.py), and that",
-    "model's head is a different Tripo run at a different size from the portrait head,",
-    "so the piece has to be scaled and hung off the crown rather than the origin.",
-    "scale and offset put the hat's base at 72% of the portrait head's height, just above the ears, and match its opening to the skull there.",
-    "offset is in the portrait head's own space, Y-up, metres.",
-    "Nudge these by eye - they are a placement, not a measurement to defend.",
-    "in_frame false keeps a piece out of the portrait framing. The captain's plume is a foot of feather; counting it would shrink his face to fit it in."
+    "Where each generated piece sits on a character's portrait head.",
+    "Every piece is its own Tripo run, normalised to about 1 unit on its longest axis,",
+    "sitting z 0..height in its own file - so nothing lines up until it is scaled and",
+    "moved onto the head here. The portrait head measures 0.515 wide, 0.613 deep and",
+    "1.0 tall, widest at 70% of its height, with the face pointing +Z in Godot.",
+    "offset is in the head's own space, Y-up, after scaling. These are a placement to",
+    "nudge by eye, not a measurement to defend.",
+    "in_frame false keeps a piece out of the portrait framing. The hat's plume is part",
+    "of the hat mesh, so the hat is framed and the plume is allowed to run off the top."
   ],
   "captain_live": {
-    "hat": {
-      "model": "res://art/characters/captain_live/pieces/hat/hat.glb",
-      "scale": 1.74,
+    "hair": {
+      "model": "res://art/characters/captain_live/pieces/hair/hair.glb",
+      "scale": 0.75,
       "offset": [
-        -0.0174,
-        -1.9126,
-        -0.0557
+        0.0,
+        0.251,
+        0.0
       ],
       "rotation_degrees": [
         0.0,
@@ -25,13 +26,28 @@
       ],
       "in_frame": true
     },
-    "feather": {
-      "model": "res://art/characters/captain_live/pieces/hat/feather.glb",
-      "scale": 1.74,
+    "hat": {
+      "model": "res://art/characters/captain_live/pieces/hat/hat.glb",
+      "scale": 1.0,
       "offset": [
-        -0.0174,
-        -1.9126,
-        -0.0557
+        0.0,
+        0.7,
+        0.0
+      ],
+      "rotation_degrees": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "in_frame": true
+    },
+    "face": {
+      "model": "res://art/characters/captain_live/pieces/face/face.glb",
+      "scale": 0.2,
+      "offset": [
+        0.0,
+        0.446,
+        0.26
       ],
       "rotation_degrees": [
         0.0,

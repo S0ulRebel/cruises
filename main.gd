@@ -570,8 +570,14 @@ func _add_fishbowl(at: Vector3) -> void:
 ## The fish himself, floating inside the bowl. Loaded unrigged: see actors/parts/fish.gd
 ## for why there is no skeleton to animate.
 const COUNT_FINGERS := "res://art/characters/count_fingers/count_fingers_mesh.glb"
-## Metres, nose to tail. From his design sheet: "~6-8 cm".
-const FISH_LENGTH := 0.15
+## Metres, nose to tail. His design sheet says 6-8 cm; the bowl is already far bigger
+## than a real one for the same reason, and at 15 cm in a 52 cm bowl he was 29% of its
+## width and read as a speck. 30 cm puts him at 58%, which is where the owner's target
+## render has him. He is a character with lines, not set dressing.
+const FISH_LENGTH := 0.27
+## Degrees about Y. His mesh swims along its own -X, so he needs turning to look out
+## of the glass at the room rather than presenting the camera with his flank.
+const FISH_FACING := -90.0
 
 func _add_count_fingers(bowl: Node3D, radius: float) -> void:
 	if not ResourceLoader.exists(COUNT_FINGERS):
@@ -590,9 +596,12 @@ func _add_count_fingers(bowl: Node3D, radius: float) -> void:
 	swimmer.name = "CountFingers"
 	swimmer.set_script(load("res://actors/parts/fish.gd"))
 	# Below the waterline, off-centre, nose out of the glass towards the room.
-	swimmer.position = Vector3(0.0, radius * 0.36, 0.0)
+	swimmer.position = Vector3(0.0, radius * 0.56, 0.0)
 	swimmer.add_child(model)
 	model.position = -bounds.get_center() * model.scale.x
+	# Facing is the MODEL's, not the swimmer's: fish.gd overwrites the swimmer's
+	# rotation every frame to make him drift, so a turn applied there lasts one frame.
+	model.rotation_degrees.y = FISH_FACING
 	bowl.add_child(swimmer)
 
 

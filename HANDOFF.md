@@ -402,7 +402,33 @@ PRESSED blendshape leaves a gap of +0.0664 and does not break the face; the engi
 tuning the rest pose by eye at panel size to see whether that reads as a parting or a gape.
 
 ---
+
+### 2026-10-11 — for the engine side — integrate Captain’s Ledger dialogue UI
+
+Art is delivered in `art/ui/dialogue.json`; read `art/ui/ENGINE_INTEGRATION.md`
+for the exact 300px equal-height layout, measured portrait opening and remaining
+input work. Use live text/portraits over the separate blank images. Keep the
+portrait visible in the response state, as in the owner’s preferred preview.
+
+Implement bounded scrolling for speech and response choices, visible keyboard
+focus and explicit confirm/continue actions. The current caption handler accepts
+any key/mouse press, so **consume wheel/navigation/scrollbar events before they
+can advance dialogue**. Choice buttons currently use `FOCUS_NONE`. Verify these
+behaviours in Godot; the art delivery does not claim them as implemented. Check
+wrapping with long test content without adding preview copy to the screenplay.
+
+**Scene direction agreed with the owner:** retain the warm dark wood/brass/red
+palette and overall cabin layout, remove modern visible fittings (AC, sockets,
+electric ceiling lights), and make the room read as a pirate captain’s cabin.
+This supersedes the visible cruise-utility-fixture direction in the older brief.
+Count Fingers belongs near the camera at the left so his expression is readable
+in exploration; the dialogue overlay may cover him. Keep him a scene character
+in a separate bowl/foreground prop. The room concept and carpet are an outline,
+not a final camera-aligned backdrop; simplify the carpet marks in final scenery.
+
 ---
+
+## Done
 
 ### 2026-10-11 — for the art agent — the dialogue bar, with the portrait frame in it
 
@@ -456,11 +482,29 @@ WHAT IT MUST NOT DO
 - Nothing in the middle of the box. The text starts at the top-left of the inner area
   and can run to four lines.
 
----
+**Result — 2026-10-11, art side:** Delivered Captain’s Ledger UI sources under
+`art/ui/`: `dialogue_frame.png`, `portrait_frame.png`, `speaker_ribbon.png`,
+`response_highlight.png`, `controls_atlas.png`, and the exact `dialogue.json`
+layout/atlas/9-slice contract. Actual Grenze and Source Sans 3 fonts, original
+licences and provenance are in `art/ui/fonts/`. `README.md`,
+`ENGINE_INTEGRATION.md`, `source_validation.json` and `generation.json` accompany
+the art; selected/revised concept images are in `art/ui/reference/`.
+
+The owner approved the second ledger/response direction, then asked that the
+portrait and dialogue box have **the same height and aligned top/bottom edges**.
+The exact delivered target is 300px high for both: portrait `(80,720,300,300)`,
+text box `(394,720,1446,300)` at 1920×1080. Use the measured atlas regions so native
+transparent gutters do not change their visible heights. Longer speech and
+wrapped responses scroll; they do not enlarge either frame. All five runtime
+PNG sources are blank RGBA art, with no baked names, dialogue or portrait. The
+portrait centre has alpha0; its measured safe face area is documented.
+
+Source rasters and font/manifest properties were verified. **Engine integration
+and Godot runtime verification remain in Open.** No animation or screenplay
+was changed. The cabin images are composition guides; the owner specifically
+flagged the carpet markings as rough. They are not a final room backdrop.
 
 ---
-
-## Done
 
 ### 2026-10-10 — engine side — dresser ported
 

@@ -1,0 +1,198 @@
+{
+  "schema_version": 1,
+  "asset_id": "dialogue_ledger_fonts",
+  "retrieved_at_utc": "2026-10-11 00:17:56 UTC",
+  "purpose": "Production live text for the approved ledger dialogue UI.",
+  "concept_typography_note": "The AI concept images contain illustrative lettering. These are the production font recommendations; no actual font file was embedded in or extracted from those images.",
+  "files": [
+    {
+      "file": "grenze/Grenze-SemiBold.ttf",
+      "source": {
+        "repository_url": "https://github.com/Omnibus-Type/Grenze",
+        "commit": "2af38b2f951f5d2d601825c896c2be9b8b282092",
+        "path": "fonts/ttf/Grenze-SemiBold.ttf",
+        "url": "https://github.com/Omnibus-Type/Grenze/blob/2af38b2f951f5d2d601825c896c2be9b8b282092/fonts/ttf/Grenze-SemiBold.ttf",
+        "raw_url": "https://raw.githubusercontent.com/Omnibus-Type/Grenze/2af38b2f951f5d2d601825c896c2be9b8b282092/fonts/ttf/Grenze-SemiBold.ttf",
+        "git_blob_sha": "d797d01c4a7de0f6191be285219b891107712cd5"
+      },
+      "bytes": 93636,
+      "sha256": "7223d6be037bcaa62ea5db260940f5e3517b2f78cdb94823a496d83b1fc9b0f0",
+      "downloaded_git_blob_sha": "d797d01c4a7de0f6191be285219b891107712cd5",
+      "unchanged_from_upstream": true,
+      "type": "static_truetype_font",
+      "role": "speaker_name",
+      "recommended_nominal_size_px": 36,
+      "license_file": "grenze/OFL.txt",
+      "license": "OFL-1.1",
+      "font_metadata": {
+        "family": "Grenze",
+        "style": "SemiBold",
+        "legacy_family": "Grenze SemiBold",
+        "legacy_style": "Regular",
+        "postscript_name": "Grenze-SemiBold",
+        "version": "Version 1.003; ttfautohint (v1.8.4.16-eb64)",
+        "head_font_revision": 1.0030059814453125,
+        "weight_class": 600,
+        "units_per_em": 1000,
+        "variable": false,
+        "unicode_cmap_entries": 652
+      },
+      "verification": {
+        "contains_U00E9": true,
+        "missing_ascii": [],
+        "missing_western_punctuation": [],
+        "missing_accented_name_probe": [],
+        "contains_cyrillic_basic": false,
+        "contains_greek_basic": false,
+        "contains_U202F_narrow_no_break_space": false
+      }
+    },
+    {
+      "file": "grenze/OFL.txt",
+      "source": {
+        "repository_url": "https://github.com/Omnibus-Type/Grenze",
+        "commit": "2af38b2f951f5d2d601825c896c2be9b8b282092",
+        "path": "OFL.txt",
+        "url": "https://github.com/Omnibus-Type/Grenze/blob/2af38b2f951f5d2d601825c896c2be9b8b282092/OFL.txt",
+        "raw_url": "https://raw.githubusercontent.com/Omnibus-Type/Grenze/2af38b2f951f5d2d601825c896c2be9b8b282092/OFL.txt",
+        "git_blob_sha": "c1fedae00b214f5cca83220bb0b2ae0d64251b9d"
+      },
+      "bytes": 4388,
+      "sha256": "55a21d1fcebfa5e02100db3ae4dcff2658e9ba63e0b64149203bf6a9d645db86",
+      "downloaded_git_blob_sha": "c1fedae00b214f5cca83220bb0b2ae0d64251b9d",
+      "unchanged_from_upstream": true,
+      "type": "license",
+      "license": "OFL-1.1"
+    },
+    {
+      "file": "source_sans_3/SourceSans3-Regular.ttf",
+      "source": {
+        "repository_url": "https://github.com/adobe-fonts/source-sans",
+        "commit": "87b37a2daaed80fcb8e8ccb0085c4d72ddade12e",
+        "path": "TTF/SourceSans3-Regular.ttf",
+        "url": "https://github.com/adobe-fonts/source-sans/blob/87b37a2daaed80fcb8e8ccb0085c4d72ddade12e/TTF/SourceSans3-Regular.ttf",
+        "raw_url": "https://raw.githubusercontent.com/adobe-fonts/source-sans/87b37a2daaed80fcb8e8ccb0085c4d72ddade12e/TTF/SourceSans3-Regular.ttf",
+        "git_blob_sha": "c5dd0b88cc8ff4edd7ebdcefee0290df15529657"
+      },
+      "bytes": 431196,
+      "sha256": "4644c81b86ec9caaa76b634889968ed3c4f4f52f054855933acc7c2b21e53b0f",
+      "downloaded_git_blob_sha": "c5dd0b88cc8ff4edd7ebdcefee0290df15529657",
+      "unchanged_from_upstream": true,
+      "type": "static_truetype_font",
+      "role": "dialogue_body",
+      "recommended_nominal_size_px": 32,
+      "license_file": "source_sans_3/LICENSE.md",
+      "license": "OFL-1.1",
+      "font_metadata": {
+        "family": "Source Sans 3",
+        "style": "Regular",
+        "legacy_family": "Source Sans 3",
+        "legacy_style": "Regular",
+        "postscript_name": "SourceSans3-Regular",
+        "version": "Version 3.052;hotconv 1.1.0;makeotfexe 2.6.0",
+        "head_font_revision": 3.0519866943359375,
+        "weight_class": 400,
+        "units_per_em": 1000,
+        "variable": false,
+        "unicode_cmap_entries": 1614
+      },
+      "verification": {
+        "contains_U00E9": true,
+        "missing_ascii": [],
+        "missing_western_punctuation": [],
+        "missing_accented_name_probe": [],
+        "contains_cyrillic_basic": true,
+        "contains_greek_basic": true,
+        "contains_U202F_narrow_no_break_space": true
+      }
+    },
+    {
+      "file": "source_sans_3/SourceSans3-Semibold.ttf",
+      "source": {
+        "repository_url": "https://github.com/adobe-fonts/source-sans",
+        "commit": "87b37a2daaed80fcb8e8ccb0085c4d72ddade12e",
+        "path": "TTF/SourceSans3-Semibold.ttf",
+        "url": "https://github.com/adobe-fonts/source-sans/blob/87b37a2daaed80fcb8e8ccb0085c4d72ddade12e/TTF/SourceSans3-Semibold.ttf",
+        "raw_url": "https://raw.githubusercontent.com/adobe-fonts/source-sans/87b37a2daaed80fcb8e8ccb0085c4d72ddade12e/TTF/SourceSans3-Semibold.ttf",
+        "git_blob_sha": "4aff9a3aea9b5f1e746f03ed40e1b293740dc8a2"
+      },
+      "bytes": 425904,
+      "sha256": "a3f4f8dcf343a8f24dc61951de93f3ba1558b15cd250ba24af8a40e957081b7d",
+      "downloaded_git_blob_sha": "4aff9a3aea9b5f1e746f03ed40e1b293740dc8a2",
+      "unchanged_from_upstream": true,
+      "type": "static_truetype_font",
+      "role": "dialogue_choices_and_emphasis",
+      "recommended_nominal_size_px": 30,
+      "license_file": "source_sans_3/LICENSE.md",
+      "license": "OFL-1.1",
+      "font_metadata": {
+        "family": "Source Sans 3",
+        "style": "Semibold",
+        "legacy_family": "Source Sans 3 Semibold",
+        "legacy_style": "Regular",
+        "postscript_name": "SourceSans3-Semibold",
+        "version": "Version 3.052;hotconv 1.1.0;makeotfexe 2.6.0",
+        "head_font_revision": 3.0519866943359375,
+        "weight_class": 600,
+        "units_per_em": 1000,
+        "variable": false,
+        "unicode_cmap_entries": 1614
+      },
+      "verification": {
+        "contains_U00E9": true,
+        "missing_ascii": [],
+        "missing_western_punctuation": [],
+        "missing_accented_name_probe": [],
+        "contains_cyrillic_basic": true,
+        "contains_greek_basic": true,
+        "contains_U202F_narrow_no_break_space": true
+      }
+    },
+    {
+      "file": "source_sans_3/LICENSE.md",
+      "source": {
+        "repository_url": "https://github.com/adobe-fonts/source-sans",
+        "commit": "87b37a2daaed80fcb8e8ccb0085c4d72ddade12e",
+        "path": "LICENSE.md",
+        "url": "https://github.com/adobe-fonts/source-sans/blob/87b37a2daaed80fcb8e8ccb0085c4d72ddade12e/LICENSE.md",
+        "raw_url": "https://raw.githubusercontent.com/adobe-fonts/source-sans/87b37a2daaed80fcb8e8ccb0085c4d72ddade12e/LICENSE.md",
+        "git_blob_sha": "22c601b82f29fc6bb801445098c9f23ffdca4f94"
+      },
+      "bytes": 4486,
+      "sha256": "56af9b9c6715597e458284a474dc118a50a4150e9d547c70f7b4a33c3e6a9328",
+      "downloaded_git_blob_sha": "22c601b82f29fc6bb801445098c9f23ffdca4f94",
+      "unchanged_from_upstream": true,
+      "type": "license",
+      "license": "OFL-1.1"
+    }
+  ],
+  "nominal_design_target": {
+    "render_width_px": 1920,
+    "render_height_px": 1080,
+    "sizes_are": "Nominal engine text sizes at the 1920x1080 design resolution; recommendations to be checked in the actual panel layout.",
+    "speaker_name_px": 36,
+    "dialogue_body_px": 32,
+    "dialogue_choices_px": 30,
+    "secondary_hint_px": 24,
+    "suggested_body_line_height_multiplier": 1.25,
+    "text_rendering": "Use live engine text over the bitmap art so text remains localisable and scalable. Do not bake dialogue or names into the panel texture."
+  },
+  "verification_cases": {
+    "ascii_range": "U+0020–U+007E",
+    "western_punctuation": "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~ ¡«»¿–—‘’‚“”„…•€",
+    "accented_name_probe": "Captain Livé — Éléonore, François, Šanti, Đorđe, Łukasz, İpek.",
+    "coverage_method": "fontTools 4.61.1 TTFont.getBestCmap(); cmap coverage is a glyph-presence check, not a rendered localisation or Godot integration test.",
+    "required_result": "All three fonts contain U+00E9, every printable ASCII codepoint, every codepoint in the Western-punctuation probe, and every codepoint in the accented-name probe."
+  },
+  "localization": {
+    "speaker_name_fallback_file": "source_sans_3/SourceSans3-Semibold.ttf",
+    "dialogue_body_file": "source_sans_3/SourceSans3-Regular.ttf",
+    "limitations": [
+      "Grenze SemiBold does not contain basic Cyrillic, basic Greek, or U+202F narrow no-break space. Use Source Sans 3 Semibold for missing speaker-name glyphs or those scripts.",
+      "The tested Source Sans 3 files contain basic Greek, basic Cyrillic, and U+202F; this is not a claim of complete coverage for every European language or shaping requirement.",
+      "Run the game's complete localisation corpus and final text layout through the engine before shipping. Engine import, shaping, wrapping, hinting, and accessibility size settings have not been tested here."
+    ]
+  },
+  "license_handling": "Keep the supplied original licence and copyright text with each font family when distributing the game. Font binaries and licence files are byte-for-byte upstream originals.",
+  "repository_changes": "Only art/ui/fonts/ files were created by this font delivery. No repository commits or git mutations were performed."
+}

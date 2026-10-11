@@ -1,0 +1,447 @@
+{
+  "schema_version": 1,
+  "asset_id": "ui:captains_ledger",
+  "name": "Captain’s Ledger",
+  "date": "2026-10-11",
+  "status": "source_art_delivered; engine_integration_pending",
+  "approval": {
+    "direction": "User selected the second response/ledger preview.",
+    "latest_correction": "Portrait and dialogue box must have exactly the same height and aligned top/bottom edges.",
+    "scene_status": "Composition and colours accepted as a guide; carpet markings need simplification. Room image is not a final camera-matched backdrop."
+  },
+  "design_canvas_px": [
+    1920,
+    1080
+  ],
+  "layout": {
+    "coordinate_format": "x, y, width, height; all values are logical pixels at 1920x1080",
+    "portrait_outer_rect_px": [
+      80,
+      720,
+      300,
+      300
+    ],
+    "gap_rect_px": [
+      380,
+      720,
+      14,
+      300
+    ],
+    "dialogue_outer_rect_px": [
+      394,
+      720,
+      1446,
+      300
+    ],
+    "visible_frame_height_px": 300,
+    "alignment": "same top 720 and bottom 1020, including name ribbon and ornaments",
+    "name_ribbon_rect_px": [
+      418,
+      732,
+      420,
+      44
+    ],
+    "name_safe_area_px": [
+      461,
+      734,
+      342,
+      40
+    ],
+    "name_ribbon_max_width_px": 1398,
+    "scroll_region_px": [
+      418,
+      784,
+      1398,
+      188
+    ],
+    "content_viewport_px": [
+      418,
+      784,
+      1366,
+      188
+    ],
+    "scrollbar_region_px": [
+      1800,
+      784,
+      16,
+      188
+    ],
+    "scroll_track_rect_px": [
+      1800,
+      808,
+      16,
+      140
+    ],
+    "scroll_up_draw_rect_px": [
+      1800,
+      786,
+      16,
+      12
+    ],
+    "scroll_down_draw_rect_px": [
+      1800,
+      958,
+      16,
+      12
+    ],
+    "footer_rect_px": [
+      418,
+      980,
+      1398,
+      28
+    ],
+    "continue_draw_rect_px": [
+      1798,
+      980,
+      18,
+      24
+    ],
+    "scroll_button_min_hit_target_px": [
+      24,
+      24
+    ],
+    "portrait_opening_local_approx_px": [
+      33.6,
+      31.2,
+      232.3,
+      235.4
+    ],
+    "portrait_face_safe_local_rect_px": [
+      44,
+      44,
+      212,
+      212
+    ],
+    "portrait_face_safe_screen_rect_px": [
+      124,
+      764,
+      212,
+      212
+    ],
+    "portrait_note": "Place the live SubViewport behind the frame. Its curved aperture needs masking or clipping; keep face and moving jaw inside the safe rectangle. A background backing colour is rendered separately, never baked into portrait_frame.png.",
+    "portrait_backing_colour": "#421617",
+    "sizing_rule": "Long text and wrapped choices scroll. Content must never enlarge either outer frame. Use the supplied atlas regions, not full PNG canvases, to eliminate unequal transparent padding.",
+    "responsive_rule": "Scale the logical canvas uniformly or adapt both containers together; never change one frame height alone.",
+    "portrait_live_viewport_note": "A larger live viewport may fill the curved aperture if clipped/masked to it; keep eyes, mouth and moving chin inside the 212x212 safe square."
+  },
+  "typography": {
+    "name": {
+      "file": "fonts/grenze/Grenze-SemiBold.ttf",
+      "size_px": 36,
+      "line_height_px": 40,
+      "colour": "#FFF0CA",
+      "fallback_file": "fonts/source_sans_3/SourceSans3-Semibold.ttf"
+    },
+    "dialogue": {
+      "file": "fonts/source_sans_3/SourceSans3-Regular.ttf",
+      "size_px": 32,
+      "line_height_px": 40,
+      "colour": "#32190E"
+    },
+    "choices": {
+      "file": "fonts/source_sans_3/SourceSans3-Semibold.ttf",
+      "size_px": 30,
+      "line_height_px": 36,
+      "colour": "#32190E",
+      "selected_colour": "#FFF0CA"
+    },
+    "footer": {
+      "file": "fonts/source_sans_3/SourceSans3-Regular.ttf",
+      "size_px": 24,
+      "colour": "#62402A"
+    },
+    "font_provenance": "fonts/provenance.json",
+    "note": "These are actual supplied fonts for live engine text. AI mockup lettering is illustrative and does not embed these font files."
+  },
+  "content_states": {
+    "speech": {
+      "portrait": "current speaker",
+      "label": "speaker name",
+      "scrolls": "speech text only",
+      "visible_full_lines_at_default_size": 4,
+      "start_position": "top",
+      "auto_follow": "Only while the reader is already at the bottom. Preserve manual scroll-back.",
+      "continue": "First activation finishes typewriter reveal; next advances. Scroll actions are never advance actions."
+    },
+    "responses": {
+      "portrait": "responding player character as shown in the selected concept",
+      "label": "localised Your response",
+      "scrolls": "response list only",
+      "single_line_row_min_height_px": 44,
+      "row_gap_px": 4,
+      "visible_single_line_rows": 4,
+      "wrapped_rows": "Grow to fit text; fewer rows are visible when wrapping. Panel remains 300px high.",
+      "focus": "Selected background plus brass outline and chevron; keep live numbers.",
+      "activation": "Mouse click or explicit confirm action, not scroll wheel or focus navigation."
+    }
+  },
+  "assets": {
+    "dialogue_frame": {
+      "file": "dialogue_frame.png",
+      "source_size_px": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "sha256": "622a0488b70b8a81ddc8fa1ff36e15f8b33532dea31ac58e8bb64c6079d551ad",
+      "native_raster_unchanged": true,
+      "background": "true alpha transparency outside the shape",
+      "atlas_region_px": [
+        28,
+        99,
+        2116,
+        523
+      ],
+      "nine_slice": {
+        "source_margins_ltrb_px": [
+          160,
+          160,
+          160,
+          160
+        ],
+        "texture_scale": 0.3,
+        "destination_margins_ltrb_px": [
+          48.0,
+          48.0,
+          48.0,
+          48.0
+        ],
+        "center": "stretch",
+        "edge_mode": "stretch",
+        "godot_method": "A fixed-size unscaled Control host owns the visual NinePatchRect child. Use the atlas region as NinePatchRect.region_rect, child scale (texture_scale, texture_scale), local child size target_size / texture_scale, and patch margins in source pixels. The visual child must not be a direct child of a Container. Keep live text and hit targets in the unscaled host.",
+        "draw_center": true
+      }
+    },
+    "portrait_frame": {
+      "file": "portrait_frame.png",
+      "source_size_px": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "94ed08650ef536c7232d42b156ddcb0c07376bc2d385400f0547fe282c104480",
+      "native_raster_unchanged": true,
+      "background": "true alpha transparency outside the shape",
+      "atlas_region_px": [
+        37,
+        65,
+        1180,
+        1116
+      ],
+      "nine_slice": {
+        "source_margins_ltrb_px": [
+          300,
+          300,
+          300,
+          300
+        ],
+        "texture_scale": 0.24,
+        "destination_margins_ltrb_px": [
+          72.0,
+          72.0,
+          72.0,
+          72.0
+        ],
+        "center": "stretch",
+        "edge_mode": "stretch",
+        "godot_method": "A fixed-size unscaled Control host owns the visual NinePatchRect child. Use the atlas region as NinePatchRect.region_rect, child scale (texture_scale, texture_scale), local child size target_size / texture_scale, and patch margins in source pixels. The visual child must not be a direct child of a Container. Keep live text and hit targets in the unscaled host.",
+        "draw_center": false
+      }
+    },
+    "speaker_ribbon": {
+      "file": "speaker_ribbon.png",
+      "source_size_px": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "sha256": "95abf03bf27bdae1df00545d43d95a21ae809ae206ef7d2257c4fffb921442e0",
+      "native_raster_unchanged": true,
+      "background": "true alpha transparency outside the shape",
+      "atlas_region_px": [
+        20,
+        211,
+        2132,
+        288
+      ],
+      "nine_slice": {
+        "source_margins_ltrb_px": [
+          260,
+          50,
+          180,
+          50
+        ],
+        "texture_scale": 0.14,
+        "destination_margins_ltrb_px": [
+          36.4,
+          7.0,
+          25.2,
+          7.0
+        ],
+        "center": "stretch",
+        "edge_mode": "stretch",
+        "godot_method": "A fixed-size unscaled Control host owns the visual NinePatchRect child. Use the atlas region as NinePatchRect.region_rect, child scale (texture_scale, texture_scale), local child size target_size / texture_scale, and patch margins in source pixels. The visual child must not be a direct child of a Container. Keep live text and hit targets in the unscaled host.",
+        "draw_center": true
+      }
+    },
+    "response_highlight": {
+      "file": "response_highlight.png",
+      "source_size_px": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "sha256": "984265892bc8de886fe251114b81b4ed6948826ea7541044f351550babf47f3b",
+      "native_raster_unchanged": true,
+      "background": "true alpha transparency outside the shape",
+      "atlas_region_px": [
+        27,
+        279,
+        2118,
+        157
+      ],
+      "nine_slice": {
+        "source_margins_ltrb_px": [
+          72,
+          40,
+          72,
+          40
+        ],
+        "texture_scale": 0.3,
+        "destination_margins_ltrb_px": [
+          21.6,
+          12.0,
+          21.6,
+          12.0
+        ],
+        "center": "stretch",
+        "edge_mode": "stretch",
+        "godot_method": "A fixed-size unscaled Control host owns the visual NinePatchRect child. Use the atlas region as NinePatchRect.region_rect, child scale (texture_scale, texture_scale), local child size target_size / texture_scale, and patch margins in source pixels. The visual child must not be a direct child of a Container. Keep live text and hit targets in the unscaled host.",
+        "draw_center": true
+      }
+    },
+    "controls_atlas": {
+      "file": "controls_atlas.png",
+      "source_size_px": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "sha256": "061ff6119f202946b9681b87f62cfcab1a18559a047a7916f7e450d288c15141",
+      "native_raster_unchanged": true,
+      "background": "true alpha transparency outside the shape",
+      "sprites": {
+        "scroll_up": {
+          "region_px": [
+            100,
+            145,
+            313,
+            215
+          ],
+          "nominal_draw_size_px": [
+            16,
+            12
+          ]
+        },
+        "scroll_down": {
+          "region_px": [
+            611,
+            144,
+            316,
+            215
+          ],
+          "nominal_draw_size_px": [
+            16,
+            12
+          ]
+        },
+        "chevron_right": {
+          "region_px": [
+            1181,
+            84,
+            238,
+            329
+          ],
+          "nominal_draw_size_px": [
+            18,
+            24
+          ],
+          "roles": [
+            "continue",
+            "focused_choice_cursor"
+          ]
+        },
+        "scroll_thumb": {
+          "region_px": [
+            205,
+            576,
+            104,
+            345
+          ],
+          "nominal_draw_size_px": [
+            14,
+            44
+          ],
+          "minimum_draw_height_px": 28
+        },
+        "scroll_track": {
+          "region_px": [
+            728,
+            508,
+            80,
+            466
+          ],
+          "nominal_draw_size_px": [
+            16,
+            140
+          ],
+          "nine_slice": {
+            "source_margins_ltrb_px": [
+              20,
+              44,
+              20,
+              44
+            ],
+            "texture_scale": 0.2,
+            "destination_margins_ltrb_px": [
+              4,
+              8.8,
+              4,
+              8.8
+            ]
+          }
+        },
+        "choice_number": {
+          "region_px": [
+            1094,
+            591,
+            317,
+            316
+          ],
+          "nominal_draw_size_px": [
+            36,
+            36
+          ],
+          "number_is_live_text": true
+        }
+      }
+    }
+  },
+  "references": {
+    "layout_concept": "reference/layout_concept.png",
+    "selected_direction": "reference/selected_response_concept.png",
+    "room_composition": "reference/room_composition_concept.png",
+    "note": "Concept images are 1672x941 illustrations. Exact runtime dimensions come from this manifest. Preview dialogue/response copy is layout content, not additional authored game dialogue."
+  },
+  "validation": {
+    "source_assets": "All five production PNGs open as RGBA; true alpha confirmed; portrait centre alpha 0. The parchment centre alpha is 253/255.",
+    "native_rasters": "All PNGs are byte-for-byte generated outputs; no resampling, repainting or alpha replacement has been performed. Regions and draw sizes are metadata.",
+    "engine": "Not imported or tested in Godot in this art session. Integration ownership remains with the engine side."
+  },
+  "generation": "generation.json",
+  "integration": "ENGINE_INTEGRATION.md",
+  "implementation_references": [
+    "https://docs.godotengine.org/en/stable/classes/class_ninepatchrect.html",
+    "https://docs.godotengine.org/en/stable/classes/class_control.html#class-control-property-scale"
+  ]
+}

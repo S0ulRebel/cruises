@@ -1,0 +1,84 @@
+{
+  "assets": {
+    "dialogue_frame": {
+      "size_px": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "corner_alpha": 0,
+      "center_alpha": 253,
+      "fully_transparent_pixel_fraction": 0.306231,
+      "has_true_transparency": true,
+      "has_visible_art": true
+    },
+    "portrait_frame": {
+      "size_px": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "corner_alpha": 0,
+      "center_alpha": 0,
+      "fully_transparent_pixel_fraction": 0.674181,
+      "has_true_transparency": true,
+      "has_visible_art": true
+    },
+    "speaker_ribbon": {
+      "size_px": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "corner_alpha": 0,
+      "center_alpha": 253,
+      "fully_transparent_pixel_fraction": 0.650645,
+      "has_true_transparency": true,
+      "has_visible_art": true
+    },
+    "response_highlight": {
+      "size_px": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "corner_alpha": 0,
+      "center_alpha": 253,
+      "fully_transparent_pixel_fraction": 0.777655,
+      "has_true_transparency": true,
+      "has_visible_art": true
+    },
+    "controls_atlas": {
+      "size_px": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "corner_alpha": 0,
+      "center_alpha": 252,
+      "fully_transparent_pixel_fraction": 0.80835,
+      "has_true_transparency": true,
+      "has_visible_art": true
+    }
+  },
+  "layout_assertions": {
+    "equal_height": 300,
+    "same_top": 720,
+    "same_bottom": 1020,
+    "gap": 14
+  },
+  "scope": "Source raster properties and manifest geometry only; no engine-runtime claim.",
+  "portrait_aperture_measurement": {
+    "alpha_threshold": 16,
+    "enclosed_hole_source_ltrb_px": [
+      177,
+      195,
+      1075,
+      1042
+    ],
+    "hole_pixels": 748464,
+    "fully_zero_alpha_fraction": 0.9683618718,
+    "mean_alpha_0_to_255": 0.0518875991,
+    "note": "True transparent centre; faint alpha1\u201316 raster fringe/speckles remain. The mean opacity over the hole is about0.0204%. No portrait or opaque backing is present. Native alpha was preserved."
+  }
+}

@@ -3,7 +3,7 @@ extends RefCounted
 ## Lighting up the thing under the cursor.
 ##
 ## Static, with no state of its own: it is told which node to light and whether to
-## light it. Separate from main.gd because "what the mouse is over" and "how a thing
+## light it. Separate from interaction orchestration because "what the mouse is over" and "how a thing
 ## shows that it is clickable" are two subjects, and the second one is the kind that
 ## grows - an outline shader, a different colour per verb, a pulse.
 

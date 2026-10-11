@@ -47,7 +47,9 @@ func _ready() -> void:
 		location.show()
 	cold_open_stage.hide()
 	caption.show_actions = false
-	await location.await_navigation()
+	if not location.navigation_regions.is_empty() and not await location.await_navigation():
+		push_error("Game location has no usable synchronized navigation. Bake its authored regions.")
+		return
 	interactions.busy = false
 	initialized = true
 	startup_ready.emit()
@@ -73,16 +75,34 @@ func change_location(scene: PackedScene) -> bool:
 	if not candidate is Location:
 		candidate.free()
 		return false
+	if not candidate._get_configuration_warnings().is_empty():
+		candidate.free()
+		return false
+	var previous := location
+	var previous_index := previous.get_index()
 	interactions.busy = true
-	location.player.stop()
+	previous.player.stop()
 	interactions.release_location()
-	remove_child(location)
-	location.queue_free()
+	remove_child(previous)
 	await get_tree().physics_frame
 	location = candidate as Location
 	add_child(location)
+	move_child(location, previous_index)
+	var ready := location.navigation_regions.is_empty() or await location.await_navigation()
+	if not ready:
+		remove_child(location)
+		location.queue_free()
+		await get_tree().physics_frame
+		location = previous
+		add_child(location)
+		move_child(location, previous_index)
+		if not location.navigation_regions.is_empty():
+			await location.await_navigation()
+		_wire_location()
+		interactions.busy = false
+		return false
+	previous.queue_free()
 	_wire_location()
-	await location.await_navigation()
 	interactions.busy = false
 	return true
 

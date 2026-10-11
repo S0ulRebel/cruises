@@ -122,7 +122,7 @@ func _play(clip: String) -> void:
 
 
 ## Hold a hand pose over whatever the body is doing. The name is a clip in the
-## character file - see tools/add_hand_poses.py and main.gd HAND_POSES.
+## character file - see tools/add_hand_poses.py and the authored actor animations.
 func set_hand_pose(pose: String) -> void:
 	if not _looked:
 		_find_clips()

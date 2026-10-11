@@ -13,7 +13,7 @@ captain reads as 2,010 fragments before a weld and 13 real shells after it.
 `--shell` takes one index or a comma-separated list, for a piece that is more than
 one shell - the captain's hat is the tricorn and its feather, which Tripo kept
 apart. Nothing is scaled or moved here: where the piece sits on another head is a
-placement decision, and it lives in data/pieces.json where it can be nudged.
+placement decision, authored in the character's portrait scene where it can be nudged.
 
 Shell indices come from --list and are ordered by vertex count, largest first, so
 they are stable for a given source file. The weld is 0.1 mm, which is below any

@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://dialogue/dialogue.gd" id="dialogue"]
+
+[node name="Dialogue" type="Node"]
+script = ExtResource("dialogue")

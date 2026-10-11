@@ -59,7 +59,7 @@ it.
 
 ## 3. Godot
 
-Looping is authored on the stream in `systems/audio/audio.tscn`. The saved Music
+Looping is authored in the theme's `.ogg.import` settings. `systems/audio/audio.tscn` saves the Music
 AudioStreamPlayer exposes stream, volume, bus and autoplay in the Inspector.
 Scripts control playback without creating players or changing shared streams.
 

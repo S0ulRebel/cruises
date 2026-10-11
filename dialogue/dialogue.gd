@@ -106,7 +106,7 @@ func play() -> void:
 			if verbose:
 				print("%s: %s" % [person.get("name", who), line.get("text", "")])
 			# The ASSET id, not the screenplay id: it is what names the head piece and
-			# the entry in the speech data. See main.gd CAST.
+			# the entry in speech data. CharacterDefinition keeps these IDs separate.
 			_caption.say(String(person.get("name", who)), String(line.get("text", "")),
 				String(person.get("assets", who)),
 				Color(String(person.get("colour", "#4a4f5a"))))

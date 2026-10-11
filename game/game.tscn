@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://game/game.gd" id="game"]
 [ext_resource type="PackedScene" path="res://locations/captains_cabin/captains_cabin.tscn" id="cabin"]
-[ext_resource type="Script" path="res://systems/game_state/game_state.gd" id="state"]
-[ext_resource type="Script" path="res://systems/interaction/interaction_controller.gd" id="interaction"]
-[ext_resource type="Script" path="res://dialogue/dialogue.gd" id="dialogue"]
+[ext_resource type="PackedScene" path="res://systems/game_state/game_state.tscn" id="state"]
+[ext_resource type="PackedScene" path="res://systems/interaction/interaction_controller.tscn" id="interaction"]
+[ext_resource type="PackedScene" path="res://dialogue/dialogue.tscn" id="dialogue"]
 [ext_resource type="PackedScene" path="res://ui/caption.tscn" id="caption"]
 [ext_resource type="PackedScene" path="res://ui/choices.tscn" id="choices"]
 [ext_resource type="PackedScene" path="res://ui/inventory.tscn" id="inventory"]
@@ -37,12 +37,10 @@ audio = NodePath("Audio")
 
 [node name="CaptainsCabin" parent="." instance=ExtResource("cabin")]
 
-[node name="State" type="Node" parent="."]
-script = ExtResource("state")
+[node name="State" parent="." instance=ExtResource("state")]
 items = Array[ExtResource("item_type")]([ExtResource("item_compass"), ExtResource("item_brass_inkwell"), ExtResource("item_rapier"), ExtResource("item_fishbowl"), ExtResource("item_key"), ExtResource("item_ladle"), ExtResource("item_rolled_charts")])
 
-[node name="Interactions" type="Node" parent="."]
-script = ExtResource("interaction")
+[node name="Interactions" parent="." instance=ExtResource("interaction")]
 
 [node name="Caption" parent="." instance=ExtResource("caption")]
 
@@ -52,8 +50,7 @@ script = ExtResource("interaction")
 
 [node name="Pointer" parent="." instance=ExtResource("pointer")]
 
-[node name="Dialogue" type="Node" parent="."]
-script = ExtResource("dialogue")
+[node name="Dialogue" parent="." instance=ExtResource("dialogue")]
 
 [node name="ColdOpenStage" parent="." instance=ExtResource("stage")]
 visible = false

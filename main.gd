@@ -402,10 +402,15 @@ func _start_sound() -> void:
 const FURNITURE := [
 	{ "name": "desk", "at": Vector3(-3.6, 0.38, -1.4), "size": Vector3(1.8, 0.76, 0.9),
 	  "colour": "#4a2f16", "model": "res://art/props/captain_desk/captain_desk.glb" },
-	{ "name": "chair", "at": Vector3(-3.6, 0.95, -2.1), "size": Vector3(0.5, 1.9, 0.5),
-	  "colour": "#3a2416" },
+	# 0.5 x 1.0 x 0.5 from the chair's own sidecar. The box that stood here was 1.9 m
+	# tall, which is a wardrobe, not a chair.
+	{ "name": "chair", "at": Vector3(-3.6, 0.50, -2.1), "size": Vector3(0.5, 1.0, 0.5),
+	  "colour": "#3a2416", "model": "res://art/props/captain_chair/captain_chair.glb",
+	  "spin": Vector3(-90, 0, 0) },
+	# The art session built the chest to the crate's own 0.9 m cube, so it IS the crate.
 	{ "name": "crate", "at": Vector3(3.9, 0.45, 1.9), "size": Vector3(0.9, 0.9, 0.9),
-	  "colour": "#4a2f16" },
+	  "colour": "#4a2f16", "model": "res://art/props/pirate_chest/pirate_chest.glb",
+	  "spin": Vector3(-90, 0, 0) },
 	# Set into the back wall, so it blocks nothing on the floor.
 	{ "name": "porthole", "at": Vector3(0.0, 1.55, -3.4), "size": Vector3(0.9, 0.9, 0.08),
 	  "colour": "#86a9c9", "solid": false },
@@ -450,6 +455,11 @@ func _add_furniture() -> void:
 ## has substance. An inner shell a few millimetres smaller gives the rim a visible
 ## thickness and gives every silhouette edge a doubled line, which is what makes it
 ## look like a vessel instead of a sphere of tint.
+## The generated bowl. Still sealed - the owner opens the mouth in Blender by eye,
+## because the dish Tripo reconstructed is not axis aligned and a measured cut kept
+## taking the bite out of the far side.
+const BOWL_MODEL := "res://art/props/fishbowl/fishbowl.glb"
+
 func _add_fishbowl(at: Vector3) -> void:
 	# Bigger than a real bowl for a 7 cm fish, deliberately. At a true 17 cm the bowl
 	# was 40 px across from the room camera and Count Fingers was a speck - and he is a
@@ -471,21 +481,39 @@ func _add_fishbowl(at: Vector3) -> void:
 	glass.cull_mode = BaseMaterial3D.CULL_DISABLED
 	glass.refraction_enabled = false
 
-	for radius in [RADIUS, RADIUS - WALL]:
-		var shell := SphereMesh.new()
-		shell.radius = radius
-		shell.height = radius * 2.0
-		shell.is_hemisphere = true
-		shell.radial_segments = 48
-		shell.rings = 24
-		var piece := MeshInstance3D.new()
-		piece.mesh = shell
-		# A hemisphere is the TOP half, so it is turned over to make a bowl.
-		piece.rotation.x = PI
-		piece.position.y = radius
-		piece.material_override = glass
-		piece.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-		bowl.add_child(piece)
+	# The generated bowl if there is one, primitives if not. The generated mesh has the
+	# brass rim and the turned shape the design has and a sphere never will; what it
+	# does NOT have is glass, because a generator delights its textures and cannot make
+	# a transparent surface. So the mesh comes from the art and the glass comes from
+	# here - its own texture is dropped entirely by the override.
+	var model := load(BOWL_MODEL) as PackedScene if ResourceLoader.exists(BOWL_MODEL) else null
+	if model:
+		var mesh_root := model.instantiate() as Node3D
+		var box := _visual_bounds(mesh_root)
+		var fit: float = (RADIUS * 2.0) / maxf(box.size.y, 0.001)
+		mesh_root.scale = Vector3.ONE * fit
+		mesh_root.position.y = -box.position.y * fit
+		for node in mesh_root.find_children("*", "MeshInstance3D", true, false):
+			var vis := node as MeshInstance3D
+			vis.material_override = glass
+			vis.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		bowl.add_child(mesh_root)
+	else:
+		for radius in [RADIUS, RADIUS - WALL]:
+			var shell := SphereMesh.new()
+			shell.radius = radius
+			shell.height = radius * 2.0
+			shell.is_hemisphere = true
+			shell.radial_segments = 48
+			shell.rings = 24
+			var piece := MeshInstance3D.new()
+			piece.mesh = shell
+			# A hemisphere is the TOP half, so it is turned over to make a bowl.
+			piece.rotation.x = PI
+			piece.position.y = radius
+			piece.material_override = glass
+			piece.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+			bowl.add_child(piece)
 
 	# The water, sitting a little below the rim. A flat disc is enough: the surface is
 	# only ever seen from above the waterline at this camera.
@@ -568,6 +596,15 @@ func _add_prop(piece: Dictionary) -> void:
 	var basis := Basis.IDENTITY
 	if bool(piece.get("lie_flat", false)):
 		basis = Basis.from_euler(Vector3(deg_to_rad(-90.0), 0.0, 0.0))
+	# Tripo orients a multiview reconstruction so the FRONT view faces up, which lands
+	# the chest in the room on its back with the skull pointing at the ceiling. There
+	# is nothing in the mesh to detect that from - a 0.9 m cube has no up - so it is
+	# stated per piece rather than guessed.
+	if piece.has("spin"):
+		basis = Basis.from_euler(Vector3(
+			deg_to_rad(float(piece["spin"].x)),
+			deg_to_rad(float(piece["spin"].y)),
+			deg_to_rad(float(piece["spin"].z)))) * basis
 
 	var size: Vector3 = piece["size"]
 	var longest: float = maxf(local.size.x, maxf(local.size.y, local.size.z))
@@ -930,7 +967,7 @@ const HOTSPOTS := [
 	  "props": { "description": "Dry since the second week. He writes the log from memory, which is why it is a work of fiction.",
 	             "gives_item": "brass_inkwell" } },
 	{ "label": "Crate", "at": Vector3(3.9, 0.9, 1.9), "stand": Vector3(3.9, 0, 2.9), "visual": "Crate",
-	  "props": { "description": "Stencilled LE CHAOS NAVIGUE TOUJOURS PLUS LOIN. Nailed shut.",
+	  "props": { "description": "Brass corners, iron bands, and somebody's skull painted on the front. Nailed shut.",
 	             "refusal": "It is nailed shut, and the captain is not going to use his fingers.",
 	             "combinations": {
 	               "rapier": { "say": "The lid comes up with a noise like a small argument. Inside: a key, and three years of damp.",

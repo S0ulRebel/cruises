@@ -255,6 +255,20 @@ static func duplicate_part(part: AssemblyPart) -> Dictionary:
 	return _success({"part": copy, "world_transform": _world_transform(part), "reference_states": references})
 
 
+## Private authoring/provenance snapshot. Hierarchy and authored identities are
+## retained; mutable Resources are independent and all descendants belong to the
+## copied root for explicit PackedScene packing. No live node/resource is changed.
+static func independent_snapshot(root: Node) -> Node:
+	if not is_instance_valid(root):
+		return null
+	var copy := root.duplicate(Node.DUPLICATE_SIGNALS | Node.DUPLICATE_GROUPS | Node.DUPLICATE_SCRIPTS)
+	if copy == null:
+		return null
+	_expand_and_clone(copy)
+	ensure_owned(copy, copy)
+	return copy
+
+
 static func save_scene(root: Node, output_path: String) -> Dictionary:
 	if not is_instance_valid(root):
 		return _failure("Choose an authored character scene to save.")
@@ -286,11 +300,9 @@ static func save_scene(root: Node, output_path: String) -> Dictionary:
 		return _failure("The chosen output folder does not exist.")
 	# Packing a private expanded copy avoids changing ownership or resource paths in
 	# the live scene, including when the destination is unwritable.
-	var copy := root.duplicate(Node.DUPLICATE_SIGNALS | Node.DUPLICATE_GROUPS | Node.DUPLICATE_SCRIPTS)
+	var copy := independent_snapshot(root)
 	if copy == null:
 		return _failure("The authored scene could not be copied for saving.")
-	_expand_and_clone(copy)
-	ensure_owned(copy, copy)
 	var packed := PackedScene.new()
 	var pack_error := packed.pack(copy)
 	copy.free()

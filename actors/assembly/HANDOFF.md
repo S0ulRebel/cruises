@@ -7,7 +7,7 @@ published API. Complete imported hierarchy/local rigs are retained; static assem
 works without a skeleton. Source assets and accepted actors/portrait remain intact.
 Authoring only creates parts/carriers; ordinary startup loads authored scene content.
 
-Validation: 106 authoring checks, 12 separate main cold-reopen checks, 8 separate
+Validation: 114 authoring checks, 12 separate main cold-reopen checks, 8 separate
 nested-composition cold-reopen checks and 5 separate animation-graph cold-reopen
 checks pass under Godot
 4.7.2. The real `head_face.glb` retains 2 local bones and 3 blend shapes, including a
@@ -49,6 +49,13 @@ Integration notes:
 - Resource cloning shares immutable definitions/source textures and independently
   clones mutable meshes/skins/materials/animations/resources, including external array
   entries. Large derived meshes save inline; asset footprint optimization is later.
+- `independent_snapshot(root: Node) -> Node` returns an off-tree, fully owned copy
+  retaining authored hierarchy/IDs and independently cloned mutable resources.
+  Use this for binding provenance before explicit PackedScene packing; a plain
+  `Node.duplicate()` can retain mutable source references. The caller frees the
+  snapshot after packing. Invalid/unduplicable roots return null. `save_scene` uses
+  this same helper. Tests edit original mesh/material/metadata and packed instances
+  in both directions while preserving internal aliases and live ownership.
 - No promise of generic unsupported-rig garment binding or automatic neck capping.
 
 Follow-up correctness fix: snapshots now retain whole-scene `reference_states`.

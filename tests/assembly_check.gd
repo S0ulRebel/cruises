@@ -54,6 +54,7 @@ func _run() -> void:
 	_check("part identity is generated independently of filename", not first.part_id.is_empty() and first.part_id != STATIC.get_file())
 	first.binding_data = load(META)
 	first.geometry_masks.append(load(META))
+	_independent_snapshot_checks(first)
 	var duplicate := AssemblyOperations.duplicate_part(first)
 	_check("duplicate succeeds off-tree", duplicate.ok and duplicate.part.get_parent() == null)
 	var second: AssemblyPart = duplicate.part
@@ -375,6 +376,50 @@ func _source_snapshot_matches(states: Array) -> bool:
 		if state.has("part_id") and (node as AssemblyPart).part_id != state.part_id:
 			return false
 	return true
+
+
+func _independent_snapshot_checks(source: AssemblyPart) -> void:
+	var owner_before := source.owner
+	var snapshot := AssemblyOperations.independent_snapshot(source) as AssemblyPart
+	if not _check("independent snapshot is off-tree and preserves authored identity", snapshot != null and snapshot.get_parent() == null and snapshot.part_id == source.part_id):
+		return
+	var source_model := source.get_node("Model") as MeshInstance3D
+	var snapshot_model := snapshot.get_node("Model") as MeshInstance3D
+	var source_mesh := source_model.mesh as BoxMesh
+	var snapshot_mesh := snapshot_model.mesh as BoxMesh
+	var source_material := source_mesh.material as StandardMaterial3D
+	var original_surface_color := source_material.albedo_color
+	var original_size := source_mesh.size
+	var original_offset: Vector3 = source.binding_data.offset
+	var original_color: Color = source.binding_data.material.albedo_color
+	_check("snapshot owns its full hierarchy without changing live owners", snapshot_model.owner == snapshot and snapshot_model.get_node("AnimationPlayer").owner == snapshot and source.owner == owner_before)
+	_check("snapshot mutable resources are independent with internal aliases preserved", snapshot_mesh != source_mesh and snapshot_mesh.material != source_material and snapshot.binding_data != source.binding_data and snapshot.binding_data == snapshot.geometry_masks[0] and snapshot.binding_data.related[0] == snapshot.binding_data.material and snapshot.binding_data.material != source.binding_data.material)
+	source_mesh.size = original_size * 2.0
+	source_material.albedo_color = Color.RED
+	source.binding_data.offset = Vector3(7, 4, 2)
+	source.binding_data.material.albedo_color = Color.RED
+	_check("editing the retained original cannot change source snapshot", snapshot_mesh.size == original_size and snapshot_mesh.material.albedo_color == original_surface_color and snapshot.binding_data.offset == original_offset and snapshot.binding_data.material.albedo_color == original_color)
+	source_mesh.size = original_size
+	source_material.albedo_color = original_surface_color
+	source.binding_data.offset = original_offset
+	source.binding_data.material.albedo_color = original_color
+	var packed := PackedScene.new()
+	if not _check("independent snapshot packs its complete owned descendants", packed.pack(snapshot) == OK):
+		snapshot.free()
+		return
+	var first_instance := packed.instantiate() as AssemblyPart
+	var second_instance := packed.instantiate() as AssemblyPart
+	var first_mesh := first_instance.get_node("Model").mesh as BoxMesh
+	first_mesh.size = original_size * 3.0
+	first_mesh.material.albedo_color = Color.BLUE
+	first_instance.binding_data.material.albedo_color = Color.BLUE
+	_check("editing packed snapshot instance cannot affect original snapshot or another instance", snapshot_mesh.size == original_size and source_mesh.size == original_size and (second_instance.get_node("Model").mesh as BoxMesh).size == original_size and snapshot_mesh.material.albedo_color == original_surface_color and source_material.albedo_color == original_surface_color and second_instance.get_node("Model").mesh.material.albedo_color == original_surface_color and snapshot.binding_data.material.albedo_color == original_color and source.binding_data.material.albedo_color == original_color and second_instance.binding_data.material.albedo_color == original_color)
+	_check("packed snapshot instances retain their own resource aliases", first_instance.binding_data == first_instance.geometry_masks[0] and second_instance.binding_data == second_instance.geometry_masks[0] and first_instance.binding_data.related[0] == first_instance.binding_data.material and first_instance.binding_data != second_instance.binding_data)
+	snapshot.binding_data.offset = Vector3(9, 8, 7)
+	_check("editing snapshot metadata leaves source and packed instances independent", source.binding_data.offset == original_offset and first_instance.binding_data.offset == original_offset and second_instance.binding_data.offset == original_offset)
+	first_instance.free()
+	second_instance.free()
+	snapshot.free()
 
 
 func _animation_graph_checks(output_dir: String) -> String:

@@ -1,0 +1,82 @@
+{
+  "source_sheet": "art\\props\\compass\\sheet.png",
+  "source_size": [
+    2732,
+    683
+  ],
+  "box_px": 678,
+  "output_px": 1024,
+  "upscale_method": "LANCZOS",
+  "card_colour": [
+    254,
+    254,
+    254
+  ],
+  "note": "Each figure is cut to its own bounds and composited onto a shared square canvas at a shared foot line. Nothing from the surrounding sheet is included, and framing is identical by construction.",
+  "views": [
+    {
+      "name": "front",
+      "figure_box": [
+        68,
+        62,
+        614,
+        602
+      ],
+      "figure_px": [
+        546,
+        540
+      ],
+      "canvas_px": 678,
+      "output_px": 1024,
+      "upscaled": true
+    },
+    {
+      "name": "left",
+      "figure_box": [
+        937,
+        62,
+        1112,
+        602
+      ],
+      "figure_px": [
+        175,
+        540
+      ],
+      "canvas_px": 678,
+      "output_px": 1024,
+      "upscaled": true
+    },
+    {
+      "name": "back",
+      "figure_box": [
+        1620,
+        62,
+        1794,
+        602
+      ],
+      "figure_px": [
+        174,
+        540
+      ],
+      "canvas_px": 678,
+      "output_px": 1024,
+      "upscaled": true
+    },
+    {
+      "name": "right",
+      "figure_box": [
+        2117,
+        62,
+        2664,
+        602
+      ],
+      "figure_px": [
+        547,
+        540
+      ],
+      "canvas_px": 678,
+      "output_px": 1024,
+      "upscaled": true
+    }
+  ]
+}

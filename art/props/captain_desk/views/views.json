@@ -1,0 +1,82 @@
+{
+  "source_sheet": "art\\props\\captain_desk\\sheet.png",
+  "source_size": [
+    3116,
+    779
+  ],
+  "box_px": 779,
+  "output_px": 1024,
+  "upscale_method": "LANCZOS",
+  "card_colour": [
+    254,
+    254,
+    254
+  ],
+  "note": "Each figure is cut to its own bounds and composited onto a shared square canvas at a shared foot line. Nothing from the surrounding sheet is included, and framing is identical by construction.",
+  "views": [
+    {
+      "name": "front",
+      "figure_box": [
+        75,
+        414,
+        704,
+        686
+      ],
+      "figure_px": [
+        629,
+        272
+      ],
+      "canvas_px": 779,
+      "output_px": 1024,
+      "upscaled": true
+    },
+    {
+      "name": "left",
+      "figure_box": [
+        1011,
+        414,
+        1326,
+        686
+      ],
+      "figure_px": [
+        315,
+        272
+      ],
+      "canvas_px": 779,
+      "output_px": 1024,
+      "upscaled": true
+    },
+    {
+      "name": "back",
+      "figure_box": [
+        1788,
+        414,
+        2106,
+        686
+      ],
+      "figure_px": [
+        318,
+        272
+      ],
+      "canvas_px": 779,
+      "output_px": 1024,
+      "upscaled": true
+    },
+    {
+      "name": "right",
+      "figure_box": [
+        2412,
+        414,
+        3040,
+        686
+      ],
+      "figure_px": [
+        628,
+        272
+      ],
+      "canvas_px": 779,
+      "output_px": 1024,
+      "upscaled": true
+    }
+  ]
+}

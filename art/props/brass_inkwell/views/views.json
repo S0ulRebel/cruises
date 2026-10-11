@@ -1,0 +1,82 @@
+{
+  "source_sheet": "art\\props\\brass_inkwell\\sheet.png",
+  "source_size": [
+    2548,
+    637
+  ],
+  "box_px": 637,
+  "output_px": 1024,
+  "upscale_method": "LANCZOS",
+  "card_colour": [
+    254,
+    254,
+    254
+  ],
+  "note": "Each figure is cut to its own bounds and composited onto a shared square canvas at a shared foot line. Nothing from the surrounding sheet is included, and framing is identical by construction.",
+  "views": [
+    {
+      "name": "front",
+      "figure_box": [
+        62,
+        101,
+        574,
+        561
+      ],
+      "figure_px": [
+        512,
+        460
+      ],
+      "canvas_px": 637,
+      "output_px": 1024,
+      "upscaled": true
+    },
+    {
+      "name": "left",
+      "figure_box": [
+        706,
+        101,
+        1204,
+        561
+      ],
+      "figure_px": [
+        498,
+        460
+      ],
+      "canvas_px": 637,
+      "output_px": 1024,
+      "upscaled": true
+    },
+    {
+      "name": "back",
+      "figure_box": [
+        1343,
+        101,
+        1841,
+        561
+      ],
+      "figure_px": [
+        498,
+        460
+      ],
+      "canvas_px": 637,
+      "output_px": 1024,
+      "upscaled": true
+    },
+    {
+      "name": "right",
+      "figure_box": [
+        1972,
+        101,
+        2486,
+        561
+      ],
+      "figure_px": [
+        514,
+        460
+      ],
+      "canvas_px": 637,
+      "output_px": 1024,
+      "upscaled": true
+    }
+  ]
+}

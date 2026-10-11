@@ -366,6 +366,96 @@ either shape does alone. Nothing hit the clamp on the test line.
 **Not done:** not tested in Godot, nothing committed, no SubViewport node built yet.
 
 ---
+
+### 2026-10-11 - for the ART SIDE - draw heads with the mouth SLIGHTLY PARTED, not shouting
+
+Livé's head cannot close its mouth, and no rig can fix it. This is a drawing instruction for
+every head sheet from now on, with a number to aim at.
+
+**The measurement.** On `pieces/head/head.glb`, the skin either side of the mouth opening,
+centre line only: the lips sit **0.1104 apart on a head 0.9995 tall - 11% of head height**.
+The sheet was drawn as a shout. Each lip would have to travel ~0.055 to meet, which is more
+than the depth of his nose.
+
+**Why no rig fixes it.** A blendshape interpolates each vertex along a straight line. Opening
+a closed mouth is SEPARATION and interpolates fine. Closing an open one means FUSING two
+surfaces, and a linear pull shears everything between them. Forcing it closed does work by
+measurement - lip gap +0.1104 -> -0.0062 - and the render is destroyed: the mouth and cheek
+tear into shards. Widening the falloff spread the damage instead of fixing it. Reverted.
+
+**Do NOT solve it by drawing the mouth closed.** A closed mouth gives Tripo no cavity, no
+teeth and no tongue - that is exactly the dead end of the old fused models, and the reason
+the open-mouth sheet was specified in the first place. The generator cannot build an interior
+it was never shown.
+
+**The target: mouth SLIGHTLY PARTED. Aim for a lip gap of 2-3% of head height.** Open enough
+that teeth and tongue are visible in the front and both profiles so the cavity gets built;
+closed enough that the jaw has somewhere to travel. Livé's 11% is roughly four times too
+much.
+
+**Verify the same way, it is cheap:** generate the head, render it untextured in Blender,
+measure the centre-line lip gap as a fraction of head height. If a 3% sheet comes back sealed
+with no teeth, that is the floor and the next one goes up.
+
+Until a reparted head exists, Livé ships not fully closing his mouth. The conservative
+PRESSED blendshape leaves a gap of +0.0664 and does not break the face; the engine side is
+tuning the rest pose by eye at panel size to see whether that reads as a parting or a gape.
+
+---
+---
+
+### 2026-10-11 — for the art agent — the dialogue bar, with the portrait frame in it
+
+We need the dialogue bar designed as artwork. It is placeholder rectangles today and
+it is the single most-looked-at thing in the game: it is on screen for most of the
+playing time and the player reads every word of it.
+
+**Look at `docs/reference/dialogue_layout.png` first.** That is a real screenshot of
+the running game with the two regions marked, so you are designing against what is
+actually there rather than a description of it.
+
+MEASUREMENTS, from ui/caption.gd, at 1920x1080
+
+| | |
+| --- | --- |
+| portrait frame | 300 x 300, bottom-left, 80 px in from the left edge |
+| gap between portrait and box | 14 px |
+| dialogue box | the remaining width, 80 px margin on the right, 60 px from the bottom |
+| box inner padding | 26 px |
+| speaker name | 26 px, currently #b49268 |
+| dialogue text | 30 px, white, types out letter by letter |
+
+WHAT TO MAKE
+
+A single **frame image** for the bar — the portrait surround and the speech box as one
+piece of art, 9-slice friendly so the box can stretch. Cut it as:
+
+    art/ui/dialogue_frame.png      the speech box, 9-slice, with its corner margins noted
+    art/ui/portrait_frame.png      the 300x300 surround the face sits inside
+    art/ui/dialogue.json           the 9-slice margins and where the text should sit
+
+THE PORTRAIT FRAME IS A HOLE, NOT A PICTURE. A live 3D render of the speaking
+character's head is drawn into it - it already works, that is Livé's actual head in the
+screenshot. So the frame needs a clear inner area for the face and must read as
+something a face sits IN: a carved surround, a brass porthole ring, a frame nailed to
+the wall. Do not draw a face in it.
+
+STYLE
+
+Same world as the characters: cartoony, Monkey Island, chunky and worn, saturated but
+dirty. It is a pirate ship's log and a cruise liner's signage colliding - that contrast
+is the joke everywhere else in the art and should be here too. It sits over a dim room,
+so it needs enough weight to be readable without blacking out the scene behind it.
+
+Keep it quiet. The words are the content; the frame should not compete with them.
+
+WHAT IT MUST NOT DO
+
+- No fixed text in the image. The speaker name and the line are both live.
+- No fixed portrait size assumptions beyond 300x300 - the inner hole is what matters.
+- Nothing in the middle of the box. The text starts at the top-left of the inner area
+  and can run to four lines.
+
 ---
 
 ---

@@ -1,0 +1,82 @@
+{
+  "source_sheet": "art/props/wood_board/sheet.png",
+  "source_size": [
+    1536,
+    1024
+  ],
+  "box_px": 1227,
+  "output_px": 2454,
+  "upscale_method": "LANCZOS",
+  "card_colour": [
+    254,
+    254,
+    254
+  ],
+  "note": "Each figure is cut to its own bounds and composited onto a shared square canvas at a shared foot line. Nothing from the surrounding sheet is included, and framing is identical by construction.",
+  "views": [
+    {
+      "name": "front",
+      "figure_box": [
+        251,
+        14,
+        433,
+        1004
+      ],
+      "figure_px": [
+        182,
+        990
+      ],
+      "canvas_px": 1227,
+      "output_px": 2454,
+      "upscaled": true
+    },
+    {
+      "name": "left",
+      "figure_box": [
+        592,
+        14,
+        656,
+        1004
+      ],
+      "figure_px": [
+        64,
+        990
+      ],
+      "canvas_px": 1227,
+      "output_px": 2454,
+      "upscaled": true
+    },
+    {
+      "name": "right",
+      "figure_box": [
+        882,
+        14,
+        946,
+        1004
+      ],
+      "figure_px": [
+        64,
+        990
+      ],
+      "canvas_px": 1227,
+      "output_px": 2454,
+      "upscaled": true
+    },
+    {
+      "name": "back",
+      "figure_box": [
+        1105,
+        14,
+        1288,
+        1004
+      ],
+      "figure_px": [
+        183,
+        990
+      ],
+      "canvas_px": 1227,
+      "output_px": 2454,
+      "upscaled": true
+    }
+  ]
+}

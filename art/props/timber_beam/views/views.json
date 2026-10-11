@@ -1,0 +1,82 @@
+{
+  "source_sheet": "art/props/timber_beam/sheet.png",
+  "source_size": [
+    2172,
+    724
+  ],
+  "box_px": 1067,
+  "output_px": 2134,
+  "upscale_method": "LANCZOS",
+  "card_colour": [
+    253,
+    253,
+    253
+  ],
+  "note": "Each figure is cut to its own bounds and composited onto a shared square canvas at a shared foot line. Nothing from the surrounding sheet is included, and framing is identical by construction.",
+  "views": [
+    {
+      "name": "front",
+      "figure_box": [
+        27,
+        261,
+        887,
+        416
+      ],
+      "figure_px": [
+        860,
+        155
+      ],
+      "canvas_px": 1067,
+      "output_px": 2134,
+      "upscaled": true
+    },
+    {
+      "name": "left",
+      "figure_box": [
+        917,
+        259,
+        1071,
+        416
+      ],
+      "figure_px": [
+        154,
+        157
+      ],
+      "canvas_px": 1067,
+      "output_px": 2134,
+      "upscaled": true
+    },
+    {
+      "name": "right",
+      "figure_box": [
+        1100,
+        259,
+        1254,
+        416
+      ],
+      "figure_px": [
+        154,
+        157
+      ],
+      "canvas_px": 1067,
+      "output_px": 2134,
+      "upscaled": true
+    },
+    {
+      "name": "back",
+      "figure_box": [
+        1283,
+        261,
+        2144,
+        416
+      ],
+      "figure_px": [
+        861,
+        155
+      ],
+      "canvas_px": 1067,
+      "output_px": 2134,
+      "upscaled": true
+    }
+  ]
+}

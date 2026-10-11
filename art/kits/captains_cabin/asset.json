@@ -1,0 +1,41 @@
+{
+  "asset_id": "construction_kit:captains_cabin",
+  "name": "Captain Livé cabin construction source kit",
+  "created_utc": "2026-10-11",
+  "role": "Reusable textured modeling sources plus reusable surface-colour textures; room size independent",
+  "materials": [
+    {
+      "id": "floorboards",
+      "asset": "art/materials/captains_cabin/floorboards/asset.json",
+      "albedo": "art/materials/captains_cabin/floorboards/albedo.png"
+    },
+    {
+      "id": "wall_planks",
+      "asset": "art/materials/captains_cabin/wall_planks/asset.json",
+      "albedo": "art/materials/captains_cabin/wall_planks/albedo.png"
+    },
+    {
+      "id": "beam_wood",
+      "asset": "art/materials/captains_cabin/beam_wood/asset.json",
+      "albedo": "art/materials/captains_cabin/beam_wood/albedo.png"
+    },
+    {
+      "id": "carpet_burgundy",
+      "asset": "art/materials/captains_cabin/carpet_burgundy/asset.json",
+      "albedo": "art/materials/captains_cabin/carpet_burgundy/albedo.png"
+    }
+  ],
+  "parts": [
+    {
+      "id": "timber_beam",
+      "asset": "art/props/timber_beam/asset.json",
+      "sheet": "art/props/timber_beam/sheet.png"
+    },
+    {
+      "id": "wood_board",
+      "asset": "art/props/wood_board/asset.json",
+      "sheet": "art/props/wood_board/sheet.png"
+    }
+  ],
+  "status": "Source artwork delivered; no reconstructed mesh, UV packing, scene assignment or in-engine seam/lighting test performed."
+}

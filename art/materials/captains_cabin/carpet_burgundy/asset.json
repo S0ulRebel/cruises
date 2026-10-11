@@ -1,0 +1,89 @@
+{
+  "asset_id": "material:captains_cabin:carpet_burgundy",
+  "name": "Burgundy carpet field",
+  "asset_type": "surface_albedo_texture",
+  "files": {
+    "albedo": "albedo.png"
+  },
+  "image_size_px": [
+    1254,
+    1254
+  ],
+  "colour_space": "sRGB colour; not linear data",
+  "channels": {
+    "albedo": "Provided",
+    "normal": "Not generated",
+    "roughness": "Not generated; use constant matte material",
+    "metallic": "0; nonmetal",
+    "height": "Not generated"
+  },
+  "source": {
+    "producer": "OpenAI built-in image_gen",
+    "model_identifier": "Not exposed by tool",
+    "repository_base_commit": "f8e93919fd196eededba562069a4cf1cde26712c",
+    "original_filename": "exec-d5487b4c-cfc0-40a1-bc24-7a8459bfa41b.png",
+    "sha256": "93492a77a4ee7e57c52a3e2aee7f1a069b68baab6131489ccfe1a4ea835aef73",
+    "full_prompt": "Use case: stylized-concept. Asset type: repeatable base-colour/albedo surface texture for Captain LivÃ©'s pirate cabin in S0ulRebel/cruises. Match the already-inspected existing cabin, cartoon pirate Captain LivÃ©, painted wooden props, desk lantern and globe: rich but restrained warm colours, broad graphic brush shapes, simplified hand-painted cartoon adventure-game material. Not photorealism, not photographic scans. Make one flat, edge-to-edge SQUARE texture, target 2048x2048. Orthographic surface only, no room, no object, no frame, no text or labels. Neutral evenly lit base colour, no baked directional light, no lantern glow, no cast shadows, no ambient occlusion vignette, no glossy highlights or bevel highlights, no relief-rendered deep grooves. This is texture colour, not a beauty render. SEAMLESS toroidal tiling in BOTH axes: motifs/grain/colours leaving the left edge continue at the right edge in exactly the same position and slope; top edge continues at bottom in the same way. No border, no margin, no fade at edges; edges are a continuation of the same material. Avoid distinct large knots or marks that draw attention to a repeat. Dense enough to read as material, simplified enough for fixed-camera 1080p gameplay. Material: BURGUNDY CARPET FIELD, the inner area of the cabin red rug, no surrounding rug border. Deep wine burgundy crimson, small simplified tone-on-tone stylized damask leaf/curl motifs inspired by the inspected cabin carpet. Very low contrast patterns, quieter than the characters. A compact repeating arabesque or leaf pattern with broad brush shapes, no large central medallion, no gold lines, no skulls, no isolated rug silhouette, no fringe. Subdued soft woven cloth colour impression, not realistic high-frequency fibers. SAME density and hue at all four edges; cropped motif halves at opposite edges align exactly when repeated. No shading, no hot spot, no directional pile sheen. Readable as rich red carpet across a large room without a checkerboard tile grid.",
+    "reference_files": [
+      {
+        "path": "docs/reference/room_target.png",
+        "sha256": "a17f771d95d7aa37b8403b3b4cb918c7032737cdb031d62c893b424c878cebc3",
+        "role": "Visually inspected identity/style reference before generation"
+      },
+      {
+        "path": "art/characters/captain_live/sheet.png",
+        "sha256": "f17759c2dca9d0638451ccc6bcd2823ef958ddcffde3dd3a2538197bf651c7ec",
+        "role": "Visually inspected identity/style reference before generation"
+      },
+      {
+        "path": "art/props/candle/sheet.png",
+        "sha256": "cab8a1673b93a2a3edf06ab79cab3262e0b6eb2aa5a4482a793aa64b661e4868",
+        "role": "Visually inspected identity/style reference before generation"
+      }
+    ],
+    "reference_input_method": "Images visually inspected in conversation; no image-path input was attached to the new-generation call. Prompt records the observed finish.",
+    "postprocessing": "Original generated PNG copied unchanged. Repeat previews are presentation only."
+  },
+  "tiling": {
+    "repeat_axes": [
+      "u",
+      "v"
+    ],
+    "requested_seamless": true,
+    "pixel_identical_opposite_edges": false,
+    "suggested_tile_span_m": {
+      "u": 0.8,
+      "v": 0.8
+    },
+    "suggested_span_is_provisional": true,
+    "grain_axis": "nondirectional damask",
+    "board_rows": null,
+    "uv_rule": "For a surface S_u by S_v metres, use UV extent (S_u / tile_span_u, S_v / tile_span_v). Sample with repeat enabled and mipmaps. Preserve density when the surface dimensions change; do not stretch a single tile to fit the room. Rotate UVs to align wood grain with the long direction of real pieces.",
+    "carpet_edge": "Field only; no golden rug border or fringe included. Add any finite rug edging as a separate strip or mesh."
+  },
+  "validation": {
+    "png_decoded": true,
+    "repeat_preview": "2x2 simple repeats visually inspected; no image edge correction performed",
+    "edge_jump_statistics": {
+      "size_px": [
+        1254,
+        1254
+      ],
+      "wrap_x_mean_rgb_jump": 3.2376396656036377,
+      "wrap_y_mean_rgb_jump": 3.489633083343506,
+      "internal_x_mean_rgb_jump": 1.230979561805725,
+      "internal_y_mean_rgb_jump": 1.1269642114639282,
+      "internal_x_p95": 5.333333492279053,
+      "internal_y_p95": 4.666666507720947
+    },
+    "limits": "Generated periodic colour is approximate, not pixel-identical at opposite edges. Small colour/grain transitions remain; live camera, mipmaps and material repeat must be inspected before calling the scene seam-free. 2048px was requested; native delivered size is1254px and is retained."
+  },
+  "lighting": {
+    "intent": "Neutral base colour with painted grain variation; no directional scene light",
+    "remaining": "Inspect under existing toon scene lights; use matte roughness about0.9 for wood,1.0 for carpet, zero metallic. These are art suggestions, not measured PBR maps."
+  },
+  "pipeline": {
+    "scene_assigned": false,
+    "engine_render_verified": false
+  }
+}

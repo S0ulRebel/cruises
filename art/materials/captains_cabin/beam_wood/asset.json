@@ -1,0 +1,89 @@
+{
+  "asset_id": "material:captains_cabin:beam_wood",
+  "name": "Continuous timber grain",
+  "asset_type": "surface_albedo_texture",
+  "files": {
+    "albedo": "albedo.png"
+  },
+  "image_size_px": [
+    1254,
+    1254
+  ],
+  "colour_space": "sRGB colour; not linear data",
+  "channels": {
+    "albedo": "Provided",
+    "normal": "Not generated",
+    "roughness": "Not generated; use constant matte material",
+    "metallic": "0; nonmetal",
+    "height": "Not generated"
+  },
+  "source": {
+    "producer": "OpenAI built-in image_gen",
+    "model_identifier": "Not exposed by tool",
+    "repository_base_commit": "f8e93919fd196eededba562069a4cf1cde26712c",
+    "original_filename": "exec-8f217082-1dd5-44e5-b19b-6ee0fb61f11e.png",
+    "sha256": "aec4e11e512c4ee6802f874a2c9275c6e8360abf00082f3edf12fa9d42cdbdd3",
+    "full_prompt": "Use case: stylized-concept. Asset type: repeatable base-colour/albedo surface texture for Captain LivÃ©'s pirate cabin in S0ulRebel/cruises. Match the already-inspected existing cabin, cartoon pirate Captain LivÃ©, painted wooden props, desk lantern and globe: rich but restrained warm colours, broad graphic brush shapes, simplified hand-painted cartoon adventure-game material. Not photorealism, not photographic scans. Make one flat, edge-to-edge SQUARE texture, target 2048x2048. Orthographic surface only, no room, no object, no frame, no text or labels. Neutral evenly lit base colour, no baked directional light, no lantern glow, no cast shadows, no ambient occlusion vignette, no glossy highlights or bevel highlights, no relief-rendered deep grooves. This is texture colour, not a beauty render. SEAMLESS toroidal tiling in BOTH axes: motifs/grain/colours leaving the left edge continue at the right edge in exactly the same position and slope; top edge continues at bottom in the same way. No border, no margin, no fade at edges; edges are a continuation of the same material. Avoid distinct large knots or marks that draw attention to a repeat. Dense enough to read as material, simplified enough for fixed-camera 1080p gameplay. Material: SOLID TIMBER GRAIN for ceiling beams, supporting posts and wood trims. Dark warm reddish chestnut brown, intermediate between the medium warm floor and very dark wall wood. Continuous long grain running VERTICALLY, deliberately no plank boundaries or cross joints anywhere. A dense solid timber surface rather than a panel of boards. Broad undulating flat-painted grain ribbons in subdued burnt sienna, chocolate and restrained ochre, low contrast. Small unobtrusive elongated knots only, no prominent concentric target knot, no cuts, no metal, no end grain rings. Do not outline a whole beam; this image is just wood colour applied to modeled beams. Ensure every grain band continues through top-bottom repeat, and left-right tone flow remains continuous. Flat neutral diffuse colour, absolutely no highlight strip on one side.",
+    "reference_files": [
+      {
+        "path": "docs/reference/room_target.png",
+        "sha256": "a17f771d95d7aa37b8403b3b4cb918c7032737cdb031d62c893b424c878cebc3",
+        "role": "Visually inspected identity/style reference before generation"
+      },
+      {
+        "path": "art/props/bookcase/sheet.png",
+        "sha256": "818aa99761b50b71ce0ccde37adb5ca4f04433a38b78b89112bd88bf16a551c0",
+        "role": "Visually inspected identity/style reference before generation"
+      },
+      {
+        "path": "art/props/supply_crate/sheet.png",
+        "sha256": "4ae46b4e9244f708320b6d094ce1b05cafe7fbe831999438952114a28de39b86",
+        "role": "Visually inspected identity/style reference before generation"
+      }
+    ],
+    "reference_input_method": "Images visually inspected in conversation; no image-path input was attached to the new-generation call. Prompt records the observed finish.",
+    "postprocessing": "Original generated PNG copied unchanged. Repeat previews are presentation only."
+  },
+  "tiling": {
+    "repeat_axes": [
+      "u",
+      "v"
+    ],
+    "requested_seamless": true,
+    "pixel_identical_opposite_edges": false,
+    "suggested_tile_span_m": {
+      "u": 1.0,
+      "v": 1.0
+    },
+    "suggested_span_is_provisional": true,
+    "grain_axis": "v",
+    "board_rows": null,
+    "uv_rule": "For a surface S_u by S_v metres, use UV extent (S_u / tile_span_u, S_v / tile_span_v). Sample with repeat enabled and mipmaps. Preserve density when the surface dimensions change; do not stretch a single tile to fit the room. Rotate UVs to align wood grain with the long direction of real pieces.",
+    "carpet_edge": null
+  },
+  "validation": {
+    "png_decoded": true,
+    "repeat_preview": "2x2 simple repeats visually inspected; no image edge correction performed",
+    "edge_jump_statistics": {
+      "size_px": [
+        1254,
+        1254
+      ],
+      "wrap_x_mean_rgb_jump": 3.3819775581359863,
+      "wrap_y_mean_rgb_jump": 2.4922914505004883,
+      "internal_x_mean_rgb_jump": 1.5986337661743164,
+      "internal_y_mean_rgb_jump": 0.6682751774787903,
+      "internal_x_p95": 5.0,
+      "internal_y_p95": 1.6666666269302368
+    },
+    "limits": "Generated periodic colour is approximate, not pixel-identical at opposite edges. Small colour/grain transitions remain; live camera, mipmaps and material repeat must be inspected before calling the scene seam-free. 2048px was requested; native delivered size is1254px and is retained."
+  },
+  "lighting": {
+    "intent": "Neutral base colour with painted grain variation; no directional scene light",
+    "remaining": "Inspect under existing toon scene lights; use matte roughness about0.9 for wood,1.0 for carpet, zero metallic. These are art suggestions, not measured PBR maps."
+  },
+  "pipeline": {
+    "scene_assigned": false,
+    "engine_render_verified": false
+  }
+}

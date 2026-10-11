@@ -1,0 +1,185 @@
+{
+  "asset_id": "prop:timber_beam",
+  "name": "Reusable textured timber beam",
+  "asset_type": "prop_turnaround_sheet",
+  "role": "Standalone modular scenery part for Captain Livé cabin; reusable elsewhere",
+  "files": {
+    "sheet": "sheet.png",
+    "views": "views/"
+  },
+  "dimensions_m": {
+    "width": 2.1,
+    "height": 0.38,
+    "depth": 0.375
+  },
+  "dimension_contract": "Provisional art guides adopted from selected source proportions; not owner measurements or reconstructed mesh bounds. Scale uniformly, inspect actual caps and joining surfaces before setting a placement grid. Horizontal hand-hewn timber, X long; bowed edges, swollen ends, waisted middle, exaggerated asymmetric bevels. Front/back show long grain, left/right show opposite cut ends. Final provisional2.10x0.38x0.375m adopts selected source aspect ratio about5.55 rather than initial requested10. Heights155/157px differ by2px (~1.27%); strict1px source-scale acceptance is NOT met. Baselines match. Keep dimensions provisional; resolve the source discrepancy or measure model projections before certified reconstruction.",
+  "view_order": [
+    "front",
+    "left",
+    "right",
+    "back"
+  ],
+  "reconstruction_orientation": {
+    "dimensions_m": {
+      "width": 2.1,
+      "height": 0.38,
+      "depth": 0.375
+    },
+    "axis_convention": "Right-handed +Y up, +Z front; beam longX, board longY in source.",
+    "camera_positions": {
+      "front": "+Z looking-Z",
+      "left": "-X looking+X",
+      "right": "+X looking-X",
+      "back": "-Z looking+Z"
+    },
+    "pose_and_engine_rotation": "Horizontal hand-hewn timber, X long; bowed edges, swollen ends, waisted middle, exaggerated asymmetric bevels. Front/back show long grain, left/right show opposite cut ends. Final provisional2.10x0.38x0.375m adopts selected source aspect ratio about5.55 rather than initial requested10. Heights155/157px differ by2px (~1.27%); strict1px source-scale acceptance is NOT met. Baselines match. Keep dimensions provisional; resolve the source discrepancy or measure model projections before certified reconstruction.",
+    "origin_recommendation": "Centre of mesh for modular assembly; record local endpoint and opposing edge markers after reconstruction."
+  },
+  "source": {
+    "producer": "OpenAI built-in image_gen",
+    "model_identifier": "Not exposed by tool",
+    "repository_base_commit": "f8e93919fd196eededba562069a4cf1cde26712c",
+    "original_filename": "exec-d5f05cf9-6c30-4af0-810c-9beccc57c1a4.png",
+    "sha256": "166f2c39d5fef401e991367662af79406b8cd912d717cb219328121ac9563b69",
+    "generation_history": [
+      {
+        "prompt": "Use case: stylized-concept. Create the MODELING SOURCE for one reusable solid TIMBER BEAM for Captain LivÃ©'s pirate cabin, matching the previously inspected room_target and cartoon wooden crate/bookcase artwork. One individual beam, not a frame or assembled room. Hand-painted cartoon wood: warm dark chestnut, broad restrained grain and a few tiny worn nicks, chunky simple forms, never photorealistic. No metal fittings, bolts, brackets, scarf, rope or text. Rectangular solid beam with SQUARE cross-section, straight long centreline, tiny consistent eased bevels, FLAT square-cut ends. Provisional physical dimensions length 2.4 metres, square section 0.24 x 0.24 metres (10:1 length-to-thickness). Beam lies HORIZONTALLY, long axis X, upright Y cross-section. EXACT FOUR views in ONE horizontal row, order FRONT, LEFT END, RIGHT END, BACK. Front/back are long rectangles 10x as wide as their height, profiles are genuine square end faces with visible simplified end-grain rings and centre heart, not another long face. The front/back grain runs horizontally along length; end grain is cut across it. Use strict LEVEL ORTHOGRAPHIC elevation cameras +Z, -X, +X, -Z, no perspective and no camera tilt. All four share precisely ONE orthographic scale and ONE height and baseline: if long side 1000px wide it is 100px high, and each end is100x100px, do NOT enlarge ends. Align all top/bottom extents pixel-identically. Keep generous truly white gaps, including between small end squares. Full beam in frame, white flat background, no ground shadow, no panel frames or captions. Soft even painted form shading, no directional hot spots. Avoid showing top surfaces in elevation; no diagonal reconstruction yaw. A complete closed beam, no cracks through it. Landscape sheet about3:1 aspect ratio, use most horizontal extent for the two long faces; native source detail should read cleanly at1080p.",
+        "selected": false,
+        "output_filename": "exec-21f8530a-4885-4157-87d2-2ea6a24250db.png",
+        "output_sha256": "7bc1b294d650c9bf4c3ea24c7a9a98486baba39f2c2e8ac6df0b731692051d88"
+      },
+      {
+        "prompt": "Edit Image1 (the four-view timber beam sheet) to substantially stylize the GEOMETRY and SILHOUETTE, while preserving its four-view FRONT LEFT-END RIGHT-END BACK order, single scale, exactly shared126px height and baseline and horizontal long axis. Image2 wooden pirate crate and Image3 captain desk are style references only. The owner rejected the first beam as too much like a regular rectangular box. Make it convincingly hand-hewn CARTOON pirate timber: broad asymmetrical faceted bevels, slightly swollen cut ends, gently waisted middle, long edges following shallow uneven arcs rather than ruler-straight lines, irregular rounded/chipped corners and a few broad sculpted dents. Change the OUTLINE visibly, not only the grain drawing. Approximately8-12% silhouette variation along its length, no perfect parallel lines. The main centreline stays straight enough for a reusable construction module; straight central contact patches at the two cut ends so pieces can join. No log/bark, no branches, no split/destroyed beam, no fasteners. The beam is still square-ish solid timber with flat-cut ends and clear end-grain rings. Same physical shape rotated between all4 views: left/right show genuine irregular softened end cross-sections at the same orthographic scale as the long faces; mirror the corresponding silhouette front/back, do not create4different beams. Preserve original overall native pixel bounding heights126 for ALL views, align top/bottom extrema, long-face width~867 and end-face widths~121-122. Front/back grain follows the modeled curved surface in broad clean carved-looking cartoon strokes, rich chestnut with subdued ochre edge planes, not realistic scratchy fibers. Match the exaggerated worn wood geometry on Image2 and Image3, but no metal parts from those assets. Neutral soft consistent shading; pure white uniform background, no cast shadow or floor, no text or guides. Keep the native source canvas2172x724 and generous gaps. No perspective/tilted cameras, no extra views, no touching objects.",
+        "selected": false,
+        "output_filename": "exec-d7701e5c-5191-41bb-a4a9-231546ef37f7.png",
+        "output_sha256": "289d2746f30248e17624f7b8da44b183190b273c38e4258047c1452c8988fe0e"
+      },
+      {
+        "prompt": "Precise correction of THIS stylized beam modeling sheet. Keep the hand-hewn cartoon appearance, broad asymmetrical carved facets, bowed/waisted edges, softened chunky ends, all four view order FRONT LEFT-END RIGHT-END BACK and the rich brown/ochre wood. Do not revert to a straight box. Only fix the small measured height mismatch: Image1 is2171x724. Current FRONT silhouette bounds x29..888,y261..417 =>156px tall; BACK x1285..2143,y261..417 =>156px tall. Both END profiles are currently y265..416 =>151px tall. Keep front/back at exactly those bounds and all original shape/colour/detail. Redraw LEFT and RIGHT ends at exactly y261..417,156pixels tall each, so common top and bottom extents agree with long views within1pixel. Preserve their151-152px widths; lightly extend their irregular upper/lower corner outline to the new common156px height, no axis rescaling of front/back and no oversized narrow views. The same maximum beam cross-section must read in all4orthographic views. Retain genuine cut-end rings and matching carved bevel cuts. One scale, one baseline, existingxcentres and clear white separators. Original source looks right stylistically; this is a tiny technical alignment adjustment ONLY. Plain uniform white254background no ground, shadows, captions or lines. Strict level orthographic projections. Preserve full2171x724canvas, or nearest integer exact ratio.",
+        "selected": false,
+        "output_filename": "exec-0f64ad80-e98a-41d6-a201-b48e73ef955a.png",
+        "output_sha256": "542e0315c75c77199ddac76a17e94af90f1efe4047d03a7e952e6f25b7e5145c"
+      },
+      {
+        "prompt": "Tiny precise image edit. Preserve this hand-hewn cartoon beam exactly: all long-side geometry, curved contour, asymmetric large bevels and wood paint remain fixed. Two centre end views are3pixels too short vertically. Raise ONLY the top edge of each centre end view by3pixels, keeping their bottom and widths fixed: their current y264..416 should become y261..416. Front/back already span y261..416 and must not change. Add those3rows of wood to the top contour of both end profiles and continue its top faceted bevel, not a line or label. End profile silhouettes must align at their highest point with the long faces. All4 heights155px, baseline415px. Preserve square-ish end grain rings. Leave all x coordinates, white separators, 2172x724 canvas, no captions or shadows. This is an alignment repair only, do not alter design, do not shrink front/back to fit ends. Top row of each centre end needs a small central broad wood facet reaching y261; existing contour keeps lower corners. Plain uniform white background.",
+        "selected": true,
+        "output_filename": "exec-d5f05cf9-6c30-4af0-810c-9beccc57c1a4.png",
+        "output_sha256": "166f2c39d5fef401e991367662af79406b8cd912d717cb219328121ac9563b69"
+      },
+      {
+        "prompt": "Keep this entire artwork and carved cartoon design, all4views, background and size. Modify ONLY the two long side views: their topmost end shoulder peaks should be2pixels higher, to match the height of the two centre cut-end views. Front and back now rise at y261; centre end faces rise y259. Put highest wood on front and back at y259 too, by thickening the highest rounded end shoulders very slightly. Bottom of all4 remains y415inclusive. Final bounding silhouette height157pixels for each. Leave centre end views UNCHANGED. No rescaling, no changes to wood grain or major contour, no labels/guides. The purpose is four equal-height orthographic views of the same irregular beam. Preserve bowed long edges, overlarge warm faceted bevels, end-grain rings and generous white gaps;2172x724source canvas.",
+        "selected": false,
+        "output_filename": "exec-a138d134-c95b-4ef5-ab6c-6fac26665fc4.png",
+        "output_sha256": "6df0ae1ffc129a5c56f33e27427b00f4adb1007d41efdb041693c041b43d30e6"
+      }
+    ],
+    "reference_files": [
+      {
+        "path": "docs/reference/room_target.png",
+        "sha256": "a17f771d95d7aa37b8403b3b4cb918c7032737cdb031d62c893b424c878cebc3",
+        "role": "Visually inspected identity/style reference before generation"
+      },
+      {
+        "path": "art/props/bookcase/sheet.png",
+        "sha256": "818aa99761b50b71ce0ccde37adb5ca4f04433a38b78b89112bd88bf16a551c0",
+        "role": "Visually inspected identity/style reference before generation"
+      },
+      {
+        "path": "art/props/supply_crate/sheet.png",
+        "sha256": "4ae46b4e9244f708320b6d094ce1b05cafe7fbe831999438952114a28de39b86",
+        "role": "Visually inspected identity/style reference before generation"
+      },
+      {
+        "path": "art/props/captain_desk/sheet.png",
+        "sha256": "02300d11cad484407755dfea20b66770abc9e92e895095b834bb505477b4f69c",
+        "role": "Visually inspected identity/style reference before generation"
+      },
+      {
+        "path": "art/characters/captain_live/sheet.png",
+        "sha256": "f17759c2dca9d0638451ccc6bcd2823ef958ddcffde3dd3a2538197bf651c7ec",
+        "role": "Visually inspected identity/style reference before generation"
+      }
+    ],
+    "postprocessing": "Generated source copied unchanged. Imagegen performed shape/style revisions and alignment attempts; full actual prompts retained, including unselected passes. Unmodified repository cutter translates own-bounds pixels to shared native squares; input views use a common2x LANCZOS upscale. No source-axis stretching or resizing."
+  },
+  "validation": {
+    "source_png_decoded": true,
+    "source_views": [
+      {
+        "view": "front",
+        "bounds_px": [
+          27,
+          261,
+          887,
+          416
+        ],
+        "width_px": 860,
+        "height_px": 155
+      },
+      {
+        "view": "left",
+        "bounds_px": [
+          917,
+          259,
+          1071,
+          416
+        ],
+        "width_px": 154,
+        "height_px": 157
+      },
+      {
+        "view": "right",
+        "bounds_px": [
+          1100,
+          259,
+          1254,
+          416
+        ],
+        "width_px": 154,
+        "height_px": 157
+      },
+      {
+        "view": "back",
+        "bounds_px": [
+          1283,
+          261,
+          2144,
+          416
+        ],
+        "width_px": 861,
+        "height_px": 155
+      }
+    ],
+    "source_height_spread_px": 2,
+    "source_baseline_spread_px": 0,
+    "four_nonempty_views": true,
+    "one_height_and_baseline_met": false,
+    "native_canvas_px": 1067,
+    "native_source_pixels_preserved": true,
+    "foreground_pixels_lost": 0,
+    "input_square_px": 2134,
+    "input_upscale": "2x LANCZOS, same factor all4views; no extra detail created",
+    "projection_limit": "Horizontal hand-hewn timber, X long; bowed edges, swollen ends, waisted middle, exaggerated asymmetric bevels. Front/back show long grain, left/right show opposite cut ends. Final provisional2.10x0.38x0.375m adopts selected source aspect ratio about5.55 rather than initial requested10. Heights155/157px differ by2px (~1.27%); strict1px source-scale acceptance is NOT met. Baselines match. Keep dimensions provisional; resolve the source discrepancy or measure model projections before certified reconstruction."
+  },
+  "reuse_contract": {
+    "standalone": true,
+    "connected_parts": 1,
+    "no_attached_hardware": true,
+    "texture_family": "art/materials/captains_cabin/beam_wood",
+    "matching_family_is_not_a_shared_uv_atlas": true,
+    "placement": "Repeat individual mesh instances; keep beam or board width/thickness fixed. Adapt length by cutting/extruding/re-UVing the module or fitting a final cap; do not stretch the painted grain along with a scaled mesh. Grain runs along the long axis.",
+    "joints": "Preserve central flat end contact patches; wavy sides and broad nicks are intentional cartoon shape. Joining planes, gap coverage and snap sockets remain untested. Check floor flatness and make nominal straight side contact lands in the model if needed without erasing the visible stylized contour.",
+    "multiple_rooms": true
+  },
+  "pipeline": {
+    "model_target": "art/props/timber_beam/timber_beam.glb",
+    "crop_command": "python tools/crop_views.py art/props/timber_beam/sheet.png --row 0 1 --names front left right back --min-width-ratio 0.02 --size 2134 --out art/props/timber_beam/views",
+    "reconstruction": "Tripo only per repository contract",
+    "reconstruction_run": false,
+    "rig_required": false,
+    "mesh_verified": false,
+    "modular_joint_fit_verified": false,
+    "engine_import_verified": false,
+    "lighting": "Soft painted form shading; remove lighting during final texturing, use current toon look."
+  }
+}

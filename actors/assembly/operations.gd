@@ -269,19 +269,23 @@ static func independent_snapshot(root: Node) -> Node:
 	return copy
 
 
-static func save_scene(root: Node, output_path: String) -> Dictionary:
+## Read-only validation shared by native editor saves and explicit snapshots.
+static func validate_scene_save(root: Node, output_path: String) -> Dictionary:
 	if not is_instance_valid(root):
 		return _failure("Choose an authored character scene to save.")
 	if output_path.is_empty() or output_path.get_extension().to_lower() != "tscn":
 		return _failure("Choose an explicit .tscn output path.")
 	if not output_path.begins_with("res://") and not output_path.begins_with("user://") and not output_path.is_absolute_path():
 		return _failure("The output must be a res://, user:// or absolute path.")
+	var absolute := ProjectSettings.globalize_path(output_path).simplify_path()
 	var ids := {}
 	for part in collect_parts(root):
 		if part.part_id.is_empty() or ids.has(part.part_id):
 			return _failure("Every part must have a unique, nonempty identity before saving.")
 		ids[part.part_id] = true
-		if part.source_path == output_path:
+		var source_absolute := ProjectSettings.globalize_path(part.source_path).simplify_path()
+		var same_source := source_absolute.nocasecmp_to(absolute) == 0 if OS.has_feature("windows") else source_absolute == absolute
+		if not part.source_path.is_empty() and same_source:
 			return _failure("Save the assembled character to its own path, not over a part's source scene.")
 		var error := validate_transform(part.transform)
 		if not error.is_empty():
@@ -295,9 +299,15 @@ static func save_scene(root: Node, output_path: String) -> Dictionary:
 	for reference: Dictionary in capture_references(root):
 		if reference.key in [&"skeleton", &"donor_path"] and not reference.target is Skeleton3D:
 			return _failure("A skinned mesh or binding references a missing donor skeleton. Repair the reference before saving.")
-	var absolute := ProjectSettings.globalize_path(output_path)
 	if not DirAccess.dir_exists_absolute(absolute.get_base_dir()):
 		return _failure("The chosen output folder does not exist.")
+	return _success({"path": output_path})
+
+
+static func save_scene(root: Node, output_path: String) -> Dictionary:
+	var validated := validate_scene_save(root, output_path)
+	if not validated.ok:
+		return validated
 	# Packing a private expanded copy avoids changing ownership or resource paths in
 	# the live scene, including when the destination is unwritable.
 	var copy := independent_snapshot(root)

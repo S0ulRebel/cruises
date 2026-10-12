@@ -50,6 +50,44 @@ Evidence: `%TEMP%/cruises-checks-8886df44ee964b44917681864e669c83/`,
 Picking uses reference mesh triangles for skinned models; animated-pose picking
 and final clothing/neck art acceptance remain separate work.
 
+## Approved usability follow-up — 2026-10-12
+
+The owner approved all ten review points. Implement on `main` without graphical
+Godot sessions while GPU training is running. Use static/headless module and
+integration checks; defer visual acceptance explicitly.
+
+1. [x] Continue editing the current tab after Save As; add ordinary Save.
+2. [x] Put visibility in hierarchy rows and everyday actions in a context menu.
+3. [x] Support inline rename and undoable drag-to-parent with placement preserved.
+4. [x] Add Local/World controls, adjustable snapping and inline precise fields.
+5. [x] Show source/destination attachment feedback, hover highlighting and Cancel.
+6. [x] Keep hierarchy visible with a collapsible asset drawer.
+7. [x] Add word-aware asset search, folder/type filters and source labels.
+8. [x] Make drop placement explicit, with a preview and preserved-transform option.
+9. [x] Add subtle selection/overlay controls and reversible editor focus mode.
+10. [x] Organize advanced tools into contextual Attachment/Geometry/Animation/Export.
+
+Implemented and headless-verified on Godot 4.7.2: 213/213 native editor assertions,
+all 22 default checks, separate cold reopen routes and the engine-error rejection
+self-test pass. Authored source hashes are unchanged by checks. Evidence:
+`%TEMP%/cruises-checks-3a572b89171f4c5ba843ccc99d2f07f9/`.
+The cabin dressing check now stops music and allows the audio thread a mix interval
+after scene deletion, fixing a timing-dependent headless shutdown leak.
+
+Drop preview is a wrapper-origin marker, not an instantiated ghost mesh; internal
+model transforms remain intact. Local/World controls affect move/rotate; scale
+follows local axes. Rename rebases node paths and affected animation tracks in
+private libraries; undo restores the original names, paths and libraries.
+
+- [ ] Inspect the revised layout at normal/narrow editor sizes, overlay legibility,
+  and physical mouse drag/drop after the owner's GPU training permits rendering.
+- [ ] Obtain owner usability acceptance for this follow-up.
+
+The follow-up does not alter source art, production scenes or imported meshes.
+Latest remote `main` hat work is integrated; its two missing GLB import UIDs are
+versioned after first import, without changing their models or import options.
+Normal startup never saves authored resources. Visual approval remains pending.
+
 ## Current result and remaining acceptance
 
 The native Character Workshop plugin is enabled. Arbitrary part assembly, native

@@ -36,6 +36,16 @@ var _editor_window: Window
 var _has_geometry := false
 var _framed_node: Node3D
 var _frame_follows_layout := true
+var local_axes := false
+var snap_enabled := false
+var move_step := 0.05
+var rotate_step := 15.0
+var scale_step := 0.1
+var show_grid := true
+var show_bounds := false
+var attachment_candidate: Node3D
+var drop_at_cursor := false
+var _drop_preview: Dictionary = {}
 
 
 func _ready() -> void:
@@ -71,6 +81,8 @@ func _exit_tree() -> void:
 func _process(_delta: float) -> void:
 	if not is_visible_in_tree():
 		return
+	if not _drop_preview.is_empty() and not get_viewport().gui_is_dragging():
+		_drop_preview.clear()
 	if not _drag.is_empty() and not is_instance_valid(_drag.get("part")):
 		_drag.clear()
 	if is_instance_valid(scene_root) and scene_root.is_inside_tree():
@@ -117,9 +129,19 @@ func set_tool(mode: String) -> void:
 	tool = mode if mode in ["move", "rotate", "scale", "attach"] else "move"
 	if not is_node_ready():
 		return
-	%ViewHint.text = "Pick another part to attach here · Esc cancels" if tool == "attach" else "Drag axes or center · W/E/R tools · F frame · Right-drag orbit · Middle-drag pan · Wheel zoom"
+	%ViewHint.text = "Pick parent · Esc cancels" if tool == "attach" else "W/E/R · F frame · Ctrl snap"
+	%ViewHint.tooltip_text = "Right-drag or Alt-left orbits; middle-drag pans; wheel zooms. Home frames all."
 	overlay.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND if tool == "attach" else Control.CURSOR_ARROW
 	overlay.queue_redraw()
+
+func set_fitting_options(local: bool, snapping: bool, move: float, rotation: float, scale: float) -> void:
+	if local != local_axes or snapping != snap_enabled or move != move_step or rotation != rotate_step or scale != scale_step:
+		cancel_drag()
+	local_axes = local
+	snap_enabled = snapping
+	move_step = maxf(move, 0.000001)
+	rotate_step = maxf(rotation, 0.000001)
+	scale_step = maxf(scale, 0.000001)
 
 
 func set_face_selection(mesh: MeshInstance3D, source: Mesh, faces: Dictionary) -> void:
@@ -329,6 +351,8 @@ func _view_input(event: InputEvent) -> void:
 			overlay.accept_event()
 		else:
 			_hover_axis = _gizmo_hit(event.position)
+			if tool == "attach":
+				request.emit("hover_attach", pick_part(event.position))
 			overlay.queue_redraw()
 	if event is InputEventKey and event.pressed and not event.echo:
 		if event.is_command_or_control_pressed() and event.keycode in [KEY_Z, KEY_Y]:
@@ -401,9 +425,10 @@ func _drag_to(position: Vector2, snap: bool) -> void:
 	var transform := before
 	var delta: Vector2 = position - _drag.position
 	var axis: int = _drag.axis
-	var world_axis: Vector3 = AXES[axis] if axis >= 0 and axis < 3 else Vector3.ZERO
+	var world_axis: Vector3 = _transform_axis(before.basis, axis) if axis >= 0 and axis < 3 else Vector3.ZERO
 	var screen_axis := Vector2.ZERO
 	var ratio: float = _drag.world_per_pixel
+	snap = snap or snap_enabled
 	if world_axis != Vector3.ZERO:
 		if _drag.mode == "scale":
 			world_axis = before.basis[axis].normalized()
@@ -416,23 +441,23 @@ func _drag_to(position: Vector2, snap: bool) -> void:
 			if axis == 3:
 				var change := (camera.global_basis.x * delta.x - camera.global_basis.y * delta.y) * float(_drag.world_per_pixel)
 				if snap:
-					change = change.snapped(Vector3.ONE * 0.05)
+					change = change.snapped(Vector3.ONE * move_step)
 				transform.origin += change
 			else:
 				var amount := delta.dot(screen_axis) * ratio
 				if snap:
-					amount = snappedf(amount, 0.05)
+					amount = snappedf(amount, move_step)
 				transform.origin += world_axis * amount
 		"rotate":
 			var angle := (delta.x - delta.y) * 0.012
 			if snap:
-				angle = snappedf(angle, deg_to_rad(15.0))
+				angle = snappedf(angle, deg_to_rad(rotate_step))
 			var rotation_axis := world_axis if axis < 3 else -camera.global_basis.z
 			transform.basis = Basis(rotation_axis, angle) * before.basis
 		"scale":
 			var factor := 1.0 + (delta.x - delta.y) * 0.008 if axis == 3 else 1.0 + delta.dot(screen_axis) * 0.01
 			if snap:
-				factor = snappedf(factor, 0.1)
+				factor = 1.0 + snappedf(factor - 1.0, scale_step)
 			factor = maxf(factor, 0.05)
 			if axis == 3:
 				transform.basis = before.basis.scaled_local(Vector3.ONE * factor)
@@ -471,7 +496,10 @@ func _gizmo_length() -> float:
 
 
 func _gizmo_axis(index: int) -> Vector3:
-	return selected.global_basis[index].normalized() if tool == "scale" else AXES[index]
+	return _transform_axis(selected.global_basis, index)
+
+func _transform_axis(basis: Basis, index: int) -> Vector3:
+	return basis[index].normalized() if tool == "scale" or local_axes else AXES[index]
 
 
 func _gizmo_hit(position: Vector2) -> int:
@@ -498,8 +526,8 @@ func _gizmo_hit(position: Vector2) -> int:
 
 func _ring(index: int, radius: float) -> PackedVector2Array:
 	var result := PackedVector2Array()
-	var first: Vector3 = AXES[(index + 1) % 3]
-	var second: Vector3 = AXES[(index + 2) % 3]
+	var first: Vector3 = _gizmo_axis((index + 1) % 3)
+	var second: Vector3 = _gizmo_axis((index + 2) % 3)
 	for step: int in 49:
 		var angle := TAU * float(step) / 48.0
 		var point := selected.global_position + (first * cos(angle) + second * sin(angle)) * radius
@@ -510,11 +538,18 @@ func _ring(index: int, radius: float) -> PackedVector2Array:
 func _draw_overlay() -> void:
 	if not is_instance_valid(scene_root) or not scene_root.is_inside_tree():
 		return
-	_draw_grid()
+	if show_grid:
+		_draw_grid()
 	_draw_face_selection()
+	_draw_drop_preview()
+	if tool == "attach" and is_instance_valid(attachment_candidate):
+		_draw_bounds(_world_bounds(attachment_candidate), Color(0.35, 0.85, 0.6, 0.65))
 	if not is_instance_valid(selected) or not selected.is_inside_tree():
 		return
-	_draw_bounds(_world_bounds(selected))
+	if show_bounds:
+		_draw_bounds(_world_bounds(selected), Color(1.0, 0.78, 0.28, 0.25))
+	else:
+		_draw_selection_corners(_world_bounds(selected))
 	if camera.is_position_behind(selected.global_position) or tool == "attach":
 		return
 	var center := camera.unproject_position(selected.global_position)
@@ -549,12 +584,30 @@ func _draw_grid() -> void:
 		_draw_world_line(center + Vector3(-10.0 * step, 0.0, index * step), center + Vector3(10.0 * step, 0.0, index * step), color, 1.0)
 
 
-func _draw_bounds(bounds: AABB) -> void:
+func _draw_bounds(bounds: AABB, color := Color(1.0, 0.78, 0.28, 0.25)) -> void:
 	var corners: Array[Vector3] = []
 	for index: int in 8:
 		corners.append(bounds.get_endpoint(index))
 	for edge: Array in [[0, 1], [0, 2], [0, 4], [1, 3], [1, 5], [2, 3], [2, 6], [3, 7], [4, 5], [4, 6], [5, 7], [6, 7]]:
-		_draw_world_line(corners[edge[0]], corners[edge[1]], Color(1.0, 0.78, 0.28, 0.6), 1.2)
+		_draw_world_line(corners[edge[0]], corners[edge[1]], color, 1.0)
+
+func _draw_selection_corners(bounds: AABB) -> void:
+	var rect := Rect2()
+	var found := false
+	for index: int in 8:
+		var point := bounds.get_endpoint(index)
+		if camera.is_position_behind(point):
+			continue
+		var screen := camera.unproject_position(point)
+		rect = rect.expand(screen) if found else Rect2(screen, Vector2.ZERO)
+		found = true
+	if not found:
+		return
+	var length := minf(12.0, minf(rect.size.x, rect.size.y) * 0.2)
+	for corner: Vector2 in [rect.position, Vector2(rect.end.x, rect.position.y), rect.end, Vector2(rect.position.x, rect.end.y)]:
+		var inward := (rect.get_center() - corner).sign()
+		overlay.draw_line(corner, corner + Vector2(inward.x * length, 0), Color(1.0, 0.78, 0.28, 0.65), 1.2)
+		overlay.draw_line(corner, corner + Vector2(0, inward.y * length), Color(1.0, 0.78, 0.28, 0.65), 1.2)
 
 
 func _draw_world_line(a: Vector3, b: Vector3, color: Color, width: float) -> void:
@@ -596,10 +649,49 @@ func _draw_face_selection() -> void:
 				drawn += 1
 
 
-func _can_drop_data(_position: Vector2, data: Variant) -> bool:
-	return data is Dictionary and data.get("type", "") == "files" and not data.get("files", []).is_empty()
+func placement_point(position: Vector2) -> Variant:
+	if not is_instance_valid(scene_root):
+		return null
+	var origin := camera.project_ray_origin(position)
+	var direction := camera.project_ray_normal(position)
+	var anchor := selected.global_position if is_instance_valid(selected) else scene_root.global_position
+	var plane := Plane(Vector3.UP, anchor.y)
+	# Front/side rays can be parallel to the horizontal plane; use a screen
+	# plane through the selection instead so orthographic fitting still works.
+	if absf(direction.dot(Vector3.UP)) < 0.0001:
+		plane = Plane(-camera.global_basis.z, anchor)
+	return plane.intersects_ray(origin, direction)
+
+func _can_drop_data(position: Vector2, data: Variant) -> bool:
+	_drop_preview.clear()
+	if not is_instance_valid(scene_root) or not data is Dictionary or data.get("type", "") != "files" or data.get("files", []).is_empty():
+		return false
+	for path: String in data.files:
+		if path.get_extension().to_lower() not in ["tscn", "scn", "glb", "gltf", "fbx", "blend", "dae"] or not ResourceLoader.exists(path, "PackedScene"):
+			return false
+	var point: Variant = placement_point(position) if drop_at_cursor else null
+	if drop_at_cursor and (not point is Vector3 or not point.is_finite()):
+		return false
+	_drop_preview = {"screen": position, "point": point, "caption": str(data.files[0]).get_file()}
+	overlay.queue_redraw()
+	return true
 
 
-func _drop_data(_position: Vector2, data: Variant) -> void:
+func _drop_data(position: Vector2, data: Variant) -> void:
 	cancel_drag()
-	request.emit("add_paths", data.files)
+	if not _can_drop_data(position, data):
+		return
+	var point: Variant = _drop_preview.point
+	_drop_preview.clear()
+	request.emit("drop_assets", {"paths": data.files, "root": scene_root, "world_position": point})
+
+func _draw_drop_preview() -> void:
+	if _drop_preview.is_empty():
+		return
+	var screen: Vector2 = _drop_preview.screen
+	var color := Color(0.45, 0.9, 0.65, 0.8)
+	overlay.draw_circle(screen, 9.0, color, false, 1.5)
+	overlay.draw_line(screen - Vector2(14, 0), screen + Vector2(14, 0), color, 1.2)
+	overlay.draw_line(screen - Vector2(0, 14), screen + Vector2(0, 14), color, 1.2)
+	var caption: String = _drop_preview.caption + (" · cursor position" if _drop_preview.point is Vector3 else " · authored position")
+	overlay.draw_string(get_theme_default_font(), screen + Vector2(16, -12), caption, HORIZONTAL_ALIGNMENT_LEFT, 320, 12, color)

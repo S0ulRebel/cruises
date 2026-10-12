@@ -18,12 +18,25 @@ var _hierarchy_signature := ""
 var _tree_items: Dictionary = {}
 var _collapsed: Dictionary = {}
 var _editor: EditorInterface
+var _attach_source: Node3D
+var _attach_candidate: Node3D
+var _context_part: Node3D
+const PART_ACTIONS := ["rename", "visibility", "replace", "duplicate", "detach", "remove"]
 
 func _ready() -> void:
-	for pair: Array in [["New", "new"], ["Open", "open"], ["Save", "save"], ["SaveActor", "save_actor"], ["RepairReferences", "repair_references"], ["ImportLegacy", "legacy"], ["BorrowClips", "borrow"], ["Adopt", "adopt"], ["Duplicate", "duplicate"], ["Visibility", "visibility"], ["Remove", "remove"], ["Replace", "replace"], ["Attach", "attach"], ["Detach", "detach"], ["Bind", "bind"], ["CancelBinding", "cancel_binding"], ["SelectBox", "select_box"], ["SelectSurface", "select_surface"], ["ClearFaces", "clear_faces"], ["Exclude", "exclude"], ["Restore", "restore"], ["ResetMesh", "reset_mesh"], ["Play", "play"], ["Stop", "stop"], ["Rest", "rest"], ["Inspector", "inspector"]]:
+	for pair: Array in [["New", "new"], ["Open", "open"], ["Save", "save"], ["SaveAs", "save_as"], ["SaveActor", "save_actor"], ["RepairReferences", "repair_references"], ["ImportLegacy", "legacy"], ["BorrowClips", "borrow"], ["Adopt", "adopt"], ["Duplicate", "duplicate"], ["Visibility", "visibility"], ["Remove", "remove"], ["Replace", "replace"], ["Attach", "attach"], ["Detach", "detach"], ["Bind", "bind"], ["CancelBinding", "cancel_binding"], ["SelectBox", "select_box"], ["SelectSurface", "select_surface"], ["ClearFaces", "clear_faces"], ["Exclude", "exclude"], ["Restore", "restore"], ["ResetMesh", "reset_mesh"], ["Play", "play"], ["Stop", "stop"], ["Rest", "rest"], ["Inspector", "inspector"]]:
 		var action: String = pair[1]
 		get_node("%" + pair[0]).pressed.connect(func(): request.emit(action, null))
 	%Parts.item_selected.connect(_part_selected)
+	%Parts.item_edited.connect(_part_renamed)
+	%Parts.button_clicked.connect(_part_button)
+	%Parts.gui_input.connect(_hierarchy_input)
+	%Parts.set_drag_forwarding(_hierarchy_drag, _hierarchy_can_drop, _hierarchy_drop)
+	%Parts.drop_mode_flags = Tree.DROP_MODE_ON_ITEM
+	%Parts.allow_rmb_select = false
+	for index: int in PART_ACTIONS.size():
+		%PartMenu.add_item(["Rename", "Hide / Show", "Replace…", "Duplicate", "Detach", "Remove"][index], index)
+	%PartMenu.id_pressed.connect(_context_action)
 	%Targets.item_selected.connect(_target_selected)
 	%Meshes.item_selected.connect(_mesh_selected)
 	%Mode.add_item("Free placement", 0)
@@ -39,6 +52,16 @@ func _ready() -> void:
 	%Add.pressed.connect(show_assets)
 	%AddHierarchyPart.pressed.connect(show_assets)
 	%More.pressed.connect(show_advanced)
+	%FocusMode.toggled.connect(func(value: bool): request.emit("focus_mode", value))
+	%CancelAttach.pressed.connect(func(): request.emit("tool", "move"))
+	%Coordinates.add_item("World axes", 0)
+	%Coordinates.add_item("Local axes", 1)
+	%Coordinates.item_selected.connect(func(_index: int): _update_view_options())
+	%SnapEnabled.toggled.connect(func(_value: bool): _update_view_options())
+	for field: String in ["MoveStep", "RotateStep", "ScaleStep"]:
+		get_node("%" + field).value_changed.connect(func(_value: float): _update_view_options())
+	%GridOverlay.toggled.connect(func(_value: bool): _update_view_options())
+	%BoundsOverlay.toggled.connect(func(_value: bool): _update_view_options())
 	%AdvancedTools.close_requested.connect(%AdvancedTools.hide)
 	%TwoViews.toggled.connect(func(value: bool): %DetailView.visible = value)
 	for pair: Array in [["Move", "move"], ["Rotate", "rotate"], ["Scale", "scale"], ["PickAttach", "attach"]]:
@@ -47,8 +70,7 @@ func _ready() -> void:
 	%MainView.request.connect(_forward_request)
 	%DetailView.request.connect(_forward_request)
 	%Assets.request.connect(_forward_request)
-	%Sidebar.set_tab_title(0, "Character")
-	%Sidebar.set_tab_title(1, "Assets")
+	_update_view_options()
 	set_status("Choose New or a template, then Add part. Select in the hierarchy or either view; W/E/R change tools, F frames selection.")
 	set_tool(_tool)
 
@@ -60,8 +82,9 @@ func refresh_catalog() -> void:
 	%Assets.refresh_catalog()
 
 func show_assets() -> void:
-	%Sidebar.current_tab = 1
-	%Assets.focus_search()
+	%AssetDrawer.visible = not %AssetDrawer.visible
+	if %AssetDrawer.visible:
+		%Assets.focus_search()
 
 func show_advanced() -> void:
 	if %AdvancedTools.visible:
@@ -70,7 +93,20 @@ func show_advanced() -> void:
 		%AdvancedTools.popup_centered(Vector2i(490, 640))
 
 func _forward_request(action: String, value: Variant) -> void:
-	request.emit(action, value)
+	if action == "close_assets":
+		%AssetDrawer.hide()
+	elif action == "drop_placement":
+		%MainView.drop_at_cursor = bool(value)
+		%DetailView.drop_at_cursor = bool(value)
+	else:
+		request.emit(action, value)
+
+func _update_view_options() -> void:
+	for view: Control in [%MainView, %DetailView]:
+		view.set_fitting_options(%Coordinates.selected == 1, %SnapEnabled.button_pressed, %MoveStep.value, %RotateStep.value, %ScaleStep.value)
+		view.show_grid = %GridOverlay.button_pressed
+		view.show_bounds = %BoundsOverlay.button_pressed
+		view.overlay.queue_redraw()
 
 func set_tool(mode: String) -> void:
 	_tool = mode
@@ -78,6 +114,27 @@ func set_tool(mode: String) -> void:
 		get_node("%" + pair[0]).set_pressed_no_signal(mode == pair[1])
 	%MainView.set_tool(mode)
 	%DetailView.set_tool(mode)
+	%AttachmentBanner.visible = mode == "attach"
+	set_attachment_candidate(null)
+
+func set_attachment_source(source: Node3D) -> void:
+	_attach_source = source
+	set_attachment_candidate(_attach_candidate)
+
+func set_attachment_candidate(candidate: Node3D) -> void:
+	_attach_candidate = candidate if is_instance_valid(candidate) else null
+	var source_name := str(_attach_source.name) if is_instance_valid(_attach_source) else "part"
+	var target_name := str(candidate.name) if is_instance_valid(candidate) else "choose a parent"
+	%AttachmentPrompt.text = "Attach %s → %s" % [source_name, target_name]
+	%AttachmentPrompt.tooltip_text = "Placement is preserved. Click a valid parent or Cancel attach."
+	for view: Control in [%MainView, %DetailView]:
+		view.attachment_candidate = _attach_candidate
+	for identity: int in _tree_items:
+		var item: TreeItem = _tree_items[identity]
+		if item.get_metadata(0) == _attach_candidate and _tool == "attach":
+			item.set_custom_bg_color(0, Color(0.15, 0.35, 0.28, 0.45))
+		else:
+			item.clear_custom_bg_color(0)
 
 func cancel_drag() -> void:
 	%MainView.cancel_drag()
@@ -117,6 +174,7 @@ func populate(root: Node3D, parts: Array, selected: Node3D) -> void:
 	%AssemblyTitle.tooltip_text = root.scene_file_path if root != null else "Open or create an assembly."
 	%PartInfo.text = str(selected.name) if selected != null else "Select a part"
 	%PartInfo.tooltip_text = str(current_part.get("source_path")) if current_part != null else "Select a part in the hierarchy or viewport."
+	%AttachmentInfo.text = _attachment_description(current_part)
 	%MainView.set_context(root, selected)
 	%DetailView.set_context(root, selected)
 	if scene_changed:
@@ -128,6 +186,9 @@ func populate(root: Node3D, parts: Array, selected: Node3D) -> void:
 		get_node("%" + name).disabled = current_part == null
 	%PickAttach.disabled = current_part == null
 	%Inspector.disabled = selected == null
+	%Save.disabled = root == null
+	%SaveAs.disabled = root == null
+	%AdvancedHint.text = "Selected: " + str(selected.name) if selected != null else "Select a part for attachment and geometry tools."
 	%Targets.clear()
 	if root != null:
 		for node: Node in _nodes(root):
@@ -156,6 +217,11 @@ func populate(root: Node3D, parts: Array, selected: Node3D) -> void:
 	current_mesh = %Meshes.get_item_metadata(%Meshes.selected) if %Meshes.item_count > 0 else null
 	%Meshes.disabled = %Meshes.item_count == 0
 	%FaceMode.disabled = current_mesh == null
+	%Mode.disabled = current_part == null
+	%Targets.disabled = current_part == null or %Targets.item_count == 0
+	%Bones.disabled = current_part == null or not current_target is Skeleton3D
+	for action: String in ["SelectBox", "SelectSurface", "ClearFaces"]:
+		get_node("%" + action).disabled = current_mesh == null
 	var old_player: AnimationPlayer = selected_player()
 	%Players.clear()
 	if root != null:
@@ -183,6 +249,7 @@ func _populate_hierarchy(root: Node3D, parts: Array, selected: Node3D, reveal_se
 		var tree_root: TreeItem = %Parts.create_item()
 		tree_root.set_text(0, str(root.name) if root != null else "No character open")
 		tree_root.set_metadata(0, root)
+		tree_root.set_editable(0, true)
 		tree_root.set_selectable(0, root != null)
 		if root != null:
 			_tree_items[root.get_instance_id()] = tree_root
@@ -220,8 +287,10 @@ func _hierarchy_item(part: Node3D, root: Node3D, parts: Array, tree_root: TreeIt
 	var item: TreeItem = %Parts.create_item(parent_item)
 	_tree_items[identity] = item
 	var bone: String = str(part.get("bone_name"))
-	item.set_text(0, str(part.name) + (" (hidden)" if not part.visible else ""))
+	item.set_text(0, str(part.name))
 	item.set_metadata(0, part)
+	item.set_editable(0, true)
+	item.add_button(0, get_theme_icon("GuiVisibilityVisible" if part.visible else "GuiVisibilityHidden", "EditorIcons"), 0, false, "Hide part" if part.visible else "Show part")
 	item.collapsed = _collapsed.get(identity, false)
 	var attachment := "\nBone: " + bone if not bone.is_empty() else ""
 	item.set_tooltip_text(0, "%s\n%s%s\nID: %s" % [root.get_path_to(part), part.get("source_path"), attachment, part.get("part_id")])
@@ -248,6 +317,82 @@ func _part_selected() -> void:
 	if not _syncing:
 		var item: TreeItem = %Parts.get_selected()
 		request.emit("select", item.get_metadata(0) if item != null else null)
+
+func _attachment_description(part: Node3D) -> String:
+	if not is_instance_valid(part):
+		return "Select a part to see its attachment."
+	if int(part.get("attachment_mode")) == 0:
+		return "Free placement"
+	var target: Node = part.get_node_or_null(part.get("target_path"))
+	if target == null:
+		return "Attachment target is missing. Choose a parent again."
+	var bone := str(part.get("bone_name"))
+	return "Attached to %s%s" % [target.name, " · " + bone if not bone.is_empty() else ""]
+
+func _part_renamed() -> void:
+	var item: TreeItem = %Parts.get_edited()
+	if item != null:
+		var node: Node3D = item.get_metadata(0)
+		var requested := item.get_text(0)
+		item.set_text(0, str(node.name))
+		request.emit("rename_part", {"part": node, "name": requested})
+
+func _part_button(item: TreeItem, _column: int, _id: int, mouse_button: int) -> void:
+	if mouse_button == MOUSE_BUTTON_LEFT:
+		request.emit("part_action", {"part": item.get_metadata(0), "action": "visibility"})
+
+func _context_action(index: int) -> void:
+	if not is_instance_valid(_context_part):
+		return
+	request.emit("tool", "move")
+	if PART_ACTIONS[index] == "rename":
+		var item: TreeItem = _tree_items.get(_context_part.get_instance_id())
+		if item != null:
+			item.select(0)
+			%Parts.edit_selected()
+	else:
+		request.emit("part_action", {"part": _context_part, "action": PART_ACTIONS[index]})
+
+func _hierarchy_input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion and _tool == "attach":
+		var item: TreeItem = %Parts.get_item_at_position(event.position)
+		request.emit("hover_attach", item.get_metadata(0) if item != null else null)
+	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+		var item: TreeItem = %Parts.get_item_at_position(event.position)
+		if item == null:
+			return
+		_context_part = item.get_metadata(0)
+		for index: int in PART_ACTIONS.size():
+			%PartMenu.set_item_disabled(index, _context_part == _root and index != 0)
+		%PartMenu.position = Vector2i(%Parts.get_screen_position() + event.position)
+		%PartMenu.popup()
+		%Parts.accept_event()
+	elif event is InputEventKey and event.pressed and event.keycode == KEY_F2:
+		%Parts.edit_selected()
+		%Parts.accept_event()
+
+func _hierarchy_drag(position: Vector2) -> Variant:
+	var item: TreeItem = %Parts.get_item_at_position(position)
+	var node: Variant = item.get_metadata(0) if item != null else null
+	if not node is Part:
+		return null
+	var caption := Label.new()
+	caption.text = "Attach " + str(node.name) + " to a parent"
+	%Parts.set_drag_preview(caption)
+	return {"workshop_part": node, "root": _root}
+
+func _hierarchy_can_drop(position: Vector2, data: Variant) -> bool:
+	if not data is Dictionary or data.get("root") != _root:
+		return false
+	var source: Variant = data.get("workshop_part")
+	var item: TreeItem = %Parts.get_item_at_position(position)
+	var target: Node3D = item.get_metadata(0) if item != null else null
+	return source is Part and is_instance_valid(source) and is_instance_valid(target) and source != target and not source.is_ancestor_of(target) and _root.is_ancestor_of(source)
+
+func _hierarchy_drop(position: Vector2, data: Variant) -> void:
+	if _hierarchy_can_drop(position, data):
+		var item: TreeItem = %Parts.get_item_at_position(position)
+		request.emit("reparent_part", {"part": data.workshop_part, "target": item.get_metadata(0)})
 
 func _target_selected(index: int) -> void:
 	current_target = %Targets.get_item_metadata(index)

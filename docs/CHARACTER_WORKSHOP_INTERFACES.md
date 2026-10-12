@@ -126,14 +126,16 @@ through dialogs. No fixed categories or slot naming. Animation preview duplicate
 mutable animation/material resources; one-shot clips remain one-shot.
 
 The editor now uses a main-screen workspace. `dock.gd` coordinates a real hierarchy,
-asset browser and two reusable `workshop_view.tscn` panes. A pane shares the edited
+asset drawer and two reusable `workshop_view.tscn` panes. A pane shares the edited
 root's World3D and owns its camera/UI outside that root. `set_context`, `set_tool`,
 framing, drag cancellation and face-overlay updates are public widget methods.
 Requests select native nodes, pick attachment targets or submit `{part,before,after}`
 world transforms. Live drags restore their original transform before the commands
 boundary records local transforms in native undo; root transforms are also supported.
-Fine adjustment has the same command boundary, with stale-context validation and
-explicit Apply/Cancel. Cameras, grids, environments and browsing previews never pack
+Inline fine adjustment has the same command boundary, with stale-context validation
+and explicit Apply/Cancel. `set_fitting_options` applies World/Local move/rotation,
+snap enable and configurable increments; scale remains on the part's own axes.
+Cameras, grids, environments and browsing previews never pack
 into a saved character. Reference geometry is used to pick posed skinned meshes.
 
 The read-only asset browser discovers imported models/3D scenes from EditorFileSystem,
@@ -144,6 +146,22 @@ mesh copies only. Explicit import requests validate external GLBs for self-conta
 resources, copy them to a chosen project folder without overwrites, and add them
 after successful import.
 Formats with external dependencies use Godot's normal complete-asset import workflow.
+
+`AssemblyOperations.validate_scene_save(root,path)` performs the existing read-only
+save checks, including canonical source-path aliases. Explicit snapshot `save_scene`
+uses it before packing an independent copy; the workshop uses it before native
+`EditorInterface.save_scene_as(path,false)` to retain the current tab and saved state.
+Pending file dialogs retain the character identity; switching scenes cannot save a
+different root. No native screenshot/preview request is made by this save route.
+
+Hierarchy requests rename `{part,name}`, context actions `{part,action}` and parent
+drops `{part,target}` through the command boundary. Renaming rebases retained
+NodePath properties and affected AnimationPlayer tracks in private library copies;
+undo restores the original paths/resources. Parent drops use the existing validated
+attachment operation. Viewport asset drops carry `{paths,root,world_position}`;
+`world_position=null` retains authored placement. Cursor placement only changes the
+wrapper origin before insertion, in the same undo action. The origin-marker preview
+does not instantiate content. Focus mode restores the prior editor dock visibility.
 
 Check real native editor startup, UI commands and undo; static assembly, independent
 copies, local Head/Jaw and blend shapes, transformed parent attachment, save/cold

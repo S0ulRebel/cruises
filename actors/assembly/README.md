@@ -11,8 +11,10 @@ Project Settings → Plugins. This is an editor workflow; F6 is not needed.
    as an independent unsaved scene, with existing tabs preserved. Templates are
    ordinary scenes under `actors/assembly/templates/`.
 2. Start editing, then choose **Save As** when ready to select your character folder.
+   Continue in the same tab and use **Save** for later edits; no reopen is needed.
    Starting from a template never asks for a file or writes a scene to disk.
-3. **Add part** opens a searchable thumbnail browser of imported models and 3D prefabs.
+3. **Add part** opens a searchable thumbnail drawer below the views. The hierarchy
+   stays visible; type/folder filters and source labels help distinguish assets.
    Each instance gets a separate stable identity. Names and directories do not
    determine eligibility. Add multiple copies, rename and reorder them freely.
 4. You can also drag a model into the native scene and **Adopt selected** to make
@@ -27,7 +29,7 @@ Project Settings → Plugins. This is an editor workflow; F6 is not needed.
 ## Attach, replace and animate
 
 Use bottom **Attach** and pick another part in a view or hierarchy. For **Free**,
-arbitrary-node **Parent** or **Bone** attachment, open **More** and choose a real target.
+arbitrary-node **Parent** or **Bone** attachment, open **More → Attachment** and choose a real target.
 Bone choices come from the selected skeleton, including a skeleton inside another
 attachment. Switching attachment preserves world placement; edit the resulting
 offset afterward. Cycles and missing bones produce an error before changing it.
@@ -37,6 +39,10 @@ intact. Attach hair or a hat to its Head and a chin accessory to its Jaw. Import
 or attaching a part never automatically transfers donor weights.
 
 **Hide**, **Remove**, **Replace** and **Duplicate** affect the chosen instance.
+Use the hierarchy eye button or right-click menu for everyday part actions.
+Double-click/F2 renames a part with its references and animation paths preserved;
+drag onto another part to attach without changing placement. Fine adjust is inline;
+World/Local axes and adjustable snapping support visual fitting.
 Removal/replacement with dependents asks whether to keep them free, remove them
 together, or reconnect them. Godot undo restores the operation and its attachments.
 

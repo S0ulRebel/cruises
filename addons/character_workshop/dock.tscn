@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene load_steps=8 format=3]
 
 [ext_resource type="Script" path="res://addons/character_workshop/dock.gd" id="1"]
 [ext_resource type="PackedScene" path="res://addons/character_workshop/workshop_view.tscn" id="2_view"]
 [ext_resource type="PackedScene" path="res://addons/character_workshop/asset_browser.tscn" id="3_assets"]
+
+[ext_resource type="PackedScene" path="res://addons/character_workshop/transform_dialog.tscn" id="4_fine"]
 
 [sub_resource type="StyleBoxFlat" id="Style_toolbar"]
 bg_color = Color(0.15, 0.165, 0.19, 1)
@@ -63,7 +65,12 @@ text = "Open…"
 unique_name_in_owner = true
 layout_mode = 2
 text = "Save As…"
-tooltip_text = "Save the editable assembly to an explicit scene path. Native Ctrl+S also remains available."
+tooltip_text = "Save this character; choose a path on its first save."
+
+[node name="SaveAs" type="Button" parent="Toolbar/FileRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Save As…"
 
 [node name="Templates" type="OptionButton" parent="Toolbar/FileRow"]
 unique_name_in_owner = true
@@ -93,23 +100,28 @@ layout_mode = 2
 text = "More…"
 tooltip_text = "Attachment settings, mesh exclusion, clothing binding, animation previews and export."
 
+[node name="FocusMode" type="CheckButton" parent="Toolbar/FileRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Focus"
+tooltip_text = "Temporarily hide editor side docks. Restore them by turning Focus off or leaving Workshop."
+
 [node name="Body" type="HSplitContainer" parent="."]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 split_offsets = PackedInt32Array(0)
 
-[node name="Sidebar" type="TabContainer" parent="Body"]
+[node name="Sidebar" type="VBoxContainer" parent="Body"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(215, 0)
+custom_minimum_size = Vector2(290, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_styles/panel = SubResource("Style_sidebar")
-current_tab = 0
 
 [node name="PartsTab" type="VBoxContainer" parent="Body/Sidebar"]
 layout_mode = 2
-metadata/_tab_name = "Character"
+size_flags_vertical = 3
 
 [node name="HierarchyHeading" type="Label" parent="Body/Sidebar/PartsTab"]
 layout_mode = 2
@@ -126,6 +138,9 @@ columns = 1
 column_titles_visible = false
 select_mode = 0
 
+[node name="PartMenu" type="PopupMenu" parent="."]
+unique_name_in_owner = true
+
 [node name="AddHierarchyPart" type="Button" parent="Body/Sidebar/PartsTab"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -133,23 +148,49 @@ text = "+ Add part"
 
 [node name="HierarchyHint" type="Label" parent="Body/Sidebar/PartsTab"]
 layout_mode = 2
-text = "Select a part here or in either view.\nAttach by picking its parent."
+text = "Double-click to rename; drag onto a parent.\nRight-click for part actions."
 autowrap_mode = 3
 modulate = Color(0.68, 0.73, 0.79, 1)
 
-[node name="Assets" parent="Body/Sidebar" instance=ExtResource("3_assets")]
+[node name="AttachmentInfo" type="Label" parent="Body/Sidebar"]
 unique_name_in_owner = true
 layout_mode = 2
-metadata/_tab_name = "Assets"
+autowrap_mode = 3
+text = "Select a part to see its attachment."
 
-[node name="Views" type="HSplitContainer" parent="Body"]
+[node name="FineAdjust" parent="Body/Sidebar" instance=ExtResource("4_fine")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="WorkArea" type="VBoxContainer" parent="Body"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="AttachmentBanner" type="HBoxContainer" parent="Body/WorkArea"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="AttachmentPrompt" type="Label" parent="Body/WorkArea/AttachmentBanner"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text_overrun_behavior = 3
+
+[node name="CancelAttach" type="Button" parent="Body/WorkArea/AttachmentBanner"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Cancel attach"
+
+[node name="Views" type="HSplitContainer" parent="Body/WorkArea"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 split_offsets = PackedInt32Array(0)
 
-[node name="MainView" parent="Body/Views" instance=ExtResource("2_view")]
+[node name="MainView" parent="Body/WorkArea/Views" instance=ExtResource("2_view")]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(240, 260)
 layout_mode = 2
@@ -159,7 +200,7 @@ size_flags_stretch_ratio = 1.86
 view_title = "Assembly view"
 initial_preset = "Perspective"
 
-[node name="DetailView" parent="Body/Views" instance=ExtResource("2_view")]
+[node name="DetailView" parent="Body/WorkArea/Views" instance=ExtResource("2_view")]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(175, 260)
 layout_mode = 2
@@ -168,6 +209,16 @@ size_flags_vertical = 3
 view_title = "Detail view"
 detail_view = true
 initial_preset = "Front"
+
+[node name="AssetDrawer" type="PanelContainer" parent="Body/WorkArea"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+custom_minimum_size = Vector2(0, 235)
+
+[node name="Assets" parent="Body/WorkArea/AssetDrawer" instance=ExtResource("3_assets")]
+unique_name_in_owner = true
+layout_mode = 2
 
 [node name="ActionPanel" type="PanelContainer" parent="."]
 layout_mode = 2
@@ -237,6 +288,69 @@ text = "Detail view"
 button_pressed = true
 tooltip_text = "Show a second independently framed view of the same editable assembly."
 
+[node name="FittingSettings" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Coordinates" type="OptionButton" parent="FittingSettings"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Coordinate space for translation and rotation. Scale always uses the part's own axes."
+
+[node name="SnapEnabled" type="CheckButton" parent="FittingSettings"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Snap"
+tooltip_text = "Enable snapping, or hold Ctrl during a drag."
+
+[node name="MoveStepLabel" type="Label" parent="FittingSettings"]
+layout_mode = 2
+text = "Move m"
+
+[node name="MoveStep" type="SpinBox" parent="FittingSettings"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 0.001
+max_value = 1000.0
+step = 0.001
+value = 0.05
+
+[node name="RotateStepLabel" type="Label" parent="FittingSettings"]
+layout_mode = 2
+text = "Rotate °"
+
+[node name="RotateStep" type="SpinBox" parent="FittingSettings"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 1.0
+max_value = 1000.0
+step = 1.0
+value = 15.0
+
+[node name="ScaleStepLabel" type="Label" parent="FittingSettings"]
+layout_mode = 2
+text = "Scale"
+
+[node name="ScaleStep" type="SpinBox" parent="FittingSettings"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 0.01
+max_value = 1000.0
+step = 0.01
+value = 0.1
+
+[node name="GridOverlay" type="CheckButton" parent="FittingSettings"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Grid"
+button_pressed = true
+
+[node name="BoundsOverlay" type="CheckButton" parent="FittingSettings"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Bounds"
+button_pressed = false
+
 [node name="Status" type="Label" parent="."]
 unique_name_in_owner = true
 layout_mode = 2
@@ -268,150 +382,187 @@ theme_override_constants/margin_bottom = 12
 layout_mode = 2
 
 [node name="AdvancedHint" type="Label" parent="AdvancedTools/Margin/Content"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Optional operations for the selected part"
 
-[node name="Scroll" type="ScrollContainer" parent="AdvancedTools/Margin/Content"]
+[node name="AdvancedTabs" type="TabContainer" parent="AdvancedTools/Margin/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Attachment" type="ScrollContainer" parent="AdvancedTools/Margin/Content/AdvancedTabs"]
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
-[node name="Tools" type="VBoxContainer" parent="AdvancedTools/Margin/Content/Scroll"]
+[node name="Tools" type="VBoxContainer" parent="AdvancedTools/Margin/Content/AdvancedTabs/Attachment"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 9
-[node name="AuthoringHeading" type="Label" parent="AdvancedTools/Margin/Content/Scroll/Tools"]
+
+[node name="Geometry" type="ScrollContainer" parent="AdvancedTools/Margin/Content/AdvancedTabs"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Tools" type="VBoxContainer" parent="AdvancedTools/Margin/Content/AdvancedTabs/Geometry"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 9
+
+[node name="Animation" type="ScrollContainer" parent="AdvancedTools/Margin/Content/AdvancedTabs"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Tools" type="VBoxContainer" parent="AdvancedTools/Margin/Content/AdvancedTabs/Animation"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 9
+
+[node name="Export" type="ScrollContainer" parent="AdvancedTools/Margin/Content/AdvancedTabs"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Tools" type="VBoxContainer" parent="AdvancedTools/Margin/Content/AdvancedTabs/Export"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 9
+
+[node name="AuthoringHeading" type="Label" parent="AdvancedTools/Margin/Content/AdvancedTabs/Export/Tools"]
 layout_mode = 2
 text = "Import, replace and export"
 theme_override_font_sizes/font_size = 16
-[node name="SaveActor" type="Button" parent="AdvancedTools/Margin/Content/Scroll/Tools"]
+[node name="SaveActor" type="Button" parent="AdvancedTools/Margin/Content/AdvancedTabs/Export/Tools"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Save gameplay actor…"
 tooltip_text = "Optional: author movement, navigation and collision components in an explicitly saved reusable actor. Static characters need none of these."
 
 
-[node name="ImportLegacy" type="Button" parent="AdvancedTools/Margin/Content/Scroll/Tools"]
+[node name="ImportLegacy" type="Button" parent="AdvancedTools/Margin/Content/AdvancedTabs/Export/Tools"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Import saved legacy fit / outfit…"
 tooltip_text = "Explicit conversion from an arbitrary saved fit or outfit. Originals remain intact; conversion warnings describe required rebinding."
 
 
-[node name="Adopt" type="Button" parent="AdvancedTools/Margin/Content/Scroll/Tools"]
+[node name="Adopt" type="Button" parent="AdvancedTools/Margin/Content/AdvancedTabs/Export/Tools"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Adopt selected"
 tooltip_text = "Wrap a model you already dragged into this assembly as an editable part."
 
 
-[node name="Visibility" type="Button" parent="AdvancedTools/Margin/Content/Scroll/Tools"]
+[node name="Visibility" type="Button" parent="AdvancedTools/Margin/Content/AdvancedTabs/Export/Tools"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Hide / Show"
 
 
-[node name="Replace" type="Button" parent="AdvancedTools/Margin/Content/Scroll/Tools"]
+[node name="Replace" type="Button" parent="AdvancedTools/Margin/Content/AdvancedTabs/Export/Tools"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Replace…"
 
-[node name="AttachmentHeading" type="Label" parent="AdvancedTools/Margin/Content/Scroll/Tools"]
+[node name="AttachmentHeading" type="Label" parent="AdvancedTools/Margin/Content/AdvancedTabs/Attachment/Tools"]
 layout_mode = 2
 text = "Attachment"
 theme_override_font_sizes/font_size = 16
 
-[node name="Mode" type="OptionButton" parent="AdvancedTools/Margin/Content/Scroll/Tools"]
+[node name="Mode" type="OptionButton" parent="AdvancedTools/Margin/Content/AdvancedTabs/Attachment/Tools"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="Targets" type="OptionButton" parent="AdvancedTools/Margin/Content/Scroll/Tools"]
+[node name="Targets" type="OptionButton" parent="AdvancedTools/Margin/Content/AdvancedTabs/Attachment/Tools"]
 unique_name_in_owner = true
 layout_mode = 2
 clip_text = true
 tooltip_text = "Every actual node and skeleton in this assembly is available. A target may belong to any other part."
 
-[node name="Bones" type="OptionButton" parent="AdvancedTools/Margin/Content/Scroll/Tools"]
+[node name="Bones" type="OptionButton" parent="AdvancedTools/Margin/Content/AdvancedTabs/Attachment/Tools"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="AttachHint" type="Label" parent="AdvancedTools/Margin/Content/Scroll/Tools"]
+[node name="AttachHint" type="Label" parent="AdvancedTools/Margin/Content/AdvancedTabs/Attachment/Tools"]
 layout_mode = 2
 text = "Attaching preserves placement and keeps the part's own skeleton, facial shapes and materials."
 autowrap_mode = 3
 
-[node name="RepairReferences" type="Button" parent="AdvancedTools/Margin/Content/Scroll/Tools"]
+[node name="RepairReferences" type="Button" parent="AdvancedTools/Margin/Content/AdvancedTabs/Attachment/Tools"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Repair moved / renamed references"
 tooltip_text = "After a native scene-tree move or rename, repair retained attachment, skin, donor and exclusion targets. This explicit action is undoable; opening a scene never silently repairs it."
 disabled = true
 
-[node name="AttachRow" type="HBoxContainer" parent="AdvancedTools/Margin/Content/Scroll/Tools"]
+[node name="AttachRow" type="HBoxContainer" parent="AdvancedTools/Margin/Content/AdvancedTabs/Attachment/Tools"]
 layout_mode = 2
 
-[node name="Attach" type="Button" parent="AdvancedTools/Margin/Content/Scroll/Tools/AttachRow"]
+[node name="Attach" type="Button" parent="AdvancedTools/Margin/Content/AdvancedTabs/Attachment/Tools/AttachRow"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Attach / Apply"
 
-[node name="Detach" type="Button" parent="AdvancedTools/Margin/Content/Scroll/Tools/AttachRow"]
+[node name="Detach" type="Button" parent="AdvancedTools/Margin/Content/AdvancedTabs/Attachment/Tools/AttachRow"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Detach to free"
 
-[node name="Bind" type="Button" parent="AdvancedTools/Margin/Content/Scroll/Tools"]
+[node name="Bind" type="Button" parent="AdvancedTools/Margin/Content/AdvancedTabs/Attachment/Tools"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Bind clothing to selected donor…"
 tooltip_text = "Explicit weight transfer. The donor is the selected target above; facial/local rig conversion is rejected."
 
-[node name="GeometryHeading" type="Label" parent="AdvancedTools/Margin/Content/Scroll/Tools"]
+[node name="GeometryHeading" type="Label" parent="AdvancedTools/Margin/Content/AdvancedTabs/Geometry/Tools"]
 layout_mode = 2
 text = "Reversible mesh exclusion"
 theme_override_font_sizes/font_size = 16
 
-[node name="CancelBinding" type="Button" parent="AdvancedTools/Margin/Content/Scroll/Tools"]
+[node name="CancelBinding" type="Button" parent="AdvancedTools/Margin/Content/AdvancedTabs/Attachment/Tools"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Cancel clothing binding"
 visible = false
 
-[node name="Meshes" type="OptionButton" parent="AdvancedTools/Margin/Content/Scroll/Tools"]
+[node name="Meshes" type="OptionButton" parent="AdvancedTools/Margin/Content/AdvancedTabs/Geometry/Tools"]
 unique_name_in_owner = true
 layout_mode = 2
 clip_text = true
 
-[node name="FaceMode" type="CheckButton" parent="AdvancedTools/Margin/Content/Scroll/Tools"]
+[node name="FaceMode" type="CheckButton" parent="AdvancedTools/Margin/Content/AdvancedTabs/Geometry/Tools"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Select reference-pose faces in viewport"
 tooltip_text = "Stops preview animation and temporarily resets bone poses. Left click adds faces; Subtract removes them. Disable to resume native transforms."
 
-[node name="Subtract" type="CheckButton" parent="AdvancedTools/Margin/Content/Scroll/Tools"]
+[node name="Subtract" type="CheckButton" parent="AdvancedTools/Margin/Content/AdvancedTabs/Geometry/Tools"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Subtract from selection"
 
-[node name="Faces" type="Label" parent="AdvancedTools/Margin/Content/Scroll/Tools"]
+[node name="Faces" type="Label" parent="AdvancedTools/Margin/Content/AdvancedTabs/Geometry/Tools"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "0 selected"
 autowrap_mode = 3
 
-[node name="BoxLabel" type="Label" parent="AdvancedTools/Margin/Content/Scroll/Tools"]
+[node name="BoxLabel" type="Label" parent="AdvancedTools/Margin/Content/AdvancedTabs/Geometry/Tools"]
 layout_mode = 2
 text = "Region in source mesh coordinates (metres)"
 
-[node name="BoxGrid" type="GridContainer" parent="AdvancedTools/Margin/Content/Scroll/Tools"]
+[node name="BoxGrid" type="GridContainer" parent="AdvancedTools/Margin/Content/AdvancedTabs/Geometry/Tools"]
 layout_mode = 2
 columns = 4
 
-[node name="Centre" type="Label" parent="AdvancedTools/Margin/Content/Scroll/Tools/BoxGrid"]
+[node name="Centre" type="Label" parent="AdvancedTools/Margin/Content/AdvancedTabs/Geometry/Tools/BoxGrid"]
 layout_mode = 2
 text = "Centre"
 
-[node name="CentreX" type="SpinBox" parent="AdvancedTools/Margin/Content/Scroll/Tools/BoxGrid"]
+[node name="CentreX" type="SpinBox" parent="AdvancedTools/Margin/Content/AdvancedTabs/Geometry/Tools/BoxGrid"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -420,7 +571,7 @@ max_value = 1000.0
 step = 0.01
 prefix = "X"
 
-[node name="CentreY" type="SpinBox" parent="AdvancedTools/Margin/Content/Scroll/Tools/BoxGrid"]
+[node name="CentreY" type="SpinBox" parent="AdvancedTools/Margin/Content/AdvancedTabs/Geometry/Tools/BoxGrid"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -429,7 +580,7 @@ max_value = 1000.0
 step = 0.01
 prefix = "Y"
 
-[node name="CentreZ" type="SpinBox" parent="AdvancedTools/Margin/Content/Scroll/Tools/BoxGrid"]
+[node name="CentreZ" type="SpinBox" parent="AdvancedTools/Margin/Content/AdvancedTabs/Geometry/Tools/BoxGrid"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -438,11 +589,11 @@ max_value = 1000.0
 step = 0.01
 prefix = "Z"
 
-[node name="Size" type="Label" parent="AdvancedTools/Margin/Content/Scroll/Tools/BoxGrid"]
+[node name="Size" type="Label" parent="AdvancedTools/Margin/Content/AdvancedTabs/Geometry/Tools/BoxGrid"]
 layout_mode = 2
 text = "Size"
 
-[node name="SizeX" type="SpinBox" parent="AdvancedTools/Margin/Content/Scroll/Tools/BoxGrid"]
+[node name="SizeX" type="SpinBox" parent="AdvancedTools/Margin/Content/AdvancedTabs/Geometry/Tools/BoxGrid"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -452,7 +603,7 @@ step = 0.01
 value = 1.0
 prefix = "X"
 
-[node name="SizeY" type="SpinBox" parent="AdvancedTools/Margin/Content/Scroll/Tools/BoxGrid"]
+[node name="SizeY" type="SpinBox" parent="AdvancedTools/Margin/Content/AdvancedTabs/Geometry/Tools/BoxGrid"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -462,7 +613,7 @@ step = 0.01
 value = 1.0
 prefix = "Y"
 
-[node name="SizeZ" type="SpinBox" parent="AdvancedTools/Margin/Content/Scroll/Tools/BoxGrid"]
+[node name="SizeZ" type="SpinBox" parent="AdvancedTools/Margin/Content/AdvancedTabs/Geometry/Tools/BoxGrid"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -472,102 +623,102 @@ step = 0.01
 value = 1.0
 prefix = "Z"
 
-[node name="SelectBox" type="Button" parent="AdvancedTools/Margin/Content/Scroll/Tools"]
+[node name="SelectBox" type="Button" parent="AdvancedTools/Margin/Content/AdvancedTabs/Geometry/Tools"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Select faces intersecting region"
 
-[node name="SurfaceRow" type="HBoxContainer" parent="AdvancedTools/Margin/Content/Scroll/Tools"]
+[node name="SurfaceRow" type="HBoxContainer" parent="AdvancedTools/Margin/Content/AdvancedTabs/Geometry/Tools"]
 layout_mode = 2
 
-[node name="Surface" type="OptionButton" parent="AdvancedTools/Margin/Content/Scroll/Tools/SurfaceRow"]
+[node name="Surface" type="OptionButton" parent="AdvancedTools/Margin/Content/AdvancedTabs/Geometry/Tools/SurfaceRow"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="SelectSurface" type="Button" parent="AdvancedTools/Margin/Content/Scroll/Tools/SurfaceRow"]
+[node name="SelectSurface" type="Button" parent="AdvancedTools/Margin/Content/AdvancedTabs/Geometry/Tools/SurfaceRow"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Select"
 
-[node name="ClearFaces" type="Button" parent="AdvancedTools/Margin/Content/Scroll/Tools"]
+[node name="ClearFaces" type="Button" parent="AdvancedTools/Margin/Content/AdvancedTabs/Geometry/Tools"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Clear face selection"
 
-[node name="GeometryRow" type="HBoxContainer" parent="AdvancedTools/Margin/Content/Scroll/Tools"]
+[node name="GeometryRow" type="HBoxContainer" parent="AdvancedTools/Margin/Content/AdvancedTabs/Geometry/Tools"]
 layout_mode = 2
 
-[node name="Exclude" type="Button" parent="AdvancedTools/Margin/Content/Scroll/Tools/GeometryRow"]
+[node name="Exclude" type="Button" parent="AdvancedTools/Margin/Content/AdvancedTabs/Geometry/Tools/GeometryRow"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Exclude selected"
 
-[node name="Restore" type="Button" parent="AdvancedTools/Margin/Content/Scroll/Tools/GeometryRow"]
+[node name="Restore" type="Button" parent="AdvancedTools/Margin/Content/AdvancedTabs/Geometry/Tools/GeometryRow"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Restore selected"
 
-[node name="ResetMesh" type="Button" parent="AdvancedTools/Margin/Content/Scroll/Tools/GeometryRow"]
+[node name="ResetMesh" type="Button" parent="AdvancedTools/Margin/Content/AdvancedTabs/Geometry/Tools/GeometryRow"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Reset mesh"
 
-[node name="GeometryHint" type="Label" parent="AdvancedTools/Margin/Content/Scroll/Tools"]
+[node name="GeometryHint" type="Label" parent="AdvancedTools/Margin/Content/AdvancedTabs/Geometry/Tools"]
 layout_mode = 2
 text = "Masks retain the original mesh. Exclusion disables this part's existing collision; author replacement collision explicitly. Save persists the derived geometry."
 autowrap_mode = 3
 
-[node name="PreviewHeading" type="Label" parent="AdvancedTools/Margin/Content/Scroll/Tools"]
+[node name="PreviewHeading" type="Label" parent="AdvancedTools/Margin/Content/AdvancedTabs/Animation/Tools"]
 layout_mode = 2
 text = "Preview (temporary; original materials by default)"
 autowrap_mode = 3
 theme_override_font_sizes/font_size = 16
 
-[node name="Players" type="OptionButton" parent="AdvancedTools/Margin/Content/Scroll/Tools"]
+[node name="Players" type="OptionButton" parent="AdvancedTools/Margin/Content/AdvancedTabs/Animation/Tools"]
 unique_name_in_owner = true
 layout_mode = 2
 clip_text = true
 
-[node name="BorrowClips" type="Button" parent="AdvancedTools/Margin/Content/Scroll/Tools"]
+[node name="BorrowClips" type="Button" parent="AdvancedTools/Margin/Content/AdvancedTabs/Animation/Tools"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Borrow compatible clips for selected part…"
 tooltip_text = "Select a rigged body part, then choose an animation model. The service validates matching bone names and prepares independent clips."
 
-[node name="Clip" type="OptionButton" parent="AdvancedTools/Margin/Content/Scroll/Tools"]
+[node name="Clip" type="OptionButton" parent="AdvancedTools/Margin/Content/AdvancedTabs/Animation/Tools"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="PreviewRow" type="HBoxContainer" parent="AdvancedTools/Margin/Content/Scroll/Tools"]
+[node name="PreviewRow" type="HBoxContainer" parent="AdvancedTools/Margin/Content/AdvancedTabs/Animation/Tools"]
 layout_mode = 2
 
-[node name="Play" type="Button" parent="AdvancedTools/Margin/Content/Scroll/Tools/PreviewRow"]
+[node name="Play" type="Button" parent="AdvancedTools/Margin/Content/AdvancedTabs/Animation/Tools/PreviewRow"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Play"
 
-[node name="Stop" type="Button" parent="AdvancedTools/Margin/Content/Scroll/Tools/PreviewRow"]
+[node name="Stop" type="Button" parent="AdvancedTools/Margin/Content/AdvancedTabs/Animation/Tools/PreviewRow"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Stop / Restore"
 
-[node name="Rest" type="Button" parent="AdvancedTools/Margin/Content/Scroll/Tools/PreviewRow"]
+[node name="Rest" type="Button" parent="AdvancedTools/Margin/Content/AdvancedTabs/Animation/Tools/PreviewRow"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Rest pose"
 
-[node name="Loop" type="CheckButton" parent="AdvancedTools/Margin/Content/Scroll/Tools"]
+[node name="Loop" type="CheckButton" parent="AdvancedTools/Margin/Content/AdvancedTabs/Animation/Tools"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Loop preview clip"
 
-[node name="PreviewShade" type="CheckButton" parent="AdvancedTools/Margin/Content/Scroll/Tools"]
+[node name="PreviewShade" type="CheckButton" parent="AdvancedTools/Margin/Content/AdvancedTabs/Animation/Tools"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Temporary neutral shading"
 
-[node name="Statistics" type="Label" parent="AdvancedTools/Margin/Content/Scroll/Tools"]
+[node name="Statistics" type="Label" parent="AdvancedTools/Margin/Content/AdvancedTabs/Geometry/Tools"]
 unique_name_in_owner = true
 layout_mode = 2
 autowrap_mode = 3

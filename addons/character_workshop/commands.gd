@@ -46,19 +46,111 @@ func _remove(part: Node) -> void:
 	if part.get_parent() != null:
 		part.get_parent().remove_child(part)
 
-func add_source(path: String) -> Dictionary:
+func add_source(path: String, world_position: Variant = null) -> Dictionary:
 	if not is_instance_valid(scene_root):
 		return _fail("Open or create a character assembly first.")
 	var result: Dictionary = Ops.create_part(path)
 	if not result.ok:
 		return result
 	var part: Node3D = result.part
+	if world_position is Vector3:
+		if not world_position.is_finite():
+			part.free()
+			return _fail("Choose a finite placement point.")
+		part.position = scene_root.global_transform.affine_inverse() * world_position
 	_begin("Add character part")
 	undo.add_do_method(self, "_insert", part, scene_root)
 	undo.add_undo_method(self, "_remove", part)
 	undo.add_do_reference(part)
 	_finish()
 	return {"ok": true, "error": "", "part": part}
+
+func rename_selected(part: Node3D, new_name: String) -> Dictionary:
+	if not is_instance_valid(part) or (part != scene_root and not _valid_part(part).is_empty()):
+		return _fail("Select a character or part to rename.")
+	new_name = new_name.strip_edges()
+	if new_name.is_empty() or new_name != new_name.validate_node_name():
+		return _fail("Use a nonempty node name without . : @ / or quotation marks.")
+	for sibling: Node in part.get_parent().get_children():
+		if sibling != part and str(sibling.name) == new_name:
+			return _fail("Another part at this level already has that name.")
+	if str(part.name) == new_name:
+		return {"ok": true, "part": part}
+	var references := Ops.capture_references(scene_root)
+	var paths := _rename_paths()
+	var animations := _rename_animations(part)
+	_begin("Rename character part")
+	undo.add_do_property(part, "name", new_name)
+	undo.add_do_method(Ops, "rebase_references", references)
+	undo.add_do_method(self, "_apply_rename_paths", paths, true)
+	undo.add_do_method(self, "_apply_rename_animations", animations, true)
+	undo.add_undo_property(part, "name", part.name)
+	undo.add_undo_method(Ops, "restore_references", references)
+	undo.add_undo_method(self, "_apply_rename_paths", paths, false)
+	undo.add_undo_method(self, "_apply_rename_animations", animations, false)
+	_finish()
+	return {"ok": true, "part": part}
+
+func _rename_paths() -> Array:
+	var paths: Array = []
+	for node: Node in _all_nodes(scene_root):
+		for property: Dictionary in node.get_property_list():
+			if property.type != TYPE_NODE_PATH or not (int(property.usage) & PROPERTY_USAGE_STORAGE):
+				continue
+			var path: NodePath = node.get(property.name)
+			if path.is_empty():
+				continue
+			var target := node.get_node_or_null(NodePath(path.get_concatenated_names()))
+			if target != null:
+				paths.append({"node": node, "key": property.name, "path": path, "target": target})
+	return paths
+
+func _apply_rename_paths(paths: Array, forward: bool) -> void:
+	for entry: Dictionary in paths:
+		entry.node.set(entry.key, _renamed_path(entry.node, entry.target, entry.path) if forward else entry.path)
+
+func _renamed_path(base: Node, target: Node, old: NodePath) -> NodePath:
+	var names := str(target.get_path()) if old.is_absolute() else str(base.get_path_to(target))
+	var suffix := str(old.get_concatenated_subnames())
+	return NodePath(names + (":" + suffix if not suffix.is_empty() else ""))
+
+func _rename_animations(part: Node) -> Array:
+	var states: Array = []
+	for node: Node in _all_nodes(scene_root):
+		if not node is AnimationPlayer:
+			continue
+		var base: Node = node.get_node_or_null(node.root_node)
+		if base == null:
+			continue
+		for key: StringName in node.get_animation_library_list():
+			var original: AnimationLibrary = node.get_animation_library(key)
+			var copy: AnimationLibrary
+			var tracks: Array = []
+			for clip: StringName in original.get_animation_list():
+				var animation := original.get_animation(clip)
+				for index: int in animation.get_track_count():
+					var path := animation.track_get_path(index)
+					var target := base.get_node_or_null(NodePath(path.get_concatenated_names()))
+					if target == null:
+						continue
+					var base_inside := part == base or part.is_ancestor_of(base)
+					var target_inside := part == target or part.is_ancestor_of(target)
+					if base_inside == target_inside and not (path.is_absolute() and target_inside):
+						continue
+					if copy == null:
+						copy = original.duplicate(true)
+					tracks.append({"animation": copy.get_animation(clip), "index": index, "base": base, "target": target, "path": path})
+			if copy != null:
+				states.append({"player": node, "key": key, "old": original, "next": copy, "tracks": tracks})
+	return states
+
+func _apply_rename_animations(states: Array, forward: bool) -> void:
+	for entry: Dictionary in states:
+		if forward:
+			for track: Dictionary in entry.tracks:
+				track.animation.track_set_path(track.index, _renamed_path(track.base, track.target, track.path))
+		entry.player.remove_animation_library(entry.key)
+		entry.player.add_animation_library(entry.key, entry.next if forward else entry.old)
 
 func transform_selected(part: Node3D, before: Transform3D, after: Transform3D) -> Dictionary:
 	var error := ""

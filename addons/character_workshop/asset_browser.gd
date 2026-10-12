@@ -17,9 +17,19 @@ var _mesh_preview_busy := false
 var _scene_types: Dictionary = {}
 var _refresh_pending := false
 var _fallback: Texture2D
+var _word_pattern := RegEx.new()
 
 
 func _ready() -> void:
+	_word_pattern.compile("[^\\p{L}\\p{N}]+")
+	for label: String in ["All assets", "Imported models", "Scene prefabs"]:
+		%AssetType.add_item(label)
+	%AssetType.item_selected.connect(func(_index: int): _filter_catalog(%AssetSearch.text))
+	%AssetFolder.item_selected.connect(func(_index: int): _filter_catalog(%AssetSearch.text))
+	%CloseAssets.pressed.connect(func(): request.emit("close_assets", null))
+	%DropPlacement.add_item("Drop: authored position", 0)
+	%DropPlacement.add_item("Drop: cursor position", 1)
+	%DropPlacement.item_selected.connect(func(index: int): request.emit("drop_placement", index == 1))
 	%AssetSearch.text_changed.connect(_filter_catalog)
 	%AssetList.item_selected.connect(_select_asset)
 	%AssetList.item_activated.connect(func(index: int): _select_asset(index); _add_selected())
@@ -73,7 +83,48 @@ func refresh_catalog() -> void:
 	_scene_types.clear()
 	_collect_directory(_filesystem.get_filesystem())
 	_catalog.sort()
+	_populate_folders()
 	_filter_catalog(%AssetSearch.text)
+
+func _populate_folders() -> void:
+	var previous: String = str(%AssetFolder.get_item_metadata(%AssetFolder.selected)) if %AssetFolder.item_count > 0 else ""
+	var folders: Array[String] = []
+	for path: String in _catalog:
+		var folder := path.get_base_dir()
+		if folder not in folders:
+			folders.append(folder)
+	folders.sort()
+	%AssetFolder.clear()
+	%AssetFolder.add_item("All folders")
+	%AssetFolder.set_item_metadata(0, "")
+	for folder: String in folders:
+		var index: int = %AssetFolder.item_count
+		%AssetFolder.add_item(folder.trim_prefix("res://"))
+		%AssetFolder.set_item_metadata(index, folder)
+		%AssetFolder.set_item_tooltip(index, folder)
+		if folder == previous:
+			%AssetFolder.select(index)
+
+func _matches_asset(path: String, query: String) -> bool:
+	var extension := path.get_extension().to_lower()
+	if %AssetType.selected == 1 and extension in ["tscn", "scn"]:
+		return false
+	if %AssetType.selected == 2 and extension not in ["tscn", "scn"]:
+		return false
+	var folder: String = str(%AssetFolder.get_item_metadata(%AssetFolder.selected)) if %AssetFolder.item_count > 0 else ""
+	if not folder.is_empty() and not path.begins_with(folder + "/"):
+		return false
+	var words := _word_pattern.sub(path.to_lower(), " ", true).split(" ", false)
+	var search := _word_pattern.sub(query.strip_edges().to_lower(), " ", true).split(" ", false)
+	for term: String in search:
+		var found := false
+		for word: String in words:
+			if word.begins_with(term):
+				found = true
+				break
+		if not found:
+			return false
+	return true
 
 
 func _collect_directory(directory: EditorFileSystemDirectory) -> void:
@@ -178,17 +229,13 @@ func _filter_catalog(query: String) -> void:
 	var previous: String = selected_path()
 	_rows.clear()
 	%AssetList.clear()
-	var words: PackedStringArray = query.strip_edges().to_lower().replace("_", " ").split(" ", false)
 	for path: String in _catalog:
-		var candidate: String = path.to_lower().replace("_", " ")
-		var include := true
-		for word: String in words:
-			if not candidate.contains(word):
-				include = false
-				break
-		if not include:
+		if not _matches_asset(path, query):
 			continue
-		var index: int = %AssetList.add_item(path.get_file().get_basename().replace("_", " "), _previews.get(path, _fallback))
+		var extension := path.get_extension().to_upper()
+		var source := path.get_base_dir().trim_prefix("res://")
+		var caption := "%s\n%s · %s" % [path.get_file().get_basename().replace("_", " "), extension, source]
+		var index: int = %AssetList.add_item(caption, _previews.get(path, _fallback))
 		%AssetList.set_item_metadata(index, path)
 		%AssetList.set_item_tooltip(index, path + "\nDouble-click to add; drag into the fitting view.")
 		_rows[path] = index

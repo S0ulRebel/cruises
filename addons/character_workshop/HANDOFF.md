@@ -1,5 +1,32 @@
 # Character Workshop editor handoff
 
+## Approved usability follow-up — 2026-10-12
+
+Implemented all ten approved points on `main`, with no graphical Godot session.
+Native Save As retains the current tab, ordinary Save uses its destination, and a
+stale dialog cannot save a different character. Shared read-only save validation
+rejects source-path aliases. Hierarchy rows have eyes, inline rename/F2, a context
+menu and drag-to-parent; placement, identities and native undo are preserved.
+Rename rebases node paths and affected animation tracks in private libraries.
+
+Fine adjust is an inline sidebar panel. World/Local move/rotate axes and adjustable
+snapping are exposed; scale uses local axes. Attachment picking names source and
+hovered destination, highlights candidates and provides Cancel. The hierarchy stays
+visible while the asset drawer opens below the views. Asset search uses word prefixes,
+with type/folder filters and source labels. Drops choose authored or cursor placement;
+the preview marks the wrapper origin without instantiating a model. Internal model
+transforms remain intact, and placement shares insertion's undo action.
+
+Selection uses subtle corner marks; Grid/Bounds are optional. Focus restores the
+prior native distraction-free setting on exit. More groups retained advanced tools
+into Attachment/Geometry/Animation/Export tabs with contextual disabled states.
+
+Validation: 213/213 native assertions, all 22 default checks, cold reopen routes and
+runner false-pass rejection succeed with unchanged authored hashes. Evidence:
+`%TEMP%/cruises-checks-3a572b89171f4c5ba843ccc99d2f07f9/`.
+Visual layout/overlay/mouse usability acceptance is deferred while the owner trains
+on the GPU. Existing body/clothing/neck art acceptance remains separate.
+
 ## Approved visual workspace — 2026-10-12
 
 Delivered on the owner's `main` checkout after pulling `origin/main` to `6eda968`.

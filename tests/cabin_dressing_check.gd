@@ -62,9 +62,13 @@ func _run() -> void:
 		after.save_png(evidence.path_join("normal_off.png"))
 		FileAccess.open(evidence.path_join("normal_check.json"),FileAccess.WRITE).store_string(JSON.stringify({"changed_foreground_samples":changed,"shader":"cabin_surface.gdshader"},"  "))
 		print("Normal-map evidence: "+evidence)
+	# Stop playback while its owner is alive, then allow the audio thread to
+	# release playback after scene deletion before immediately quitting.
+	# Headless process frames are unthrottled and do not provide a mix interval.
+	game.get("audio").stop()
 	game.queue_free()
 	await process_frame
-	await process_frame
+	await create_timer(0.1).timeout
 	finish()
 
 func has_textures(material: ShaderMaterial,id: String) -> bool:

@@ -17,6 +17,18 @@ reproduction. Feather extraction and preview used CPU only; no GPU/game run was
 performed for this pass. The earlier normals repair is a separate shading correction,
 not a resolution of the hat geometry issue.
 
+2026-10-12 Character Workshop usability follow-up: all ten approved improvements
+are implemented on `main`, including same-tab saving, hierarchy editing/visibility,
+inline fitting controls, attachment feedback, persistent hierarchy with asset drawer,
+filtered discovery, explicit drop placement, overlay/focus controls and advanced
+task tabs. All 22 checks/cold routes and 213 native assertions pass headlessly.
+Visual acceptance is deferred during GPU training. See the current sections in
+`addons/character_workshop/HANDOFF.md`, `tests/HANDOFF.md` and
+`docs/CHARACTER_WORKSHOP_PLAN.md` for evidence and remaining acceptance.
+The latest remote hat work was pulled before delivery. Its first headless import
+supplied missing UIDs for `feather_original.glb` and `hat_with_original_feather.glb`;
+only those import metadata additions are included alongside the workshop changes.
+
 2026-10-12 portrait mesh repair: the rigged head had lost its original surface
 normals, creating jagged shading/false contours on the left temple and cheek.
 The portrait now uses a UI-local derivative restoring those normals, with source

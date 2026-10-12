@@ -61,6 +61,12 @@ Do not launch it as `--editor --script`: that creates a second editor main loop.
 The fixture also checks the main-screen workspace, actual-world view cameras,
 nested hierarchy/collapse, native viewport transforms/undo, whole-assembly edits,
 target picking, fine adjustments, asset filtering and import validation.
+The usability follow-up checks native Save As/Save continuity, stale save-dialog
+context, canonical source aliases, inline fields, hierarchy actions/cycles/undo,
+private animation-path rebasing, word/type/folder filters, cursor placement and
+focus restoration. Unique `user://` save outputs retain source hash protection.
+These tests run without a graphical window or GPU rendering. Visual acceptance of
+the follow-up layout, overlays and placement marker remains a separate GPU review.
 For graphical review, set `CRUISES_WORKSHOP_EDITOR_CHECK=1` and
 `CRUISES_WORKSHOP_CAPTURE` to an explicit external PNG path, then launch
 `--editor --rendering-method gl_compatibility --single-window

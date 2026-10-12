@@ -459,6 +459,15 @@ func _check_unsaved_starters(plugin: EditorPlugin) -> void:
 	native_dock.get_node("%Open").pressed.emit()
 	expect(dialog.visible and dialog.file_mode == FileDialog.FILE_MODE_OPEN_FILE and plugin._file_action == "open", "Open existing retains the scene browser")
 	dialog.hide()
+	native_dock.get_node("%SaveAs").pressed.emit()
+	dialog.hide()
+	plugin._create_from_template(template_path)
+	for frame: int in 3:
+		await tree.process_frame
+	var stale_output := "user://workshop_stale_save_%d.tscn" % OS.get_process_id()
+	plugin._file_selected(stale_output)
+	expect(not FileAccess.file_exists(stale_output) and EditorInterface.get_edited_scene_root().scene_file_path.is_empty(), "changing characters while choosing Save As cannot save the wrong scene")
+	plugin._clear_file_request()
 
 func _tree_item_for(item: TreeItem, node: Node) -> TreeItem:
 	if item == null:
@@ -520,6 +529,7 @@ func _check_workspace(plugin: EditorPlugin) -> void:
 		browser.get_node("%AssetSearch").text = ""
 		browser.get_node("%AssetSearch").text_changed.emit("")
 	await _check_import_validation(plugin)
+	await _check_usability(plugin)
 	var capture := OS.get_environment("CRUISES_WORKSHOP_CAPTURE")
 	if not capture.is_empty() and DisplayServer.get_name() != "headless":
 		plugin.hide_bottom_panel()
@@ -542,7 +552,7 @@ func _check_workspace(plugin: EditorPlugin) -> void:
 		screenshot = panel.get_viewport().get_texture().get_image()
 		if screenshot != null:
 			screenshot.save_png(capture.get_base_dir().path_join("assets.png"))
-		panel.get_node("%Sidebar").current_tab = 0
+		panel.get_node("%AssetDrawer").hide()
 		browser.get_node("%AssetSearch").text = ""
 		browser.get_node("%AssetSearch").text_changed.emit("")
 		plugin._request("inspector", null)
@@ -578,7 +588,7 @@ func _check_pane_editing(plugin: EditorPlugin, part: Node3D) -> void:
 	expect(part.global_transform.is_equal_approx(original), "viewport cancel restores the authored transform")
 	plugin._request("tool", "move")
 	plugin._request("inspector", null)
-	var dialog: Window = plugin._transform_dialog
+	var dialog: Control = plugin._transform_dialog
 	expect(dialog.visible, "Fine adjust opens exact transform fields")
 	dialog.get_node("%PositionX").get_line_edit().text = str(part.position.x + 0.125)
 	dialog.get_node("%PositionX").apply()
@@ -645,3 +655,140 @@ func _check_import_validation(plugin: EditorPlugin) -> void:
 	plugin._import_destination_selected(source.get_base_dir())
 	expect(FileAccess.get_sha256(source) == original_hash and plugin._import_pending.is_empty(), "import collision preserves the existing asset and does not start an overwrite")
 	plugin.dock.set_status("Character Workshop ready. Select a part in either view or the hierarchy.")
+
+func _check_usability(plugin: EditorPlugin) -> void:
+	var panel: Control = plugin.dock
+	var root := EditorInterface.get_edited_scene_root() as Node3D
+	var head: Node3D = root.get_node("SpeakingHead")
+	var hair: Node3D = head.find_child("Hair", true, false)
+	var history := plugin.get_undo_redo().get_history_undo_redo(plugin.get_undo_redo().get_object_history_id(root))
+	plugin._select(head)
+	plugin._refresh()
+	panel.show_assets()
+	expect(panel.get_node("%AssetDrawer").visible and panel.get_node("%Parts").is_visible_in_tree(), "asset drawer leaves the hierarchy available")
+	panel._forward_request("close_assets", null)
+	expect(not panel.get_node("%AssetDrawer").visible, "asset drawer closes without changing hierarchy selection")
+	var browser: Control = panel.get_node("%Assets")
+	expect(browser._matches_asset("res://art/hair.glb", "hair") and not browser._matches_asset("res://art/chair.glb", "hair"), "word-aware search distinguishes hair from chair")
+	expect(browser._matches_asset("res://art/head_face.glb", "head fa"), "search accepts filename-word prefixes")
+	browser.get_node("%AssetType").select(1)
+	expect(not browser._matches_asset("res://actors/head.tscn", "head") and browser._matches_asset("res://art/head.glb", "head"), "asset type filter separates models and prefabs")
+	browser.get_node("%AssetType").select(0)
+	var folders := browser.get_node("%AssetFolder") as OptionButton
+	if folders.item_count > 1:
+		folders.select(1)
+		var folder: String = str(folders.get_item_metadata(1))
+		expect(browser._matches_asset(folder.path_join("head.glb"), "head") and not browser._matches_asset("res://outside/head.glb", "head"), "folder filter retains source boundaries")
+		folders.select(0)
+	browser._filter_catalog("")
+	expect(panel.get_node("%AdvancedTabs").get_tab_count() == 4, "advanced tools have four task-specific categories")
+	expect(plugin._transform_dialog is PanelContainer and panel.is_ancestor_of(plugin._transform_dialog), "precise fields are an inline panel rather than a floating window")
+	var item := _tree_item_for(panel.get_node("%Parts").get_root(), head)
+	expect(item.is_editable(0) and item.get_button_count(0) == 1, "hierarchy exposes inline rename and visibility")
+	panel._context_part = head
+	panel._context_action(1)
+	expect(not head.visible, "context visibility action uses the clicked part")
+	history.undo()
+	plugin._refresh()
+	expect(head.visible, "context visibility undo restores the part")
+	var animation_player := AnimationPlayer.new()
+	root.add_child(animation_player)
+	var animation := Animation.new()
+	animation.add_track(Animation.TYPE_VALUE)
+	animation.track_set_path(0, NodePath("SpeakingHead:position"))
+	animation.track_insert_key(0, 0.0, Vector3.ZERO)
+	var library := AnimationLibrary.new()
+	library.add_animation("fit", animation)
+	animation_player.add_animation_library("", library)
+	var hair_target: Node = hair.get_node_or_null(hair.get("target_path"))
+	var original_name := str(head.name)
+	plugin._request("rename_part", {"part": head, "name": "SpeakingHeadRenamed"})
+	expect(str(head.name) == "SpeakingHeadRenamed" and hair.get_node_or_null(hair.get("target_path")) == hair_target, "inline rename preserves attachment targets")
+	var changed := animation_player.get_animation("fit")
+	expect(changed != animation and changed.track_get_path(0) == NodePath("SpeakingHeadRenamed:position") and animation.track_get_path(0) == NodePath("SpeakingHead:position"), "rename rebases animation tracks in a private copy")
+	history.undo()
+	expect(str(head.name) == original_name and animation_player.get_animation("fit") == animation, "rename undo restores names and original animation resources")
+	history.redo()
+	expect(animation_player.get_animation("fit").track_get_path(0) == NodePath("SpeakingHeadRenamed:position"), "rename redo retains animation targets")
+	history.undo()
+	animation_player.free()
+	expect(not plugin.commands.rename_selected(head, "bad/name").ok, "invalid hierarchy names fail without mutation")
+	var before := hair.global_transform
+	var tree: Tree = panel.get_node("%Parts")
+	var hair_row := _tree_item_for(tree.get_root(), hair)
+	var root_row := tree.get_root()
+	var head_row := _tree_item_for(root_row, head)
+	var drag_data := {"workshop_part": hair, "root": root}
+	expect(panel._hierarchy_can_drop(tree.get_item_area_rect(root_row).get_center(), drag_data), "hierarchy accepts dropping a part onto the character root")
+	expect(not panel._hierarchy_can_drop(tree.get_item_area_rect(hair_row).get_center(), drag_data), "hierarchy rejects parenting a part to itself")
+	expect(not panel._hierarchy_can_drop(tree.get_item_area_rect(hair_row).get_center(), {"workshop_part": head, "root": root}), "hierarchy rejects attachment cycles before dropping")
+	plugin._request("reparent_part", {"part": hair, "target": root})
+	expect(hair.get_parent() == root and hair.global_transform.is_equal_approx(before), "hierarchy reparent preserves world placement")
+	history.undo()
+	expect(hair.global_transform.is_equal_approx(before) and Ops.nearest_part(hair.get_parent()) == head, "hierarchy reparent undo restores its original parent")
+	plugin._select(hair)
+	plugin._refresh()
+	plugin._request("tool", "attach")
+	plugin._request("hover_attach", head)
+	expect(panel.get_node("%AttachmentBanner").visible and panel.get_node("%AttachmentPrompt").text.contains("Hair") and panel.get_node("%AttachmentPrompt").text.contains("SpeakingHead"), "attachment banner names source and candidate parent")
+	panel.get_node("%CancelAttach").pressed.emit()
+	expect(plugin._tool == "move" and not panel.get_node("%AttachmentBanner").visible, "visible attachment cancel restores fitting")
+	var pane: Control = panel.get_node("%MainView")
+	panel.get_node("%Coordinates").select(1)
+	panel.get_node("%Coordinates").item_selected.emit(1)
+	panel.get_node("%MoveStep").value = 0.125
+	panel.get_node("%SnapEnabled").button_pressed = true
+	expect(pane.local_axes and pane.snap_enabled and is_equal_approx(pane.move_step, 0.125), "fitting controls reach both camera panes")
+	expect(pane._transform_axis(hair.global_basis, 0).is_equal_approx(hair.global_basis.x.normalized()), "local translation axes follow the authored orientation")
+	panel.get_node("%Coordinates").select(0)
+	panel.get_node("%Coordinates").item_selected.emit(0)
+	panel.get_node("%SnapEnabled").button_pressed = false
+	panel.get_node("%MoveStep").value = 0.05
+	expect(pane._transform_axis(hair.global_basis, 0) == Vector3.RIGHT, "world axes remain independent of part orientation")
+	var cursor: Vector2 = pane.overlay.size * 0.5
+	pane.set_preset("Front")
+	var point: Variant = pane.placement_point(cursor)
+	expect(point is Vector3 and point.is_finite(), "front view supports cursor placement with a screen-plane fallback")
+	var payload := {"type": "files", "files": PackedStringArray([SOURCE])}
+	pane.drop_at_cursor = true
+	expect(pane._can_drop_data(cursor, payload) and pane._drop_preview.point is Vector3, "cursor drop provides a placement marker without instantiating an asset")
+	pane._drop_data(cursor, payload)
+	var added: Node3D = panel.current_part
+	expect(added != hair and added.global_position.is_equal_approx(point), "cursor drop authors the wrapper at the previewed point")
+	history.undo()
+	expect(added.get_parent() == null, "cursor placement and insertion share one undo action")
+	pane.drop_at_cursor = false
+	expect(not pane._can_drop_data(cursor, {"type": "files", "files": PackedStringArray(["res://project.godot"])}), "viewport refuses non-model drops")
+	plugin._select(head)
+	plugin._refresh()
+	var prior_focus := EditorInterface.is_distraction_free_mode_enabled()
+	plugin._request("focus_mode", true)
+	expect(EditorInterface.is_distraction_free_mode_enabled(), "workshop focus hides surrounding editor docks")
+	plugin._request("focus_mode", false)
+	expect(EditorInterface.is_distraction_free_mode_enabled() == prior_focus, "leaving focus restores the previous editor layout")
+	var output := "user://workshop_usability_%d.tscn" % OS.get_process_id()
+	var test_source_root := Assembly.new()
+	var test_source_part: Node3D = Ops.create_part(SOURCE).part
+	test_source_root.add_child(test_source_part)
+	expect(not Ops.validate_scene_save(test_source_root, ProjectSettings.globalize_path(SOURCE)).ok, "save validation rejects absolute aliases of a source prefab")
+	test_source_root.free()
+	var source_hash := FileAccess.get_sha256("res://actors/assembly/templates/captain_portrait.tscn")
+	panel.get_node("%SaveAs").pressed.emit()
+	panel.get_node("%FileDialog").hide()
+	plugin._file_selected(output)
+	expect(EditorInterface.get_edited_scene_root() == root and root.scene_file_path == output and FileAccess.file_exists(output), "Save As associates the current editing tab without reopening")
+	var renamed: Dictionary = plugin.commands.rename_selected(head, "SavedHead")
+	panel.get_node("%Save").pressed.emit()
+	var saved: PackedScene = ResourceLoader.load(output, "PackedScene", ResourceLoader.CACHE_MODE_IGNORE)
+	var reopened: Node = saved.instantiate() if saved != null else null
+	expect(renamed.ok and reopened != null and reopened.has_node("SavedHead") and not panel.get_node("%FileDialog").visible, "ordinary Save writes subsequent edits to the chosen path")
+	if reopened != null:
+		var valid_references := true
+		for reference: Dictionary in Ops.capture_references(reopened):
+			valid_references = valid_references and is_instance_valid(reference.target)
+		expect(Ops.collect_parts(reopened).size() == 5 and valid_references, "native saved assembly reload retains all parts and rig/attachment references")
+		reopened.free()
+	history.undo()
+	panel.get_node("%Save").pressed.emit()
+	expect(FileAccess.get_sha256("res://actors/assembly/templates/captain_portrait.tscn") == source_hash, "native saves preserve the template source")
+	print("WORKSHOP_USABILITY_OUTPUT: ", output)

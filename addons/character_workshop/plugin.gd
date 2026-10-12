@@ -8,7 +8,6 @@ const Commands = preload("commands.gd")
 const Preview = preload("preview.gd")
 const DockScene = preload("dock.tscn")
 const ImportDialogs = preload("import_dialogs.tscn")
-const TransformDialog = preload("transform_dialog.tscn")
 
 var dock: Control
 var commands: RefCounted
@@ -34,7 +33,11 @@ var _import_source := ""
 var _import_pending := ""
 var _import_root: Node3D
 var _import_scan_needed := false
-var _transform_dialog: Window
+var _transform_dialog: Control
+var _save_root: Node3D
+var _save_root_id := 0
+var _focus_before := false
+var _focus_active := false
 
 func _enter_tree() -> void:
 	dock = DockScene.instantiate()
@@ -43,8 +46,7 @@ func _enter_tree() -> void:
 	preview = Preview.new()
 	get_editor_interface().get_editor_main_screen().add_child(dock)
 	dock.initialize(get_editor_interface())
-	_transform_dialog = TransformDialog.instantiate()
-	dock.add_child(_transform_dialog)
+	_transform_dialog = dock.get_node("%FineAdjust")
 	_transform_dialog.request.connect(_request)
 	_make_visible(false)
 	_import_dialogs = ImportDialogs.instantiate()
@@ -55,6 +57,7 @@ func _enter_tree() -> void:
 	dock.request.connect(_request)
 	dock.get_node("%FileDialog").file_selected.connect(_file_selected)
 	dock.get_node("%FileDialog").files_selected.connect(_files_selected)
+	dock.get_node("%FileDialog").canceled.connect(_clear_file_request)
 	dock.get_node("%Dependents").confirmed.connect(_dependents_confirmed)
 	dock.get_node("%DependencyPolicy").add_item("Keep attachments as free parts", 0)
 	dock.get_node("%DependencyPolicy").add_item("Remove this part and all attachments", 1)
@@ -69,6 +72,7 @@ func _enter_tree() -> void:
 	call_deferred("_refresh")
 
 func _exit_tree() -> void:
+	_restore_focus_mode()
 	_binding_cancel = true
 	if _binding_busy and ResourceLoader.exists("res://actors/assembly/binding_service.gd"):
 		var service: Script = load("res://actors/assembly/binding_service.gd")
@@ -96,6 +100,7 @@ func _make_visible(visible: bool) -> void:
 	_workspace_visible = visible
 	if is_instance_valid(dock):
 		if not visible:
+			_restore_focus_mode()
 			dock.cancel_drag()
 			dock.get_node("%AdvancedTools").hide()
 			if is_instance_valid(_transform_dialog):
@@ -152,8 +157,14 @@ func _refresh() -> void:
 	var selected := root if root != null and native == root else Ops.nearest_part(native)
 	if selected != null and (root == null or (selected != root and not root.is_ancestor_of(selected))):
 		selected = null
+	if _transform_dialog.visible and selected != _transform_dialog._part:
+		if selected == null:
+			_transform_dialog.cancel()
+		else:
+			_transform_dialog.open_for(selected)
 	var old_mesh: MeshInstance3D = dock.current_mesh if is_instance_valid(dock.current_mesh) else null
 	dock.populate(root, Ops.collect_parts(root), selected)
+	dock.set_attachment_source(_attach_part)
 	var native_mesh := _native_selected() as MeshInstance3D
 	if native_mesh != null and selected != null:
 		dock.current_mesh = native_mesh
@@ -203,7 +214,7 @@ func _report(result: Dictionary, success: String) -> void:
 	_refresh()
 
 func _request(action: String, value: Variant) -> void:
-	if _has_moved_references() and action in ["add", "add_paths", "adopt", "duplicate", "remove", "replace", "attach", "detach", "bind", "legacy", "borrow", "face_mode", "select_box", "select_surface", "exclude", "restore", "reset_mesh"]:
+	if _has_moved_references() and action in ["add", "add_paths", "drop_assets", "rename_part", "reparent_part", "part_action", "adopt", "duplicate", "remove", "replace", "attach", "detach", "bind", "legacy", "borrow", "face_mode", "select_box", "select_surface", "exclude", "restore", "reset_mesh"]:
 		dock.set_status("Repair moved / renamed references before changing this assembly.", true)
 		return
 	var part: Node3D = dock.current_part if is_instance_valid(dock.current_part) else null
@@ -218,6 +229,7 @@ func _request(action: String, value: Variant) -> void:
 				_tool = "move"
 			dock.set_tool(_tool)
 			if _tool == "attach":
+				dock.set_attachment_source(_attach_part)
 				dock.set_status("Pick the destination part in either view or the hierarchy. Placement will stay the same.")
 		"begin_transform":
 			_restore_preview()
@@ -225,6 +237,36 @@ func _request(action: String, value: Variant) -> void:
 			_report(commands.transform_selected(value.part, value.before, value.after), "Transform applied. Undo restores the previous placement.")
 		"view_input":
 			value.handled = _forward_3d_gui_input(value.camera, value.event) == EditorPlugin.AFTER_GUI_INPUT_STOP
+		"focus_mode":
+			if bool(value) and not _focus_active:
+				_focus_before = get_editor_interface().is_distraction_free_mode_enabled()
+				_focus_active = true
+				get_editor_interface().set_distraction_free_mode(true)
+			elif not bool(value):
+				_restore_focus_mode()
+		"hover_attach":
+			var candidate: Node3D = value if is_instance_valid(value) else null
+			if candidate != null and is_instance_valid(_attach_part) and (candidate == _attach_part or _attach_part.is_ancestor_of(candidate)):
+				candidate = null
+			dock.set_attachment_candidate(candidate)
+		"rename_part":
+			dock.cancel_drag()
+			_restore_preview()
+			_report(commands.rename_selected(value.part, value.name), "Renamed; attachment references updated. Undo restores the old name.")
+		"reparent_part":
+			dock.cancel_drag()
+			_restore_preview()
+			_report(commands.attach_selected(value.part, value.target, 1), "Attached to %s without changing placement." % value.target.name)
+		"part_action":
+			_request("tool", "move")
+			_select(value.part)
+			_refresh()
+			_request(value.action, null)
+		"drop_assets":
+			if value.root != _scene_root():
+				dock.set_status("The character changed during the drop. Add the part again.", true)
+			else:
+				_files_selected(value.paths, value.get("world_position"))
 		"attach_target":
 			_pick_attachment(value)
 		"inspector":
@@ -246,6 +288,13 @@ func _request(action: String, value: Variant) -> void:
 		"open":
 			_show_file("open", FileDialog.FILE_MODE_OPEN_FILE, ["*.tscn, *.scn ; Character scenes"])
 		"save":
+			var root := _scene_root()
+			if root != null and not root.scene_file_path.is_empty():
+				_clear_file_request()
+				_save_current_scene(root.scene_file_path)
+			else:
+				_request("save_as", null)
+		"save_as":
 			if _scene_root() == null:
 				dock.set_status("Open an assembly scene first.", true)
 			else:
@@ -267,6 +316,7 @@ func _request(action: String, value: Variant) -> void:
 			_report(commands.adopt_selected(_native_selected()), "Model adopted. Move, rotate and scale its part using native controls.")
 		"select":
 			if _tool == "attach":
+				dock.set_attachment_source(_attach_part)
 				_pick_attachment(value)
 			else:
 				_select(value)
@@ -327,6 +377,8 @@ func _request(action: String, value: Variant) -> void:
 			preview.stop()
 
 func _show_file(action: String, mode: int, filters: PackedStringArray) -> void:
+	_save_root = _scene_root() if action == "save" else null
+	_save_root_id = _save_root.get_instance_id() if is_instance_valid(_save_root) else 0
 	dock.cancel_drag()
 	_file_action = action
 	var dialog: FileDialog = dock.get_node("%FileDialog")
@@ -337,9 +389,39 @@ func _show_file(action: String, mode: int, filters: PackedStringArray) -> void:
 		dialog.current_file = "character.tscn"
 	dialog.popup_centered_ratio(0.7)
 
+func _clear_file_request() -> void:
+	_save_root = null
+	_save_root_id = 0
+	_file_action = ""
+
 func _new_assembly() -> void:
 	_create_from_template("res://actors/assembly/templates/empty.tscn")
 	get_editor_interface().set_main_screen_editor(_get_plugin_name())
+
+func _save_current_scene(path: String) -> void:
+	dock.cancel_drag()
+	_restore_preview()
+	var root := _scene_root()
+	if root == null or (_file_action == "save" and _save_root_id != 0 and root.get_instance_id() != _save_root_id):
+		dock.set_status("The character changed while choosing a save path. Save the current character again.", true)
+		return
+	if _has_moved_references():
+		dock.set_status("Repair moved / renamed references before saving this character.", true)
+		return
+	if not path.begins_with("res://") and not path.begins_with("user://") and not path.is_absolute_path():
+		dock.set_status("Choose an explicit scene path.", true)
+		return
+	var validated := Ops.validate_scene_save(root, path)
+	if not validated.ok:
+		_report(validated, "")
+		return
+	get_editor_interface().save_scene_as(path, false)
+	if root.scene_file_path != path or not FileAccess.file_exists(path):
+		dock.set_status("The character could not be saved to the chosen path.", true)
+		return
+	_clear_file_request()
+	dock.set_status("Saved %s. Continue editing this character." % path.get_file())
+	_refresh()
 
 func _pick_attachment(target: Node3D) -> void:
 	if _has_moved_references():
@@ -452,14 +534,8 @@ func _file_selected(path: String) -> void:
 				dock.set_status("Choose an existing character scene.", true)
 				return
 			get_editor_interface().open_scene_from_path(path)
-		"save":
-			dock.cancel_drag()
-			_restore_preview()
-			if _has_moved_references():
-				dock.set_status("Repair moved / renamed references before saving this character.", true)
-				return
-			_report(Ops.save_scene(_scene_root(), path), "Assembly saved to %s. Reopen it to continue editing." % path)
-			get_editor_interface().get_resource_filesystem().scan()
+		"save", "save_as":
+			_save_current_scene(path)
 		"save_actor":
 			dock.cancel_drag()
 			_restore_preview()
@@ -500,9 +576,16 @@ func _file_selected(path: String) -> void:
 			var service: Script = load(service_path)
 			_report(commands.install_animation_library(service.borrow(dock.current_part.get_node("Model"), path)), "Compatible independent clips installed. Pick a clip to preview; native/borrrowed gameplay mappings are retained.")
 
-func _files_selected(paths: PackedStringArray) -> void:
+func _files_selected(paths: PackedStringArray, world_position: Variant = null) -> void:
 	for path: String in paths:
-		_report(commands.add_source(path), "Added %s. Rename it in the native scene tree and fit it with transform handles." % path.get_file())
+		_report(commands.add_source(path, world_position), "Added %s. Rename in the hierarchy and fit with its handles." % path.get_file())
+
+func _restore_focus_mode() -> void:
+	if _focus_active:
+		get_editor_interface().set_distraction_free_mode(_focus_before)
+		_focus_active = false
+		if is_instance_valid(dock):
+			dock.get_node("%FocusMode").set_pressed_no_signal(false)
 
 func _create_from_template(path: String) -> void:
 	dock.cancel_drag()

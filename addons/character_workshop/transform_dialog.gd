@@ -1,5 +1,5 @@
 @tool
-extends Window
+extends PanelContainer
 ## Exact local fitting fields. Applying delegates one native undo action; this
 ## dialog never previews transforms or changes the scene directly.
 
@@ -21,7 +21,6 @@ var _seeded_fields: Dictionary = {}
 
 
 func _ready() -> void:
-	close_requested.connect(cancel)
 	%TransformCancel.pressed.connect(cancel)
 	%TransformApply.pressed.connect(_apply)
 
@@ -46,14 +45,14 @@ func open_for(part: Node3D) -> void:
 	_set_fields("Rotation", _initial_rotation)
 	_set_fields("Scale", _initial_scale)
 	_seeded_fields = {"Position": _fields("Position"), "Rotation": _fields("Rotation"), "Scale": _fields("Scale")}
-	title = "Fine adjustment · " + str(part.name)
+	%TransformTitle.text = "Fine adjust · " + str(part.name)
 	if _top_level:
 		%TransformSpace.text = "World coordinates (top-level part)"
 	elif _parent is Node3D:
 		%TransformSpace.text = "Local coordinates relative to " + str(_parent.name)
 	else:
 		%TransformSpace.text = "Scene coordinates (character root)"
-	popup_centered(Vector2i(610, 330))
+	show()
 	%PositionX.get_line_edit().grab_focus()
 
 

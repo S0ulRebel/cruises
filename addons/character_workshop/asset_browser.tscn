@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://addons/character_workshop/asset_browser.gd" id="1"]
 
 [node name="Assets" type="VBoxContainer"]
-custom_minimum_size = Vector2(250, 240)
+custom_minimum_size = Vector2(250, 225)
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 8
@@ -26,25 +26,56 @@ layout_mode = 2
 text = "↻"
 tooltip_text = "Refresh imported project assets."
 
+[node name="AssetType" type="OptionButton" parent="SearchRow"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Filter imported models or editable prefabs."
+
+[node name="AssetFolder" type="OptionButton" parent="SearchRow"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(150, 0)
+clip_text = true
+tooltip_text = "Filter by project folder."
+
+[node name="CloseAssets" type="Button" parent="SearchRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Close assets"
+
 [node name="AssetCount" type="Label" parent="."]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "Models and prefabs in this project"
 
-[node name="AssetList" type="ItemList" parent="."]
+[node name="LibraryRow" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="AssetList" type="ItemList" parent="LibraryRow"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 160)
+custom_minimum_size = Vector2(0, 110)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-max_columns = 2
+size_flags_horizontal = 3
+max_columns = 0
 same_column_width = true
-fixed_column_width = 120
-max_text_lines = 2
+fixed_column_width = 160
+max_text_lines = 3
 icon_mode = 0
 fixed_icon_size = Vector2(80, 80)
 allow_reselect = true
+
+[node name="Selection" type="VBoxContainer" parent="LibraryRow"]
+layout_mode = 2
+custom_minimum_size = Vector2(210, 0)
+
+[node name="DropPlacement" type="OptionButton" parent="LibraryRow/Selection"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Drops preserve authored transforms or place the wrapper at the cursor: horizontal plane through the selection, with a screen-plane fallback for front/side views. Adding with a button preserves authored placement."
 
 [node name="AssetEmpty" type="Label" parent="."]
 unique_name_in_owner = true
@@ -53,7 +84,7 @@ layout_mode = 2
 text = "No matching assets."
 autowrap_mode = 3
 
-[node name="AssetPath" type="Label" parent="."]
+[node name="AssetPath" type="Label" parent="LibraryRow/Selection"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 11
@@ -62,14 +93,14 @@ autowrap_mode = 3
 max_lines_visible = 3
 text_overrun_behavior = 3
 
-[node name="AssetAdd" type="Button" parent="."]
+[node name="AssetAdd" type="Button" parent="LibraryRow/Selection"]
 unique_name_in_owner = true
 layout_mode = 2
 disabled = true
 text = "+ Add selected part"
 tooltip_text = "Add an independent part. Double-clicking a thumbnail does the same."
 
-[node name="AssetImport" type="Button" parent="."]
+[node name="AssetImport" type="Button" parent="LibraryRow/Selection"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Import from disk…"

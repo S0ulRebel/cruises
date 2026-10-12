@@ -1,5 +1,16 @@
 # Assembly foundation handoff
 
+2026-10-12 usability integration: extracted `validate_scene_save(root, output_path)`
+as the read-only validation shared by the native editor's same-tab Save/Save As and
+the existing independent snapshot save. Canonical absolute source-path comparison
+also rejects aliases and Windows case variants; validation still checks identities,
+transforms, targets, bones, donors and destination folders. No startup saves or
+source model changes. Assembly authoring/cold checks and all 22 integration checks
+pass; the native workshop fixture passes 213 assertions. Evidence:
+`%TEMP%/cruises-checks-3a572b89171f4c5ba843ccc99d2f07f9/`.
+Editor-owned rename/path/animation undo and drop placement are documented in
+`docs/CHARACTER_WORKSHOP_INTERFACES.md` and the editor module handoff.
+
 Root integration validation: all 21 project checks plus cold reopen and runner
 self-test pass under Godot 4.7.2. Evidence:
 `%TEMP%/cruises-checks-c672df683e5e4f13966fe5ac8e6f1f52/`.

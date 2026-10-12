@@ -1,5 +1,24 @@
 # Validation handoff
 
+## 2026-10-12 — Approved usability follow-up
+
+All 22 default checks, separate cold reopen routes and the deliberate engine-error
+rejection self-test pass headlessly on Godot 4.7.2, with authored source unchanged.
+The native fixture passes 213/213 assertions, including same-tab Save As/Save,
+stale save-dialog identity, simultaneous hierarchy/drawer, filtered asset discovery,
+hierarchy eyes/rename/reparent undo, private animation-track rebasing, attachment
+banner/cancel, coordinate/snapping controls, inline fields, cursor origin preview
+and insertion undo, four advanced tabs, source aliases and Focus restoration.
+Evidence: `%TEMP%/cruises-checks-3a572b89171f4c5ba843ccc99d2f07f9/`.
+
+Verbose diagnostics identified the cabin check's intermittent teardown leak as
+Ogg playback resources. Its test now explicitly stops the authored audio service
+and permits a mix interval after freeing the game; unthrottled headless process
+frames alone were insufficient. Engine errors remain fatal.
+No graphical checks ran during this follow-up, respecting active GPU training.
+Revised layout sizing, overlay legibility and physical mouse flows remain a later
+visual acceptance check; the earlier GPU evidence below covers the earlier UI.
+
 ## 2026-10-12 — Character Workshop visual workspace
 
 All 22 default checks/cold reopen routes and the deliberate engine-error rejection

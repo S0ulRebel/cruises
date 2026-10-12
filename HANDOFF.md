@@ -6,6 +6,16 @@ and prop sheets, and the engine side, who puts them in the game.
 
 ## Current architecture — 2026-10-11
 
+2026-10-12 owner-fitted portrait restoration: the game portrait again owns its
+camera/lights/speech rig, around the preserved six-part fit. The fitted template
+and UI assembly use separate binary meshes, keeping text scenes ~1–7 KB.
+Open `ui/portraits/captain_live.tscn` for game edits and its Camera for framing;
+open `actors/assembly/templates/captain_portrait.tscn` for the starter. Workshop
+Save/Save As keeps mesh resources external and rejects bare-assembly overwrites
+of portrait renderers. All 24 checks/cold routes, 227 native assertions and actual
+GPU dialogue/speech captures pass. Exact fit comparison preserves all 23 assembly
+nodes, transforms and geometry. See UI/editor/assembly/test handoffs and fit.json.
+
 2026-10-12 Character Workshop reference images: the small pane now switches between
 3D and an image; Images… opens a collapsible thumbnail board sharing the asset
 drawer's space. Pointer-anchored zoom, pan, Fit and per-saved-character local editor
@@ -13,9 +23,9 @@ preferences are implemented without scene content. Focused backend/integration/c
 checks and 217 native graphical assertions pass; source hashes stay unchanged.
 Transparent overlays, pinned cards and design-sheet crops remain future improvements
 in `docs/CHARACTER_WORKSHOP_PLAN.md`. See workshop/test handoffs for evidence.
-The owner's newly fitted template/live portrait and import/art changes remain local
-and preserved. The live portrait was overwritten with a bare assembly; its authored
-camera/lights/speaking-rig wrapper must be restored around that fit before game use.
+The owner's fitted template/live portrait are preserved; the approved renderer
+and binary mesh storage restoration is complete as recorded above. Other local
+import/art changes remain outside this portrait integration.
 
 2026-10-12 owner clarification: the reported doubled appearance was traced by the
 owner to the Tripo pirate hat, not the head. A handmade tricorn is now delivered

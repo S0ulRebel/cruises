@@ -1,56 +1,37 @@
 [gd_scene format=3]
-[ext_resource type="Script" path="res://ui/portraits/portrait_rig.gd" id="script"]
-[ext_resource type="PackedScene" path="res://ui/portraits/captain_live/head_face_normals.glb" id="head"]
-[ext_resource type="PackedScene" path="res://art/characters/captain_live/pieces/hair/hair.glb" id="hair"]
-[ext_resource type="PackedScene" path="res://art/characters/captain_live/pieces/hat/hat.glb" id="hat"]
-[ext_resource type="PackedScene" path="res://ui/portraits/captain_live/moustache.glb" id="moustache"]
-[ext_resource type="PackedScene" path="res://ui/portraits/captain_live/chin_tuft.glb" id="chin_tuft"]
+
+[ext_resource type="Script" path="res://ui/portraits/portrait_rig.gd" id="rig"]
+[ext_resource type="PackedScene" path="res://ui/portraits/captain_live/assembly.tscn" id="assembly"]
+
 [sub_resource type="Environment" id="Environment"]
 resource_local_to_scene = true
 background_mode = 0
 ambient_light_source = 2
 ambient_light_color = Color(0.62, 0.60, 0.58, 1)
 ambient_light_energy = 0.45
+
 [node name="CaptainLivePortrait" type="Node3D"]
-script = ExtResource("script")
-skeleton_path = NodePath("Assembly/Head/head_rig/Skeleton3D")
-face_mesh_path = NodePath("Assembly/Head/head_rig/Skeleton3D/tripo_node_d8a007b1-f96c-49d6-ad2a-f5111169295b")
+script = ExtResource("rig")
+skeleton_path = NodePath("Assembly/SpeakingHead/Model/head_rig/Skeleton3D")
+face_mesh_path = NodePath("Assembly/SpeakingHead/Model/head_rig/Skeleton3D/tripo_node_d8a007b1-f96c-49d6-ad2a-f5111169295b")
+
 [node name="Environment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment")
+
 [node name="Camera" type="Camera3D" parent="."]
 projection = 1
-position = Vector3(0, 0.85, 3)
-size = 1.9
+position = Vector3(0, 0.70, 3)
+size = 1.63
 current = true
+
 [node name="KeyLight" type="DirectionalLight3D" parent="."]
 rotation = Vector3(-0.314159, 0.488692, 0)
 light_energy = 1.5
+
 [node name="FillLight" type="DirectionalLight3D" parent="."]
 rotation = Vector3(-0.0872665, -2.094395, 0)
 light_energy = 0.5
-[node name="Assembly" type="Node3D" parent="."]
-position = Vector3(0, 0.3, 0)
-rotation = Vector3(-0.0523599, 0, 0)
-[node name="Head" parent="Assembly" instance=ExtResource("head")]
-position = Vector3(0, -0.3, 0)
-[node name="HeadAttachment" type="BoneAttachment3D" parent="Assembly/Head/head_rig/Skeleton3D"]
-bone_name = "Head"
-bone_idx = 0
-[node name="Hair" parent="Assembly/Head/head_rig/Skeleton3D/HeadAttachment" instance=ExtResource("hair")]
-position = Vector3(0, -0.03, -0.145)
-scale = Vector3(0.85, 0.85, 0.85)
-[node name="Hat" parent="Assembly/Head/head_rig/Skeleton3D/HeadAttachment" instance=ExtResource("hat")]
-position = Vector3(0.075, 0.37, -0.08)
-scale = Vector3(1.5, 1.5, 1.5)
-[node name="Moustache" parent="Assembly/Head/head_rig/Skeleton3D/HeadAttachment" instance=ExtResource("moustache")]
-position = Vector3(0, -0.051, 0.156)
-scale = Vector3(0.35, 0.35, 0.35)
-[node name="JawAttachment" type="BoneAttachment3D" parent="Assembly/Head/head_rig/Skeleton3D"]
-bone_name = "Jaw"
-bone_idx = 1
-[node name="ChinTuft" parent="Assembly/Head/head_rig/Skeleton3D/JawAttachment" instance=ExtResource("chin_tuft")]
-position = Vector3(0, 0.444952, 0.01637)
-rotation = Vector3(-2.495009, 0, 0)
-scale = Vector3(0.35, 0.35, 0.35)
 
-[editable path="Assembly/Head"]
+[node name="Assembly" parent="." instance=ExtResource("assembly")]
+
+[editable path="Assembly"]

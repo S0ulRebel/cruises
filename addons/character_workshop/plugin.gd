@@ -8,6 +8,8 @@ const Commands = preload("commands.gd")
 const Preview = preload("preview.gd")
 const DockScene = preload("dock.tscn")
 const ImportDialogs = preload("import_dialogs.tscn")
+const PortraitRig = preload("res://ui/portraits/portrait_rig.gd")
+const MeshStorage = preload("res://addons/character_workshop/mesh_storage.gd")
 
 var dock: Control
 var commands: RefCounted
@@ -88,7 +90,7 @@ func _exit_tree() -> void:
 	dock.queue_free()
 
 func _handles(object: Object) -> bool:
-	return object is Assembly or object is AssemblyPart
+	return object is Assembly or object is AssemblyPart or object is PortraitRig
 
 func _has_main_screen() -> bool:
 	return true
@@ -137,7 +139,7 @@ func _process(delta: float) -> void:
 func _scene_root() -> Node3D:
 	var root: Node = get_editor_interface().get_edited_scene_root()
 	var is_actor := root is CharacterBody3D and root.get_node_or_null("Body") is Assembly
-	return root as Node3D if root is Assembly or is_actor else null
+	return root as Node3D if root is Assembly or is_actor or root is PortraitRig else null
 
 func _native_selected() -> Node3D:
 	var nodes: Array = get_editor_interface().get_selection().get_selected_nodes()
@@ -411,17 +413,43 @@ func _save_current_scene(path: String) -> void:
 	if not path.begins_with("res://") and not path.begins_with("user://") and not path.is_absolute_path():
 		dock.set_status("Choose an explicit scene path.", true)
 		return
+	if not root is PortraitRig and _is_portrait_destination(path):
+		dock.set_status("This destination contains a portrait camera and speaking rig. Open that portrait scene to save the complete portrait, or choose a separate assembly path.", true)
+		return
 	var validated := Ops.validate_scene_save(root, path)
 	if not validated.ok:
 		_report(validated, "")
+		return
+	var stored: Dictionary = MeshStorage.new().store(root, path)
+	if not stored.ok:
+		_report(stored, "")
 		return
 	get_editor_interface().save_scene_as(path, false)
 	if root.scene_file_path != path or not FileAccess.file_exists(path):
 		dock.set_status("The character could not be saved to the chosen path.", true)
 		return
 	_clear_file_request()
-	dock.set_status("Saved %s. Continue editing this character." % path.get_file())
+	dock.set_status("Saved %s. Mesh resources: %s" % [path.get_file(), stored.directory] if stored.count > 0 else "Saved %s. Continue editing this character." % path.get_file())
 	_refresh()
+
+func _is_portrait_destination(path: String) -> bool:
+	if not FileAccess.file_exists(path):
+		return false
+	var existing: PackedScene = ResourceLoader.load(path, "PackedScene", ResourceLoader.CACHE_MODE_IGNORE)
+	if existing == null:
+		return false
+	var state := existing.get_state()
+	if state.get_node_count() == 0:
+		return false
+	for index in state.get_node_property_count(0):
+		if state.get_node_property_name(0, index) != &"script":
+			continue
+		var script: Script = state.get_node_property_value(0, index)
+		while script != null:
+			if script.resource_path == "res://ui/portraits/portrait_rig.gd":
+				return true
+			script = script.get_base_script()
+	return false
 
 func _pick_attachment(target: Node3D) -> void:
 	if _has_moved_references():
@@ -539,6 +567,9 @@ func _file_selected(path: String) -> void:
 		"save_actor":
 			dock.cancel_drag()
 			_restore_preview()
+			if _scene_root() is PortraitRig or _is_portrait_destination(path):
+				dock.set_status("Portrait scenes keep their camera and speaking rig. Use Save for the portrait; gameplay actors need a separate assembly and output path.", true)
+				return
 			if _has_moved_references():
 				dock.set_status("Repair moved / renamed references before exporting this character.", true)
 				return

@@ -63,6 +63,14 @@ explicit `user://` fixture paths. The native editor fixture also checks the genu
 reference/3D mode controls and preserves the detail camera. Optional graphical capture
 adds `references.png` alongside the normal workspace/asset/fine-adjust screenshots.
 
+`portrait_storage_check` verifies compact authored scenes, independent external
+mesh/material instances, geometry/shape preservation, explicit binary destinations,
+ordinary-save ownership and refusal to overwrite unrelated resources. Native editor
+coverage saves a full portrait into its uniquely owned ignored `test_results/` folder,
+reopens its camera/speech targets, edits a private material and saves again. Production
+portrait/template/resource hashes must remain unchanged. Native overwrite guards also
+reject a bare assembly at the game renderer's destination.
+
 `workshop_editor_check` runs an actual headless Godot editor using its authored
 `fixtures/workshop_editor_check.tscn` and a process-local test environment variable.
 Do not launch it as `--editor --script`: that creates a second editor main loop.

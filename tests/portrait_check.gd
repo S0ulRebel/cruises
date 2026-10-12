@@ -1,6 +1,6 @@
 extends "res://tests/check.gd"
 ## Exercise the fitted prefab through the real speech and response panels.
-const PARTS := ["Hair", "Hat", "Moustache", "ChinTuft"]
+const PARTS := ["Hair", "Moustache", "ChinTuft"]
 
 func _run() -> void:
 	root.size = Vector2i(1920, 1080)
@@ -22,13 +22,19 @@ func _run() -> void:
 	var jaw := skeleton.find_bone("Jaw")
 	var camera := rig.get_node("Camera") as Camera3D
 	var assembly := rig.get_node("Assembly") as Node3D
-	var head := rig.get_node("Assembly/Head") as Node3D
+	var head := rig.get_node("Assembly/SpeakingHead") as Node3D
 	var forward := head.global_basis.z.normalized()
 	var horizontal_forward := Vector3(forward.x, 0, forward.z).normalized()
 	check("head stays frontal with a subtle chin tilt", horizontal_forward.dot(camera.global_basis.z.normalized()) > 0.999 and absf(forward.y) < sin(deg_to_rad(5.0)))
 	check("portrait has no world actor or body", rig.find_children("*", "CharacterBody3D", true, false).is_empty())
 	var parts := {}
 	var authored := {"Camera": camera.transform, "Assembly": assembly.transform, "Head": head.transform}
+	var editable_parts := AssemblyOperations.collect_parts(assembly)
+	check("all six owner-fitted parts are present", editable_parts.size() == 6)
+	for part in editable_parts:
+		var path := str(assembly.get_path_to(part))
+		parts[path] = part
+		authored[path] = part.transform
 	for name in PARTS:
 		var matches := rig.find_children(name, "Node3D", true, false)
 		if not check("one authored portrait part: " + name, matches.size() == 1):
@@ -51,7 +57,7 @@ func _run() -> void:
 	check("dialogue drives jaw motion", jaw_motion > 0.05, "%.3f radians" % jaw_motion)
 	check("chin tuft follows the talking jaw", tuft_motion > 0.01, "%.3f units" % tuft_motion)
 	check("speaking preserves the authored assembly, head and camera", camera.transform == authored["Camera"] and assembly.transform == authored["Assembly"] and head.transform == authored["Head"])
-	for name in PARTS:
+	for name in parts:
 		check("speaking preserves the editable local fit: " + name, parts[name].transform == authored[name])
 	portrait.settle()
 	await frames(2)

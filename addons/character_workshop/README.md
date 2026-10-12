@@ -133,11 +133,22 @@ not travel through Git to other computers. Images stay at their chosen paths; mo
 files show an unavailable state and can be removed/re-added. Remove never deletes art.
 Only the active image uses a full-size texture; board thumbnails are reduced to 96px.
 
-The saved editable assembly is distinct from a game portrait renderer: replacing
-`ui/portraits/captain_live.tscn` with a bare assembly removes its authored camera,
-lights and speaking-rig properties. Fitted characters need integration inside that
-renderer. Large text-scene warnings can occur because independent mesh copies are
-currently stored inline; they are warnings about storage/load cost, not failed saves.
+The saved editable assembly is distinct from a game portrait renderer. For the
+Captain's workshop default, open `res://actors/assembly/templates/captain_portrait.tscn`.
+For the game version, open `res://ui/portraits/captain_live.tscn` in Workshop. That
+complete portrait owns its Camera, lights and speaking-rig paths; its fitted parts
+are an editable instance of `res://ui/portraits/captain_live/assembly.tscn`. Camera
+framing is edited on the portrait's Camera node in the native Inspector. Workshop
+view cameras are separate editing tools and never save into the character.
+
+Save/Save As now externalizes private meshes to binary `.res` files under the
+explicit scene destination's `<scene_name>/meshes/` folder. Original imported art
+is untouched; Save As gives its output a separate resource folder. Subsequent saves
+can update only resource files already referenced by that saved scene. Geometry,
+facial shapes, materials and per-instance independence are retained. Use project
+scene paths for ordinary native editor authoring. Normal opening/game startup has
+no save or compaction route. A bare assembly/gameplay export cannot overwrite a
+portrait renderer through Workshop; open the complete portrait to save it.
 
 ## Verification
 

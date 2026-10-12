@@ -1,5 +1,27 @@
 # Validation handoff
 
+## 2026-10-12 — restored portrait and resource saves
+
+The default runner now has 24 checks. New portrait_storage_check covers compact
+text scenes, independent meshes/materials, explicit binary outputs, saved/reopened
+facial arrays, original source hashes and rejection of unrelated output collisions.
+Native editor coverage passes 227/227, including bare-assembly overwrite rejection,
+full portrait context, same-tab Save As, cold camera/rig/part reload and subsequent
+material edit persistence. Native save fixtures use unique ignored test_results
+project paths; production scenes/resources are never test outputs.
+Portrait checks cover all six real AssemblyParts, speech/response independence,
+framing, jaw/morph motion and retained local transforms.
+All 24 checks and separate cold routes pass with authored-source hashes unchanged:
+`%TEMP%/cruises-checks-120bd94b08b34a43b6ab2bf251e6ea16/`.
+GPU actual Game capture also passes (659 changed speaking pixels):
+`%TEMP%/cruises-portrait-restored-79202d3600b247e0811616d150c2cb7e/capture.log`.
+All 23 nodes/transforms, mesh/shape arrays and skin/skeleton data in both fitted
+scenes match before-save backups exactly. GPU screenshots live in the unique OS
+cache capture directory named by that log; no captures are imported into the game.
+
+Final staged-resource checks and native reopen also pass with unchanged hashes:
+`%TEMP%/cruises-checks-0588cdbe45894802b33e03b3cf62a4b9/`.
+
 ## 2026-10-12 — Character references
 
 New default `workshop_references_check` uses a memory preference store and one unique
@@ -22,9 +44,8 @@ The cold animation ownership probe disables the stationary actor's physics drive
 so legitimate idle dispatch does not race its unrelated AnimationTree assertion.
 The native harness yields after synthetic input/undo before testing native New.
 
-The owner also saved a bare assembly over the game portrait. Camera/portrait-rig
-integration is pending owner response, so this pass does not claim full production
-portrait regression coverage. Do not restore or overwrite the owner's fitted files.
+That reference-only pass preceded the approved portrait renderer restoration.
+The current section above records the completed game portrait and save coverage.
 
 ## 2026-10-12 — Approved usability follow-up
 

@@ -1,5 +1,28 @@
 # UI, cold-open stage and audio handoff
 
+## 2026-10-12 — owner-fitted game portrait restored
+
+`portraits/captain_live.tscn` owns Camera, environment, KeyLight, FillLight and
+portrait_rig. Its Assembly instance uses `portraits/captain_live/assembly.tscn`.
+The six owner-fitted parts, all 23 assembly nodes/transforms, geometry, skin binds
+and facial arrays were compared exactly against before-save backups and preserved.
+The active head is the owner's head_face.glb fit; the earlier normal derivative
+remains available but is not substituted. World actor/body are unchanged.
+Camera is orthographic at (0, 0.70, 3), size 1.63. Adjust this authored Camera in
+the portrait Inspector; Workshop preview cameras do not set game framing.
+Game and template each own separate binary meshes; the text scenes are ~1–7 KB.
+Open this complete portrait for game edits, or the assembly template for a starter.
+
+All 24 default checks/cold routes pass, including native portrait Save As/Save,
+private meshes/materials, overwrite protection and source preservation. GPU actual
+Game speech/response captures pass with 659 changed speech pixels, full hat/feather
+framing and no engine errors. Evidence: `%TEMP%/cruises-checks-120bd94b08b34a43b6ab2bf251e6ea16/`
+and `%TEMP%/cruises-portrait-restored-79202d3600b247e0811616d150c2cb7e/capture.log`.
+Exact provenance and fitted matrices are in `portraits/captain_live/fit.json`.
+
+Final staged-resource checks and native reopen also pass with unchanged hashes:
+`%TEMP%/cruises-checks-0588cdbe45894802b33e03b3cf62a4b9/`.
+
 ## 2026-10-12 — handmade hat with original feather candidate
 
 Owner identified the Tripo hat as the unwanted doubled geometry and selected the

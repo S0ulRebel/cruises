@@ -1,81 +1,139 @@
-[gd_scene format=3]
+[gd_scene format=4 uid="uid://bhc3denbehspo"]
 
-[ext_resource type="Script" path="res://actors/assembly/assembly.gd" id="assembly"]
-[ext_resource type="Script" path="res://actors/assembly/part.gd" id="part"]
-[ext_resource type="PackedScene" path="res://art/characters/captain_live/pieces/head/head_face.glb" id="head"]
-[ext_resource type="PackedScene" path="res://art/characters/captain_live/pieces/hair/hair.glb" id="hair"]
-[ext_resource type="PackedScene" path="res://art/characters/captain_live/pieces/hat/hat.glb" id="hat"]
-[ext_resource type="PackedScene" path="res://ui/portraits/captain_live/moustache.glb" id="moustache"]
-[ext_resource type="PackedScene" path="res://ui/portraits/captain_live/chin_tuft.glb" id="chin"]
+[ext_resource type="Script" uid="uid://dhubj40vih2nn" path="res://actors/assembly/assembly.gd" id="assembly"]
+[ext_resource type="Script" uid="uid://cfdjmlnx1vsug" path="res://actors/assembly/part.gd" id="part"]
 
-[node name="CaptainPortraitAssembly" type="Node3D"]
+[ext_resource type="ArrayMesh" path="res://actors/assembly/templates/captain_portrait/meshes/head.res" id="mesh_head"]
+[ext_resource type="ArrayMesh" path="res://actors/assembly/templates/captain_portrait/meshes/hair.res" id="mesh_hair"]
+[ext_resource type="ArrayMesh" path="res://actors/assembly/templates/captain_portrait/meshes/moustache.res" id="mesh_moustache"]
+[ext_resource type="ArrayMesh" path="res://actors/assembly/templates/captain_portrait/meshes/chin_tuft.res" id="mesh_chin_tuft"]
+[ext_resource type="ArrayMesh" path="res://actors/assembly/templates/captain_portrait/meshes/hat.res" id="mesh_hat"]
+[ext_resource type="ArrayMesh" path="res://actors/assembly/templates/captain_portrait/meshes/feather.res" id="mesh_feather"]
+
+[sub_resource type="Skin" id="Skin_jjjqn"]
+resource_local_to_scene = true
+resource_name = "Skin"
+bind_count = 2
+bind/0/name = &"Head"
+bind/0/bone = -1
+bind/0/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, 0)
+bind/1/name = &"Jaw"
+bind/1/bone = -1
+bind/1/pose = Transform3D(1, 0, 0, 0, -0.79814935, 0.6024597, 0, -0.6024597, -0.7981493, 0, 0.5391356, 0.2816609)
+
+[node name="CaptainPortraitAssembly" type="Node3D" unique_id=766154056]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.42649722)
 script = ExtResource("assembly")
 
-[node name="SpeakingHead" type="Node3D" parent="."]
+[node name="SpeakingHead" type="Node3D" parent="." unique_id=448338674]
+transform = Transform3D(1, 0, 0, 0, 0.9986295, 0.05233598, 0, -0.05233598, 0.9986295, 0, 0.3, 0)
 script = ExtResource("part")
 part_id = "captain_portrait_head"
 source_path = "res://art/characters/captain_live/pieces/head/head_face.glb"
-position = Vector3(0, 0.3, 0)
-rotation = Vector3(-0.0523599, 0, 0)
 
-[node name="Model" parent="SpeakingHead" instance=ExtResource("head")]
-position = Vector3(0, -0.3, 0)
+[node name="Model" type="Node3D" parent="SpeakingHead" unique_id=735860691]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, 0)
 
-[node name="HeadSocket" type="BoneAttachment3D" parent="SpeakingHead/Model/head_rig/Skeleton3D"]
+[node name="head_rig" type="Node3D" parent="SpeakingHead/Model" unique_id=2119935866]
+
+[node name="Skeleton3D" type="Skeleton3D" parent="SpeakingHead/Model/head_rig" unique_id=618607443]
+bones/0/name = "Head"
+bones/0/parent = -1
+bones/0/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+bones/0/enabled = true
+bones/0/position = Vector3(0, 0.3, 0)
+bones/0/rotation = Quaternion(0, 0, 0, 1)
+bones/0/scale = Vector3(1, 1, 1)
+bones/1/name = "Jaw"
+bones/1/parent = 0
+bones/1/rest = Transform3D(1, 0, 0, 0, -0.7981492, -0.6024598, 0, 0.6024598, -0.7981492, 0, 0.3, -0.1)
+bones/1/enabled = true
+bones/1/position = Vector3(0, 0.3, -0.1)
+bones/1/rotation = Quaternion(0.94819546, 0, 0, 0.31768757)
+bones/1/scale = Vector3(1, 1, 1)
+
+[node name="tripo_node_d8a007b1-f96c-49d6-ad2a-f5111169295b" type="MeshInstance3D" parent="SpeakingHead/Model/head_rig/Skeleton3D" unique_id=1204726737]
+mesh = ExtResource("mesh_head")
+skin = SubResource("Skin_jjjqn")
+skeleton = NodePath("..")
+blend_shapes/WIDE = 0.0
+blend_shapes/ROUND = 0.0
+blend_shapes/PRESSED = 0.0
+
+[node name="HeadSocket" type="BoneAttachment3D" parent="SpeakingHead/Model/head_rig/Skeleton3D" unique_id=756743956]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
 bone_name = "Head"
 bone_idx = 0
 
-[node name="Hair" type="Node3D" parent="SpeakingHead/Model/head_rig/Skeleton3D/HeadSocket"]
+[node name="Hair" type="Node3D" parent="SpeakingHead/Model/head_rig/Skeleton3D/HeadSocket" unique_id=1349787848]
+transform = Transform3D(0.819808, 0, 0, 0, 0.8198072, 3.7252903e-09, 0, -3.7252903e-09, 0.8198072, 0, -0.041824162, -0.17462534)
 script = ExtResource("part")
 part_id = "captain_portrait_hair"
 source_path = "res://art/characters/captain_live/pieces/hair/hair.glb"
 attachment_mode = 2
 target_path = NodePath("../..")
 bone_name = "Head"
-position = Vector3(0, -0.03, -0.145)
-scale = Vector3(0.85, 0.85, 0.85)
 
-[node name="Model" parent="SpeakingHead/Model/head_rig/Skeleton3D/HeadSocket/Hair" instance=ExtResource("hair")]
+[node name="Model" type="Node3D" parent="SpeakingHead/Model/head_rig/Skeleton3D/HeadSocket/Hair" unique_id=333390125]
 
-[node name="Hat" type="Node3D" parent="SpeakingHead/Model/head_rig/Skeleton3D/HeadSocket"]
-script = ExtResource("part")
-part_id = "captain_portrait_hat"
-source_path = "res://art/characters/captain_live/pieces/hat/hat.glb"
-attachment_mode = 2
-target_path = NodePath("../..")
-bone_name = "Head"
-position = Vector3(0.075, 0.37, -0.08)
-scale = Vector3(1.5, 1.5, 1.5)
+[node name="tripo_node_13cd8b89-ce23-45d0-b588-7d1d2c7609e1" type="MeshInstance3D" parent="SpeakingHead/Model/head_rig/Skeleton3D/HeadSocket/Hair/Model" unique_id=1976868015]
+mesh = ExtResource("mesh_hair")
 
-[node name="Model" parent="SpeakingHead/Model/head_rig/Skeleton3D/HeadSocket/Hat" instance=ExtResource("hat")]
-
-[node name="Moustache" type="Node3D" parent="SpeakingHead/Model/head_rig/Skeleton3D/HeadSocket"]
+[node name="Moustache" type="Node3D" parent="SpeakingHead/Model/head_rig/Skeleton3D/HeadSocket" unique_id=4305565]
+transform = Transform3D(0.35, 0, 0, 0, 0.38893232, 0, 0, 1.8626451e-09, 0.35, 0, -0.05099997, 0.15600002)
 script = ExtResource("part")
 part_id = "captain_portrait_moustache"
 source_path = "res://ui/portraits/captain_live/moustache.glb"
 attachment_mode = 2
 target_path = NodePath("../..")
 bone_name = "Head"
-position = Vector3(0, -0.051, 0.156)
-scale = Vector3(0.35, 0.35, 0.35)
 
-[node name="Model" parent="SpeakingHead/Model/head_rig/Skeleton3D/HeadSocket/Moustache" instance=ExtResource("moustache")]
+[node name="Model" type="Node3D" parent="SpeakingHead/Model/head_rig/Skeleton3D/HeadSocket/Moustache" unique_id=1662493435]
 
-[node name="JawSocket" type="BoneAttachment3D" parent="SpeakingHead/Model/head_rig/Skeleton3D"]
+[node name="tripo_node_2fe49f1a-501b-4df8-8b6c-82993ec798ac" type="MeshInstance3D" parent="SpeakingHead/Model/head_rig/Skeleton3D/HeadSocket/Moustache/Model" unique_id=1404603219]
+mesh = ExtResource("mesh_moustache")
+
+[node name="JawSocket" type="BoneAttachment3D" parent="SpeakingHead/Model/head_rig/Skeleton3D" unique_id=681728822]
+transform = Transform3D(1, 0, 0, 0, -0.7981492, -0.60245985, 0, 0.60245985, -0.7981492, 0, 0.6, -0.1)
 bone_name = "Jaw"
 bone_idx = 1
 
-[node name="ChinTuft" type="Node3D" parent="SpeakingHead/Model/head_rig/Skeleton3D/JawSocket"]
+[node name="ChinTuft" type="Node3D" parent="SpeakingHead/Model/head_rig/Skeleton3D/JawSocket" unique_id=1173482416]
+transform = Transform3D(0.35, 0, 0, 0, -0.27935132, 0.21086213, 0, -0.21086213, -0.27935132, 0, 0.444952, 0.01637)
 script = ExtResource("part")
 part_id = "captain_portrait_chin"
 source_path = "res://ui/portraits/captain_live/chin_tuft.glb"
 attachment_mode = 2
 target_path = NodePath("../..")
 bone_name = "Jaw"
-position = Vector3(0, 0.444952, 0.01637)
-rotation = Vector3(-2.495009, 0, 0)
-scale = Vector3(0.35, 0.35, 0.35)
 
-[node name="Model" parent="SpeakingHead/Model/head_rig/Skeleton3D/JawSocket/ChinTuft" instance=ExtResource("chin")]
+[node name="Model" type="Node3D" parent="SpeakingHead/Model/head_rig/Skeleton3D/JawSocket/ChinTuft" unique_id=34113018]
 
-[editable path="SpeakingHead/Model"]
+[node name="tripo_node_2fe49f1a-501b-4df8-8b6c-82993ec798ac" type="MeshInstance3D" parent="SpeakingHead/Model/head_rig/Skeleton3D/JawSocket/ChinTuft/Model" unique_id=527935535]
+mesh = ExtResource("mesh_chin_tuft")
+
+[node name="Part" type="Node3D" parent="." unique_id=1823338605]
+transform = Transform3D(2.24, 0, 0, 0, 2.24, 0, 0, 0, 2.24, 0, 0.7080003, -0.07974647)
+script = ExtResource("part")
+part_id = "fcd3eb4f63ca2482e96ae6b5575ca827"
+source_path = "res://art/characters/captain_live/pieces/hat/handmade/hat.glb"
+
+[node name="Model" type="Node3D" parent="Part" unique_id=310282131]
+metadata/assembly_source_group = "fcd3eb4f63ca2482e96ae6b5575ca827"
+
+[node name="TricornHat" type="MeshInstance3D" parent="Part/Model" unique_id=1942766314]
+mesh = ExtResource("mesh_hat")
+metadata/assembly_source_group = "fcd3eb4f63ca2482e96ae6b5575ca827"
+
+[node name="Part2" type="Node3D" parent="." unique_id=942502226]
+transform = Transform3D(0.9993521, -0.035992224, 0, 0.035992224, 0.9993521, 0, 0, 0, 1, 0.056337684, 0.92920125, -0.12938404)
+script = ExtResource("part")
+part_id = "b100bf86977edefd9ae866f6306c8833"
+source_path = "res://art/characters/captain_live/pieces/hat/handmade/feather_original.glb"
+
+[node name="Model" type="Node3D" parent="Part2" unique_id=1000202992]
+metadata/assembly_source_group = "b100bf86977edefd9ae866f6306c8833"
+
+[node name="OriginalScarletFeather" type="MeshInstance3D" parent="Part2/Model" unique_id=88562587]
+mesh = ExtResource("mesh_feather")
+metadata/assembly_source_group = "b100bf86977edefd9ae866f6306c8833"

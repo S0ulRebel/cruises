@@ -408,9 +408,24 @@ broken; do not replace working skinning to fix a disproved suspicion.
 - [ ] Future: movable/pinnable reference cards around the main view.
 - [ ] Future: crop a design sheet into front/side/back reference views.
 - [ ] Future: portable reference bundles for sharing reference choices with teammates.
-- [ ] Follow-up: reduce inline mesh serialization through deliberate binary `.res`
-  outputs while retaining independent editable resources and exclusion provenance.
-  Do not disable warnings or silently rewrite fitted character scenes.
+- [x] Externalize mesh resources during explicit Workshop Save/Save As to the
+  chosen scene's sibling mesh folder, preserving private geometry/materials and
+  source/mask references. Preserve unrelated existing resource files. Source-scene
+  definitions retained inside binding provenance remain a separate storage concern.
+  No opening/startup saves, warning suppression or scene regeneration.
+
+## Owner-fitted game portrait restoration — approved 2026-10-12
+
+- [x] Preserve the owner's six-part fit and saved template; externalize their mesh
+  storage without changing hierarchy, transforms, skin, shapes or source mesh arrays.
+- [x] Restore `ui/portraits/captain_live.tscn` as a complete authored portrait with
+  its own camera, lights and speaking-rig paths, around the separate fitted assembly.
+- [x] Frame the complete hat/feather/head in the actual 224px dialogue viewport and
+  check jaw/shape motion and independent speech/response instances.
+- [x] Support opening/saving the complete portrait in Workshop; prevent bare
+  assemblies and gameplay exports from overwriting portrait renderers.
+- [x] Check native Save As and ordinary saves retain compact text scenes and
+  independent binary mesh resources. Detailed checks/evidence are in module handoffs.
 
 Implementation uses authored editor-only controls and retains exactly two 3D viewports.
 References/Assets share drawer space. The regular Save label is corrected. Native

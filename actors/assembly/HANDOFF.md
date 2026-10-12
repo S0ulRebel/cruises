@@ -1,5 +1,18 @@
 # Assembly foundation handoff
 
+## 2026-10-12 — preserved Captain starter
+
+The owner-saved `templates/captain_portrait.tscn` keeps all six fitted parts and
+all 23 assembly nodes/transforms, skeleton poses, mesh/skin and facial data.
+Eleven binary mesh resources under `templates/captain_portrait/meshes/` replace
+large inline mesh declarations; template text is 7,138 bytes. Game portrait uses
+its own assembly and binary resources under `ui/portraits/captain_live/`, with its
+camera/light/speech wrapper in `ui/portraits/captain_live.tscn`.
+Template edits and game portrait edits have independent resource files.
+Workshop explicit Save/Save As externalizes meshes; core startup never saves.
+Full 24-check/cold suite passes, plus exact before/after preservation comparison
+and GPU dialogue capture. See UI/editor/test handoffs for evidence and save paths.
+
 2026-10-12 usability integration: extracted `validate_scene_save(root, output_path)`
 as the read-only validation shared by the native editor's same-tab Save/Save As and
 the existing independent snapshot save. Canonical absolute source-path comparison
@@ -105,3 +118,6 @@ properties, per-tree parameters, leaf/graph/resource metadata aliases, independe
 duplicate edits, source preservation, saved scene reimport and separate cold reopen.
 Use `-- graphs <COLD_GRAPH_SCENE_PATH>` for the graph cold marker printed by the
 authoring check. No animation graphs are built or repaired by gameplay startup.
+
+Final staged-resource checks and native reopen also pass with unchanged hashes:
+`%TEMP%/cruises-checks-0588cdbe45894802b33e03b3cf62a4b9/`.

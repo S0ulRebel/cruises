@@ -169,6 +169,21 @@ uses it before packing an independent copy; the workshop uses it before native
 Pending file dialogs retain the character identity; switching scenes cannot save a
 different root. No native screenshot/preview request is made by this save route.
 
+Before an explicit native save, editor-only `mesh_storage.gd.store(root,scene_path)`
+collects scene-owned mesh resources, including referenced shadow/source meshes, and
+writes them to `<scene_path_without_extension>/meshes/`. It retains those explicit
+paths with `take_over_path` after ResourceSaver returns; FLAG_CHANGE_PATH alone is
+temporary in the engine. Dependencies save before parents. Repeated writes are
+limited to files referenced by the existing destination, including nested scene
+dependencies; unrelated file collisions reject before overwriting. Source imported
+models/textures and source PackedScene definitions are never saved by this service.
+
+The plugin accepts complete `portrait_rig.gd` roots as authoring contexts alongside
+assemblies/gameplay actors. Native saves preserve the portrait's camera/lights and
+speech target paths. Saving a bare assembly or exporting an actor over an existing
+portrait renderer is rejected. The Captain uses a UI-local fitted assembly instance;
+its template and game mesh resources have separate files.
+
 Hierarchy requests rename `{part,name}`, context actions `{part,action}` and parent
 drops `{part,target}` through the command boundary. Renaming rebases retained
 NodePath properties and affected AnimationPlayer tracks in private library copies;

@@ -1,5 +1,28 @@
 # Character Workshop editor handoff
 
+## 2026-10-12 — complete portrait saves and binary meshes
+
+The Workshop accepts a complete PortraitRig scene, keeping its camera/lights and
+speech bindings. Open `ui/portraits/captain_live.tscn` for the game portrait;
+`actors/assembly/templates/captain_portrait.tscn` remains the independent fitted
+starter. A bare assembly/gameplay export cannot overwrite an existing portrait
+renderer. Workshop view cameras remain editor-only.
+Explicit Save/Save As uses mesh_storage.store before the native same-tab save.
+Meshes, including shadow/mask source meshes, go to <scene basename>/meshes/*.res.
+Source models/textures and PackedScene provenance definitions remain intact.
+Existing outputs can only be overwritten when already referenced by the chosen
+saved scene. ResourceSaver's temporary path is followed by take_over_path so native
+scene saving keeps external references. Mutable mesh/material instance isolation
+and edited material persistence survive cold reopen. No startup authoring writes.
+
+All 24 checks/cold routes pass, with 227/227 native assertions and unchanged source
+hashes. Evidence: `%TEMP%/cruises-checks-120bd94b08b34a43b6ab2bf251e6ea16/`.
+Owner-fitted production template/game assembly are preserved exactly; their meshes
+are independently stored as binary resources and their text scenes are ~7 KB.
+
+Final staged-resource checks and native reopen also pass with unchanged hashes:
+`%TEMP%/cruises-checks-0588cdbe45894802b33e03b3cf62a4b9/`.
+
 ## Reference images — 2026-10-12
 
 The approved simple reference workflow is implemented. The second pane switches
@@ -22,11 +45,9 @@ Final graphical run after the exported-Body/packed-drop coverage also passes 217
 `references.png` shows the owner-fitted Captain beside its design sheet, with the
 save toast expired and all fitting controls visible.
 
-Preserve the owner's dirty Captain template and live portrait. Both are now ~6.92
-MiB because independent mesh copies serialize inline (mostly the speaking head).
-The live portrait was saved as a bare assembly and currently lacks its camera,
-lights and portrait_rig properties; restoring that wrapper around the fitted parts
-is awaiting the owner's response. It is separate from this reference change.
+At the reference feature handoff the owner's fitted template/live portrait were
+large inline assemblies. The subsequently approved renderer/storage restoration
+is complete; see the current section above.
 Future overlays/pinned cards/design-sheet crops/portable bundles are in the plan.
 
 ## Approved usability follow-up — 2026-10-12

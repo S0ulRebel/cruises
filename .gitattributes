@@ -1,5 +1,6 @@
 # Binary art. Marked so git does not try to diff or line-ending-convert it.
 *.glb binary
+*.res binary
 *.fbx binary
 *.obj binary
 *.png binary

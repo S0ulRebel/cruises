@@ -1,33 +1,213 @@
 {
-  "date": "2026-10-11",
+  "date": "2026-10-12",
   "prefab": "ui/portraits/captain_live.tscn",
   "reference": "art/characters/captain_live/turnaround.png",
-  "scope": "Frontal dialogue portrait; world actor and deferred body are unchanged.",
+  "scope": "Owner-fitted six-part dialogue portrait; camera/lights/speech wrapper restored. World actor and deferred body unchanged.",
   "orientation": {
     "source_forward": "+Z",
     "up": "+Y",
-    "assembly_pivot": [0, 0.3, 0],
-    "assembly_rotation_degrees": [-3, 0, 0],
-    "head_local_position": [0, -0.3, 0],
-    "reason": "Small chin-up adjustment around the Head joint; rotate the assembly to preserve the connected parts."
+    "assembly_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.426497220993042
+    ],
+    "head_local_position": [
+      0,
+      0.3,
+      0
+    ],
+    "head_local_rotation_degrees": [
+      3,
+      0,
+      0
+    ],
+    "model_local_position": [
+      0,
+      -0.3,
+      0
+    ],
+    "reason": "Preserve the owner-saved assembly and all fitted transforms; adjust only the portrait camera framing."
   },
-  "camera": {"projection": "orthographic", "position": [0, 0.85, 3], "size": 1.9},
-  "parts": {
-    "hair": {"bone": "Head", "local_position": [0, -0.03, -0.145], "uniform_scale": 0.85},
-    "hat": {"bone": "Head", "local_position": [0.075, 0.37, -0.08], "uniform_scale": 1.5},
-    "moustache": {"bone": "Head", "local_position": [0, -0.051, 0.156], "uniform_scale": 0.35},
-    "chin_tuft": {"bone": "Jaw", "local_position": [0, 0.444952, 0.01637], "local_rotation_radians": [-2.495009, 0, 0], "uniform_scale": 0.35}
+  "camera": {
+    "projection": "orthographic",
+    "position": [
+      0,
+      0.7,
+      3
+    ],
+    "size": 1.63,
+    "owner": "ui/portraits/captain_live.tscn"
   },
+  "parts": [
+    {
+      "node": "SpeakingHead",
+      "part_id": "captain_portrait_head",
+      "source_path": "res://art/characters/captain_live/pieces/head/head_face.glb",
+      "transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.998629510402679,
+        -0.0523359812796116,
+        0.0,
+        0.0523359812796116,
+        0.998629510402679,
+        0.0,
+        0.300000011920929,
+        0.0
+      ]
+    },
+    {
+      "node": "SpeakingHead/Model/head_rig/Skeleton3D/HeadSocket/Hair",
+      "part_id": "captain_portrait_hair",
+      "source_path": "res://art/characters/captain_live/pieces/hair/hair.glb",
+      "transform": [
+        0.819808006286621,
+        0.0,
+        0.0,
+        0.0,
+        0.819807171821594,
+        -3.72529029846191e-09,
+        0.0,
+        3.72529029846191e-09,
+        0.819807171821594,
+        0.0,
+        -0.0418241620063782,
+        -0.174625337123871
+      ]
+    },
+    {
+      "node": "SpeakingHead/Model/head_rig/Skeleton3D/HeadSocket/Moustache",
+      "part_id": "captain_portrait_moustache",
+      "source_path": "res://ui/portraits/captain_live/moustache.glb",
+      "transform": [
+        0.349999994039536,
+        0.0,
+        0.0,
+        0.0,
+        0.388932317495346,
+        1.86264514923096e-09,
+        0.0,
+        0.0,
+        0.349999994039536,
+        0.0,
+        -0.0509999692440033,
+        0.156000018119812
+      ]
+    },
+    {
+      "node": "SpeakingHead/Model/head_rig/Skeleton3D/JawSocket/ChinTuft",
+      "part_id": "captain_portrait_chin",
+      "source_path": "res://ui/portraits/captain_live/chin_tuft.glb",
+      "transform": [
+        0.349999994039536,
+        0.0,
+        0.0,
+        0.0,
+        -0.279351323843002,
+        -0.210862129926682,
+        0.0,
+        0.210862129926682,
+        -0.279351323843002,
+        0.0,
+        0.444952011108398,
+        0.0163700003176928
+      ]
+    },
+    {
+      "node": "Part",
+      "part_id": "fcd3eb4f63ca2482e96ae6b5575ca827",
+      "source_path": "res://art/characters/captain_live/pieces/hat/handmade/hat.glb",
+      "transform": [
+        2.24000000953674,
+        0.0,
+        0.0,
+        0.0,
+        2.24000000953674,
+        0.0,
+        0.0,
+        0.0,
+        2.24000000953674,
+        0.0,
+        0.708000302314758,
+        -0.0797464698553085
+      ]
+    },
+    {
+      "node": "Part2",
+      "part_id": "b100bf86977edefd9ae866f6306c8833",
+      "source_path": "res://art/characters/captain_live/pieces/hat/handmade/feather_original.glb",
+      "transform": [
+        0.999352097511292,
+        0.0359922237694263,
+        0.0,
+        -0.0359922237694263,
+        0.999352097511292,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0563376843929291,
+        0.929201245307922,
+        -0.12938404083252
+      ]
+    }
+  ],
   "sources": [
-    {"path": "art/characters/captain_live/pieces/head/head_face.glb", "sha256": "C2DE45B0BB3F5DD85A6D464862BC98F405CD3F008EB8DC03B282854532655B78"},
-    {"path": "art/characters/captain_live/pieces/face/face.glb", "sha256": "B75372AE0F165ACDBE70D38820CDD11DE8CD5D4CE4B7B863CF4F29230A4750E6"},
-    {"path": "art/characters/captain_live/pieces/hair/hair.glb", "sha256": "33FE5F6BFE04B583BE473D16BA45A094786AD07DB6FFCB174211DFD25920BB9D"},
-    {"path": "art/characters/captain_live/pieces/hat/hat.glb", "sha256": "C1DE06A2CE87225802D63A8CDC4AA7118E27DE0AEBDE5C0D50DD73C43024B4D3"}
+    {
+      "path": "art/characters/captain_live/pieces/head/head_face.glb",
+      "sha256": "C2DE45B0BB3F5DD85A6D464862BC98F405CD3F008EB8DC03B282854532655B78"
+    },
+    {
+      "path": "art/characters/captain_live/pieces/hair/hair.glb",
+      "sha256": "33FE5F6BFE04B583BE473D16BA45A094786AD07DB6FFCB174211DFD25920BB9D"
+    },
+    {
+      "path": "ui/portraits/captain_live/moustache.glb",
+      "sha256": "B42E87290FAC5B38ECE3CBCE463250A597847509E25523F7F89D69B665BAD445"
+    },
+    {
+      "path": "ui/portraits/captain_live/chin_tuft.glb",
+      "sha256": "3161CA7576A7A9E60BB0774C5FB3037CF24C27CCD143955DBD21A5B6DA377446"
+    },
+    {
+      "path": "art/characters/captain_live/pieces/hat/handmade/hat.glb",
+      "sha256": "E8B93FBC79ED8D6B39D024C1EDB2A06143738F7280A9DEDA3EDC5EDE4BADEC06"
+    },
+    {
+      "path": "art/characters/captain_live/pieces/hat/handmade/feather_original.glb",
+      "sha256": "E870713E4326481DC48D405E39AB7A0131EFE93E40A076BFC7D3A3DD0A642DE5"
+    }
   ],
   "derivatives": [
-    {"path": "ui/portraits/captain_live/head_face_normals.glb", "source": "art/characters/captain_live/pieces/head/head_face.glb", "normal_reference": "art/characters/captain_live/pieces/head/head.glb", "sha256": "CD51FB740B31877D59AA9ABC3EAE3D4118A40EA10C267F801C2D281F0D5A9BE1", "repair": "Restore base surface normals by matching position and UV; retain geometry, skin, morph targets and embedded textures unchanged."},
-    {"path": "ui/portraits/captain_live/moustache.glb", "source_shell": 0, "sha256": "B42E87290FAC5B38ECE3CBCE463250A597847509E25523F7F89D69B665BAD445"},
-    {"path": "ui/portraits/captain_live/chin_tuft.glb", "source_shell": 1, "sha256": "3161CA7576A7A9E60BB0774C5FB3037CF24C27CCD143955DBD21A5B6DA377446"}
+    {
+      "path": "ui/portraits/captain_live/head_face_normals.glb",
+      "source": "art/characters/captain_live/pieces/head/head_face.glb",
+      "normal_reference": "art/characters/captain_live/pieces/head/head.glb",
+      "sha256": "CD51FB740B31877D59AA9ABC3EAE3D4118A40EA10C267F801C2D281F0D5A9BE1",
+      "repair": "Restore base surface normals by matching position and UV; retain geometry, skin, morph targets and embedded textures unchanged.",
+      "active": false
+    },
+    {
+      "path": "ui/portraits/captain_live/moustache.glb",
+      "source_shell": 0,
+      "sha256": "B42E87290FAC5B38ECE3CBCE463250A597847509E25523F7F89D69B665BAD445"
+    },
+    {
+      "path": "ui/portraits/captain_live/chin_tuft.glb",
+      "source_shell": 1,
+      "sha256": "3161CA7576A7A9E60BB0774C5FB3037CF24C27CCD143955DBD21A5B6DA377446"
+    }
   ],
   "authoring_commands": [
     "python tools/restore_mesh_normals.py --reference art/characters/captain_live/pieces/head/head.glb --rigged art/characters/captain_live/pieces/head/head_face.glb --out ui/portraits/captain_live/head_face_normals.glb",
@@ -35,14 +215,33 @@
     "blender -b --factory-startup --python tools/extract_shells.py -- art/characters/captain_live/pieces/face/face.glb --shell 1 --out ui/portraits/captain_live/chin_tuft.glb"
   ],
   "authoring_notes": [
-    "2026-10-12: The rigged head retained all source positions/UVs but changed 29,895 base normals; the 90th percentile change is 22.91 degrees. This produced jagged shading/false contours on the left temple and cheek. The portrait uses a UI-local corrected derivative; source GLBs remain intact. GPU speech/rest comparisons confirmed smoother shading with the same silhouette and animation.",
+    "2026-10-12: The rigged head retained all source positions/UVs but changed 29,895 base normals; the 90th percentile change is 22.91 degrees. This produced jagged shading/false contours on the left temple and cheek. That earlier portrait revision used a UI-local corrected derivative; source GLBs remain intact. GPU speech/rest comparisons confirmed smoother shading with the same silhouette and animation.",
     "The hair GLB includes a solid head-shaped fill behind its face opening. Isolated part-color renders show it behind the face, not a second visible skin face. Moustache/chin derivatives contain only their extracted accessory shells. No extra body/head scene is instantiated by this portrait.",
     "The scene is the editable source of fitting. This sidecar records provenance and is never loaded to reset transforms or rebuild content.",
     "The face source contains two disconnected shells with independent origins. Separating them preserves UVs and texture while allowing the chin tuft to follow Jaw independently of the moustache.",
     "Jaw attachment rotation cancels the source Jaw rest orientation; changing the source rig requires checking this local fit again.",
     "Native BoneAttachment3D nodes follow speech animation. Runtime speech scripts do not fit or create accessories.",
     "Head source is modelled with an open mouth and cannot fully close cleanly. A replacement slightly parted source head remains separate art work.",
-    "These existing textures are 4096 square for the head and 2048 square for accessories; this is not an 8K texture replacement."
+    "These existing textures are 4096 square for the head and 2048 square for accessories; this is not an 8K texture replacement.",
+    "2026-10-12: Restored the portrait renderer around the owner-saved six-part fit. All 23 nodes, transforms, mesh arrays, skin binds and facial arrays were checked against external before-save backups. The owner head source is head_face.glb; the earlier head_face_normals.glb shading derivative remains available but is not applied over this saved mesh. Separate game/template resources preserve their independent authoring."
   ],
-  "checks": ["portrait_check", "portrait_capture (GPU)", "headcheck (GPU)"]
+  "checks": [
+    "portrait_check",
+    "portrait_storage_check",
+    "workshop_editor_check",
+    "portrait_capture (GPU)",
+    "full 24-check runner and cold reopen routes"
+  ],
+  "assembly_prefab": "ui/portraits/captain_live/assembly.tscn",
+  "template_prefab": "actors/assembly/templates/captain_portrait.tscn",
+  "storage": {
+    "format": "Binary .res meshes with local-to-scene state, source textures retained.",
+    "game_meshes": "ui/portraits/captain_live/meshes",
+    "template_meshes": "actors/assembly/templates/captain_portrait/meshes",
+    "scene_text_bytes": {
+      "portrait": 1255,
+      "game_assembly": 7029,
+      "template": 7138
+    }
+  }
 }

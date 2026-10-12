@@ -383,6 +383,7 @@ func _run() -> void:
 		# green geometry out of the graphical user-workspace acceptance capture.
 		assembly.hide()
 		await _check_workspace(plugin)
+		await _check_portrait_save(plugin)
 	else:
 		print("WORKSHOP_EDITOR_NOTE: plugin enable test omitted; dock and native commands still verified.")
 	# Discard both directions of native history: references must not destroy parents.
@@ -398,9 +399,18 @@ func _run() -> void:
 	get_tree().quit(1 if failures > 0 else 0)
 
 
+func _dismiss_test_restore_alert() -> void:
+	# This separate test editor can restore user:// fixture tabs from a prior run.
+	# Godot cannot reopen those as project scenes and leaves a modal startup alert.
+	for window in get_tree().root.find_children("*", "AcceptDialog", true, false):
+		if window.visible and window.dialog_text.begins_with("Error loading scene, it must be inside the project path."):
+			window.hide()
+			print("WORKSHOP_EDITOR_NOTE: dismissed prior external-fixture tab restore alert")
+
 func _check_unsaved_starters(plugin: EditorPlugin) -> void:
 	# The runner must remain in the editor tree when New Scene changes scene tabs.
 	var tree := get_tree()
+	_dismiss_test_restore_alert()
 	var previous_root := EditorInterface.get_edited_scene_root()
 	reparent(tree.root)
 	owner = null
@@ -600,6 +610,51 @@ func _check_references(plugin: EditorPlugin) -> void:
 	panel.get_node("%AssetDrawer").hide()
 	panel.show_references(false)
 	board.remove_active()
+
+func _check_portrait_save(plugin: EditorPlugin) -> void:
+	var path := "res://ui/portraits/captain_live.tscn"
+	var source_hash := FileAccess.get_sha256(path)
+	var mesh_source := "res://ui/portraits/captain_live/meshes/head.res"
+	var mesh_hash := FileAccess.get_sha256(mesh_source)
+	var old_root := EditorInterface.get_edited_scene_root()
+	plugin._save_current_scene(path)
+	expect(FileAccess.get_sha256(path) == source_hash and EditorInterface.get_edited_scene_root() == old_root, "bare assembly save cannot overwrite a portrait renderer")
+	expect(plugin.dock.get_node("%Status").text.contains("portrait camera"), "blocked portrait overwrite explains the correct save workflow")
+	EditorInterface.open_scene_from_path(path)
+	for frame: int in 5:
+		await get_tree().process_frame
+	plugin._refresh()
+	var portrait_root := EditorInterface.get_edited_scene_root()
+	expect(plugin._scene_root() == portrait_root and portrait_root.has_node("Camera") and Ops.collect_parts(portrait_root).size() == 6, "Workshop opens the complete portrait with camera and editable fitted parts")
+	var camera: Camera3D = portrait_root.get_node("Camera")
+	var camera_before := camera.transform
+	var size_before := camera.size
+	# Native editor resources need project paths to remain external references.
+	# This uniquely owned, ignored output never overwrites a source fixture.
+	var output := "res://test_results/workshop_portrait_%d/portrait.tscn" % OS.get_process_id()
+	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(output.get_base_dir()))
+	plugin.dock.get_node("%SaveAs").pressed.emit()
+	plugin.dock.get_node("%FileDialog").hide()
+	plugin._file_selected(output)
+	var saved: PackedScene = ResourceLoader.load(output, "PackedScene", ResourceLoader.CACHE_MODE_IGNORE)
+	var reopened: Node = saved.instantiate() if saved != null else null
+	expect(reopened != null and reopened.has_node("Camera") and reopened.get_script() == portrait_root.get_script(), "native Save As preserves portrait camera and speaking-rig script")
+	if reopened != null:
+		var saved_camera: Camera3D = reopened.get_node("Camera")
+		expect(saved_camera.transform == camera_before and is_equal_approx(saved_camera.size, size_before) and Ops.collect_parts(reopened).size() == 6, "saved portrait retains framing and all six fitted parts")
+		expect(reopened.get_node_or_null(reopened.skeleton_path) is Skeleton3D and reopened.get_node_or_null(reopened.face_mesh_path) is MeshInstance3D, "saved portrait retains its speech targets")
+		reopened.free()
+	expect(FileAccess.get_file_as_string(output).length() < 65536, "ordinary portrait save retains external meshes instead of large inline arrays")
+	var live_face: MeshInstance3D = portrait_root.get_node(portrait_root.face_mesh_path)
+	var material: StandardMaterial3D = live_face.mesh.surface_get_material(0)
+	material.albedo_color = Color(0.7, 0.8, 0.9)
+	plugin.dock.get_node("%Save").pressed.emit()
+	var updated: Node = ResourceLoader.load(output, "PackedScene", ResourceLoader.CACHE_MODE_IGNORE_DEEP).instantiate()
+	var updated_face: MeshInstance3D = updated.get_node(updated.face_mesh_path)
+	expect((updated_face.mesh.surface_get_material(0) as StandardMaterial3D).albedo_color.is_equal_approx(material.albedo_color), "ordinary Save updates the portrait's own binary mesh material")
+	expect(updated_face.mesh.resource_local_to_scene and FileAccess.get_sha256(mesh_source) == mesh_hash, "saved mesh keeps per-instance independence and preserves the source resource")
+	updated.free()
+	expect(FileAccess.get_sha256(path) == source_hash, "portrait authoring fixture never changes the production renderer")
 
 func _check_pane_editing(plugin: EditorPlugin, part: Node3D) -> void:
 	EditorInterface.set_main_screen_editor("Character Workshop")

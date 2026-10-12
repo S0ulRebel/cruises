@@ -13,7 +13,6 @@ const SettingsScene = preload("project_settings.tscn")
 const MeshStorage = preload("res://addons/character_workshop/mesh_storage.gd")
 
 var config: RefCounted
-var adapter: RefCounted
 var _settings: ConfirmationDialog
 
 var dock: Control
@@ -100,7 +99,10 @@ func _exit_tree() -> void:
 func _handles(object: Object) -> bool:
 	# Retain character selection inside an explicitly opened Workshop, but never
 	# claim nodes from another main screen and reopen the Workshop implicitly.
-	return _workspace_visible and (object is Assembly or object is CWPart or _adapter_bool("handles", object))
+	if not _workspace_visible:
+		return false
+	var root := _scene_root()
+	return root != null and (object == root or (object is CWPart and root.is_ancestor_of(object)))
 
 func _has_main_screen() -> bool:
 	return true
@@ -159,13 +161,7 @@ func _scene_root() -> Node3D:
 	return root as Node3D if _supports_scene(root) else null
 
 func _supports_scene(root: Node) -> bool:
-	if root is Assembly or _adapter_bool("can_edit", root):
-		return true
-	if root is Node3D:
-		for child in root.get_children():
-			if child is Assembly:
-				return true
-	return false
+	return root is Assembly
 
 func _close_workspace(root: Node = null) -> void:
 	if root == null:
@@ -207,8 +203,6 @@ func _refresh() -> void:
 			_transform_dialog.open_for(selected)
 	var old_mesh: MeshInstance3D = dock.current_mesh if is_instance_valid(dock.current_mesh) else null
 	dock.populate(root, Ops.collect_parts(root), selected)
-	dock.get_node("%SaveActor").visible = adapter != null and adapter.has_method("export_actor")
-	dock.get_node("%ImportLegacy").visible = adapter != null and adapter.has_method("prepare_legacy")
 	dock.set_attachment_source(_attach_part)
 	var native_mesh := _native_selected() as MeshInstance3D
 	if native_mesh != null and selected != null:
@@ -262,7 +256,7 @@ func _report(result: Dictionary, success: String) -> void:
 	_refresh()
 
 func _request(action: String, value: Variant) -> void:
-	if _has_moved_references() and action in ["add", "add_paths", "drop_assets", "rename_part", "reparent_part", "part_action", "adopt", "duplicate", "remove", "replace", "attach", "detach", "bind", "legacy", "borrow", "face_mode", "select_box", "select_surface", "exclude", "restore", "reset_mesh"]:
+	if _has_moved_references() and action in ["add", "add_paths", "drop_assets", "rename_part", "reparent_part", "part_action", "adopt", "duplicate", "remove", "replace", "attach", "detach", "bind", "borrow", "face_mode", "select_box", "select_surface", "exclude", "restore", "reset_mesh"]:
 		dock.set_status("Repair moved / renamed references before changing this assembly.", true)
 		return
 	var part: Node3D = dock.current_part if is_instance_valid(dock.current_part) else null
@@ -351,15 +345,8 @@ func _request(action: String, value: Variant) -> void:
 				dock.set_status("Open an assembly scene first.", true)
 			else:
 				_show_file("save", FileDialog.FILE_MODE_SAVE_FILE, ["*.tscn ; Character scene"])
-		"save_actor":
-			if _scene_root() == null:
-				dock.set_status("Open an assembly scene first.", true)
-			else:
-				_show_file("save_actor", FileDialog.FILE_MODE_SAVE_FILE, ["*.tscn ; Gameplay actor scene"])
 		"add":
 			_show_file("add", FileDialog.FILE_MODE_OPEN_FILES, ["*.tscn, *.scn, *.glb, *.gltf, *.obj, *.fbx, *.blend, *.dae ; 3D models and prefabs"])
-		"legacy":
-			_show_file("legacy", FileDialog.FILE_MODE_OPEN_FILE, ["*.tres, *.res ; Legacy fit or outfit"])
 		"borrow":
 			_show_file("borrow", FileDialog.FILE_MODE_OPEN_FILE, ["*.glb, *.gltf, *.fbx, *.tscn, *.scn ; Animation source"])
 		"add_paths":
@@ -464,9 +451,6 @@ func _save_current_scene(path: String) -> void:
 	if not path.begins_with("res://") and not path.begins_with("user://") and not path.is_absolute_path():
 		dock.set_status("Choose an explicit scene path.", true)
 		return
-	if not _adapter_bool("protected_root", root) and _is_portrait_destination(path):
-		dock.set_status("This destination contains a portrait camera and speaking rig. Open that portrait scene to save the complete portrait, or choose a separate assembly path.", true)
-		return
 	var validated := Ops.validate_scene_save(root, path)
 	if not validated.ok:
 		_report(validated, "")
@@ -483,17 +467,10 @@ func _save_current_scene(path: String) -> void:
 	dock.set_status("Saved %s. Mesh resources: %s" % [path.get_file(), stored.directory] if stored.count > 0 else "Saved %s. Continue editing this character." % path.get_file())
 	_refresh()
 
-func _is_portrait_destination(path: String) -> bool:
-	return _adapter_bool("protected_destination", path)
-
-func _adapter_bool(method: String, value: Variant) -> bool:
-	return bool(adapter.call(method, value)) if adapter != null and adapter.has_method(method) else false
-
 func _reload_project_config() -> void:
 	var loaded = ProjectConfig.new()
 	var error: String = loaded.read()
 	config = loaded if error.is_empty() else ProjectConfig.new()
-	adapter = config.create_adapter()
 	commands.animation_library = config.animation_library
 	dock.get_node("%Assets").asset_folders = config.asset_folders
 	dock.refresh_catalog()
@@ -615,22 +592,10 @@ func _file_selected(path: String) -> void:
 			get_editor_interface().open_scene_from_path(path)
 			if _scene_root() != null:
 				call_deferred("_open_workspace", _scene_root().get_instance_id())
+			else:
+				dock.set_status("This scene is open in Godot. Open its character assembly separately to edit it in Workshop.")
 		"save", "save_as":
 			_save_current_scene(path)
-		"save_actor":
-			dock.cancel_drag()
-			_restore_preview()
-			if _adapter_bool("protected_root", _scene_root()) or _is_portrait_destination(path):
-				dock.set_status("Portrait scenes keep their camera and speaking rig. Use Save for the portrait; gameplay actors need a separate assembly and output path.", true)
-				return
-			if _has_moved_references():
-				dock.set_status("Repair moved / renamed references before exporting this character.", true)
-				return
-			if adapter == null or not adapter.has_method("export_actor"):
-				dock.set_status("This project has no gameplay exporter. Use Save As for an editable character scene.", true)
-				return
-			_report(adapter.export_actor(_scene_root(), path), "Editable gameplay actor saved to %s." % path)
-			get_editor_interface().get_resource_filesystem().scan()
 		"replace":
 			if not is_instance_valid(_pending_part):
 				dock.set_status("The part was removed while the dialog was open. Select another part.", true)
@@ -638,12 +603,6 @@ func _file_selected(path: String) -> void:
 			_report(commands.replace_selected(_pending_part, path, _policy), "Replacement retained placement and the chosen attachment policy.")
 		"add":
 			_files_selected(PackedStringArray([path]))
-		"legacy":
-			if adapter == null or not adapter.has_method("prepare_legacy"):
-				dock.set_status("This project has no legacy outfit importer. Add ordinary models through Add part.", true)
-				return
-			var result: Dictionary = commands.add_prepared_parts(adapter.prepare_legacy(_scene_root(), path))
-			_report(result, "Legacy data imported into independent editable parts. %s" % " ".join(result.get("warnings", [])))
 		"borrow":
 			var service_path := "res://addons/character_workshop/core/animation_service.gd"
 			if not ResourceLoader.exists(service_path) or dock.current_part == null:
@@ -651,7 +610,7 @@ func _file_selected(path: String) -> void:
 				return
 			preview.stop()
 			var service: Script = load(service_path)
-			_report(commands.install_animation_library(service.borrow(dock.current_part.get_node("Model"), path)), "Compatible independent clips installed. Pick a clip to preview; native/borrrowed gameplay mappings are retained.")
+			_report(commands.install_animation_library(service.borrow(dock.current_part.get_node("Model"), path)), "Compatible independent clips installed. Pick a clip to preview; existing animations are retained.")
 
 func _files_selected(paths: PackedStringArray, world_position: Variant = null) -> void:
 	for path: String in paths:

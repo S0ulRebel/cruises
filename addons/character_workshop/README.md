@@ -5,7 +5,8 @@ A self-contained Godot editor addon, tested with Godot 4.7.2. Copy only
 into its project root). Let Godot finish importing, then enable the plugin.
 Keep this folder name and include its `.gd.uid` files. No Cruises assets or
 gameplay scripts are required. Disable the editor plugin when desired; keep
-its bundled `runtime/` and `core/` scripts for saved characters.
+its three bundled `runtime/` metadata scripts for saved characters. Core authoring
+services and editor UI are not needed to run the saved character.
 
 ## Project setup
 
@@ -19,9 +20,8 @@ preferred save folder; every first Save/Save As still asks for a scene destinati
 plugin never writes defaults. Commit that file with your project if teammates
 should share the same setup. Asset/template folders and saved characters stay
 outside the addon. Settings can be changed later; Reset changes the fields until
-you save. The borrowed-animation library defaults to `workshop`. An optional
-integration script enables game-specific export and legacy-import actions; see
-[PROJECT_INTEGRATION.md](PROJECT_INTEGRATION.md).
+you save. The borrowed-animation library defaults to `workshop`. There is no
+project adapter: game integration belongs to your game scenes. See [CHARACTERS_IN_GAME.md](CHARACTERS_IN_GAME.md).
 
 Enable **Character Workshop** in Project Settings → Plugins, then click its tab
 beside **3D** at the top of the editor. The workspace has an assembly viewport,
@@ -40,8 +40,8 @@ There are no fixed clothing slots or mandatory filenames.
    Existing scene tabs stay open. Choose a destination later through **Save As**
    or the first **Save**, then continue editing that same tab. Later **Save** writes
    to the chosen path; **Save As** deliberately chooses a different destination.
-   **Open** browses for another saved assembly. Scenes containing a direct child assembly can also be reopened and edited.
-   A project adapter can support additional wrappers.
+   **Open** browses for another saved visual assembly. Gameplay and portrait
+   wrapper scenes stay in Godot's native editor.
 2. **Add part** toggles the asset drawer below the views, keeping the hierarchy visible.
    Search imported project models/prefabs by filename/folder word prefixes, use optional
    type/folder filters, and read each tile's format and source folder. Search `hair`
@@ -50,7 +50,7 @@ There are no fixed clothing slots or mandatory filenames.
    **Import from disk** copies a self-contained GLB into an explicitly chosen project
    folder and waits for Godot import. Existing filenames are rejected. For formats
    with external dependencies, import the complete asset through Godot first.
-   **More → Export → Adopt selected** wraps a model already in the native scene tree.
+   **More → Scene → Adopt selected** wraps a model already in the native scene tree.
 3. Select a part in either viewport or hierarchy. Nested rows follow real attachment
    parents; names remain arbitrary. Use the bottom **Move**, **Rotate**, **Scale**
    buttons and axis handles. **Fine adjust** opens exact local position, rotation
@@ -74,8 +74,8 @@ There are no fixed clothing slots or mandatory filenames.
    is rejected; reconnecting requires compatible bone names/order/rest poses.
 6. Use **Save As** for a validated explicit reusable-scene destination. Derived
    meshes save as private binary resources beside that scene; source GLBs are never rewritten.
-   A project adapter can expose **Save gameplay actor** to deliberately add
-   gameplay components. Static assemblies need no gameplay services.
+   The result is a reusable visual scene. Add movement, collision, dialogue and
+   portrait cameras in your own authored game scenes.
 
 The second view can be hidden for more space. Each view has independent camera
 presets and framing, plus mouse orbit/pan/zoom. Cameras and gizmos are tool controls;
@@ -86,7 +86,7 @@ and Ctrl snaps a drag. Leaving the tool or pressing Escape cancels an active dra
 Grid and Bounds controls adjust overlays; subtle corner marks are the default
 selection feedback. **Focus** temporarily hides surrounding Godot side docks and
 restores the prior editor layout when disabled or when leaving the workshop.
-**More** opens four task tabs: Attachment, Geometry, Animation and Export. Selection
+**More** opens four task tabs: Attachment, Geometry, Animation and Scene. Selection
 controls are enabled only when their required part, mesh or player is available.
 
 The drawer's **Drop** setting defaults to authored placement. Cursor placement shows
@@ -103,7 +103,7 @@ stay in memory and never change source models or materials.
 
 After native scene-tree renames/reparenting, the workshop tracks retained target objects
 and enables **Repair moved / renamed references** when paths need repair. This is
-an explicit undoable action. Use it before the workshop's validated Save As/export.
+an explicit undoable action. Use it before the workshop's validated Save As.
 Opening a scene never silently repairs its paths. Targets already missing on opening
 must be selected again; the tool cannot infer a deleted rig.
 
@@ -136,8 +136,7 @@ Animation players and clips are discovered from actual nodes. Preview libraries 
 independent copies; loop is deliberate, and gameplay method/audio tracks are suppressed.
 Stop, save and scene changes restore original poses/libraries/materials. Fitting a part
 can continue during animation. Original materials are the default; neutral shading is
-temporary. Borrow compatible clips explicitly from a chosen model. Import saved legacy
-fits/outfits through an optional project adapter; conversion warnings identify required donor rebinding.
+temporary. Borrow compatible clips explicitly from a chosen model.
 Borrowed body animation and garment binding use the measured humanoid backend:
 compatible bone names and hips/head rest landmarks are required. Arbitrary static
 parts and local facial rigs remain usable for free/node/bone attachments.
@@ -165,8 +164,8 @@ Only the active image uses a full-size texture; board thumbnails are reduced to 
 
 Saved assemblies contain editable parts. Portrait cameras and gameplay controllers
 belong to your project's wrapper scenes. Workshop view cameras are editing tools
-and never save into a character. An optional adapter can recognize wrappers and
-protect destinations that should not be overwritten by a bare assembly.
+and never save into a character. Workshop opens assembly roots only; place that saved assembly inside an authored
+gameplay or portrait scene using Godot's native editor.
 
 Save/Save As now externalizes private meshes to binary `.res` files under the
 explicit scene destination's `<scene_name>/meshes/` folder. Original imported art
@@ -174,17 +173,18 @@ is untouched; Save As gives its output a separate resource folder. Subsequent sa
 can update only resource files already referenced by that saved scene. Geometry,
 facial shapes, materials and per-instance independence are retained. Use project
 scene paths for ordinary native editor authoring. Normal opening/game startup has
-no save or compaction route. When an adapter protects a wrapper scene, open that complete wrapper to save it.
+no save or compaction route. Choose assembly output paths deliberately; Workshop has no game-specific
+portrait/actor recognition or destination protection.
 
 ## Distribution and validation
 
 In the source repository, `tools/package_character_workshop.ps1 -OutputPath <new.zip>`
 builds a ZIP with only this addon. Existing output files are rejected. The package
-contains no project settings, templates from your game, source art or game adapter.
+contains no project settings, templates from your game, source art or game-specific integration.
 
 `tests/workshop_portability_check.ps1` installs that ZIP in a unique external
 project, imports a prefab and GLB, configures folders, attaches/duplicates/fits parts,
 borrows a compatible clip, saves, and cold-opens with the editor plugin disabled.
 The source repository's native and integration checks exercise undo, rigs, geometry,
-references, independent resources, source preservation and game adapters. Engine
+references, independent resources, source preservation and game-owned use of the saved scenes. Engine
 errors always fail checks, regardless of exit code.

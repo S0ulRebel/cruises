@@ -1,5 +1,11 @@
 # Assembly foundation handoff
 
+Current scope: construction-only Workshop. The adapter and game-specific actions
+have been removed. Open saved visual assemblies in Workshop; edit gameplay and
+portrait wrappers in native Godot. Runtime scripts are independent of authoring core.
+Earlier adapter/wrapper entries below are historical. Validation is recorded below.
+
+
 ## 2026-10-12 — preserved Captain starter
 
 The owner-saved `templates/captain_portrait.tscn` keeps all six fitted parts and
@@ -134,3 +140,14 @@ Portable migration validation: all 25 checks and cold routes pass, including
 real binding and exported-actor animation. Exact Captain fit comparison retains
 23 nodes in each assembly with no transform/geometry/skin/pose changes. Logs:
 `C:/Users/Nikola/AppData/Local/Temp/cruises-checks-86994ffc6c6b4e3cbfc5306f3b8b66ab`. The plugin-disabled standalone character also runs from an exported PCK.
+
+## Construction-only delivery — 2026-10-12
+
+The project adapter and obsolete helper-path shims are removed. Canonical addon
+runtime/core paths are the supported API. Game-specific conversion/export helpers
+moved to `tools/legacy_outfit_import.gd` and `tools/character_actor_export.gd` with
+their UIDs retained. The Workshop UI edits visual assemblies only. Existing authored
+templates and game scenes remain; game identity already lives in CharacterDefinition.
+24 runtime/integration checks pass; the Workshop native assertions pass 241/241,
+with an unrelated lighting-plugin teardown error blocking the overall editor process.
+See the addon handoff for complete evidence and the independent exported-pack check.

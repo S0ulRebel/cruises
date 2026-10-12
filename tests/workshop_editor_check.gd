@@ -9,6 +9,7 @@ const Ops = preload("res://addons/character_workshop/core/assembly_operations.gd
 const Assembly = preload("res://addons/character_workshop/runtime/assembly.gd")
 const Preview = preload("res://addons/character_workshop/preview.gd")
 const SOURCE := "res://tests/fixtures/workshop_editor_model.tscn"
+const FACE_PATH := "SpeakingHead/Model/head_rig/Skeleton3D/tripo_node_d8a007b1-f96c-49d6-ad2a-f5111169295b"
 var failures := 0
 var count := 0
 
@@ -340,6 +341,8 @@ func _run() -> void:
 		var connections: Array = native_dock.get_signal_connection_list("request")
 		var plugin: EditorPlugin = connections[0].callable.get_object()
 		expect(plugin.commands.scene_root == get_parent(), "enabled plugin uses the actual edited assembly")
+		expect(native_dock.find_child("SaveActor", true, false) == null and native_dock.find_child("ImportLegacy", true, false) == null, "construction workspace has no game export or legacy import controls")
+		expect(plugin._settings.find_child("AdapterPath", true, false) == null, "project settings have no game adapter control")
 		plugin._files_selected(PackedStringArray([SOURCE]))
 		for frame: int in 3:
 			await get_tree().process_frame
@@ -383,7 +386,7 @@ func _run() -> void:
 		# green geometry out of the graphical user-workspace acceptance capture.
 		assembly.hide()
 		await _check_workspace(plugin)
-		await _check_portrait_save(plugin)
+		await _check_character_save(plugin)
 		await _check_workspace_exit(plugin)
 	else:
 		print("WORKSHOP_EDITOR_NOTE: plugin enable test omitted; dock and native commands still verified.")
@@ -612,50 +615,59 @@ func _check_references(plugin: EditorPlugin) -> void:
 	panel.show_references(false)
 	board.remove_active()
 
-func _check_portrait_save(plugin: EditorPlugin) -> void:
-	var path := "res://ui/portraits/captain_live.tscn"
+func _check_character_save(plugin: EditorPlugin) -> void:
+	var wrapper_path := "res://ui/portraits/captain_live.tscn"
+	var wrapper_hash := FileAccess.get_sha256(wrapper_path)
+	EditorInterface.open_scene_from_path(wrapper_path)
+	for frame: int in 5:
+		await get_tree().process_frame
+	var wrapper := EditorInterface.get_edited_scene_root()
+	plugin._refresh()
+	expect(not plugin._supports_scene(wrapper) and plugin._scene_root() == null, "game portrait wrapper stays in the native scene editor")
+	var path := "res://ui/portraits/captain_live/assembly.tscn"
 	var source_hash := FileAccess.get_sha256(path)
 	var mesh_source := "res://ui/portraits/captain_live/meshes/head.res"
 	var mesh_hash := FileAccess.get_sha256(mesh_source)
-	var old_root := EditorInterface.get_edited_scene_root()
-	plugin._save_current_scene(path)
-	expect(FileAccess.get_sha256(path) == source_hash and EditorInterface.get_edited_scene_root() == old_root, "bare assembly save cannot overwrite a portrait renderer")
-	expect(plugin.dock.get_node("%Status").text.contains("portrait camera"), "blocked portrait overwrite explains the correct save workflow")
-	EditorInterface.open_scene_from_path(path)
+	plugin._file_action = "open"
+	plugin._file_selected(path)
 	for frame: int in 5:
 		await get_tree().process_frame
+	var character_root := EditorInterface.get_edited_scene_root()
 	plugin._refresh()
-	var portrait_root := EditorInterface.get_edited_scene_root()
-	expect(plugin._scene_root() == portrait_root and portrait_root.has_node("Camera") and Ops.collect_parts(portrait_root).size() == 6, "Workshop opens the complete portrait with camera and editable fitted parts")
-	var camera: Camera3D = portrait_root.get_node("Camera")
-	var camera_before := camera.transform
-	var size_before := camera.size
-	# Native editor resources need project paths to remain external references.
-	# This uniquely owned, ignored output never overwrites a source fixture.
-	var output := "res://test_results/workshop_portrait_%d/portrait.tscn" % OS.get_process_id()
+	var part_count := Ops.collect_parts(character_root).size()
+	expect(plugin._scene_root() == character_root and character_root is CWAssembly and part_count > 0, "Workshop opens the reusable visual assembly independently of its game wrapper")
+	var live_face: MeshInstance3D = character_root.get_node(FACE_PATH)
+	var skeleton: Skeleton3D = live_face.get_parent()
+	var weights: PackedFloat32Array = live_face.mesh.surface_get_arrays(0)[Mesh.ARRAY_WEIGHTS]
+	var bones: PackedInt32Array = live_face.mesh.surface_get_arrays(0)[Mesh.ARRAY_BONES]
+	var shape_count: int = live_face.mesh.get_blend_shape_count()
+	var head_transform: Transform3D = character_root.get_node("SpeakingHead").transform
+	# Explicit authoring fixture output keeps production models and game scenes intact.
+	var output := "res://test_results/workshop_character_%d/character.tscn" % OS.get_process_id()
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(output.get_base_dir()))
 	plugin.dock.get_node("%SaveAs").pressed.emit()
 	plugin.dock.get_node("%FileDialog").hide()
 	plugin._file_selected(output)
 	var saved: PackedScene = ResourceLoader.load(output, "PackedScene", ResourceLoader.CACHE_MODE_IGNORE)
 	var reopened: Node = saved.instantiate() if saved != null else null
-	expect(reopened != null and reopened.has_node("Camera") and reopened.get_script() == portrait_root.get_script(), "native Save As preserves portrait camera and speaking-rig script")
+	expect(reopened is CWAssembly and Ops.collect_parts(reopened).size() == part_count, "native Save As preserves the independently reusable character and fitted parts")
 	if reopened != null:
-		var saved_camera: Camera3D = reopened.get_node("Camera")
-		expect(saved_camera.transform == camera_before and is_equal_approx(saved_camera.size, size_before) and Ops.collect_parts(reopened).size() == 6, "saved portrait retains framing and all six fitted parts")
-		expect(reopened.get_node_or_null(reopened.skeleton_path) is Skeleton3D and reopened.get_node_or_null(reopened.face_mesh_path) is MeshInstance3D, "saved portrait retains its speech targets")
+		var saved_face: MeshInstance3D = reopened.get_node(FACE_PATH)
+		var saved_skeleton: Skeleton3D = saved_face.get_parent()
+		expect(reopened.get_node("SpeakingHead").transform == head_transform, "saved character retains authored fitting")
+		expect(saved_skeleton.get_bone_count() == skeleton.get_bone_count() and saved_face.skin.get_bind_count() == live_face.skin.get_bind_count(), "saved character retains its local rig and skin bindings")
+		expect(saved_face.mesh.get_blend_shape_count() == shape_count and saved_face.mesh.surface_get_arrays(0)[Mesh.ARRAY_WEIGHTS] == weights and saved_face.mesh.surface_get_arrays(0)[Mesh.ARRAY_BONES] == bones, "saved face retains facial shapes and exact bone weights")
 		reopened.free()
-	expect(FileAccess.get_file_as_string(output).length() < 65536, "ordinary portrait save retains external meshes instead of large inline arrays")
-	var live_face: MeshInstance3D = portrait_root.get_node(portrait_root.face_mesh_path)
+	expect(FileAccess.get_file_as_string(output).length() < 65536, "ordinary character save retains external meshes instead of large inline arrays")
 	var material: StandardMaterial3D = live_face.mesh.surface_get_material(0)
 	material.albedo_color = Color(0.7, 0.8, 0.9)
 	plugin.dock.get_node("%Save").pressed.emit()
 	var updated: Node = ResourceLoader.load(output, "PackedScene", ResourceLoader.CACHE_MODE_IGNORE_DEEP).instantiate()
-	var updated_face: MeshInstance3D = updated.get_node(updated.face_mesh_path)
-	expect((updated_face.mesh.surface_get_material(0) as StandardMaterial3D).albedo_color.is_equal_approx(material.albedo_color), "ordinary Save updates the portrait's own binary mesh material")
+	var updated_face: MeshInstance3D = updated.get_node(FACE_PATH)
+	expect((updated_face.mesh.surface_get_material(0) as StandardMaterial3D).albedo_color.is_equal_approx(material.albedo_color), "ordinary Save updates the character's own binary mesh material")
 	expect(updated_face.mesh.resource_local_to_scene and FileAccess.get_sha256(mesh_source) == mesh_hash, "saved mesh keeps per-instance independence and preserves the source resource")
 	updated.free()
-	expect(FileAccess.get_sha256(path) == source_hash, "portrait authoring fixture never changes the production renderer")
+	expect(FileAccess.get_sha256(path) == source_hash and FileAccess.get_sha256(wrapper_path) == wrapper_hash, "visual assembly authoring does not modify the original character or game wrapper")
 
 func _check_workspace_exit(plugin: EditorPlugin) -> void:
 	var original: Node = EditorInterface.get_edited_scene_root()
@@ -666,7 +678,7 @@ func _check_workspace_exit(plugin: EditorPlugin) -> void:
 	plugin._refresh()
 	var panel: Control = plugin.dock
 	var prior_focus := EditorInterface.is_distraction_free_mode_enabled()
-	var mesh: MeshInstance3D = original.get_node(original.face_mesh_path)
+	var mesh: MeshInstance3D = original.get_node(FACE_PATH)
 	var transform_before := part.transform
 	var material_before := mesh.material_override
 	plugin._request("preview_shade", true)

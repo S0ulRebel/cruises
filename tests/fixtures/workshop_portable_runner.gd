@@ -22,18 +22,6 @@ func _run() -> void:
 	for frame: int in 5:
 		await get_tree().process_frame
 	var root := get_parent() as Node3D
-	if OS.get_cmdline_user_args().has("cold"):
-		var parts := Ops.collect_parts(root)
-		expect(not Engine.is_editor_hint(), "saved character opens with editor plugin disabled")
-		expect(parts.size() == 3, "cold saved scene retains arbitrary parts")
-		var body: Node3D = root.get_node("BodyPart")
-		expect(body.position.is_equal_approx(Vector3(1, 2, 3)) and body.scale.is_equal_approx(Vector3(1.2, 0.9, 1.1)), "cold fitting survives")
-		expect(body.get_node("Model/Skeleton") is Skeleton3D, "cold local rig survives")
-		expect((body.get_node("Model/AnimationPlayer") as AnimationPlayer).has_animation("workshop/talk"), "generic borrowed animation namespace survives")
-		var accessory: Node3D = parts.filter(func(part: Node3D): return part.name == "Accessory")[0]
-		expect(accessory is CWPart and accessory.attachment_mode == CWPart.AttachmentMode.BONE and accessory.bone_name == "Head", "cold bone attachment survives")
-		_finish()
-		return
 	expect(not FileAccess.file_exists(Config.PATH), "installation does not write project configuration")
 	var panel: Control = EditorInterface.get_base_control().find_child("CharacterWorkshop", true, false)
 	if panel == null:
@@ -43,8 +31,8 @@ func _run() -> void:
 	var plugin: EditorPlugin = panel.get_signal_connection_list("request")[0].callable.get_object()
 	EditorInterface.set_main_screen_editor("Character Workshop")
 	plugin._refresh()
-	expect(plugin.adapter == null and plugin.config.save_folder == "res://", "standalone defaults need no adapter or setup")
-	expect(not panel.get_node("%SaveActor").visible and not panel.get_node("%ImportLegacy").visible, "project-specific actions are optional")
+	expect(plugin.config.save_folder == "res://", "standalone defaults need no setup")
+	expect(panel.find_child("SaveActor", true, false) == null and panel.find_child("ImportLegacy", true, false) == null, "game export and legacy import controls are absent")
 	var browser: Control = panel.get_node("%Assets")
 	browser.refresh_catalog()
 	expect(browser._catalog.has("res://assets/source.tscn") and browser._catalog.has("res://assets/source.glb"), "fresh project discovers prefabs and imported GLB")
@@ -52,6 +40,7 @@ func _run() -> void:
 	panel.get_node("%ProjectSettingsButton").pressed.emit()
 	var settings: ConfirmationDialog = plugin._settings
 	expect(settings.visible, "Settings button opens project setup")
+	expect(settings.find_child("AdapterPath", true, false) == null, "settings have no adapter control")
 	settings.get_node("%SaveFolder").text = "res://missing_folder"
 	settings.confirmed.emit()
 	expect(settings.visible and not FileAccess.file_exists(Config.PATH), "invalid folder does not save configuration")
@@ -87,6 +76,16 @@ func _run() -> void:
 	expect(plugin.commands.attach_selected(accessory, body.get_node("Model/Skeleton"), 2, "Head").ok and accessory.global_transform.is_equal_approx(before), "arbitrary imported part attaches with preserved placement")
 	var duplicate: Dictionary = plugin.commands.duplicate_selected(accessory)
 	expect(duplicate.ok and duplicate.part.part_id != accessory.part_id, "independent duplicate remains editable")
+	if duplicate.ok:
+		duplicate.part.name = "AccessoryCopy"
+	expect(plugin.commands.change_geometry(body, body.get_node("Model/Geometry"), {0: PackedInt32Array([0])}, "exclude").ok, "reversible mesh exclusion is authored before save")
+	# The verification saved into the character depends only on runtime metadata.
+	# Keep this authoring-only runner in the editor so it cannot enter the export.
+	var runtime_check: Node = load("res://verification/runtime.gd").new()
+	runtime_check.name = "RuntimeCheck"
+	root.add_child(runtime_check)
+	runtime_check.owner = root
+	reparent(EditorInterface.get_base_control())
 	plugin._refresh()
 	panel.get_node("%SaveAs").pressed.emit()
 	var dialog: FileDialog = panel.get_node("%FileDialog")

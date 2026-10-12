@@ -2,8 +2,8 @@
 [ext_resource type="Script" path="res://addons/character_workshop/project_settings.gd" id="script"]
 [node name="ProjectSettings" type="ConfirmationDialog"]
 title = "Character Workshop — Project settings"
-size = Vector2i(620, 560)
-min_size = Vector2i(540, 520)
+size = Vector2i(620, 500)
+min_size = Vector2i(540, 460)
 visible = false
 dialog_hide_on_ok = false
 ok_button_text = "Save settings"
@@ -12,7 +12,7 @@ script = ExtResource("script")
 offset_left = 12.0
 offset_top = 12.0
 offset_right = 608.0
-offset_bottom = 510.0
+offset_bottom = 450.0
 theme_override_constants/separation = 8
 [node name="Description" type="Label" parent="Fields"]
 text = "Saved per project to res://character_workshop.cfg.\nSettings never move, copy or modify your character assets."
@@ -51,11 +51,6 @@ text = "Borrowed animation library name"
 [node name="LibraryName" type="LineEdit" parent="Fields"]
 unique_name_in_owner = true
 text = "workshop"
-[node name="AdapterHeading" type="Label" parent="Fields"]
-text = "Optional project integration script — leave empty for standalone assembly"
-[node name="AdapterPath" type="LineEdit" parent="Fields"]
-unique_name_in_owner = true
-placeholder_text = "res://my_game/workshop_adapter.gd"
 [node name="SettingsError" type="Label" parent="Fields"]
 unique_name_in_owner = true
 autowrap_mode = 3

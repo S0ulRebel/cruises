@@ -102,7 +102,7 @@ tooltip_text = "Browse project models and prefabs with thumbnails, or import an 
 unique_name_in_owner = true
 layout_mode = 2
 text = "More…"
-tooltip_text = "Attachment settings, mesh exclusion, clothing binding, animation previews and export."
+tooltip_text = "Attachment settings, mesh exclusion, clothing binding, animation previews and scene parts."
 
 [node name="FocusMode" type="CheckButton" parent="Toolbar/FileRow"]
 unique_name_in_owner = true
@@ -480,48 +480,34 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 9
 
-[node name="Export" type="ScrollContainer" parent="AdvancedTools/Margin/Content/AdvancedTabs"]
+[node name="Scene" type="ScrollContainer" parent="AdvancedTools/Margin/Content/AdvancedTabs"]
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
-[node name="Tools" type="VBoxContainer" parent="AdvancedTools/Margin/Content/AdvancedTabs/Export"]
+[node name="Tools" type="VBoxContainer" parent="AdvancedTools/Margin/Content/AdvancedTabs/Scene"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 9
 
-[node name="AuthoringHeading" type="Label" parent="AdvancedTools/Margin/Content/AdvancedTabs/Export/Tools"]
+[node name="AuthoringHeading" type="Label" parent="AdvancedTools/Margin/Content/AdvancedTabs/Scene/Tools"]
 layout_mode = 2
-text = "Import, replace and export"
+text = "Scene parts"
 theme_override_font_sizes/font_size = 16
-[node name="SaveActor" type="Button" parent="AdvancedTools/Margin/Content/AdvancedTabs/Export/Tools"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Save gameplay actor…"
-tooltip_text = "Optional: author movement, navigation and collision components in an explicitly saved reusable actor. Static characters need none of these."
-
-
-[node name="ImportLegacy" type="Button" parent="AdvancedTools/Margin/Content/AdvancedTabs/Export/Tools"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Import saved legacy fit / outfit…"
-tooltip_text = "Explicit conversion from an arbitrary saved fit or outfit. Originals remain intact; conversion warnings describe required rebinding."
-
-
-[node name="Adopt" type="Button" parent="AdvancedTools/Margin/Content/AdvancedTabs/Export/Tools"]
+[node name="Adopt" type="Button" parent="AdvancedTools/Margin/Content/AdvancedTabs/Scene/Tools"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Adopt selected"
 tooltip_text = "Wrap a model you already dragged into this assembly as an editable part."
 
 
-[node name="Visibility" type="Button" parent="AdvancedTools/Margin/Content/AdvancedTabs/Export/Tools"]
+[node name="Visibility" type="Button" parent="AdvancedTools/Margin/Content/AdvancedTabs/Scene/Tools"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Hide / Show"
 
 
-[node name="Replace" type="Button" parent="AdvancedTools/Margin/Content/AdvancedTabs/Export/Tools"]
+[node name="Replace" type="Button" parent="AdvancedTools/Margin/Content/AdvancedTabs/Scene/Tools"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Replace…"

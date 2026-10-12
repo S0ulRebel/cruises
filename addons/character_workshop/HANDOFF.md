@@ -1,5 +1,11 @@
 # Character Workshop editor handoff
 
+Current scope: construction-only Workshop. The adapter and game-specific actions
+have been removed. Open saved visual assemblies in Workshop; edit gameplay and
+portrait wrappers in native Godot. Runtime scripts are independent of authoring core.
+Earlier adapter/wrapper entries below are historical. Validation is recorded below.
+
+
 ## 2026-10-12 — Workshop can be closed
 
 Close Workshop returns to native 3D (2D for CanvasItem roots); the scene stays open.
@@ -187,3 +193,23 @@ All 25 checks, native editor assertions, cold routes and source hashes pass:
 Captain template and portrait assembly preserve all 23 nodes, transforms, mesh
 arrays/shapes, skins and bone poses; binary resources retain their pre-migration hashes.
 Cruises export exclusions retain runtime/core while excluding editor UI.
+
+## Construction-only validation — 2026-10-12
+
+- 24 runtime/integration checks and all their cold routes pass with authored hashes
+  unchanged: `%TEMP%/cruises-checks-d538ee1f6a2d46289cb67fc94bd11efe/`.
+- The native Workshop fixture passes 241/241 assertions, including exact local rig,
+  skin-weight and facial-shape preservation through save/reopen, and wrapper rejection.
+  The native editor process still fails the strict runner on a concurrent, unrelated
+  lighting-plugin shutdown error: `addons/stylized_lighting/gallery/material_lab.gd:59`
+  calls `gui_release_focus` after its viewport is gone. Full editor import/native
+  suite is therefore not claimed green. No lighting code was changed by this task.
+- Standalone ZIP test passes 21 authoring, 12 plugin-disabled runtime and 19 exported
+  runtime assertions. Export is launched from an empty directory to prevent fallback
+  to source files; the check proves core/editor scripts are absent from the PCK.
+  Logs: `%TEMP%/workshop-portability-89d13b4283d74265a0df1546f7785570/`.
+- Rig/weight copying, binding, mesh exclusion and retarget algorithms were not
+  rewritten. Runtime warnings no longer load those authoring services.
+- Native repeated-save tests observe resource-UID fallback warnings for some derived
+  mesh resources. Path loading and exact saved weights/shapes still pass; improving
+  UID registration is separate follow-up work.

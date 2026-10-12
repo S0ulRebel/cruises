@@ -162,3 +162,13 @@ and assembly authoring, then checks cold runtime with the plugin disabled and fr
 an exported PCK. Each phase has a 90-second deadline and separate logs in that
 fixture. The standard runner's TimeoutSeconds covers the ordinary engine checks;
 portability phases use their own deadline. Fixtures remain outside project assets.
+
+## Construction-only runtime boundary
+
+The portable fixture uses separate authoring and runtime scripts. The saved test
+character contains only the runtime verifier. Export runs from an empty directory
+and explicitly asserts that editor/core scripts are absent, then checks skeletal
+playback, bone attachment, fitting and reversible mesh metadata. Native editor
+checks require assembly roots and reject game/portrait wrappers; rigs, weights and
+facial shapes are compared after native save/reload. Game export and old outfit
+conversion tests use developer tools directly, with no Workshop integration hooks.

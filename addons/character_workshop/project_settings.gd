@@ -18,14 +18,13 @@ func open() -> void:
 	var error: String = config.read()
 	_populate(config)
 	%SettingsError.text = error
-	popup_centered(Vector2i(620, 560))
+	popup_centered(Vector2i(620, 500))
 
 func _populate(config: RefCounted) -> void:
 	_editing = config
 	%AssetFolders.text = "\n".join(config.asset_folders)
 	%TemplateFolders.text = "\n".join(config.template_folders)
 	%SaveFolder.text = config.save_folder
-	%AdapterPath.text = config.adapter_path
 	%LibraryName.text = config.animation_library
 	%SettingsError.text = ""
 
@@ -50,7 +49,6 @@ func _save() -> void:
 	_editing.asset_folders = Config._folders(%AssetFolders.text.split("\n"))
 	_editing.template_folders = Config._folders(%TemplateFolders.text.split("\n"))
 	_editing.save_folder = %SaveFolder.text.strip_edges()
-	_editing.adapter_path = %AdapterPath.text.strip_edges()
 	_editing.animation_library = %LibraryName.text.strip_edges()
 	var error: String = _editing.write()
 	%SettingsError.text = error

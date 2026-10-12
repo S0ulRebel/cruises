@@ -1,5 +1,12 @@
 # Handoff
 
+Current Character Workshop scope: construct and save reusable visual assemblies.
+No adapters, gameplay export or legacy import in the plugin. Game identity and
+speech use game-owned definitions/wrappers. Rigs, weight copying and facial shapes
+remain core construction features. Old adapter records below are superseded; see
+`addons/character_workshop/HANDOFF.md` and `docs/CHARACTER_WORKSHOP_PLAN.md`.
+
+
 **This file is how the people working on this game talk to each other.** Not chat, not
 the owner relaying messages. Two sides write here: the art agent, who makes turnarounds
 and prop sheets, and the engine side, who puts them in the game.

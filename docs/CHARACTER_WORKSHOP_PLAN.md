@@ -1,5 +1,12 @@
 # Character Workshop implementation plan
 
+Current approved scope (2026-10-12): Workshop constructs reusable visual characters.
+It has no adapter or game-specific export, identity or speech responsibilities.
+Earlier adapter/whole-portrait integration entries below are historical and superseded
+by the construction-only cleanup at the end of this plan. Core rig/weight/shape
+preservation remains required; exact compatibility with WIP outfits is not required.
+
+
 Created and approved: 2026-10-11. Status: implemented and integrated into
 `main`; integration checks passed; art/owner acceptance below.
 The earlier scene migration remains completed in [REFACTOR_PLAN.md](REFACTOR_PLAN.md).
@@ -472,3 +479,19 @@ recorded in the workshop/test handoffs after checks complete.
 Existing transparent overlays, reference cards/cropping and portable reference
 bundles remain future improvements. Project independence does not expand the
 measured humanoid binding/retarget backend into arbitrary rig compatibility.
+
+## Construction-only cleanup — approved 2026-10-12
+
+- [x] Remove project adapters and gameplay/legacy-import actions from Workshop.
+- [x] Edit visual assembly roots; leave game actors and portrait wrappers to native
+  Godot authoring. Reuse the existing game-owned CharacterDefinition for identity.
+- [x] Remove old helper-path compatibility shims and relocate game export/conversion
+  services into developer tools. WIP art can be reconstructed rather than preserving
+  obsolete integration layers.
+- [x] Remove authoring-core dependencies from runtime metadata; saved skeletons,
+  skins, animations, attachments and geometry run through native Godot types.
+- [x] Verify weight copying, local facial rigs/shapes, attachment, independent
+  duplicate, native save and cold reopen; verify export with editor/core excluded.
+- [x] Complete construction integration checks and publish package 2.1.0. The
+  native Workshop assertions pass; the complete editor process remains blocked by
+  the unrelated lighting shutdown error recorded in the addon/test handoffs.

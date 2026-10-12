@@ -26,6 +26,7 @@ bones/2/scale = Vector3(1, 1, 1)
 Copy-Item -LiteralPath (Join-Path $source 'art/props/key/key.glb') -Destination (Join-Path $fixture 'assets/source.glb')
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'fixtures/workshop_editor_model.tscn') -Destination (Join-Path $fixture 'other/hidden.tscn')
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'fixtures/workshop_portable_runner.gd') -Destination (Join-Path $fixture 'verification/runner.gd')
+Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'fixtures/workshop_portable_runtime.gd') -Destination (Join-Path $fixture 'verification/runtime.gd')
 [IO.File]::WriteAllText((Join-Path $fixture 'templates/custom.tscn'), @'
 [gd_scene format=3]
 [ext_resource type="Script" path="res://addons/character_workshop/runtime/assembly.gd" id="assembly"]
@@ -49,10 +50,10 @@ config/name="Independent Workshop Verification"
 renderer/rendering_method="gl_compatibility"
 '@
 [IO.File]::WriteAllText((Join-Path $fixture 'project.godot'), $settings)
-function Run-Phase([string]$Name, [string[]]$Arguments, [bool]$Marker) {
+function Run-Phase([string]$Name, [string[]]$Arguments, [bool]$Marker, [string]$WorkingDirectory = $fixture) {
     $start = [Diagnostics.ProcessStartInfo]::new()
     $start.FileName = $Godot
-    $start.WorkingDirectory = $fixture
+    $start.WorkingDirectory = $WorkingDirectory
     $start.UseShellExecute = $false
     $start.CreateNoWindow = $true
     $start.RedirectStandardOutput = $true
@@ -81,6 +82,8 @@ Run-Phase 'cold-disabled-plugin' @('--headless','--path',$fixture,'res://charact
 $gameSettings = [IO.File]::ReadAllText((Join-Path $fixture 'project.godot')).Replace('[application]', "[application]`nrun/main_scene=`"res://characters/assembled.tscn`"")
 [IO.File]::WriteAllText((Join-Path $fixture 'project.godot'), $gameSettings)
 $exportRules = [regex]::Match([IO.File]::ReadAllText((Join-Path $source 'export_presets.cfg')), '(?m)^exclude_filter=.*$').Value.Trim()
+# Only the runtime verifier belongs in the exported fixture.
+$exportRules = $exportRules.TrimEnd('"') + ',verification/runner.gd,verification/editor.tscn"'
 [IO.File]::WriteAllText((Join-Path $fixture 'export_presets.cfg'), @"
 [preset.0]
 name="Runtime"
@@ -94,5 +97,9 @@ binary_format/architecture="x86_64"
 "@)
 $pack = Join-Path $fixture 'runtime.pck'
 Run-Phase 'export-runtime-pack' @('--headless','--path',$fixture,'--editor','--export-pack','Runtime',$pack) $false
-Run-Phase 'cold-exported-pack' @('--headless','--main-pack',$pack,'--','cold') $true
+# Run outside the authoring project: Godot can otherwise resolve excluded files
+# from the source directory beside the pack and hide missing runtime dependencies.
+$runtimeOnly = Join-Path $fixture 'runtime_only'
+[IO.Directory]::CreateDirectory($runtimeOnly) | Out-Null
+Run-Phase 'cold-exported-pack' @('--headless','--path',$runtimeOnly,'--main-pack',$pack,'--','cold','exported') $true $runtimeOnly
 Write-Host "CHECKS PASSED: portable addon; fixture/logs: $fixture"

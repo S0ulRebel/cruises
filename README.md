@@ -22,8 +22,8 @@ Try the 16 fake-lighting techniques in [materials/stylized_lighting/gallery/mate
 
 Copy only `addons/character_workshop/` and enable the plugin after Godot import.
 Workshop **Settings** chooses project asset/template/save folders; no mandatory
-asset layout or setup. Cruises gameplay and portrait services stay in its optional
-external adapter. See [installation and workflow](addons/character_workshop/README.md)
-and [optional integration](addons/character_workshop/PROJECT_INTEGRATION.md).
+asset layout or setup. The game owns identity, gameplay and portrait behavior around the saved visual
+assemblies. Workshop has no adapter or game-specific actions. See [installation and workflow](addons/character_workshop/README.md)
+and [using constructed characters](addons/character_workshop/CHARACTERS_IN_GAME.md).
 Build a distributable ZIP with an explicit new output path:
 `./tools/package_character_workshop.ps1 -OutputPath <absolute-new-zip>`.

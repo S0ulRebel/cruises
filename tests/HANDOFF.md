@@ -170,3 +170,23 @@ Full 25-check runner, false-pass self-test and all existing cold routes pass wit
 authored hashes unchanged: `C:/Users/Nikola/AppData/Local/Temp/cruises-checks-86994ffc6c6b4e3cbfc5306f3b8b66ab`. Fresh fixture:
 `C:/Users/Nikola/AppData/Local/Temp/workshop-portability-f01fca87c0304c888f1ab3afd05c689e`.
 Exact Captain fit/mesh/skin/pose preservation comparison passes for both 23-node assemblies.
+
+## Construction-only validation — 2026-10-12
+
+- 24 runtime/integration checks and all their cold routes pass with authored hashes
+  unchanged: `%TEMP%/cruises-checks-d538ee1f6a2d46289cb67fc94bd11efe/`.
+- The native Workshop fixture passes 241/241 assertions, including exact local rig,
+  skin-weight and facial-shape preservation through save/reopen, and wrapper rejection.
+  The native editor process still fails the strict runner on a concurrent, unrelated
+  lighting-plugin shutdown error: `addons/stylized_lighting/gallery/material_lab.gd:59`
+  calls `gui_release_focus` after its viewport is gone. Full editor import/native
+  suite is therefore not claimed green. No lighting code was changed by this task.
+- Standalone ZIP test passes 21 authoring, 12 plugin-disabled runtime and 19 exported
+  runtime assertions. Export is launched from an empty directory to prevent fallback
+  to source files; the check proves core/editor scripts are absent from the PCK.
+  Logs: `%TEMP%/workshop-portability-89d13b4283d74265a0df1546f7785570/`.
+- Rig/weight copying, binding, mesh exclusion and retarget algorithms were not
+  rewritten. Runtime warnings no longer load those authoring services.
+- Native repeated-save tests observe resource-UID fallback warnings for some derived
+  mesh resources. Path loading and exact saved weights/shapes still pass; improving
+  UID registration is separate follow-up work.

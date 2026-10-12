@@ -8,13 +8,13 @@ consumers. Read CHARACTER_WORKSHOP_PLAN.md and module AGENTS.md before editing.
 - Portable core scope: addons/character_workshop/runtime/ and core/, plus assembly
   and mesh-exclusion checks.
 - Editor scope: addon root UI/scripts and native editor fixtures.
-- Project integration: actors/assembly/project_adapter.gd, templates/export/legacy
-  services, actors/outfit/ compatibility, project descriptor and export rules.
+- Game authoring: actors/assembly/templates/, game-owned character definitions/wrappers,
+  tools/character_actor_export.gd and tools/legacy_outfit_import.gd.
+- Root integration: project authoring descriptor and export rules.
 - Shared docs/check runner and end-to-end validation: root integration.
 
-Old actor assembly/outfit helper paths are inheritance shims, not a second core.
-Runtime UIDs follow the canonical scripts. Project integrations use the optional
-[adapter contract](../addons/character_workshop/PROJECT_INTEGRATION.md).
+Canonical runtime UIDs remain stable. Old helper-path shims and the adapter API
+are removed. See [using constructed characters](../addons/character_workshop/CHARACTERS_IN_GAME.md).
 
 Every editing agent gets an explicit file scope. Work on `main`; notify the owner
 before using another branch/worktree or switching. Commit local handoffs with changes.
@@ -92,7 +92,7 @@ deliberate authoring commands, and restores originals through undo/reset. Explic
 Save/Save As persists outputs. Collision/picking must not use stale excluded geometry.
 No source rewriting, automatic Head-weight trimming or runtime reconstruction.
 
-## Binding API (integration)
+## Construction binding and animation API
 
 CWBindingService.bind_part(part, donor) prepares `{ok,error,model,
 binding_data,skeleton}`. Model is off-tree; the editor swaps it and metadata in one
@@ -103,22 +103,19 @@ private arrays/read-only weight samples enter the worker. Cancellation/stale inp
 discards the result without modifying the scene. Facial shapes and unsupported torso
 landmarks produce a visible failure before conversion. No implicit fit or rebind.
 
-CharacterAnimationService.borrow(model,source_path) prepares `{ok,error,player,
+CWAnimationService.borrow(model,source_path) prepares `{ok,error,player,
 created,library,model}`. A new player is off-tree; an existing one stays unchanged.
-The editor installs the independent `captain` library undoably. Unsupported local
+The editor installs the independent configured library (`workshop` by default) undoably. Unsupported local
 facial rigs fail before humanoid retargeting; attachments still support these rigs.
 
-CharacterActorExportService.export_actor(root,explicit_path) optionally authors a
-separate Mover prefab with collision/navigation nodes and an explicit compatible
-animation_player_path plus idle/walk names. Competing trees targeting that player
-are disabled in the exported copy; separate facial trees remain active. Collision
-bounds use drawable geometry, ignoring unused vertices retained by exclusion masks.
-Static assembly saves do not add these.
+Game exporters and legacy outfit conversion are developer-only tools outside this
+plugin's API. Character construction never creates gameplay/collision/navigation
+components or identifies speakers. Game-owned scenes/resources consume the result.
 
-CharacterLegacyOutfitService.prepare(scene_root,path) returns independent off-tree
-root parts and visible warnings for Outfit or individual OutfitPiece resources.
-Nested pinned parts remain children; all instances are discovered with collect_parts.
-Skinned fits need deliberate donor binding. Conversion never overwrites source data.
+Runtime metadata scripts depend only on one another and Godot native types.
+`CWAssembly` ID warnings traverse existing parts read-only, without loading core
+operations. Binding provenance stores native Resources/PackedScenes/Transforms;
+skinning and animation require no Workshop authoring service after saving.
 
 ## Reference workspace
 
@@ -190,11 +187,10 @@ limited to files referenced by the existing destination, including nested scene
 dependencies; unrelated file collisions reject before overwriting. Source imported
 models/textures and source PackedScene definitions are never saved by this service.
 
-The plugin accepts complete `portrait_rig.gd` roots as authoring contexts alongside
-assemblies/gameplay actors. Native saves preserve the portrait's camera/lights and
-speech target paths. Saving a bare assembly or exporting an actor over an existing
-portrait renderer is rejected. The Captain uses a UI-local fitted assembly instance;
-its template and game mesh resources have separate files.
+The plugin accepts `CWAssembly` roots only. A character gameplay or portrait
+wrapper remains in the native editor; open its saved visual assembly for fitting.
+There are no game-specific output checks or adapters. Normal save validation still
+rejects source-path overwrites and unresolved attachment/skin references.
 
 Hierarchy requests rename `{part,name}`, context actions `{part,action}` and parent
 drops `{part,target}` through the command boundary. Renaming rebases retained

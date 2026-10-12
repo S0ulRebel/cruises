@@ -1,6 +1,6 @@
 extends "res://tests/check.gd"
 
-const Service = preload("res://actors/assembly/legacy_outfit_service.gd")
+const Service = preload("res://tools/legacy_outfit_import.gd")
 var _folder := ""
 
 

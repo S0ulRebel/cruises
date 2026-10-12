@@ -6,7 +6,6 @@ const PATH := "res://character_workshop.cfg"
 var asset_folders := PackedStringArray(["res://"])
 var template_folders := PackedStringArray()
 var save_folder := "res://"
-var adapter_path := ""
 var animation_library := "workshop"
 
 func read() -> String:
@@ -19,7 +18,6 @@ func read() -> String:
 	asset_folders = _folders(file.get_value("folders", "assets", PackedStringArray(["res://"])))
 	template_folders = _folders(file.get_value("folders", "templates", PackedStringArray()))
 	save_folder = str(file.get_value("folders", "save", "res://"))
-	adapter_path = str(file.get_value("integration", "adapter", ""))
 	animation_library = str(file.get_value("animation", "library", "workshop"))
 	return validate()
 
@@ -29,12 +27,6 @@ func validate() -> String:
 			return "Choose an existing project folder: " + folder
 	if animation_library.is_empty() or animation_library.contains("/") or animation_library.contains(":"):
 		return "Animation library needs a nonempty name without / or :."
-	if not adapter_path.is_empty():
-		if not adapter_path.begins_with("res://") or not ResourceLoader.exists(adapter_path, "Script"):
-			return "Choose an existing project adapter script, or leave it empty."
-		var script: Script = load(adapter_path)
-		if script == null or not script.can_instantiate() or script.get_instance_base_type() != "RefCounted":
-			return "The project adapter must be a constructible RefCounted script."
 	return ""
 
 func write() -> String:
@@ -45,15 +37,9 @@ func write() -> String:
 	file.set_value("folders", "assets", asset_folders)
 	file.set_value("folders", "templates", template_folders)
 	file.set_value("folders", "save", save_folder)
-	file.set_value("integration", "adapter", adapter_path)
 	file.set_value("animation", "library", animation_library)
 	var result := file.save(PATH)
 	return "" if result == OK else "Could not save %s: %s" % [PATH, error_string(result)]
-
-func create_adapter() -> RefCounted:
-	if adapter_path.is_empty() or not validate().is_empty():
-		return null
-	return (load(adapter_path) as Script).new() as RefCounted
 
 static func _folders(value: Variant) -> PackedStringArray:
 	var result := PackedStringArray()

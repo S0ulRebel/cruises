@@ -1,12 +1,16 @@
 # Reversible mesh exclusion
 
+Canonical code: `addons/character_workshop/runtime/mesh_mask.gd` and
+`addons/character_workshop/core/mesh_operations.gd` (`CWMeshOperations`).
+Old path compatibility shims have been removed.
+
 This authoring module removes selected triangles from an independent derived mesh.
 It never saves, changes scene nodes, modifies imported sources or runs reconstruction
 on startup. The editor owns selection presentation, undo, collision updates and saves.
 
 ## Mask and reference space
 
-`MeshExclusionMask` retains `source_mesh`, a versioned SHA-256
+`CWMeshMask` retains `source_mesh`, a versioned SHA-256
 `topology_fingerprint`, `excluded_faces` and the authored `source_node_path`.
 `excluded_faces` maps an integer original surface index to a `PackedInt32Array` of
 triangle ordinals. Indexed triangles follow triples in the original index buffer;

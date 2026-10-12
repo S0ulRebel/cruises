@@ -180,25 +180,6 @@ func transform_selected(part: Node3D, before: Transform3D, after: Transform3D) -
 	_finish()
 	return {"ok": true, "part": part}
 
-func add_prepared_parts(result: Dictionary) -> Dictionary:
-	if not result.get("ok", false):
-		return result
-	if not is_instance_valid(scene_root):
-		return _fail("Open a character assembly first.")
-	var parts: Array = result.get("parts", [])
-	if parts.is_empty():
-		return _fail("The conversion contains no usable parts.")
-	for part: Variant in parts:
-		if not part is Part or part.get_parent() != null:
-			return _fail("Conversion must return independent, off-tree root parts.")
-	_begin("Import legacy character fit")
-	for part: Node3D in parts:
-		undo.add_do_method(self, "_insert", part, scene_root)
-		undo.add_undo_method(self, "_remove", part)
-		undo.add_do_reference(part)
-	_finish()
-	return {"ok": true, "error": "", "part": parts[0], "warnings": result.get("warnings", [])}
-
 func install_animation_library(result: Dictionary) -> Dictionary:
 	if not result.get("ok", false):
 		return result

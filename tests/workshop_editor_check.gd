@@ -80,11 +80,49 @@ func _run() -> void:
 	expect(not commands.attach_selected(body, accessory, 1).ok, "cycle rejection")
 	var own: Skeleton3D = accessory.get_node("Model/Skeleton")
 	expect(own.get_bone_count() == 2, "attachment retains complete local rig")
+	var transform_before := accessory.global_transform
+	var transform_after := transform_before
+	transform_after.origin += Vector3(0.2, -0.1, 0.35)
+	transform_after.basis = Basis(Vector3.UP, 0.15) * transform_after.basis.scaled(Vector3.ONE * 1.1)
+	expect(commands.transform_selected(accessory, transform_before, transform_after).ok, "viewport transform on a bone-attached part")
+	expect(accessory.global_transform.is_equal_approx(transform_after), "move rotate scale preserve the requested world transform")
+	history.undo()
+	expect(accessory.global_transform.is_equal_approx(transform_before), "viewport transform uses native undo")
+	history.redo()
+	expect(accessory.global_transform.is_equal_approx(transform_after), "viewport transform uses native redo")
+	history.undo()
+	var singular := transform_before
+	singular.basis = Basis.IDENTITY.scaled(Vector3(0, 1, 1))
+	expect(not commands.transform_selected(accessory, transform_before, singular).ok and accessory.global_transform.is_equal_approx(transform_before), "invalid scale rejected without changing the part")
+	expect(not commands.transform_selected(accessory, Transform3D.IDENTITY, transform_after).ok, "stale drag rejected without overwriting another edit")
+	var assembly_before := assembly.global_transform
+	assembly.position += Vector3(3, -1, 2)
+	var body_before := body.global_transform
+	body.top_level = true
+	body.global_transform = body_before
+	var independent_before := body.global_transform
+	var independent_after := independent_before.translated(Vector3(0.1, 0.2, -0.3))
+	expect(commands.transform_selected(body, independent_before, independent_after).ok and body.global_transform.is_equal_approx(independent_after), "top-level part transform stays independent of its parent")
+	history.undo()
+	expect(body.global_transform.is_equal_approx(independent_before), "top-level transform undo restores exact placement")
+	body.top_level = false
+	body.global_transform = body_before
+	assembly.global_transform = assembly_before
 	var ownership_dock: Control = load("res://addons/character_workshop/dock.tscn").instantiate()
 	get_tree().root.add_child(ownership_dock)
 	ownership_dock.populate(assembly, Ops.collect_parts(assembly), body)
 	expect(ownership_dock.get_node("%Meshes").item_count == 1, "body mesh selector excludes attached accessory meshes")
 	expect(ownership_dock.get_node("%Statistics").text.contains("2 bones"), "part statistics exclude dependent local rigs")
+	var parts_tree := ownership_dock.get_node("%Parts") as Tree
+	var root_row := parts_tree.get_root()
+	expect(root_row.get_metadata(0) == assembly and not parts_tree.hide_root, "hierarchy shows the real assembly root")
+	var body_row := _tree_item_for(root_row, body)
+	var accessory_row := _tree_item_for(root_row, accessory)
+	expect(body_row != null and accessory_row != null and accessory_row.get_parent() == body_row, "bone-attached accessories nest under their owning body part")
+	if body_row != null:
+		body_row.collapsed = true
+		ownership_dock.populate(assembly, Ops.collect_parts(assembly), body)
+		expect(_tree_item_for(parts_tree.get_root(), body).collapsed, "hierarchy refresh retains collapsed branches")
 	ownership_dock.free()
 	var child_mesh: MeshInstance3D = accessory.get_node("Model/Geometry")
 	expect(not commands.change_geometry(body, child_mesh, {0: PackedInt32Array([0])}, "exclude").ok, "geometry command enforces nearest part ownership")
@@ -290,7 +328,7 @@ func _run() -> void:
 	var dock: Control = load("res://addons/character_workshop/dock.tscn").instantiate()
 	get_tree().root.add_child(dock)
 	dock.populate(assembly, Ops.collect_parts(assembly), body)
-	expect(dock.get_node("%Parts").get_root().get_child_count() == 3, "authored dock displays scene-derived parts")
+	expect(_tree_part_count(dock.get_node("%Parts").get_root()) == 3, "authored hierarchy displays each scene-derived part once")
 	expect(dock.current_target != null and dock.current_mesh == mesh, "dock target and mesh lists")
 	var clicks: Array = []
 	dock.request.connect(func(action: String, _value: Variant): clicks.append(action))
@@ -307,6 +345,7 @@ func _run() -> void:
 			await get_tree().process_frame
 		var ui_part: Node3D = native_dock.current_part
 		expect(ui_part != null and ui_part.get_parent() == get_parent(), "native Add command selects new part")
+		await _check_pane_editing(plugin, ui_part)
 		var camera := Camera3D.new()
 		get_tree().root.add_child(camera)
 		camera.position = Vector3(0, 0, 3)
@@ -338,6 +377,10 @@ func _run() -> void:
 		expect(Ops.collect_parts(get_parent()).is_empty(), "native dock add undo")
 		edited_history.clear_history()
 		await _check_unsaved_starters(plugin)
+		# Backend command fixtures share the editor world. Keep their synthetic
+		# green geometry out of the graphical user-workspace acceptance capture.
+		assembly.hide()
+		await _check_workspace(plugin)
 	else:
 		print("WORKSHOP_EDITOR_NOTE: plugin enable test omitted; dock and native commands still verified.")
 	# Discard both directions of native history: references must not destroy parents.
@@ -416,3 +459,189 @@ func _check_unsaved_starters(plugin: EditorPlugin) -> void:
 	native_dock.get_node("%Open").pressed.emit()
 	expect(dialog.visible and dialog.file_mode == FileDialog.FILE_MODE_OPEN_FILE and plugin._file_action == "open", "Open existing retains the scene browser")
 	dialog.hide()
+
+func _tree_item_for(item: TreeItem, node: Node) -> TreeItem:
+	if item == null:
+		return null
+	if item.get_metadata(0) == node:
+		return item
+	for child: TreeItem in item.get_children():
+		var found := _tree_item_for(child, node)
+		if found != null:
+			return found
+	return null
+
+func _tree_part_count(item: TreeItem) -> int:
+	if item == null:
+		return 0
+	var total := 1 if item.get_metadata(0) is AssemblyPart else 0
+	for child: TreeItem in item.get_children():
+		total += _tree_part_count(child)
+	return total
+
+func _check_workspace(plugin: EditorPlugin) -> void:
+	EditorInterface.set_main_screen_editor("Character Workshop")
+	for frame: int in 4:
+		await get_tree().process_frame
+	var panel: Control = plugin.dock
+	expect(panel.get_parent() == EditorInterface.get_editor_main_screen() and panel.is_visible_in_tree(), "Workshop owns a visible main-screen workspace")
+	var panes: Array[Node] = panel.find_children("*", "SubViewport", true, false)
+	expect(panes.size() == 2, "two real viewport panes are present")
+	var edited := EditorInterface.get_edited_scene_root() as Node3D
+	plugin._select(edited)
+	plugin._refresh()
+	expect(panel.get_node("%Parts").get_selected().get_metadata(0) == edited, "hierarchy root stays selected after native synchronization")
+	var root_before := edited.global_transform
+	var root_after := root_before.translated(Vector3(0.1, 0, 0))
+	expect(plugin.commands.transform_selected(edited, root_before, root_after).ok and edited.global_transform.is_equal_approx(root_after), "assembly root can be fitted as a whole")
+	var root_history := plugin.get_undo_redo().get_history_undo_redo(plugin.get_undo_redo().get_object_history_id(edited))
+	root_history.undo()
+	expect(edited.global_transform.is_equal_approx(root_before), "whole-assembly transform uses native undo")
+	plugin._request("inspector", null)
+	expect(plugin._transform_dialog.visible, "Fine adjust also works for the selected assembly root")
+	plugin._transform_dialog.cancel()
+	for pane: SubViewport in panes:
+		expect(pane.world_3d == edited.get_world_3d(), "viewport renders the actual edited character world")
+		expect(not edited.is_ancestor_of(pane) and pane.get_camera_3d() != null, "tool cameras stay outside the authored character")
+	expect(not panel.get_node("%AdvancedTools").visible, "advanced selectors are closed by default")
+	var browser: Control = panel.get_node("%Assets")
+	expect(browser != null, "visual project asset browser is embedded")
+	if browser != null:
+		browser.refresh_catalog()
+		var asset_list := browser.get_node("%AssetList") as ItemList
+		expect(asset_list.item_count > 0, "asset browser discovers real project prefabs and imported models")
+		browser.get_node("%AssetSearch").text = "head face"
+		browser.get_node("%AssetSearch").text_changed.emit("head face")
+		expect(asset_list.item_count > 0 and asset_list.item_count < browser._catalog.size(), "asset search filters filename words across snake-case names")
+		if asset_list.item_count > 0:
+			asset_list.select(0)
+			var source_path: String = browser.selected_path()
+			expect(source_path.begins_with("res://") and ResourceLoader.exists(source_path, "PackedScene"), "thumbnail selection retains an actual project source path")
+		browser.get_node("%AssetSearch").text = ""
+		browser.get_node("%AssetSearch").text_changed.emit("")
+	await _check_import_validation(plugin)
+	var capture := OS.get_environment("CRUISES_WORKSHOP_CAPTURE")
+	if not capture.is_empty() and DisplayServer.get_name() != "headless":
+		plugin.hide_bottom_panel()
+		var window := get_window()
+		window.mode = Window.MODE_WINDOWED
+		window.size = Vector2i(1600, 1000)
+		for frame: int in 8:
+			await get_tree().process_frame
+		await RenderingServer.frame_post_draw
+		var screenshot := panel.get_viewport().get_texture().get_image()
+		if screenshot != null:
+			screenshot.save_png(capture)
+			print("WORKSHOP_CAPTURE=", capture)
+		panel.show_assets()
+		browser.get_node("%AssetSearch").text = "hair"
+		browser.get_node("%AssetSearch").text_changed.emit("hair")
+		for frame: int in 35:
+			await get_tree().process_frame
+		await RenderingServer.frame_post_draw
+		screenshot = panel.get_viewport().get_texture().get_image()
+		if screenshot != null:
+			screenshot.save_png(capture.get_base_dir().path_join("assets.png"))
+		panel.get_node("%Sidebar").current_tab = 0
+		browser.get_node("%AssetSearch").text = ""
+		browser.get_node("%AssetSearch").text_changed.emit("")
+		plugin._request("inspector", null)
+		for frame: int in 4:
+			await get_tree().process_frame
+		await RenderingServer.frame_post_draw
+		screenshot = panel.get_viewport().get_texture().get_image()
+		if screenshot != null:
+			screenshot.save_png(capture.get_base_dir().path_join("fine_adjust.png"))
+		plugin._transform_dialog.cancel()
+
+func _check_pane_editing(plugin: EditorPlugin, part: Node3D) -> void:
+	EditorInterface.set_main_screen_editor("Character Workshop")
+	var pane: Control = plugin.dock.get_node("%MainView")
+	pane.frame_selected()
+	for frame: int in 3:
+		await get_tree().process_frame
+	var original := part.global_transform
+	var native_history := plugin.get_undo_redo().get_history_undo_redo(plugin.get_undo_redo().get_object_history_id(part))
+	for mode: String in ["move", "rotate", "scale"]:
+		plugin._request("tool", mode)
+		var center: Vector2 = pane.camera.unproject_position(part.global_position)
+		pane._left_press(center)
+		pane._drag_to(center + Vector2(25, -12), false)
+		expect(not part.global_transform.is_equal_approx(original), "actual viewport %s handle previews on the authored part" % mode)
+		pane._finish_drag()
+		expect(not part.global_transform.is_equal_approx(original), "actual viewport %s commit routes through native commands" % mode)
+		native_history.undo()
+		expect(part.global_transform.is_equal_approx(original), "actual viewport %s commit undoes exactly" % mode)
+	pane._left_press(pane.camera.unproject_position(part.global_position))
+	pane._drag_to(pane.camera.unproject_position(part.global_position) + Vector2(15, 0), false)
+	pane.cancel_drag()
+	expect(part.global_transform.is_equal_approx(original), "viewport cancel restores the authored transform")
+	plugin._request("tool", "move")
+	plugin._request("inspector", null)
+	var dialog: Window = plugin._transform_dialog
+	expect(dialog.visible, "Fine adjust opens exact transform fields")
+	dialog.get_node("%PositionX").get_line_edit().text = str(part.position.x + 0.125)
+	dialog.get_node("%PositionX").apply()
+	dialog.get_node("%TransformApply").pressed.emit()
+	var adjusted := not part.global_transform.is_equal_approx(original)
+	expect(not dialog.visible and adjusted, "Fine adjust applies one deliberate authored transform")
+	if adjusted:
+		native_history.undo()
+	expect(part.global_transform.is_equal_approx(original), "Fine adjust uses native undo")
+	plugin._request("inspector", null)
+	dialog.get_node("%PositionX").value += 1.0
+	dialog.cancel()
+	expect(part.global_transform.is_equal_approx(original), "Fine adjust Cancel changes no placement")
+	plugin._request("inspector", null)
+	dialog.get_node("%ScaleX").get_line_edit().text = "0"
+	dialog.get_node("%ScaleX").apply()
+	dialog.get_node("%TransformApply").pressed.emit()
+	expect(dialog.visible and part.global_transform.is_equal_approx(original), "Fine adjust rejects zero scale without changing the part")
+	dialog.cancel()
+	var target: Node3D = plugin.commands.duplicate_selected(part).part
+	plugin._select(part)
+	plugin._refresh()
+	plugin._request("tool", "attach")
+	plugin._request("select", target)
+	expect(part.get_parent() == target and part.global_transform.is_equal_approx(original), "hierarchy Attach pick reparents without a world-position jump")
+	native_history.undo()
+	plugin._refresh()
+	expect(part.get_parent() == plugin.commands.scene_root and part.global_transform.is_equal_approx(original), "picked attachment undo restores placement and hierarchy")
+	native_history.undo()
+	plugin._select(part)
+	plugin._refresh()
+	plugin._request("tool", "attach")
+	expect(plugin.commands.remove_selected(part, "keep_free").ok, "attachment source can be removed through native history")
+	plugin._refresh()
+	expect(plugin._tool == "move", "deleting attachment source restores normal selection")
+	native_history.undo()
+	plugin._select(part)
+	plugin._refresh()
+
+func _check_import_validation(plugin: EditorPlugin) -> void:
+	var directory := "user://workshop_import_validation_%d" % OS.get_process_id()
+	DirAccess.make_dir_recursive_absolute(directory)
+	var path := directory.path_join("candidate.glb")
+	var file := FileAccess.open(path, FileAccess.WRITE)
+	file.store_string("invalid")
+	file.close()
+	expect(not plugin._validate_import_source(path).is_empty(), "invalid GLB is rejected before copying")
+	var payload := JSON.stringify({"asset": {"version": "2.0"}, "images": [{"uri": "missing_texture.png"}]}).to_utf8_buffer()
+	while payload.size() % 4 != 0:
+		payload.append(32)
+	file = FileAccess.open(path, FileAccess.WRITE)
+	file.store_32(0x46546C67)
+	file.store_32(2)
+	file.store_32(payload.size() + 20)
+	file.store_32(payload.size())
+	file.store_32(0x4E4F534A)
+	file.store_buffer(payload)
+	file.close()
+	expect(plugin._validate_import_source(path).contains("external textures"), "GLB external dependencies require the normal full-folder import")
+	var source := "res://ui/portraits/captain_live/head_face_normals.glb"
+	expect(plugin._validate_import_source(source).is_empty(), "a real embedded production GLB passes import validation")
+	var original_hash := FileAccess.get_sha256(source)
+	plugin._import_source = source
+	plugin._import_destination_selected(source.get_base_dir())
+	expect(FileAccess.get_sha256(source) == original_hash and plugin._import_pending.is_empty(), "import collision preserves the existing asset and does not start an overwrite")
+	plugin.dock.set_status("Character Workshop ready. Select a part in either view or the hierarchy.")

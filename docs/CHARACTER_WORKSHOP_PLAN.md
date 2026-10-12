@@ -5,6 +5,51 @@ Created and approved: 2026-10-11. Status: implemented and integrated into
 The earlier scene migration remains completed in [REFACTOR_PLAN.md](REFACTOR_PLAN.md).
 Open checkboxes identify remaining acceptance work, not missing tool foundations.
 
+## Approved viewport workspace — 2026-10-12
+
+The owner approved the revised two-view fitting layout and requested implementation,
+commit and push on `main`. The latest remote `main` was pulled first. This approval
+supersedes the earlier UI design hold; existing game/portrait art stays untouched.
+
+- [x] **UI01:** Replace the long dock with a main-screen Character Workshop tab.
+  Keep a dominant assembly viewport and optional independent detail viewport visible.
+  Provide orbit, pan, zoom, framing, view presets and direct part selection.
+- [x] **UI02:** Show the actual collapsible character hierarchy, including the root
+  and arbitrary nested attachments. Preserve selection and collapsed branches across
+  refresh. No fixed body-part categories or duplicate Captain row among its parts.
+- [x] **UI03:** Add a searchable visual project asset browser, thumbnail drag/drop,
+  and a deliberate disk-import flow with a chosen destination and no overwrites.
+- [x] **UI04:** Put Move, Rotate, Scale, Attach, Duplicate and Remove on the bottom
+  action bar. Viewport transforms and picked attachments preserve placement and use
+  native undo. Fine adjust provides exact local fields; Godot's Inspector stays available.
+- [x] **UI05:** Move geometry removal, bone attachment, binding, animation, legacy
+  conversion and export into contextual/closed advanced tools. Retain their behavior.
+- [x] **UI06:** Check real scene rendering, hierarchy, asset discovery, selection,
+  transforms/undo, save/reopen and source preservation; inspect a graphical capture.
+  Run module and integration checks, then commit and push the completed change.
+
+Scopes on the shared `main` checkout: viewport widget, asset browser and dock/layout
+have separate files; integration owns plugin/commands, checks and documentation.
+View cameras, overlays and UI resources belong to the tool, never saved characters.
+
+Delivered: the main-screen workspace renders the actual editable scene in two
+independent views. Native undo covers viewport drags, precise transforms and picked
+attachments. The sidebar shows the real hierarchy or searchable project thumbnails;
+advanced operations open separately through More. GLB disk imports require an
+explicit destination and reject overwrites or external texture/buffer dependencies.
+
+Validation on Godot 4.7.2: all 22 default checks and cold reopen routes passed,
+including 174 native editor assertions and the engine-error rejection self-test.
+After the thumbnail follow-up, the native editor, workshop integration/cold reopen
+and authored-scene checks passed again with authored source hashes unchanged.
+A separate Compatibility GPU run passed 174/174 with no engine/script errors;
+workspace, actual hair/chair thumbnails and Fine adjust captures were inspected.
+Evidence: `%TEMP%/cruises-checks-8886df44ee964b44917681864e669c83/`,
+`%TEMP%/cruises-checks-c4a8b69c52474907a6455d990aa0c8c2/` and
+`%TEMP%/cruises-workshop-final-109c40bcbfd24286b2be2a64d43193f1/`.
+Picking uses reference mesh triangles for skinned models; animated-pose picking
+and final clothing/neck art acceptance remain separate work.
+
 ## Current result and remaining acceptance
 
 The native Character Workshop plugin is enabled. Arbitrary part assembly, native
@@ -46,13 +91,13 @@ Evidence: `%TEMP%/cruises-checks-e4f55424f02b480eb0b0bafc1c525dfc/` and
   Real production clothing still needs representative-pose art acceptance after
   the replacement body is ready. The placeholder integration garment proves the
   binding/save/playback route; it cannot approve final coat deformation.
-- **CW24:** Native editor commands, undo, static/rigged reuse and cold reopen are
-  covered by automated checks. The owner should review the complete visual editing
-  workflow; desktop control was stopped with Escape during final review.
+- **CW24:** The approved visual workspace is implemented and GPU-checked. Native
+  editor commands, hierarchy, transforms/undo, static/rigged reuse and cold reopen
+  are covered by automated checks. Final owner usability acceptance remains open.
 
-External assets are imported into a chosen project folder through Godot's normal
-import workflow before adding them. The tool supports imported project models and
-prefabs; it does not include an operating-system asset copier. Generic attachments
+The explicit disk-import flow copies self-contained GLBs into a chosen project
+folder, then waits for Godot's normal import before adding them. Other formats and
+external dependencies use Godot's standard import workflow. Generic attachments
 use actual scene bones; body fitting/retargeting requires supported measured torso
 landmarks. Unsupported rigs fail visibly and need an explicit mapping extension.
 

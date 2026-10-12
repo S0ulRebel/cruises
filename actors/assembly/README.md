@@ -1,7 +1,7 @@
 # Character Workshop
 
-Open the project in Godot 4.7.2. The **Character Workshop** dock sits beside the
-native scene tree and Inspector. If hidden, enable **Character Workshop** under
+Open the project in Godot 4.7.2. Click **Character Workshop** beside **3D** at the
+top of the editor for its two-view fitting workspace. If hidden, enable it under
 Project Settings → Plugins. This is an editor workflow; F6 is not needed.
 
 ## Start and add parts
@@ -12,20 +12,22 @@ Project Settings → Plugins. This is an editor workflow; F6 is not needed.
    ordinary scenes under `actors/assembly/templates/`.
 2. Start editing, then choose **Save As** when ready to select your character folder.
    Starting from a template never asks for a file or writes a scene to disk.
-3. **Add model / prefab** accepts imported models and 3D prefabs anywhere in the project.
+3. **Add part** opens a searchable thumbnail browser of imported models and 3D prefabs.
    Each instance gets a separate stable identity. Names and directories do not
    determine eligibility. Add multiple copies, rename and reorder them freely.
 4. You can also drag a model into the native scene and **Adopt selected** to make
    it a managed part. External files need a chosen project import destination;
    Godot must finish importing them before they can become parts.
-5. Select the Part node, then use native handles or Inspector transforms. The
+5. Select a part in either fitting view or the collapsible hierarchy, then use the
+   bottom Move/Rotate/Scale actions and axis handles, or native Inspector transforms. The
    nested `Model` retains its imported hierarchy, materials, skins and local rigs.
    Transform units are metres and degrees in the editor. Zero scale is rejected
    by validated authoring operations; negative scale is deliberate mirroring.
 
 ## Attach, replace and animate
 
-Choose a real target in the scene, then **Free**, **Parent** or **Bone** attachment.
+Use bottom **Attach** and pick another part in a view or hierarchy. For **Free**,
+arbitrary-node **Parent** or **Bone** attachment, open **More** and choose a real target.
 Bone choices come from the selected skeleton, including a skeleton inside another
 attachment. Switching attachment preserves world placement; edit the resulting
 offset afterward. Cycles and missing bones produce an error before changing it.

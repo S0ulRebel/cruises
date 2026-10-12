@@ -60,6 +60,32 @@ func add_source(path: String) -> Dictionary:
 	_finish()
 	return {"ok": true, "error": "", "part": part}
 
+func transform_selected(part: Node3D, before: Transform3D, after: Transform3D) -> Dictionary:
+	var error := ""
+	if is_instance_valid(part) and part == scene_root and part.is_inside_tree():
+		error = Ops.validate_transform(part.global_transform)
+	else:
+		error = _valid_part(part)
+	if not error.is_empty():
+		return _fail(error)
+	error = Ops.validate_transform(after)
+	if not error.is_empty():
+		return _fail(error)
+	if not part.global_transform.is_equal_approx(before):
+		return _fail("The part moved during this edit. Try the transform again.")
+	if before.is_equal_approx(after):
+		return {"ok": true, "part": part}
+	# Record local transforms so native undo follows an authored parent or bone.
+	var parent_inverse := Transform3D.IDENTITY
+	var parent := part.get_parent() as Node3D
+	if parent != null and not part.top_level:
+		parent_inverse = parent.global_transform.affine_inverse()
+	_begin("Transform character part")
+	undo.add_do_property(part, "transform", parent_inverse * after)
+	undo.add_undo_property(part, "transform", part.transform)
+	_finish()
+	return {"ok": true, "part": part}
+
 func add_prepared_parts(result: Dictionary) -> Dictionary:
 	if not result.get("ok", false):
 		return result

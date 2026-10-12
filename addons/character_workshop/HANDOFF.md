@@ -1,5 +1,43 @@
 # Character Workshop editor handoff
 
+## Approved visual workspace — 2026-10-12
+
+Delivered on the owner's `main` checkout after pulling `origin/main` to `6eda968`.
+The old long dock is now a Character Workshop main-screen tab. The authored UI
+keeps a dominant assembly view and optional independent detail view, actual nested
+character hierarchy, searchable project thumbnails, top file controls and bottom
+Move/Rotate/Scale/Attach/Duplicate/Remove actions. More opens the existing advanced
+tools separately. Fine adjust applies exact local transforms with native undo.
+
+`workshop_view.gd/.tscn` renders the current scene world with tool-owned cameras;
+picking, gizmos and face overlays stay outside the assembly. Live drags restore
+their initial transform before committing one native undo action and cancel on
+scene/tool/selection/focus changes. Attach picks actual parts and preserves world
+placement. Root selection transforms the whole character. Skinned picking uses
+reference mesh triangles, so posed animation picking remains a separate feature.
+
+`asset_browser.gd/.tscn` discovers project assets from EditorFileSystem without
+a registry. Native previews or lazy representative-mesh previews stay in memory;
+no source scene is instantiated for thumbnails and material overrides use private
+mesh copies. Compound prefabs show their largest visible mesh. Explicit disk import
+accepts self-contained GLBs, requires a chosen destination, rejects filename
+collisions/external dependencies and waits for Godot import before adding a part.
+
+Native editor checks pass 174/174, including two real scene views, nested/collapsed
+hierarchy, root selection, drag/precise-transform undo, picked attachment undo,
+asset search, import validation and existing save/cold-reopen routes. All 22 default
+checks and the engine-error rejection self-test pass. After the thumbnail fixes,
+editor/integration/cold reopen/authored checks pass again with source hashes intact.
+Final GPU capture passes 174/174 with no engine/script errors; workspace, hair/chair
+thumbnails and Fine adjust images were reviewed.
+Evidence: `%TEMP%/cruises-checks-8886df44ee964b44917681864e669c83/`,
+`%TEMP%/cruises-checks-c4a8b69c52474907a6455d990aa0c8c2/` and
+`%TEMP%/cruises-workshop-final-109c40bcbfd24286b2be2a64d43193f1/`.
+Production art and the accepted dialogue portrait remain independent. Final body,
+garment deformation and neck-seam art acceptance remain in the shared plan.
+
+## Earlier foundations
+
 2026-10-11. Editor scope only; integration enables the plugin and owns services/templates.
 
 Template workflow correction: New empty and New from template open independent,

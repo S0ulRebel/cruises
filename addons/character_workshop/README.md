@@ -1,7 +1,9 @@
 # Character Workshop
 
-Enable **Character Workshop** in Project Settings → Plugins. Its authored dock
-uses the ordinary Godot scene tree, 3D transform handles, Inspector and undo history.
+Enable **Character Workshop** in Project Settings → Plugins, then click its tab
+beside **3D** at the top of the editor. The workspace has an assembly viewport,
+an optional detail viewport, a real parts hierarchy and a visual **Assets** browser.
+Godot's scene tree, Inspector and undo history remain available.
 There are no fixed clothing slots or mandatory filenames.
 
 ## Assemble a character
@@ -11,13 +13,19 @@ There are no fixed clothing slots or mandatory filenames.
    Existing scene tabs stay open. Choose a destination later through **Save As**.
    **Open** browses for another saved assembly. Exported gameplay actors with an
    authored `Body` assembly can also be reopened and edited.
-2. **Add model / prefab** accepts imported 3D models and ordinary scenes anywhere in
-   the project. Drop files on the dock, or drag a model into the native scene tree
-   and use **Adopt selected**. Every instance has an independent stable identity.
-3. Select its part in the dock/scene tree and rename it freely. Use the native move,
-   rotate and scale tools or Inspector. Expand `Model` to edit individual descendants.
-4. Choose free placement, parenting to any actual node, or any bone in any actual
-   skeleton. **Attach / Apply** and **Detach** preserve world placement. The entire
+2. **Add part** opens the **Assets** tab. Search imported project models/prefabs,
+   double-click a thumbnail, use **Add selected**, or drag it into a fitting view.
+   **Import from disk** copies a self-contained GLB into an explicitly chosen project
+   folder and waits for Godot import. Existing filenames are rejected. For formats
+   with external dependencies, import the complete asset through Godot first.
+   **More → Adopt selected** wraps a model already in the native scene tree.
+3. Select a part in either viewport or hierarchy. Nested rows follow real attachment
+   parents; names remain arbitrary. Use the bottom **Move**, **Rotate**, **Scale**
+   buttons and axis handles. **Fine adjust** opens exact local position, rotation
+   and scale fields with Apply/Cancel; the native Inspector also remains available.
+4. **Attach** starts target picking: click the destination part in a view or hierarchy.
+   For an arbitrary node or bone, open **More** and choose its actual scene target.
+   **Attach / Apply** and **Detach** preserve world placement. The entire
    imported Model remains intact, including local rigs and facial blend shapes.
 5. Duplicate, hide, remove or replace parts with native undo/redo. Dependents require
    an explicit choice: keep them free, remove all, or reconnect matching targets.
@@ -28,16 +36,29 @@ There are no fixed clothing slots or mandatory filenames.
    **Save gameplay actor** deliberately adds movement/collision components through
    the export service. Static assemblies need no gameplay services.
 
-After native scene-tree renames/reparenting, the dock tracks retained target objects
+The second view can be hidden for more space. Each view has independent camera
+presets and framing, plus mouse orbit/pan/zoom. Cameras and gizmos are tool controls;
+they are never added to saved characters. Viewport drags commit one native undo action.
+Use right-drag or Alt-left-drag to orbit, middle-drag to pan, and the wheel to zoom.
+W/E/R choose transform tools, F frames selection, Home frames the whole character,
+and Ctrl snaps a drag. Leaving the tool or pressing Escape cancels an active drag.
+**More** opens the advanced tools window without replacing the visible character.
+
+Asset thumbnails are loaded lazily. When Godot has no native saved-scene preview,
+the browser renders the largest visible mesh from the prefab without instantiating
+its scripts. Compound prefabs therefore show a representative part. Thumbnails
+stay in memory and never change source models or materials.
+
+After native scene-tree renames/reparenting, the workshop tracks retained target objects
 and enables **Repair moved / renamed references** when paths need repair. This is
-an explicit undoable action. Use it before the dock's validated Save As/export.
+an explicit undoable action. Use it before the workshop's validated Save As/export.
 Opening a scene never silently repairs its paths. Targets already missing on opening
 must be selected again; the tool cannot infer a deleted rig.
 
 ## Remove fused geometry
 
 Select a part, then its mesh in **Reversible mesh exclusion**. Enable reference-pose
-selection and click faces in the native 3D viewport. The Add/Subtract switch edits
+selection and click faces in either workshop view or the native 3D viewport. The Add/Subtract switch edits
 the selection. Alternatively choose a mesh-space centre/size region or whole surface.
 Orange overlays preview selected faces, including excluded source faces for restoration.
 **Exclude**, **Restore** and **Reset mesh** are undoable and retain the original mesh.

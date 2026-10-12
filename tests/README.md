@@ -58,6 +58,15 @@ temporary/user paths; no test saves over a source scene or model.
 `workshop_editor_check` runs an actual headless Godot editor using its authored
 `fixtures/workshop_editor_check.tscn` and a process-local test environment variable.
 Do not launch it as `--editor --script`: that creates a second editor main loop.
+The fixture also checks the main-screen workspace, actual-world view cameras,
+nested hierarchy/collapse, native viewport transforms/undo, whole-assembly edits,
+target picking, fine adjustments, asset filtering and import validation.
+For graphical review, set `CRUISES_WORKSHOP_EDITOR_CHECK=1` and
+`CRUISES_WORKSHOP_CAPTURE` to an explicit external PNG path, then launch
+`--editor --rendering-method gl_compatibility --single-window
+res://tests/fixtures/workshop_editor_check.tscn` without `--headless`.
+It captures the workspace, Assets and Fine adjust states beside the selected path;
+check its complete log for engine errors even if assertions report success.
 Binding checks compare worker/synchronous geometry, cancellation/teardown, stale
 input rejection, original-material independence and saved refit provenance. Export
 checks exercise the actual Mover with borrowed idle/walk and separate facial trees.

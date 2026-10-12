@@ -1,0 +1,145 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://addons/character_workshop/workshop_view.gd" id="1_view"]
+
+[sub_resource type="Environment" id="Environment_preview"]
+background_mode = 1
+background_color = Color(0.055, 0.07, 0.09, 1)
+ambient_light_source = 3
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 1.0
+reflected_light_source = 2
+tonemap_mode = 0
+
+[sub_resource type="StyleBoxFlat" id="Style_frame"]
+bg_color = Color(0.08, 0.095, 0.12, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.2, 0.25, 0.3, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="WorkshopView" type="Control"]
+custom_minimum_size = Vector2(280, 220)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_view")
+
+[node name="Frame" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("Style_frame")
+
+[node name="Column" type="VBoxContainer" parent="Frame"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Header" type="HBoxContainer" parent="Frame/Column"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="ViewTitle" type="Label" parent="Frame/Column/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/outline_size = 0
+text = "Assembly view"
+text_overrun_behavior = 3
+clip_text = true
+
+[node name="ViewPreset" type="OptionButton" parent="Frame/Column/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Camera angle. Camera changes never move character parts."
+fit_to_longest_item = false
+
+[node name="FrameAll" type="Button" parent="Frame/Column/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Frame the entire assembly (Home)"
+text = "All"
+
+[node name="FrameSelected" type="Button" parent="Frame/Column/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Frame the selected part (F)"
+text = "Focus"
+
+[node name="Surface" type="Control" parent="Frame/Column"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+clip_contents = true
+
+[node name="Render" type="SubViewportContainer" parent="Frame/Column/Surface"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+stretch = true
+
+[node name="PreviewWorld" type="SubViewport" parent="Frame/Column/Surface/Render"]
+unique_name_in_owner = true
+handle_input_locally = false
+size = Vector2i(512, 512)
+render_target_update_mode = 4
+
+[node name="Camera" type="Camera3D" parent="Frame/Column/Surface/Render/PreviewWorld"]
+unique_name_in_owner = true
+environment = SubResource("Environment_preview")
+cull_mask = 1048575
+current = true
+fov = 42.0
+near = 0.01
+far = 1000.0
+
+[node name="Overlay" type="Control" parent="Frame/Column/Surface"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 2
+tooltip_text = "Click a part to select it. Drag its colored axis handles or golden center to fit it. Hold Ctrl to snap. Right mouse or Alt-left orbits; middle mouse pans; wheel zooms."
+
+[node name="Empty" type="Label" parent="Frame/Column/Surface/Overlay"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.6, 0.67, 0.75, 1)
+text = "Start a character, then add a model or prefab.\nDrop project assets into this view."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="ViewHint" type="Label" parent="Frame/Column"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.67, 0.75, 1)
+theme_override_font_sizes/font_size = 12
+text = "Right-drag orbit · Middle-drag pan · Wheel zoom"
+text_overrun_behavior = 3

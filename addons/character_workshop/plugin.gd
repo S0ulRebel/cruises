@@ -7,6 +7,8 @@ const MeshOps = preload("res://actors/assembly/mesh_exclusion/operations.gd")
 const Commands = preload("commands.gd")
 const Preview = preload("preview.gd")
 const DockScene = preload("dock.tscn")
+const ImportDialogs = preload("import_dialogs.tscn")
+const TransformDialog = preload("transform_dialog.tscn")
 
 var dock: Control
 var commands: RefCounted
@@ -24,13 +26,32 @@ var _reference_root: Node
 var _references: Array = []
 var _binding_busy := false
 var _binding_cancel := false
+var _workspace_visible := false
+var _tool := "move"
+var _attach_part: Node3D
+var _import_dialogs: Node
+var _import_source := ""
+var _import_pending := ""
+var _import_root: Node3D
+var _import_scan_needed := false
+var _transform_dialog: Window
 
 func _enter_tree() -> void:
 	dock = DockScene.instantiate()
 	commands = Commands.new()
 	commands.undo = get_undo_redo()
 	preview = Preview.new()
-	add_control_to_dock(DOCK_SLOT_RIGHT_UL, dock)
+	get_editor_interface().get_editor_main_screen().add_child(dock)
+	dock.initialize(get_editor_interface())
+	_transform_dialog = TransformDialog.instantiate()
+	dock.add_child(_transform_dialog)
+	_transform_dialog.request.connect(_request)
+	_make_visible(false)
+	_import_dialogs = ImportDialogs.instantiate()
+	dock.add_child(_import_dialogs)
+	_import_dialogs.get_node("Source").file_selected.connect(_import_source_selected)
+	_import_dialogs.get_node("Destination").dir_selected.connect(_import_destination_selected)
+	get_editor_interface().get_resource_filesystem().filesystem_changed.connect(_finish_import)
 	dock.request.connect(_request)
 	dock.get_node("%FileDialog").file_selected.connect(_file_selected)
 	dock.get_node("%FileDialog").files_selected.connect(_files_selected)
@@ -56,16 +77,37 @@ func _exit_tree() -> void:
 	if get_editor_interface().get_selection().selection_changed.is_connected(_selection_changed):
 		get_editor_interface().get_selection().selection_changed.disconnect(_selection_changed)
 	remove_tool_menu_item("Character Workshop: New empty character")
-	remove_control_from_docks(dock)
+	if get_editor_interface().get_resource_filesystem().filesystem_changed.is_connected(_finish_import):
+		get_editor_interface().get_resource_filesystem().filesystem_changed.disconnect(_finish_import)
+	dock.cancel_drag()
+	dock.get_parent().remove_child(dock)
 	dock.queue_free()
 
 func _handles(object: Object) -> bool:
-	return object is Node3D
+	return object is Assembly or object is AssemblyPart
+
+func _has_main_screen() -> bool:
+	return true
+
+func _get_plugin_icon() -> Texture2D:
+	return get_editor_interface().get_editor_theme().get_icon("Skeleton3D", "EditorIcons")
+
+func _make_visible(visible: bool) -> void:
+	_workspace_visible = visible
+	if is_instance_valid(dock):
+		if not visible:
+			dock.cancel_drag()
+			dock.get_node("%AdvancedTools").hide()
+			if is_instance_valid(_transform_dialog):
+				_transform_dialog.cancel()
+		dock.visible = visible
 
 func _apply_changes() -> void:
+	dock.cancel_drag()
 	_restore_preview()
 
 func _save_external_data() -> void:
+	dock.cancel_drag()
 	_restore_preview()
 
 func _get_plugin_name() -> String:
@@ -77,6 +119,13 @@ func _process(delta: float) -> void:
 	if _refresh_time > 0.75:
 		_refresh_time = 0.0
 		_refresh()
+		if _import_scan_needed:
+			var filesystem := get_editor_interface().get_resource_filesystem()
+			if not filesystem.is_scanning() and not filesystem.is_importing():
+				_import_scan_needed = false
+				filesystem.scan()
+		elif not _import_pending.is_empty():
+			_finish_import()
 	if face_mode or not face_selection.is_empty():
 		update_overlays()
 
@@ -94,9 +143,14 @@ func _refresh() -> void:
 		return
 	var root := _scene_root()
 	commands.scene_root = root
+	if _tool == "attach" and (not is_instance_valid(_attach_part) or root == null or not root.is_ancestor_of(_attach_part)):
+		_attach_part = null
+		_tool = "move"
+		dock.set_tool(_tool)
 	_track_references(root)
-	var selected := Ops.nearest_part(_native_selected())
-	if selected != null and (root == null or not root.is_ancestor_of(selected)):
+	var native := _native_selected()
+	var selected := root if root != null and native == root else Ops.nearest_part(native)
+	if selected != null and (root == null or (selected != root and not root.is_ancestor_of(selected))):
 		selected = null
 	var old_mesh: MeshInstance3D = dock.current_mesh if is_instance_valid(dock.current_mesh) else null
 	dock.populate(root, Ops.collect_parts(root), selected)
@@ -110,6 +164,12 @@ func _refresh() -> void:
 	_update_geometry_info()
 
 func _scene_changed(_root: Node) -> void:
+	dock.cancel_drag()
+	_attach_part = null
+	_tool = "move"
+	dock.set_tool(_tool)
+	_transform_dialog.cancel()
+	dock.get_node("%AdvancedTools").hide()
 	_restore_preview()
 	face_selection.clear()
 	_reference_root = null
@@ -124,11 +184,14 @@ func _command_changed() -> void:
 	call_deferred("_refresh")
 
 func _select(node: Node) -> void:
+	var keep_workspace := _workspace_visible
 	var selection := get_editor_interface().get_selection()
 	selection.clear()
 	if is_instance_valid(node) and node.is_inside_tree():
 		selection.add_node(node)
 		get_editor_interface().edit_node(node)
+	if keep_workspace:
+		get_editor_interface().set_main_screen_editor(_get_plugin_name())
 
 func _report(result: Dictionary, success: String) -> void:
 	if not result.get("ok", false):
@@ -145,6 +208,36 @@ func _request(action: String, value: Variant) -> void:
 		return
 	var part: Node3D = dock.current_part if is_instance_valid(dock.current_part) else null
 	match action:
+		"tool":
+			_restore_preview()
+			dock.cancel_drag()
+			_tool = str(value)
+			_attach_part = part if _tool == "attach" else null
+			if _tool == "attach" and part == null:
+				dock.set_status("Select the part you want to attach first.", true)
+				_tool = "move"
+			dock.set_tool(_tool)
+			if _tool == "attach":
+				dock.set_status("Pick the destination part in either view or the hierarchy. Placement will stay the same.")
+		"begin_transform":
+			_restore_preview()
+		"transform":
+			_report(commands.transform_selected(value.part, value.before, value.after), "Transform applied. Undo restores the previous placement.")
+		"view_input":
+			value.handled = _forward_3d_gui_input(value.camera, value.event) == EditorPlugin.AFTER_GUI_INPUT_STOP
+		"attach_target":
+			_pick_attachment(value)
+		"inspector":
+			dock.cancel_drag()
+			_restore_preview()
+			var selected := part if part != null else _native_selected()
+			if is_instance_valid(selected):
+				_transform_dialog.open_for(selected)
+		"import_asset":
+			if not _import_pending.is_empty():
+				dock.set_status("Wait for the current model import to finish.", true)
+			else:
+				_import_dialogs.get_node("Source").popup_centered_ratio(0.65)
 		"new":
 			_new_assembly()
 		"template":
@@ -173,7 +266,10 @@ func _request(action: String, value: Variant) -> void:
 		"adopt":
 			_report(commands.adopt_selected(_native_selected()), "Model adopted. Move, rotate and scale its part using native controls.")
 		"select":
-			_select(value)
+			if _tool == "attach":
+				_pick_attachment(value)
+			else:
+				_select(value)
 		"duplicate":
 			_report(commands.duplicate_selected(part), "Independent part duplicated.")
 		"visibility":
@@ -231,6 +327,7 @@ func _request(action: String, value: Variant) -> void:
 			preview.stop()
 
 func _show_file(action: String, mode: int, filters: PackedStringArray) -> void:
+	dock.cancel_drag()
 	_file_action = action
 	var dialog: FileDialog = dock.get_node("%FileDialog")
 	dialog.file_mode = mode
@@ -242,6 +339,111 @@ func _show_file(action: String, mode: int, filters: PackedStringArray) -> void:
 
 func _new_assembly() -> void:
 	_create_from_template("res://actors/assembly/templates/empty.tscn")
+	get_editor_interface().set_main_screen_editor(_get_plugin_name())
+
+func _pick_attachment(target: Node3D) -> void:
+	if _has_moved_references():
+		dock.set_status("Repair moved / renamed references before changing this assembly.", true)
+		return
+	if not is_instance_valid(_attach_part):
+		dock.set_status("Select a part and start Attach again.", true)
+		return
+	if not is_instance_valid(target) or target == _attach_part or _attach_part.is_ancestor_of(target):
+		dock.set_status("Choose another part outside the selected part's hierarchy.", true)
+		return
+	var result: Dictionary = commands.attach_selected(_attach_part, target, 1)
+	if result.get("ok", false):
+		_tool = "move"
+		_attach_part = null
+		dock.set_tool(_tool)
+	_report(result, "Attached to %s without moving. Bone attachment is available under More." % target.name)
+
+func _import_source_selected(path: String) -> void:
+	var error := _validate_import_source(path)
+	if not error.is_empty():
+		dock.set_status(error, true)
+		return
+	_import_source = path
+	_import_root = _scene_root()
+	_import_dialogs.get_node("Destination").popup_centered_ratio(0.65)
+
+func _import_destination_selected(folder: String) -> void:
+	if not _import_pending.is_empty():
+		dock.set_status("Wait for the current model import to finish.", true)
+		return
+	if not folder.begins_with("res://") or not DirAccess.dir_exists_absolute(folder):
+		dock.set_status("Choose an existing project folder.", true)
+		return
+	var validation := _validate_import_source(_import_source)
+	if not validation.is_empty():
+		dock.set_status(validation, true)
+		return
+	var path := folder.path_join(_import_source.get_file()).simplify_path()
+	if not path.begins_with("res://") or FileAccess.file_exists(path):
+		dock.set_status("That filename already exists. Choose another folder; existing assets are preserved.", true)
+		return
+	var error := DirAccess.copy_absolute(_import_source, ProjectSettings.globalize_path(path))
+	if error != OK:
+		dock.set_status("Import copy failed: %s." % error_string(error), true)
+		return
+	_import_pending = path
+	_import_scan_needed = true
+	dock.set_status("Importing %s into %s…" % [_import_source.get_file(), folder])
+	var filesystem := get_editor_interface().get_resource_filesystem()
+	if not filesystem.is_scanning() and not filesystem.is_importing():
+		_import_scan_needed = false
+		filesystem.scan()
+
+func _finish_import() -> void:
+	if _import_pending.is_empty() or _import_scan_needed:
+		return
+	var filesystem := get_editor_interface().get_resource_filesystem()
+	if filesystem.is_scanning() or filesystem.is_importing():
+		return
+	var path := _import_pending
+	if filesystem.get_file_type(path).is_empty():
+		return
+	_import_pending = ""
+	var directory := filesystem.get_filesystem_path(path.get_base_dir())
+	var import_valid := false
+	if directory != null:
+		for index: int in directory.get_file_count():
+			if directory.get_file_path(index) == path:
+				import_valid = directory.get_file_import_is_valid(index)
+				break
+	if not import_valid or not ResourceLoader.exists(path, "PackedScene"):
+		dock.set_status("Copied %s, but Godot could not import it. Review the import errors." % path, true)
+		return
+	if is_instance_valid(_import_root) and _scene_root() == _import_root:
+		_files_selected(PackedStringArray([path]))
+	else:
+		dock.set_status("Imported %s. Add it from Assets when your character is open." % path)
+
+func _validate_import_source(path: String) -> String:
+	if path.get_extension().to_lower() != "glb" or not FileAccess.file_exists(path):
+		return "Choose a self-contained GLB. Import other formats through Godot's FileSystem first."
+	var file := FileAccess.open(path, FileAccess.READ)
+	if file == null or file.get_length() < 20:
+		return "This file is not a valid GLB model."
+	if file.get_32() != 0x46546C67 or file.get_32() != 2 or file.get_32() != file.get_length():
+		return "This file is not a valid GLB 2 model."
+	var json_length := file.get_32()
+	if file.get_32() != 0x4E4F534A or json_length > 32 * 1024 * 1024 or json_length + 20 > file.get_length():
+		return "The GLB model has an invalid JSON header."
+	var parser := JSON.new()
+	if parser.parse(file.get_buffer(json_length).get_string_from_utf8()) != OK or not parser.data is Dictionary:
+		return "The GLB model has an invalid JSON header."
+	for key: String in ["images", "buffers"]:
+		var resources: Variant = parser.data.get(key, [])
+		if not resources is Array:
+			return "The GLB model has an invalid resource list."
+		for resource: Variant in resources:
+			if not resource is Dictionary:
+				return "The GLB model has an invalid resource entry."
+			var uri := str(resource.get("uri", ""))
+			if not uri.is_empty() and not uri.begins_with("data:"):
+				return "This GLB uses external textures or buffers. Import its complete folder through Godot first."
+	return ""
 
 func _file_selected(path: String) -> void:
 	match _file_action:
@@ -251,6 +453,7 @@ func _file_selected(path: String) -> void:
 				return
 			get_editor_interface().open_scene_from_path(path)
 		"save":
+			dock.cancel_drag()
 			_restore_preview()
 			if _has_moved_references():
 				dock.set_status("Repair moved / renamed references before saving this character.", true)
@@ -258,6 +461,7 @@ func _file_selected(path: String) -> void:
 			_report(Ops.save_scene(_scene_root(), path), "Assembly saved to %s. Reopen it to continue editing." % path)
 			get_editor_interface().get_resource_filesystem().scan()
 		"save_actor":
+			dock.cancel_drag()
 			_restore_preview()
 			if _has_moved_references():
 				dock.set_status("Repair moved / renamed references before exporting this character.", true)
@@ -301,6 +505,7 @@ func _files_selected(paths: PackedStringArray) -> void:
 		_report(commands.add_source(path), "Added %s. Rename it in the native scene tree and fit it with transform handles." % path.get_file())
 
 func _create_from_template(path: String) -> void:
+	dock.cancel_drag()
 	if not ResourceLoader.exists(path, "PackedScene"):
 		dock.set_status("Template unavailable: %s" % path, true)
 		return
@@ -450,6 +655,7 @@ func _update_geometry_info() -> void:
 		for surface: Variant in mask.excluded_faces:
 			excluded += mask.excluded_faces[surface].size()
 	dock.set_face_count(count, excluded)
+	dock.set_face_selection(dock.current_mesh, mesh, face_selection)
 	update_overlays()
 
 func _combine_selection(faces: Dictionary) -> void:

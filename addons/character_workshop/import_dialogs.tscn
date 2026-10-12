@@ -1,0 +1,16 @@
+[gd_scene format=3]
+
+[node name="ImportDialogs" type="Node"]
+
+[node name="Source" type="FileDialog" parent="."]
+title = "Import a self-contained GLB model"
+size = Vector2i(800, 540)
+access = 2
+file_mode = 0
+filters = PackedStringArray("*.glb ; Self-contained 3D model")
+
+[node name="Destination" type="FileDialog" parent="."]
+title = "Choose the project folder for this model"
+size = Vector2i(800, 540)
+access = 0
+file_mode = 2

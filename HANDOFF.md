@@ -55,7 +55,7 @@ Captain's fitted frontal dialogue portrait and its editable assembly rotation ar
 recorded in `ui/HANDOFF.md` and `ui/portraits/captain_live/fit.json`; body work remains
 deferred. Portrait checks and external GPU capture commands are in `tests/README.md`.
 
-Character Workshop is integrated into `main` and `codex/character-workshop` and enabled in
+Character Workshop is integrated into `main` and enabled in
 Godot's editor. Read `actors/assembly/README.md` for the workflow and
 `docs/CHARACTER_WORKSHOP_PLAN.md` for priorities, evidence and remaining acceptance.
 Freely named parts use native transforms/undo, scene-derived parent/bone targets,
@@ -81,8 +81,15 @@ announced to the owner before acting; see `AGENTS.md`.
 Validation: all 21 checks, 125 native editor assertions, cold reopen routes and
 the engine-error rejection self-test pass with authored hashes unchanged.
 Evidence: `%TEMP%/cruises-checks-ff8993880e4449c8aea84fca57604f3f/`.
-The new viewport/layout concepts are awaiting owner approval; UI implementation
-must wait until a design is approved.
+The owner approved the revised two-view Character Workshop layout on 2026-10-12.
+The implementation is complete on `main`, after pulling remote portrait repairs.
+Open the Character Workshop main-screen tab beside 3D for two independent fitting
+views, the actual nested hierarchy, searchable thumbnails, bottom transform/attach
+actions and exact Fine adjust fields. More keeps advanced tools out of the workspace.
+All 22 checks/cold routes and 174 native editor assertions pass; final GPU captures
+show the workspace and real thumbnails with no engine errors. Source hashes remain
+unchanged. Details and remaining art/owner acceptance are in
+`docs/CHARACTER_WORKSHOP_PLAN.md` and the editor/test module handoffs.
 
 Owner-authorized follow-up: the checkout is now `main`. Both stashes contain the
 same three texture-import updates; these are versioned on `main` with their existing

@@ -1,10 +1,14 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=11 format=3]
 
 [ext_resource type="Script" path="res://addons/character_workshop/dock.gd" id="1"]
 [ext_resource type="PackedScene" path="res://addons/character_workshop/workshop_view.tscn" id="2_view"]
 [ext_resource type="PackedScene" path="res://addons/character_workshop/asset_browser.tscn" id="3_assets"]
 
 [ext_resource type="PackedScene" path="res://addons/character_workshop/transform_dialog.tscn" id="4_fine"]
+[ext_resource type="PackedScene" path="res://addons/character_workshop/reference_view.tscn" id="5_reference"]
+[ext_resource type="PackedScene" path="res://addons/character_workshop/reference_board.tscn" id="6_board"]
+
+[sub_resource type="ButtonGroup" id="Reference_modes"]
 
 [sub_resource type="StyleBoxFlat" id="Style_toolbar"]
 bg_color = Color(0.15, 0.165, 0.19, 1)
@@ -64,7 +68,7 @@ text = "Open…"
 [node name="Save" type="Button" parent="Toolbar/FileRow"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Save As…"
+text = "Save"
 tooltip_text = "Save this character; choose a path on its first save."
 
 [node name="SaveAs" type="Button" parent="Toolbar/FileRow"]
@@ -200,7 +204,40 @@ size_flags_stretch_ratio = 1.86
 view_title = "Assembly view"
 initial_preset = "Perspective"
 
-[node name="DetailView" parent="Body/WorkArea/Views" instance=ExtResource("2_view")]
+[node name="DetailPane" type="VBoxContainer" parent="Body/WorkArea/Views"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ModeRow" type="HBoxContainer" parent="Body/WorkArea/Views/DetailPane"]
+layout_mode = 2
+
+[node name="Detail3D" type="Button" parent="Body/WorkArea/Views/DetailPane/ModeRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "3D"
+toggle_mode = true
+button_pressed = true
+button_group = SubResource("Reference_modes")
+
+[node name="DetailReference" type="Button" parent="Body/WorkArea/Views/DetailPane/ModeRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Reference"
+toggle_mode = true
+button_group = SubResource("Reference_modes")
+
+[node name="References" type="Button" parent="Body/WorkArea/Views/DetailPane/ModeRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Images…"
+toggle_mode = true
+tooltip_text = "Show the reference-image board. Images are editor workspace preferences, never game content."
+
+[node name="DetailView" parent="Body/WorkArea/Views/DetailPane" instance=ExtResource("2_view")]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(175, 260)
 layout_mode = 2
@@ -210,6 +247,11 @@ view_title = "Detail view"
 detail_view = true
 initial_preset = "Front"
 
+[node name="ReferenceView" parent="Body/WorkArea/Views/DetailPane" instance=ExtResource("5_reference")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
 [node name="AssetDrawer" type="PanelContainer" parent="Body/WorkArea"]
 unique_name_in_owner = true
 visible = false
@@ -218,6 +260,11 @@ custom_minimum_size = Vector2(0, 235)
 
 [node name="Assets" parent="Body/WorkArea/AssetDrawer" instance=ExtResource("3_assets")]
 unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ReferenceBoard" parent="Body/WorkArea" instance=ExtResource("6_board")]
+unique_name_in_owner = true
+visible = false
 layout_mode = 2
 
 [node name="ActionPanel" type="PanelContainer" parent="."]
@@ -284,9 +331,9 @@ tooltip_text = "Open exact local position, rotation and scale fields. Apply crea
 [node name="TwoViews" type="CheckButton" parent="ActionPanel/ActionRow"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Detail view"
+text = "Second pane"
 button_pressed = true
-tooltip_text = "Show a second independently framed view of the same editable assembly."
+tooltip_text = "Show the small pane for a second 3D view or a character reference image."
 
 [node name="FittingSettings" type="HBoxContainer" parent="."]
 layout_mode = 2

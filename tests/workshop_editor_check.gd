@@ -376,6 +376,8 @@ func _run() -> void:
 		edited_history.undo()
 		expect(Ops.collect_parts(get_parent()).is_empty(), "native dock add undo")
 		edited_history.clear_history()
+		# Finish synthetic input/undo notifications before dispatching native New.
+		await get_tree().process_frame
 		await _check_unsaved_starters(plugin)
 		# Backend command fixtures share the editor world. Keep their synthetic
 		# green geometry out of the graphical user-workspace acceptance capture.
@@ -406,6 +408,9 @@ func _check_unsaved_starters(plugin: EditorPlugin) -> void:
 	var dialog := native_dock.get_node("%FileDialog") as FileDialog
 	var template_path := "res://actors/assembly/templates/captain_portrait.tscn"
 	var template_hash := FileAccess.get_sha256(template_path)
+	var template_instance: Node = load(template_path).instantiate()
+	var template_part_count := Ops.collect_parts(template_instance).size()
+	template_instance.free()
 	var empty_hash := FileAccess.get_sha256("res://actors/assembly/templates/empty.tscn")
 	native_dock.get_node("%New").pressed.emit()
 	for frame: int in 3:
@@ -428,7 +433,7 @@ func _check_unsaved_starters(plugin: EditorPlugin) -> void:
 	for frame: int in 3:
 		await tree.process_frame
 	var first := EditorInterface.get_edited_scene_root()
-	expect(first is Assembly and first != empty and first.scene_file_path.is_empty() and Ops.collect_parts(first).size() == 5, "template selection immediately opens its unsaved character copy")
+	expect(first is Assembly and first != empty and first.scene_file_path.is_empty() and Ops.collect_parts(first).size() == template_part_count, "template selection immediately opens its unsaved character copy")
 	expect(not dialog.visible and templates.selected == 0, "template creation skips browsing and resets its chooser for reuse")
 	expect(EditorInterface.get_open_scene_roots().has(empty) and EditorInterface.get_open_scene_roots().has(previous_root), "template creation preserves existing scenes")
 	expect(plugin.commands.scene_root == first, "template copy is immediately editable")
@@ -530,8 +535,11 @@ func _check_workspace(plugin: EditorPlugin) -> void:
 		browser.get_node("%AssetSearch").text_changed.emit("")
 	await _check_import_validation(plugin)
 	await _check_usability(plugin)
+	await _check_references(plugin)
 	var capture := OS.get_environment("CRUISES_WORKSHOP_CAPTURE")
 	if not capture.is_empty() and DisplayServer.get_name() != "headless":
+		# Let the native large-text-scene save toast expire before UI captures.
+		await get_tree().create_timer(7.0).timeout
 		plugin.hide_bottom_panel()
 		var window := get_window()
 		window.mode = Window.MODE_WINDOWED
@@ -563,6 +571,35 @@ func _check_workspace(plugin: EditorPlugin) -> void:
 		if screenshot != null:
 			screenshot.save_png(capture.get_base_dir().path_join("fine_adjust.png"))
 		plugin._transform_dialog.cancel()
+		panel.show_references(true)
+		panel.get_node("%ReferenceBoard").add_images(["res://art/characters/captain_live/sheet.png"])
+		for frame: int in 8:
+			await get_tree().process_frame
+		await RenderingServer.frame_post_draw
+		screenshot = panel.get_viewport().get_texture().get_image()
+		if screenshot != null:
+			screenshot.save_png(capture.get_base_dir().path_join("references.png"))
+
+func _check_references(plugin: EditorPlugin) -> void:
+	var panel: Control = plugin.dock
+	var board = panel.get_node("%ReferenceBoard")
+	var isolated := {"value": {}}
+	board.workspace.read_preferences = func(): return isolated.value
+	board.workspace.write_preferences = func(value): isolated.value = value
+	var source := "res://art/characters/captain_live/sheet.png"
+	board.add_images([source])
+	panel.show_references(true)
+	expect(panel.get_node("%ReferenceView").visible and not panel.get_node("%DetailView").visible, "reference selection displays an image in the genuine second pane")
+	expect(panel.get_node("%ReferenceView").texture != null and panel.get_node("%MainView").visible and panel.get_node("%Sidebar").visible, "reference comparison keeps assembly and hierarchy available")
+	var camera: Camera3D = panel.get_node("%DetailView").camera
+	var previous := camera.transform
+	panel.get_node("%Detail3D").pressed.emit()
+	expect(camera.transform == previous and panel.get_node("%DetailView").visible, "reference and 3D switches preserve the detail camera")
+	panel.show_assets()
+	expect(not board.visible and panel.get_node("%AssetDrawer").visible, "native asset/reference drawers share the same space")
+	panel.get_node("%AssetDrawer").hide()
+	panel.show_references(false)
+	board.remove_active()
 
 func _check_pane_editing(plugin: EditorPlugin, part: Node3D) -> void:
 	EditorInterface.set_main_screen_editor("Character Workshop")
@@ -786,7 +823,7 @@ func _check_usability(plugin: EditorPlugin) -> void:
 		var valid_references := true
 		for reference: Dictionary in Ops.capture_references(reopened):
 			valid_references = valid_references and is_instance_valid(reference.target)
-		expect(Ops.collect_parts(reopened).size() == 5 and valid_references, "native saved assembly reload retains all parts and rig/attachment references")
+		expect(Ops.collect_parts(reopened).size() == Ops.collect_parts(root).size() and valid_references, "native saved assembly reload retains all parts and rig/attachment references")
 		reopened.free()
 	history.undo()
 	panel.get_node("%Save").pressed.emit()

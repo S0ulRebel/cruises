@@ -6,6 +6,17 @@ and prop sheets, and the engine side, who puts them in the game.
 
 ## Current architecture — 2026-10-11
 
+2026-10-12 Character Workshop reference images: the small pane now switches between
+3D and an image; Images… opens a collapsible thumbnail board sharing the asset
+drawer's space. Pointer-anchored zoom, pan, Fit and per-saved-character local editor
+preferences are implemented without scene content. Focused backend/integration/cold
+checks and 217 native graphical assertions pass; source hashes stay unchanged.
+Transparent overlays, pinned cards and design-sheet crops remain future improvements
+in `docs/CHARACTER_WORKSHOP_PLAN.md`. See workshop/test handoffs for evidence.
+The owner's newly fitted template/live portrait and import/art changes remain local
+and preserved. The live portrait was overwritten with a bare assembly; its authored
+camera/lights/speaking-rig wrapper must be restored around that fit before game use.
+
 2026-10-12 owner clarification: the reported doubled appearance was traced by the
 owner to the Tripo pirate hat, not the head. A handmade tricorn is now delivered
 under `art/characters/captain_live/pieces/hat/handmade/`. The owner requested keeping

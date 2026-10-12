@@ -63,7 +63,17 @@ func _ready() -> void:
 	%GridOverlay.toggled.connect(func(_value: bool): _update_view_options())
 	%BoundsOverlay.toggled.connect(func(_value: bool): _update_view_options())
 	%AdvancedTools.close_requested.connect(%AdvancedTools.hide)
-	%TwoViews.toggled.connect(func(value: bool): %DetailView.visible = value)
+	%TwoViews.text = "Second pane"
+	%TwoViews.toggled.connect(func(value: bool): %DetailPane.visible = value)
+	%References.toggled.connect(show_references)
+	%Detail3D.pressed.connect(func(): %ReferenceBoard.set_mode("3d"))
+	%DetailReference.pressed.connect(func(): %ReferenceBoard.set_mode("reference"))
+	%ReferenceBoard.changed.connect(_reference_changed)
+	%ReferenceBoard.close_requested.connect(func(): show_references(false))
+	%ReferenceView.add_paths.connect(%ReferenceBoard.add_images)
+	%ReferenceView.browse_requested.connect(func():
+		show_references(true)
+		%ReferenceBoard.browse())
 	for pair: Array in [["Move", "move"], ["Rotate", "rotate"], ["Scale", "scale"], ["PickAttach", "attach"]]:
 		var mode: String = pair[1]
 		get_node("%" + pair[0]).pressed.connect(func(): request.emit("tool", mode))
@@ -77,6 +87,10 @@ func _ready() -> void:
 func initialize(editor: EditorInterface) -> void:
 	_editor = editor
 	%Assets.initialize(editor)
+	%ReferenceBoard.context_provider = editor.get_edited_scene_root
+	var settings := editor.get_editor_settings()
+	%ReferenceBoard.workspace.read_preferences = func(): return settings.get_project_metadata("character_workshop", "reference_workspaces", {})
+	%ReferenceBoard.workspace.write_preferences = func(value): settings.set_project_metadata("character_workshop", "reference_workspaces", value)
 
 func refresh_catalog() -> void:
 	%Assets.refresh_catalog()
@@ -84,7 +98,25 @@ func refresh_catalog() -> void:
 func show_assets() -> void:
 	%AssetDrawer.visible = not %AssetDrawer.visible
 	if %AssetDrawer.visible:
+		show_references(false)
 		%Assets.focus_search()
+
+func show_references(value: bool) -> void:
+	%ReferenceBoard.visible = value
+	%References.set_pressed_no_signal(value)
+	if value:
+		%AssetDrawer.hide()
+
+func _reference_changed(state: Dictionary) -> void:
+	var reference: bool = state.mode == "reference"
+	%DetailView.visible = not reference
+	%ReferenceView.visible = reference
+	%Detail3D.set_pressed_no_signal(not reference)
+	%DetailReference.set_pressed_no_signal(reference)
+	%ReferenceView.set_image(state.active)
+	if reference:
+		%TwoViews.set_pressed_no_signal(true)
+		%DetailPane.show()
 
 func show_advanced() -> void:
 	if %AdvancedTools.visible:
@@ -167,6 +199,7 @@ func populate(root: Node3D, parts: Array, selected: Node3D) -> void:
 	var scene_changed := root != _root
 	var selection_changed := selected != _selection
 	_root = root
+	%ReferenceBoard.set_context(root)
 	_selection = selected
 	current_part = selected if selected is Part and parts.has(selected) else null
 	_populate_hierarchy(root, parts, selected, selection_changed)

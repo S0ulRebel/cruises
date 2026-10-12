@@ -393,6 +393,31 @@ native-donor export and editable exported pinned/skinned transforms that survive
 animation and cold reopening. The audit did not find skinned transform editing
 broken; do not replace working skinning to fix a disproved suspicion.
 
+## Reference images — approved 2026-10-12
+
+- [x] Add a simple Reference/3D switch to the small pane while preserving the main
+  assembly view, hierarchy and camera settings.
+- [x] Add a collapsible thumbnail board with multiple images, Add/Remove and project
+  image drops. External images use a file chooser; originals are never copied/deleted.
+- [x] Provide pointer-anchored wheel zoom, drag pan and Fit, with recoverable missing
+  files and stale-dialog protection when changing the edited character.
+- [x] Remember image paths, active image and mode in project-local editor preferences
+  per saved scene. Unsaved characters remain separate; Save As carries current choices.
+  Reference UI/images never become game-scene nodes or resources.
+- [ ] Future: adjustable transparent viewport overlay with opacity/position/scale.
+- [ ] Future: movable/pinnable reference cards around the main view.
+- [ ] Future: crop a design sheet into front/side/back reference views.
+- [ ] Future: portable reference bundles for sharing reference choices with teammates.
+- [ ] Follow-up: reduce inline mesh serialization through deliberate binary `.res`
+  outputs while retaining independent editable resources and exclusion provenance.
+  Do not disable warnings or silently rewrite fitted character scenes.
+
+Implementation uses authored editor-only controls and retains exactly two 3D viewports.
+References/Assets share drawer space. The regular Save label is corrected. Native
+template checks use the actual authored part count, allowing the owner's new hat and
+feather without forcing an older composition. Visual and integration evidence is
+recorded in the workshop/test handoffs after checks complete.
+
 ## Technical references
 
 - [Godot EditorPlugin](https://docs.godotengine.org/en/4.7/classes/class_editorplugin.html)

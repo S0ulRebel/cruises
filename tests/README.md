@@ -55,6 +55,14 @@ exported actor and head-swap saves are reopened in separate processes. The mesh 
 editor harnesses also perform their own cold checks. Outputs use unique explicit
 temporary/user paths; no test saves over a source scene or model.
 
+`workshop_references_check` exercises isolated reference preferences, independent
+unsaved/saved character contexts, Save As path association, thumbnail selection,
+missing files, removal without source deletion, drawer exclusivity, pointer-anchored
+zoom, pan/Fit and rejection of stale file dialogs. Images are written only to unique
+explicit `user://` fixture paths. The native editor fixture also checks the genuine
+reference/3D mode controls and preserves the detail camera. Optional graphical capture
+adds `references.png` alongside the normal workspace/asset/fine-adjust screenshots.
+
 `workshop_editor_check` runs an actual headless Godot editor using its authored
 `fixtures/workshop_editor_check.tscn` and a process-local test environment variable.
 Do not launch it as `--editor --script`: that creates a second editor main loop.

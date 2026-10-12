@@ -1,5 +1,31 @@
 # Validation handoff
 
+## 2026-10-12 — Character references
+
+New default `workshop_references_check` uses a memory preference store and one unique
+explicit user image to check context separation, saved-path association including
+Save As/exported actor Body, zoom anchoring, pan/Fit, missing files, original file
+preservation, packed project-file drops and stale dialog rejection. Native coverage
+adds four UI assertions; the graphical run passes 217/217.
+
+Ten focused checks plus their cold-reopen routes pass without authored-source changes:
+`%TEMP%/cruises-checks-1b43997c8be446a2832e7227ab7e68c1/`.
+Latest exported-Body coverage and editor/integration/authored checks pass:
+`%TEMP%/cruises-checks-7824f2ced1c244a9af6105b8d1c7b162/`.
+Graphical screenshots/log: `%TEMP%/cruises-reference-visual-ae0492e2c8354428b0b69313bf366f93/`.
+Final graphical screenshot/log after latest reference changes also passes 217/217:
+`%TEMP%/cruises-reference-visual-d6d16398c8f1491b936a73b79853672f/`.
+
+Template tests now verify source-derived counts and unique identities instead of
+hardcoding five parts. The owner saved six parts, adding handmade hat/feather.
+The cold animation ownership probe disables the stationary actor's physics driver
+so legitimate idle dispatch does not race its unrelated AnimationTree assertion.
+The native harness yields after synthetic input/undo before testing native New.
+
+The owner also saved a bare assembly over the game portrait. Camera/portrait-rig
+integration is pending owner response, so this pass does not claim full production
+portrait regression coverage. Do not restore or overwrite the owner's fitted files.
+
 ## 2026-10-12 — Approved usability follow-up
 
 All 22 default checks, separate cold reopen routes and the deliberate engine-error

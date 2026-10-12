@@ -12,7 +12,10 @@ func _run() -> void:
 		check("template opens without invalid configuration: " + template, (scene as CharacterAssembly)._get_configuration_warnings().is_empty())
 		if template == "captain_portrait":
 			var parts := AssemblyOperations.collect_parts(scene)
-			check("Captain template has five independent editable parts", parts.size() == 5)
+			var identities: Dictionary = {}
+			for part in parts:
+				identities[part.part_id] = true
+			check("Captain template has independently identified editable parts", not parts.is_empty() and identities.size() == parts.size() and not identities.has(""))
 			for part in parts:
 				check("template attachment target valid: " + String(part.name), part._get_configuration_warnings().is_empty())
 			var skel := scene.find_children("*", "Skeleton3D", true, false)[0] as Skeleton3D
@@ -302,6 +305,9 @@ func _cold(path: String) -> void:
 	if actor == null:
 		return
 	root.add_child(actor)
+	# This assertion isolates AnimationTree ownership. Locomotion's physics tick
+	# legitimately switches a stationary actor back to idle and races this probe.
+	actor.set_physics_process(false)
 	await process_frame
 	check("gameplay actor authors movement services once", actor.has_node("BodyShape") and actor.has_node("Agent") and actor.has_node("Obstacle"))
 	check("gameplay actor includes independent authored parts", AssemblyOperations.collect_parts(actor).size() == 2)

@@ -112,6 +112,33 @@ can continue during animation. Original materials are the default; neutral shadi
 temporary. Borrow compatible clips explicitly from a chosen model. Import saved legacy
 fits/outfits from arbitrary paths; conversion warnings identify required donor rebinding.
 
+## Character references
+
+The small pane has **3D** and **Reference** buttons. **Images…** opens a compact
+thumbnail board below the views; it shares space with the asset drawer. Choose
+**Add images…** to select PNG, JPEG or WebP images from the project or elsewhere
+on disk. Project image files can also be dragged onto the board or reference pane.
+Select a thumbnail to compare it beside the character. Close hides the board while
+keeping the selected reference visible. **Second pane** hides either view.
+
+Use the mouse wheel to zoom under the pointer, drag with the left/middle button to
+pan, or use **Fit** / F / Home with the image pane focused. Switching back to 3D
+preserves its camera and the image's current zoom/pan.
+
+Image paths, selection and pane mode are local editor preferences per saved character,
+not scene resources or game nodes. A first Save or Save As associates the current
+choices with that destination. Unsaved characters retain independent session choices;
+a new template copy starts with an empty reference workspace. These preferences do
+not travel through Git to other computers. Images stay at their chosen paths; moved
+files show an unavailable state and can be removed/re-added. Remove never deletes art.
+Only the active image uses a full-size texture; board thumbnails are reduced to 96px.
+
+The saved editable assembly is distinct from a game portrait renderer: replacing
+`ui/portraits/captain_live.tscn` with a bare assembly removes its authored camera,
+lights and speaking-rig properties. Fitted characters need integration inside that
+renderer. Large text-scene warnings can occur because independent mesh copies are
+currently stored inline; they are warnings about storage/load cost, not failed saves.
+
 ## Verification
 
 Run the real editor with `CRUISES_WORKSHOP_EDITOR_CHECK=1`, plugin enabled and

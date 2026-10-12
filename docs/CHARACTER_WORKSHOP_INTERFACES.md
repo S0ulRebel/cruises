@@ -117,6 +117,21 @@ root parts and visible warnings for Outfit or individual OutfitPiece resources.
 Nested pinned parts remain children; all instances are discovered with collect_parts.
 Skinned fits need deliberate donor binding. Conversion never overwrites source data.
 
+## Reference workspace
+
+`reference_workspace.gd` keeps per-root session state and saved-scene keys through
+injected read/write preference callables. The native dock supplies EditorSettings
+project metadata. Context changes load preferences read-only; explicit reference
+actions and a same-root Save/Save As path change persist choices. Tests inject a
+memory store, leaving the owner's reference preferences untouched.
+
+`reference_board.tscn` owns the thumbnail list/file chooser; `set_context(root)`,
+`add_images(paths)`, `set_mode(mode)` and `changed(state)` form the widget boundary.
+An open chooser remembers the root and rechecks the actual edited root on acceptance.
+`reference_view.tscn` is a normal 2D Control with `set_image`, `fit`, `zoom_at` and
+`pan`, not a third SubViewport. The dock toggles the original detail camera and this
+image control without altering the assembly. Image paths are not scene metadata.
+
 ## Editor and acceptance
 
 Plugin opens an authored empty template, can wrap/add arbitrary source models, lists

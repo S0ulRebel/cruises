@@ -1,5 +1,34 @@
 # Character Workshop editor handoff
 
+## Reference images — 2026-10-12
+
+The approved simple reference workflow is implemented. The second pane switches
+between its original 3D camera and a 2D image with Fit, pointer-anchored zoom and
+drag pan. Images… toggles a thumbnail board sharing the asset drawer's space.
+PNG/JPEG/WebP references accept external file selection and project image drops.
+Remove detaches the reference only. Per-character paths, selection and mode use
+local EditorSettings project preferences; saved actor Body assemblies use their
+owner's scene path. Pending dialogs verify the actual edited root. Templates and
+game scenes receive no reference nodes/resources. Save is now labeled correctly.
+
+Focused backend/integration checks and all cold-reopen routes pass, with authored
+source hashes preserved: `%TEMP%/cruises-checks-1b43997c8be446a2832e7227ab7e68c1/`.
+Latest owner-Body reference coverage is in
+`%TEMP%/cruises-checks-7824f2ced1c244a9af6105b8d1c7b162/`.
+Graphical native editor assertions pass 217/217; screenshots including references
+are in `%TEMP%/cruises-reference-visual-ae0492e2c8354428b0b69313bf366f93/`.
+Final graphical run after the exported-Body/packed-drop coverage also passes 217/217:
+`%TEMP%/cruises-reference-visual-d6d16398c8f1491b936a73b79853672f/`.
+`references.png` shows the owner-fitted Captain beside its design sheet, with the
+save toast expired and all fitting controls visible.
+
+Preserve the owner's dirty Captain template and live portrait. Both are now ~6.92
+MiB because independent mesh copies serialize inline (mostly the speaking head).
+The live portrait was saved as a bare assembly and currently lacks its camera,
+lights and portrait_rig properties; restoring that wrapper around the fitted parts
+is awaiting the owner's response. It is separate from this reference change.
+Future overlays/pinned cards/design-sheet crops/portable bundles are in the plan.
+
 ## Approved usability follow-up — 2026-10-12
 
 Implemented all ten approved points on `main`, with no graphical Godot session.

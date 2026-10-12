@@ -1,17 +1,19 @@
 @tool
-class_name WorkshopCommands
+class_name CWCommands
 extends RefCounted
 ## The editor's single transaction boundary. Core operations never silently save.
 
-const Ops = preload("res://actors/assembly/operations.gd")
-const Part = preload("res://actors/assembly/part.gd")
-const Mask = preload("res://actors/assembly/mesh_exclusion/mask.gd")
-const MeshOps = preload("res://actors/assembly/mesh_exclusion/operations.gd")
+const Ops = preload("res://addons/character_workshop/core/assembly_operations.gd")
+const Part = preload("res://addons/character_workshop/runtime/part.gd")
+const Mask = preload("res://addons/character_workshop/runtime/mesh_mask.gd")
+const MeshOps = preload("res://addons/character_workshop/core/mesh_operations.gd")
 
 signal changed
 
 var undo: EditorUndoRedoManager
 var scene_root: Node3D
+
+var animation_library := "workshop"
 
 func _fail(message: String) -> Dictionary:
 	return {"ok": false, "error": message}
@@ -206,23 +208,24 @@ func install_animation_library(result: Dictionary) -> Dictionary:
 	if player == null or model == null or library == null or not scene_root.is_ancestor_of(model):
 		return _fail("Choose a model in the current assembly as the animation target.")
 	var created: bool = result.get("created", false)
-	var previous: AnimationLibrary = player.get_animation_library("captain") if player.has_animation_library("captain") else null
+	var library_key := animation_library
+	var previous: AnimationLibrary = player.get_animation_library(library_key) if player.has_animation_library(library_key) else null
 	_begin("Borrow character animation clips")
 	if created:
 		undo.add_do_method(self, "_insert", player, model)
 		undo.add_undo_method(self, "_remove", player)
 		undo.add_do_reference(player)
-	undo.add_do_method(self, "_set_library", player, library)
-	undo.add_undo_method(self, "_set_library", player, previous)
+	undo.add_do_method(self, "_set_library", player, library, library_key)
+	undo.add_undo_method(self, "_set_library", player, previous, library_key)
 	_finish()
 	return {"ok": true, "error": ""}
 
-func _set_library(player: AnimationPlayer, value: AnimationLibrary) -> void:
+func _set_library(player: AnimationPlayer, value: AnimationLibrary, library_key: String) -> void:
 	player.stop()
-	if player.has_animation_library("captain"):
-		player.remove_animation_library("captain")
+	if player.has_animation_library(library_key):
+		player.remove_animation_library(library_key)
 	if value != null:
-		player.add_animation_library("captain", value)
+		player.add_animation_library(library_key, value)
 
 func repair_references(states: Array) -> Dictionary:
 	if not is_instance_valid(scene_root):

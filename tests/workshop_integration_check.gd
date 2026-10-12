@@ -9,9 +9,9 @@ func _run() -> void:
 	for template in ["empty", "rigged_starter", "captain_portrait"]:
 		var scene := instantiate_scene("res://actors/assembly/templates/%s.tscn" % template)
 		root.add_child(scene)
-		check("template opens without invalid configuration: " + template, (scene as CharacterAssembly)._get_configuration_warnings().is_empty())
+		check("template opens without invalid configuration: " + template, (scene as CWAssembly)._get_configuration_warnings().is_empty())
 		if template == "captain_portrait":
-			var parts := AssemblyOperations.collect_parts(scene)
+			var parts := CWAssemblyOperations.collect_parts(scene)
 			var identities: Dictionary = {}
 			for part in parts:
 				identities[part.part_id] = true
@@ -28,26 +28,26 @@ func _run() -> void:
 		scene.free()
 	_check_drawable_bounds()
 	_check_zero_hips_retarget()
-	var assembly := CharacterAssembly.new()
+	var assembly := CWAssembly.new()
 	assembly.name = "IntegrationAssembly"
 	root.add_child(assembly)
-	var donor_result := AssemblyOperations.create_part("res://art/models/characters/body_zombie.glb")
-	var donor := donor_result.part as AssemblyPart
+	var donor_result := CWAssemblyOperations.create_part("res://art/models/characters/body_zombie.glb")
+	var donor := donor_result.part as CWPart
 	donor.name = "Donor"
 	assembly.add_child(donor)
-	AssemblyOperations.ensure_owned(donor, assembly)
-	var piece_result := AssemblyOperations.create_part("res://actors/outfit/placeholders/coat_placeholder.tscn")
-	var piece := piece_result.part as AssemblyPart
+	CWAssemblyOperations.ensure_owned(donor, assembly)
+	var piece_result := CWAssemblyOperations.create_part("res://actors/outfit/placeholders/coat_placeholder.tscn")
+	var piece := piece_result.part as CWPart
 	piece.name = "ArbitraryGarment"
 	piece.position = Vector3(0, 0.8, 0)
 	assembly.add_child(piece)
-	AssemblyOperations.ensure_owned(piece, assembly)
+	CWAssemblyOperations.ensure_owned(piece, assembly)
 	var original := piece.get_node("Model") as Node3D
 	var original_mesh := original.get_node("Body") as MeshInstance3D
 	var original_vertices: PackedVector3Array = original_mesh.mesh.surface_get_arrays(0)[Mesh.ARRAY_VERTEX]
 	var expected := original_mesh.global_transform * original_vertices[0]
 	await _check_bad_skin_inputs(assembly, donor, piece)
-	var result := CharacterBindingService.bind_part(piece, donor)
+	var result := CWBindingService.bind_part(piece, donor)
 	if not check("explicit garment binding prepares independent replacement", bool(result.get("ok", false)), result.get("error", "")):
 		assembly.free()
 		finish()
@@ -72,37 +72,37 @@ func _run() -> void:
 	check("bound material edits leave original provenance independent", material_before != derived_material and material_before.albedo_color == saved_colour)
 	derived_material.albedo_color = saved_colour
 	provenance.free()
-	var asynchronous := await CharacterBindingService.bind_part_async(piece, donor)
+	var asynchronous := await CWBindingService.bind_part_async(piece, donor)
 	check("worker binding returns an independent prepared Model", asynchronous.get("ok", false), asynchronous.get("error", ""))
 	if asynchronous.get("ok", false):
 		var prepared := asynchronous.model as MeshInstance3D
 		check("worker and synchronous binding produce the same positions", prepared.mesh.surface_get_arrays(0)[Mesh.ARRAY_VERTEX] == (result.model as MeshInstance3D).mesh.surface_get_arrays(0)[Mesh.ARRAY_VERTEX])
 		prepared.free()
-	var cancelled := await CharacterBindingService.bind_part_async(piece, donor, Callable(), func(): return true)
+	var cancelled := await CWBindingService.bind_part_async(piece, donor, Callable(), func(): return true)
 	check("cancelled binding leaves the authored model untouched", not cancelled.ok and piece.get_node("Model") == original)
 	var cancel_polls := [0]
-	var running_cancel := await CharacterBindingService.bind_part_async(piece, donor, Callable(), func():
+	var running_cancel := await CWBindingService.bind_part_async(piece, donor, Callable(), func():
 		cancel_polls[0] += 1
 		return cancel_polls[0] > 1)
 	check("active worker cancellation completes without replacing the original", not running_cancel.ok and cancel_polls[0] > 1 and piece.get_node("Model") == original)
 	var before_worker := piece.transform
 	var edited_while_binding := [false]
-	var stale := await CharacterBindingService.bind_part_async(piece, donor, func(fraction: float):
+	var stale := await CWBindingService.bind_part_async(piece, donor, func(fraction: float):
 		if fraction < 1.0 and not edited_while_binding[0]:
 			edited_while_binding[0] = true
 			piece.position.x += 0.02)
 	check("editing during a worker rejects its stale result", edited_while_binding[0] and not stale.ok and piece.get_node("Model") == original)
 	piece.transform = before_worker
 	var edited_material := [false]
-	var stale_material := await CharacterBindingService.bind_part_async(piece, donor, func(fraction: float):
+	var stale_material := await CWBindingService.bind_part_async(piece, donor, func(fraction: float):
 		if fraction < 1.0 and not edited_material[0]:
 			edited_material[0] = true
 			retained_material.albedo_color = Color.PURPLE)
 	check("material edits during binding reject stale prepared resources", edited_material[0] and not stale_material.ok and piece.get_node("Model") == original)
 	retained_material.albedo_color = retained_colour
-	var joined := await CharacterBindingService.bind_part_async(piece, donor, func(fraction: float):
+	var joined := await CWBindingService.bind_part_async(piece, donor, func(fraction: float):
 		if fraction < 1.0:
-			CharacterBindingService.cancel_pending_jobs())
+			CWBindingService.cancel_pending_jobs())
 	check("editor teardown cancellation joins its worker and leaves the source intact", not joined.ok and piece.get_node("Model") == original)
 	var mesh := result.model as MeshInstance3D
 	var bound_vertices: PackedVector3Array = mesh.mesh.surface_get_arrays(0)[Mesh.ARRAY_VERTEX]
@@ -110,12 +110,12 @@ func _run() -> void:
 	piece.remove_child(original)
 	piece.add_child(mesh)
 	piece.binding_data = result.binding_data
-	piece.attachment_mode = AssemblyPart.AttachmentMode.SKINNED
+	piece.attachment_mode = CWPart.AttachmentMode.SKINNED
 	piece.target_path = piece.get_path_to(result.skeleton)
-	AssemblyOperations.ensure_owned(piece, assembly)
+	CWAssemblyOperations.ensure_owned(piece, assembly)
 	check("bound mesh resolves selected skeleton", mesh.get_node_or_null(mesh.skeleton) == result.skeleton)
 	piece.position.x += 0.15
-	var rebound := CharacterBindingService.bind_part(piece, donor)
+	var rebound := CWBindingService.bind_part(piece, donor)
 	check("explicit rebind retains original source provenance", bool(rebound.get("ok", false)), rebound.get("error", ""))
 	if rebound.get("ok", false):
 		var rebound_mesh := rebound.model as MeshInstance3D
@@ -123,21 +123,21 @@ func _run() -> void:
 		check("rebind incorporates authored movement exactly once", (piece.global_transform * rebound_mesh.transform * rebound_vertices[0]).distance_to(expected + Vector3(0.15, 0, 0)) < 0.0001)
 		rebound_mesh.free()
 	original.free()
-	var head_result := AssemblyOperations.create_part("res://art/characters/captain_live/pieces/head/head_face.glb")
-	var head := head_result.part as AssemblyPart
+	var head_result := CWAssemblyOperations.create_part("res://art/characters/captain_live/pieces/head/head_face.glb")
+	var head := head_result.part as CWPart
 	head.name = "SpeakingHead"
 	assembly.add_child(head)
-	check("facial donor conversion is rejected without mutation", not CharacterBindingService.bind_part(head, donor).ok and head.has_node("Model"))
-	check("body animation borrowing rejects a local facial rig cleanly", not CharacterAnimationService.borrow(head.get_node("Model"), "res://art/characters/captain_live/captain_live_animated.glb").ok)
+	check("facial donor conversion is rejected without mutation", not CWBindingService.bind_part(head, donor).ok and head.has_node("Model"))
+	check("body animation borrowing rejects a local facial rig cleanly", not CWAnimationService.borrow(head.get_node("Model"), "res://art/characters/captain_live/captain_live_animated.glb").ok)
 	head.free()
-	var borrowed := CharacterAnimationService.borrow(donor.get_node("Model"), "res://art/characters/captain_live/captain_live_animated.glb")
+	var borrowed := CWAnimationService.borrow(donor.get_node("Model"), "res://art/characters/captain_live/captain_live_animated.glb")
 	check("borrowed clips prepare cleanly", bool(borrowed.get("ok", false)), borrowed.get("error", ""))
 	if borrowed.get("ok", false):
 		var player := borrowed.player as AnimationPlayer
 		if borrowed.created:
 			donor.get_node("Model").add_child(player)
 		player.add_animation_library("captain", borrowed.library)
-		AssemblyOperations.ensure_owned(donor, assembly)
+		CWAssemblyOperations.ensure_owned(donor, assembly)
 	var body_tree := _preview_tree(donor.get_node("Model"), borrowed.player, "BodyTree", "captain/idle")
 	var face_player := AnimationPlayer.new()
 	face_player.name = "LocalFacePlayer"
@@ -148,8 +148,8 @@ func _run() -> void:
 	face_library.add_animation("face_idle", face_clip)
 	face_player.add_animation_library("", face_library)
 	_preview_tree(donor.get_node("Model"), face_player, "LocalFaceTree", "face_idle")
-	AssemblyOperations.ensure_owned(donor, assembly)
-	var output_dir := "user://workshop_integration_" + AssemblyOperations.generate_id()
+	CWAssemblyOperations.ensure_owned(donor, assembly)
+	var output_dir := "user://workshop_integration_" + CWAssemblyOperations.generate_id()
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(output_dir))
 	var output := output_dir.path_join("actor.tscn")
 	var exported := CharacterActorExportService.export_actor(assembly, output)
@@ -179,7 +179,7 @@ func _preview_tree(model: Node3D, player: AnimationPlayer, label: String, clip: 
 	return tree
 
 
-func _check_bad_skin_inputs(assembly: Node3D, donor: AssemblyPart, garment: AssemblyPart) -> void:
+func _check_bad_skin_inputs(assembly: Node3D, donor: CWPart, garment: CWPart) -> void:
 	var body: MeshInstance3D
 	for node in donor.get_node("Model").find_children("*", "MeshInstance3D", true, false):
 		if (node as MeshInstance3D).skin != null:
@@ -195,32 +195,32 @@ func _check_bad_skin_inputs(assembly: Node3D, donor: AssemblyPart, garment: Asse
 	arrays[Mesh.ARRAY_WEIGHTS] = weights
 	var invalid_mesh := ArrayMesh.new()
 	invalid_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
-	var malformed := AssemblyOperations.create_part("res://art/models/characters/body_zombie.glb").part as AssemblyPart
+	var malformed := CWAssemblyOperations.create_part("res://art/models/characters/body_zombie.glb").part as CWPart
 	malformed.name = "InvalidSkinFixture"
 	assembly.add_child(malformed)
 	var local_mesh := malformed.get_node("Model").find_children("*", "MeshInstance3D", true, false)[0] as MeshInstance3D
 	local_mesh.mesh = invalid_mesh
 	var original := malformed.get_node("Model")
-	var rejected := CharacterBindingService.bind_part(malformed, donor)
+	var rejected := CWBindingService.bind_part(malformed, donor)
 	check("malformed source skin indices reject without replacing the model", not rejected.ok and malformed.get_node("Model") == original and String(rejected.error).contains("skin index"))
 	arrays[Mesh.ARRAY_BONES] = null
 	arrays[Mesh.ARRAY_WEIGHTS] = null
 	var unweighted_mesh := ArrayMesh.new()
 	unweighted_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
 	local_mesh.mesh = unweighted_mesh
-	var unweighted := CharacterBindingService.bind_part(malformed, donor)
+	var unweighted := CWBindingService.bind_part(malformed, donor)
 	check("an unweighted surface inside a rigged model accepts explicit donor binding", unweighted.ok, unweighted.error)
 	if unweighted.ok:
 		(unweighted.model as Node).free()
-	var unweighted_worker := await CharacterBindingService.bind_part_async(malformed, donor)
+	var unweighted_worker := await CWBindingService.bind_part_async(malformed, donor)
 	check("worker handles an unweighted rigged surface without guessing local weights", unweighted_worker.ok, unweighted_worker.error)
 	if unweighted_worker.ok:
 		(unweighted_worker.model as Node).free()
 	malformed.free()
 	body.mesh = invalid_mesh
-	var bad_donor := CharacterBindingService.bind_part(garment, donor)
+	var bad_donor := CWBindingService.bind_part(garment, donor)
 	check("malformed donor skin indices reject before sampling", not bad_donor.ok and String(bad_donor.error).contains("skin index"))
-	var bad_worker := await CharacterBindingService.bind_part_async(garment, donor)
+	var bad_worker := await CWBindingService.bind_part_async(garment, donor)
 	check("malformed skin rejects before starting a binding worker", not bad_worker.ok and String(bad_worker.error).contains("skin index"))
 	body.mesh = original_mesh
 	var clone := donor.get_node("Model").duplicate() as Node3D
@@ -228,14 +228,14 @@ func _check_bad_skin_inputs(assembly: Node3D, donor: AssemblyPart, garment: Asse
 	cloned_mesh.skin = cloned_mesh.skin.duplicate() as Skin
 	cloned_mesh.skin.set_bind_bone(0, -1)
 	cloned_mesh.skin.set_bind_name(0, "MissingBone")
-	check("unresolved named skin binds are reported before conversion", not CharacterBindingService._validate_mesh(cloned_mesh).is_empty())
+	check("unresolved named skin binds are reported before conversion", not CWBindingService._validate_mesh(cloned_mesh).is_empty())
 	clone.free()
 
 
 func _check_drawable_bounds() -> void:
-	var assembly := CharacterAssembly.new()
-	var part := AssemblyPart.new()
-	part.part_id = AssemblyOperations.generate_id()
+	var assembly := CWAssembly.new()
+	var part := CWPart.new()
+	part.part_id = CWAssemblyOperations.generate_id()
 	assembly.add_child(part)
 	var instance := MeshInstance3D.new()
 	instance.name = "Model"
@@ -260,14 +260,14 @@ func _check_zero_hips_retarget() -> void:
 	rig.add_bone("Head")
 	rig.set_bone_parent(1, 0)
 	rig.set_bone_rest(1, Transform3D(Basis.IDENTITY, Vector3.UP))
-	var measured := Retarget._Rig.new(rig, model)
+	var measured := CWRetarget._Rig.new(rig, model)
 	var clip := Animation.new()
 	clip.length = 1.0
 	var track := clip.add_track(Animation.TYPE_POSITION_3D)
 	clip.track_set_path(track, NodePath("Rig:Hips"))
 	clip.position_track_insert_key(track, 0.0, Vector3.ZERO)
 	clip.position_track_insert_key(track, 1.0, Vector3(0, 0.1, 0.2))
-	var copied := Retarget._copy(clip, measured, measured, "Rig")
+	var copied := CWRetarget._copy(clip, measured, measured, "Rig")
 	var finite := copied.get_track_count() == 1
 	for key in copied.track_get_key_count(0):
 		finite = finite and (copied.track_get_key_value(0, key) as Vector3).is_finite()
@@ -289,12 +289,12 @@ func _check_zero_hips_retarget() -> void:
 	var library := AnimationLibrary.new()
 	library.add_animation("walk", empty_target_clip)
 	player.add_animation_library("", library)
-	var folder := "user://workshop_unmapped_" + AssemblyOperations.generate_id()
+	var folder := "user://workshop_unmapped_" + CWAssemblyOperations.generate_id()
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(folder))
-	var saved := AssemblyOperations.save_scene(source, folder + "/source.tscn")
+	var saved := CWAssemblyOperations.save_scene(source, folder + "/source.tscn")
 	check("unmapped animation fixture saves to an isolated explicit output", saved.ok)
 	if saved.ok:
-		var rejected := CharacterAnimationService.borrow(model, saved.path)
+		var rejected := CWAnimationService.borrow(model, saved.path)
 		check("borrowed names with no compatible tracks are rejected transactionally", not rejected.ok and model.find_children("*", "AnimationPlayer", true, false).is_empty())
 	source.free()
 	model.free()
@@ -310,8 +310,8 @@ func _cold(path: String) -> void:
 	actor.set_physics_process(false)
 	await process_frame
 	check("gameplay actor authors movement services once", actor.has_node("BodyShape") and actor.has_node("Agent") and actor.has_node("Obstacle"))
-	check("gameplay actor includes independent authored parts", AssemblyOperations.collect_parts(actor).size() == 2)
-	var garment := actor.get_node("Body/ArbitraryGarment") as AssemblyPart
+	check("gameplay actor includes independent authored parts", CWAssemblyOperations.collect_parts(actor).size() == 2)
+	var garment := actor.get_node("Body/ArbitraryGarment") as CWPart
 	var mesh := garment.get_node("Model") as MeshInstance3D
 	check("cold binding metadata retains source for refitting", garment.binding_data != null and garment.binding_data.has_meta("source_scene"))
 	check("cold bound skin target resolves", mesh.get_node_or_null(mesh.skeleton) is Skeleton3D)

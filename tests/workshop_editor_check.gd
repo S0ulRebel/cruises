@@ -5,8 +5,8 @@ extends Node
 ## that creates a second editor main loop and leaks native editor resources.
 
 const Commands = preload("res://addons/character_workshop/commands.gd")
-const Ops = preload("res://actors/assembly/operations.gd")
-const Assembly = preload("res://actors/assembly/assembly.gd")
+const Ops = preload("res://addons/character_workshop/core/assembly_operations.gd")
+const Assembly = preload("res://addons/character_workshop/runtime/assembly.gd")
 const Preview = preload("res://addons/character_workshop/preview.gd")
 const SOURCE := "res://tests/fixtures/workshop_editor_model.tscn"
 var failures := 0
@@ -215,11 +215,11 @@ func _run() -> void:
 	var borrowed := {"ok": true, "error": "", "player": body_player, "created": false, "library": body_player.get_animation_library("").duplicate(true), "model": body.get_node("Model")}
 	expect(commands.install_animation_library(borrowed).ok, "prepared borrowed library installation")
 	native_composition.free()
-	expect(body_player.has_animation("captain/talk"), "borrowed clip has explicit library name")
+	expect(body_player.has_animation("workshop/talk"), "borrowed clip has explicit library name")
 	history.undo()
-	expect(not body_player.has_animation_library("captain"), "borrowed library undo")
+	expect(not body_player.has_animation_library("workshop"), "borrowed library undo")
 	history.redo()
-	expect(body_player.has_animation("captain/talk"), "borrowed library redo")
+	expect(body_player.has_animation("workshop/talk"), "borrowed library redo")
 	history.undo()
 	commands.attach_selected(accessory, assembly, 0)
 	accessory.set("attachment_mode", 3)
@@ -499,7 +499,7 @@ func _tree_item_for(item: TreeItem, node: Node) -> TreeItem:
 func _tree_part_count(item: TreeItem) -> int:
 	if item == null:
 		return 0
-	var total := 1 if item.get_metadata(0) is AssemblyPart else 0
+	var total := 1 if item.get_metadata(0) is CWPart else 0
 	for child: TreeItem in item.get_children():
 		total += _tree_part_count(child)
 	return total

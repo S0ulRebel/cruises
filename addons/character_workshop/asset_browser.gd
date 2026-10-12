@@ -5,6 +5,8 @@ extends VBoxContainer
 
 signal request(action: String, value: Variant)
 
+var asset_folders := PackedStringArray(["res://"])
+
 var _editor: EditorInterface
 var _filesystem: EditorFileSystem
 var _previewer: EditorResourcePreview
@@ -81,7 +83,11 @@ func refresh_catalog() -> void:
 		return
 	_catalog.clear()
 	_scene_types.clear()
-	_collect_directory(_filesystem.get_filesystem())
+	for folder: String in asset_folders:
+		_collect_directory(_filesystem.get_filesystem_path(folder))
+	_catalog.assign(Array(_catalog).reduce(func(result: Array, path: String):
+		if not result.has(path): result.append(path)
+		return result, []))
 	_catalog.sort()
 	_populate_folders()
 	_filter_catalog(%AssetSearch.text)

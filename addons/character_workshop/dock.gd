@@ -4,8 +4,8 @@ extends VBoxContainer
 
 signal request(action: String, value: Variant)
 
-const Ops = preload("res://actors/assembly/operations.gd")
-const Part = preload("res://actors/assembly/part.gd")
+const Ops = preload("res://addons/character_workshop/core/assembly_operations.gd")
+const Part = preload("res://addons/character_workshop/runtime/part.gd")
 
 var current_part: Node3D
 var current_mesh: MeshInstance3D
@@ -24,6 +24,7 @@ var _context_part: Node3D
 const PART_ACTIONS := ["rename", "visibility", "replace", "duplicate", "detach", "remove"]
 
 func _ready() -> void:
+	%ProjectSettingsButton.pressed.connect(func(): request.emit("project_settings", null))
 	%CloseWorkshop.pressed.connect(func(): request.emit("close_workshop", null))
 	for pair: Array in [["New", "new"], ["Open", "open"], ["Save", "save"], ["SaveAs", "save_as"], ["SaveActor", "save_actor"], ["RepairReferences", "repair_references"], ["ImportLegacy", "legacy"], ["BorrowClips", "borrow"], ["Adopt", "adopt"], ["Duplicate", "duplicate"], ["Visibility", "visibility"], ["Remove", "remove"], ["Replace", "replace"], ["Attach", "attach"], ["Detach", "detach"], ["Bind", "bind"], ["CancelBinding", "cancel_binding"], ["SelectBox", "select_box"], ["SelectSurface", "select_surface"], ["ClearFaces", "clear_faces"], ["Exclude", "exclude"], ["Restore", "restore"], ["ResetMesh", "reset_mesh"], ["Play", "play"], ["Stop", "stop"], ["Rest", "rest"], ["Inspector", "inspector"]]:
 		var action: String = pair[1]

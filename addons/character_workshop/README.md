@@ -1,5 +1,28 @@
 # Character Workshop
 
+A self-contained Godot editor addon, tested with Godot 4.7.2. Copy only
+`addons/character_workshop/` into another project (or extract the distribution ZIP
+into its project root). Let Godot finish importing, then enable the plugin.
+Keep this folder name and include its `.gd.uid` files. No Cruises assets or
+gameplay scripts are required. Disable the editor plugin when desired; keep
+its bundled `runtime/` and `core/` scripts for saved characters.
+
+## Project setup
+
+Click **Settings** in the Workshop toolbar. Setup is optional: the default asset
+root is `res://`, the save folder is `res://`, and **New empty** is always available.
+Choose one or more project asset folders and optional template folders. Templates
+are ordinary assembly `.tscn` files, discovered recursively. Choose an existing
+preferred save folder; every first Save/Save As still asks for a scene destination.
+
+**Save settings** explicitly writes `res://character_workshop.cfg`; opening the
+plugin never writes defaults. Commit that file with your project if teammates
+should share the same setup. Asset/template folders and saved characters stay
+outside the addon. Settings can be changed later; Reset changes the fields until
+you save. The borrowed-animation library defaults to `workshop`. An optional
+integration script enables game-specific export and legacy-import actions; see
+[PROJECT_INTEGRATION.md](PROJECT_INTEGRATION.md).
+
 Enable **Character Workshop** in Project Settings → Plugins, then click its tab
 beside **3D** at the top of the editor. The workspace has an assembly viewport,
 an optional detail viewport, a real parts hierarchy and a collapsible asset drawer.
@@ -17,8 +40,8 @@ There are no fixed clothing slots or mandatory filenames.
    Existing scene tabs stay open. Choose a destination later through **Save As**
    or the first **Save**, then continue editing that same tab. Later **Save** writes
    to the chosen path; **Save As** deliberately chooses a different destination.
-   **Open** browses for another saved assembly. Exported gameplay actors with an
-   authored `Body` assembly can also be reopened and edited.
+   **Open** browses for another saved assembly. Scenes containing a direct child assembly can also be reopened and edited.
+   A project adapter can support additional wrappers.
 2. **Add part** toggles the asset drawer below the views, keeping the hierarchy visible.
    Search imported project models/prefabs by filename/folder word prefixes, use optional
    type/folder filters, and read each tile's format and source folder. Search `hair`
@@ -50,9 +73,9 @@ There are no fixed clothing slots or mandatory filenames.
    External skinned garments count as dependents too. Keeping one without its donor
    is rejected; reconnecting requires compatible bone names/order/rest poses.
 6. Use **Save As** for a validated explicit reusable-scene destination. Derived
-   meshes and masks are embedded in that scene; source GLBs are never rewritten.
-   **Save gameplay actor** deliberately adds movement/collision components through
-   the export service. Static assemblies need no gameplay services.
+   meshes save as private binary resources beside that scene; source GLBs are never rewritten.
+   A project adapter can expose **Save gameplay actor** to deliberately add
+   gameplay components. Static assemblies need no gameplay services.
 
 The second view can be hidden for more space. Each view has independent camera
 presets and framing, plus mouse orbit/pan/zoom. Cameras and gizmos are tool controls;
@@ -114,7 +137,10 @@ independent copies; loop is deliberate, and gameplay method/audio tracks are sup
 Stop, save and scene changes restore original poses/libraries/materials. Fitting a part
 can continue during animation. Original materials are the default; neutral shading is
 temporary. Borrow compatible clips explicitly from a chosen model. Import saved legacy
-fits/outfits from arbitrary paths; conversion warnings identify required donor rebinding.
+fits/outfits through an optional project adapter; conversion warnings identify required donor rebinding.
+Borrowed body animation and garment binding use the measured humanoid backend:
+compatible bone names and hips/head rest landmarks are required. Arbitrary static
+parts and local facial rigs remain usable for free/node/bone attachments.
 
 ## Character references
 
@@ -137,13 +163,10 @@ not travel through Git to other computers. Images stay at their chosen paths; mo
 files show an unavailable state and can be removed/re-added. Remove never deletes art.
 Only the active image uses a full-size texture; board thumbnails are reduced to 96px.
 
-The saved editable assembly is distinct from a game portrait renderer. For the
-Captain's workshop default, open `res://actors/assembly/templates/captain_portrait.tscn`.
-For the game version, open `res://ui/portraits/captain_live.tscn` in Workshop. That
-complete portrait owns its Camera, lights and speaking-rig paths; its fitted parts
-are an editable instance of `res://ui/portraits/captain_live/assembly.tscn`. Camera
-framing is edited on the portrait's Camera node in the native Inspector. Workshop
-view cameras are separate editing tools and never save into the character.
+Saved assemblies contain editable parts. Portrait cameras and gameplay controllers
+belong to your project's wrapper scenes. Workshop view cameras are editing tools
+and never save into a character. An optional adapter can recognize wrappers and
+protect destinations that should not be overwritten by a bare assembly.
 
 Save/Save As now externalizes private meshes to binary `.res` files under the
 explicit scene destination's `<scene_name>/meshes/` folder. Original imported art
@@ -151,18 +174,17 @@ is untouched; Save As gives its output a separate resource folder. Subsequent sa
 can update only resource files already referenced by that saved scene. Geometry,
 facial shapes, materials and per-instance independence are retained. Use project
 scene paths for ordinary native editor authoring. Normal opening/game startup has
-no save or compaction route. A bare assembly/gameplay export cannot overwrite a
-portrait renderer through Workshop; open the complete portrait to save it.
+no save or compaction route. When an adapter protects a wrapper scene, open that complete wrapper to save it.
 
-## Verification
+## Distribution and validation
 
-Run the real editor with `CRUISES_WORKSHOP_EDITOR_CHECK=1`, plugin enabled and
-`res://tests/fixtures/workshop_editor_check.tscn`. The fixture owns no production saves.
-It tests native commands/history, real dock routes and face clicks, dependency rollback,
-animation independence, masks/material/collision restoration and separate-process reopen.
-The environment variable is consumed only by the test fixture; ordinary editor/game
-startup never runs it. Treat every engine `ERROR`/`SCRIPT ERROR` as failure.
+In the source repository, `tools/package_character_workshop.ps1 -OutputPath <new.zip>`
+builds a ZIP with only this addon. Existing output files are rejected. The package
+contains no project settings, templates from your game, source art or game adapter.
 
-Do not run this harness as `--editor --script SceneTree`: that creates an unsupported
-second editor main loop and leaks editor resources. The test runner launches the native
-fixture instead. The cold fixture script accepts its one explicit output path.
+`tests/workshop_portability_check.ps1` installs that ZIP in a unique external
+project, imports a prefab and GLB, configures folders, attaches/duplicates/fits parts,
+borrows a compatible clip, saves, and cold-opens with the editor plugin disabled.
+The source repository's native and integration checks exercise undo, rigs, geometry,
+references, independent resources, source preservation and game adapters. Engine
+errors always fail checks, regardless of exit code.

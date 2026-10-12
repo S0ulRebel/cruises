@@ -24,7 +24,7 @@ var _frame := Transform3D.IDENTITY
 ## from the skin and not from the shirt under it.
 var _body_meshes: Array[MeshInstance3D] = []
 ## Built on the first skinned piece and kept; sampling the body is the slow part.
-var _copier: SkinCopy
+var _copier: CWSkinCopy
 ## One skin for every copied piece: each bone's rest, inverted. See _skinned_mesh().
 var _skin: Skin
 var _colour := Color.WHITE
@@ -60,7 +60,7 @@ func attach(model: Node3D) -> bool:
 	_skin = null
 	_body_meshes.clear()
 	_skeleton = skeletons[0]
-	_frame = RigSpace.frame_of(_skeleton, model)
+	_frame = CWRigSpace.frame_of(_skeleton, model)
 	_load_roles(model)
 	var meshes := model.find_children("*", "MeshInstance3D", true, false)
 	if model is MeshInstance3D:
@@ -200,7 +200,7 @@ func stand_at_rest() -> void:
 	if _skeleton == null:
 		return
 	_skeleton.reset_bone_poses()
-	var to_skeleton := RigSpace.chain(_skeleton, _model)
+	var to_skeleton := CWRigSpace.chain(_skeleton, _model)
 	for bone in _skeleton.get_bone_count():
 		if _skeleton.get_bone_parent(bone) != -1:
 			continue
@@ -280,9 +280,9 @@ func body_bounds() -> AABB:
 
 ## The body sampled for weight copying, built on first use. Null, having said so, when the
 ## body has no skinned mesh.
-func _body_copier() -> SkinCopy:
+func _body_copier() -> CWSkinCopy:
 	if _copier == null and _skeleton != null:
-		_copier = SkinCopy.new(_skeleton, _body_meshes, _frame)
+		_copier = CWSkinCopy.new(_skeleton, _body_meshes, _frame)
 		if _copier.size() == 0:
 			push_error("Dresser: the body has no skinned mesh to copy weights from.")
 	return _copier if _copier != null and _copier.size() > 0 else null
@@ -447,13 +447,13 @@ func _bind_surface(arrays: Array, source: MeshInstance3D, model: Node3D, fit: Tr
 	var own: Dictionary = _own_weights(source, model) if arrays[Mesh.ARRAY_BONES] != null and arrays[Mesh.ARRAY_WEIGHTS] != null else {}
 	if own.is_empty() and _body_copier() == null:
 		return false
-	var to_fit := fit * RigSpace.chain(source, model) if own.is_empty() else fit * (own["frame"] as Transform3D)
+	var to_fit := fit * CWRigSpace.chain(source, model) if own.is_empty() else fit * (own["frame"] as Transform3D)
 	return bind_surface_data(arrays, own, to_fit, into_skeleton, _copier)
 
 
 ## Pure array work, safe for a worker after all scene/rig inputs are sampled.
 static func bind_surface_data(arrays: Array, own: Dictionary, to_fit: Transform3D,
-		into_skeleton: Transform3D, copier: SkinCopy, step := Callable()) -> bool:
+		into_skeleton: Transform3D, copier: CWSkinCopy, step := Callable()) -> bool:
 	var vertices: PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]
 	if vertices.is_empty():
 		return false
@@ -512,7 +512,7 @@ static func bind_surface_data(arrays: Array, own: Dictionary, to_fit: Transform3
 				influences[bone] = influences.get(bone, 0.0) + w
 			at = to_fit * rest_at
 			turn = placed * rest_turn
-			packed = SkinCopy.top_four(influences)
+			packed = CWSkinCopy.top_four(influences)
 		vertices[i] = into_skeleton * at
 		for k in 4:
 			bones[i * 4 + k] = (packed[0] as PackedInt32Array)[k]
@@ -569,7 +569,7 @@ func _own_weights(source: MeshInstance3D, model_root: Node = null) -> Dictionary
 	if matched == 0:
 		return {}
 	var root := model_root if model_root != null else source.owner if source.owner != null else own_skeleton.get_parent()
-	return {"rest": rest, "bone_map": bone_map, "frame": RigSpace.frame_of(own_skeleton, root)}
+	return {"rest": rest, "bone_map": bone_map, "frame": CWRigSpace.frame_of(own_skeleton, root)}
 
 
 func _apply_colour(root: Node) -> void:

@@ -17,3 +17,13 @@ Run checks with tests/run_checks.ps1 and the Godot executable argument documente
 Source/import settings are versioned; .godot/ regenerates on opening a clone. The migration baseline is in docs/migration/. Art acceptance and fitting backlogs remain documented separately from scene structure.
 
 Try the 16 fake-lighting techniques in [materials/stylized_lighting/gallery/material_lab.tscn](materials/stylized_lighting/gallery/material_lab.tscn) with F6. Each has `_shader` and editable `_graph` materials, plus reusable scene parameter controls. [The material guide](materials/stylized_lighting/README.md) explains usage and limits. The lab is separate from the current game look.
+
+## Reuse Character Workshop in another project
+
+Copy only `addons/character_workshop/` and enable the plugin after Godot import.
+Workshop **Settings** chooses project asset/template/save folders; no mandatory
+asset layout or setup. Cruises gameplay and portrait services stay in its optional
+external adapter. See [installation and workflow](addons/character_workshop/README.md)
+and [optional integration](addons/character_workshop/PROJECT_INTEGRATION.md).
+Build a distributable ZIP with an explicit new output path:
+`./tools/package_character_workshop.ps1 -OutputPath <absolute-new-zip>`.

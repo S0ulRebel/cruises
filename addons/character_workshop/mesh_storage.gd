@@ -2,7 +2,7 @@
 extends RefCounted
 ## Explicit Save/Save As authoring only. No scene construction or startup writes.
 
-const Ops = preload("res://actors/assembly/operations.gd")
+const Ops = preload("res://addons/character_workshop/core/assembly_operations.gd")
 var _seen: Dictionary = {}
 var _meshes: Array[Dictionary] = []
 

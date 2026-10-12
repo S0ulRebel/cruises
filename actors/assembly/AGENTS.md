@@ -11,3 +11,8 @@
   have separate owners. Coordinate shared API changes before editing.
 - Checks: tests/assembly_check.gd. Save checks use unique explicit user:// outputs,
   and cold reopening is a separate process. Engine errors are failures.
+
+Canonical generic implementation now lives in `addons/character_workshop/runtime/`
+and `core/`. Old paths here are compatibility shims only; do not add implementation
+or global classes to them. This module owns Cruises templates, exports and the
+optional project adapter. Coordinate portable API changes with the addon owner.

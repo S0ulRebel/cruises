@@ -5,7 +5,7 @@ extends PanelContainer
 
 signal request(action: String, value: Variant)
 
-const Ops = preload("res://actors/assembly/operations.gd")
+const Ops = preload("res://addons/character_workshop/core/assembly_operations.gd")
 
 var _part: Node3D
 var _parent: Node

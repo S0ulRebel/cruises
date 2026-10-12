@@ -30,10 +30,10 @@ func _run() -> void:
 	await process_frame
 	await _validate(scene)
 	if path == TEMPLATE:
-		var directory := "user://workshop_head_swap_check_" + AssemblyOperations.generate_id()
+		var directory := "user://workshop_head_swap_check_" + CWAssemblyOperations.generate_id()
 		DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(directory))
 		var output := directory + "/head_swap.tscn"
-		var result := AssemblyOperations.save_scene(scene, output)
+		var result := CWAssemblyOperations.save_scene(scene, output)
 		_check("explicit head-swap scene save succeeds", result.ok and FileAccess.file_exists(output))
 		if result.ok:
 			var reopened := (ResourceLoader.load(output, "PackedScene", ResourceLoader.CACHE_MODE_IGNORE_DEEP) as PackedScene).instantiate() as Node3D
@@ -50,7 +50,7 @@ func _run() -> void:
 
 
 func _validate(scene: Node3D) -> void:
-	var parts := AssemblyOperations.collect_parts(scene)
+	var parts := CWAssemblyOperations.collect_parts(scene)
 	_check("body and five freely named Captain parts remain authored", parts.size() == 6)
 	var body := _part(parts, "Body")
 	var head := _part(parts, "SpeakingHead")
@@ -71,20 +71,20 @@ func _validate(scene: Node3D) -> void:
 	_check("complete body and head rigs retained", body_rig.get_bone_count() == 52 and head_rig.get_bone_count() == 2 and head_rig.find_bone("Head") >= 0 and head_rig.find_bone("Jaw") >= 0)
 	_check("speaking head retains all three facial shapes and skin", head_mesh.mesh.get_blend_shape_count() == 3 and head_mesh.skin != null and head_mesh.get_node_or_null(head_mesh.skeleton) == head_rig)
 	_check("body skin remains on original donor rig", body_mesh.skin != null and body_mesh.skin.get_bind_count() == 52 and body_mesh.get_node_or_null(body_mesh.skeleton) == body_rig)
-	_check("head attaches to body Head and retains local rig", head.attachment_mode == AssemblyPart.AttachmentMode.BONE and head.bone_name == "mixamorig_Head" and head.get_node_or_null(head.target_path) == body_rig and head.get_parent() is BoneAttachment3D)
+	_check("head attaches to body Head and retains local rig", head.attachment_mode == CWPart.AttachmentMode.BONE and head.bone_name == "mixamorig_Head" and head.get_node_or_null(head.target_path) == body_rig and head.get_parent() is BoneAttachment3D)
 	_check("hair, hat and moustache follow local Head", _targets(hair, head_rig, "Head") and _targets(hat, head_rig, "Head") and _targets(moustache, head_rig, "Head"))
 	_check("chin tuft follows the speaking head's local Jaw", _targets(tuft, head_rig, "Jaw"))
-	_check("body holds explicit reversible mask metadata", body.geometry_masks.size() == 1 and body.geometry_masks[0] is MeshExclusionMask)
-	var mask := body.geometry_masks[0] as MeshExclusionMask
+	_check("body holds explicit reversible mask metadata", body.geometry_masks.size() == 1 and body.geometry_masks[0] is CWMeshMask)
+	var mask := body.geometry_masks[0] as CWMeshMask
 	_check("mask source path resolves current editable body mesh", body.get_node_or_null(mask.source_node_path) == body_mesh)
-	_check("retained source matches original source fingerprint", MeshExclusionOperations.validate(mask.source_mesh, mask).is_empty())
+	_check("retained source matches original source fingerprint", CWMeshOperations.validate(mask.source_mesh, mask).is_empty())
 	_check("mask records spatial authoring and source identity", mask.has_meta("selection_bounds") and mask.has_meta("selection_jaw_bounds") and mask.get_meta("source_path") == BODY_SOURCE)
 	_check("source remains recoverable with all original faces", _triangles(mask.source_mesh) == 4630)
 	_check("derived mesh excludes all selected head/jaw faces", _triangles(body_mesh.mesh) == 3361 and int(mask.get_meta("excluded_face_count")) == 1269)
 	var upper: AABB = mask.get_meta("selection_bounds")
 	var lower: AABB = mask.get_meta("selection_jaw_bounds")
-	_check("old skull and elongated jaw have no drawable/pickable triangles", MeshExclusionOperations.faces_in_box(body_mesh.mesh, upper).is_empty() and MeshExclusionOperations.faces_in_box(body_mesh.mesh, lower).is_empty())
-	_check("original source still contains the removed skull and jaw", not MeshExclusionOperations.faces_in_box(mask.source_mesh, upper).is_empty() and not MeshExclusionOperations.faces_in_box(mask.source_mesh, lower).is_empty())
+	_check("old skull and elongated jaw have no drawable/pickable triangles", CWMeshOperations.faces_in_box(body_mesh.mesh, upper).is_empty() and CWMeshOperations.faces_in_box(body_mesh.mesh, lower).is_empty())
+	_check("original source still contains the removed skull and jaw", not CWMeshOperations.faces_in_box(mask.source_mesh, upper).is_empty() and not CWMeshOperations.faces_in_box(mask.source_mesh, lower).is_empty())
 	_check("upper rear neck remains and stale shadows are absent", _neck_vertices(body_mesh.mesh) > 0 and (body_mesh.mesh as ArrayMesh).shadow_mesh == null)
 	var source_arrays := mask.source_mesh.surface_get_arrays(0)
 	var derived_arrays := body_mesh.mesh.surface_get_arrays(0)
@@ -109,7 +109,7 @@ func _validate(scene: Node3D) -> void:
 	await _pose_checks(body_rig, head_rig, head, moustache, tuft, body_mesh)
 
 
-func _pose_checks(body: Skeleton3D, local: Skeleton3D, head: AssemblyPart, moustache: AssemblyPart, tuft: AssemblyPart, body_mesh: MeshInstance3D) -> void:
+func _pose_checks(body: Skeleton3D, local: Skeleton3D, head: CWPart, moustache: CWPart, tuft: CWPart, body_mesh: MeshInstance3D) -> void:
 	var index := body.find_bone("mixamorig_Head")
 	var rotation := body.get_bone_pose_rotation(index)
 	var initial_head := head.global_transform
@@ -138,25 +138,25 @@ func _pose_checks(body: Skeleton3D, local: Skeleton3D, head: AssemblyPart, moust
 	_check("pose reset restores authored head placement", head.global_transform.is_equal_approx(initial_head))
 
 
-func _part(parts: Array[AssemblyPart], name: String) -> AssemblyPart:
+func _part(parts: Array[CWPart], name: String) -> CWPart:
 	for part in parts:
 		if part.name == name:
 			return part
 	return null
 
 
-func _primary_mesh(part: AssemblyPart) -> MeshInstance3D:
+func _primary_mesh(part: CWPart) -> MeshInstance3D:
 	var model := part.get_node("Model")
 	if model is MeshInstance3D:
 		return model
 	for node in model.find_children("*", "MeshInstance3D", true, false):
-		if AssemblyOperations.nearest_part(node) == part:
+		if CWAssemblyOperations.nearest_part(node) == part:
 			return node
 	return null
 
 
-func _targets(part: AssemblyPart, rig: Skeleton3D, bone: String) -> bool:
-	return part.attachment_mode == AssemblyPart.AttachmentMode.BONE and part.get_node_or_null(part.target_path) == rig and part.bone_name == bone
+func _targets(part: CWPart, rig: Skeleton3D, bone: String) -> bool:
+	return part.attachment_mode == CWPart.AttachmentMode.BONE and part.get_node_or_null(part.target_path) == rig and part.bone_name == bone
 
 
 func _triangles(mesh: Mesh) -> int:

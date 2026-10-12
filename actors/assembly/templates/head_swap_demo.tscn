@@ -1,7 +1,7 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://actors/assembly/assembly.gd" id="assembly"]
-[ext_resource type="Script" path="res://actors/assembly/part.gd" id="part"]
+[ext_resource type="Script" path="res://addons/character_workshop/runtime/assembly.gd" id="assembly"]
+[ext_resource type="Script" path="res://addons/character_workshop/runtime/part.gd" id="part"]
 [ext_resource type="PackedScene" path="res://art/characters/captain_live/pieces/head/head_face.glb" id="head"]
 [ext_resource type="PackedScene" path="res://art/characters/captain_live/pieces/hair/hair.glb" id="hair"]
 [ext_resource type="PackedScene" path="res://art/characters/captain_live/pieces/hat/hat.glb" id="hat"]

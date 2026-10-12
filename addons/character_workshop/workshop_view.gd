@@ -4,8 +4,8 @@ extends Control
 
 signal request(action: String, value: Variant)
 
-const Ops = preload("res://actors/assembly/operations.gd")
-const MeshOps = preload("res://actors/assembly/mesh_exclusion/operations.gd")
+const Ops = preload("res://addons/character_workshop/core/assembly_operations.gd")
+const MeshOps = preload("res://addons/character_workshop/core/mesh_operations.gd")
 const AXES := [Vector3.RIGHT, Vector3.UP, Vector3.BACK]
 const AXIS_COLORS := [Color(0.98, 0.35, 0.35), Color(0.45, 0.9, 0.49), Color(0.36, 0.63, 1.0)]
 

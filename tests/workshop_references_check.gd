@@ -2,7 +2,7 @@ extends "res://tests/check.gd"
 
 const Workspace = preload("res://addons/character_workshop/reference_workspace.gd")
 const Dock = preload("res://addons/character_workshop/dock.tscn")
-const Assembly = preload("res://actors/assembly/assembly.gd")
+const Assembly = preload("res://addons/character_workshop/runtime/assembly.gd")
 
 func _run() -> void:
 	var store := {"value": {}}

@@ -1,7 +1,7 @@
 [gd_scene format=4]
 
-[ext_resource type="Script" uid="uid://dhubj40vih2nn" path="res://actors/assembly/assembly.gd" id="1_uc5iy"]
-[ext_resource type="Script" uid="uid://cfdjmlnx1vsug" path="res://actors/assembly/part.gd" id="2_6cigc"]
+[ext_resource type="Script" uid="uid://dhubj40vih2nn" path="res://addons/character_workshop/runtime/assembly.gd" id="1_uc5iy"]
+[ext_resource type="Script" uid="uid://cfdjmlnx1vsug" path="res://addons/character_workshop/runtime/part.gd" id="2_6cigc"]
 
 [ext_resource type="ArrayMesh" path="res://ui/portraits/captain_live/meshes/head.res" id="mesh_head"]
 [ext_resource type="ArrayMesh" path="res://ui/portraits/captain_live/meshes/hair.res" id="mesh_hair"]

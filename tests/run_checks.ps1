@@ -2,7 +2,7 @@
 [CmdletBinding()]
 param(
     [string]$Godot = 'D:\Godot\Godot_v4.7.2-stable_win64_console.exe',
-    [string[]]$Checks = @('combocheck', 'hovercheck', 'speechcheck', 'dressercheck', 'layercheck', 'state_dialogue_check', 'interaction_check', 'movement_check', 'portrait_check', 'portrait_storage_check', 'flagcheck', 'playcombo', 'navcheck', 'authored_scene_check', 'stylized_lighting_check', 'assembly_check', 'mesh_exclusion_check', 'workshop_backend_check', 'workshop_integration_check', 'workshop_legacy_check', 'workshop_editor_check', 'workshop_references_check', 'workshop_head_swap_check', 'cabin_dressing_check'),
+    [string[]]$Checks = @('combocheck', 'hovercheck', 'speechcheck', 'dressercheck', 'layercheck', 'state_dialogue_check', 'interaction_check', 'movement_check', 'portrait_check', 'portrait_storage_check', 'flagcheck', 'playcombo', 'navcheck', 'authored_scene_check', 'stylized_lighting_check', 'assembly_check', 'mesh_exclusion_check', 'workshop_backend_check', 'workshop_integration_check', 'workshop_legacy_check', 'workshop_editor_check', 'workshop_references_check', 'workshop_head_swap_check', 'workshop_portability_check', 'cabin_dressing_check'),
     [int]$TimeoutSeconds = 45,
     [int]$ImportTimeoutSeconds = 300,
     [switch]$SkipImport,
@@ -93,6 +93,11 @@ if ($RunnerSelfTest) {
 }
 foreach ($name in $Checks) {
     if ($name -notmatch '^[a-z0-9_]+$') { throw "Invalid check name: $name" }
+    if ($name -eq 'workshop_portability_check') {
+        try { & (Join-Path $PSScriptRoot 'workshop_portability_check.ps1') -Godot $Godot }
+        catch { $failures += 1; Write-Host "FAIL $name $_" }
+        continue
+    }
     $scenePath = Join-Path $PSScriptRoot ($name + '.tscn')
     $launch = @('--headless','--path',$projectPath)
     if ($name -eq 'workshop_editor_check') { $launch += @('--editor', 'res://tests/fixtures/workshop_editor_check.tscn') }

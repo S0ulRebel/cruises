@@ -433,7 +433,7 @@ template checks use the actual authored part count, allowing the owner's new hat
 feather without forcing an older composition. Visual and integration evidence is
 recorded in the workshop/test handoffs after checks complete.
 
-## Workshop activation correction � 2026-10-12
+## Workshop activation correction — 2026-10-12
 
 - [x] Add Close Workshop and preserve the edited scene when returning to native 3D/2D.
 - [x] Prevent character selection and remembered scene tabs from reopening Workshop.
@@ -453,3 +453,22 @@ recorded in the workshop/test handoffs after checks complete.
 - Project evidence: actors/outfit/workshop.gd, dresser.gd, outfit_piece.gd and
   skin_copy.gd; [actor handoff](../actors/HANDOFF.md),
   [rigging decisions](RIGGING.md) and the Captain/Santi pieces' asset.json records.
+
+## Project-agnostic plugin — approved 2026-10-12
+
+- [x] Bundle metadata, attachment/exclusion, binding/retarget and editor dependencies
+  entirely under `addons/character_workshop/`, with `CW` class names and retained UIDs.
+- [x] Keep Cruises-only gameplay export, portrait handling and old outfit conversion
+  in an optional external adapter. Preserve existing path-based scenes with shims.
+- [x] Add one Settings entry for asset roots, optional template folders, preferred
+  save folder, borrowed-animation namespace and optional adapter. Whole project
+  discovery and a bundled empty starter work without setup.
+- [x] Keep assets/templates/saved characters outside the addon; save settings only
+  explicitly in the project's `character_workshop.cfg`. No startup writes.
+- [x] Add an explicit ZIP packager and a clean external-project installation test
+  covering import, native assembly, settings, save and plugin-disabled cold reopen.
+- [x] Finish source-preservation and full integration checks; delivery stays on main.
+
+Existing transparent overlays, reference cards/cropping and portable reference
+bundles remain future improvements. Project independence does not expand the
+measured humanoid binding/retarget backend into arbitrary rig compatibility.

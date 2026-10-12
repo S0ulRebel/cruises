@@ -9,7 +9,7 @@ func _run() -> void:
 func _check_nearest() -> void:
 	var rig := Skeleton3D.new()
 	rig.add_bone("Root")
-	var copier := SkinCopy.new(rig, [], Transform3D.IDENTITY)
+	var copier := CWSkinCopy.new(rig, [], Transform3D.IDENTITY)
 	# Four candidates appear in the first occupied shell, but a point outside
 	# the next shell is closer. A fixed extra shell cannot certify nearest points.
 	for point in [Vector3(0.085, 0.085, 0.085), Vector3(0.084, 0.084, 0.084),
@@ -45,7 +45,7 @@ func _check_nearest() -> void:
 	drawable.mesh = mesh
 	drawable.skin = Skin.new()
 	drawable.skin.add_bind(0, Transform3D.IDENTITY)
-	var remaining := SkinCopy.new(rig, [drawable], Transform3D.IDENTITY)
+	var remaining := CWSkinCopy.new(rig, [drawable], Transform3D.IDENTITY)
 	check("weight transfer ignores unused vertices retained by exclusion", remaining.size() == 3 and not remaining._points.has(Vector3(10, 10, 10)))
 	drawable.free()
 	rig.free()

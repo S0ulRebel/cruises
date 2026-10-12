@@ -1,6 +1,6 @@
 # Character Workshop editor handoff
 
-## 2026-10-12 � Workshop can be closed
+## 2026-10-12 — Workshop can be closed
 
 Close Workshop returns to native 3D (2D for CanvasItem roots); the scene stays open.
 Native 3D/2D tabs also leave. `_handles` only claims characters while the workspace
@@ -172,3 +172,18 @@ Integration should complete native visual acceptance, real clothing worker/cance
 legacy conversion dialog checks, gameplay exports and the complete multi-scene reuse.
 Mesh selection is practical reference-space clicking/region intersection, not modeling;
 seam reconstruction remains an explicitly authored external art operation.
+
+## 2026-10-12 — portable plugin
+
+Canonical generic implementations and original UIDs now reside in runtime/core.
+Old actor helper paths are compatibility shims; tracked consumers use CW classes.
+Settings configures per-project folders and an optional adapter without writing on
+load. Cruises retains its own templates, portrait handling and captain animation
+namespace through an external adapter. ZIP installation in a fresh project passes
+19 native assertions and six separate-process runtime assertions with the editor
+plugin disabled. Logs: `%TEMP%/workshop-portability-060e02ebec404ad1a387049c81530cbb/`.
+All 25 checks, native editor assertions, cold routes and source hashes pass:
+`C:/Users/Nikola/AppData/Local/Temp/cruises-checks-86994ffc6c6b4e3cbfc5306f3b8b66ab`. Exported fresh-project PCK also passes the six cold runtime checks.
+Captain template and portrait assembly preserve all 23 nodes, transforms, mesh
+arrays/shapes, skins and bone poses; binary resources retain their pre-migration hashes.
+Cruises export exclusions retain runtime/core while excluding editor UI.

@@ -23,7 +23,7 @@ const ACTOR_DIR := "res://actors"
 ## Saves happen only when requested, to these explicit per-character/per-outfit paths.
 @export_file("*.tres") var outfit_output := ""
 @export_file("*.tscn") var assembled_output := ""
-## The clips every body borrows, through Retarget. A body with its own keeps them as well.
+## The clips every body borrows, through CWRetarget. A body with its own keeps them as well.
 const CLIP_SOURCE := "res://art/characters/captain_live/captain_live_animated.glb"
 ## Multipliers on the body's texture - the four the zombie sheet asks for, and none.
 const SKIN_PRESETS := {
@@ -428,7 +428,7 @@ static func _assembled_bounds(model: Node3D) -> AABB:
 		var mesh := node as MeshInstance3D
 		if mesh.mesh == null:
 			continue
-		var box := RigSpace.chain(mesh, model) * mesh.get_aabb()
+		var box := CWRigSpace.chain(mesh, model) * mesh.get_aabb()
 		bounds = bounds.merge(box) if found else box
 		found = true
 	return bounds
@@ -494,7 +494,7 @@ func _give_clips() -> void:
 		_player.add_animation_library(library_name, library)
 	if _body_path != CLIP_SOURCE and ResourceLoader.exists(CLIP_SOURCE):
 		var root := _player.get_node(_player.root_node)
-		var borrowed := Retarget.library(CLIP_SOURCE, _model, dresser.skeleton(), root)
+		var borrowed := CWRetarget.library(CLIP_SOURCE, _model, dresser.skeleton(), root)
 		if _player.has_animation_library("captain"):
 			_player.remove_animation_library("captain")
 		_player.add_animation_library("captain", borrowed)
@@ -568,7 +568,7 @@ func _shape_of(path: String) -> PackedVector3Array:
 			var mesh_node := node as MeshInstance3D
 			if mesh_node.mesh == null:
 				continue
-			var placed := RigSpace.chain(mesh_node, model)
+			var placed := CWRigSpace.chain(mesh_node, model)
 			for surface in mesh_node.mesh.get_surface_count():
 				var arrays := mesh_node.mesh.surface_get_arrays(surface)
 				for vertex in (arrays[Mesh.ARRAY_VERTEX] as PackedVector3Array):

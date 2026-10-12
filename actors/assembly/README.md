@@ -108,3 +108,12 @@ unsaved edits; discard/reload when you want the saved version.
 Implementation contract: [interfaces](../../docs/CHARACTER_WORKSHOP_INTERFACES.md).
 Progress and acceptance: [plan](../../docs/CHARACTER_WORKSHOP_PLAN.md) and
 [module handoff](HANDOFF.md).
+
+## Portable addon integration
+
+The canonical generic scripts now live in `addons/character_workshop/runtime/` and
+`core/` with `CW` class names. Old `.gd` paths here remain inheritance shims for
+path-based saved content; old global class names have been migrated. Cruises
+templates and game exporters stay here, selected by the project descriptor
+`character_workshop.cfg` and `project_adapter.gd`. For another game, copy only the
+addon; configure its own asset/template/save folders through Settings.

@@ -1656,3 +1656,14 @@ Owner requested pulling and reviewing latest main before combining the scene wor
 ## 2026-10-11 — owner-selected modular Captain body
 
 `art/characters/captain_live/pieces/body/body.glb` is now the owner-supplied lower-polygon body for modular assembly, using the corrected texture version provided after the owner removed lighting. The supplied GLB is copied unchanged. It contains 22,032 mesh triangles, 0 skins, 0 joints and 0 animation clips. The previous source had 50,270 mesh triangles and remains recoverable from commit `0c2ae59`. Existing import UID/settings are retained. Delivery provenance, checksums and measured file counts are in the body asset.json. Use this canonical body for future modular fitting; the separate head/clothing still require fitting. The current world Captain, portrait and scene/camera are unchanged. Engine import, rig fitting and tests were not run for this delivery.
+
+## 2026-10-12 — project-agnostic Character Workshop
+
+Workshop is now self-contained under `addons/character_workshop/`. One Settings
+button selects project assets, optional templates, preferred save folder and
+integration script; setup is optional. Cruises keeps its own adapter/templates and
+borrowed captain namespace outside the addon. Copy the addon alone to another
+project. Installation/adapter docs and current status are in the addon README,
+PROJECT_INTEGRATION.md and HANDOFF.md. All 25 checks/cold routes pass, including
+a fresh-project ZIP install and exported PCK run. The owner's Captain fits, meshes,
+skins and bone poses remain unchanged. No runtime authoring or branch change.

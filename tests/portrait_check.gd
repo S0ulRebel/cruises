@@ -29,7 +29,7 @@ func _run() -> void:
 	check("portrait has no world actor or body", rig.find_children("*", "CharacterBody3D", true, false).is_empty())
 	var parts := {}
 	var authored := {"Camera": camera.transform, "Assembly": assembly.transform, "Head": head.transform}
-	var editable_parts := AssemblyOperations.collect_parts(assembly)
+	var editable_parts := CWAssemblyOperations.collect_parts(assembly)
 	check("all six owner-fitted parts are present", editable_parts.size() == 6)
 	for part in editable_parts:
 		var path := str(assembly.get_path_to(part))

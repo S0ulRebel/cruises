@@ -121,3 +121,16 @@ authoring check. No animation graphs are built or repaired by gameplay startup.
 
 Final staged-resource checks and native reopen also pass with unchanged hashes:
 `%TEMP%/cruises-checks-0588cdbe45894802b33e03b3cf62a4b9/`.
+
+## 2026-10-12 — project adapter and portable core migration
+
+Generic implementation moved to the Character Workshop addon with original UIDs.
+Old paths remain shims; no startup reconstruction or transform changes. Cruises
+project_adapter.gd owns portrait/gameplay wrapper support, protected destinations,
+legacy conversion and export. Project config keeps captain borrowed clips and
+Cruises templates. Binding no longer loads the old Dresser to perform geometry work.
+
+Portable migration validation: all 25 checks and cold routes pass, including
+real binding and exported-actor animation. Exact Captain fit comparison retains
+23 nodes in each assembly with no transform/geometry/skin/pose changes. Logs:
+`C:/Users/Nikola/AppData/Local/Temp/cruises-checks-86994ffc6c6b4e3cbfc5306f3b8b66ab`. The plugin-disabled standalone character also runs from an exported PCK.

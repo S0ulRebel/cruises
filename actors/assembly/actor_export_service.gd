@@ -70,14 +70,14 @@ static func export_actor(assembly: Node3D, output_path: String) -> Dictionary:
 				if tree.get_node_or_null(tree.anim_player) == player:
 					tree.active = false
 			break
-	var result := AssemblyOperations.save_scene(actor, output_path)
+	var result := CWAssemblyOperations.save_scene(actor, output_path)
 	actor.free()
 	return result
 
 
 static func _drawable_bounds(instance: MeshInstance3D, top: Node3D) -> Dictionary:
 	var skeleton := instance.get_node_or_null(instance.skeleton) as Skeleton3D if instance.skin != null else null
-	var matrix := RigSpace.chain(skeleton if skeleton != null else instance, top)
+	var matrix := CWRigSpace.chain(skeleton if skeleton != null else instance, top)
 	var found := false
 	var bounds := AABB()
 	for surface in instance.mesh.get_surface_count():

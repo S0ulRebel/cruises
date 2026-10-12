@@ -38,7 +38,7 @@ func _run() -> void:
 	var fit_hash := FileAccess.get_sha256(external_fit)
 	var body_hash := FileAccess.get_sha256(body_path)
 	var face_hash := FileAccess.get_sha256(face_path)
-	var root_scene := CharacterAssembly.new()
+	var root_scene := CWAssembly.new()
 	root_scene.name = "AuthoredCharacter"
 	root_scene.position = Vector3(3, 2, 1)
 	root_scene.rotation_degrees.y = 37
@@ -55,19 +55,19 @@ func _run() -> void:
 			and first.parts[0].get_parent() == null and first.parts[1].get_parent() == null
 			and _all(first.parts).size() == 4)
 		check("legacy avoids name collision", first.parts[0].name == "Body2")
-		var body: AssemblyPart = first.parts[0]
+		var body: CWPart = first.parts[0]
 		var converted := _all(first.parts)
-		var pinned: Array[AssemblyPart] = []
-		var unbound: AssemblyPart
+		var pinned: Array[CWPart] = []
+		var unbound: CWPart
 		for part in converted:
-			if part.attachment_mode == AssemblyPart.AttachmentMode.BONE:
+			if part.attachment_mode == CWPart.AttachmentMode.BONE:
 				pinned.append(part)
 			elif part != body:
 				unbound = part
 		check("legacy duplicates same slot instead of replacing", pinned.size() == 2
 			and pinned[0].part_id != pinned[1].part_id and pinned[0].source_path == pinned[1].source_path)
 		var donor := body.get_node("Model").find_children("*", "Skeleton3D", true, false)[0] as Skeleton3D
-		var frame := RigSpace.frame_of(donor, body.get_node("Model"))
+		var frame := CWRigSpace.frame_of(donor, body.get_node("Model"))
 		var fit: OutfitPiece = pinned[0].binding_data
 		var expected := (frame * donor.get_bone_global_rest(donor.find_bone("Head"))).affine_inverse() * fit.fit()
 		check("legacy fitted pin transform retained", pinned[0].transform.is_equal_approx(expected)
@@ -83,7 +83,7 @@ func _run() -> void:
 			and head_mesh.skin.get_bind_count() == 2 and head_player.has_animation("speak"))
 		check("legacy skin tint applied independently", head_mesh.get_active_material(0).albedo_color.is_equal_approx(Color(0.35, 0.4, 0.45)))
 		check("legacy garment retains fit without unsafe binding", unbound != null
-			and unbound.attachment_mode == AssemblyPart.AttachmentMode.FREE and unbound.transform.is_equal_approx(clothing.fit())
+			and unbound.attachment_mode == CWPart.AttachmentMode.FREE and unbound.transform.is_equal_approx(clothing.fit())
 			and unbound.binding_data is OutfitPiece and "Bind explicitly" in "\n".join(first.warnings))
 		var second := Service.prepare(root_scene, path)
 		if check("legacy repeated import succeeds", second.ok, second.error):
@@ -97,15 +97,15 @@ func _run() -> void:
 			_free_roots(second.parts)
 		for part in first.parts:
 			root_scene.add_child(part)
-			AssemblyOperations.ensure_owned(part, root_scene)
+			CWAssemblyOperations.ensure_owned(part, root_scene)
 		check("legacy insertion preserves pin paths", pinned[0].get_node(pinned[0].target_path) == donor)
-		var saved := AssemblyOperations.save_scene(root_scene, _folder.path_join("converted.tscn"))
+		var saved := CWAssemblyOperations.save_scene(root_scene, _folder.path_join("converted.tscn"))
 		if check("legacy explicit assembly save", saved.ok, saved.error):
 			var loaded := (ResourceLoader.load(saved.path, "", ResourceLoader.CACHE_MODE_IGNORE) as PackedScene).instantiate()
-			var reloaded := AssemblyOperations.collect_parts(loaded)
+			var reloaded := CWAssemblyOperations.collect_parts(loaded)
 			var valid := reloaded.size() == 4
 			for part in reloaded:
-				if part.attachment_mode == AssemblyPart.AttachmentMode.BONE:
+				if part.attachment_mode == CWPart.AttachmentMode.BONE:
 					valid = valid and part.get_node_or_null(part.target_path) is Skeleton3D and part.bone_name == "Head"
 			check("legacy authored attachment and metadata reopen", valid)
 			loaded.free()
@@ -129,9 +129,9 @@ func _test_single_fit(scene: Node3D, path: String, source: OutfitPiece) -> void:
 	var result := Service.prepare(scene, path)
 	if not check("legacy individual fit imports", result.ok, result.error):
 		return
-	var part: AssemblyPart = result.parts[0]
+	var part: CWPart = result.parts[0]
 	check("individual fit stays free until explicit target selection", result.parts.size() == 1
-		and part.get_parent() == null and part.attachment_mode == AssemblyPart.AttachmentMode.FREE
+		and part.get_parent() == null and part.attachment_mode == CWPart.AttachmentMode.FREE
 		and part.transform.is_equal_approx(source.fit()) and not result.warnings.is_empty())
 	check("individual fit preserves authored bone/role/provenance", part.binding_data.bone == "Head"
 		and part.binding_data.role == source.role and part.get_meta("legacy_fit_path") == path)
@@ -214,14 +214,14 @@ func _piece(path: String, mode: int) -> OutfitPiece:
 	return piece
 
 
-func _all(roots: Array[AssemblyPart]) -> Array[AssemblyPart]:
-	var all: Array[AssemblyPart] = []
+func _all(roots: Array[CWPart]) -> Array[CWPart]:
+	var all: Array[CWPart] = []
 	for part in roots:
-		all.append_array(AssemblyOperations.collect_parts(part))
+		all.append_array(CWAssemblyOperations.collect_parts(part))
 	return all
 
 
-func _free_roots(roots: Array[AssemblyPart]) -> void:
+func _free_roots(roots: Array[CWPart]) -> void:
 	for part in roots:
 		part.free()
 
@@ -275,7 +275,7 @@ func _save_model(name: String, rigged: bool, speaking: bool) -> String:
 		library.add_animation("speak", Animation.new())
 		player.add_animation_library("", library)
 		model.add_child(player)
-	AssemblyOperations.ensure_owned(model, model)
+	CWAssemblyOperations.ensure_owned(model, model)
 	var packed := PackedScene.new()
 	check("legacy source fixture packs: " + name, packed.pack(model) == OK)
 	model.free()
@@ -291,7 +291,7 @@ func _cold(folder: String) -> void:
 	if not check("cold legacy scene exists", packed != null):
 		return
 	var scene := packed.instantiate()
-	var parts := AssemblyOperations.collect_parts(scene)
+	var parts := CWAssemblyOperations.collect_parts(scene)
 	check("cold legacy four independent parts", parts.size() == 4)
 	var ids := {}
 	var valid := true
@@ -299,7 +299,7 @@ func _cold(folder: String) -> void:
 	for part in parts:
 		valid = valid and not part.part_id.is_empty() and not ids.has(part.part_id)
 		ids[part.part_id] = true
-		if part.attachment_mode == AssemblyPart.AttachmentMode.BONE:
+		if part.attachment_mode == CWPart.AttachmentMode.BONE:
 			pinned += 1
 			valid = valid and part.get_node_or_null(part.target_path) is Skeleton3D and part.bone_name == "Head"
 			var mesh := part.get_node("Model").find_children("*", "MeshInstance3D", true, false)[0] as MeshInstance3D

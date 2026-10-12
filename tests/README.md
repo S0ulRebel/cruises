@@ -152,3 +152,13 @@ The default suite now includes 22 checks. `cabin_dressing_check` verifies author
 ```
 
 The normal on/off frames and result are written to the printed unique cache directory. This check requires visible foreground-floor pixel changes and the source hash protections of the normal runner still apply. Ordinary startup and tests never author or resave scene placement.
+
+## Portable Workshop check
+
+`workshop_portability_check` is included in the 25-check suite and can also be run
+with `./tests/workshop_portability_check.ps1 -Godot <executable>`. It installs a ZIP
+containing only the addon into an external temporary project, checks native setup
+and assembly authoring, then checks cold runtime with the plugin disabled and from
+an exported PCK. Each phase has a 90-second deadline and separate logs in that
+fixture. The standard runner's TimeoutSeconds covers the ordinary engine checks;
+portability phases use their own deadline. Fixtures remain outside project assets.

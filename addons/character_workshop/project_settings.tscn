@@ -1,0 +1,70 @@
+[gd_scene format=3]
+[ext_resource type="Script" path="res://addons/character_workshop/project_settings.gd" id="script"]
+[node name="ProjectSettings" type="ConfirmationDialog"]
+title = "Character Workshop — Project settings"
+size = Vector2i(620, 560)
+min_size = Vector2i(540, 520)
+visible = false
+dialog_hide_on_ok = false
+ok_button_text = "Save settings"
+script = ExtResource("script")
+[node name="Fields" type="VBoxContainer" parent="."]
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 608.0
+offset_bottom = 510.0
+theme_override_constants/separation = 8
+[node name="Description" type="Label" parent="Fields"]
+text = "Saved per project to res://character_workshop.cfg.\nSettings never move, copy or modify your character assets."
+[node name="AssetHeading" type="HBoxContainer" parent="Fields"]
+[node name="Label" type="Label" parent="Fields/AssetHeading"]
+size_flags_horizontal = 3
+text = "Asset folders — one project path per line; res:// browses everything"
+[node name="AddAssetFolder" type="Button" parent="Fields/AssetHeading"]
+unique_name_in_owner = true
+text = "Browse…"
+[node name="AssetFolders" type="TextEdit" parent="Fields"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 70)
+placeholder_text = "res://assets"
+[node name="TemplateHeading" type="HBoxContainer" parent="Fields"]
+[node name="Label" type="Label" parent="Fields/TemplateHeading"]
+size_flags_horizontal = 3
+text = "Optional template folders — the built-in empty starter is always available"
+[node name="AddTemplateFolder" type="Button" parent="Fields/TemplateHeading"]
+unique_name_in_owner = true
+text = "Browse…"
+[node name="TemplateFolders" type="TextEdit" parent="Fields"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 60)
+[node name="SaveHeading" type="Label" parent="Fields"]
+text = "Preferred save folder — each Save As still asks for an explicit output"
+[node name="SaveRow" type="HBoxContainer" parent="Fields"]
+[node name="SaveFolder" type="LineEdit" parent="Fields/SaveRow"]
+unique_name_in_owner = true
+size_flags_horizontal = 3
+[node name="ChooseSaveFolder" type="Button" parent="Fields/SaveRow"]
+unique_name_in_owner = true
+text = "Browse…"
+[node name="LibraryHeading" type="Label" parent="Fields"]
+text = "Borrowed animation library name"
+[node name="LibraryName" type="LineEdit" parent="Fields"]
+unique_name_in_owner = true
+text = "workshop"
+[node name="AdapterHeading" type="Label" parent="Fields"]
+text = "Optional project integration script — leave empty for standalone assembly"
+[node name="AdapterPath" type="LineEdit" parent="Fields"]
+unique_name_in_owner = true
+placeholder_text = "res://my_game/workshop_adapter.gd"
+[node name="SettingsError" type="Label" parent="Fields"]
+unique_name_in_owner = true
+autowrap_mode = 3
+theme_override_colors/font_color = Color(1, 0.55, 0.45, 1)
+[node name="SettingsReset" type="Button" parent="Fields"]
+unique_name_in_owner = true
+text = "Reset fields to portable defaults"
+[node name="FolderDialog" type="FileDialog" parent="."]
+unique_name_in_owner = true
+file_mode = 2
+access = 0
+title = "Choose project folder"

@@ -4,13 +4,13 @@ extends RefCounted
 ## Explicit compatibility importer. Never mutates the edited scene or source saves.
 ## Returns OFF-TREE ROOT parts, with pinned parts nested under the new body.
 ## The editor inserts these roots atomically and assigns authored ownership.
-## Legacy fits use metres/+Z forward in the donor's RigSpace reference frame.
+## Legacy fits use metres/+Z forward in the donor's CWRigSpace reference frame.
 
 
 static func prepare(scene_root: Node3D, outfit_path: String) -> Dictionary:
 	if not is_instance_valid(scene_root):
 		return _failure("Open a 3D character scene before importing a legacy fit or outfit.")
-	if not AssemblyOperations.validate_transform(scene_root.transform).is_empty():
+	if not CWAssemblyOperations.validate_transform(scene_root.transform).is_empty():
 		return _failure("The edited scene root has an invalid transform.")
 	if outfit_path.is_empty() or not ResourceLoader.exists(outfit_path):
 		return _failure("Choose an existing legacy Outfit or OutfitPiece resource.")
@@ -29,12 +29,12 @@ static func prepare(scene_root: Node3D, outfit_path: String) -> Dictionary:
 		var error := _fit_error(original.pieces[index])
 		if not error.is_empty():
 			return _failure("Legacy piece %d: %s" % [index + 1, error])
-	var body_result := AssemblyOperations.create_part(original.body)
+	var body_result := CWAssemblyOperations.create_part(original.body)
 	if not body_result.ok:
 		return _failure("Legacy donor: " + body_result.error)
-	var body: AssemblyPart = body_result.part
+	var body: CWPart = body_result.part
 	var model := body.get_node("Model") as Node3D
-	if not AssemblyOperations.validate_transform(model.transform).is_empty():
+	if not CWAssemblyOperations.validate_transform(model.transform).is_empty():
 		body.free()
 		return _failure("The legacy donor's source transform is invalid.")
 	var skeletons := model.find_children("*", "Skeleton3D", true, false)
@@ -44,17 +44,17 @@ static func prepare(scene_root: Node3D, outfit_path: String) -> Dictionary:
 		body.free()
 		return _failure("Legacy outfit conversion requires one unambiguous donor skeleton with bones. Add static models as ordinary parts.")
 	var skeleton := skeletons[0] as Skeleton3D
-	var frame_error := RigSpace.validate_frame(skeleton, model)
+	var frame_error := CWRigSpace.validate_frame(skeleton, model)
 	if not frame_error.is_empty():
 		body.free()
 		return _failure(frame_error)
 	for bone in skeleton.get_bone_count():
-		if not AssemblyOperations.validate_transform(skeleton.get_bone_global_rest(bone)).is_empty():
+		if not CWAssemblyOperations.validate_transform(skeleton.get_bone_global_rest(bone)).is_empty():
 			body.free()
 			return _failure("The legacy donor has an invalid bone rest transform.")
-	var frame := RigSpace.frame_of(skeleton, model)
-	var chain := RigSpace.chain(skeleton, model)
-	if not AssemblyOperations.validate_transform(frame).is_empty() or not AssemblyOperations.validate_transform(chain).is_empty():
+	var frame := CWRigSpace.frame_of(skeleton, model)
+	var chain := CWRigSpace.chain(skeleton, model)
+	if not CWAssemblyOperations.validate_transform(frame).is_empty() or not CWAssemblyOperations.validate_transform(chain).is_empty():
 		body.free()
 		return _failure("The legacy donor's fit frame is invalid; review its skeleton and scale before conversion.")
 	var roles_result := _roles(original.body)
@@ -67,7 +67,7 @@ static func prepare(scene_root: Node3D, outfit_path: String) -> Dictionary:
 		if skeleton.get_bone_parent(bone) == -1:
 			skeleton.set_bone_pose(bone, chain.affine_inverse() * frame * skeleton.get_bone_rest(bone))
 	var stage := Node3D.new()
-	var roots: Array[AssemblyPart] = [body]
+	var roots: Array[CWPart] = [body]
 	var warnings: Array[String] = []
 	var names := _existing_names(scene_root)
 	body.name = _unique_name("Body", names)
@@ -78,16 +78,16 @@ static func prepare(scene_root: Node3D, outfit_path: String) -> Dictionary:
 	_tint(model, original.skin_colour, true, warnings)
 	for original_piece in original.pieces:
 		var piece := original_piece.duplicate(true) as OutfitPiece
-		var result := AssemblyOperations.create_part(piece.model)
+		var result := CWAssemblyOperations.create_part(piece.model)
 		if not result.ok:
 			stage.free()
 			return _failure("Legacy part %s: %s" % [piece.model.get_file(), result.error])
-		var part: AssemblyPart = result.part
+		var part: CWPart = result.part
 		part.name = _unique_name(piece.model.get_file().get_basename().to_pascal_case(), names)
 		part.binding_data = piece
 		part.set_meta("legacy_outfit_path", outfit_path)
 		part.set_meta("legacy_donor_part_id", body.part_id)
-		part.set_meta("legacy_fit_space", "RigSpace: metres, reference pose, Y up, +Z forward")
+		part.set_meta("legacy_fit_space", "CWRigSpace: metres, reference pose, Y up, +Z forward")
 		part.set_meta("legacy_skin_colour", original.skin_colour)
 		if piece.skin:
 			_tint(part.get_node("Model"), original.skin_colour, false, warnings)
@@ -102,14 +102,14 @@ static func prepare(scene_root: Node3D, outfit_path: String) -> Dictionary:
 			var bone := skeleton.find_bone(bone_name)
 			var socket := BoneAttachment3D.new()
 			socket.name = "Attachment" + part.part_id.substr(0, 8)
-			socket.set_meta(AssemblyOperations.CARRIER_META, true)
+			socket.set_meta(CWAssemblyOperations.CARRIER_META, true)
 			skeleton.add_child(socket)
 			socket.bone_name = bone_name
 			socket.bone_idx = bone
 			socket.transform = skeleton.get_bone_global_pose(bone)
 			socket.add_child(part)
 			part.transform = (frame * skeleton.get_bone_global_rest(bone)).affine_inverse() * piece.fit()
-			part.attachment_mode = AssemblyPart.AttachmentMode.BONE
+			part.attachment_mode = CWPart.AttachmentMode.BONE
 			part.bone_name = bone_name
 			part.target_path = part.get_path_to(skeleton)
 		else:
@@ -119,7 +119,7 @@ static func prepare(scene_root: Node3D, outfit_path: String) -> Dictionary:
 			warnings.append("%s retains its authored fit and original local rig. Select the intended donor and use Bind explicitly; legacy skin weights are not regenerated." % part.name)
 	for part in roots:
 		stage.remove_child(part)
-		AssemblyOperations.ensure_owned(part, part)
+		CWAssemblyOperations.ensure_owned(part, part)
 	stage.free()
 	return _success(roots, warnings)
 
@@ -128,15 +128,15 @@ static func _prepare_fit(scene_root: Node3D, original: OutfitPiece, path: String
 	var error := _fit_error(original)
 	if not error.is_empty():
 		return _failure(error)
-	var result := AssemblyOperations.create_part(original.model)
+	var result := CWAssemblyOperations.create_part(original.model)
 	if not result.ok:
 		return _failure(result.error)
-	var part: AssemblyPart = result.part
+	var part: CWPart = result.part
 	part.name = _unique_name(original.model.get_file().get_basename().to_pascal_case(), _existing_names(scene_root))
 	part.transform = original.fit()
 	part.binding_data = original.duplicate(true)
 	part.set_meta("legacy_fit_path", path)
-	part.set_meta("legacy_fit_space", "RigSpace: metres, reference pose, Y up, +Z forward")
+	part.set_meta("legacy_fit_space", "CWRigSpace: metres, reference pose, Y up, +Z forward")
 	var warnings: Array[String] = []
 	if original.hold == OutfitPiece.Hold.SKINNED:
 		warnings.append("This individual fit has no donor reference. Select the intended donor and use Bind explicitly; the original local rig is retained.")
@@ -156,7 +156,7 @@ static func _fit_error(piece: OutfitPiece) -> String:
 		return "Its legacy attachment mode is unsupported."
 	if not piece.position.is_finite() or not piece.rotation.is_finite() or not piece.scale.is_finite():
 		return "Its stored fit contains nonfinite values."
-	return AssemblyOperations.validate_transform(piece.fit())
+	return CWAssemblyOperations.validate_transform(piece.fit())
 
 
 static func _roles(body_path: String) -> Dictionary:
@@ -229,10 +229,10 @@ static func _unique_name(requested: String, names: Dictionary) -> String:
 
 
 static func _failure(error: String) -> Dictionary:
-	var parts: Array[AssemblyPart] = []
+	var parts: Array[CWPart] = []
 	var warnings: Array[String] = []
 	return {"ok": false, "error": error, "parts": parts, "warnings": warnings}
 
 
-static func _success(parts: Array[AssemblyPart], warnings: Array[String]) -> Dictionary:
+static func _success(parts: Array[CWPart], warnings: Array[String]) -> Dictionary:
 	return {"ok": true, "error": "", "parts": parts, "warnings": warnings}

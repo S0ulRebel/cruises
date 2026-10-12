@@ -1,8 +1,8 @@
 extends "res://tests/check.gd"
 ## Real ArrayMesh derivation, source identity, selection and explicit cold saves.
 
-const Operations = preload("res://actors/assembly/mesh_exclusion/operations.gd")
-const Mask = preload("res://actors/assembly/mesh_exclusion/mask.gd")
+const Operations = preload("res://addons/character_workshop/core/mesh_operations.gd")
+const Mask = preload("res://addons/character_workshop/runtime/mesh_mask.gd")
 const Fixture = preload("res://tests/fixtures/mesh_exclusion_fixture.gd")
 # Godot re-encodes normals/tangents in octahedral packed formats. The maximum
 # measured on both real assets is 0.00019712 / 0.011294 degrees. Only these two
@@ -292,7 +292,7 @@ func _cold_check(folder: String) -> void:
 	if not check("cold output constrained to unique user path", folder.begins_with("user://mesh_exclusion_check_")):
 		return
 	var mask = ResourceLoader.load(folder.path_join("mask.tres"), "", ResourceLoader.CACHE_MODE_IGNORE)
-	if not check("cold mask loads", mask is MeshExclusionMask):
+	if not check("cold mask loads", mask is CWMeshMask):
 		return
 	check("cold source/mask fingerprint correspondence", Operations.validate(mask.source_mesh, mask).is_empty())
 	check("cold source faces/shapes recoverable", mask.source_mesh.get_surface_count() == 2
@@ -315,7 +315,7 @@ func _cold_check(folder: String) -> void:
 		if not FileAccess.file_exists(real_mask_path):
 			continue
 		var real_mask = ResourceLoader.load(real_mask_path, "", ResourceLoader.CACHE_MODE_IGNORE)
-		if not check("cold real original resource retained: " + name, real_mask is MeshExclusionMask):
+		if not check("cold real original resource retained: " + name, real_mask is CWMeshMask):
 			continue
 		check("cold imported topology fingerprint valid: " + name,
 			Operations.validate(real_mask.source_mesh, real_mask).is_empty())
@@ -326,7 +326,7 @@ func _cold_check(folder: String) -> void:
 			and real_output.surface_get_blend_shape_arrays(0) == real_expected.mesh.surface_get_blend_shape_arrays(0))
 
 
-func _mask(source: Mesh) -> MeshExclusionMask:
+func _mask(source: Mesh) -> CWMeshMask:
 	var mask := Mask.new()
 	mask.source_mesh = source
 	mask.topology_fingerprint = Operations.fingerprint(source)

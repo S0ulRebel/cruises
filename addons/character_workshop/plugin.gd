@@ -1,15 +1,20 @@
 @tool
 extends EditorPlugin
 
-const Assembly = preload("res://actors/assembly/assembly.gd")
-const Ops = preload("res://actors/assembly/operations.gd")
-const MeshOps = preload("res://actors/assembly/mesh_exclusion/operations.gd")
+const Assembly = preload("res://addons/character_workshop/runtime/assembly.gd")
+const Ops = preload("res://addons/character_workshop/core/assembly_operations.gd")
+const MeshOps = preload("res://addons/character_workshop/core/mesh_operations.gd")
 const Commands = preload("commands.gd")
 const Preview = preload("preview.gd")
 const DockScene = preload("dock.tscn")
 const ImportDialogs = preload("import_dialogs.tscn")
-const PortraitRig = preload("res://ui/portraits/portrait_rig.gd")
+const ProjectConfig = preload("project_config.gd")
+const SettingsScene = preload("project_settings.tscn")
 const MeshStorage = preload("res://addons/character_workshop/mesh_storage.gd")
+
+var config: RefCounted
+var adapter: RefCounted
+var _settings: ConfirmationDialog
 
 var dock: Control
 var commands: RefCounted
@@ -48,6 +53,9 @@ func _enter_tree() -> void:
 	preview = Preview.new()
 	get_editor_interface().get_editor_main_screen().add_child(dock)
 	dock.initialize(get_editor_interface())
+	_settings = SettingsScene.instantiate()
+	dock.add_child(_settings)
+	_settings.saved.connect(_reload_project_config)
 	_transform_dialog = dock.get_node("%FineAdjust")
 	_transform_dialog.request.connect(_request)
 	_make_visible(false)
@@ -70,14 +78,14 @@ func _enter_tree() -> void:
 	set_input_event_forwarding_always_enabled()
 	set_force_draw_over_forwarding_enabled()
 	set_process(true)
-	_load_templates()
+	_reload_project_config()
 	call_deferred("_refresh")
 
 func _exit_tree() -> void:
 	_restore_focus_mode()
 	_binding_cancel = true
-	if _binding_busy and ResourceLoader.exists("res://actors/assembly/binding_service.gd"):
-		var service: Script = load("res://actors/assembly/binding_service.gd")
+	if _binding_busy and ResourceLoader.exists("res://addons/character_workshop/core/binding_service.gd"):
+		var service: Script = load("res://addons/character_workshop/core/binding_service.gd")
 		service.cancel_pending_jobs()
 	_restore_preview()
 	if get_editor_interface().get_selection().selection_changed.is_connected(_selection_changed):
@@ -92,7 +100,7 @@ func _exit_tree() -> void:
 func _handles(object: Object) -> bool:
 	# Retain character selection inside an explicitly opened Workshop, but never
 	# claim nodes from another main screen and reopen the Workshop implicitly.
-	return _workspace_visible and (object is Assembly or object is AssemblyPart or object is PortraitRig)
+	return _workspace_visible and (object is Assembly or object is CWPart or _adapter_bool("handles", object))
 
 func _has_main_screen() -> bool:
 	return true
@@ -104,6 +112,9 @@ func _make_visible(visible: bool) -> void:
 	_workspace_visible = visible
 	if is_instance_valid(dock):
 		if not visible:
+			if is_instance_valid(_settings):
+				_settings.get_node("%FolderDialog").hide()
+				_settings.hide()
 			_restore_focus_mode()
 			dock.cancel_drag()
 			_restore_preview()
@@ -148,7 +159,13 @@ func _scene_root() -> Node3D:
 	return root as Node3D if _supports_scene(root) else null
 
 func _supports_scene(root: Node) -> bool:
-	return root is Assembly or root is PortraitRig or (root is CharacterBody3D and root.get_node_or_null("Body") is Assembly)
+	if root is Assembly or _adapter_bool("can_edit", root):
+		return true
+	if root is Node3D:
+		for child in root.get_children():
+			if child is Assembly:
+				return true
+	return false
 
 func _close_workspace(root: Node = null) -> void:
 	if root == null:
@@ -190,6 +207,8 @@ func _refresh() -> void:
 			_transform_dialog.open_for(selected)
 	var old_mesh: MeshInstance3D = dock.current_mesh if is_instance_valid(dock.current_mesh) else null
 	dock.populate(root, Ops.collect_parts(root), selected)
+	dock.get_node("%SaveActor").visible = adapter != null and adapter.has_method("export_actor")
+	dock.get_node("%ImportLegacy").visible = adapter != null and adapter.has_method("prepare_legacy")
 	dock.set_attachment_source(_attach_part)
 	var native_mesh := _native_selected() as MeshInstance3D
 	if native_mesh != null and selected != null:
@@ -248,6 +267,8 @@ func _request(action: String, value: Variant) -> void:
 		return
 	var part: Node3D = dock.current_part if is_instance_valid(dock.current_part) else null
 	match action:
+		"project_settings":
+			_settings.open()
 		"close_workshop":
 			_close_workspace()
 		"tool":
@@ -417,6 +438,7 @@ func _show_file(action: String, mode: int, filters: PackedStringArray) -> void:
 	dialog.filters = filters
 	dialog.title = {"add": "Add any model or prefab", "replace": "Choose replacement model", "open": "Open character scene", "new": "Save new character scene", "save": "Save character scene as"}.get(action, "Choose a file")
 	if mode == FileDialog.FILE_MODE_SAVE_FILE:
+		dialog.current_dir = config.save_folder
 		dialog.current_file = "character.tscn"
 	dialog.popup_centered_ratio(0.7)
 
@@ -426,7 +448,7 @@ func _clear_file_request() -> void:
 	_file_action = ""
 
 func _new_assembly() -> void:
-	_create_from_template("res://actors/assembly/templates/empty.tscn")
+	_create_from_template("res://addons/character_workshop/templates/empty.tscn")
 	get_editor_interface().set_main_screen_editor(_get_plugin_name())
 
 func _save_current_scene(path: String) -> void:
@@ -442,7 +464,7 @@ func _save_current_scene(path: String) -> void:
 	if not path.begins_with("res://") and not path.begins_with("user://") and not path.is_absolute_path():
 		dock.set_status("Choose an explicit scene path.", true)
 		return
-	if not root is PortraitRig and _is_portrait_destination(path):
+	if not _adapter_bool("protected_root", root) and _is_portrait_destination(path):
 		dock.set_status("This destination contains a portrait camera and speaking rig. Open that portrait scene to save the complete portrait, or choose a separate assembly path.", true)
 		return
 	var validated := Ops.validate_scene_save(root, path)
@@ -462,23 +484,23 @@ func _save_current_scene(path: String) -> void:
 	_refresh()
 
 func _is_portrait_destination(path: String) -> bool:
-	if not FileAccess.file_exists(path):
-		return false
-	var existing: PackedScene = ResourceLoader.load(path, "PackedScene", ResourceLoader.CACHE_MODE_IGNORE)
-	if existing == null:
-		return false
-	var state := existing.get_state()
-	if state.get_node_count() == 0:
-		return false
-	for index in state.get_node_property_count(0):
-		if state.get_node_property_name(0, index) != &"script":
-			continue
-		var script: Script = state.get_node_property_value(0, index)
-		while script != null:
-			if script.resource_path == "res://ui/portraits/portrait_rig.gd":
-				return true
-			script = script.get_base_script()
-	return false
+	return _adapter_bool("protected_destination", path)
+
+func _adapter_bool(method: String, value: Variant) -> bool:
+	return bool(adapter.call(method, value)) if adapter != null and adapter.has_method(method) else false
+
+func _reload_project_config() -> void:
+	var loaded = ProjectConfig.new()
+	var error: String = loaded.read()
+	config = loaded if error.is_empty() else ProjectConfig.new()
+	adapter = config.create_adapter()
+	commands.animation_library = config.animation_library
+	dock.get_node("%Assets").asset_folders = config.asset_folders
+	dock.refresh_catalog()
+	_load_templates()
+	if not error.is_empty():
+		dock.set_status(error, true)
+	_refresh()
 
 func _pick_attachment(target: Node3D) -> void:
 	if _has_moved_references():
@@ -598,21 +620,16 @@ func _file_selected(path: String) -> void:
 		"save_actor":
 			dock.cancel_drag()
 			_restore_preview()
-			if _scene_root() is PortraitRig or _is_portrait_destination(path):
+			if _adapter_bool("protected_root", _scene_root()) or _is_portrait_destination(path):
 				dock.set_status("Portrait scenes keep their camera and speaking rig. Use Save for the portrait; gameplay actors need a separate assembly and output path.", true)
 				return
 			if _has_moved_references():
 				dock.set_status("Repair moved / renamed references before exporting this character.", true)
 				return
-			if _scene_root() is CharacterBody3D:
-				_report(Ops.save_scene(_scene_root(), path), "Edited gameplay actor saved to %s." % path)
+			if adapter == null or not adapter.has_method("export_actor"):
+				dock.set_status("This project has no gameplay exporter. Use Save As for an editable character scene.", true)
 				return
-			var service_path := "res://actors/assembly/actor_export_service.gd"
-			if not ResourceLoader.exists(service_path):
-				dock.set_status("Gameplay export service is unavailable.", true)
-				return
-			var service: Script = load(service_path)
-			_report(service.export_actor(_scene_root(), path), "Editable gameplay actor saved to %s." % path)
+			_report(adapter.export_actor(_scene_root(), path), "Editable gameplay actor saved to %s." % path)
 			get_editor_interface().get_resource_filesystem().scan()
 		"replace":
 			if not is_instance_valid(_pending_part):
@@ -622,15 +639,13 @@ func _file_selected(path: String) -> void:
 		"add":
 			_files_selected(PackedStringArray([path]))
 		"legacy":
-			var service_path := "res://actors/assembly/legacy_outfit_service.gd"
-			if not ResourceLoader.exists(service_path):
-				dock.set_status("Legacy conversion service is unavailable.", true)
+			if adapter == null or not adapter.has_method("prepare_legacy"):
+				dock.set_status("This project has no legacy outfit importer. Add ordinary models through Add part.", true)
 				return
-			var service: Script = load(service_path)
-			var result: Dictionary = commands.add_prepared_parts(service.prepare(_scene_root(), path))
+			var result: Dictionary = commands.add_prepared_parts(adapter.prepare_legacy(_scene_root(), path))
 			_report(result, "Legacy data imported into independent editable parts. %s" % " ".join(result.get("warnings", [])))
 		"borrow":
-			var service_path := "res://actors/assembly/animation_service.gd"
+			var service_path := "res://addons/character_workshop/core/animation_service.gd"
 			if not ResourceLoader.exists(service_path) or dock.current_part == null:
 				dock.set_status("Select a rigged part and ensure the animation service is available.", true)
 				return
@@ -661,7 +676,7 @@ func _create_from_template(path: String) -> void:
 	var source := scene.instantiate()
 	if not source is Assembly:
 		source.free()
-		dock.set_status("Choose a CharacterAssembly template.", true)
+		dock.set_status("Choose a CWAssembly template.", true)
 		return
 	var copy := Ops.independent_snapshot(source)
 	source.free()
@@ -699,14 +714,24 @@ func _create_from_template(path: String) -> void:
 	dock.set_status("New unsaved character from %s. Edit it, then choose Save As when ready." % path.get_file().get_basename().capitalize())
 
 func _load_templates() -> void:
-	var paths := PackedStringArray()
-	var directory := DirAccess.open("res://actors/assembly/templates")
-	if directory != null:
-		for file: String in directory.get_files():
-			if file.ends_with(".tscn"):
-				paths.append("res://actors/assembly/templates/" + file)
+	var paths := PackedStringArray(["res://addons/character_workshop/templates/empty.tscn"])
+	if config != null:
+		for folder: String in config.template_folders:
+			paths = _collect_templates(folder, paths)
 	paths.sort()
 	dock.set_templates(paths)
+
+func _collect_templates(folder: String, paths: PackedStringArray) -> PackedStringArray:
+	var directory := DirAccess.open(folder)
+	if directory == null:
+		return paths
+	for file in directory.get_files():
+		var path := folder.path_join(file)
+		if file.ends_with(".tscn") and not paths.has(path):
+			paths.append(path)
+	for child in directory.get_directories():
+		paths = _collect_templates(folder.path_join(child), paths)
+	return paths
 
 func _prepare_remove_or_replace(action: String, part: Node3D) -> void:
 	if part == null:
@@ -749,7 +774,7 @@ func _bind(part: Node3D, donor: Node3D) -> void:
 	if not part.get("geometry_masks").is_empty():
 		dock.set_status("Reset this part's mesh exclusions before binding, then reapply them to the bound result.", true)
 		return
-	var path := "res://actors/assembly/binding_service.gd"
+	var path := "res://addons/character_workshop/core/binding_service.gd"
 	if not ResourceLoader.exists(path):
 		dock.set_status("Binding service is unavailable; attachment retains the original model.", true)
 		return

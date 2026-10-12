@@ -110,6 +110,12 @@ layout_mode = 2
 text = "Focus"
 tooltip_text = "Temporarily hide editor side docks. Restore them by turning Focus off or leaving Workshop."
 
+[node name="ProjectSettingsButton" type="Button" parent="Toolbar/FileRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Settings"
+tooltip_text = "Choose this project’s asset/template folders, preferred save folder and optional integration."
+
 [node name="CloseWorkshop" type="Button" parent="Toolbar/FileRow"]
 unique_name_in_owner = true
 layout_mode = 2

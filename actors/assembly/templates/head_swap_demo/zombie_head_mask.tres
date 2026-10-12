@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="MeshExclusionMask" format=3]
+[gd_resource type="Resource" script_class="CWMeshMask" format=3]
 
-[ext_resource type="Script" path="res://actors/assembly/mesh_exclusion/mask.gd" id="1_jyflv"]
+[ext_resource type="Script" path="res://addons/character_workshop/runtime/mesh_mask.gd" id="1_jyflv"]
 [ext_resource type="ArrayMesh" path="res://actors/assembly/templates/head_swap_demo/zombie_body_source.res" id="2_u41x2"]
 
 [resource]

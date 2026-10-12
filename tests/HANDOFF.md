@@ -156,3 +156,17 @@ not run at owner request. See UI/cabin module handoffs for evidence and limitati
 `cabin_dressing_check.gd` checks serialized dressing ownership, no added click/navigation blockers, no Light3D dependency, metre-density floor/rug materials, retained imported beam normal maps, independent roll bounds/origins/tabletop placement, and the existing crate hotspot after native visual adoption. It is included alongside the existing Character Workshop checks in the 22-check default runner.
 
 With a rendering window, the same check renders normal-on/off frames and requires actual foreground-floor pixel changes. Compatibility/RTX 4060 Ti run passed with 4,323 changed samples. Captures use a unique OS cache folder and never save project resources. The existing graphical framing capture also passed all eight real hotspot clicks after the dressing changes.
+
+## 2026-10-12 — portable Workshop verification
+
+The default runner now includes workshop_portability_check for 25 checks. It builds
+a ZIP at an explicit external path, installs only the addon in a unique project,
+imports prefab/GLB, exercises Settings and native fitting/attachment/duplicate/clip
+installation/Save As, and cold-opens with the plugin disabled. It exports a PCK
+using project export exclusions and verifies that saved character from the pack.
+19 native plus six cold plus six exported-runtime assertions pass. Engine errors
+and deadlines fail each phase; production source is never saved by this fixture.
+Full 25-check runner, false-pass self-test and all existing cold routes pass with
+authored hashes unchanged: `C:/Users/Nikola/AppData/Local/Temp/cruises-checks-86994ffc6c6b4e3cbfc5306f3b8b66ab`. Fresh fixture:
+`C:/Users/Nikola/AppData/Local/Temp/workshop-portability-f01fca87c0304c888f1ab3afd05c689e`.
+Exact Captain fit/mesh/skin/pose preservation comparison passes for both 23-node assemblies.

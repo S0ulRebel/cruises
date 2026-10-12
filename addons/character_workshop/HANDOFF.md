@@ -1,5 +1,18 @@
 # Character Workshop editor handoff
 
+## 2026-10-12 — Workshop can be closed
+
+Close Workshop returns to native 3D (2D for CanvasItem roots); the scene stays open.
+Native 3D/2D tabs also leave. `_handles` only claims characters while the workspace
+is already visible, preventing selection from reopening it. Scene changes defer a
+root-ID-guarded close until after Godot restores per-tab main-screen state. Explicit
+New/Open queue a guarded reentry afterward; the Workshop tab remains available.
+Leaving restores temporary preview materials/poses and Focus mode, cancels fitting
+and attachment/face tools, and suspends viewports. Authored fitting is unchanged.
+Native fixture passes 239/239; integration plus cold reopen and references checks
+pass with unchanged authored source hashes. Evidence:
+`%TEMP%/cruises-checks-7908d030e25646359f128e5c099f2fe5/`.
+
 ## 2026-10-12 â€” complete portrait saves and binary meshes
 
 The Workshop accepts a complete PortraitRig scene, keeping its camera/lights and

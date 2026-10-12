@@ -384,6 +384,7 @@ func _run() -> void:
 		assembly.hide()
 		await _check_workspace(plugin)
 		await _check_portrait_save(plugin)
+		await _check_workspace_exit(plugin)
 	else:
 		print("WORKSHOP_EDITOR_NOTE: plugin enable test omitted; dock and native commands still verified.")
 	# Discard both directions of native history: references must not destroy parents.
@@ -655,6 +656,60 @@ func _check_portrait_save(plugin: EditorPlugin) -> void:
 	expect(updated_face.mesh.resource_local_to_scene and FileAccess.get_sha256(mesh_source) == mesh_hash, "saved mesh keeps per-instance independence and preserves the source resource")
 	updated.free()
 	expect(FileAccess.get_sha256(path) == source_hash, "portrait authoring fixture never changes the production renderer")
+
+func _check_workspace_exit(plugin: EditorPlugin) -> void:
+	var original: Node = EditorInterface.get_edited_scene_root()
+	var original_path := original.scene_file_path
+	var part: Node3D = Ops.collect_parts(original)[0]
+	EditorInterface.set_main_screen_editor("Character Workshop")
+	plugin._select(part)
+	plugin._refresh()
+	var panel: Control = plugin.dock
+	var prior_focus := EditorInterface.is_distraction_free_mode_enabled()
+	var mesh: MeshInstance3D = original.get_node(original.face_mesh_path)
+	var transform_before := part.transform
+	var material_before := mesh.material_override
+	plugin._request("preview_shade", true)
+	plugin._request("focus_mode", true)
+	plugin._request("tool", "attach")
+	plugin._request("inspector", null)
+	panel.get_node("%CloseWorkshop").pressed.emit()
+	for frame: int in 3:
+		await get_tree().process_frame
+	expect(not panel.is_visible_in_tree() and not plugin._workspace_visible, "Close Workshop returns to the standard scene editor")
+	expect(EditorInterface.get_edited_scene_root() == original and part.transform == transform_before, "closing retains the edited character and its fitting")
+	expect(EditorInterface.is_distraction_free_mode_enabled() == prior_focus and not plugin._transform_dialog.visible, "closing restores editor docks and closes Fine adjust")
+	expect(mesh.material_override == material_before and plugin.preview.materials.is_empty() and plugin.preview.player == null and not plugin.face_mode and plugin._attach_part == null, "closing releases temporary previews and attachment tools")
+	expect(panel.get_node("%MainView").viewport.render_target_update_mode == SubViewport.UPDATE_DISABLED, "hidden Workshop suspends viewport rendering")
+	EditorInterface.edit_node(part)
+	for frame: int in 3:
+		await get_tree().process_frame
+	expect(not panel.is_visible_in_tree() and not plugin._handles(part) and not plugin._handles(original), "native character selection cannot reopen a closed Workshop")
+	var event := InputEventMouseButton.new()
+	event.button_index = MOUSE_BUTTON_LEFT
+	event.pressed = true
+	expect(plugin._forward_3d_gui_input(null, event) == EditorPlugin.AFTER_GUI_INPUT_PASS, "hidden Workshop leaves native viewport input alone")
+	EditorInterface.set_main_screen_editor("Character Workshop")
+	for frame: int in 3:
+		await get_tree().process_frame
+	expect(panel.is_visible_in_tree() and plugin._scene_root() == original, "Workshop tab explicitly reopens the same character")
+	EditorInterface.open_scene_from_path("res://game/game.tscn")
+	for frame: int in 3:
+		await get_tree().process_frame
+	expect(not panel.is_visible_in_tree() and EditorInterface.get_edited_scene_root().scene_file_path == "res://game/game.tscn", "opening an unrelated game scene exits Workshop")
+	EditorInterface.open_scene_from_path(original_path)
+	for frame: int in 3:
+		await get_tree().process_frame
+	expect(not panel.is_visible_in_tree(), "returning to a character scene does not reopen Workshop")
+	plugin._file_action = "open"
+	plugin._file_selected(original_path)
+	for frame: int in 3:
+		await get_tree().process_frame
+	expect(panel.is_visible_in_tree(), "explicit Workshop Open still enters the workspace")
+	EditorInterface.set_main_screen_editor("3D")
+	for frame: int in 3:
+		await get_tree().process_frame
+	expect(not panel.is_visible_in_tree(), "standard 3D tab can always leave Workshop")
 
 func _check_pane_editing(plugin: EditorPlugin, part: Node3D) -> void:
 	EditorInterface.set_main_screen_editor("Character Workshop")

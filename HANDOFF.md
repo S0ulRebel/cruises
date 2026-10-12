@@ -6,6 +6,13 @@ and prop sheets, and the engine side, who puts them in the game.
 
 ## Current architecture — 2026-10-11
 
+2026-10-12 Workshop activation correction: Close Workshop and standard 3D/2D
+return to normal scene editing. Character selection and remembered scene tabs no
+longer reopen it; use the Workshop tab or its New/Open explicitly. Leaving cancels
+temporary previews/tools and suspends its viewports without changing fitted content.
+Native 239/239 assertions and focused integration/cold/reference checks pass with
+unchanged authored hashes. See the Workshop and tests handoffs for evidence.
+
 2026-10-12 owner-fitted portrait restoration: the game portrait again owns its
 camera/lights/speech rig, around the preserved six-part fit. The fitted template
 and UI assembly use separate binary meshes, keeping text scenes ~1–7 KB.

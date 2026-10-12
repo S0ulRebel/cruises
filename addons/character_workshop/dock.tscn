@@ -110,6 +110,12 @@ layout_mode = 2
 text = "Focus"
 tooltip_text = "Temporarily hide editor side docks. Restore them by turning Focus off or leaving Workshop."
 
+[node name="CloseWorkshop" type="Button" parent="Toolbar/FileRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Close Workshop"
+tooltip_text = "Return to the standard scene editor. Reopen using the Character Workshop tab."
+
 [node name="Body" type="HSplitContainer" parent="."]
 unique_name_in_owner = true
 layout_mode = 2

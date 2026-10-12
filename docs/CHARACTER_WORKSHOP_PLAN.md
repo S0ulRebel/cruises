@@ -433,6 +433,17 @@ template checks use the actual authored part count, allowing the owner's new hat
 feather without forcing an older composition. Visual and integration evidence is
 recorded in the workshop/test handoffs after checks complete.
 
+## Workshop activation correction — 2026-10-12
+
+- [x] Add Close Workshop and preserve the edited scene when returning to native 3D/2D.
+- [x] Prevent character selection and remembered scene tabs from reopening Workshop.
+  Explicit Workshop tab/New/Open remain available; deferred actions validate root IDs.
+- [x] Stop temporary previews, restore materials/poses/focus, cancel editing tools
+  and suspend Workshop viewport rendering while hidden.
+- [x] Verify native close/reopen, character selection, unrelated game-scene switches,
+  fitting preservation and explicit Open. Focused checks and cold integration pass;
+  the native fixture passes 239/239 assertions. Evidence is in module handoffs.
+
 ## Technical references
 
 - [Godot EditorPlugin](https://docs.godotengine.org/en/4.7/classes/class_editorplugin.html)

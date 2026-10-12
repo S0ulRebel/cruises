@@ -4,6 +4,10 @@ Enable **Character Workshop** in Project Settings → Plugins, then click its ta
 beside **3D** at the top of the editor. The workspace has an assembly viewport,
 an optional detail viewport, a real parts hierarchy and a collapsible asset drawer.
 Godot's scene tree, Inspector and undo history remain available.
+Use **Close Workshop** or the standard **3D/2D** tabs to return to normal editing.
+Selecting a character or switching scene tabs does not reopen it. Reopen explicitly
+from **Character Workshop**, or use its New/Open commands. Leaving stops previews,
+restores temporary materials/poses and editor docks, and suspends its viewports.
 There are no fixed clothing slots or mandatory filenames.
 
 ## Assemble a character

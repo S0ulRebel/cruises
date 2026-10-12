@@ -140,6 +140,15 @@ add/duplicate/hide/remove/replace/attach/detach/exclude/reset. User paths are ch
 through dialogs. No fixed categories or slot naming. Animation preview duplicates
 mutable animation/material resources; one-shot clips remain one-shot.
 
+Workspace activation is explicit. `_handles` claims character nodes only while
+Workshop is already visible. Close Workshop and native 3D/2D tabs hide it, stop
+preview animation/shading, restore poses/focus, cancel drags and release face/attach
+input. Hidden viewports suspend rendering. Scene switches queue a guarded close
+after native per-tab main-screen restoration; explicit New/Open then queues reopening
+for the same current root ID. Deferred actions cannot activate a different scene.
+Godot's handling main editor selection is documented by its
+[editor source](https://github.com/godotengine/godot/blob/4.5/editor/editor_node.cpp).
+
 The editor now uses a main-screen workspace. `dock.gd` coordinates a real hierarchy,
 asset drawer and two reusable `workshop_view.tscn` panes. A pane shares the edited
 root's World3D and owns its camera/UI outside that root. `set_context`, `set_tool`,

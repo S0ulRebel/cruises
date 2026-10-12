@@ -90,7 +90,9 @@ func _exit_tree() -> void:
 	dock.queue_free()
 
 func _handles(object: Object) -> bool:
-	return object is Assembly or object is AssemblyPart or object is PortraitRig
+	# Retain character selection inside an explicitly opened Workshop, but never
+	# claim nodes from another main screen and reopen the Workshop implicitly.
+	return _workspace_visible and (object is Assembly or object is AssemblyPart or object is PortraitRig)
 
 func _has_main_screen() -> bool:
 	return true
@@ -104,6 +106,11 @@ func _make_visible(visible: bool) -> void:
 		if not visible:
 			_restore_focus_mode()
 			dock.cancel_drag()
+			_restore_preview()
+			face_selection.clear()
+			_attach_part = null
+			_tool = "move"
+			dock.set_tool(_tool)
 			dock.get_node("%AdvancedTools").hide()
 			if is_instance_valid(_transform_dialog):
 				_transform_dialog.cancel()
@@ -138,8 +145,25 @@ func _process(delta: float) -> void:
 
 func _scene_root() -> Node3D:
 	var root: Node = get_editor_interface().get_edited_scene_root()
-	var is_actor := root is CharacterBody3D and root.get_node_or_null("Body") is Assembly
-	return root as Node3D if root is Assembly or is_actor or root is PortraitRig else null
+	return root as Node3D if _supports_scene(root) else null
+
+func _supports_scene(root: Node) -> bool:
+	return root is Assembly or root is PortraitRig or (root is CharacterBody3D and root.get_node_or_null("Body") is Assembly)
+
+func _close_workspace(root: Node = null) -> void:
+	if root == null:
+		root = get_editor_interface().get_edited_scene_root()
+	get_editor_interface().set_main_screen_editor("2D" if root is CanvasItem else "3D")
+
+func _close_after_scene_switch(root_id: int) -> void:
+	var root: Node = get_editor_interface().get_edited_scene_root()
+	if (root.get_instance_id() if root != null else 0) == root_id and _workspace_visible:
+		_close_workspace(root)
+
+func _open_workspace(root_id: int) -> void:
+	var root := _scene_root()
+	if root != null and root.get_instance_id() == root_id:
+		get_editor_interface().set_main_screen_editor(_get_plugin_name())
 
 func _native_selected() -> Node3D:
 	var nodes: Array = get_editor_interface().get_selection().get_selected_nodes()
@@ -187,6 +211,9 @@ func _scene_changed(_root: Node) -> void:
 	face_selection.clear()
 	_reference_root = null
 	_references.clear()
+	# Godot restores each scene tab's previous main screen after this signal.
+	# Close after that restoration; only an explicit New/Open queues reopening.
+	call_deferred("_close_after_scene_switch", _root.get_instance_id() if _root != null else 0)
 	call_deferred("_refresh")
 
 func _selection_changed() -> void:
@@ -221,6 +248,8 @@ func _request(action: String, value: Variant) -> void:
 		return
 	var part: Node3D = dock.current_part if is_instance_valid(dock.current_part) else null
 	match action:
+		"close_workshop":
+			_close_workspace()
 		"tool":
 			_restore_preview()
 			dock.cancel_drag()
@@ -562,6 +591,8 @@ func _file_selected(path: String) -> void:
 				dock.set_status("Choose an existing character scene.", true)
 				return
 			get_editor_interface().open_scene_from_path(path)
+			if _scene_root() != null:
+				call_deferred("_open_workspace", _scene_root().get_instance_id())
 		"save", "save_as":
 			_save_current_scene(path)
 		"save_actor":
@@ -662,6 +693,8 @@ func _create_from_template(path: String) -> void:
 	editor.mark_scene_as_unsaved()
 	dock.get_node("%Templates").select(0)
 	_select(copy)
+	editor.set_main_screen_editor(_get_plugin_name())
+	call_deferred("_open_workspace", copy.get_instance_id())
 	_refresh()
 	dock.set_status("New unsaved character from %s. Edit it, then choose Save As when ready." % path.get_file().get_basename().capitalize())
 
@@ -886,6 +919,8 @@ func _restore_preview() -> void:
 		dock.get_node("%PreviewShade").set_pressed_no_signal(false)
 
 func _forward_3d_gui_input(camera: Camera3D, event: InputEvent) -> int:
+	if not _workspace_visible:
+		return EditorPlugin.AFTER_GUI_INPUT_PASS
 	_camera = camera
 	if not face_mode or not is_instance_valid(dock.current_mesh):
 		return EditorPlugin.AFTER_GUI_INPUT_PASS
@@ -901,7 +936,7 @@ func _forward_3d_gui_input(camera: Camera3D, event: InputEvent) -> int:
 	return EditorPlugin.AFTER_GUI_INPUT_PASS
 
 func _forward_3d_force_draw_over_viewport(control: Control) -> void:
-	if not face_mode or face_selection.is_empty() or not is_instance_valid(_camera) or not is_instance_valid(dock.current_mesh):
+	if not _workspace_visible or not face_mode or face_selection.is_empty() or not is_instance_valid(_camera) or not is_instance_valid(dock.current_mesh):
 		return
 	var source := _geometry_source()
 	if source == null:

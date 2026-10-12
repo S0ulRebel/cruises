@@ -1,5 +1,15 @@
 # Validation handoff
 
+## 2026-10-12 — Workshop close and scene-tab regression
+
+Native coverage now passes 239/239. New lifecycle assertions exercise Close Workshop,
+retained fitting/current scene, restored focus/materials, cleared attachment tools,
+suspended viewports, native character selection staying closed, unobstructed input,
+explicit tab reopen, unrelated game scene and return-tab closure, explicit Open
+and the standard 3D tab. Focused editor/integration/references checks and the separate
+integration cold reopen pass with unchanged authored source hashes. Evidence:
+`%TEMP%/cruises-checks-7908d030e25646359f128e5c099f2fe5/`.
+
 ## 2026-10-12 — restored portrait and resource saves
 
 The default runner now has 24 checks. New portrait_storage_check covers compact

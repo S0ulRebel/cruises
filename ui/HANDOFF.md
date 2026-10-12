@@ -1,5 +1,22 @@
 # UI, cold-open stage and audio handoff
 
+## 2026-10-12 — handmade hat with original feather candidate
+
+Owner identified the Tripo hat as the unwanted doubled geometry and selected the
+new handmade tricorn, requesting the original feather rather than the handmade
+plume trial. `portraits/captain_live_handmade_hat.tscn` is the saved candidate with
+separate Hat/Model and Hat/Feather children under the existing Head attachment.
+It references `art/characters/captain_live/pieces/hat/handmade/hat.glb` and
+`feather_original.glb`. The latter is extracted from the original combined Tripo
+hat, preserving UVs/texture and uniformly fitting to the handmade hat coordinates.
+The live `captain_live.tscn` and character definition are unchanged. The head/hair,
+jaw and facial morphs are retained. Blender sources, an assembled GLB, extraction
+metadata and offline authoring commands are beside the assets. This pass used CPU
+extraction/rendering only; no GPU or game launch. Engine import/preview of the reused
+feather and final fitting remain to be done when the owner's machine restriction
+is lifted or on another machine. Earlier normal restoration improved a separate
+shading defect and did not fix the owner's actual hat geometry concern.
+
 ## 2026-10-12 — portrait mesh shading repair
 
 Inspected the assembled portrait and the original/rigged head GLBs, rather than

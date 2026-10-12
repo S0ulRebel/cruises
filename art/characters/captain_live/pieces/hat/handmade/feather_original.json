@@ -1,0 +1,27 @@
+{
+  "source_sha256": "c1de06a2ce87225802d63a8cdc4aa7118e27de0aebde5c0d50dd73c43024b4d3",
+  "extraction": "Majority scarlet samples (R>0.15, R>3.5G, R>2.5B, B>=0.75G); retain largest position-connected face region, discard old hat fragments.",
+  "source_faces_retained": 2197,
+  "triangles": 2197,
+  "vertices": 3164,
+  "uniform_scale": 0.8,
+  "translation_blender_xyz": [
+    0.03999999910593033,
+    -0.10499999672174454,
+    -0.05999999865889549
+  ],
+  "texture": "Original embedded Tripo 2048px texture, preserved",
+  "bounds_blender_xyz": [
+    [
+      -0.02933591604232788,
+      -0.14582031965255737,
+      -0.05999999865889549
+    ],
+    [
+      0.43980467319488525,
+      0.27722659707069397,
+      0.4716406464576721
+    ]
+  ],
+  "limitation": "Extraction follows the scarlet material boundary of the fused source; mounting is a first fit."
+}

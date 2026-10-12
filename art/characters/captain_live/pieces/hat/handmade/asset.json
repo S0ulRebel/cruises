@@ -1,0 +1,39 @@
+{
+  "asset_id": "character_piece:captain_live:hat_handmade_original_feather",
+  "name": "Handmade tricorn with original Tripo feather",
+  "selected_on": "2026-10-12",
+  "producer": "Offline Blender geometry authoring plus source mesh extraction",
+  "source_references": [
+    "art/characters/captain_live/turnaround.png",
+    "art/characters/captain_live/pieces/hat/sheet.png",
+    "docs/reference/room_target.png"
+  ],
+  "files": {
+    "hat.glb": {
+      "sha256": "e8b93fbc79ed8d6b39d024c1edb2a06143738f7280a9deda3edc5ede4badec06",
+      "bytes": 542840
+    },
+    "feather_original.glb": {
+      "sha256": "e870713e4326481dc48d405e39ab7a0131efe93e40a076bfc7d3a3dd0a642de5",
+      "bytes": 790812
+    },
+    "hat_with_original_feather.glb": {
+      "sha256": "bbc8261276196a74858b04d65458861f9deb22f7da2c83783985c585e4b7ee23",
+      "bytes": 1333332
+    },
+    "source/captain_hat_original_feather.blend": {
+      "sha256": "2a85e5643d404e37372d43a8b195ade9387d12d272051f315959d5e3671c3be6",
+      "bytes": 2315896
+    }
+  },
+  "hat_triangles": 6148,
+  "feather_triangles": 2197,
+  "lighting": {
+    "hat": "Diffuse-only emission bake, no baked light/AO",
+    "feather": "Previous Tripo embedded texture preserved"
+  },
+  "assembly": "Hat and feather share the fitted origin; separate scene children remain editable.",
+  "portrait_candidate": "ui/portraits/captain_live_handmade_hat.tscn",
+  "status": "CPU model preview reviewed; reused feather not imported or run in Godot in this pass. Live portrait unchanged.",
+  "source_preservation": "Original hat/hat.glb preserved, sha256 c1de06a2ce87225802d63a8cdc4aa7118e27de0aebde5c0d50dd73c43024b4d3"
+}

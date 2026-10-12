@@ -1,0 +1,20 @@
+{
+  "TricornHat": {
+    "vertices": 3078,
+    "triangles": 6148,
+    "dimensions_xyz_blender_m": [
+      0.6449857950210571,
+      0.4589405357837677,
+      0.2311915010213852
+    ]
+  },
+  "ScarletFeather": {
+    "vertices": 2392,
+    "triangles": 4636,
+    "dimensions_xyz_blender_m": [
+      0.4405050277709961,
+      0.2239951193332672,
+      0.45835256576538086
+    ]
+  }
+}

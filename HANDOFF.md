@@ -6,6 +6,17 @@ and prop sheets, and the engine side, who puts them in the game.
 
 ## Current architecture — 2026-10-11
 
+2026-10-12 owner clarification: the reported doubled appearance was traced by the
+owner to the Tripo pirate hat, not the head. A handmade tricorn is now delivered
+under `art/characters/captain_live/pieces/hat/handmade/`. The owner requested keeping
+that hat and reusing the previous Tripo feather; the selected combination is
+`hat_with_original_feather.glb`, with separate hat/feather exports and Blender source.
+Inspect `ui/portraits/captain_live_handmade_hat.tscn`; it has separate fitted parts
+and does not replace the live portrait. See the asset README for provenance and
+reproduction. Feather extraction and preview used CPU only; no GPU/game run was
+performed for this pass. The earlier normals repair is a separate shading correction,
+not a resolution of the hat geometry issue.
+
 2026-10-12 portrait mesh repair: the rigged head had lost its original surface
 normals, creating jagged shading/false contours on the left temple and cheek.
 The portrait now uses a UI-local derivative restoring those normals, with source

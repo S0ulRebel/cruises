@@ -1,6 +1,7 @@
 extends VScrollBar
 ## Mirrors the content range while saved atlas controls render the scrollbar.
 @onready var _thumb: TextureRect = $Thumb
+@onready var _track: NinePatchRect = $Track
 var _content: Range
 var _syncing := false
 
@@ -15,7 +16,6 @@ func _process(_delta: float) -> void:
 
 func _sync() -> void:
 	if not is_instance_valid(_content):
-		hide()
 		return
 	_syncing = true
 	min_value = _content.min_value
@@ -23,11 +23,13 @@ func _sync() -> void:
 	page = _content.page
 	value = _content.value
 	_syncing = false
-	visible = max_value - min_value > page
-	if visible:
-		var height := maxf(28.0, size.y * page / (max_value - min_value))
-		_thumb.size.y = minf(size.y, height)
-		_thumb.position.y = (size.y - _thumb.size.y) * (value - min_value) / maxf(1.0, max_value - page - min_value)
+	# Keep the authored track visible even when the passage fits the viewport.
+	show()
+	var extent := max_value - min_value
+	var track_height := _track.size.y * _track.scale.y
+	var height := track_height if extent <= page else maxf(28.0, track_height * page / extent)
+	_thumb.size.y = minf(track_height, height)
+	_thumb.position.y = _track.position.y + (track_height - _thumb.size.y) * (value - min_value) / maxf(1.0, extent - page)
 
 func _update_content(amount: float) -> void:
 	if not _syncing and is_instance_valid(_content):

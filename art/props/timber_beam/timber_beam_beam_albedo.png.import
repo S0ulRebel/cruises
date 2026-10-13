@@ -3,9 +3,10 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c8yt12aapie1m"
-path="res://.godot/imported/timber_beam_beam_albedo.png-0decc3536535ba4813f1145afbb9e2d3.ctex"
+path.s3tc="res://.godot/imported/timber_beam_beam_albedo.png-0decc3536535ba4813f1145afbb9e2d3.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 generator_parameters={
 "md5": "1997d8bb58003818987d42879df6e137"
@@ -14,11 +15,11 @@ generator_parameters={
 [deps]
 
 source_file="res://art/props/timber_beam/timber_beam_beam_albedo.png"
-dest_files=["res://.godot/imported/timber_beam_beam_albedo.png-0decc3536535ba4813f1145afbb9e2d3.ctex"]
+dest_files=["res://.godot/imported/timber_beam_beam_albedo.png-0decc3536535ba4813f1145afbb9e2d3.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
@@ -40,4 +41,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

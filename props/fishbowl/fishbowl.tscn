@@ -1,18 +1,15 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://bkyrwrjs41cb4"]
 
-[ext_resource type="Script" path="res://props/fishbowl/fishbowl.gd" id="1_bnhvk"]
-[ext_resource type="PackedScene" path="res://art/props/fishbowl/fishbowl.glb" id="2_kjht3"]
+[ext_resource type="Script" uid="uid://cihwohtdtbcy0" path="res://props/fishbowl/fishbowl.gd" id="1_bnhvk"]
+[ext_resource type="PackedScene" uid="uid://cyjdh8x7qx8ee" path="res://art/props/fishbowl/fishbowl.glb" id="2_kjht3"]
 [ext_resource type="PackedScene" path="res://actors/count_fingers/count_fingers.tscn" id="3_boloa"]
-[ext_resource type="Script" path="res://actors/parts/fish.gd" id="4_gvc2t"]
-
-[ext_resource type="Script" path="res://systems/interaction/hotspot.gd" id="20_hotspot"]
-[ext_resource type="Script" path="res://props/parts/unlit.gd" id="fish_paint"]
+[ext_resource type="Script" uid="uid://dopnwk0o00xyw" path="res://systems/interaction/hotspot.gd" id="20_hotspot"]
+[ext_resource type="Script" uid="uid://0hoa67m8yxdv" path="res://props/parts/unlit.gd" id="fish_paint"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xo1me"]
-shading_mode = 0
 transparency = 1
+shading_mode = 0
 albedo_color = Color(0.35, 0.62, 0.7, 0.45)
-roughness = 1.0
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_gjsqw"]
 top_radius = 0.244
@@ -27,7 +24,7 @@ size = Vector3(0.56, 0.519355, 0.56)
 script = ExtResource("1_bnhvk")
 glass = NodePath("Model")
 
-[node name="Model" type="Node3D" parent="." unique_id=363690441 instance=ExtResource("2_kjht3")]
+[node name="Model" parent="." unique_id=363690441 instance=ExtResource("2_kjht3")]
 transform = Transform3D(0.520254, 0, 0, 0, -2.2741025e-08, 0.520254, 0, -0.520254, -2.2741025e-08, 0, 0.23967758, 0.26)
 
 [node name="Water" type="MeshInstance3D" parent="." unique_id=1825323673]
@@ -36,18 +33,17 @@ material_override = SubResource("StandardMaterial3D_xo1me")
 cast_shadow = 0
 mesh = SubResource("CylinderMesh_gjsqw")
 
-[node name="CountFingers" type="Node3D" parent="." unique_id=2076905786 instance=ExtResource("3_boloa")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1352, 0)
-script = ExtResource("4_gvc2t")
+[node name="CountFingers" parent="." unique_id=2076905786 instance=ExtResource("3_boloa")]
+transform = Transform3D(-4.371139e-08, -8.742278e-08, -1, 0, -1, 8.742278e-08, -1, 3.821371e-15, 4.371139e-08, 0, 0.1352, 0)
 
-[node name="ApproachMarker" type="Marker3D" parent="."]
+[node name="ApproachMarker" type="Marker3D" parent="." unique_id=1788669720]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.65, 0.95)
 
-[node name="PaintedFish" type="Node3D" parent="."]
+[node name="PaintedFish" type="Node3D" parent="." unique_id=105346016]
 script = ExtResource("fish_paint")
 target = NodePath("../CountFingers/Motion/Model")
 
-[node name="Hotspot" type="Area3D" parent="." node_paths=PackedStringArray("visual", "approach_marker")]
+[node name="Hotspot" type="Area3D" parent="." unique_id=1084247567 node_paths=PackedStringArray("visual", "approach_marker")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.26, 0)
 script = ExtResource("20_hotspot")
 visual = NodePath("..")
@@ -64,6 +60,6 @@ combinations = {
 }
 }
 
-[node name="InteractionShape" type="CollisionShape3D" parent="Hotspot"]
+[node name="InteractionShape" type="CollisionShape3D" parent="Hotspot" unique_id=345108605]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.020322, 0)
 shape = SubResource("BoxShape3D_hotspot")

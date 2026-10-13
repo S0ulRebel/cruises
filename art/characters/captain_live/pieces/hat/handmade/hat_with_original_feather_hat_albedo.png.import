@@ -1,0 +1,44 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://bwl6a1mffstwk"
+path.s3tc="res://.godot/imported/hat_with_original_feather_hat_albedo.png-0ed8514b1f122b75195e7f9a50fc9c20.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "1979affea614492ba87f933c294946b9"
+}
+
+[deps]
+
+source_file="res://art/characters/captain_live/pieces/hat/handmade/hat_with_original_feather_hat_albedo.png"
+dest_files=["res://.godot/imported/hat_with_original_feather_hat_albedo.png-0ed8514b1f122b75195e7f9a50fc9c20.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0

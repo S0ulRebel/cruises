@@ -3,9 +3,10 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cr035gml3i7la"
-path="res://.godot/imported/chart_roll_02_chart_02_albedo.png-5b50fd289c0367c6302c0358300a443e.ctex"
+path.s3tc="res://.godot/imported/chart_roll_02_chart_02_albedo.png-5b50fd289c0367c6302c0358300a443e.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 generator_parameters={
 "md5": "f19b4a941a2668d72c57928f02c9e851"
@@ -14,11 +15,11 @@ generator_parameters={
 [deps]
 
 source_file="res://art/props/chart_roll_02/chart_roll_02_chart_02_albedo.png"
-dest_files=["res://.godot/imported/chart_roll_02_chart_02_albedo.png-5b50fd289c0367c6302c0358300a443e.ctex"]
+dest_files=["res://.godot/imported/chart_roll_02_chart_02_albedo.png-5b50fd289c0367c6302c0358300a443e.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
@@ -40,4 +41,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0
